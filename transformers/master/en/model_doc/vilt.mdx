@@ -367,17 +367,19 @@ the latter silently ignores them.
 Examples:
 
 ```python
->>> from transformers import ViltFeatureExtractor, ViltModel
+>>> from transformers import ViltProcessor, ViltModel
 >>> from PIL import Image
 >>> import requests
 
+>>> # prepare image and text
 >>> url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 >>> image = Image.open(requests.get(url, stream=True).raw)
+>>> text = "hello world"
 
->>> feature_extractor = ViltFeatureExtractor.from_pretrained("dandelin/vilt-b32-mlm-itm")
->>> model = ViltModel.from_pretrained("dandelin/vilt-b32-mlm-itm")
+>>> processor = ViltProcessor.from_pretrained("dandelin/vilt-b32-mlm")
+>>> model = ViltModel.from_pretrained("dandelin/vilt-b32-mlm")
 
->>> inputs = feature_extractor(images=image, return_tensors="pt")
+>>> inputs = processor(image, text, return_tensors="pt")
 >>> outputs = model(**inputs)
 >>> last_hidden_states = outputs.last_hidden_state
 ```
@@ -388,7 +390,7 @@ Examples:
 
 <div class="docstring">
 
-<docstring><name>class transformers.ViltForMaskedLM</name><anchor>transformers.ViltForMaskedLM</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L886</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **config** ([ViltConfig](/docs/transformers/master/en/model_doc/vilt#transformers.ViltConfig)) -- Model configuration class with all the parameters of the model.
+<docstring><name>class transformers.ViltForMaskedLM</name><anchor>transformers.ViltForMaskedLM</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L888</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **config** ([ViltConfig](/docs/transformers/master/en/model_doc/vilt#transformers.ViltConfig)) -- Model configuration class with all the parameters of the model.
   Initializing with a config file does not load the weights associated with the model, only the
   configuration. Check out the [from_pretrained()](/docs/transformers/master/en/main_classes/model#transformers.PreTrainedModel.from_pretrained) method to load the model weights.</paramsdesc><paramgroups>0</paramgroups></docstring>
 
@@ -403,7 +405,7 @@ behavior.
 
 
 <div class="docstring">
-<docstring><name>forward</name><anchor>transformers.ViltForMaskedLM.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L902</source><parameters>[{"name": "input_ids", "val": " = None"}, {"name": "attention_mask", "val": " = None"}, {"name": "token_type_ids", "val": " = None"}, {"name": "pixel_values", "val": " = None"}, {"name": "pixel_mask", "val": " = None"}, {"name": "head_mask", "val": " = None"}, {"name": "inputs_embeds", "val": " = None"}, {"name": "image_embeds", "val": " = None"}, {"name": "labels", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}]</parameters><paramsdesc>- **input_ids** (`torch.LongTensor` of shape `(batch_size, sequence_length)`) --
+<docstring><name>forward</name><anchor>transformers.ViltForMaskedLM.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L904</source><parameters>[{"name": "input_ids", "val": " = None"}, {"name": "attention_mask", "val": " = None"}, {"name": "token_type_ids", "val": " = None"}, {"name": "pixel_values", "val": " = None"}, {"name": "pixel_mask", "val": " = None"}, {"name": "head_mask", "val": " = None"}, {"name": "inputs_embeds", "val": " = None"}, {"name": "image_embeds", "val": " = None"}, {"name": "labels", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}]</parameters><paramsdesc>- **input_ids** (`torch.LongTensor` of shape `(batch_size, sequence_length)`) --
   Indices of input sequence tokens in the vocabulary. Indices can be obtained using [BertTokenizer](/docs/transformers/master/en/model_doc/bert#transformers.BertTokenizer). See
   [PreTrainedTokenizer.encode()](/docs/transformers/master/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode) and [PreTrainedTokenizer.__call__()](/docs/transformers/master/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.__call__) for details. [What are input
   IDs?](../glossary#input-ids)
@@ -495,10 +497,11 @@ Examples:
 >>> from transformers import ViltProcessor, ViltForMaskedLM
 >>> import requests
 >>> from PIL import Image
+>>> import re
 
 >>> url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 >>> image = Image.open(requests.get(url, stream=True).raw)
->>> text = "How many cats are there?"
+>>> text = "a bunch of [MASK] laying on a [MASK]."
 
 >>> processor = ViltProcessor.from_pretrained("dandelin/vilt-b32-mlm")
 >>> model = ViltForMaskedLM.from_pretrained("dandelin/vilt-b32-mlm")
@@ -508,7 +511,31 @@ Examples:
 
 >>> # forward pass
 >>> outputs = model(**encoding)
->>> logits = outputs.logits
+
+>>> tl = len(re.findall("\[MASK\]", text))
+>>> inferred_token = [text]
+
+>>> # gradually fill in the MASK tokens, one by one
+>>> with torch.no_grad():
+...     for i in range(tl):
+...         encoded = processor.tokenizer(inferred_token)
+...         input_ids = torch.tensor(encoded.input_ids).to(device)
+...         encoded = encoded["input_ids"][0][1:-1]
+...         outputs = model(input_ids=input_ids, pixel_values=pixel_values)
+...         mlm_logits = outputs.logits[0]  # shape (seq_len, vocab_size)
+...         # only take into account text features (minus CLS and SEP token)
+...         mlm_logits = mlm_logits[1 : input_ids.shape[1] - 1, :]
+...         mlm_values, mlm_ids = mlm_logits.softmax(dim=-1).max(dim=-1)
+...         # only take into account text
+...         mlm_values[torch.tensor(encoded) != 103] = 0
+...         select = mlm_values.argmax().item()
+...         encoded[select] = mlm_ids[select].item()
+...         inferred_token = [processor.decode(encoded)]
+
+>>> selected_token = ""
+>>> encoded = processor.tokenizer(inferred_token)
+>>> processor.decode(encoded.input_ids[0], skip_special_tokens=True)
+a bunch of cats laying on a couch.
 ```
 
 </div></div>
@@ -517,7 +544,7 @@ Examples:
 
 <div class="docstring">
 
-<docstring><name>class transformers.ViltForQuestionAnswering</name><anchor>transformers.ViltForQuestionAnswering</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L1031</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **config** ([ViltConfig](/docs/transformers/master/en/model_doc/vilt#transformers.ViltConfig)) -- Model configuration class with all the parameters of the model.
+<docstring><name>class transformers.ViltForQuestionAnswering</name><anchor>transformers.ViltForQuestionAnswering</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L1058</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **config** ([ViltConfig](/docs/transformers/master/en/model_doc/vilt#transformers.ViltConfig)) -- Model configuration class with all the parameters of the model.
   Initializing with a config file does not load the weights associated with the model, only the
   configuration. Check out the [from_pretrained()](/docs/transformers/master/en/main_classes/model#transformers.PreTrainedModel.from_pretrained) method to load the model weights.</paramsdesc><paramgroups>0</paramgroups></docstring>
 
@@ -533,7 +560,7 @@ behavior.
 
 
 <div class="docstring">
-<docstring><name>forward</name><anchor>transformers.ViltForQuestionAnswering.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L1049</source><parameters>[{"name": "input_ids", "val": " = None"}, {"name": "attention_mask", "val": " = None"}, {"name": "token_type_ids", "val": " = None"}, {"name": "pixel_values", "val": " = None"}, {"name": "pixel_mask", "val": " = None"}, {"name": "head_mask", "val": " = None"}, {"name": "inputs_embeds", "val": " = None"}, {"name": "image_embeds", "val": " = None"}, {"name": "labels", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}]</parameters><paramsdesc>- **input_ids** (`torch.LongTensor` of shape `(&amp;lcub;0})`) --
+<docstring><name>forward</name><anchor>transformers.ViltForQuestionAnswering.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L1076</source><parameters>[{"name": "input_ids", "val": " = None"}, {"name": "attention_mask", "val": " = None"}, {"name": "token_type_ids", "val": " = None"}, {"name": "pixel_values", "val": " = None"}, {"name": "pixel_mask", "val": " = None"}, {"name": "head_mask", "val": " = None"}, {"name": "inputs_embeds", "val": " = None"}, {"name": "image_embeds", "val": " = None"}, {"name": "labels", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}]</parameters><paramsdesc>- **input_ids** (`torch.LongTensor` of shape `(&amp;lcub;0})`) --
   Indices of input sequence tokens in the vocabulary. Indices can be obtained using [BertTokenizer](/docs/transformers/master/en/model_doc/bert#transformers.BertTokenizer). See
   [PreTrainedTokenizer.encode()](/docs/transformers/master/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode) and [PreTrainedTokenizer.__call__()](/docs/transformers/master/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.__call__) for details. [What are input
   IDs?](../glossary#input-ids)
@@ -641,6 +668,7 @@ Examples:
 >>> logits = outputs.logits
 >>> idx = logits.argmax(-1).item()
 >>> print("Predicted answer:", model.config.id2label[idx])
+Predicted answer: 2
 ```
 
 </div></div>
@@ -649,7 +677,7 @@ Examples:
 
 <div class="docstring">
 
-<docstring><name>class transformers.ViltForImagesAndTextClassification</name><anchor>transformers.ViltForImagesAndTextClassification</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L1242</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **input_ids** (`torch.LongTensor` of shape `(&amp;lcub;0})`) --
+<docstring><name>class transformers.ViltForImagesAndTextClassification</name><anchor>transformers.ViltForImagesAndTextClassification</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L1270</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **input_ids** (`torch.LongTensor` of shape `(&amp;lcub;0})`) --
   Indices of input sequence tokens in the vocabulary. Indices can be obtained using [BertTokenizer](/docs/transformers/master/en/model_doc/bert#transformers.BertTokenizer). See
   [PreTrainedTokenizer.encode()](/docs/transformers/master/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode) and [PreTrainedTokenizer.__call__()](/docs/transformers/master/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.__call__) for details. [What are input
   IDs?](../glossary#input-ids)
@@ -708,7 +736,7 @@ Vilt Model transformer with a classifier head on top for natural language visual
 
 
 <div class="docstring">
-<docstring><name>forward</name><anchor>transformers.ViltForImagesAndTextClassification.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L1261</source><parameters>[{"name": "input_ids", "val": " = None"}, {"name": "attention_mask", "val": " = None"}, {"name": "token_type_ids", "val": " = None"}, {"name": "pixel_values", "val": " = None"}, {"name": "pixel_mask", "val": " = None"}, {"name": "head_mask", "val": " = None"}, {"name": "inputs_embeds", "val": " = None"}, {"name": "image_embeds", "val": " = None"}, {"name": "labels", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}]</parameters><paramsdesc>- **input_ids** (`torch.LongTensor` of shape `(&amp;lcub;0})`) --
+<docstring><name>forward</name><anchor>transformers.ViltForImagesAndTextClassification.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L1289</source><parameters>[{"name": "input_ids", "val": " = None"}, {"name": "attention_mask", "val": " = None"}, {"name": "token_type_ids", "val": " = None"}, {"name": "pixel_values", "val": " = None"}, {"name": "pixel_mask", "val": " = None"}, {"name": "head_mask", "val": " = None"}, {"name": "inputs_embeds", "val": " = None"}, {"name": "image_embeds", "val": " = None"}, {"name": "labels", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}]</parameters><paramsdesc>- **input_ids** (`torch.LongTensor` of shape `(&amp;lcub;0})`) --
   Indices of input sequence tokens in the vocabulary. Indices can be obtained using [BertTokenizer](/docs/transformers/master/en/model_doc/bert#transformers.BertTokenizer). See
   [PreTrainedTokenizer.encode()](/docs/transformers/master/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode) and [PreTrainedTokenizer.__call__()](/docs/transformers/master/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.__call__) for details. [What are input
   IDs?](../glossary#input-ids)
@@ -805,13 +833,13 @@ Examples:
 
 >>> # prepare inputs
 >>> encoding = processor([image1, image2], text, return_tensors="pt")
->>> pixel_values = torch.stack([encoding_1.pixel_values, encoding_2.pixel_values], dim=1)
 
 >>> # forward pass
 >>> outputs = model(input_ids=encoding.input_ids, pixel_values=encoding.pixel_values.unsqueeze(0))
 >>> logits = outputs.logits
 >>> idx = logits.argmax(-1).item()
 >>> print("Predicted answer:", model.config.id2label[idx])
+Predicted answer: True
 ```
 
 </div></div>
@@ -820,7 +848,7 @@ Examples:
 
 <div class="docstring">
 
-<docstring><name>class transformers.ViltForImageAndTextRetrieval</name><anchor>transformers.ViltForImageAndTextRetrieval</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L1141</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **config** ([ViltConfig](/docs/transformers/master/en/model_doc/vilt#transformers.ViltConfig)) -- Model configuration class with all the parameters of the model.
+<docstring><name>class transformers.ViltForImageAndTextRetrieval</name><anchor>transformers.ViltForImageAndTextRetrieval</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L1169</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **config** ([ViltConfig](/docs/transformers/master/en/model_doc/vilt#transformers.ViltConfig)) -- Model configuration class with all the parameters of the model.
   Initializing with a config file does not load the weights associated with the model, only the
   configuration. Check out the [from_pretrained()](/docs/transformers/master/en/main_classes/model#transformers.PreTrainedModel.from_pretrained) method to load the model weights.</paramsdesc><paramgroups>0</paramgroups></docstring>
 
@@ -836,7 +864,7 @@ behavior.
 
 
 <div class="docstring">
-<docstring><name>forward</name><anchor>transformers.ViltForImageAndTextRetrieval.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L1153</source><parameters>[{"name": "input_ids", "val": " = None"}, {"name": "attention_mask", "val": " = None"}, {"name": "token_type_ids", "val": " = None"}, {"name": "pixel_values", "val": " = None"}, {"name": "pixel_mask", "val": " = None"}, {"name": "head_mask", "val": " = None"}, {"name": "inputs_embeds", "val": " = None"}, {"name": "image_embeds", "val": " = None"}, {"name": "labels", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}]</parameters><paramsdesc>- **input_ids** (`torch.LongTensor` of shape `(&amp;lcub;0})`) --
+<docstring><name>forward</name><anchor>transformers.ViltForImageAndTextRetrieval.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/vilt/modeling_vilt.py#L1181</source><parameters>[{"name": "input_ids", "val": " = None"}, {"name": "attention_mask", "val": " = None"}, {"name": "token_type_ids", "val": " = None"}, {"name": "pixel_values", "val": " = None"}, {"name": "pixel_mask", "val": " = None"}, {"name": "head_mask", "val": " = None"}, {"name": "inputs_embeds", "val": " = None"}, {"name": "image_embeds", "val": " = None"}, {"name": "labels", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}]</parameters><paramsdesc>- **input_ids** (`torch.LongTensor` of shape `(&amp;lcub;0})`) --
   Indices of input sequence tokens in the vocabulary. Indices can be obtained using [BertTokenizer](/docs/transformers/master/en/model_doc/bert#transformers.BertTokenizer). See
   [PreTrainedTokenizer.encode()](/docs/transformers/master/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode) and [PreTrainedTokenizer.__call__()](/docs/transformers/master/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.__call__) for details. [What are input
   IDs?](../glossary#input-ids)
