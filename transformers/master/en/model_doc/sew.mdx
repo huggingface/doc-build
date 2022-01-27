@@ -192,7 +192,7 @@ Example:
 
 <div class="docstring">
 
-<docstring><name>class transformers.SEWModel</name><anchor>transformers.SEWModel</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/sew/modeling_sew.py#L808</source><parameters>[{"name": "config", "val": ": SEWConfig"}]</parameters><paramsdesc>- **config** ([SEWConfig](/docs/transformers/master/en/model_doc/sew#transformers.SEWConfig)) -- Model configuration class with all the parameters of the model.
+<docstring><name>class transformers.SEWModel</name><anchor>transformers.SEWModel</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/sew/modeling_sew.py#L825</source><parameters>[{"name": "config", "val": ": SEWConfig"}]</parameters><paramsdesc>- **config** ([SEWConfig](/docs/transformers/master/en/model_doc/sew#transformers.SEWConfig)) -- Model configuration class with all the parameters of the model.
   Initializing with a config file does not load the weights associated with the model, only the
   configuration. Check out the [from_pretrained()](/docs/transformers/master/en/main_classes/model#transformers.PreTrainedModel.from_pretrained) method to load the model weights.</paramsdesc><paramgroups>0</paramgroups></docstring>
 The bare SEW Model transformer outputting raw hidden-states without any specific head on top.
@@ -212,7 +212,7 @@ behavior.
 
 
 <div class="docstring">
-<docstring><name>forward</name><anchor>transformers.SEWModel.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/sew/modeling_sew.py#L875</source><parameters>[{"name": "input_values", "val": ""}, {"name": "attention_mask", "val": " = None"}, {"name": "mask_time_indices", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}]</parameters><paramsdesc>- **input_values** (`torch.FloatTensor` of shape `(batch_size, sequence_length)`) --
+<docstring><name>forward</name><anchor>transformers.SEWModel.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/sew/modeling_sew.py#L892</source><parameters>[{"name": "input_values", "val": ""}, {"name": "attention_mask", "val": " = None"}, {"name": "mask_time_indices", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}]</parameters><paramsdesc>- **input_values** (`torch.FloatTensor` of shape `(batch_size, sequence_length)`) --
   Float values of input raw speech waveform. Values can be obtained by loading a *.flac* or *.wav* audio file
   into an array of type *List[float]* or a *numpy.ndarray*, *e.g.* via the soundfile library (*pip install
   soundfile*). To prepare the array into *input_values*, the [Wav2Vec2Processor](/docs/transformers/master/en/model_doc/wav2vec2#transformers.Wav2Vec2Processor) should be used for padding
@@ -267,19 +267,24 @@ Example:
 
 ```python
 >>> from transformers import Wav2Vec2Processor, SEWModel
+>>> import torch
 >>> from datasets import load_dataset
 
 >>> dataset = load_dataset("hf-internal-testing/librispeech_asr_demo", "clean", split="validation")
+>>> dataset = dataset.sort("id")
 >>> sampling_rate = dataset.features["audio"].sampling_rate
 
->>> processor = Wav2Vec2Processor.from_pretrained("asapp/sew-tiny-100k")
->>> model = SEWModel.from_pretrained("asapp/sew-tiny-100k")
+>>> processor = Wav2Vec2Processor.from_pretrained("asapp/sew-tiny-100k-ft-ls100h")
+>>> model = SEWModel.from_pretrained("asapp/sew-tiny-100k-ft-ls100h")
 
 >>> # audio file is decoded on the fly
 >>> inputs = processor(dataset[0]["audio"]["array"], sampling_rate=sampling_rate, return_tensors="pt")
->>> outputs = model(**inputs)
+>>> with torch.no_grad():
+...     outputs = model(**inputs)
 
 >>> last_hidden_states = outputs.last_hidden_state
+>>> list(last_hidden_states.shape)
+[1, 292, 512]
 ```
 
 
@@ -289,7 +294,7 @@ Example:
 
 <div class="docstring">
 
-<docstring><name>class transformers.SEWForCTC</name><anchor>transformers.SEWForCTC</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/sew/modeling_sew.py#L937</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **config** ([SEWConfig](/docs/transformers/master/en/model_doc/sew#transformers.SEWConfig)) -- Model configuration class with all the parameters of the model.
+<docstring><name>class transformers.SEWForCTC</name><anchor>transformers.SEWForCTC</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/sew/modeling_sew.py#L955</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **config** ([SEWConfig](/docs/transformers/master/en/model_doc/sew#transformers.SEWConfig)) -- Model configuration class with all the parameters of the model.
   Initializing with a config file does not load the weights associated with the model, only the
   configuration. Check out the [from_pretrained()](/docs/transformers/master/en/main_classes/model#transformers.PreTrainedModel.from_pretrained) method to load the model weights.</paramsdesc><paramgroups>0</paramgroups></docstring>
 SEW Model with a `language modeling` head on top for Connectionist Temporal Classification (CTC).
@@ -309,7 +314,7 @@ behavior.
 
 
 <div class="docstring">
-<docstring><name>forward</name><anchor>transformers.SEWForCTC.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/sew/modeling_sew.py#L975</source><parameters>[{"name": "input_values", "val": ""}, {"name": "attention_mask", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}, {"name": "labels", "val": " = None"}]</parameters><paramsdesc>- **input_values** (`torch.FloatTensor` of shape `(batch_size, sequence_length)`) --
+<docstring><name>forward</name><anchor>transformers.SEWForCTC.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/sew/modeling_sew.py#L993</source><parameters>[{"name": "input_values", "val": ""}, {"name": "attention_mask", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}, {"name": "labels", "val": " = None"}]</parameters><paramsdesc>- **input_values** (`torch.FloatTensor` of shape `(batch_size, sequence_length)`) --
   Float values of input raw speech waveform. Values can be obtained by loading a *.flac* or *.wav* audio file
   into an array of type *List[float]* or a *numpy.ndarray*, *e.g.* via the soundfile library (*pip install
   soundfile*). To prepare the array into *input_values*, the [Wav2Vec2Processor](/docs/transformers/master/en/model_doc/wav2vec2#transformers.Wav2Vec2Processor) should be used for padding
@@ -375,24 +380,32 @@ Example:
 >>> import torch
 
 >>> dataset = load_dataset("hf-internal-testing/librispeech_asr_demo", "clean", split="validation")
+>>> dataset = dataset.sort("id")
 >>> sampling_rate = dataset.features["audio"].sampling_rate
 
->>> processor = Wav2Vec2Processor.from_pretrained("asapp/sew-tiny-100k")
->>> model = SEWForCTC.from_pretrained("asapp/sew-tiny-100k")
+>>> processor = Wav2Vec2Processor.from_pretrained("asapp/sew-tiny-100k-ft-ls100h")
+>>> model = SEWForCTC.from_pretrained("asapp/sew-tiny-100k-ft-ls100h")
 
 >>> # audio file is decoded on the fly
 >>> inputs = processor(dataset[0]["audio"]["array"], sampling_rate=sampling_rate, return_tensors="pt")
->>> logits = model(**inputs).logits
+>>> with torch.no_grad():
+...     logits = model(**inputs).logits
 >>> predicted_ids = torch.argmax(logits, dim=-1)
 
 >>> # transcribe speech
 >>> transcription = processor.batch_decode(predicted_ids)
+>>> transcription[0]
+'MISTER QUILTER IS THE APPOSTILE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPOLLE'
+```
 
->>> # compute loss
+```python
 >>> with processor.as_target_processor():
 ...     inputs["labels"] = processor(dataset[0]["text"], return_tensors="pt").input_ids
 
+>>> # compute loss
 >>> loss = model(**inputs).loss
+>>> round(loss.item(), 2)
+0.42
 ```
 
 
@@ -402,7 +415,7 @@ Example:
 
 <div class="docstring">
 
-<docstring><name>class transformers.SEWForSequenceClassification</name><anchor>transformers.SEWForSequenceClassification</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/sew/modeling_sew.py#L1063</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **config** ([SEWConfig](/docs/transformers/master/en/model_doc/sew#transformers.SEWConfig)) -- Model configuration class with all the parameters of the model.
+<docstring><name>class transformers.SEWForSequenceClassification</name><anchor>transformers.SEWForSequenceClassification</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/sew/modeling_sew.py#L1083</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **config** ([SEWConfig](/docs/transformers/master/en/model_doc/sew#transformers.SEWConfig)) -- Model configuration class with all the parameters of the model.
   Initializing with a config file does not load the weights associated with the model, only the
   configuration. Check out the [from_pretrained()](/docs/transformers/master/en/main_classes/model#transformers.PreTrainedModel.from_pretrained) method to load the model weights.</paramsdesc><paramgroups>0</paramgroups></docstring>
 
@@ -425,7 +438,7 @@ behavior.
 
 
 <div class="docstring">
-<docstring><name>forward</name><anchor>transformers.SEWForSequenceClassification.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/sew/modeling_sew.py#L1104</source><parameters>[{"name": "input_values", "val": ""}, {"name": "attention_mask", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}, {"name": "labels", "val": " = None"}]</parameters><paramsdesc>- **input_values** (`torch.FloatTensor` of shape `(batch_size, sequence_length)`) --
+<docstring><name>forward</name><anchor>transformers.SEWForSequenceClassification.forward</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/sew/modeling_sew.py#L1124</source><parameters>[{"name": "input_values", "val": ""}, {"name": "attention_mask", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}, {"name": "labels", "val": " = None"}]</parameters><paramsdesc>- **input_values** (`torch.FloatTensor` of shape `(batch_size, sequence_length)`) --
   Float values of input raw speech waveform. Values can be obtained by loading a *.flac* or *.wav* audio file
   into an array of type *List[float]* or a *numpy.ndarray*, *e.g.* via the soundfile library (*pip install
   soundfile*). To prepare the array into *input_values*, the [Wav2Vec2Processor](/docs/transformers/master/en/model_doc/wav2vec2#transformers.Wav2Vec2Processor) should be used for padding
@@ -490,21 +503,31 @@ Example:
 >>> import torch
 
 >>> dataset = load_dataset("hf-internal-testing/librispeech_asr_demo", "clean", split="validation")
+>>> dataset = dataset.sort("id")
 >>> sampling_rate = dataset.features["audio"].sampling_rate
 
->>> feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained("asapp/sew-tiny-100k")
->>> model = SEWForSequenceClassification.from_pretrained("asapp/sew-tiny-100k")
+>>> feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained("anton-l/sew-mid-100k-ft-keyword-spotting")
+>>> model = SEWForSequenceClassification.from_pretrained("anton-l/sew-mid-100k-ft-keyword-spotting")
 
 >>> # audio file is decoded on the fly
->>> inputs = feature_extractor(dataset[0]["audio"]["array"], return_tensors="pt")
->>> logits = model(**inputs).logits
->>> predicted_class_ids = torch.argmax(logits, dim=-1)
->>> predicted_label = model.config.id2label[predicted_class_ids]
+>>> inputs = feature_extractor(dataset[0]["audio"]["array"], sampling_rate=sampling_rate, return_tensors="pt")
 
+>>> with torch.no_grad():
+...     logits = model(**inputs).logits
+
+>>> predicted_class_ids = torch.argmax(logits, dim=-1).item()
+>>> predicted_label = model.config.id2label[predicted_class_ids]
+>>> predicted_label
+'_unknown_'
+```
+
+```python
 >>> # compute loss - target_label is e.g. "down"
 >>> target_label = model.config.id2label[0]
 >>> inputs["labels"] = torch.tensor([model.config.label2id[target_label]])
 >>> loss = model(**inputs).loss
+>>> round(loss.item(), 2)
+9.52
 ```
 
 
