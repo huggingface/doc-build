@@ -1,0 +1,309 @@
+---
+local: swin-transformer
+sections:
+- local: overview
+  title: Overview
+- local: transformers.SwinConfig
+  title: SwinConfig
+- local: transformers.SwinModel
+  title: SwinModel
+title: Swin Transformer
+---
+<script>
+import Tip from "./Tip.svelte";
+import Youtube from "./Youtube.svelte";
+import Docstring from "./Docstring.svelte";
+import CodeBlock from "./CodeBlock.svelte";
+import CodeBlockFw from "./CodeBlockFw.svelte";
+import ColabDropdown from "./ColabDropdown.svelte";
+import IconCopyLink from "./IconCopyLink.svelte";
+export let fw: "pt" | "tf"
+</script>
+<!--Copyright 2022 The HuggingFace Team. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
+-->
+
+<h1 id="swin-transformer">Swin Transformer</h1>
+
+<h2 id="overview">Overview</h2>
+
+The Swin Transformer was proposed in [Swin Transformer: Hierarchical Vision Transformer using Shifted Windows](https://arxiv.org/abs/2103.14030)  
+by Ze Liu, Yutong Lin, Yue Cao, Han Hu, Yixuan Wei, Zheng Zhang, Stephen Lin, Baining Guo. 
+
+The abstract from the paper is the following:
+
+*This paper presents a new vision Transformer, called Swin Transformer, that capably serves as a general-purpose backbone 
+for computer vision. Challenges in adapting Transformer from language to vision arise from differences between the two domains, 
+such as large variations in the scale of visual entities and the high resolution of pixels in images compared to words in text. 
+To address these differences, we propose a hierarchical Transformer whose representation is computed with \bold&amp;lcub;S}hifted 
+\bold&amp;lcub;win}dows. The shifted windowing scheme brings greater efficiency by limiting self-attention computation to non-overlapping 
+local windows while also allowing for cross-window connection. This hierarchical architecture has the flexibility to model at 
+various scales and has linear computational complexity with respect to image size. These qualities of Swin Transformer make it 
+compatible with a broad range of vision tasks, including image classification (87.3 top-1 accuracy on ImageNet-1K) and dense 
+prediction tasks such as object detection (58.7 box AP and 51.1 mask AP on COCO test-dev) and semantic segmentation 
+(53.5 mIoU on ADE20K val). Its performance surpasses the previous state-of-the-art by a large margin of +2.7 box AP and 
++2.6 mask AP on COCO, and +3.2 mIoU on ADE20K, demonstrating the potential of Transformer-based models as vision backbones. 
+The hierarchical design and the shifted window approach also prove beneficial for all-MLP architectures.*
+
+Tips:
+- One can use the [AutoFeatureExtractor](/docs/transformers/v4.16.0/en/model_doc/auto#transformers.AutoFeatureExtractor) API to prepare images for the model.
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/swin_transformer_architecture.png"
+alt="drawing" width="600"/> 
+
+<small> Swin Transformer architecture. Taken from the <a href="https://arxiv.org/abs/2102.03334">original paper</a>.</small>
+
+This model was contributed by [novice03](https://huggingface.co/novice03>). The original code can be found [here](https://github.com/microsoft/Swin-Transformer).
+
+
+<h2 id="transformers.SwinConfig">SwinConfig</h2>
+
+<div class="docstring">
+
+<docstring><name>class transformers.SwinConfig</name><anchor>transformers.SwinConfig</anchor><source>https://github.com/huggingface/transformers/blob/v4.16.0/src/transformers/models/swin/configuration_swin.py#L29</source><parameters>[{"name": "image_size", "val": " = 224"}, {"name": "patch_size", "val": " = 4"}, {"name": "num_channels", "val": " = 3"}, {"name": "embed_dim", "val": " = 96"}, {"name": "depths", "val": " = [2, 2, 6, 2]"}, {"name": "num_heads", "val": " = [3, 6, 12, 24]"}, {"name": "window_size", "val": " = 7"}, {"name": "mlp_ratio", "val": " = 4.0"}, {"name": "qkv_bias", "val": " = True"}, {"name": "hidden_dropout_prob", "val": " = 0.0"}, {"name": "attention_probs_dropout_prob", "val": " = 0.0"}, {"name": "drop_path_rate", "val": " = 0.1"}, {"name": "hidden_act", "val": " = 'gelu'"}, {"name": "use_absolute_embeddings", "val": " = False"}, {"name": "patch_norm", "val": " = True"}, {"name": "initializer_range", "val": " = 0.02"}, {"name": "layer_norm_eps", "val": " = 1e-05"}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **image_size** (`int`, *optional*, defaults to 224) --
+  The size (resolution) of each image.
+- **patch_size** (`int`, *optional*, defaults to 4) --
+  The size (resolution) of each patch.
+- **num_channels** (`int`, *optional*, defaults to 3) --
+  The number of input channels.
+- **embed_dim** (`int`, *optional*, defaults to 96) --
+  Dimensionality of patch embedding.
+- **depths** (`list(int)`, *optional*, defaults to [2, 2, 6, 2]) --
+  Depth of each layer in the Transformer encoder.
+- **num_heads** (`list(int)`, *optional*, defaults to [3, 6, 12, 24]) --
+  Number of attention heads in each layer of the Transformer encoder.
+- **window_size** (`int`, *optional*, defaults to 7) --
+  Size of windows.
+- **mlp_ratio** (`float`, *optional*, defaults to 4.0) --
+  Ratio of MLP hidden dimensionality to embedding dimensionality.
+- **qkv_bias** (`bool`, *optional*, defaults to True) --
+  Whether or not a learnable bias should be added to the queries, keys and values.
+- **hidden_dropout_prob** (`float`, *optional*, defaults to 0.0) --
+  The dropout probability for all fully connected layers in the embeddings and encoder.
+- **attention_probs_dropout_prob** (`float`, *optional*, defaults to 0.0) --
+  The dropout ratio for the attention probabilities.
+- **drop_path_rate** (`float`, *optional*, defaults to 0.1) --
+  Stochastic depth rate.
+- **hidden_act** (`str` or `function`, *optional*, defaults to `"gelu"`) --
+  The non-linear activation function (function or string) in the encoder. If string, `"gelu"`, `"relu"`,
+  `"selu"` and `"gelu_new"` are supported.
+- **use_absolute_embeddings** (`bool`, *optional*, defaults to False) --
+  Whether or not to add absolute position embeddings to the patch embeddings.
+- **patch_norm** (`bool`, *optional*, defaults to True) --
+  Whether or not to add layer normalization after patch embedding.
+- **initializer_range** (`float`, *optional*, defaults to 0.02) --
+  The standard deviation of the truncated_normal_initializer for initializing all weight matrices.
+- **layer_norm_eps** (`float`, *optional*, defaults to 1e-12) --
+  The epsilon used by the layer normalization layers.
+
+  Example --</paramsdesc><paramgroups>0</paramgroups></docstring>
+
+This is the configuration class to store the configuration of a [SwinModel](/docs/transformers/v4.16.0/en/model_doc/swin#transformers.SwinModel). It is used to instantiate a Swin
+model according to the specified arguments, defining the model architecture. Instantiating a configuration with the
+defaults will yield a similar configuration to that of the Swin
+[microsoft/swin-tiny-patch4-window7-224](https://huggingface.co/microsoft/swin-tiny-patch4-window7-224)
+architecture.
+
+Configuration objects inherit from [PretrainedConfig](/docs/transformers/v4.16.0/en/main_classes/configuration#transformers.PretrainedConfig) and can be used to control the model outputs. Read the
+documentation from [PretrainedConfig](/docs/transformers/v4.16.0/en/main_classes/configuration#transformers.PretrainedConfig) for more information.
+
+
+
+```python
+>>> from transformers import SwinModel, SwinConfig
+
+>>> # Initializing a Swin microsoft/swin-tiny-patch4-window7-224 style configuration
+>>> configuration = SwinConfig()
+
+>>> # Initializing a model from the microsoft/swin-tiny-patch4-window7-224 style configuration
+>>> model = SwinModel(configuration)
+
+>>> # Accessing the model configuration
+>>> configuration = model.config
+```
+
+</div>
+
+<h2 id="transformers.SwinModel">SwinModel</h2>
+
+<div class="docstring">
+
+<docstring><name>class transformers.SwinModel</name><anchor>transformers.SwinModel</anchor><source>https://github.com/huggingface/transformers/blob/v4.16.0/src/transformers/models/swin/modeling_swin.py#L661</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **config** ([SwinConfig](/docs/transformers/v4.16.0/en/model_doc/swin#transformers.SwinConfig)) -- Model configuration class with all the parameters of the model.
+  Initializing with a config file does not load the weights associated with the model, only the
+  configuration. Check out the [from_pretrained()](/docs/transformers/v4.16.0/en/main_classes/model#transformers.PreTrainedModel.from_pretrained) method to load the model weights.</paramsdesc><paramgroups>0</paramgroups></docstring>
+The bare Swin Model transformer outputting raw hidden-states without any specific head on top.
+This model is a PyTorch [torch.nn.Module](https://pytorch.org/docs/stable/nn.html#torch.nn.Module) sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.
+
+
+
+
+
+<div class="docstring">
+<docstring><name>forward</name><anchor>transformers.SwinModel.forward</anchor><source>https://github.com/huggingface/transformers/blob/v4.16.0/src/transformers/models/swin/modeling_swin.py#L688</source><parameters>[{"name": "pixel_values", "val": " = None"}, {"name": "head_mask", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}]</parameters><paramsdesc>- **pixel_values** (`torch.FloatTensor` of shape `(batch_size, num_channels, height, width)`) --
+  Pixel values. Pixel values can be obtained using [AutoFeatureExtractor](/docs/transformers/v4.16.0/en/model_doc/auto#transformers.AutoFeatureExtractor). See
+  `AutoFeatureExtractor.__call__()`for details.
+- **head_mask** (`torch.FloatTensor` of shape `(num_heads,)` or `(num_layers, num_heads)`, *optional*) --
+  Mask to nullify selected heads of the self-attention modules. Mask values selected in `[0, 1]`:
+
+  - 1 indicates the head is **not masked**,
+  - 0 indicates the head is **masked**.
+
+- **output_attentions** (`bool`, *optional*) --
+  Whether or not to return the attentions tensors of all attention layers. See `attentions` under returned
+  tensors for more detail.
+- **output_hidden_states** (`bool`, *optional*) --
+  Whether or not to return the hidden states of all layers. See `hidden_states` under returned tensors for
+  more detail.
+- **return_dict** (`bool`, *optional*) --
+  Whether or not to return a [ModelOutput](/docs/transformers/v4.16.0/en/main_classes/output#transformers.file_utils.ModelOutput) instead of a plain tuple.</paramsdesc><paramgroups>0</paramgroups><rettype>[transformers.modeling_outputs.BaseModelOutput](/docs/transformers/v4.16.0/en/main_classes/output#transformers.modeling_outputs.BaseModelOutput) or `tuple(torch.FloatTensor)`</rettype><retdesc>A [transformers.modeling_outputs.BaseModelOutput](/docs/transformers/v4.16.0/en/main_classes/output#transformers.modeling_outputs.BaseModelOutput) or a tuple of
+`torch.FloatTensor` (if `return_dict=False` is passed or when `config.return_dict=False`) comprising various
+elements depending on the configuration ([SwinConfig](/docs/transformers/v4.16.0/en/model_doc/swin#transformers.SwinConfig)) and inputs.
+
+- **last_hidden_state** (`torch.FloatTensor` of shape `(batch_size, sequence_length, hidden_size)`) -- Sequence of hidden-states at the output of the last layer of the model.
+- **hidden_states** (`tuple(torch.FloatTensor)`, *optional*, returned when `output_hidden_states=True` is passed or when `config.output_hidden_states=True`) -- Tuple of `torch.FloatTensor` (one for the output of the embeddings + one for the output of each layer) of
+  shape `(batch_size, sequence_length, hidden_size)`.
+
+  Hidden-states of the model at the output of each layer plus the initial embedding outputs.
+- **attentions** (`tuple(torch.FloatTensor)`, *optional*, returned when `output_attentions=True` is passed or when `config.output_attentions=True`) -- Tuple of `torch.FloatTensor` (one for each layer) of shape `(batch_size, num_heads, sequence_length,
+  sequence_length)`.
+
+  Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+  heads.</retdesc></docstring>
+The [SwinModel](/docs/transformers/v4.16.0/en/model_doc/swin#transformers.SwinModel) forward method, overrides the `__call__` special method.
+
+<Tip>
+
+Although the recipe for forward pass needs to be defined within this function, one should call the `Module`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.
+
+</Tip>
+
+
+
+
+
+
+
+Examples:
+
+```python
+>>> from transformers import AutoFeatureExtractor, SwinModel
+>>> from PIL import Image
+>>> import requests
+
+>>> url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+>>> image = Image.open(requests.get(url, stream=True).raw)
+
+>>> feature_extractor = AutoFeatureExtractor.from_pretrained("microsoft/swin-tiny-patch4-window7-224")
+>>> model = SwinModel.from_pretrained("microsoft/swin-tiny-patch4-window7-224")
+
+>>> inputs = feature_extractor(images=image, return_tensors="pt")
+>>> outputs = model(**inputs)
+>>> last_hidden_states = outputs.last_hidden_state
+```
+
+</div></div>
+
+<div class="docstring">
+
+<docstring><name>class transformers.SwinForImageClassification</name><anchor>transformers.SwinForImageClassification</anchor><source>https://github.com/huggingface/transformers/blob/v4.16.0/src/transformers/models/swin/modeling_swin.py#L767</source><parameters>[{"name": "config", "val": ""}]</parameters><paramsdesc>- **config** ([SwinConfig](/docs/transformers/v4.16.0/en/model_doc/swin#transformers.SwinConfig)) -- Model configuration class with all the parameters of the model.
+  Initializing with a config file does not load the weights associated with the model, only the
+  configuration. Check out the [from_pretrained()](/docs/transformers/v4.16.0/en/main_classes/model#transformers.PreTrainedModel.from_pretrained) method to load the model weights.</paramsdesc><paramgroups>0</paramgroups></docstring>
+
+Swin Model transformer with an image classification head on top (a linear layer on top of the final hidden state of
+the [CLS] token) e.g. for ImageNet.
+
+This model is a PyTorch [torch.nn.Module](https://pytorch.org/docs/stable/nn.html#torch.nn.Module) sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.
+
+
+
+
+
+<div class="docstring">
+<docstring><name>forward</name><anchor>transformers.SwinForImageClassification.forward</anchor><source>https://github.com/huggingface/transformers/blob/v4.16.0/src/transformers/models/swin/modeling_swin.py#L782</source><parameters>[{"name": "pixel_values", "val": " = None"}, {"name": "head_mask", "val": " = None"}, {"name": "labels", "val": " = None"}, {"name": "output_attentions", "val": " = None"}, {"name": "output_hidden_states", "val": " = None"}, {"name": "return_dict", "val": " = None"}]</parameters><paramsdesc>- **pixel_values** (`torch.FloatTensor` of shape `(batch_size, num_channels, height, width)`) --
+  Pixel values. Pixel values can be obtained using [AutoFeatureExtractor](/docs/transformers/v4.16.0/en/model_doc/auto#transformers.AutoFeatureExtractor). See
+  `AutoFeatureExtractor.__call__()`for details.
+- **head_mask** (`torch.FloatTensor` of shape `(num_heads,)` or `(num_layers, num_heads)`, *optional*) --
+  Mask to nullify selected heads of the self-attention modules. Mask values selected in `[0, 1]`:
+
+  - 1 indicates the head is **not masked**,
+  - 0 indicates the head is **masked**.
+
+- **output_attentions** (`bool`, *optional*) --
+  Whether or not to return the attentions tensors of all attention layers. See `attentions` under returned
+  tensors for more detail.
+- **output_hidden_states** (`bool`, *optional*) --
+  Whether or not to return the hidden states of all layers. See `hidden_states` under returned tensors for
+  more detail.
+- **return_dict** (`bool`, *optional*) --
+  Whether or not to return a [ModelOutput](/docs/transformers/v4.16.0/en/main_classes/output#transformers.file_utils.ModelOutput) instead of a plain tuple.
+
+- **labels** (`torch.LongTensor` of shape `(batch_size,)`, *optional*) --
+  Labels for computing the image classification/regression loss. Indices should be in `[0, ...,
+  config.num_labels - 1]`. If `config.num_labels == 1` a regression loss is computed (Mean-Square loss), If
+  `config.num_labels > 1` a classification loss is computed (Cross-Entropy).</paramsdesc><paramgroups>0</paramgroups><rettype>[transformers.modeling_outputs.SequenceClassifierOutput](/docs/transformers/v4.16.0/en/main_classes/output#transformers.modeling_outputs.SequenceClassifierOutput) or `tuple(torch.FloatTensor)`</rettype><retdesc>A [transformers.modeling_outputs.SequenceClassifierOutput](/docs/transformers/v4.16.0/en/main_classes/output#transformers.modeling_outputs.SequenceClassifierOutput) or a tuple of
+`torch.FloatTensor` (if `return_dict=False` is passed or when `config.return_dict=False`) comprising various
+elements depending on the configuration ([SwinConfig](/docs/transformers/v4.16.0/en/model_doc/swin#transformers.SwinConfig)) and inputs.
+
+- **loss** (`torch.FloatTensor` of shape `(1,)`, *optional*, returned when `labels` is provided) -- Classification (or regression if config.num_labels==1) loss.
+- **logits** (`torch.FloatTensor` of shape `(batch_size, config.num_labels)`) -- Classification (or regression if config.num_labels==1) scores (before SoftMax).
+- **hidden_states** (`tuple(torch.FloatTensor)`, *optional*, returned when `output_hidden_states=True` is passed or when `config.output_hidden_states=True`) -- Tuple of `torch.FloatTensor` (one for the output of the embeddings + one for the output of each layer) of
+  shape `(batch_size, sequence_length, hidden_size)`.
+
+  Hidden-states of the model at the output of each layer plus the initial embedding outputs.
+- **attentions** (`tuple(torch.FloatTensor)`, *optional*, returned when `output_attentions=True` is passed or when `config.output_attentions=True`) -- Tuple of `torch.FloatTensor` (one for each layer) of shape `(batch_size, num_heads, sequence_length,
+  sequence_length)`.
+
+  Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+  heads.</retdesc></docstring>
+The [SwinForImageClassification](/docs/transformers/v4.16.0/en/model_doc/swin#transformers.SwinForImageClassification) forward method, overrides the `__call__` special method.
+
+<Tip>
+
+Although the recipe for forward pass needs to be defined within this function, one should call the `Module`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.
+
+</Tip>
+
+
+
+
+
+
+
+Examples:
+
+```python
+>>> from transformers import AutoFeatureExtractor, SwinForImageClassification
+>>> from PIL import Image
+>>> import requests
+
+>>> url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+>>> image = Image.open(requests.get(url, stream=True).raw)
+
+>>> feature_extractor = AutoFeatureExtractor.from_pretrained("microsoft/swin-tiny-patch4-window7-224")
+>>> model = SwinForImageClassification.from_pretrained("microsoft/swin-tiny-patch4-window7-224")
+
+>>> inputs = feature_extractor(images=image, return_tensors="pt")
+>>> outputs = model(**inputs)
+>>> logits = outputs.logits
+>>> # model predicts one of the 1000 ImageNet classes
+>>> predicted_class_idx = logits.argmax(-1).item()
+>>> print("Predicted class:", model.config.id2label[predicted_class_idx])
+```
+
+</div></div>
