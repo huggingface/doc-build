@@ -1,0 +1,155 @@
+<meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;how-to-add-a-pipeline-to-transformers&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;adding-it-to-the-list-of-supported-tasks&quot;,&quot;title&quot;:&quot;Adding it to the list of supported tasks&quot;},{&quot;local&quot;:&quot;adding-tests&quot;,&quot;title&quot;:&quot;Adding tests&quot;}],&quot;title&quot;:&quot;How to add a pipeline to 🤗 Transformers?&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/transformers/master/_app/start-28598dc8.js">
+	<link rel="modulepreload" href="/docs/transformers/master/_app/chunks/vendor-b1433968.js">
+	<link rel="modulepreload" href="/docs/transformers/master/_app/layout.svelte-ba4f65ca.js">
+	<link rel="modulepreload" href="/docs/transformers/master/_app/pages/en/add_new_pipeline.mdx-339491cd.js">
+	<link rel="modulepreload" href="/docs/transformers/master/_app/chunks/IconCopyLink-7029626d.js">
+	<link rel="modulepreload" href="/docs/transformers/master/_app/chunks/CodeBlock-a320dbd7.js">
+	<link rel="modulepreload" href="/docs/transformers/master/_app/chunks/CopyButton-f65cb278.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="how-to-add-a-pipeline-to-transformers" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#how-to-add-a-pipeline-to-transformers"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>How to add a pipeline to 🤗 Transformers?
+	</span></h1>
+
+<p>First and foremost, you need to decide the raw entries the pipeline will be able to take. It can be strings, raw bytes,
+dictionaries or whatever seems to be the most likely desired input. Try to keep these inputs as pure Python as possible
+as it makes compatibility easier (even through other languages via JSON). Those will be the <code>inputs</code> of the
+pipeline (<code>preprocess</code>).</p>
+<p>Then define the <code>outputs</code>. Same policy as the <code>inputs</code>. The simpler, the better. Those will be the outputs of
+<code>postprocess</code> method.</p>
+<p>Start by inheriting the base class <code>Pipeline</code>. with the 4 methods needed to implement <code>preprocess</code>,
+<code>_forward</code>, <code>postprocess</code> and <code>_sanitize_parameters</code>.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->from transformers import Pipeline
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyPipeline</span>(<span class="hljs-title">Pipeline</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_sanitize_parameters</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, **kwargs)</span></span>:
+        preprocess_kwargs = {}
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;maybe_arg&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-symbol">kwargs:</span>
+            preprocess_kwargs[<span class="hljs-string">&quot;maybe_arg&quot;</span>] = kwargs[<span class="hljs-string">&quot;maybe_arg&quot;</span>]
+        <span class="hljs-keyword">return</span> preprocess_kwargs, {}, {}
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">preprocess</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, inputs, maybe_arg=<span class="hljs-number">2</span>)</span></span>:
+        model_input = Tensor(....)
+        <span class="hljs-keyword">return</span> {<span class="hljs-string">&quot;model_input&quot;</span>: model_input}
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_forward</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, model_inputs)</span></span>:
+        <span class="hljs-comment"># model_inputs == {&quot;model_input&quot;: model_input}</span>
+        outputs = <span class="hljs-keyword">self</span>.model(**model_inputs)
+        <span class="hljs-comment"># Maybe {&quot;logits&quot;: Tensor(...)}</span>
+        <span class="hljs-keyword">return</span> outputs
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">postprocess</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, model_outputs)</span></span>:
+        best_class = model_outputs[<span class="hljs-string">&quot;logits&quot;</span>].softmax(-<span class="hljs-number">1</span>)
+        <span class="hljs-keyword">return</span> best_class<!-- HTML_TAG_END --></pre></div>
+<p>The structure of this breakdown is to support relatively seamless support for CPU/GPU, while supporting doing
+pre/postprocessing on the CPU on different threads</p>
+<p><code>preprocess</code> will take the originally defined inputs, and turn them into something feedable to the model. It might
+contain more information and is usually a <code>Dict</code>.</p>
+<p><code>_forward</code> is the implementation detail and is not meant to be called directly. <code>forward</code> is the preferred
+called method as it contains safeguards to make sure everything is working on the expected device. If anything is
+linked to a real model it belongs in the <code>_forward</code> method, anything else is in the preprocess/postprocess.</p>
+<p><code>postprocess</code> methods will take the output of <code>_forward</code> and turn it into the final output that were decided
+earlier.</p>
+<p><code>_sanitize_parameters</code> exists to allow users to pass any parameters whenever they wish, be it at initialization
+time <code>pipeline(...., maybe_arg=4)</code> or at call time <code>pipe = pipeline(...); output = pipe(...., maybe_arg=4)</code>.</p>
+<p>The returns of <code>_sanitize_parameters</code> are the 3 dicts of kwargs that will be passed directly to <code>preprocess</code>,
+<code>_forward</code> and <code>postprocess</code>. Don’t fill anything if the caller didn’t call with any extra parameter. That
+allows to keep the default arguments in the function definition which is always more “natural”.</p>
+<p>A classic example would be a <code>top_k</code> argument in the post processing in classification tasks.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->&gt;&gt;&gt; <span class="hljs-keyword">pipe</span> = pipeline(<span class="hljs-string">&quot;my-new-task&quot;</span>)
+&gt;&gt;&gt; <span class="hljs-keyword">pipe</span>(<span class="hljs-string">&quot;This is a test&quot;</span>)
+[{<span class="hljs-string">&quot;label&quot;</span>: <span class="hljs-string">&quot;1-star&quot;</span>, <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">0</span>.<span class="hljs-number">8</span>}, {<span class="hljs-string">&quot;label&quot;</span>: <span class="hljs-string">&quot;2-star&quot;</span>, <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">0</span>.<span class="hljs-number">1</span>}, {<span class="hljs-string">&quot;label&quot;</span>: <span class="hljs-string">&quot;3-star&quot;</span>, <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">0</span>.<span class="hljs-number">05</span>}
+{<span class="hljs-string">&quot;label&quot;</span>: <span class="hljs-string">&quot;4-star&quot;</span>, <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">0</span>.<span class="hljs-number">025</span>}, {<span class="hljs-string">&quot;label&quot;</span>: <span class="hljs-string">&quot;5-star&quot;</span>, <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">0</span>.<span class="hljs-number">025</span>}]
+
+&gt;&gt;&gt; <span class="hljs-keyword">pipe</span>(<span class="hljs-string">&quot;This is a test&quot;</span>, top_k=<span class="hljs-number">2</span>)
+[{<span class="hljs-string">&quot;label&quot;</span>: <span class="hljs-string">&quot;1-star&quot;</span>, <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">0</span>.<span class="hljs-number">8</span>}, {<span class="hljs-string">&quot;label&quot;</span>: <span class="hljs-string">&quot;2-star&quot;</span>, <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">0</span>.<span class="hljs-number">1</span>}]<!-- HTML_TAG_END --></pre></div>
+<p>In order to achieve that, we’ll update our <code>postprocess</code> method with a default parameter to <code>5</code>. and edit
+<code>_sanitize_parameters</code> to allow this new parameter.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">postprocess</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, model_outputs, top_k=<span class="hljs-number">5</span>)</span></span>:
+    best_class = model_outputs[<span class="hljs-string">&quot;logits&quot;</span>].softmax(-<span class="hljs-number">1</span>)
+    <span class="hljs-comment"># Add logic to handle top_k</span>
+    <span class="hljs-keyword">return</span> best_class
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_sanitize_parameters</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, **kwargs)</span></span>:
+    preprocess_kwargs = {}
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;maybe_arg&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-symbol">kwargs:</span>
+        preprocess_kwargs[<span class="hljs-string">&quot;maybe_arg&quot;</span>] = kwargs[<span class="hljs-string">&quot;maybe_arg&quot;</span>]
+
+    postprocess_kwargs = {}
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;top_k&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-symbol">kwargs:</span>
+        preprocess_kwargs[<span class="hljs-string">&quot;top_k&quot;</span>] = kwargs[<span class="hljs-string">&quot;top_k&quot;</span>]
+    <span class="hljs-keyword">return</span> preprocess_kwargs, {}, postprocess_kwargs<!-- HTML_TAG_END --></pre></div>
+<p>Try to keep the inputs/outputs very simple and ideally JSON-serializable as it makes the pipeline usage very easy
+without requiring users to understand new kind of objects. It’s also relatively common to support many different types
+of arguments for ease of use (audio files, can be filenames, URLs or pure bytes)</p>
+<h2 class="relative group"><a id="adding-it-to-the-list-of-supported-tasks" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#adding-it-to-the-list-of-supported-tasks"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Adding it to the list of supported tasks
+	</span></h2>
+
+<p>Go to <code>src/transformers/pipelines/__init__.py</code> and fill in <code>SUPPORTED_TASKS</code> with your newly created pipeline.
+If possible it should provide a default model.</p>
+<h2 class="relative group"><a id="adding-tests" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#adding-tests"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Adding tests
+	</span></h2>
+
+<p>Create a new file <code>tests/test_pipelines_MY_PIPELINE.py</code> with example with the other tests.</p>
+<p>The <code>run_pipeline_test</code> function will be very generic and run on small random models on every possible
+architecture as defined by <code>model_mapping</code> and <code>tf_model_mapping</code>.</p>
+<p>This is very important to test future compatibility, meaning if someone adds a new model for
+<code>XXXForQuestionAnswering</code> then the pipeline test will attempt to run on it. Because the models are random it’s
+impossible to check for actual values, that’s why There is a helper <code>ANY</code> that will simply attempt to match the
+output of the pipeline TYPE.</p>
+<p>You also <em>need</em> to implement 2 (ideally 4) tests.</p>
+<ul><li><code>test_small_model_pt</code> : Define 1 small model for this pipeline (doesn’t matter if the results don’t make sense)
+and test the pipeline outputs. The results should be the same as <code>test_small_model_tf</code>.</li>
+<li><code>test_small_model_tf</code> : Define 1 small model for this pipeline (doesn’t matter if the results don’t make sense)
+and test the pipeline outputs. The results should be the same as <code>test_small_model_pt</code>.</li>
+<li><code>test_large_model_pt</code> (<code>optional</code>): Tests the pipeline on a real pipeline where the results are supposed to
+make sense. These tests are slow and should be marked as such. Here the goal is to showcase the pipeline and to make
+sure there is no drift in future releases</li>
+<li><code>test_large_model_tf</code> (<code>optional</code>): Tests the pipeline on a real pipeline where the results are supposed to
+make sense. These tests are slow and should be marked as such. Here the goal is to showcase the pipeline and to make
+sure there is no drift in future releases</li></ul>
+
+
+		<script type="module" data-hydrate="12q2850">
+		import { start } from "/docs/transformers/master/_app/start-28598dc8.js";
+		start({
+			target: document.querySelector('[data-hydrate="12q2850"]').parentNode,
+			paths: {"base":"/docs/transformers/master","assets":"/docs/transformers/master"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/transformers/master/_app/layout.svelte-ba4f65ca.js"),
+						import("/docs/transformers/master/_app/pages/en/add_new_pipeline.mdx-339491cd.js")
+				],
+				url: new URL("http://sveltekit-prerender/docs/transformers/master/en/add_new_pipeline"),
+				params: {}
+			}
+		});
+	</script>
