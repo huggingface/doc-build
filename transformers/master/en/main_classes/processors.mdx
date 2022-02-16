@@ -60,14 +60,14 @@ Those processors inherit from the following base class that implements the savin
 
 <div class="docstring">
 
-<docstring><name>class transformers.ProcessorMixin</name><anchor>transformers.ProcessorMixin</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/processing_utils.py#L40</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters></docstring>
+<docstring><name>class transformers.ProcessorMixin</name><anchor>transformers.ProcessorMixin</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/processing_utils.py#L44</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters></docstring>
 
 This is a mixin used to provide saving/loading functionality for all processor classes.
 
 
 
 <div class="docstring">
-<docstring><name>from\_pretrained</name><anchor>transformers.ProcessorMixin.from_pretrained</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/processing_utils.py#L132</source><parameters>[{"name": "pretrained_model_name_or_path", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **pretrained_model_name_or_path** (`str` or `os.PathLike`) --
+<docstring><name>from\_pretrained</name><anchor>transformers.ProcessorMixin.from_pretrained</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/processing_utils.py#L157</source><parameters>[{"name": "pretrained_model_name_or_path", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **pretrained_model_name_or_path** (`str` or `os.PathLike`) --
   This can be either:
 
   - a string, the *model id* of a pretrained feature_extractor hosted inside a model repo on
@@ -98,7 +98,63 @@ methods above for more information.
 
 </div>
 <div class="docstring">
-<docstring><name>register\_for\_auto\_class</name><anchor>transformers.ProcessorMixin.register_for_auto_class</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/processing_utils.py#L165</source><parameters>[{"name": "auto_class", "val": " = 'AutoProcessor'"}]</parameters><paramsdesc>- **auto_class** (`str` or `type`, *optional*, defaults to `"AutoProcessor"`) --
+<docstring><name>push\_to\_hub</name><anchor>transformers.file_utils.PushToHubMixin.push_to_hub</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/file_utils.py#L2810</source><parameters>[{"name": "repo_path_or_name", "val": ": typing.Optional[str] = None"}, {"name": "repo_url", "val": ": typing.Optional[str] = None"}, {"name": "use_temp_dir", "val": ": bool = False"}, {"name": "commit_message", "val": ": typing.Optional[str] = None"}, {"name": "organization", "val": ": typing.Optional[str] = None"}, {"name": "private", "val": ": typing.Optional[bool] = None"}, {"name": "use_auth_token", "val": ": typing.Union[bool, str, NoneType] = None"}, {"name": "**model_card_kwargs", "val": ""}]</parameters><paramsdesc>- **repo_path_or_name** (`str`, *optional*) --
+  Can either be a repository name for your processor in the Hub or a path to a local folder (in which case
+  the repository will have the name of that local folder). If not specified, will default to the name
+  given by `repo_url` and a local directory with that name will be created.
+- **repo_url** (`str`, *optional*) --
+  Specify this in case you want to push to an existing repository in the hub. If unspecified, a new
+  repository will be created in your namespace (unless you specify an `organization`) with `repo_name`.
+- **use_temp_dir** (`bool`, *optional*, defaults to `False`) --
+  Whether or not to clone the distant repo in a temporary directory or in `repo_path_or_name` inside the
+  current working directory. This will slow things down if you are making changes in an existing repo
+  since you will need to clone the repo before every push.
+- **commit_message** (`str`, *optional*) --
+  Message to commit while pushing. Will default to `"add processor"`.
+- **organization** (`str`, *optional*) --
+  Organization in which you want to push your processor (you must be a member of this organization).
+- **private** (`bool`, *optional*) --
+  Whether or not the repository created should be private (requires a paying subscription).
+- **use_auth_token** (`bool` or `str`, *optional*) --
+  The token to use as HTTP bearer authorization for remote files. If `True`, will use the token generated
+  when running `transformers-cli login` (stored in `~/.huggingface`). Will default to `True` if
+  `repo_url` is not specified.</paramsdesc><paramgroups>0</paramgroups><rettype>`str`</rettype><retdesc>The url of the commit of your processor in the given repository.</retdesc></docstring>
+
+Upload the processor files to the 🤗 Model Hub while synchronizing a local clone of the repo in
+`repo_path_or_name`.
+
+
+
+
+
+
+
+Examples:
+
+```python
+from transformers import AutoProcessor
+
+processor = AutoProcessor.from_pretrained("bert-base-cased")
+
+# Push the processor to your namespace with the name "my-finetuned-bert" and have a local clone in the
+# *my-finetuned-bert* folder.
+processor.push_to_hub("my-finetuned-bert")
+
+# Push the processor to your namespace with the name "my-finetuned-bert" with no local clone.
+processor.push_to_hub("my-finetuned-bert", use_temp_dir=True)
+
+# Push the processor to an organization with the name "my-finetuned-bert" and have a local clone in the
+# *my-finetuned-bert* folder.
+processor.push_to_hub("my-finetuned-bert", organization="huggingface")
+
+# Make a change to an existing repo that has been cloned locally in *my-finetuned-bert*.
+processor.push_to_hub("my-finetuned-bert", repo_url="https://huggingface.co/sgugger/my-finetuned-bert")
+```
+
+
+</div>
+<div class="docstring">
+<docstring><name>register\_for\_auto\_class</name><anchor>transformers.ProcessorMixin.register_for_auto_class</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/processing_utils.py#L190</source><parameters>[{"name": "auto_class", "val": " = 'AutoProcessor'"}]</parameters><paramsdesc>- **auto_class** (`str` or `type`, *optional*, defaults to `"AutoProcessor"`) --
   The auto class to register this new feature extractor with.</paramsdesc><paramgroups>0</paramgroups></docstring>
 
 Register this class with a given auto class. This should only be used for custom feature extractors as the ones
@@ -115,9 +171,22 @@ This API is experimental and may have some slight breaking changes in the next r
 
 </div>
 <div class="docstring">
-<docstring><name>save\_pretrained</name><anchor>transformers.ProcessorMixin.save_pretrained</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/processing_utils.py#L91</source><parameters>[{"name": "save_directory", "val": ""}]</parameters><paramsdesc>- **save_directory** (`str` or `os.PathLike`) --
+<docstring><name>save\_pretrained</name><anchor>transformers.ProcessorMixin.save_pretrained</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/processing_utils.py#L95</source><parameters>[{"name": "save_directory", "val": ""}, {"name": "push_to_hub", "val": ": bool = False"}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **save_directory** (`str` or `os.PathLike`) --
   Directory where the feature extractor JSON file and the tokenizer files will be saved (directory will
-  be created if it does not exist).</paramsdesc><paramgroups>0</paramgroups></docstring>
+  be created if it does not exist).
+- **push_to_hub** (`bool`, *optional*, defaults to `False`) --
+  Whether or not to push your processor to the Hugging Face model hub after saving it.
+
+  <Tip warning=&amp;lcub;true}>
+
+  Using `push_to_hub=True` will synchronize the repository you are pushing to with `save_directory`,
+  which requires `save_directory` to be a local clone of the repo you are pushing to if it's an existing
+  folder. Pass along `temp_dir=True` to use a temporary directory instead.
+
+  </Tip>
+
+  kwargs --
+  Additional key word arguments passed along to the [push_to_hub()](/docs/transformers/master/en/main_classes/model#transformers.file_utils.PushToHubMixin.push_to_hub) method.</paramsdesc><paramgroups>0</paramgroups></docstring>
 
 Saves the attributes of this processor (feature extractor, tokenizer...) in the specified directory so that it
 can be reloaded using the [from_pretrained()](/docs/transformers/master/en/main_classes/processors#transformers.ProcessorMixin.from_pretrained) method.
