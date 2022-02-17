@@ -1,0 +1,398 @@
+---
+local: loading-methods
+sections:
+- local: datasets.list_datasets
+  title: Datasets
+- local: datasets.list_metrics
+  title: Metrics
+title: Loading methods
+---
+<script>
+import Tip from "./Tip.svelte";
+import Youtube from "./Youtube.svelte";
+import Docstring from "./Docstring.svelte";
+import CodeBlock from "./CodeBlock.svelte";
+import CodeBlockFwV2 from "./CodeBlockFwV2.svelte";
+import DocNotebookDropdown from "./DocNotebookDropdown.svelte";
+import IconCopyLink from "./IconCopyLink.svelte";
+export let fw: "pt" | "tf"
+</script>
+<h1 id="loading-methods">Loading methods</h1>
+
+Methods for listing and loading datasets and metrics:
+
+<h2 id="datasets.list_datasets">Datasets</h2>
+
+<div class="docstring">
+
+<docstring><name>datasets.list\_datasets</name><anchor>datasets.list_datasets</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/inspect.py#L44</source><parameters>[{"name": "with_community_datasets", "val": " = True"}, {"name": "with_details", "val": " = False"}]</parameters><paramsdesc>- **with_community_datasets** (`bool`, optional, default `True`) -- Include the community provided datasets.
+- **with_details** (`bool`, optional, default `False`) -- Return the full details on the datasets instead of only the short name.</paramsdesc><paramgroups>0</paramgroups></docstring>
+List all the datasets scripts available on the Hugging Face Hub.
+
+
+
+
+</div>
+
+<div class="docstring">
+
+<docstring><name>datasets.load\_dataset</name><anchor>datasets.load_dataset</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/load.py#L1569</source><parameters>[{"name": "path", "val": ": str"}, {"name": "name", "val": ": typing.Optional[str] = None"}, {"name": "data_dir", "val": ": typing.Optional[str] = None"}, {"name": "data_files", "val": ": typing.Union[str, typing.Sequence[str], typing.Mapping[str, typing.Union[str, typing.Sequence[str]]], NoneType] = None"}, {"name": "split", "val": ": typing.Union[str, datasets.splits.Split, NoneType] = None"}, {"name": "cache_dir", "val": ": typing.Optional[str] = None"}, {"name": "features", "val": ": typing.Optional[datasets.features.features.Features] = None"}, {"name": "download_config", "val": ": typing.Optional[datasets.utils.file_utils.DownloadConfig] = None"}, {"name": "download_mode", "val": ": typing.Optional[datasets.utils.download_manager.GenerateMode] = None"}, {"name": "ignore_verifications", "val": ": bool = False"}, {"name": "keep_in_memory", "val": ": typing.Optional[bool] = None"}, {"name": "save_infos", "val": ": bool = False"}, {"name": "revision", "val": ": typing.Union[str, datasets.utils.version.Version, NoneType] = None"}, {"name": "use_auth_token", "val": ": typing.Union[str, bool, NoneType] = None"}, {"name": "task", "val": ": typing.Union[str, datasets.tasks.base.TaskTemplate, NoneType] = None"}, {"name": "streaming", "val": ": bool = False"}, {"name": "script_version", "val": " = 'deprecated'"}, {"name": "**config_kwargs", "val": ""}]</parameters><paramsdesc>- **path** (`str`) -- Path or name of the dataset.
+  Depending on `path`, the dataset builder that is returned id either generic dataset builder (csv, json, text etc.) or a dataset builder defined defined a dataset script (a python file).
+
+  For local datasets:
+
+  - if `path` is a local directory (but doesn't contain a dataset script)
+    -> load a generic dataset builder (csv, json, text etc.) based on the content of the directory
+    e.g. `'./path/to/directory/with/my/csv/data'`.
+  - if `path` is a local dataset script or a directory containing a local dataset script (if the script has the same name as the directory):
+    -> load the dataset builder from the dataset script
+    e.g. `'./dataset/squad'` or `'./dataset/squad/squad.py'`.
+
+  For datasets on the Hugging Face Hub (list all available datasets and ids with `datasets.list_datasets()`)
+
+  - if `path` is a canonical dataset on the HF Hub (ex: *glue*, *squad*)
+    -> load the dataset builder from the dataset script in the github repository at huggingface/datasets
+    e.g. `'squad'` or `'glue'`.
+  - if `path` is a dataset repository on the HF hub (without a dataset script)
+    -> load a generic dataset builder (csv, text etc.) based on the content of the repository
+    e.g. `'username/dataset_name'`, a dataset repository on the HF hub containing your data files.
+  - if `path` is a dataset repository on the HF hub with a dataset script (if the script has the same name as the directory)
+    -> load the dataset builder from the dataset script in the dataset repository
+    e.g. `'username/dataset_name'`, a dataset repository on the HF hub containing a dataset script *'dataset_name.py'*.
+
+- **name** (`str`, optional) -- Defining the name of the dataset configuration.
+- **data_dir** (`str`, optional) -- Defining the data_dir of the dataset configuration.
+- **data_files** (`str` or `Sequence` or `Mapping`, optional) -- Path(s) to source data file(s).
+- **split** ([Split](/docs/datasets/master/en/package_reference/builder_classes#datasets.Split) or `str`) -- Which split of the data to load.
+  If None, will return a *dict* with all splits (typically *datasets.Split.TRAIN* and *datasets.Split.TEST*).
+  If given, will return a single Dataset.
+  Splits can be combined and specified like in tensorflow-datasets.
+- **cache_dir** (`str`, optional) -- Directory to read/write data. Defaults to "~/.cache/huggingface/datasets".
+- **features** ([Features](/docs/datasets/master/en/package_reference/main_classes#datasets.Features), optional) -- Set the features type to use for this dataset.
+- **download_config** ([DownloadConfig](/docs/datasets/master/en/package_reference/builder_classes#datasets.DownloadConfig), optional) -- Specific download configuration parameters.
+- **download_mode** ([GenerateMode](/docs/datasets/master/en/package_reference/builder_classes#datasets.GenerateMode), default `REUSE_DATASET_IF_EXISTS`) -- Download/generate mode.
+- **ignore_verifications** (`bool`, default `False`) -- Ignore the verifications of the downloaded/processed dataset information (checksums/size/splits/...).
+- **keep_in_memory** (`bool`, default `None`) -- Whether to copy the dataset in-memory. If *None*, the dataset
+  will not be copied in-memory unless explicitly enabled by setting *datasets.config.IN_MEMORY_MAX_SIZE* to
+  nonzero. See more details in the [load_dataset_enhancing_performance](/docs/datasets/master/en/package_reference/loading_methods#load_dataset_enhancing_performance) section.
+- **save_infos** (`bool`, default `False`) -- Save the dataset information (checksums/size/splits/...).
+- **revision** ([Version](/docs/datasets/master/en/package_reference/builder_classes#datasets.Version) or `str`, optional) -- Version of the dataset script to load:
+
+  - For canonical datasets in the *huggingface/datasets* library like "squad", the default version of the module is the local version of the lib.
+    You can specify a different version from your local version of the lib (e.g. "master" or "1.2.0") but it might cause compatibility issues.
+  - For community provided datasets like "lhoestq/squad" that have their own git repository on the Datasets Hub, the default version "main" corresponds to the "main" branch.
+    You can specify a different version that the default "main" by using a commit sha or a git tag of the dataset repository.
+- **use_auth_token** (`str` or `bool`, optional) -- Optional string or boolean to use as Bearer token for remote files on the Datasets Hub.
+  If True, will get token from *"~/.huggingface"*.
+- **task** (`str`) -- The task to prepare the dataset for during training and evaluation. Casts the dataset's [Features](/docs/datasets/master/en/package_reference/main_classes#datasets.Features) to standardized column names and types as detailed in :py:mod:*datasets.tasks*.
+- **streaming** (`bool`, default `False`) -- If set to True, don't download the data files. Instead, it streams the data progressively while
+  iterating on the dataset. An IterableDataset or IterableDatasetDict is returned instead in this case.
+
+  Note that streaming works for datasets that use data formats that support being iterated over like txt, csv, jsonl for example.
+  Json files may be downloaded completely. Also streaming from remote zip or gzip files is supported but other compressed formats
+  like rar and xz are not yet supported. The tgz format doesn't allow streaming.
+  script_version --
+deprecated,1.13
+'script_version' was renamed to 'revision' in version 1.13 and will be removed in 1.15.
+
+**config_kwargs -- Keyword arguments to be passed to the [BuilderConfig](/docs/datasets/master/en/package_reference/builder_classes#datasets.BuilderConfig) and used in the [DatasetBuilder](/docs/datasets/master/en/package_reference/builder_classes#datasets.DatasetBuilder).</paramsdesc><paramgroups>0</paramgroups><rettype>[Dataset](/docs/datasets/master/en/package_reference/main_classes#datasets.Dataset) or [DatasetDict](/docs/datasets/master/en/package_reference/main_classes#datasets.DatasetDict)</rettype><retdesc>- if *split* is not None: the dataset requested,
+- if *split* is None, a `datasets.DatasetDict` with each split.
+
+or [IterableDataset](/docs/datasets/master/en/package_reference/main_classes#datasets.IterableDataset) or [IterableDatasetDict](/docs/datasets/master/en/package_reference/main_classes#datasets.IterableDatasetDict): if streaming=True
+
+- if *split* is not None: the dataset requested,
+- if *split* is None, a `datasets.streaming.IterableDatasetDict` with each split.</retdesc></docstring>
+Load a dataset.
+
+This method does the following under the hood:
+
+1. Download and import in the library the dataset loading script from `path` if it's not already cached inside the library.
+
+   Processing scripts are small python scripts that define the citation, info and format of the dataset,
+   contain the URL to the original data files and the code to load examples from the original data files.
+
+   You can find some of the scripts here: https://github.com/huggingface/datasets/tree/master/datasets
+   and easily upload yours to share them using the CLI `huggingface-cli`.
+   You can find the complete list of datasets in the Datasets Hub at https://huggingface.co/datasets
+
+2. Run the dataset loading script which will:
+
+   - Download the dataset file from the original URL (see the script) if it's not already downloaded and cached.
+   - Process and cache the dataset in typed Arrow tables for caching.
+
+     Arrow table are arbitrarily long, typed tables which can store nested objects and be mapped to numpy/pandas/python standard types.
+     They can be directly accessed from drive, loaded in RAM or even streamed over the web.
+
+3. Return a dataset built from the requested splits in `split` (default: all).
+
+It also allows to load a dataset from a local directory or a dataset repository on the Hugging Face Hub without dataset script.
+In this case, it automatically loads all the data files from the directory or the dataset repository.
+
+
+
+
+
+
+
+
+</div>
+
+<div class="docstring">
+
+<docstring><name>datasets.load\_from\_disk</name><anchor>datasets.load_from_disk</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/load.py#L1745</source><parameters>[{"name": "dataset_path", "val": ": str"}, {"name": "fs", "val": " = None"}, {"name": "keep_in_memory", "val": ": typing.Optional[bool] = None"}]</parameters><paramsdesc>- **dataset_path** (`str`) -- Path (e.g. *"dataset/train"*) or remote URI (e.g.
+  *"s3://my-bucket/dataset/train"*) of the Dataset or DatasetDict directory where the dataset will be
+  loaded from.
+- **fs** (`S3FileSystem` or `fsspec.spec.AbstractFileSystem`, optional, default `None`) --
+  Instance of of the remote filesystem used to download the files from.
+- **keep_in_memory** (`bool`, default `None`) -- Whether to copy the dataset in-memory. If *None*, the dataset
+  will not be copied in-memory unless explicitly enabled by setting *datasets.config.IN_MEMORY_MAX_SIZE* to
+  nonzero. See more details in the [load_dataset_enhancing_performance](/docs/datasets/master/en/package_reference/loading_methods#load_dataset_enhancing_performance) section.</paramsdesc><paramgroups>0</paramgroups><rettype>[Dataset](/docs/datasets/master/en/package_reference/main_classes#datasets.Dataset) or [DatasetDict](/docs/datasets/master/en/package_reference/main_classes#datasets.DatasetDict)</rettype><retdesc>- If *dataset_path* is a path of a dataset directory: the dataset requested.
+- If *dataset_path* is a path of a dataset dict directory: a `datasets.DatasetDict` with each split.</retdesc></docstring>
+
+Loads a dataset that was previously saved using [Dataset.save_to_disk()](/docs/datasets/master/en/package_reference/main_classes#datasets.Dataset.save_to_disk) from a dataset directory, or
+from a filesystem using either `datasets.filesystems.S3FileSystem` or any implementation of
+`fsspec.spec.AbstractFileSystem`.
+
+
+
+
+
+
+
+
+</div>
+
+<div class="docstring">
+
+<docstring><name>datasets.load\_dataset\_builder</name><anchor>datasets.load_dataset_builder</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/load.py#L1456</source><parameters>[{"name": "path", "val": ": str"}, {"name": "name", "val": ": typing.Optional[str] = None"}, {"name": "data_dir", "val": ": typing.Optional[str] = None"}, {"name": "data_files", "val": ": typing.Union[str, typing.Sequence[str], typing.Mapping[str, typing.Union[str, typing.Sequence[str]]], NoneType] = None"}, {"name": "cache_dir", "val": ": typing.Optional[str] = None"}, {"name": "features", "val": ": typing.Optional[datasets.features.features.Features] = None"}, {"name": "download_config", "val": ": typing.Optional[datasets.utils.file_utils.DownloadConfig] = None"}, {"name": "download_mode", "val": ": typing.Optional[datasets.utils.download_manager.GenerateMode] = None"}, {"name": "revision", "val": ": typing.Union[str, datasets.utils.version.Version, NoneType] = None"}, {"name": "use_auth_token", "val": ": typing.Union[str, bool, NoneType] = None"}, {"name": "script_version", "val": " = 'deprecated'"}, {"name": "**config_kwargs", "val": ""}]</parameters><paramsdesc>- **path** (`str`) -- Path or name of the dataset.
+  Depending on `path`, the dataset builder that is returned id either generic dataset builder (csv, json, text etc.) or a dataset builder defined defined a dataset script (a python file).
+
+  For local datasets:
+
+  - if `path` is a local directory (but doesn't contain a dataset script)
+    -> load a generic dataset builder (csv, json, text etc.) based on the content of the directory
+    e.g. `'./path/to/directory/with/my/csv/data'`.
+  - if `path` is a local dataset script or a directory containing a local dataset script (if the script has the same name as the directory):
+    -> load the dataset builder from the dataset script
+    e.g. `'./dataset/squad'` or `'./dataset/squad/squad.py'`.
+
+  For datasets on the Hugging Face Hub (list all available datasets and ids with `datasets.list_datasets()`)
+
+  - if `path` is a canonical dataset on the HF Hub (ex: *glue*, *squad*)
+    -> load the dataset builder from the dataset script in the github repository at huggingface/datasets
+    e.g. `'squad'` or `'glue'`.
+  - if `path` is a dataset repository on the HF hub (without a dataset script)
+    -> load a generic dataset builder (csv, text etc.) based on the content of the repository
+    e.g. `'username/dataset_name'`, a dataset repository on the HF hub containing your data files.
+  - if `path` is a dataset repository on the HF hub with a dataset script (if the script has the same name as the directory)
+    -> load the dataset builder from the dataset script in the dataset repository
+    e.g. `'username/dataset_name'`, a dataset repository on the HF hub containing a dataset script *'dataset_name.py'*.
+
+
+- **name** (`str`, optional) -- Defining the name of the dataset configuration.
+- **data_dir** (`str`, optional) -- Defining the data_dir of the dataset configuration.
+- **data_files** (`str` or `Sequence` or `Mapping`, optional) -- Path(s) to source data file(s).
+- **cache_dir** (`str`, optional) -- Directory to read/write data. Defaults to "~/.cache/huggingface/datasets".
+- **features** ([Features](/docs/datasets/master/en/package_reference/main_classes#datasets.Features), optional) -- Set the features type to use for this dataset.
+- **download_config** ([DownloadConfig](/docs/datasets/master/en/package_reference/builder_classes#datasets.DownloadConfig), optional) -- Specific download configuration parameters.
+- **download_mode** ([GenerateMode](/docs/datasets/master/en/package_reference/builder_classes#datasets.GenerateMode), default `REUSE_DATASET_IF_EXISTS`) -- Download/generate mode.
+- **revision** ([Version](/docs/datasets/master/en/package_reference/builder_classes#datasets.Version) or `str`, optional) -- Version of the dataset script to load:
+
+  - For canonical datasets in the *huggingface/datasets* library like "squad", the default version of the module is the local version of the lib.
+    You can specify a different version from your local version of the lib (e.g. "master" or "1.2.0") but it might cause compatibility issues.
+  - For community provided datasets like "lhoestq/squad" that have their own git repository on the Datasets Hub, the default version "main" corresponds to the "main" branch.
+    You can specify a different version that the default "main" by using a commit sha or a git tag of the dataset repository.
+- **use_auth_token** (`str` or `bool`, optional) -- Optional string or boolean to use as Bearer token for remote files on the Datasets Hub.
+  If True, will get token from *"~/.huggingface"*.
+  script_version --
+deprecated,1.13
+'script_version' was renamed to 'revision' in version 1.13 and will be removed in 1.15.</paramsdesc><paramgroups>0</paramgroups><rettype>[DatasetBuilder](/docs/datasets/master/en/package_reference/builder_classes#datasets.DatasetBuilder)</rettype></docstring>
+Load a builder for the dataset. A dataset builder can be used to inspect general information that is required to build a dataset (cache directory, config, dataset info, etc.)
+without downloading the dataset itself.
+
+This method will download and import the dataset loading script from `path` if it's not already cached inside the library.
+
+
+
+
+
+
+
+
+</div>
+
+<div class="docstring">
+
+<docstring><name>datasets.get\_dataset\_config\_names</name><anchor>datasets.get_dataset_config_names</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/inspect.py#L174</source><parameters>[{"name": "path", "val": ": str"}, {"name": "revision", "val": ": typing.Union[str, datasets.utils.version.Version, NoneType] = None"}, {"name": "download_config", "val": ": typing.Optional[datasets.utils.file_utils.DownloadConfig] = None"}, {"name": "download_mode", "val": ": typing.Optional[datasets.utils.download_manager.GenerateMode] = None"}, {"name": "force_local_path", "val": ": typing.Optional[str] = None"}, {"name": "dynamic_modules_path", "val": ": typing.Optional[str] = None"}, {"name": "data_files", "val": ": typing.Union[str, typing.List, typing.Dict, NoneType] = None"}, {"name": "**download_kwargs", "val": ""}]</parameters><paramsdesc>- **path** (`str`) -- path to the dataset processing script with the dataset builder. Can be either:
+
+  - a local path to processing script or the directory containing the script (if the script has the same name as the directory),
+    e.g. `'./dataset/squad'` or `'./dataset/squad/squad.py'`
+  - a dataset identifier on the Hugging Face Hub (list all available datasets and ids with `datasets.list_datasets()`)
+    e.g. `'squad'`, `'glue'` or `'openai/webtext'`
+- **revision** (Optional `Union[str, datasets.Version]`) --
+  If specified, the dataset module will be loaded from the datasets repository at this version.
+  By default:
+  - it is set to the local version of the lib.
+  - it will also try to load it from the master branch if it's not available at the local version of the lib.
+  Specifying a version that is different from your local version of the lib might cause compatibility issues.
+- **download_config** ([DownloadConfig](/docs/datasets/master/en/package_reference/builder_classes#datasets.DownloadConfig), optional) -- Specific download configuration parameters.
+- **download_mode** ([GenerateMode](/docs/datasets/master/en/package_reference/builder_classes#datasets.GenerateMode), default `REUSE_DATASET_IF_EXISTS`) -- Download/generate mode.
+- **force_local_path** (Optional str) -- Optional path to a local path to download and prepare the script to.
+  Used to inspect or modify the script folder.
+- **dynamic_modules_path** (Optional str, defaults to HF_MODULES_CACHE / "datasets_modules", i.e. ~/.cache/huggingface/modules/datasets_modules) --
+  Optional path to the directory in which the dynamic modules are saved. It must have been initialized with `init_dynamic_modules`.
+  By default the datasets and metrics are stored inside the *datasets_modules* module.
+- **data_files** (`Union[Dict, List, str]`, optional) -- Defining the data_files of the dataset configuration.
+  download_kwargs -- optional attributes for DownloadConfig() which will override the attributes in download_config if supplied,
+  for example `use_auth_token`</paramsdesc><paramgroups>0</paramgroups></docstring>
+Get the list of available config names for a particular dataset.
+
+
+
+
+</div>
+
+<div class="docstring">
+
+<docstring><name>datasets.get\_dataset\_infos</name><anchor>datasets.get_dataset_infos</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/inspect.py#L124</source><parameters>[{"name": "path", "val": ": str"}, {"name": "revision", "val": ": typing.Union[str, datasets.utils.version.Version, NoneType] = None"}, {"name": "download_config", "val": ": typing.Optional[datasets.utils.file_utils.DownloadConfig] = None"}, {"name": "download_mode", "val": ": typing.Optional[datasets.utils.download_manager.GenerateMode] = None"}, {"name": "force_local_path", "val": ": typing.Optional[str] = None"}, {"name": "dynamic_modules_path", "val": ": typing.Optional[str] = None"}, {"name": "data_files", "val": ": typing.Union[str, typing.List, typing.Dict, NoneType] = None"}, {"name": "**download_kwargs", "val": ""}]</parameters><paramsdesc>- **path** (`str`) -- path to the dataset processing script with the dataset builder. Can be either:
+
+  - a local path to processing script or the directory containing the script (if the script has the same name as the directory),
+    e.g. `'./dataset/squad'` or `'./dataset/squad/squad.py'`
+  - a dataset identifier on the Hugging Face Hub (list all available datasets and ids with `datasets.list_datasets()`)
+    e.g. `'squad'`, `'glue'` or `'openai/webtext'`
+- **revision** (Optional `Union[str, datasets.Version]`) --
+  If specified, the dataset module will be loaded from the datasets repository at this version.
+  By default:
+  - it is set to the local version of the lib.
+  - it will also try to load it from the master branch if it's not available at the local version of the lib.
+  Specifying a version that is different from your local version of the lib might cause compatibility issues.
+- **download_config** ([DownloadConfig](/docs/datasets/master/en/package_reference/builder_classes#datasets.DownloadConfig), optional) -- Specific download configuration parameters.
+- **download_mode** ([GenerateMode](/docs/datasets/master/en/package_reference/builder_classes#datasets.GenerateMode), default `REUSE_DATASET_IF_EXISTS`) -- Download/generate mode.
+- **force_local_path** (Optional str) -- Optional path to a local path to download and prepare the script to.
+  Used to inspect or modify the script folder.
+- **dynamic_modules_path** (Optional str, defaults to HF_MODULES_CACHE / "datasets_modules", i.e. ~/.cache/huggingface/modules/datasets_modules) --
+  Optional path to the directory in which the dynamic modules are saved. It must have been initialized with `init_dynamic_modules`.
+  By default the datasets and metrics are stored inside the *datasets_modules* module.
+- **data_files** (`Union[Dict, List, str]`, optional) -- Defining the data_files of the dataset configuration.
+  download_kwargs -- optional attributes for DownloadConfig() which will override the attributes in download_config if supplied,
+  for example `use_auth_token`</paramsdesc><paramgroups>0</paramgroups></docstring>
+Get the meta information about a dataset, returned as a dict mapping config name to DatasetInfoDict.
+
+
+
+
+</div>
+
+<div class="docstring">
+
+<docstring><name>datasets.get\_dataset\_split\_names</name><anchor>datasets.get_dataset_split_names</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/inspect.py#L224</source><parameters>[{"name": "path", "val": ": str"}, {"name": "config_name", "val": ": typing.Optional[str] = None"}, {"name": "data_dir", "val": ": typing.Optional[str] = None"}, {"name": "data_files", "val": ": typing.Union[str, typing.Sequence[str], typing.Mapping[str, typing.Union[str, typing.Sequence[str]]], NoneType] = None"}, {"name": "cache_dir", "val": ": typing.Optional[str] = None"}, {"name": "features", "val": ": typing.Optional[datasets.features.features.Features] = None"}, {"name": "download_config", "val": ": typing.Optional[datasets.utils.file_utils.DownloadConfig] = None"}, {"name": "download_mode", "val": ": typing.Optional[datasets.utils.download_manager.GenerateMode] = None"}, {"name": "revision", "val": ": typing.Union[str, datasets.utils.version.Version, NoneType] = None"}, {"name": "use_auth_token", "val": ": typing.Union[str, bool, NoneType] = None"}, {"name": "**config_kwargs", "val": ""}]</parameters><paramsdesc>- **path** (`str`) -- path to the dataset processing script with the dataset builder. Can be either:
+
+  - a local path to processing script or the directory containing the script (if the script has the same name as the directory),
+    e.g. `'./dataset/squad'` or `'./dataset/squad/squad.py'`
+  - a dataset identifier on the Hugging Face Hub (list all available datasets and ids with `datasets.list_datasets()`)
+    e.g. `'squad'`, `'glue'` or `'openai/webtext'`
+- **config_name** (`str`, optional) -- Defining the name of the dataset configuration.
+- **data_dir** (`str`, optional) -- Defining the data_dir of the dataset configuration.
+- **data_files** (`str` or `Sequence` or `Mapping`, optional) -- Path(s) to source data file(s).
+- **cache_dir** (`str`, optional) -- Directory to read/write data. Defaults to "~/.cache/huggingface/datasets".
+- **features** ([Features](/docs/datasets/master/en/package_reference/main_classes#datasets.Features), optional) -- Set the features type to use for this dataset.
+- **download_config** ([DownloadConfig](/docs/datasets/master/en/package_reference/builder_classes#datasets.DownloadConfig), optional) -- Specific download configuration parameters.
+- **download_mode** ([GenerateMode](/docs/datasets/master/en/package_reference/builder_classes#datasets.GenerateMode), default `REUSE_DATASET_IF_EXISTS`) -- Download/generate mode.
+- **revision** ([Version](/docs/datasets/master/en/package_reference/builder_classes#datasets.Version) or `str`, optional) -- Version of the dataset script to load:
+
+  - For canonical datasets in the *huggingface/datasets* library like "squad", the default version of the module is the local version of the lib.
+    You can specify a different version from your local version of the lib (e.g. "master" or "1.2.0") but it might cause compatibility issues.
+  - For community provided datasets like "lhoestq/squad" that have their own git repository on the Datasets Hub, the default version "main" corresponds to the "main" branch.
+    You can specify a different version that the default "main" by using a commit sha or a git tag of the dataset repository.
+- **use_auth_token** (`str` or `bool`, optional) -- Optional string or boolean to use as Bearer token for remote files on the Datasets Hub.
+  If True, will get token from *"~/.huggingface"*.
+  config_kwargs -- optional attributes for builder class which will override the attributes if supplied.</paramsdesc><paramgroups>0</paramgroups></docstring>
+Get the list of available splits for a particular config and dataset.
+
+
+
+
+</div>
+
+<div class="docstring">
+
+<docstring><name>datasets.inspect\_dataset</name><anchor>datasets.inspect_dataset</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/inspect.py#L74</source><parameters>[{"name": "path", "val": ": str"}, {"name": "local_path", "val": ": str"}, {"name": "download_config", "val": ": typing.Optional[datasets.utils.file_utils.DownloadConfig] = None"}, {"name": "**download_kwargs", "val": ""}]</parameters><paramsdesc>- **path** (`str`) -- path to the dataset processing script with the dataset builder. Can be either:
+
+  - a local path to processing script or the directory containing the script (if the script has the same name as the directory),
+    e.g. `'./dataset/squad'` or `'./dataset/squad/squad.py'`
+  - a dataset identifier on the Hugging Face Hub (list all available datasets and ids with `datasets.list_datasets()`)
+    e.g. `'squad'`, `'glue'` or `'openai/webtext'`
+- **local_path** (`str`) -- path to the local folder to copy the datset script to.
+- **download_config** (Optional `datasets.DownloadConfig` -- specific download configuration parameters.
+  **download_kwargs -- optional attributes for DownloadConfig() which will override the attributes in download_config if supplied.</paramsdesc><paramgroups>0</paramgroups></docstring>
+
+Allow inspection/modification of a dataset script by copying on local drive at local_path.
+
+
+
+
+</div>
+
+<h2 id="datasets.list_metrics">Metrics</h2>
+
+<div class="docstring">
+
+<docstring><name>datasets.list\_metrics</name><anchor>datasets.list_metrics</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/inspect.py#L59</source><parameters>[{"name": "with_community_metrics", "val": " = True"}, {"name": "with_details", "val": " = False"}]</parameters><paramsdesc>- **with_community_metrics** (Optional `bool`, default `True`) -- Include the community provided metrics.
+- **with_details** (Optional `bool`, default `False`) -- Return the full details on the metrics instead of only the short name.</paramsdesc><paramgroups>0</paramgroups></docstring>
+List all the metrics script available on the Hugging Face Hub.
+
+
+
+
+</div>
+
+<div class="docstring">
+
+<docstring><name>datasets.load\_metric</name><anchor>datasets.load_metric</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/load.py#L1388</source><parameters>[{"name": "path", "val": ": str"}, {"name": "config_name", "val": ": typing.Optional[str] = None"}, {"name": "process_id", "val": ": int = 0"}, {"name": "num_process", "val": ": int = 1"}, {"name": "cache_dir", "val": ": typing.Optional[str] = None"}, {"name": "experiment_id", "val": ": typing.Optional[str] = None"}, {"name": "keep_in_memory", "val": ": bool = False"}, {"name": "download_config", "val": ": typing.Optional[datasets.utils.file_utils.DownloadConfig] = None"}, {"name": "download_mode", "val": ": typing.Optional[datasets.utils.download_manager.GenerateMode] = None"}, {"name": "revision", "val": ": typing.Union[str, datasets.utils.version.Version, NoneType] = None"}, {"name": "script_version", "val": " = 'deprecated'"}, {"name": "**metric_init_kwargs", "val": ""}]</parameters><paramsdesc>- **path** (`str`) --
+  path to the metric processing script with the metric builder. Can be either:
+  - a local path to processing script or the directory containing the script (if the script has the same name as the directory),
+    e.g. `'./metrics/rouge'` or `'./metrics/rogue/rouge.py'`
+  - a metric identifier on the HuggingFace datasets repo (list all available metrics with `datasets.list_metrics()`)
+    e.g. `'rouge'` or `'bleu'`
+- **config_name** (Optional `str`) -- selecting a configuration for the metric (e.g. the GLUE metric has a configuration for each subset)
+- **process_id** (Optional `int`) -- for distributed evaluation: id of the process
+- **num_process** (Optional `int`) -- for distributed evaluation: total number of processes
+- **cache_dir** (Optional str) -- path to store the temporary predictions and references (default to *~/.cache/huggingface/metrics/*)
+- **experiment_id** (`str`) -- A specific experiment id. This is used if several distributed evaluations share the same file system.
+  This is useful to compute metrics in distributed setups (in particular non-additive metrics like F1).
+- **keep_in_memory** (bool) -- Whether to store the temporary results in memory (defaults to False)
+- **download_config** (Optional `datasets.DownloadConfig` -- specific download configuration parameters.
+- **download_mode** ([GenerateMode](/docs/datasets/master/en/package_reference/builder_classes#datasets.GenerateMode), default `REUSE_DATASET_IF_EXISTS`) -- Download/generate mode.
+- **revision** (Optional `Union[str, datasets.Version]`) -- if specified, the module will be loaded from the datasets repository
+  at this version. By default it is set to the local version of the lib. Specifying a version that is different from
+  your local version of the lib might cause compatibility issues.
+  script_version --
+deprecated,1.13
+'script_version' was renamed to 'revision' in version 1.13 and will be removed in 1.15.</paramsdesc><paramgroups>0</paramgroups><retdesc>*datasets.Metric*</retdesc></docstring>
+Load a *datasets.Metric*.
+
+
+
+
+
+
+</div>
+
+<div class="docstring">
+
+<docstring><name>datasets.inspect\_metric</name><anchor>datasets.inspect_metric</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/inspect.py#L99</source><parameters>[{"name": "path", "val": ": str"}, {"name": "local_path", "val": ": str"}, {"name": "download_config", "val": ": typing.Optional[datasets.utils.file_utils.DownloadConfig] = None"}, {"name": "**download_kwargs", "val": ""}]</parameters><paramsdesc>- **path** (`str`) -- path to the dataset processing script with the dataset builder. Can be either:
+
+  - a local path to processing script or the directory containing the script (if the script has the same name as the directory),
+    e.g. `'./dataset/squad'` or `'./dataset/squad/squad.py'`
+  - a dataset identifier on the Hugging Face Hub (list all available datasets and ids with `datasets.list_datasets()`)
+    e.g. `'squad'`, `'glue'` or `'openai/webtext'`
+- **local_path** (`str`) -- path to the local folder to copy the datset script to.
+- **download_config** (Optional `datasets.DownloadConfig` -- specific download configuration parameters.
+  **download_kwargs -- optional attributes for DownloadConfig() which will override the attributes in download_config if supplied.</paramsdesc><paramgroups>0</paramgroups></docstring>
+
+Allow inspection/modification of a metric script by copying it on local drive at local_path.
+
+
+
+
+</div>

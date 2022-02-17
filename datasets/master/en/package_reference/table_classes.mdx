@@ -1,0 +1,1423 @@
+---
+local: datasets.table.Table
+title: Table Classes
+---
+<script>
+import Tip from "./Tip.svelte";
+import Youtube from "./Youtube.svelte";
+import Docstring from "./Docstring.svelte";
+import CodeBlock from "./CodeBlock.svelte";
+import CodeBlockFwV2 from "./CodeBlockFwV2.svelte";
+import DocNotebookDropdown from "./DocNotebookDropdown.svelte";
+import IconCopyLink from "./IconCopyLink.svelte";
+export let fw: "pt" | "tf"
+</script>
+<h1 id="datasets.table.Table">Table Classes</h1>
+
+Each `datasets.Dataset` object is backed by a PyArrow Table.
+A Table can be loaded from either the disk (memory mapped) or in memory.
+Several Table types are available, and they all inherit from [datasets.table.Table](/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table).
+
+
+<div class="docstring">
+
+<docstring><name>class datasets.table.Table</name><anchor>datasets.table.Table</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L153</source><parameters>[{"name": "table", "val": ": Table"}]</parameters></docstring>
+
+Wraps a pyarrow Table by using composition.
+This is the base class for InMemoryTable, MemoryMappedTable and ConcatenationTable.
+
+It implements all the basic attributes/methods of the pyarrow Table class except
+the Table transforms: slice, filter, flatten, combine_chunks, cast, add_column,
+append_column, remove_column, set_column, rename_columns and drop.
+
+The implementation of these methods differs for the subclasses.
+
+
+
+<div class="docstring">
+<docstring><name>validate</name><anchor>datasets.table.Table.validate</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L204</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>full -- bool, default False If True, run expensive checks, otherwise cheap checks only.</paramsdesc><paramgroups>0</paramgroups><raises>- *ArrowInvalid* --</raises><raisederrors>*ArrowInvalid*</raisederrors></docstring>
+Perform validation checks.  An exception is raised if validation fails.
+
+By default only cheap validation checks are run.  Pass *full=True* for thorough validation checks (potentially O(n)).
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>equals</name><anchor>datasets.table.Table.equals</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L208</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **other** (`Table`) -- Table to compare against.
+- **check_metadata** (`bool`, defaults to `False`) -- Whether schema metadata equality should be checked as well.</paramsdesc><paramgroups>0</paramgroups><rettype>`bool`</rettype></docstring>
+Check if contents of two tables are equal.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_batches</name><anchor>datasets.table.Table.to_batches</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L214</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **max_chunksize** (`int`, defaults to `None`) -- Maximum size for RecordBatch chunks. Individual chunks may be smaller depending on the chunk layout of individual columns.</paramsdesc><paramgroups>0</paramgroups><retdesc>`list of RecordBatch`</retdesc></docstring>
+Convert Table to list of (contiguous) RecordBatch objects.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_pydict</name><anchor>datasets.table.Table.to_pydict</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L218</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><rettype>`dict`</rettype></docstring>
+Convert the Table to a dict or OrderedDict.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_pandas</name><anchor>datasets.table.Table.to_pandas</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L222</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **memory_pool** (`MemoryPool`, defaults to `None`) -- Arrow MemoryPool to use for allocations. Uses the default memory pool is not passed.
+- **strings_to_categorical** (`bool`, defaults to `False`) -- Encode string (UTF8) and binary types to pandas.Categorical.
+  categories -- list, default empty List of fields that should be returned as pandas.Categorical. Only applies to table-like data structures.
+- **zero_copy_only** (`bool`, defaults to `False`) -- Raise an ArrowException if this function call would require copying the underlying data.
+- **integer_object_nulls** (`bool`, defaults to `False`) -- Cast integers with nulls to objects
+- **date_as_object** (`bool`, defaults to `True`) -- Cast dates to objects. If False, convert to datetime64[ns] dtype.
+- **timestamp_as_object** (`bool`, defaults to `False`) -- Cast non-nanosecond timestamps (np.datetime64) to objects. This is useful if you have timestamps that don't fit in the normal date range of nanosecond timestamps (1678 CE-2262 CE). If False, all timestamps are converted to datetime64[ns] dtype.
+  use_threads -- bool, default True Whether to parallelize the conversion using multiple threads.
+- **deduplicate_objects** (`bool`, defaults to `False`) -- Do not create multiple copies Python objects when created, to save on memory use. Conversion will be slower.
+- **ignore_metadata** (`bool`, defaults to `False`) -- If True, do not use the 'pandas' metadata to reconstruct the DataFrame index, if present
+- **safe** (`bool`, defaults to `True`) -- For certain data types, a cast is needed in order to store the data in a pandas DataFrame or Series (e.g. timestamps are always stored as nanoseconds in pandas). This option controls whether it is a safe cast or not.
+- **split_blocks** (`bool`, defaults to `False`) -- If True, generate one internal "block" for each column when creating a pandas.DataFrame from a RecordBatch or Table. While this can temporarily reduce memory note that various pandas operations can trigger "consolidation" which may balloon memory use.
+- **self_destruct** (`bool`, defaults to `False`) -- EXPERIMENTAL: If True, attempt to deallocate the originating Arrow memory while converting the Arrow object to pandas. If you use the object after calling to_pandas with this option it will crash your program. Note that you may not see always memory usage improvements. For example, if multiple columns share an underlying allocation, memory can't be freed until all columns are converted.
+- **types_mapper** (`function`, defaults to `None`) -- A function mapping a pyarrow DataType to a pandas ExtensionDtype. This can be used to override the default pandas type for conversion of built-in pyarrow types or in absence of pandas_metadata in the Table schema. The function receives a pyarrow DataType and is expected to return a pandas ExtensionDtype or `None` if the default conversion should be used for that type. If you have a dictionary mapping, you can pass `dict.get` as function.</paramsdesc><paramgroups>0</paramgroups><retdesc>`pandas.Series or pandas.DataFrame depending on type of object`</retdesc></docstring>
+Convert to a pandas-compatible NumPy array or DataFrame, as appropriate
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_string</name><anchor>datasets.table.Table.to_string</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L226</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters></docstring>
+
+
+</div>
+<div class="docstring">
+<docstring><name>field</name><anchor>datasets.table.Table.field</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L229</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (int or `string`) -- The index or name of the field to retrieve.</paramsdesc><paramgroups>0</paramgroups><rettype>`Field`</rettype></docstring>
+Select a schema field by its column name or numeric index.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>column</name><anchor>datasets.table.Table.column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L233</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (int or `string`) -- The index or name of the column to retrieve.</paramsdesc><paramgroups>0</paramgroups><rettype>`ChunkedArray`</rettype></docstring>
+Select a column by its column name, or numeric index.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>itercolumns</name><anchor>datasets.table.Table.itercolumns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L237</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><yieldtype>`ChunkedArray`</yieldtype></docstring>
+Iterator over all columns in their numerical order.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>schema</name><anchor>datasets.table.Table.schema</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L241</source><parameters>[]</parameters><rettype>`Schema`</rettype></docstring>
+Schema of the table and its columns.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>columns</name><anchor>datasets.table.Table.columns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L246</source><parameters>[]</parameters><retdesc>`list of ChunkedArray`</retdesc></docstring>
+List of all columns in numerical order.
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>num\_columns</name><anchor>datasets.table.Table.num_columns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L251</source><parameters>[]</parameters><rettype>`int`</rettype></docstring>
+Number of columns in this table.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>num\_rows</name><anchor>datasets.table.Table.num_rows</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L256</source><parameters>[]</parameters><rettype>`int`</rettype></docstring>
+Number of rows in this table.
+
+Due to the definition of a table, all columns have the same number of rows.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>shape</name><anchor>datasets.table.Table.shape</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L261</source><parameters>[]</parameters><rettype>`(int, int)`</rettype><retdesc>Number of rows and number of columns.</retdesc></docstring>
+Dimensions of the table: (#rows, #columns).
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>nbytes</name><anchor>datasets.table.Table.nbytes</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L266</source><parameters>[]</parameters><rettype>`int`</rettype></docstring>
+Total number of bytes consumed by the elements of the table.
+
+
+
+
+
+
+</div></div>
+
+<div class="docstring">
+
+<docstring><name>class datasets.table.InMemoryTable</name><anchor>datasets.table.InMemoryTable</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L362</source><parameters>[{"name": "table", "val": ": Table"}]</parameters></docstring>
+
+The table is said in-memory when it is loaded into the user's RAM.
+
+Pickling it does copy all the data using memory.
+Its implementation is simple and uses the underlying pyarrow Table methods directly.
+
+This is different from the MemoryMapped table, for which pickling doesn't copy all the
+data in memory. For a MemoryMapped, unpickling instead reloads the table from the disk.
+
+InMemoryTable must be used when data fit in memory, while MemoryMapped are reserved for
+data bigger than memory or when you want the memory footprint of your application to
+stay low.
+
+
+
+<div class="docstring">
+<docstring><name>validate</name><anchor>datasets.table.Table.validate</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L204</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>full -- bool, default False If True, run expensive checks, otherwise cheap checks only.</paramsdesc><paramgroups>0</paramgroups><raises>- *ArrowInvalid* --</raises><raisederrors>*ArrowInvalid*</raisederrors></docstring>
+Perform validation checks.  An exception is raised if validation fails.
+
+By default only cheap validation checks are run.  Pass *full=True* for thorough validation checks (potentially O(n)).
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>equals</name><anchor>datasets.table.Table.equals</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L208</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **other** (`Table`) -- Table to compare against.
+- **check_metadata** (`bool`, defaults to `False`) -- Whether schema metadata equality should be checked as well.</paramsdesc><paramgroups>0</paramgroups><rettype>`bool`</rettype></docstring>
+Check if contents of two tables are equal.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_batches</name><anchor>datasets.table.Table.to_batches</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L214</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **max_chunksize** (`int`, defaults to `None`) -- Maximum size for RecordBatch chunks. Individual chunks may be smaller depending on the chunk layout of individual columns.</paramsdesc><paramgroups>0</paramgroups><retdesc>`list of RecordBatch`</retdesc></docstring>
+Convert Table to list of (contiguous) RecordBatch objects.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_pydict</name><anchor>datasets.table.Table.to_pydict</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L218</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><rettype>`dict`</rettype></docstring>
+Convert the Table to a dict or OrderedDict.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_pandas</name><anchor>datasets.table.Table.to_pandas</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L222</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **memory_pool** (`MemoryPool`, defaults to `None`) -- Arrow MemoryPool to use for allocations. Uses the default memory pool is not passed.
+- **strings_to_categorical** (`bool`, defaults to `False`) -- Encode string (UTF8) and binary types to pandas.Categorical.
+  categories -- list, default empty List of fields that should be returned as pandas.Categorical. Only applies to table-like data structures.
+- **zero_copy_only** (`bool`, defaults to `False`) -- Raise an ArrowException if this function call would require copying the underlying data.
+- **integer_object_nulls** (`bool`, defaults to `False`) -- Cast integers with nulls to objects
+- **date_as_object** (`bool`, defaults to `True`) -- Cast dates to objects. If False, convert to datetime64[ns] dtype.
+- **timestamp_as_object** (`bool`, defaults to `False`) -- Cast non-nanosecond timestamps (np.datetime64) to objects. This is useful if you have timestamps that don't fit in the normal date range of nanosecond timestamps (1678 CE-2262 CE). If False, all timestamps are converted to datetime64[ns] dtype.
+  use_threads -- bool, default True Whether to parallelize the conversion using multiple threads.
+- **deduplicate_objects** (`bool`, defaults to `False`) -- Do not create multiple copies Python objects when created, to save on memory use. Conversion will be slower.
+- **ignore_metadata** (`bool`, defaults to `False`) -- If True, do not use the 'pandas' metadata to reconstruct the DataFrame index, if present
+- **safe** (`bool`, defaults to `True`) -- For certain data types, a cast is needed in order to store the data in a pandas DataFrame or Series (e.g. timestamps are always stored as nanoseconds in pandas). This option controls whether it is a safe cast or not.
+- **split_blocks** (`bool`, defaults to `False`) -- If True, generate one internal "block" for each column when creating a pandas.DataFrame from a RecordBatch or Table. While this can temporarily reduce memory note that various pandas operations can trigger "consolidation" which may balloon memory use.
+- **self_destruct** (`bool`, defaults to `False`) -- EXPERIMENTAL: If True, attempt to deallocate the originating Arrow memory while converting the Arrow object to pandas. If you use the object after calling to_pandas with this option it will crash your program. Note that you may not see always memory usage improvements. For example, if multiple columns share an underlying allocation, memory can't be freed until all columns are converted.
+- **types_mapper** (`function`, defaults to `None`) -- A function mapping a pyarrow DataType to a pandas ExtensionDtype. This can be used to override the default pandas type for conversion of built-in pyarrow types or in absence of pandas_metadata in the Table schema. The function receives a pyarrow DataType and is expected to return a pandas ExtensionDtype or `None` if the default conversion should be used for that type. If you have a dictionary mapping, you can pass `dict.get` as function.</paramsdesc><paramgroups>0</paramgroups><retdesc>`pandas.Series or pandas.DataFrame depending on type of object`</retdesc></docstring>
+Convert to a pandas-compatible NumPy array or DataFrame, as appropriate
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_string</name><anchor>datasets.table.Table.to_string</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L226</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters></docstring>
+
+
+</div>
+<div class="docstring">
+<docstring><name>field</name><anchor>datasets.table.Table.field</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L229</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (int or `string`) -- The index or name of the field to retrieve.</paramsdesc><paramgroups>0</paramgroups><rettype>`Field`</rettype></docstring>
+Select a schema field by its column name or numeric index.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>column</name><anchor>datasets.table.Table.column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L233</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (int or `string`) -- The index or name of the column to retrieve.</paramsdesc><paramgroups>0</paramgroups><rettype>`ChunkedArray`</rettype></docstring>
+Select a column by its column name, or numeric index.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>itercolumns</name><anchor>datasets.table.Table.itercolumns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L237</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><yieldtype>`ChunkedArray`</yieldtype></docstring>
+Iterator over all columns in their numerical order.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>schema</name><anchor>datasets.table.Table.schema</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L241</source><parameters>[]</parameters><rettype>`Schema`</rettype></docstring>
+Schema of the table and its columns.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>columns</name><anchor>datasets.table.Table.columns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L246</source><parameters>[]</parameters><retdesc>`list of ChunkedArray`</retdesc></docstring>
+List of all columns in numerical order.
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>num\_columns</name><anchor>datasets.table.Table.num_columns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L251</source><parameters>[]</parameters><rettype>`int`</rettype></docstring>
+Number of columns in this table.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>num\_rows</name><anchor>datasets.table.Table.num_rows</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L256</source><parameters>[]</parameters><rettype>`int`</rettype></docstring>
+Number of rows in this table.
+
+Due to the definition of a table, all columns have the same number of rows.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>shape</name><anchor>datasets.table.Table.shape</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L261</source><parameters>[]</parameters><rettype>`(int, int)`</rettype><retdesc>Number of rows and number of columns.</retdesc></docstring>
+Dimensions of the table: (#rows, #columns).
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>nbytes</name><anchor>datasets.table.Table.nbytes</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L266</source><parameters>[]</parameters><rettype>`int`</rettype></docstring>
+Total number of bytes consumed by the elements of the table.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>column\_names</name><anchor>datasets.table.Table.column_names</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L271</source><parameters>[]</parameters><retdesc>`list of str`</retdesc></docstring>
+Names of the table's columns.
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>slice</name><anchor>datasets.table.InMemoryTable.slice</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L407</source><parameters>[{"name": "offset", "val": " = 0"}, {"name": "length", "val": " = None"}]</parameters><paramsdesc>- **offset** (`int`, defaults to 0) -- Offset from start of table to slice.
+- **length** (`int`, defaults to `None`) -- Length of slice (default is until end of table starting from offset).</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Compute zero-copy slice of this Table.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>filter</name><anchor>datasets.table.InMemoryTable.filter</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L412</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters></docstring>
+Table.filter(self, mask, null_selection_behavior=u'drop')
+
+Select records from a Table. See `pyarrow.compute.filter()`for
+full usage.
+
+
+</div>
+<div class="docstring">
+<docstring><name>flatten</name><anchor>datasets.table.InMemoryTable.flatten</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L416</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **memory_pool** (`MemoryPool`, defaults to `None`) -- For memory allocations, if required, otherwise use default pool</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Flatten this Table.
+
+Each column with a struct type is flattened into one column per struct field.  Other columns are left unchanged.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>combine\_chunks</name><anchor>datasets.table.InMemoryTable.combine_chunks</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L420</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **memory_pool** (`MemoryPool`, defaults to `None`) -- For memory allocations, if required, otherwise use default pool.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Make a new table by combining the chunks this table has.
+
+All the underlying chunks in the ChunkedArray of each column are concatenated into zero or one chunk.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>cast</name><anchor>datasets.table.InMemoryTable.cast</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L424</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **target_schema** (`Schema`) -- Schema to cast to, the names and order of fields must match.
+- **safe** (`bool`, defaults to `True`) -- Check for overflows or other unsafe conversions.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Cast table values to another schema.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>replace\_schema\_metadata</name><anchor>datasets.table.InMemoryTable.replace_schema_metadata</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L428</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **metadata** (`dict`, defaults to `None`) --</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+EXPERIMENTAL: Create shallow copy of table by replacing schema key-value metadata with the indicated new metadata (which may be None), which deletes any existing metadata.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>add\_column</name><anchor>datasets.table.InMemoryTable.add_column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L432</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (`int`) -- Index to place the column at.
+- **field_** (str or `Field`) -- If a string is passed then the type is deduced from the column data.
+- **column** (`Array`, list of `Array`, or values coercible to `arrays`) -- Column data.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table with the passed column added.</retdesc></docstring>
+Add column to Table at position.
+
+A new table is returned with the column added, the original table object is left unchanged.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>append\_column</name><anchor>datasets.table.InMemoryTable.append_column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L436</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **field_** (str or `Field`) -- If a string is passed then the type is deduced from the column data.
+- **column** (`Array`, list of `Array`, or values coercible to `arrays`) -- Column data.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table with the passed column added.</retdesc></docstring>
+Append column at end of columns.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>remove\_column</name><anchor>datasets.table.InMemoryTable.remove_column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L440</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (`int`) -- Index of column to remove.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table without the column.</retdesc></docstring>
+Create new Table with the indicated column removed.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>set\_column</name><anchor>datasets.table.InMemoryTable.set_column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L444</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (`int`) -- Index to place the column at.
+- **field_** (str or `Field`) -- If a string is passed then the type is deduced from the column data.
+- **column** (`Array`, list of `Array`, or values coercible to `arrays`) -- Column data.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table with the passed column set.</retdesc></docstring>
+Replace column in Table at position.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>rename\_columns</name><anchor>datasets.table.InMemoryTable.rename_columns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L448</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **names** (list of `str`) -- List of new column names.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Create new table with columns renamed to provided names.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>drop</name><anchor>datasets.table.InMemoryTable.drop</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L452</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **columns** (list of `str`) -- List of field names referencing existing columns.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table without the columns.</retdesc><raises>- *KeyError* -- If any of the passed columns name are not existing.</raises><raisederrors>*KeyError*</raisederrors></docstring>
+Drop one or more columns and return a new table.
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>from\_file</name><anchor>datasets.table.InMemoryTable.from_file</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L377</source><parameters>[{"name": "filename", "val": ": str"}]</parameters></docstring>
+
+
+</div>
+<div class="docstring">
+<docstring><name>from\_buffer</name><anchor>datasets.table.InMemoryTable.from_buffer</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L382</source><parameters>[{"name": "buffer", "val": ": Buffer"}]</parameters></docstring>
+
+
+</div>
+<div class="docstring">
+<docstring><name>from\_pandas</name><anchor>datasets.table.InMemoryTable.from_pandas</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L387</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **df** (`pandas.DataFrame`) --
+- **schema** (`pyarrow.Schema`, *optional*) -- The expected schema of the Arrow Table. This can be used to indicate the type of columns if we cannot infer it automatically. If passed, the output will have exactly this schema. Columns specified in the schema that are not found in the DataFrame columns or its index will raise an error. Additional columns or index levels in the DataFrame which are not specified in the schema will be ignored.
+- **preserve_index** (`bool`, *optional*) -- Whether to store the index as an additional column in the resulting `Table`. The default of None will store the index as a column, except for RangeIndex which is stored as metadata only. Use `preserve_index=True` to force it to be stored as a column.
+- **nthreads** (`int`, defaults to `None`) -- If greater than 1, convert columns to Arrow in parallel using indicated number of threads.
+- **columns** (`list`, *optional*) -- List of column to be converted. If None, use all columns.
+- **safe** (`bool`, defaults to `True`) -- Check for overflows or other unsafe conversions.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Convert pandas.DataFrame to an Arrow Table.
+
+The column types in the resulting Arrow Table are inferred from the dtypes of the pandas.Series in the DataFrame. In the case of non-object Series, the NumPy dtype is translated to its Arrow equivalent. In the case of *object*, we need to guess the datatype by looking at the Python objects in this Series. Be aware that Series of the *object* dtype don't carry enough information to always lead to a meaningful Arrow type. In the case that we cannot infer a type, e.g. because the DataFrame is of length 0 or the Series only contains None/nan objects, the type is set to null. This behavior can be avoided by constructing an explicit schema and passing it to this function.
+
+
+
+
+
+
+
+Example:
+
+```python
+>>> import pandas as pd
+>>> import pyarrow as pa
+>>> df = pd.DataFrame(&amp;lcub;
+...     'int': [1, 2],
+...     'str': ['a', 'b']
+... })
+>>> pa.Table.from_pandas(df)
+&amp;lt;pyarrow.lib.Table object at 0x7f05d1fb1b40>
+```
+
+
+</div>
+<div class="docstring">
+<docstring><name>from\_arrays</name><anchor>datasets.table.InMemoryTable.from_arrays</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L392</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **arrays** (list of pyarrow.Array or `pyarrow.ChunkedArray`) -- Equal-length arrays that should form the table.
+- **names** (list of `str`, *optional*) -- Names for the table columns. If not passed, schema must be passed.
+- **schema** (`Schema`, defaults to `None`) -- Schema for the created table. If not passed, names must be passed.
+- **metadata** (dict or `Mapping`, defaults to `None`) -- Optional metadata for the schema (if inferred).</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Construct a Table from Arrow arrays.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>from\_pydict</name><anchor>datasets.table.InMemoryTable.from_pydict</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L397</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **mapping** (dict or `Mapping`) -- A mapping of strings to Arrays or Python lists.
+- **schema** (`Schema`, defaults to `None`) -- If not passed, will be inferred from the Mapping values.
+- **metadata** (dict or `Mapping`, defaults to `None`) -- Optional metadata for the schema (if inferred).</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Construct a Table from Arrow arrays or columns.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>from\_batches</name><anchor>datasets.table.InMemoryTable.from_batches</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L402</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **batches** (sequence or iterator of `RecordBatch`) -- Sequence of RecordBatch to be converted, all schemas must be equal.
+- **schema** (`Schema`, defaults to `None`) -- If not passed, will be inferred from the first RecordBatch.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Construct a Table from a sequence or iterator of Arrow RecordBatches.
+
+
+
+
+
+
+
+
+</div></div>
+
+<div class="docstring">
+
+<docstring><name>class datasets.table.MemoryMappedTable</name><anchor>datasets.table.MemoryMappedTable</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L461</source><parameters>[{"name": "table", "val": ": Table"}, {"name": "path", "val": ": str"}, {"name": "replays", "val": ": typing.Union[typing.List[typing.Tuple[str, tuple, dict]], NoneType] = None"}]</parameters></docstring>
+
+The table is said memory mapped when it doesn't use the user's RAM but loads the data
+from the disk instead.
+
+Pickling it doesn't copy the data into memory.
+Instead, only the path to the memory mapped arrow file is pickled, as well as the list
+of transforms to "replay" when reloading the table from the disk.
+
+Its implementation requires to store an history of all the transforms that were applied
+to the underlying pyarrow Table, so that they can be "replayed" when reloading the Table
+from the disk.
+
+This is different from the InMemoryTable table, for which pickling does copy all the
+data in memory.
+
+InMemoryTable must be used when data fit in memory, while MemoryMapped are reserved for
+data bigger than memory or when you want the memory footprint of your application to
+stay low.
+
+
+
+<div class="docstring">
+<docstring><name>validate</name><anchor>datasets.table.Table.validate</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L204</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>full -- bool, default False If True, run expensive checks, otherwise cheap checks only.</paramsdesc><paramgroups>0</paramgroups><raises>- *ArrowInvalid* --</raises><raisederrors>*ArrowInvalid*</raisederrors></docstring>
+Perform validation checks.  An exception is raised if validation fails.
+
+By default only cheap validation checks are run.  Pass *full=True* for thorough validation checks (potentially O(n)).
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>equals</name><anchor>datasets.table.Table.equals</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L208</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **other** (`Table`) -- Table to compare against.
+- **check_metadata** (`bool`, defaults to `False`) -- Whether schema metadata equality should be checked as well.</paramsdesc><paramgroups>0</paramgroups><rettype>`bool`</rettype></docstring>
+Check if contents of two tables are equal.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_batches</name><anchor>datasets.table.Table.to_batches</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L214</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **max_chunksize** (`int`, defaults to `None`) -- Maximum size for RecordBatch chunks. Individual chunks may be smaller depending on the chunk layout of individual columns.</paramsdesc><paramgroups>0</paramgroups><retdesc>`list of RecordBatch`</retdesc></docstring>
+Convert Table to list of (contiguous) RecordBatch objects.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_pydict</name><anchor>datasets.table.Table.to_pydict</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L218</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><rettype>`dict`</rettype></docstring>
+Convert the Table to a dict or OrderedDict.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_pandas</name><anchor>datasets.table.Table.to_pandas</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L222</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **memory_pool** (`MemoryPool`, defaults to `None`) -- Arrow MemoryPool to use for allocations. Uses the default memory pool is not passed.
+- **strings_to_categorical** (`bool`, defaults to `False`) -- Encode string (UTF8) and binary types to pandas.Categorical.
+  categories -- list, default empty List of fields that should be returned as pandas.Categorical. Only applies to table-like data structures.
+- **zero_copy_only** (`bool`, defaults to `False`) -- Raise an ArrowException if this function call would require copying the underlying data.
+- **integer_object_nulls** (`bool`, defaults to `False`) -- Cast integers with nulls to objects
+- **date_as_object** (`bool`, defaults to `True`) -- Cast dates to objects. If False, convert to datetime64[ns] dtype.
+- **timestamp_as_object** (`bool`, defaults to `False`) -- Cast non-nanosecond timestamps (np.datetime64) to objects. This is useful if you have timestamps that don't fit in the normal date range of nanosecond timestamps (1678 CE-2262 CE). If False, all timestamps are converted to datetime64[ns] dtype.
+  use_threads -- bool, default True Whether to parallelize the conversion using multiple threads.
+- **deduplicate_objects** (`bool`, defaults to `False`) -- Do not create multiple copies Python objects when created, to save on memory use. Conversion will be slower.
+- **ignore_metadata** (`bool`, defaults to `False`) -- If True, do not use the 'pandas' metadata to reconstruct the DataFrame index, if present
+- **safe** (`bool`, defaults to `True`) -- For certain data types, a cast is needed in order to store the data in a pandas DataFrame or Series (e.g. timestamps are always stored as nanoseconds in pandas). This option controls whether it is a safe cast or not.
+- **split_blocks** (`bool`, defaults to `False`) -- If True, generate one internal "block" for each column when creating a pandas.DataFrame from a RecordBatch or Table. While this can temporarily reduce memory note that various pandas operations can trigger "consolidation" which may balloon memory use.
+- **self_destruct** (`bool`, defaults to `False`) -- EXPERIMENTAL: If True, attempt to deallocate the originating Arrow memory while converting the Arrow object to pandas. If you use the object after calling to_pandas with this option it will crash your program. Note that you may not see always memory usage improvements. For example, if multiple columns share an underlying allocation, memory can't be freed until all columns are converted.
+- **types_mapper** (`function`, defaults to `None`) -- A function mapping a pyarrow DataType to a pandas ExtensionDtype. This can be used to override the default pandas type for conversion of built-in pyarrow types or in absence of pandas_metadata in the Table schema. The function receives a pyarrow DataType and is expected to return a pandas ExtensionDtype or `None` if the default conversion should be used for that type. If you have a dictionary mapping, you can pass `dict.get` as function.</paramsdesc><paramgroups>0</paramgroups><retdesc>`pandas.Series or pandas.DataFrame depending on type of object`</retdesc></docstring>
+Convert to a pandas-compatible NumPy array or DataFrame, as appropriate
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_string</name><anchor>datasets.table.Table.to_string</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L226</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters></docstring>
+
+
+</div>
+<div class="docstring">
+<docstring><name>field</name><anchor>datasets.table.Table.field</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L229</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (int or `string`) -- The index or name of the field to retrieve.</paramsdesc><paramgroups>0</paramgroups><rettype>`Field`</rettype></docstring>
+Select a schema field by its column name or numeric index.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>column</name><anchor>datasets.table.Table.column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L233</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (int or `string`) -- The index or name of the column to retrieve.</paramsdesc><paramgroups>0</paramgroups><rettype>`ChunkedArray`</rettype></docstring>
+Select a column by its column name, or numeric index.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>itercolumns</name><anchor>datasets.table.Table.itercolumns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L237</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><yieldtype>`ChunkedArray`</yieldtype></docstring>
+Iterator over all columns in their numerical order.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>schema</name><anchor>datasets.table.Table.schema</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L241</source><parameters>[]</parameters><rettype>`Schema`</rettype></docstring>
+Schema of the table and its columns.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>columns</name><anchor>datasets.table.Table.columns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L246</source><parameters>[]</parameters><retdesc>`list of ChunkedArray`</retdesc></docstring>
+List of all columns in numerical order.
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>num\_columns</name><anchor>datasets.table.Table.num_columns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L251</source><parameters>[]</parameters><rettype>`int`</rettype></docstring>
+Number of columns in this table.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>num\_rows</name><anchor>datasets.table.Table.num_rows</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L256</source><parameters>[]</parameters><rettype>`int`</rettype></docstring>
+Number of rows in this table.
+
+Due to the definition of a table, all columns have the same number of rows.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>shape</name><anchor>datasets.table.Table.shape</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L261</source><parameters>[]</parameters><rettype>`(int, int)`</rettype><retdesc>Number of rows and number of columns.</retdesc></docstring>
+Dimensions of the table: (#rows, #columns).
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>nbytes</name><anchor>datasets.table.Table.nbytes</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L266</source><parameters>[]</parameters><rettype>`int`</rettype></docstring>
+Total number of bytes consumed by the elements of the table.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>column\_names</name><anchor>datasets.table.Table.column_names</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L271</source><parameters>[]</parameters><retdesc>`list of str`</retdesc></docstring>
+Names of the table's columns.
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>slice</name><anchor>datasets.table.MemoryMappedTable.slice</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L518</source><parameters>[{"name": "offset", "val": " = 0"}, {"name": "length", "val": " = None"}]</parameters><paramsdesc>- **offset** (`int`, defaults to 0) -- Offset from start of table to slice.
+- **length** (`int`, defaults to `None`) -- Length of slice (default is until end of table starting from offset).</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Compute zero-copy slice of this Table.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>filter</name><anchor>datasets.table.MemoryMappedTable.filter</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L525</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters></docstring>
+Table.filter(self, mask, null_selection_behavior=u'drop')
+
+Select records from a Table. See `pyarrow.compute.filter()`for
+full usage.
+
+
+</div>
+<div class="docstring">
+<docstring><name>flatten</name><anchor>datasets.table.MemoryMappedTable.flatten</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L531</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **memory_pool** (`MemoryPool`, defaults to `None`) -- For memory allocations, if required, otherwise use default pool</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Flatten this Table.
+
+Each column with a struct type is flattened into one column per struct field.  Other columns are left unchanged.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>combine\_chunks</name><anchor>datasets.table.MemoryMappedTable.combine_chunks</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L537</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **memory_pool** (`MemoryPool`, defaults to `None`) -- For memory allocations, if required, otherwise use default pool.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Make a new table by combining the chunks this table has.
+
+All the underlying chunks in the ChunkedArray of each column are concatenated into zero or one chunk.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>cast</name><anchor>datasets.table.MemoryMappedTable.cast</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L543</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **target_schema** (`Schema`) -- Schema to cast to, the names and order of fields must match.
+- **safe** (`bool`, defaults to `True`) -- Check for overflows or other unsafe conversions.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Cast table values to another schema.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>replace\_schema\_metadata</name><anchor>datasets.table.MemoryMappedTable.replace_schema_metadata</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L549</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **metadata** (`dict`, defaults to `None`) --</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+EXPERIMENTAL: Create shallow copy of table by replacing schema key-value metadata with the indicated new metadata (which may be None), which deletes any existing metadata.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>add\_column</name><anchor>datasets.table.MemoryMappedTable.add_column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L555</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (`int`) -- Index to place the column at.
+- **field_** (str or `Field`) -- If a string is passed then the type is deduced from the column data.
+- **column** (`Array`, list of `Array`, or values coercible to `arrays`) -- Column data.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table with the passed column added.</retdesc></docstring>
+Add column to Table at position.
+
+A new table is returned with the column added, the original table object is left unchanged.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>append\_column</name><anchor>datasets.table.MemoryMappedTable.append_column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L561</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **field_** (str or `Field`) -- If a string is passed then the type is deduced from the column data.
+- **column** (`Array`, list of `Array`, or values coercible to `arrays`) -- Column data.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table with the passed column added.</retdesc></docstring>
+Append column at end of columns.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>remove\_column</name><anchor>datasets.table.MemoryMappedTable.remove_column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L567</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (`int`) -- Index of column to remove.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table without the column.</retdesc></docstring>
+Create new Table with the indicated column removed.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>set\_column</name><anchor>datasets.table.MemoryMappedTable.set_column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L573</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (`int`) -- Index to place the column at.
+- **field_** (str or `Field`) -- If a string is passed then the type is deduced from the column data.
+- **column** (`Array`, list of `Array`, or values coercible to `arrays`) -- Column data.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table with the passed column set.</retdesc></docstring>
+Replace column in Table at position.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>rename\_columns</name><anchor>datasets.table.MemoryMappedTable.rename_columns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L579</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **names** (list of `str`) -- List of new column names.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Create new table with columns renamed to provided names.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>drop</name><anchor>datasets.table.MemoryMappedTable.drop</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L585</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **columns** (list of `str`) -- List of field names referencing existing columns.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table without the columns.</retdesc><raises>- *KeyError* -- If any of the passed columns name are not existing.</raises><raisederrors>*KeyError*</raisederrors></docstring>
+Drop one or more columns and return a new table.
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>from\_file</name><anchor>datasets.table.MemoryMappedTable.from_file</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L487</source><parameters>[{"name": "filename", "val": ": str"}, {"name": "replays", "val": " = None"}]</parameters></docstring>
+
+
+</div></div>
+
+<div class="docstring">
+
+<docstring><name>class datasets.table.ConcatenationTable</name><anchor>datasets.table.ConcatenationTable</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L599</source><parameters>[{"name": "table", "val": ": Table"}, {"name": "blocks", "val": ": typing.List[typing.List[datasets.table.TableBlock]]"}]</parameters></docstring>
+
+The table comes from the concatenation of several tables called blocks.
+It enables concatenation on both axis 0 (append rows) and axis 1 (append columns).
+
+The underlying tables are called "blocks" and can be either InMemoryTable
+or MemoryMappedTable objects.
+This allows to combine tables that come from memory or that are memory mapped.
+When a ConcatenationTable is pickled, then each block is pickled:
+- the InMemoryTable objects are pickled by copying all the data in memory;
+- the MemoryMappedTable objects are pickled without copying the data into memory.
+Instead, only the path to the memory mapped arrow file is pickled, as well as the list
+of transforms to "replays" when reloading the table from the disk.
+
+Its implementation requires to store each block separately.
+The `blocks` attributes stores a list of list of blocks.
+The first axis concatenates the tables along the axis 0 (it appends rows),
+while the second axis concatenates tables along the axis 1 (it appends columns).
+
+You can access the fully combined table by accessing the ConcatenationTable.table attribute,
+and the blocks by accessing the ConcatenationTable.blocks attribute.
+
+
+
+<div class="docstring">
+<docstring><name>validate</name><anchor>datasets.table.Table.validate</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L204</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>full -- bool, default False If True, run expensive checks, otherwise cheap checks only.</paramsdesc><paramgroups>0</paramgroups><raises>- *ArrowInvalid* --</raises><raisederrors>*ArrowInvalid*</raisederrors></docstring>
+Perform validation checks.  An exception is raised if validation fails.
+
+By default only cheap validation checks are run.  Pass *full=True* for thorough validation checks (potentially O(n)).
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>equals</name><anchor>datasets.table.Table.equals</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L208</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **other** (`Table`) -- Table to compare against.
+- **check_metadata** (`bool`, defaults to `False`) -- Whether schema metadata equality should be checked as well.</paramsdesc><paramgroups>0</paramgroups><rettype>`bool`</rettype></docstring>
+Check if contents of two tables are equal.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_batches</name><anchor>datasets.table.Table.to_batches</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L214</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **max_chunksize** (`int`, defaults to `None`) -- Maximum size for RecordBatch chunks. Individual chunks may be smaller depending on the chunk layout of individual columns.</paramsdesc><paramgroups>0</paramgroups><retdesc>`list of RecordBatch`</retdesc></docstring>
+Convert Table to list of (contiguous) RecordBatch objects.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_pydict</name><anchor>datasets.table.Table.to_pydict</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L218</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><rettype>`dict`</rettype></docstring>
+Convert the Table to a dict or OrderedDict.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_pandas</name><anchor>datasets.table.Table.to_pandas</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L222</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **memory_pool** (`MemoryPool`, defaults to `None`) -- Arrow MemoryPool to use for allocations. Uses the default memory pool is not passed.
+- **strings_to_categorical** (`bool`, defaults to `False`) -- Encode string (UTF8) and binary types to pandas.Categorical.
+  categories -- list, default empty List of fields that should be returned as pandas.Categorical. Only applies to table-like data structures.
+- **zero_copy_only** (`bool`, defaults to `False`) -- Raise an ArrowException if this function call would require copying the underlying data.
+- **integer_object_nulls** (`bool`, defaults to `False`) -- Cast integers with nulls to objects
+- **date_as_object** (`bool`, defaults to `True`) -- Cast dates to objects. If False, convert to datetime64[ns] dtype.
+- **timestamp_as_object** (`bool`, defaults to `False`) -- Cast non-nanosecond timestamps (np.datetime64) to objects. This is useful if you have timestamps that don't fit in the normal date range of nanosecond timestamps (1678 CE-2262 CE). If False, all timestamps are converted to datetime64[ns] dtype.
+  use_threads -- bool, default True Whether to parallelize the conversion using multiple threads.
+- **deduplicate_objects** (`bool`, defaults to `False`) -- Do not create multiple copies Python objects when created, to save on memory use. Conversion will be slower.
+- **ignore_metadata** (`bool`, defaults to `False`) -- If True, do not use the 'pandas' metadata to reconstruct the DataFrame index, if present
+- **safe** (`bool`, defaults to `True`) -- For certain data types, a cast is needed in order to store the data in a pandas DataFrame or Series (e.g. timestamps are always stored as nanoseconds in pandas). This option controls whether it is a safe cast or not.
+- **split_blocks** (`bool`, defaults to `False`) -- If True, generate one internal "block" for each column when creating a pandas.DataFrame from a RecordBatch or Table. While this can temporarily reduce memory note that various pandas operations can trigger "consolidation" which may balloon memory use.
+- **self_destruct** (`bool`, defaults to `False`) -- EXPERIMENTAL: If True, attempt to deallocate the originating Arrow memory while converting the Arrow object to pandas. If you use the object after calling to_pandas with this option it will crash your program. Note that you may not see always memory usage improvements. For example, if multiple columns share an underlying allocation, memory can't be freed until all columns are converted.
+- **types_mapper** (`function`, defaults to `None`) -- A function mapping a pyarrow DataType to a pandas ExtensionDtype. This can be used to override the default pandas type for conversion of built-in pyarrow types or in absence of pandas_metadata in the Table schema. The function receives a pyarrow DataType and is expected to return a pandas ExtensionDtype or `None` if the default conversion should be used for that type. If you have a dictionary mapping, you can pass `dict.get` as function.</paramsdesc><paramgroups>0</paramgroups><retdesc>`pandas.Series or pandas.DataFrame depending on type of object`</retdesc></docstring>
+Convert to a pandas-compatible NumPy array or DataFrame, as appropriate
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>to\_string</name><anchor>datasets.table.Table.to_string</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L226</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters></docstring>
+
+
+</div>
+<div class="docstring">
+<docstring><name>field</name><anchor>datasets.table.Table.field</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L229</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (int or `string`) -- The index or name of the field to retrieve.</paramsdesc><paramgroups>0</paramgroups><rettype>`Field`</rettype></docstring>
+Select a schema field by its column name or numeric index.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>column</name><anchor>datasets.table.Table.column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L233</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (int or `string`) -- The index or name of the column to retrieve.</paramsdesc><paramgroups>0</paramgroups><rettype>`ChunkedArray`</rettype></docstring>
+Select a column by its column name, or numeric index.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>itercolumns</name><anchor>datasets.table.Table.itercolumns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L237</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><yieldtype>`ChunkedArray`</yieldtype></docstring>
+Iterator over all columns in their numerical order.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>schema</name><anchor>datasets.table.Table.schema</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L241</source><parameters>[]</parameters><rettype>`Schema`</rettype></docstring>
+Schema of the table and its columns.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>columns</name><anchor>datasets.table.Table.columns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L246</source><parameters>[]</parameters><retdesc>`list of ChunkedArray`</retdesc></docstring>
+List of all columns in numerical order.
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>num\_columns</name><anchor>datasets.table.Table.num_columns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L251</source><parameters>[]</parameters><rettype>`int`</rettype></docstring>
+Number of columns in this table.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>num\_rows</name><anchor>datasets.table.Table.num_rows</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L256</source><parameters>[]</parameters><rettype>`int`</rettype></docstring>
+Number of rows in this table.
+
+Due to the definition of a table, all columns have the same number of rows.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>shape</name><anchor>datasets.table.Table.shape</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L261</source><parameters>[]</parameters><rettype>`(int, int)`</rettype><retdesc>Number of rows and number of columns.</retdesc></docstring>
+Dimensions of the table: (#rows, #columns).
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>nbytes</name><anchor>datasets.table.Table.nbytes</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L266</source><parameters>[]</parameters><rettype>`int`</rettype></docstring>
+Total number of bytes consumed by the elements of the table.
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>column\_names</name><anchor>datasets.table.Table.column_names</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L271</source><parameters>[]</parameters><retdesc>`list of str`</retdesc></docstring>
+Names of the table's columns.
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>slice</name><anchor>datasets.table.ConcatenationTable.slice</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L767</source><parameters>[{"name": "offset", "val": " = 0"}, {"name": "length", "val": " = None"}]</parameters><paramsdesc>- **offset** (`int`, defaults to 0) -- Offset from start of table to slice.
+- **length** (`int`, defaults to `None`) -- Length of slice (default is until end of table starting from offset).</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Compute zero-copy slice of this Table.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>filter</name><anchor>datasets.table.ConcatenationTable.filter</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L786</source><parameters>[{"name": "mask", "val": ""}, {"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters></docstring>
+Table.filter(self, mask, null_selection_behavior=u'drop')
+
+Select records from a Table. See `pyarrow.compute.filter()`for
+full usage.
+
+
+</div>
+<div class="docstring">
+<docstring><name>flatten</name><anchor>datasets.table.ConcatenationTable.flatten</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L795</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **memory_pool** (`MemoryPool`, defaults to `None`) -- For memory allocations, if required, otherwise use default pool</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Flatten this Table.
+
+Each column with a struct type is flattened into one column per struct field.  Other columns are left unchanged.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>combine\_chunks</name><anchor>datasets.table.ConcatenationTable.combine_chunks</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L803</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **memory_pool** (`MemoryPool`, defaults to `None`) -- For memory allocations, if required, otherwise use default pool.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Make a new table by combining the chunks this table has.
+
+All the underlying chunks in the ChunkedArray of each column are concatenated into zero or one chunk.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>cast</name><anchor>datasets.table.ConcatenationTable.cast</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L811</source><parameters>[{"name": "target_schema", "val": ""}, {"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **target_schema** (`Schema`) -- Schema to cast to, the names and order of fields must match.
+- **safe** (`bool`, defaults to `True`) -- Check for overflows or other unsafe conversions.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Cast table values to another schema.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>replace\_schema\_metadata</name><anchor>datasets.table.ConcatenationTable.replace_schema_metadata</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L827</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **metadata** (`dict`, defaults to `None`) --</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+EXPERIMENTAL: Create shallow copy of table by replacing schema key-value metadata with the indicated new metadata (which may be None), which deletes any existing metadata.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>add\_column</name><anchor>datasets.table.ConcatenationTable.add_column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L835</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (`int`) -- Index to place the column at.
+- **field_** (str or `Field`) -- If a string is passed then the type is deduced from the column data.
+- **column** (`Array`, list of `Array`, or values coercible to `arrays`) -- Column data.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table with the passed column added.</retdesc></docstring>
+Add column to Table at position.
+
+A new table is returned with the column added, the original table object is left unchanged.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>append\_column</name><anchor>datasets.table.ConcatenationTable.append_column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L839</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **field_** (str or `Field`) -- If a string is passed then the type is deduced from the column data.
+- **column** (`Array`, list of `Array`, or values coercible to `arrays`) -- Column data.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table with the passed column added.</retdesc></docstring>
+Append column at end of columns.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>remove\_column</name><anchor>datasets.table.ConcatenationTable.remove_column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L843</source><parameters>[{"name": "i", "val": ""}, {"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (`int`) -- Index of column to remove.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table without the column.</retdesc></docstring>
+Create new Table with the indicated column removed.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>set\_column</name><anchor>datasets.table.ConcatenationTable.set_column</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L857</source><parameters>[{"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **i** (`int`) -- Index to place the column at.
+- **field_** (str or `Field`) -- If a string is passed then the type is deduced from the column data.
+- **column** (`Array`, list of `Array`, or values coercible to `arrays`) -- Column data.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table with the passed column set.</retdesc></docstring>
+Replace column in Table at position.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>rename\_columns</name><anchor>datasets.table.ConcatenationTable.rename_columns</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L861</source><parameters>[{"name": "names", "val": ""}, {"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **names** (list of `str`) -- List of new column names.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype></docstring>
+Create new table with columns renamed to provided names.
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>drop</name><anchor>datasets.table.ConcatenationTable.drop</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L872</source><parameters>[{"name": "columns", "val": ""}, {"name": "*args", "val": ""}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **columns** (list of `str`) -- List of field names referencing existing columns.</paramsdesc><paramgroups>0</paramgroups><rettype>`Table`</rettype><retdesc>New table without the columns.</retdesc><raises>- *KeyError* -- If any of the passed columns name are not existing.</raises><raisederrors>*KeyError*</raisederrors></docstring>
+Drop one or more columns and return a new table.
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<div class="docstring">
+<docstring><name>from\_blocks</name><anchor>datasets.table.ConcatenationTable.from_blocks</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L694</source><parameters>[{"name": "blocks", "val": ": TableBlockContainer"}]</parameters></docstring>
+
+
+</div>
+<div class="docstring">
+<docstring><name>from\_tables</name><anchor>datasets.table.ConcatenationTable.from_tables</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L708</source><parameters>[{"name": "tables", "val": ": typing.List[typing.Union[pyarrow.lib.Table, datasets.table.Table]]"}, {"name": "axis", "val": ": int = 0"}]</parameters><paramsdesc>- **tables** (list of `Table` or list of `pyarrow.Table`) -- List of tables.
+  axis -- (`&amp;lcub;0, 1}`, default `0`, meaning over rows):
+- **Axis** to concatenate over, where `0` means over rows (vertically) and `1` means over columns --
+  (horizontally). --
+
+- **..** versionadded --: 1.6.0</paramsdesc><paramgroups>0</paramgroups></docstring>
+Create ConcatenationTable from list of tables.
+
+
+
+
+</div></div>
+
+<div class="docstring">
+
+<docstring><name>datasets.table.concat\_tables</name><anchor>datasets.table.concat_tables</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L881</source><parameters>[{"name": "tables", "val": ": typing.List[datasets.table.Table]"}, {"name": "axis", "val": ": int = 0"}]</parameters><paramsdesc>- **tables** (list of `Table`) -- List of tables to be concatenated.
+- **axis** (`&amp;lcub;0, 1}`, default `0`, meaning over rows) --
+  Axis to concatenate over, where `0` means over rows (vertically) and `1` means over columns
+  (horizontally).
+
+versionadded,1.6.0</paramsdesc><paramgroups>0</paramgroups><rettype>`datasets.table.Table` that is the concatenated table</rettype><retdesc>If the number of input tables is > 1, then the returned table is a `datasets.table.ConcatenationTable`.
+Otherwise if there's only one table, it is returned as is.</retdesc></docstring>
+
+Concatenate tables.
+
+
+
+
+
+
+
+
+</div>
+
+<div class="docstring">
+
+<docstring><name>datasets.table.list\_table\_cache\_files</name><anchor>datasets.table.list_table_cache_files</anchor><source>https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L904</source><parameters>[{"name": "table", "val": ": Table"}]</parameters><rettype>`List[str]`</rettype><retdesc>a list of paths to the cache files loaded by the table</retdesc></docstring>
+
+Get the cache files that are loaded by the table.
+Cache file are used when parts of the table come from the disk via memory mapping.
+
+
+
+
+
+
+</div>
