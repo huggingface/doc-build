@@ -5,10 +5,7 @@ sections:
   title: Multi-modal processors
 - local: transformers.DataProcessor
   title: Deprecated processors
-- local: glue
-  sections:
-  - local: example-usage
-    title: Example usage
+- local: transformers.glue_convert_examples_to_features
   title: GLUE
 - local: xnli
   title: XNLI
@@ -302,7 +299,7 @@ Serializes this instance to a JSON string.
 
 </div></div>
 
-<h2 id="glue">GLUE</h2>
+<h2 id="transformers.glue_convert_examples_to_features">GLUE</h2>
 
 [General Language Understanding Evaluation (GLUE)](https://gluebenchmark.com/) is a benchmark that evaluates the
 performance of models across a diverse set of existing NLU tasks. It was released together with the paper [GLUE: A
@@ -326,13 +323,25 @@ Those processors are:
 Additionally, the following method can be used to load values from a data file and convert them to a list of
 [InputExample](/docs/transformers/master/en/main_classes/processors#transformers.InputExample).
 
-automethod,transformers.data.processors.glue.glue_convert_examples_to_features
+<div class="docstring">
+
+<docstring><name>transformers.glue\_convert\_examples\_to\_features</name><anchor>transformers.glue_convert_examples_to_features</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/data/processors/glue.py#L42</source><parameters>[{"name": "examples", "val": ": typing.Union[typing.List[transformers.data.processors.utils.InputExample], ForwardRef('tf.data.Dataset')]"}, {"name": "tokenizer", "val": ": PreTrainedTokenizer"}, {"name": "max_length", "val": ": typing.Optional[int] = None"}, {"name": "task", "val": " = None"}, {"name": "label_list", "val": " = None"}, {"name": "output_mode", "val": " = None"}]</parameters><paramsdesc>examples -- List of `InputExamples` or `tf.data.Dataset` containing the examples.
+tokenizer -- Instance of a tokenizer that will tokenize the examples
+max_length -- Maximum example length. Defaults to the tokenizer's max_len
+task -- GLUE task
+label_list -- List of labels. Can be obtained from the processor using the `processor.get_labels()` method
+output_mode -- String indicating the output mode. Either `regression` or `classification`</paramsdesc><paramgroups>0</paramgroups><retdesc>If the `examples` input is a `tf.data.Dataset`, will return a `tf.data.Dataset` containing the task-specific
+features. If the input is a list of `InputExamples`, will return a list of task-specific `InputFeatures` which
+can be fed to the model.</retdesc></docstring>
+
+Loads a data file into a list of `InputFeatures`
 
 
-<h3 id="example-usage">Example usage</h3>
 
-An example using these processors is given in the [run_glue.py](https://github.com/huggingface/transformers/tree/master/examples/legacy/text-classification/run_glue.py) script.
 
+
+
+</div>
 
 <h2 id="xnli">XNLI</h2>
 
@@ -426,8 +435,42 @@ Returns the training examples from the data directory.
 Additionally, the following method can be used to convert SQuAD examples into
 `SquadFeatures` that can be used as model inputs.
 
-automethod,transformers.data.processors.squad.squad_convert_examples_to_features
+<div class="docstring">
 
+<docstring><name>transformers.squad\_convert\_examples\_to\_features</name><anchor>transformers.squad_convert_examples_to_features</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/data/processors/squad.py#L318</source><parameters>[{"name": "examples", "val": ""}, {"name": "tokenizer", "val": ""}, {"name": "max_seq_length", "val": ""}, {"name": "doc_stride", "val": ""}, {"name": "max_query_length", "val": ""}, {"name": "is_training", "val": ""}, {"name": "padding_strategy", "val": " = 'max_length'"}, {"name": "return_dataset", "val": " = False"}, {"name": "threads", "val": " = 1"}, {"name": "tqdm_enabled", "val": " = True"}]</parameters><paramsdesc>examples -- list of `SquadExample`tokenizer -- an instance of a child of [PreTrainedTokenizer](/docs/transformers/master/en/main_classes/tokenizer#transformers.PreTrainedTokenizer)
+max_seq_length -- The maximum sequence length of the inputs.
+doc_stride -- The stride used when the context is too large and is split across several features.
+max_query_length -- The maximum length of the query.
+is_training -- whether to create features for model evaluation or model training.
+padding_strategy -- Default to "max_length". Which padding strategy to use
+return_dataset -- Default False. Either 'pt' or 'tf'.
+if 'pt': returns a torch.data.TensorDataset, if 'tf': returns a tf.data.Dataset
+threads -- multiple processing threads.</paramsdesc><paramgroups>0</paramgroups><retdesc>list of `SquadFeatures`/retdesc></docstring>
+
+Converts a list of examples into a list of features that can be directly given as input to a model. It is
+model-dependant and takes advantage of many of the tokenizer's features to create the model's inputs.
+
+
+
+
+
+Example:
+
+```python
+processor = SquadV2Processor()
+examples = processor.get_dev_examples(data_dir)
+
+features = squad_convert_examples_to_features(
+    examples=examples,
+    tokenizer=tokenizer,
+    max_seq_length=args.max_seq_length,
+    doc_stride=args.doc_stride,
+    max_query_length=args.max_query_length,
+    is_training=not evaluate,
+)
+```
+
+</div>
 
 These processors as well as the aforementionned method can be used with files containing the data as well as with the
 *tensorflow_datasets* package. Examples are given below.
