@@ -70,7 +70,7 @@ Wav2Vec2Phoneme's architecture is based on the Wav2Vec2 model, so one can refer 
 
 <div class="docstring">
 
-<docstring><name>class transformers.Wav2Vec2PhonemeCTCTokenizer</name><anchor>transformers.Wav2Vec2PhonemeCTCTokenizer</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/wav2vec2_phoneme/tokenization_wav2vec2_phoneme.py#L50</source><parameters>[{"name": "vocab_file", "val": ""}, {"name": "bos_token", "val": " = '<s>'"}, {"name": "eos_token", "val": " = '</s>'"}, {"name": "unk_token", "val": " = '<unk>'"}, {"name": "pad_token", "val": " = '<pad>'"}, {"name": "phone_delimiter_token", "val": " = ' '"}, {"name": "word_delimiter_token", "val": " = None"}, {"name": "do_phonemize", "val": " = True"}, {"name": "phonemizer_lang", "val": " = 'en-us'"}, {"name": "phonemizer_backend", "val": " = 'espeak'"}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **vocab_file** (`str`) --
+<docstring><name>class transformers.Wav2Vec2PhonemeCTCTokenizer</name><anchor>transformers.Wav2Vec2PhonemeCTCTokenizer</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/wav2vec2_phoneme/tokenization_wav2vec2_phoneme.py#L87</source><parameters>[{"name": "vocab_file", "val": ""}, {"name": "bos_token", "val": " = '<s>'"}, {"name": "eos_token", "val": " = '</s>'"}, {"name": "unk_token", "val": " = '<unk>'"}, {"name": "pad_token", "val": " = '<pad>'"}, {"name": "phone_delimiter_token", "val": " = ' '"}, {"name": "word_delimiter_token", "val": " = None"}, {"name": "do_phonemize", "val": " = True"}, {"name": "phonemizer_lang", "val": " = 'en-us'"}, {"name": "phonemizer_backend", "val": " = 'espeak'"}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **vocab_file** (`str`) --
   File containing the vocabulary.
 - **bos_token** (`str`, *optional*, defaults to `"<s>"`) --
   The beginning of sentence token.
@@ -224,14 +224,30 @@ sequences.
 
 </div>
 <div class="docstring">
-<docstring><name>batch\_decode</name><anchor>transformers.PreTrainedTokenizerBase.batch_decode</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/tokenization_utils_base.py#L3250</source><parameters>[{"name": "sequences", "val": ": typing.Union[typing.List[int], typing.List[typing.List[int]], ForwardRef('np.ndarray'), ForwardRef('torch.Tensor'), ForwardRef('tf.Tensor')]"}, {"name": "skip_special_tokens", "val": ": bool = False"}, {"name": "clean_up_tokenization_spaces", "val": ": bool = True"}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **sequences** (`Union[List[int], List[List[int]], np.ndarray, torch.Tensor, tf.Tensor]`) --
+<docstring><name>batch\_decode</name><anchor>transformers.Wav2Vec2PhonemeCTCTokenizer.batch_decode</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/wav2vec2_phoneme/tokenization_wav2vec2_phoneme.py#L486</source><parameters>[{"name": "sequences", "val": ": typing.Union[typing.List[int], typing.List[typing.List[int]], ForwardRef('np.ndarray'), ForwardRef('torch.Tensor'), ForwardRef('tf.Tensor')]"}, {"name": "skip_special_tokens", "val": ": bool = False"}, {"name": "clean_up_tokenization_spaces", "val": ": bool = True"}, {"name": "output_char_offsets", "val": ": bool = False"}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **sequences** (`Union[List[int], List[List[int]], np.ndarray, torch.Tensor, tf.Tensor]`) --
   List of tokenized input ids. Can be obtained using the `__call__` method.
 - **skip_special_tokens** (`bool`, *optional*, defaults to `False`) --
   Whether or not to remove special tokens in the decoding.
 - **clean_up_tokenization_spaces** (`bool`, *optional*, defaults to `True`) --
   Whether or not to clean up the tokenization spaces.
+- **output_char_offsets** (`bool`, *optional*, defaults to `False`) --
+  Whether or not to output character offsets. Character offsets can be used in combination with the
+  sampling rate and model downsampling rate to compute the time-stamps of transcribed characters.
+
+  <Tip>
+
+  Please take a look at the Example of `decode` to better
+  understand how to make use of `output_word_offsets`.
+  `batch_decode` works analogous with phonemes
+  and batched output.
+
+  </Tip>
+
 - **kwargs** (additional keyword arguments, *optional*) --
-  Will be passed to the underlying model specific decode method.</paramsdesc><paramgroups>0</paramgroups><rettype>`List[str]`</rettype><retdesc>The list of decoded sentences.</retdesc></docstring>
+  Will be passed to the underlying model specific decode method.</paramsdesc><paramgroups>0</paramgroups><rettype>`List[str]` or `Wav2Vec2PhonemeCTCTokenizerOutput`</rettype><retdesc>The
+decoded sentence. Will be a
+`Wav2Vec2PhonemeCTCTokenizerOutput` when
+`output_char_offsets == True`.</retdesc></docstring>
 
 Convert a list of lists of token ids into a list of strings by calling decode.
 
@@ -244,14 +260,29 @@ Convert a list of lists of token ids into a list of strings by calling decode.
 
 </div>
 <div class="docstring">
-<docstring><name>decode</name><anchor>transformers.PreTrainedTokenizerBase.decode</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/tokenization_utils_base.py#L3283</source><parameters>[{"name": "token_ids", "val": ": typing.Union[int, typing.List[int], ForwardRef('np.ndarray'), ForwardRef('torch.Tensor'), ForwardRef('tf.Tensor')]"}, {"name": "skip_special_tokens", "val": ": bool = False"}, {"name": "clean_up_tokenization_spaces", "val": ": bool = True"}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **token_ids** (`Union[int, List[int], np.ndarray, torch.Tensor, tf.Tensor]`) --
+<docstring><name>decode</name><anchor>transformers.Wav2Vec2PhonemeCTCTokenizer.decode</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/models/wav2vec2_phoneme/tokenization_wav2vec2_phoneme.py#L430</source><parameters>[{"name": "token_ids", "val": ": typing.Union[int, typing.List[int], ForwardRef('np.ndarray'), ForwardRef('torch.Tensor'), ForwardRef('tf.Tensor')]"}, {"name": "skip_special_tokens", "val": ": bool = False"}, {"name": "clean_up_tokenization_spaces", "val": ": bool = True"}, {"name": "output_char_offsets", "val": ": bool = False"}, {"name": "**kwargs", "val": ""}]</parameters><paramsdesc>- **token_ids** (`Union[int, List[int], np.ndarray, torch.Tensor, tf.Tensor]`) --
   List of tokenized input ids. Can be obtained using the `__call__` method.
 - **skip_special_tokens** (`bool`, *optional*, defaults to `False`) --
   Whether or not to remove special tokens in the decoding.
 - **clean_up_tokenization_spaces** (`bool`, *optional*, defaults to `True`) --
   Whether or not to clean up the tokenization spaces.
+- **output_char_offsets** (`bool`, *optional*, defaults to `False`) --
+  Whether or not to output character offsets. Character offsets can be used in combination with the
+  sampling rate and model downsampling rate to compute the time-stamps of transcribed characters.
+
+  <Tip>
+
+  Please take a look at the Example of `decode` to better
+  understand how to make use of `output_word_offsets`.
+  `batch_decode` works the same way with
+  phonemes.
+
+  </Tip>
+
 - **kwargs** (additional keyword arguments, *optional*) --
-  Will be passed to the underlying model specific decode method.</paramsdesc><paramgroups>0</paramgroups><rettype>`str`</rettype><retdesc>The decoded sentence.</retdesc></docstring>
+  Will be passed to the underlying model specific decode method.</paramsdesc><paramgroups>0</paramgroups><rettype>`str` or `Wav2Vec2PhonemeCTCTokenizerOutput`</rettype><retdesc>The decoded
+sentence. Will be a `Wav2Vec2PhonemeCTCTokenizerOutput`
+when `output_char_offsets == True`.</retdesc></docstring>
 
 Converts a sequence of ids in a string, using the tokenizer and vocabulary with options to remove special
 tokens and clean up tokenization spaces.
