@@ -1,0 +1,143 @@
+---
+local: keras-callbacks
+sections:
+- local: transformers.KerasMetricCallback
+  title: KerasMetricCallback
+- local: transformers.PushToHubCallback
+  title: PushToHubCallback
+title: Keras callbacks
+---
+<script lang="ts">
+import Tip from "$lib/Tip.svelte";
+import Youtube from "$lib/Youtube.svelte";
+import Docstring from "$lib/Docstring.svelte";
+import CodeBlock from "$lib/CodeBlock.svelte";
+import CodeBlockFw from "$lib/CodeBlockFw.svelte";
+import DocNotebookDropdown from "$lib/DocNotebookDropdown.svelte";
+import IconCopyLink from "$lib/IconCopyLink.svelte";
+export let fw: "pt" | "tf"
+</script>
+<svelte:head>
+  <meta name="hf:doc:metadata" content={JSON.stringify(metadata)} >
+</svelte:head>
+<!--Copyright 2021 The HuggingFace Team. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
+-->
+
+<h1 id="keras-callbacks">Keras callbacks</h1>
+
+When training a Transformers model with Keras, there are some library-specific callbacks available to automate common
+tasks:
+
+<h2 id="transformers.KerasMetricCallback">KerasMetricCallback</h2>
+
+<div class="docstring">
+
+<docstring><name>class transformers.KerasMetricCallback</name><anchor>transformers.KerasMetricCallback</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/keras_callbacks.py#L22</source><parameters>[{"name": "metric_fn", "val": ": typing.Callable"}, {"name": "eval_dataset", "val": ": typing.Union[tensorflow.python.data.ops.dataset_ops.DatasetV2, numpy.ndarray, tensorflow.python.framework.ops.Tensor, tuple, dict]"}, {"name": "output_cols", "val": ": typing.Optional[typing.List[str]] = None"}, {"name": "label_cols", "val": ": typing.Optional[typing.List[str]] = None"}, {"name": "batch_size", "val": ": typing.Optional[int] = None"}, {"name": "predict_with_generate", "val": ": typing.Optional[bool] = False"}]</parameters><paramsdesc>- **metric_fn** (`Callable`) --
+  Metric function provided by the user. It will be called with two arguments - `predictions` and `labels`.
+  These contain the model's outputs and matching labels from the dataset. It should return a dict mapping
+  metric names to numerical values.
+- **eval_dataset** (`tf.data.Dataset` or `dict` or `tuple` or `np.ndarray` or `tf.Tensor`) --
+  Validation data to be used to generate predictions for the `metric_fn`.
+- **output_cols** (`List[str], *optional*) --
+  A list of columns to be retained from the model output as the predictions. Defaults to all.
+- **label_cols** ('`List[str]`, *optional*') --
+  A list of columns to be retained from the input dataset as the labels. Will be autodetected if this is not
+  supplied.
+- **batch_size** (`int`, *optional*) --
+  Batch size. Only used when the data is not a pre-batched `tf.data.Dataset`.
+- **predict_with_generate** (`bool`, *optional*, defaults to `False`) --
+  Whether we should use `model.generate()` to get outputs for the model.</paramsdesc><paramgroups>0</paramgroups></docstring>
+
+Callback to compute metrics at the end of every epoch. Unlike normal Keras metrics, these do not need to be
+compilable by TF. It is particularly useful for common NLP metrics like BLEU and ROUGE that require string
+operations or generation loops that cannot be compiled. Predictions (or generations) will be computed on the
+`eval_dataset` before being passed to the `metric_fn` in `np.ndarray` format. The `metric_fn` should compute
+metrics and return a dict mapping metric names to metric values.
+
+We provide an example of a suitable metric_fn that computes ROUGE scores for a summarization model below. Note that
+this example skips some post-processing for readability and simplicity, and should probably not be used as-is!
+
+```py
+from datasets import load_metric
+
+rouge_metric = load_metric("rouge")
+
+
+def rouge_fn(predictions, labels):
+    decoded_predictions = tokenizer.batch_decode(predictions, skip_special_tokens=True)
+    decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
+    result = rouge_metric.compute(predictions=decoded_predictions, references=decoded_labels)
+    return &amp;lcub;key: value.mid.fmeasure * 100 for key, value in result.items()}
+```
+
+The above function will return a dict containing values which will be logged like any other Keras metric:
+
+```
+&amp;lcub;'rouge1': 37.4199, 'rouge2': 13.9768, 'rougeL': 34.361, 'rougeLsum': 35.0781
+```
+
+
+
+
+</div>
+
+<h2 id="transformers.PushToHubCallback">PushToHubCallback</h2>
+
+<div class="docstring">
+
+<docstring><name>class transformers.PushToHubCallback</name><anchor>transformers.PushToHubCallback</anchor><source>https://github.com/huggingface/transformers/blob/master/src/transformers/keras_callbacks.py#L242</source><parameters>[{"name": "output_dir", "val": ": typing.Union[str, pathlib.Path]"}, {"name": "save_strategy", "val": ": typing.Union[str, transformers.trainer_utils.IntervalStrategy] = 'epoch'"}, {"name": "save_steps", "val": ": typing.Optional[int] = None"}, {"name": "tokenizer", "val": ": typing.Optional[transformers.tokenization_utils_base.PreTrainedTokenizerBase] = None"}, {"name": "hub_model_id", "val": ": typing.Optional[str] = None"}, {"name": "hub_token", "val": ": typing.Optional[str] = None"}, {"name": "checkpoint", "val": ": bool = False"}, {"name": "**model_card_args", "val": ""}]</parameters><paramsdesc>- **output_dir** (`str`) --
+  The output directory where the model predictions and checkpoints will be written and synced with the
+  repository on the Hub.
+- **save_strategy** (`str` or [IntervalStrategy](/docs/transformers/master/en/internal/trainer_utils#transformers.IntervalStrategy), *optional*, defaults to `"epoch"`) --
+  The checkpoint save strategy to adopt during training. Possible values are:
+
+  - `"no"`: No save is done during training.
+  - `"epoch"`: Save is done at the end of each epoch.
+  - `"steps"`: Save is done every `save_steps`
+- **save_steps** (`int`, *optional*) --
+  The number of steps between saves when using the "steps" `save_strategy`.
+- **tokenizer** (`PreTrainedTokenizerBase`, *optional*) --
+  The tokenizer used by the model. If supplied, will be uploaded to the repo alongside the weights.
+- **hub_model_id** (`str`, *optional*) --
+  The name of the repository to keep in sync with the local `output_dir`. It can be a simple model ID in
+  which case the model will be pushed in your namespace. Otherwise it should be the whole repository name,
+  for instance `"user_name/model"`, which allows you to push to an organization you are a member of with
+  `"organization_name/model"`.
+
+  Will default to to the name of `output_dir`.
+- **hub_token** (`str`, *optional*) --
+  The token to use to push the model to the Hub. Will default to the token in the cache folder obtained with
+  `huggingface-cli login`.
+- **checkpoint** (`bool`, *optional*, defaults to `False`) --
+  Whether to save full training checkpoints (including epoch and optimizer state) to allow training to be
+  resumed. Only usable when `save_strategy` is `"epoch"`.</paramsdesc><paramgroups>0</paramgroups></docstring>
+
+Callback that will save and push the model to the Hub regularly. By default, it pushes once per epoch, but this can
+be changed with the `save_strategy` argument. Pushed models can be accessed like any other model on the hub, such
+as with the `from_pretrained` method.
+
+```py
+from transformers.keras_callbacks import PushToHubCallback
+
+push_to_hub_callback = PushToHubCallback(
+    output_dir="./model_save",
+    tokenizer=tokenizer,
+    hub_model_id="gpt5-7xlarge",
+)
+
+model.fit(train_dataset, callbacks=[push_to_hub_callback])
+```
+
+
+
+
+</div>
