@@ -1,0 +1,399 @@
+<meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;preprocessing-data&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;base-use&quot;,&quot;title&quot;:&quot;Base use&quot;},{&quot;local&quot;:&quot;preprocessing-pairs-of-sentences&quot;,&quot;title&quot;:&quot;Preprocessing pairs of sentences&quot;},{&quot;local&quot;:&quot;everything-you-always-wanted-to-know-about-padding-and-truncation&quot;,&quot;title&quot;:&quot;Everything you always wanted to know about padding and truncation&quot;},{&quot;local&quot;:&quot;pretokenized-inputs&quot;,&quot;title&quot;:&quot;Pre-tokenized inputs&quot;}],&quot;title&quot;:&quot;Preprocessing data&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/transformers/v4.15.0/en/_app/start-c4963074.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.15.0/en/_app/chunks/vendor-b1433968.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.15.0/en/_app/layout.svelte-ba4f65ca.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.15.0/en/_app/pages/preprocessing.mdx-fd8f6234.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.15.0/en/_app/chunks/Tip-c3840994.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.15.0/en/_app/chunks/Youtube-17e7948a.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.15.0/en/_app/chunks/IconCopyLink-7029626d.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.15.0/en/_app/chunks/CodeBlock-a320dbd7.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.15.0/en/_app/chunks/CopyButton-f65cb278.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.15.0/en/_app/chunks/CodeBlockFw-e3b92d56.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.15.0/en/_app/chunks/ColabDropdown-727dc22f.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="preprocessing-data" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#preprocessing-data"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Preprocessing data
+	</span></h1>
+
+<div class="absolute z-10 right-0 top-0"><div class="relative colab-dropdown ">
+	<button class="  " type="button">
+		
+			<img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg">
+		</button>
+	
+	
+	
+	</div></div>
+<p>In this tutorial, we’ll explore how to preprocess your data using 🤗 Transformers. The main tool for this is what we
+call a <a href="main_classes/tokenizer">tokenizer</a>. You can build one using the tokenizer class associated to the model
+you would like to use, or directly with the <a href="/docs/transformers/v4.15.0/en/model_doc/auto#transformers.AutoTokenizer">AutoTokenizer</a> class.</p>
+<p>As we saw in the <a href="quicktour">quick tour</a>, the tokenizer will first split a given text in words (or part of
+words, punctuation symbols, etc.) usually called <em>tokens</em>. Then it will convert those <em>tokens</em> into numbers, to be able
+to build a tensor out of them and feed them to the model. It will also add any additional inputs the model might expect
+to work properly.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>If you plan on using a pretrained model, it’s important to use the associated pretrained tokenizer: it will split
+the text you give it in tokens the same way for the pretraining corpus, and it will use the same correspondence
+token to index (that we usually call a <em>vocab</em>) as during pretraining.</p></div>
+<p>To automatically download the vocab used during pretraining or fine-tuning a given model, you can use the
+<a href="/docs/transformers/v4.15.0/en/model_doc/auto#transformers.AutoTokenizer.from_pretrained">AutoTokenizer.from_pretrained()</a> method:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
+tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&#x27;bert-base-cased&#x27;</span>)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="base-use" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#base-use"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Base use
+	</span></h2>
+
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/Yffk5aydLzg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>A <a href="/docs/transformers/v4.15.0/en/main_classes/tokenizer#transformers.PreTrainedTokenizer">PreTrainedTokenizer</a> has many methods, but the only one you need to remember for preprocessing
+is its <code>__call__</code>: you just need to feed your sentence to your tokenizer object.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>encoded_input = tokenizer(<span class="hljs-string">&quot;Hello, I&#x27;m a single sentence!&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(encoded_input)
+{<span class="hljs-string">&#x27;input_ids&#x27;</span>: [<span class="hljs-number">101</span>, <span class="hljs-number">138</span>, <span class="hljs-number">18696</span>, <span class="hljs-number">155</span>, <span class="hljs-number">1942</span>, <span class="hljs-number">3190</span>, <span class="hljs-number">1144</span>, <span class="hljs-number">1572</span>, <span class="hljs-number">13745</span>, <span class="hljs-number">1104</span>, <span class="hljs-number">159</span>, <span class="hljs-number">9664</span>, <span class="hljs-number">2107</span>, <span class="hljs-number">102</span>], 
+ <span class="hljs-string">&#x27;token_type_ids&#x27;</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>], 
+ <span class="hljs-string">&#x27;attention_mask&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]}<!-- HTML_TAG_END --></pre></div>
+<p>This returns a dictionary string to list of ints. The <a href="glossary#input-ids">input_ids</a> are the indices corresponding
+to each token in our sentence. We will see below what the <a href="glossary#attention-mask">attention_mask</a> is used for and
+in <a href="#preprocessing-pairs-of-sentences">the next section</a> the goal of <a href="glossary#token-type-ids">token_type_ids</a>.</p>
+<p>The tokenizer can decode a list of token ids in a proper sentence:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(encoded_input[<span class="hljs-string">&quot;input_ids&quot;</span>])
+<span class="hljs-string">&quot;[CLS] Hello, I&#x27;m a single sentence! [SEP]&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>As you can see, the tokenizer automatically added some special tokens that the model expects. Not all models need
+special tokens; for instance, if we had used <em>gpt2-medium</em> instead of <em>bert-base-cased</em> to create our tokenizer, we
+would have seen the same sentence as the original one here. You can disable this behavior (which is only advised if you
+have added those special tokens yourself) by passing <code>add_special_tokens=False</code>.</p>
+<p>If you have several sentences you want to process, you can do this efficiently by sending them as a list to the
+tokenizer:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>batch_sentences = [<span class="hljs-string">&quot;Hello I&#x27;m a single sentence&quot;</span>,
+<span class="hljs-meta">... </span>                   <span class="hljs-string">&quot;And another sentence&quot;</span>,
+<span class="hljs-meta">... </span>                   <span class="hljs-string">&quot;And the very very last one&quot;</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>encoded_inputs = tokenizer(batch_sentences)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(encoded_inputs)
+{<span class="hljs-string">&#x27;input_ids&#x27;</span>: [[<span class="hljs-number">101</span>, <span class="hljs-number">8667</span>, <span class="hljs-number">146</span>, <span class="hljs-number">112</span>, <span class="hljs-number">182</span>, <span class="hljs-number">170</span>, <span class="hljs-number">1423</span>, <span class="hljs-number">5650</span>, <span class="hljs-number">102</span>],
+               [<span class="hljs-number">101</span>, <span class="hljs-number">1262</span>, <span class="hljs-number">1330</span>, <span class="hljs-number">5650</span>, <span class="hljs-number">102</span>],
+               [<span class="hljs-number">101</span>, <span class="hljs-number">1262</span>, <span class="hljs-number">1103</span>, <span class="hljs-number">1304</span>, <span class="hljs-number">1304</span>, <span class="hljs-number">1314</span>, <span class="hljs-number">1141</span>, <span class="hljs-number">102</span>]],
+ <span class="hljs-string">&#x27;token_type_ids&#x27;</span>: [[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+                    [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+                    [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]],
+ <span class="hljs-string">&#x27;attention_mask&#x27;</span>: [[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>],
+                    [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>],
+                    [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]]}<!-- HTML_TAG_END --></pre></div>
+<p>We get back a dictionary once again, this time with values being lists of lists of ints.</p>
+<p>If the purpose of sending several sentences at a time to the tokenizer is to build a batch to feed the model, you will
+probably want:</p>
+<ul><li>To pad each sentence to the maximum length there is in your batch.</li>
+<li>To truncate each sentence to the maximum length the model can accept (if applicable).</li>
+<li>To return tensors.</li></ul>
+<p>You can do all of this by using the following options when feeding your list of sentences to the tokenizer:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+		<pre><div class="bg-white leading-none border border-gray-100 rounded-lg flex p-0.5 w-56 text-sm mb-4 select-none"><button class="flex justify-center flex-1 py-1.5 px-2.5 focus:outline-none rounded-l false"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><defs><clipPath id="a"><rect x="3.05" y="0.5" width="25.73" height="31" fill="none"></rect></clipPath></defs><g clip-path="url(#a)"><path d="M24.94,9.51a12.81,12.81,0,0,1,0,18.16,12.68,12.68,0,0,1-18,0,12.81,12.81,0,0,1,0-18.16l9-9V5l-.84.83-6,6a9.58,9.58,0,1,0,13.55,0ZM20.44,9a1.68,1.68,0,1,1,1.67-1.67A1.68,1.68,0,0,1,20.44,9Z" fill="#ee4c2c"></path></g></svg>
+			<p style="margin: 0px;">Pytorch</p>
+		</button><button class="flex justify-center flex-1 py-1.5 px-2.5 focus:outline-none rounded-r text-gray-500 filter grayscale"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="0.94em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 274"><path d="M145.726 42.065v42.07l72.861 42.07v-42.07l-72.86-42.07zM0 84.135v42.07l36.43 21.03V105.17L0 84.135zm109.291 21.035l-36.43 21.034v126.2l36.43 21.035v-84.135l36.435 21.035v-42.07l-36.435-21.034V105.17z" fill="#E55B2D"></path><path d="M145.726 42.065L36.43 105.17v42.065l72.861-42.065v42.065l36.435-21.03v-84.14zM255.022 63.1l-36.435 21.035v42.07l36.435-21.035V63.1zm-72.865 84.135l-36.43 21.035v42.07l36.43-21.036v-42.07zm-36.43 63.104l-36.436-21.035v84.135l36.435-21.035V210.34z" fill="#ED8E24"></path><path d="M145.726 0L0 84.135l36.43 21.035l109.296-63.105l72.861 42.07L255.022 63.1L145.726 0zm0 126.204l-36.435 21.03l36.435 21.036l36.43-21.035l-36.43-21.03z" fill="#F8BF3C"></path></svg>
+			<p style="margin: 0px;">TensorFlow</p>
+		</button></div><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>batch = tokenizer(batch_sentences, padding=<span class="hljs-literal">True</span>, truncation=<span class="hljs-literal">True</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(batch)
+{<span class="hljs-string">&#x27;input_ids&#x27;</span>: tensor([[ <span class="hljs-number">101</span>, <span class="hljs-number">8667</span>,  <span class="hljs-number">146</span>,  <span class="hljs-number">112</span>,  <span class="hljs-number">182</span>,  <span class="hljs-number">170</span>, <span class="hljs-number">1423</span>, <span class="hljs-number">5650</span>,  <span class="hljs-number">102</span>],
+                      [ <span class="hljs-number">101</span>, <span class="hljs-number">1262</span>, <span class="hljs-number">1330</span>, <span class="hljs-number">5650</span>,  <span class="hljs-number">102</span>,    <span class="hljs-number">0</span>,    <span class="hljs-number">0</span>,    <span class="hljs-number">0</span>,    <span class="hljs-number">0</span>],
+                      [ <span class="hljs-number">101</span>, <span class="hljs-number">1262</span>, <span class="hljs-number">1103</span>, <span class="hljs-number">1304</span>, <span class="hljs-number">1304</span>, <span class="hljs-number">1314</span>, <span class="hljs-number">1141</span>,  <span class="hljs-number">102</span>,    <span class="hljs-number">0</span>]]),
+ <span class="hljs-string">&#x27;token_type_ids&#x27;</span>: tensor([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+                           [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+                           [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]]), 
+ <span class="hljs-string">&#x27;attention_mask&#x27;</span>: tensor([[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>],
+                           [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+                           [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]])}<!-- HTML_TAG_END --></pre></div>
+<p>It returns a dictionary with string keys and tensor values. We can now see what the <a href="glossary#attention-mask">attention_mask</a> is all about: it points out which tokens the model should pay attention to and which ones
+it should not (because they represent padding in this case).</p>
+<p>Note that if your model does not have a maximum length associated to it, the command above will throw a warning. You
+can safely ignore it. You can also pass <code>verbose=False</code> to stop the tokenizer from throwing those kinds of warnings.</p>
+<a id="sentence-pairs"></a>
+<h2 class="relative group"><a id="preprocessing-pairs-of-sentences" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#preprocessing-pairs-of-sentences"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Preprocessing pairs of sentences
+	</span></h2>
+
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/0u3ioSwev3s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Sometimes you need to feed a pair of sentences to your model. For instance, if you want to classify if two sentences in
+a pair are similar, or for question-answering models, which take a context and a question. For BERT models, the input
+is then represented like this: <code>[CLS] Sequence A [SEP] Sequence B [SEP]</code></p>
+<p>You can encode a pair of sentences in the format expected by your model by supplying the two sentences as two arguments
+(not a list since a list of two sentences will be interpreted as a batch of two single sentences, as we saw before).
+This will once again return a dict string to list of ints:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>encoded_input = tokenizer(<span class="hljs-string">&quot;How old are you?&quot;</span>, <span class="hljs-string">&quot;I&#x27;m 6 years old&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(encoded_input)
+{<span class="hljs-string">&#x27;input_ids&#x27;</span>: [<span class="hljs-number">101</span>, <span class="hljs-number">1731</span>, <span class="hljs-number">1385</span>, <span class="hljs-number">1132</span>, <span class="hljs-number">1128</span>, <span class="hljs-number">136</span>, <span class="hljs-number">102</span>, <span class="hljs-number">146</span>, <span class="hljs-number">112</span>, <span class="hljs-number">182</span>, <span class="hljs-number">127</span>, <span class="hljs-number">1201</span>, <span class="hljs-number">1385</span>, <span class="hljs-number">102</span>], 
+ <span class="hljs-string">&#x27;token_type_ids&#x27;</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>], 
+ <span class="hljs-string">&#x27;attention_mask&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]}<!-- HTML_TAG_END --></pre></div>
+<p>This shows us what the <a href="glossary#token-type-ids">token_type_ids</a> are for: they indicate to the model which part of
+the inputs correspond to the first sentence and which part corresponds to the second sentence. Note that
+<em>token_type_ids</em> are not required or handled by all models. By default, a tokenizer will only return the inputs that
+its associated model expects. You can force the return (or the non-return) of any of those special arguments by using
+<code>return_input_ids</code> or <code>return_token_type_ids</code>.</p>
+<p>If we decode the token ids we obtained, we will see that the special tokens have been properly added.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(encoded_input[<span class="hljs-string">&quot;input_ids&quot;</span>])
+<span class="hljs-string">&quot;[CLS] How old are you? [SEP] I&#x27;m 6 years old [SEP]&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>If you have a list of pairs of sequences you want to process, you should feed them as two lists to your tokenizer: the
+list of first sentences and the list of second sentences:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>batch_sentences = [<span class="hljs-string">&quot;Hello I&#x27;m a single sentence&quot;</span>,
+<span class="hljs-meta">... </span>                   <span class="hljs-string">&quot;And another sentence&quot;</span>,
+<span class="hljs-meta">... </span>                   <span class="hljs-string">&quot;And the very very last one&quot;</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>batch_of_second_sentences = [<span class="hljs-string">&quot;I&#x27;m a sentence that goes with the first sentence&quot;</span>,
+<span class="hljs-meta">... </span>                             <span class="hljs-string">&quot;And I should be encoded with the second sentence&quot;</span>,
+<span class="hljs-meta">... </span>                             <span class="hljs-string">&quot;And I go with the very last one&quot;</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>encoded_inputs = tokenizer(batch_sentences, batch_of_second_sentences)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(encoded_inputs)
+{<span class="hljs-string">&#x27;input_ids&#x27;</span>: [[<span class="hljs-number">101</span>, <span class="hljs-number">8667</span>, <span class="hljs-number">146</span>, <span class="hljs-number">112</span>, <span class="hljs-number">182</span>, <span class="hljs-number">170</span>, <span class="hljs-number">1423</span>, <span class="hljs-number">5650</span>, <span class="hljs-number">102</span>, <span class="hljs-number">146</span>, <span class="hljs-number">112</span>, <span class="hljs-number">182</span>, <span class="hljs-number">170</span>, <span class="hljs-number">5650</span>, <span class="hljs-number">1115</span>, <span class="hljs-number">2947</span>, <span class="hljs-number">1114</span>, <span class="hljs-number">1103</span>, <span class="hljs-number">1148</span>, <span class="hljs-number">5650</span>, <span class="hljs-number">102</span>], 
+               [<span class="hljs-number">101</span>, <span class="hljs-number">1262</span>, <span class="hljs-number">1330</span>, <span class="hljs-number">5650</span>, <span class="hljs-number">102</span>, <span class="hljs-number">1262</span>, <span class="hljs-number">146</span>, <span class="hljs-number">1431</span>, <span class="hljs-number">1129</span>, <span class="hljs-number">12544</span>, <span class="hljs-number">1114</span>, <span class="hljs-number">1103</span>, <span class="hljs-number">1248</span>, <span class="hljs-number">5650</span>, <span class="hljs-number">102</span>], 
+               [<span class="hljs-number">101</span>, <span class="hljs-number">1262</span>, <span class="hljs-number">1103</span>, <span class="hljs-number">1304</span>, <span class="hljs-number">1304</span>, <span class="hljs-number">1314</span>, <span class="hljs-number">1141</span>, <span class="hljs-number">102</span>, <span class="hljs-number">1262</span>, <span class="hljs-number">146</span>, <span class="hljs-number">1301</span>, <span class="hljs-number">1114</span>, <span class="hljs-number">1103</span>, <span class="hljs-number">1304</span>, <span class="hljs-number">1314</span>, <span class="hljs-number">1141</span>, <span class="hljs-number">102</span>]], 
+<span class="hljs-string">&#x27;token_type_ids&#x27;</span>: [[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>], 
+                   [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>], 
+                   [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]], 
+<span class="hljs-string">&#x27;attention_mask&#x27;</span>: [[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>], 
+                   [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>], 
+                   [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]]}<!-- HTML_TAG_END --></pre></div>
+<p>As we can see, it returns a dictionary where each value is a list of lists of ints.</p>
+<p>To double-check what is fed to the model, we can decode each list in <em>input_ids</em> one by one:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> ids <span class="hljs-keyword">in</span> encoded_inputs[<span class="hljs-string">&quot;input_ids&quot;</span>]:
+<span class="hljs-meta">&gt;&gt;&gt; </span>    <span class="hljs-built_in">print</span>(tokenizer.decode(ids))
+[CLS] Hello I<span class="hljs-string">&#x27;m a single sentence [SEP] I&#x27;</span>m a sentence that goes <span class="hljs-keyword">with</span> the first sentence [SEP]
+[CLS] And another sentence [SEP] And I should be encoded <span class="hljs-keyword">with</span> the second sentence [SEP]
+[CLS] And the very very last one [SEP] And I go <span class="hljs-keyword">with</span> the very last one [SEP]<!-- HTML_TAG_END --></pre></div>
+<p>Once again, you can automatically pad your inputs to the maximum sentence length in the batch, truncate to the maximum
+length the model can accept and return tensors directly with the following:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+		<pre><div class="bg-white leading-none border border-gray-100 rounded-lg flex p-0.5 w-56 text-sm mb-4 select-none"><button class="flex justify-center flex-1 py-1.5 px-2.5 focus:outline-none rounded-l false"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><defs><clipPath id="a"><rect x="3.05" y="0.5" width="25.73" height="31" fill="none"></rect></clipPath></defs><g clip-path="url(#a)"><path d="M24.94,9.51a12.81,12.81,0,0,1,0,18.16,12.68,12.68,0,0,1-18,0,12.81,12.81,0,0,1,0-18.16l9-9V5l-.84.83-6,6a9.58,9.58,0,1,0,13.55,0ZM20.44,9a1.68,1.68,0,1,1,1.67-1.67A1.68,1.68,0,0,1,20.44,9Z" fill="#ee4c2c"></path></g></svg>
+			<p style="margin: 0px;">Pytorch</p>
+		</button><button class="flex justify-center flex-1 py-1.5 px-2.5 focus:outline-none rounded-r text-gray-500 filter grayscale"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="0.94em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 274"><path d="M145.726 42.065v42.07l72.861 42.07v-42.07l-72.86-42.07zM0 84.135v42.07l36.43 21.03V105.17L0 84.135zm109.291 21.035l-36.43 21.034v126.2l36.43 21.035v-84.135l36.435 21.035v-42.07l-36.435-21.034V105.17z" fill="#E55B2D"></path><path d="M145.726 42.065L36.43 105.17v42.065l72.861-42.065v42.065l36.435-21.03v-84.14zM255.022 63.1l-36.435 21.035v42.07l36.435-21.035V63.1zm-72.865 84.135l-36.43 21.035v42.07l36.43-21.036v-42.07zm-36.43 63.104l-36.436-21.035v84.135l36.435-21.035V210.34z" fill="#ED8E24"></path><path d="M145.726 0L0 84.135l36.43 21.035l109.296-63.105l72.861 42.07L255.022 63.1L145.726 0zm0 126.204l-36.435 21.03l36.435 21.036l36.43-21.035l-36.43-21.03z" fill="#F8BF3C"></path></svg>
+			<p style="margin: 0px;">TensorFlow</p>
+		</button></div><!-- HTML_TAG_START -->batch = tokenizer(batch_sentences, batch_of_second_sentences, padding=<span class="hljs-literal">True</span>, truncation=<span class="hljs-literal">True</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="everything-you-always-wanted-to-know-about-padding-and-truncation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#everything-you-always-wanted-to-know-about-padding-and-truncation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Everything you always wanted to know about padding and truncation
+	</span></h2>
+
+<p>We have seen the commands that will work for most cases (pad your batch to the length of the maximum sentence and
+truncate to the maximum length the model can accept). However, the API supports more strategies if you need them. The
+three arguments you need to know for this are <code>padding</code>, <code>truncation</code> and <code>max_length</code>.</p>
+<ul><li><p><code>padding</code> controls the padding. It can be a boolean or a string which should be:</p>
+<ul><li><code>True</code> or <code>&#39;longest&#39;</code> to pad to the longest sequence in the batch (doing no padding if you only provide
+a single sequence).</li>
+<li><code>&#39;max_length&#39;</code> to pad to a length specified by the <code>max_length</code> argument or the maximum length accepted
+by the model if no <code>max_length</code> is provided (<code>max_length=None</code>). If you only provide a single sequence,
+padding will still be applied to it.</li>
+<li><code>False</code> or <code>&#39;do_not_pad&#39;</code> to not pad the sequences. As we have seen before, this is the default
+behavior.</li></ul></li>
+<li><p><code>truncation</code> controls the truncation. It can be a boolean or a string which should be:</p>
+<ul><li><code>True</code> or <code>&#39;longest_first&#39;</code> truncate to a maximum length specified by the <code>max_length</code> argument or
+the maximum length accepted by the model if no <code>max_length</code> is provided (<code>max_length=None</code>). This will
+truncate token by token, removing a token from the longest sequence in the pair until the proper length is
+reached.</li>
+<li><code>&#39;only_second&#39;</code> truncate to a maximum length specified by the <code>max_length</code> argument or the maximum
+length accepted by the model if no <code>max_length</code> is provided (<code>max_length=None</code>). This will only truncate
+the second sentence of a pair if a pair of sequence (or a batch of pairs of sequences) is provided.</li>
+<li><code>&#39;only_first&#39;</code> truncate to a maximum length specified by the <code>max_length</code> argument or the maximum
+length accepted by the model if no <code>max_length</code> is provided (<code>max_length=None</code>). This will only truncate
+the first sentence of a pair if a pair of sequence (or a batch of pairs of sequences) is provided.</li>
+<li><code>False</code> or <code>&#39;do_not_truncate&#39;</code> to not truncate the sequences. As we have seen before, this is the
+default behavior.</li></ul></li>
+<li><p><code>max_length</code> to control the length of the padding/truncation. It can be an integer or <code>None</code>, in which case
+it will default to the maximum length the model can accept. If the model has no specific maximum input length,
+truncation/padding to <code>max_length</code> is deactivated.</p></li></ul>
+<p>Here is a table summarizing the recommend way to setup padding and truncation. If you use pair of inputs sequence in
+any of the following examples, you can replace <code>truncation=True</code> by a <code>STRATEGY</code> selected in
+<code>[&#39;only_first&#39;, &#39;only_second&#39;, &#39;longest_first&#39;]</code>, i.e. <code>truncation=&#39;only_second&#39;</code> or <code>truncation= &#39;longest_first&#39;</code> to control how both sequence in the pair are truncated as detailed before.</p>
+<table><thead><tr><th>Truncation</th>
+<th>Padding</th>
+<th>Instruction</th></tr></thead>
+<tbody><tr><td>no truncation</td>
+<td>no padding</td>
+<td><code>tokenizer(batch_sentences)</code></td></tr>
+<tr><td></td>
+<td>padding to max sequence in batch</td>
+<td><code>tokenizer(batch_sentences, padding=True)</code> or</td></tr>
+<tr><td></td>
+<td></td>
+<td><code>tokenizer(batch_sentences, padding=&#39;longest&#39;)</code></td></tr>
+<tr><td></td>
+<td>padding to max model input length</td>
+<td><code>tokenizer(batch_sentences, padding=&#39;max_length&#39;)</code></td></tr>
+<tr><td></td>
+<td>padding to specific length</td>
+<td><code>tokenizer(batch_sentences, padding=&#39;max_length&#39;, max_length=42)</code></td></tr>
+<tr><td>truncation to max model input length</td>
+<td>no padding</td>
+<td><code>tokenizer(batch_sentences, truncation=True)</code> or</td></tr>
+<tr><td></td>
+<td></td>
+<td><code>tokenizer(batch_sentences, truncation=STRATEGY)</code></td></tr>
+<tr><td></td>
+<td>padding to max sequence in batch</td>
+<td><code>tokenizer(batch_sentences, padding=True, truncation=True)</code> or</td></tr>
+<tr><td></td>
+<td></td>
+<td><code>tokenizer(batch_sentences, padding=True, truncation=STRATEGY)</code></td></tr>
+<tr><td></td>
+<td>padding to max model input length</td>
+<td><code>tokenizer(batch_sentences, padding=&#39;max_length&#39;, truncation=True)</code> or</td></tr>
+<tr><td></td>
+<td></td>
+<td><code>tokenizer(batch_sentences, padding=&#39;max_length&#39;, truncation=STRATEGY)</code></td></tr>
+<tr><td></td>
+<td>padding to specific length</td>
+<td>Not possible</td></tr>
+<tr><td>truncation to specific length</td>
+<td>no padding</td>
+<td><code>tokenizer(batch_sentences, truncation=True, max_length=42)</code> or</td></tr>
+<tr><td></td>
+<td></td>
+<td><code>tokenizer(batch_sentences, truncation=STRATEGY, max_length=42)</code></td></tr>
+<tr><td></td>
+<td>padding to max sequence in batch</td>
+<td><code>tokenizer(batch_sentences, padding=True, truncation=True, max_length=42)</code> or</td></tr>
+<tr><td></td>
+<td></td>
+<td><code>tokenizer(batch_sentences, padding=True, truncation=STRATEGY, max_length=42)</code></td></tr>
+<tr><td></td>
+<td>padding to max model input length</td>
+<td>Not possible</td></tr>
+<tr><td></td>
+<td>padding to specific length</td>
+<td><code>tokenizer(batch_sentences, padding=&#39;max_length&#39;, truncation=True, max_length=42)</code> or</td></tr>
+<tr><td></td>
+<td></td>
+<td><code>tokenizer(batch_sentences, padding=&#39;max_length&#39;, truncation=STRATEGY, max_length=42)</code></td></tr></tbody></table>
+<h2 class="relative group"><a id="pretokenized-inputs" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#pretokenized-inputs"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Pre-tokenized inputs
+	</span></h2>
+
+<p>The tokenizer also accept pre-tokenized inputs. This is particularly useful when you want to compute labels and extract
+predictions in <a href="https://en.wikipedia.org/wiki/Named-entity_recognition" rel="nofollow">named entity recognition (NER)</a> or
+<a href="https://en.wikipedia.org/wiki/Part-of-speech_tagging" rel="nofollow">part-of-speech tagging (POS tagging)</a>.</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>Pre-tokenized does not mean your inputs are already tokenized (you wouldn’t need to pass them through the tokenizer
+if that was the case) but just split into words (which is often the first step in subword tokenization algorithms
+like BPE).</p></div>
+<p>If you want to use pre-tokenized inputs, just set <code>is_split_into_words=True</code> when passing your inputs to the
+tokenizer. For instance, we have:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>encoded_input = tokenizer([<span class="hljs-string">&quot;Hello&quot;</span>, <span class="hljs-string">&quot;I&#x27;m&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;single&quot;</span>, <span class="hljs-string">&quot;sentence&quot;</span>], is_split_into_words=<span class="hljs-literal">True</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(encoded_input)
+{<span class="hljs-string">&#x27;input_ids&#x27;</span>: [<span class="hljs-number">101</span>, <span class="hljs-number">8667</span>, <span class="hljs-number">146</span>, <span class="hljs-number">112</span>, <span class="hljs-number">182</span>, <span class="hljs-number">170</span>, <span class="hljs-number">1423</span>, <span class="hljs-number">5650</span>, <span class="hljs-number">102</span>],
+ <span class="hljs-string">&#x27;token_type_ids&#x27;</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>], 
+ <span class="hljs-string">&#x27;attention_mask&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]}<!-- HTML_TAG_END --></pre></div>
+<p>Note that the tokenizer still adds the ids of special tokens (if applicable) unless you pass
+<code>add_special_tokens=False</code>.</p>
+<p>This works exactly as before for batch of sentences or batch of pairs of sentences. You can encode a batch of sentences
+like this:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->batch_sentences = [[<span class="hljs-string">&quot;Hello&quot;</span>, <span class="hljs-string">&quot;I&#x27;m&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;single&quot;</span>, <span class="hljs-string">&quot;sentence&quot;</span>],
+                   [<span class="hljs-string">&quot;And&quot;</span>, <span class="hljs-string">&quot;another&quot;</span>, <span class="hljs-string">&quot;sentence&quot;</span>],
+                   [<span class="hljs-string">&quot;And&quot;</span>, <span class="hljs-string">&quot;the&quot;</span>, <span class="hljs-string">&quot;very&quot;</span>, <span class="hljs-string">&quot;very&quot;</span>, <span class="hljs-string">&quot;last&quot;</span>, <span class="hljs-string">&quot;one&quot;</span>]]
+encoded_inputs = tokenizer(batch_sentences, is_split_into_words=<span class="hljs-literal">True</span>)<!-- HTML_TAG_END --></pre></div>
+<p>or a batch of pair sentences like this:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->batch_of_second_sentences = [[<span class="hljs-string">&quot;I&#x27;m&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;sentence&quot;</span>, <span class="hljs-string">&quot;that&quot;</span>, <span class="hljs-string">&quot;goes&quot;</span>, <span class="hljs-string">&quot;with&quot;</span>, <span class="hljs-string">&quot;the&quot;</span>, <span class="hljs-string">&quot;first&quot;</span>, <span class="hljs-string">&quot;sentence&quot;</span>],
+                             [<span class="hljs-string">&quot;And&quot;</span>, <span class="hljs-string">&quot;I&quot;</span>, <span class="hljs-string">&quot;should&quot;</span>, <span class="hljs-string">&quot;be&quot;</span>, <span class="hljs-string">&quot;encoded&quot;</span>, <span class="hljs-string">&quot;with&quot;</span>, <span class="hljs-string">&quot;the&quot;</span>, <span class="hljs-string">&quot;second&quot;</span>, <span class="hljs-string">&quot;sentence&quot;</span>],
+                             [<span class="hljs-string">&quot;And&quot;</span>, <span class="hljs-string">&quot;I&quot;</span>, <span class="hljs-string">&quot;go&quot;</span>, <span class="hljs-string">&quot;with&quot;</span>, <span class="hljs-string">&quot;the&quot;</span>, <span class="hljs-string">&quot;very&quot;</span>, <span class="hljs-string">&quot;last&quot;</span>, <span class="hljs-string">&quot;one&quot;</span>]]
+encoded_inputs = tokenizer(batch_sentences, batch_of_second_sentences, is_split_into_words=<span class="hljs-literal">True</span>)<!-- HTML_TAG_END --></pre></div>
+<p>And you can add padding, truncation as well as directly return tensors like before:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5 text-gray-600 " title="Copy code excerpt to clipboard" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+		<pre><div class="bg-white leading-none border border-gray-100 rounded-lg flex p-0.5 w-56 text-sm mb-4 select-none"><button class="flex justify-center flex-1 py-1.5 px-2.5 focus:outline-none rounded-l false"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><defs><clipPath id="a"><rect x="3.05" y="0.5" width="25.73" height="31" fill="none"></rect></clipPath></defs><g clip-path="url(#a)"><path d="M24.94,9.51a12.81,12.81,0,0,1,0,18.16,12.68,12.68,0,0,1-18,0,12.81,12.81,0,0,1,0-18.16l9-9V5l-.84.83-6,6a9.58,9.58,0,1,0,13.55,0ZM20.44,9a1.68,1.68,0,1,1,1.67-1.67A1.68,1.68,0,0,1,20.44,9Z" fill="#ee4c2c"></path></g></svg>
+			<p style="margin: 0px;">Pytorch</p>
+		</button><button class="flex justify-center flex-1 py-1.5 px-2.5 focus:outline-none rounded-r text-gray-500 filter grayscale"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="0.94em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 274"><path d="M145.726 42.065v42.07l72.861 42.07v-42.07l-72.86-42.07zM0 84.135v42.07l36.43 21.03V105.17L0 84.135zm109.291 21.035l-36.43 21.034v126.2l36.43 21.035v-84.135l36.435 21.035v-42.07l-36.435-21.034V105.17z" fill="#E55B2D"></path><path d="M145.726 42.065L36.43 105.17v42.065l72.861-42.065v42.065l36.435-21.03v-84.14zM255.022 63.1l-36.435 21.035v42.07l36.435-21.035V63.1zm-72.865 84.135l-36.43 21.035v42.07l36.43-21.036v-42.07zm-36.43 63.104l-36.436-21.035v84.135l36.435-21.035V210.34z" fill="#ED8E24"></path><path d="M145.726 0L0 84.135l36.43 21.035l109.296-63.105l72.861 42.07L255.022 63.1L145.726 0zm0 126.204l-36.435 21.03l36.435 21.036l36.43-21.035l-36.43-21.03z" fill="#F8BF3C"></path></svg>
+			<p style="margin: 0px;">TensorFlow</p>
+		</button></div><!-- HTML_TAG_START -->batch = tokenizer(batch_sentences,
+                  batch_of_second_sentences,
+                  is_split_into_words=<span class="hljs-literal">True</span>,
+                  padding=<span class="hljs-literal">True</span>,
+                  truncation=<span class="hljs-literal">True</span>,
+                  return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+
+		<script type="module" data-hydrate="5eo6q5">
+		import { start } from "/docs/transformers/v4.15.0/en/_app/start-c4963074.js";
+		start({
+			target: document.querySelector('[data-hydrate="5eo6q5"]').parentNode,
+			paths: {"base":"/docs/transformers/v4.15.0/en","assets":"/docs/transformers/v4.15.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/transformers/v4.15.0/en/_app/layout.svelte-ba4f65ca.js"),
+						import("/docs/transformers/v4.15.0/en/_app/pages/preprocessing.mdx-fd8f6234.js")
+				],
+				url: new URL("http://sveltekit-prerender/docs/transformers/v4.15.0/en/preprocessing"),
+				params: {}
+			}
+		});
+	</script>
