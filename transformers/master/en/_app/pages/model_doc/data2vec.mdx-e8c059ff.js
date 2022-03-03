@@ -318,8 +318,8 @@ dataset = load_dataset("hf-internal-testing/librispeech_asr_demo", "clean", spli
 dataset = dataset.sort("id")
 sampling_rate = dataset.features["audio"].sampling_rate
 
-feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained("anton-l/data2vec-audio-base-superb-sd")
-model = Data2VecAudioForAudioFrameClassification.from_pretrained("anton-l/data2vec-audio-base-superb-sd")
+feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained("hf-internal-testing/tiny-random-data2vec-audio-frame")
+model = Data2VecAudioForAudioFrameClassification.from_pretrained("hf-internal-testing/tiny-random-data2vec-audio-frame")
 
 # audio file is decoded on the fly
 inputs = feature_extractor(dataset[0]["audio"]["array"], return_tensors="pt", sampling_rate=sampling_rate)
@@ -337,8 +337,8 @@ labels[0].tolist()`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><sp
 <span class="hljs-meta">&gt;&gt;&gt; </span>dataset = dataset.sort(<span class="hljs-string">&quot;id&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>sampling_rate = dataset.features[<span class="hljs-string">&quot;audio&quot;</span>].sampling_rate
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(<span class="hljs-string">&quot;anton-l/data2vec-audio-base-superb-sd&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = Data2VecAudioForAudioFrameClassification.from_pretrained(<span class="hljs-string">&quot;anton-l/data2vec-audio-base-superb-sd&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-data2vec-audio-frame&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = Data2VecAudioForAudioFrameClassification.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-data2vec-audio-frame&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># audio file is decoded on the fly</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = feature_extractor(dataset[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;audio&quot;</span>][<span class="hljs-string">&quot;array&quot;</span>], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>, sampling_rate=sampling_rate)
@@ -349,7 +349,7 @@ labels[0].tolist()`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><sp
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># labels is a one-hot array of shape (num_frames, num_speakers)</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>labels = (probabilities &gt; <span class="hljs-number">0.5</span>).long()
 <span class="hljs-meta">&gt;&gt;&gt; </span>labels[<span class="hljs-number">0</span>].tolist()
-[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]`}}),xo=new B({}),Do=new A({props:{name:"class transformers.Data2VecAudioForCTC",anchor:"transformers.Data2VecAudioForCTC",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/data2vec/modeling_data2vec_audio.py#L1036",parametersDescription:[{anchor:"transformers.Data2VecAudioForCTC.config",description:`<strong>config</strong> (<a href="/docs/transformers/master/en/model_doc/data2vec#transformers.Data2VecAudioConfig">Data2VecAudioConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]`}}),xo=new B({}),Do=new A({props:{name:"class transformers.Data2VecAudioForCTC",anchor:"transformers.Data2VecAudioForCTC",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/data2vec/modeling_data2vec_audio.py#L1036",parametersDescription:[{anchor:"transformers.Data2VecAudioForCTC.config",description:`<strong>config</strong> (<a href="/docs/transformers/master/en/model_doc/data2vec#transformers.Data2VecAudioConfig">Data2VecAudioConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
 Initializing with a config file does not load the weights associated with the model, only the
 configuration. Check out the <a href="/docs/transformers/master/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),Co=new A({props:{name:"forward",anchor:"transformers.Data2VecAudioForCTC.forward",parameters:[{name:"input_values",val:""},{name:"attention_mask",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"},{name:"labels",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/data2vec/modeling_data2vec_audio.py#L1077",parametersDescription:[{anchor:"transformers.Data2VecAudioForCTC.forward.input_values",description:`<strong>input_values</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
 Float values of input raw speech waveform. Values can be obtained by loading a <em>.flac</em> or <em>.wav</em> audio file
@@ -454,7 +454,7 @@ round(loss.item(), 2)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># compute loss</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs).loss
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
-<span class="hljs-number">53.48</span>`}}),jo=new B({}),zo=new A({props:{name:"class transformers.Data2VecAudioForSequenceClassification",anchor:"transformers.Data2VecAudioForSequenceClassification",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/data2vec/modeling_data2vec_audio.py#L1167",parametersDescription:[{anchor:"transformers.Data2VecAudioForSequenceClassification.config",description:`<strong>config</strong> (<a href="/docs/transformers/master/en/model_doc/data2vec#transformers.Data2VecAudioConfig">Data2VecAudioConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+<span class="hljs-number">66.95</span>`}}),jo=new B({}),zo=new A({props:{name:"class transformers.Data2VecAudioForSequenceClassification",anchor:"transformers.Data2VecAudioForSequenceClassification",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/data2vec/modeling_data2vec_audio.py#L1167",parametersDescription:[{anchor:"transformers.Data2VecAudioForSequenceClassification.config",description:`<strong>config</strong> (<a href="/docs/transformers/master/en/model_doc/data2vec#transformers.Data2VecAudioConfig">Data2VecAudioConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
 Initializing with a config file does not load the weights associated with the model, only the
 configuration. Check out the <a href="/docs/transformers/master/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),Io=new A({props:{name:"forward",anchor:"transformers.Data2VecAudioForSequenceClassification.forward",parameters:[{name:"input_values",val:""},{name:"attention_mask",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"},{name:"labels",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/data2vec/modeling_data2vec_audio.py#L1212",parametersDescription:[{anchor:"transformers.Data2VecAudioForSequenceClassification.forward.input_values",description:`<strong>input_values</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
 Float values of input raw speech waveform. Values can be obtained by loading a <em>.flac</em> or <em>.wav</em> audio file
@@ -516,8 +516,8 @@ dataset = load_dataset("hf-internal-testing/librispeech_asr_demo", "clean", spli
 dataset = dataset.sort("id")
 sampling_rate = dataset.features["audio"].sampling_rate
 
-feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained("superb/data2vec-audio-base-superb-ks")
-model = Data2VecAudioForSequenceClassification.from_pretrained("superb/data2vec-audio-base-superb-ks")
+feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained("hf-internal-testing/tiny-random-data2vec-seq-class")
+model = Data2VecAudioForSequenceClassification.from_pretrained("hf-internal-testing/tiny-random-data2vec-seq-class")
 
 # audio file is decoded on the fly
 inputs = feature_extractor(dataset[0]["audio"]["array"], sampling_rate=sampling_rate, return_tensors="pt")
@@ -535,8 +535,8 @@ predicted_label`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span 
 <span class="hljs-meta">&gt;&gt;&gt; </span>dataset = dataset.sort(<span class="hljs-string">&quot;id&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>sampling_rate = dataset.features[<span class="hljs-string">&quot;audio&quot;</span>].sampling_rate
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(<span class="hljs-string">&quot;superb/data2vec-audio-base-superb-ks&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = Data2VecAudioForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;superb/data2vec-audio-base-superb-ks&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-data2vec-seq-class&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = Data2VecAudioForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-data2vec-seq-class&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># audio file is decoded on the fly</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = feature_extractor(dataset[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;audio&quot;</span>][<span class="hljs-string">&quot;array&quot;</span>], sampling_rate=sampling_rate, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
@@ -547,7 +547,7 @@ predicted_label`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span 
 <span class="hljs-meta">&gt;&gt;&gt; </span>predicted_class_ids = torch.argmax(logits, dim=-<span class="hljs-number">1</span>).item()
 <span class="hljs-meta">&gt;&gt;&gt; </span>predicted_label = model.config.id2label[predicted_class_ids]
 <span class="hljs-meta">&gt;&gt;&gt; </span>predicted_label
-<span class="hljs-string">&#x27;_unknown_&#x27;</span>`}}),Oo=new N({props:{code:`# compute loss - target_label is e.g. "down"
+<span class="hljs-string">&#x27;LABEL_1&#x27;</span>`}}),Oo=new N({props:{code:`# compute loss - target_label is e.g. "down"
 target_label = model.config.id2label[0]
 inputs["labels"] = torch.tensor([model.config.label2id[target_label]])
 loss = model(**inputs).loss
@@ -556,7 +556,7 @@ round(loss.item(), 2)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs[<span class="hljs-string">&quot;labels&quot;</span>] = torch.tensor([model.config.label2id[target_label]])
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs).loss
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
-<span class="hljs-number">6.54</span>`}}),Bo=new B({}),Ho=new A({props:{name:"class transformers.Data2VecAudioForXVector",anchor:"transformers.Data2VecAudioForXVector",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/data2vec/modeling_data2vec_audio.py#L1449",parametersDescription:[{anchor:"transformers.Data2VecAudioForXVector.config",description:`<strong>config</strong> (<a href="/docs/transformers/master/en/model_doc/data2vec#transformers.Data2VecAudioConfig">Data2VecAudioConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+<span class="hljs-number">0.69</span>`}}),Bo=new B({}),Ho=new A({props:{name:"class transformers.Data2VecAudioForXVector",anchor:"transformers.Data2VecAudioForXVector",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/data2vec/modeling_data2vec_audio.py#L1449",parametersDescription:[{anchor:"transformers.Data2VecAudioForXVector.config",description:`<strong>config</strong> (<a href="/docs/transformers/master/en/model_doc/data2vec#transformers.Data2VecAudioConfig">Data2VecAudioConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
 Initializing with a config file does not load the weights associated with the model, only the
 configuration. Check out the <a href="/docs/transformers/master/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),Jo=new A({props:{name:"forward",anchor:"transformers.Data2VecAudioForXVector.forward",parameters:[{name:"input_values",val:""},{name:"attention_mask",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"},{name:"labels",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/data2vec/modeling_data2vec_audio.py#L1511",parametersDescription:[{anchor:"transformers.Data2VecAudioForXVector.forward.input_values",description:`<strong>input_values</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
 Float values of input raw speech waveform. Values can be obtained by loading a <em>.flac</em> or <em>.wav</em> audio file
@@ -619,8 +619,8 @@ dataset = load_dataset("hf-internal-testing/librispeech_asr_demo", "clean", spli
 dataset = dataset.sort("id")
 sampling_rate = dataset.features["audio"].sampling_rate
 
-feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained("anton-l/data2vec-audio-base-superb-sv")
-model = Data2VecAudioForXVector.from_pretrained("anton-l/data2vec-audio-base-superb-sv")
+feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained("hf-internal-testing/tiny-random-data2vec-xvector")
+model = Data2VecAudioForXVector.from_pretrained("hf-internal-testing/tiny-random-data2vec-xvector")
 
 # audio file is decoded on the fly
 inputs = feature_extractor(
@@ -645,8 +645,8 @@ round(similarity.item(), 2)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; <
 <span class="hljs-meta">&gt;&gt;&gt; </span>dataset = dataset.sort(<span class="hljs-string">&quot;id&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>sampling_rate = dataset.features[<span class="hljs-string">&quot;audio&quot;</span>].sampling_rate
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(<span class="hljs-string">&quot;anton-l/data2vec-audio-base-superb-sv&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = Data2VecAudioForXVector.from_pretrained(<span class="hljs-string">&quot;anton-l/data2vec-audio-base-superb-sv&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-data2vec-xvector&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = Data2VecAudioForXVector.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-data2vec-xvector&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># audio file is decoded on the fly</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = feature_extractor(
@@ -664,7 +664,7 @@ round(similarity.item(), 2)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; <
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">if</span> similarity &lt; threshold:
 <span class="hljs-meta">... </span>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Speakers are not the same!&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(similarity.item(), <span class="hljs-number">2</span>)
-<span class="hljs-number">0.98</span>`}}),Yo=new B({}),Zo=new A({props:{name:"class transformers.Data2VecTextModel",anchor:"transformers.Data2VecTextModel",parameters:[{name:"config",val:""},{name:"add_pooling_layer",val:" = True"}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/data2vec/modeling_data2vec_text.py#L699",parametersDescription:[{anchor:"transformers.Data2VecTextModel.config",description:`<strong>config</strong> (<a href="/docs/transformers/master/en/model_doc/data2vec#transformers.Data2VecTextConfig">Data2VecTextConfig</a>) &#x2014; Model configuration class with all the parameters of the
+<span class="hljs-number">1.0</span>`}}),Yo=new B({}),Zo=new A({props:{name:"class transformers.Data2VecTextModel",anchor:"transformers.Data2VecTextModel",parameters:[{name:"config",val:""},{name:"add_pooling_layer",val:" = True"}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/data2vec/modeling_data2vec_text.py#L699",parametersDescription:[{anchor:"transformers.Data2VecTextModel.config",description:`<strong>config</strong> (<a href="/docs/transformers/master/en/model_doc/data2vec#transformers.Data2VecTextConfig">Data2VecTextConfig</a>) &#x2014; Model configuration class with all the parameters of the
 model. Initializing with a config file does not load the weights associated with the model, only the
 configuration. Check out the <a href="/docs/transformers/master/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),ia=new A({props:{name:"forward",anchor:"transformers.Data2VecTextModel.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"encoder_hidden_states",val:" = None"},{name:"encoder_attention_mask",val:" = None"},{name:"past_key_values",val:" = None"},{name:"use_cache",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/data2vec/modeling_data2vec_text.py#L743",parametersDescription:[{anchor:"transformers.Data2VecTextModel.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
 Indices of input sequence tokens in the vocabulary.</p>
