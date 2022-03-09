@@ -27,9 +27,9 @@ start_with_ar['sentence1']`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </
 <span class="hljs-string">&#x27;Around 9 : 00 a.m. EDT ( 1300 GMT ) , the euro was at $ 1.1566 against the dollar , up 0.07 percent on the day .&#x27;</span>,
 <span class="hljs-string">&quot;Arguing that the case was an isolated example , Canada has threatened a trade backlash if Tokyo &#x27;s ban is not justified on scientific grounds .&quot;</span>,
 <span class="hljs-string">&#x27;Artists are worried the plan would harm those who need help most - performers who have a difficult time lining up shows .&#x27;</span>
-]`}}),te=new x({props:{code:`even_dataset = dataset.filter(lambda example, indice: indice % 2 == 0, with_indices=True)
+]`}}),te=new x({props:{code:`even_dataset = dataset.filter(lambda example, idx: idx % 2 == 0, with_indices=True)
 len(even_dataset)
-len(dataset) / 2`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>even_dataset = dataset.<span class="hljs-built_in">filter</span>(<span class="hljs-keyword">lambda</span> example, indice: indice % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>, with_indices=<span class="hljs-literal">True</span>)
+len(dataset) / 2`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>even_dataset = dataset.<span class="hljs-built_in">filter</span>(<span class="hljs-keyword">lambda</span> example, idx: idx % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>, with_indices=<span class="hljs-literal">True</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">len</span>(even_dataset)
 <span class="hljs-number">1834</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">len</span>(dataset) / <span class="hljs-number">2</span>
