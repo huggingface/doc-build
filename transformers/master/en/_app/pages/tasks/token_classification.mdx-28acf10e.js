@@ -84,9 +84,9 @@ data_collator = DataCollatorForTokenClassification(tokenizer=tokenizer, return_t
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>data_collator = DataCollatorForTokenClassification(tokenizer=tokenizer, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)`}}}),Cs=new Xt({}),As=new C({props:{code:`from transformers import AutoModelForTokenClassification, TrainingArguments, Trainer
 
-model = AutoModelForTokenClassification.from_pretrained("distilbert-base-uncased", num_labels=2)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForTokenClassification, TrainingArguments, Trainer
+model = AutoModelForTokenClassification.from_pretrained("distilbert-base-uncased", num_labels=14)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForTokenClassification, TrainingArguments, Trainer
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = AutoModelForTokenClassification.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>, num_labels=<span class="hljs-number">2</span>)`}}),as=new pa({props:{$$slots:{default:[Ao]},$$scope:{ctx:P}}}),Ss=new C({props:{code:`training_args = TrainingArguments(
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = AutoModelForTokenClassification.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>, num_labels=<span class="hljs-number">14</span>)`}}),as=new pa({props:{$$slots:{default:[Ao]},$$scope:{ctx:P}}}),Ss=new C({props:{code:`training_args = TrainingArguments(
     output_dir="./results",
     evaluation_strategy="epoch",
     learning_rate=2e-5,
