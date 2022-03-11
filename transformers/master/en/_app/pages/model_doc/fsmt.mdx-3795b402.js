@@ -327,7 +327,7 @@ model = FSMTForConditionalGeneration.from_pretrained(mname)
 tokenizer = FSMTTokenizer.from_pretrained(mname)
 
 src_text = "\u041C\u0430\u0448\u0438\u043D\u043D\u043E\u0435 \u043E\u0431\u0443\u0447\u0435\u043D\u0438\u0435 - \u044D\u0442\u043E \u0437\u0434\u043E\u0440\u043E\u0432\u043E, \u043D\u0435 \u0442\u0430\u043A \u043B\u0438?"
-input_ids = tokenizer(src_text, return_tensors="pt")
+input_ids = tokenizer(src_text, return_tensors="pt").input_ids
 outputs = model.generate(input_ids, num_beams=5, num_return_sequences=3)
 tokenizer.decode(outputs[0], skip_special_tokens=True)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> FSMTTokenizer, FSMTForConditionalGeneration
 
@@ -336,7 +336,7 @@ tokenizer.decode(outputs[0], skip_special_tokens=True)`,highlighted:`<span class
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = FSMTTokenizer.from_pretrained(mname)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>src_text = <span class="hljs-string">&quot;\u041C\u0430\u0448\u0438\u043D\u043D\u043E\u0435 \u043E\u0431\u0443\u0447\u0435\u043D\u0438\u0435 - \u044D\u0442\u043E \u0437\u0434\u043E\u0440\u043E\u0432\u043E, \u043D\u0435 \u0442\u0430\u043A \u043B\u0438?&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = tokenizer(src_text, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = tokenizer(src_text, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).input_ids
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model.generate(input_ids, num_beams=<span class="hljs-number">5</span>, num_return_sequences=<span class="hljs-number">3</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(outputs[<span class="hljs-number">0</span>], skip_special_tokens=<span class="hljs-literal">True</span>)
 <span class="hljs-string">&quot;Machine learning is great, isn&#x27;t it?&quot;</span>`}}),{c(){f=n("meta"),q=d(),p=n("h1"),y=n("a"),P=n("span"),u(M.$$.fragment),w=d(),A=n("span"),Ko=r("FSMT"),po=d(),H=n("p"),$t=n("strong"),Yo=r("DISCLAIMER:"),Jo=r(" If you see something strange, file a "),Te=n("a"),Zo=r("Github Issue"),en=r(` and assign
