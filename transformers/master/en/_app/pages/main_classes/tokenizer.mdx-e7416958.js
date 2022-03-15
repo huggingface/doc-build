@@ -200,7 +200,8 @@ If set, will return tensors instead of list of python integers. Acceptable value
 <li><code>&apos;tf&apos;</code>: Return TensorFlow <code>tf.constant</code> objects.</li>
 <li><code>&apos;pt&apos;</code>: Return PyTorch <code>torch.Tensor</code> objects.</li>
 <li><code>&apos;np&apos;</code>: Return Numpy <code>np.ndarray</code> objects.</li>
-</ul>`,name:"return_tensors"}],returnDescription:`
+</ul>
+<p>**kwargs &#x2014; Passed along to the <code>.tokenize()</code> method.`,name:"return_tensors"}],returnDescription:`
 <p>The tokenized ids of the text.</p>
 `,returnType:`
 <p><code>List[int]</code>, <code>torch.Tensor</code>, <code>tf.Tensor</code> or <code>np.ndarray</code></p>
@@ -492,7 +493,8 @@ If set, will return tensors instead of list of python integers. Acceptable value
 <li><code>&apos;tf&apos;</code>: Return TensorFlow <code>tf.constant</code> objects.</li>
 <li><code>&apos;pt&apos;</code>: Return PyTorch <code>torch.Tensor</code> objects.</li>
 <li><code>&apos;np&apos;</code>: Return Numpy <code>np.ndarray</code> objects.</li>
-</ul>`,name:"return_tensors"}],returnDescription:`
+</ul>
+<p>**kwargs &#x2014; Passed along to the <code>.tokenize()</code> method.`,name:"return_tensors"}],returnDescription:`
 <p>The tokenized ids of the text.</p>
 `,returnType:`
 <p><code>List[int]</code>, <code>torch.Tensor</code>, <code>tf.Tensor</code> or <code>np.ndarray</code></p>

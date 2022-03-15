@@ -451,7 +451,7 @@ tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.BertFo
 Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
 more detail.`,name:"output_hidden_states"},{anchor:"transformers.BertForPreTraining.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Whether or not to return a <a href="/docs/transformers/master/en/main_classes/output#transformers.file_utils.ModelOutput">ModelOutput</a> instead of a plain tuple.</p>
-<p>  labels (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>):
+<p>labels (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>):
 Labels for computing the masked language modeling loss. Indices should be in <code>[-100, 0, ..., config.vocab_size]</code> (see <code>input_ids</code> docstring) Tokens with indices set to <code>-100</code> are ignored (masked),
 the loss is only computed for the tokens with labels in <code>[0, ..., config.vocab_size]</code>
 next_sentence_label (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>):
@@ -551,7 +551,7 @@ tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.BertLM
 Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
 more detail.`,name:"output_hidden_states"},{anchor:"transformers.BertLMHeadModel.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Whether or not to return a <a href="/docs/transformers/master/en/main_classes/output#transformers.file_utils.ModelOutput">ModelOutput</a> instead of a plain tuple.</p>
-<p>  encoder_hidden_states  (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>):
+<p>encoder_hidden_states  (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>):
 Sequence of hidden-states at the output of the last layer of the encoder. Used in the cross-attention
 if the model is configured as a decoder.
 encoder_attention_mask (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>):
@@ -567,7 +567,13 @@ are ignored (masked), the loss is only computed for the tokens with labels n <co
 past_key_values (<code>tuple(tuple(torch.FloatTensor))</code> of length <code>config.n_layers</code> with each tuple having 4 tensors of shape <code>(batch_size, num_heads, sequence_length - 1, embed_size_per_head)</code>):
 Contains precomputed key and value hidden states of the attention blocks. Can be used to speed up
 decoding.</li>
-</ul>`,name:"return_dict"}],returnDescription:`
+</ul>
+<p>If <code>past_key_values</code> are used, the user can optionally input only the last <code>decoder_input_ids</code> (those
+that don&#x2019;t have their past key value states given to this model) of shape <code>(batch_size, 1)</code> instead of
+all <code>decoder_input_ids</code> of shape <code>(batch_size, sequence_length)</code>.
+use_cache (<code>bool</code>, <em>optional</em>):
+If set to <code>True</code>, <code>past_key_values</code> key value states are returned and can be used to speed up decoding
+(see <code>past_key_values</code>).`,name:"return_dict"}],returnDescription:`
 <p>A <a
   href="/docs/transformers/master/en/main_classes/output#transformers.modeling_outputs.CausalLMOutputWithCrossAttentions"
 >transformers.modeling_outputs.CausalLMOutputWithCrossAttentions</a> or a tuple of
