@@ -80,26 +80,26 @@ trainer.train()`}}),kt=new z({}),vt=new b({props:{code:`from transformers import
 
 data_collator = DataCollatorWithPadding(tokenizer, return_tensors="tf")`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DataCollatorWithPadding
 
-data_collator = DataCollatorWithPadding(tokenizer, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)`}}),jt=new b({props:{code:`tf_train_dataset = tokenized_imdb["train"].to_tf_dataset(
+data_collator = DataCollatorWithPadding(tokenizer, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)`}}),jt=new b({props:{code:`tf_train_set = tokenized_imdb["train"].to_tf_dataset(
     columns=["attention_mask", "input_ids", "label"],
     shuffle=True,
     batch_size=16,
     collate_fn=data_collator,
 )
 
-tf_validation_dataset = tokenized_imdb["train"].to_tf_dataset(
+tf_validation_set = tokenized_imdb["test"].to_tf_dataset(
     columns=["attention_mask", "input_ids", "label"],
     shuffle=False,
     batch_size=16,
     collate_fn=data_collator,
-)`,highlighted:`tf_train_dataset = tokenized_imdb[<span class="hljs-string">&quot;train&quot;</span>].to_tf_dataset(
+)`,highlighted:`tf_train_set = tokenized_imdb[<span class="hljs-string">&quot;train&quot;</span>].to_tf_dataset(
     columns=[<span class="hljs-string">&quot;attention_mask&quot;</span>, <span class="hljs-string">&quot;input_ids&quot;</span>, <span class="hljs-string">&quot;label&quot;</span>],
     shuffle=<span class="hljs-literal">True</span>,
     batch_size=<span class="hljs-number">16</span>,
     collate_fn=data_collator,
 )
 
-tf_validation_dataset = tokenized_imdb[<span class="hljs-string">&quot;train&quot;</span>].to_tf_dataset(
+tf_validation_set = tokenized_imdb[<span class="hljs-string">&quot;test&quot;</span>].to_tf_dataset(
     columns=[<span class="hljs-string">&quot;attention_mask&quot;</span>, <span class="hljs-string">&quot;input_ids&quot;</span>, <span class="hljs-string">&quot;label&quot;</span>],
     shuffle=<span class="hljs-literal">False</span>,
     batch_size=<span class="hljs-number">16</span>,
@@ -108,16 +108,16 @@ tf_validation_dataset = tokenized_imdb[<span class="hljs-string">&quot;train&quo
 import tensorflow as tf
 
 batch_size = 16
-num_epochs = 5
+num_train_epochs = 5
 batches_per_epoch = len(tokenized_imdb["train"]) // batch_size
-total_train_steps = int(batches_per_epoch * num_epochs)
+total_train_steps = int(batches_per_epoch * num_train_epochs)
 optimizer, schedule = create_optimizer(init_lr=2e-5, num_warmup_steps=0, num_train_steps=total_train_steps)`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> create_optimizer
 <span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
 
 batch_size = <span class="hljs-number">16</span>
-num_epochs = <span class="hljs-number">5</span>
+num_train_epochs = <span class="hljs-number">5</span>
 batches_per_epoch = <span class="hljs-built_in">len</span>(tokenized_imdb[<span class="hljs-string">&quot;train&quot;</span>]) // batch_size
-total_train_steps = <span class="hljs-built_in">int</span>(batches_per_epoch * num_epochs)
+total_train_steps = <span class="hljs-built_in">int</span>(batches_per_epoch * num_train_epochs)
 optimizer, schedule = create_optimizer(init_lr=<span class="hljs-number">2e-5</span>, num_warmup_steps=<span class="hljs-number">0</span>, num_train_steps=total_train_steps)`}}),xt=new b({props:{code:`from transformers import TFAutoModelForSequenceClassification
 
 model = TFAutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=2)`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TFAutoModelForSequenceClassification
