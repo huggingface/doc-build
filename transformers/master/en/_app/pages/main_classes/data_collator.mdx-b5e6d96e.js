@@ -13,7 +13,7 @@ Select a strategy to pad the returned sequences (according to the model&#x2019;s
 among:</p>
 <ul>
 <li><code>True</code> or <code>&apos;longest&apos;</code>: Pad to the longest sequence in the batch (or no padding if only a single sequence
-if provided).</li>
+is provided).</li>
 <li><code>&apos;max_length&apos;</code>: Pad to a maximum length specified with the argument <code>max_length</code> or to the maximum
 acceptable input length for the model if that argument is not provided.</li>
 <li><code>False</code> or <code>&apos;do_not_pad&apos;</code> (default): No padding (i.e., can output a batch with sequences of different
@@ -29,7 +29,7 @@ Select a strategy to pad the returned sequences (according to the model&#x2019;s
 among:</p>
 <ul>
 <li><code>True</code> or <code>&apos;longest&apos;</code>: Pad to the longest sequence in the batch (or no padding if only a single sequence
-if provided).</li>
+is provided).</li>
 <li><code>&apos;max_length&apos;</code>: Pad to a maximum length specified with the argument <code>max_length</code> or to the maximum
 acceptable input length for the model if that argument is not provided.</li>
 <li><code>False</code> or <code>&apos;do_not_pad&apos;</code> (default): No padding (i.e., can output a batch with sequences of different
