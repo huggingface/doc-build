@@ -897,7 +897,7 @@ model_kwargs = {
     )
 }
 
-constraint_str = "sind"
+constraint_str = "Sie"
 constraint_token_ids = tokenizer.encode(constraint_str)[:-1]  # slice to remove eos token
 constraints = [PhrasalConstraint(token_ids=constraint_token_ids)]
 
@@ -948,7 +948,7 @@ tokenizer.batch_decode(outputs, skip_special_tokens=True)`,highlighted:`<span cl
 <span class="hljs-meta">... </span>    )
 <span class="hljs-meta">... </span>}
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>constraint_str = <span class="hljs-string">&quot;sind&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>constraint_str = <span class="hljs-string">&quot;Sie&quot;</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>constraint_token_ids = tokenizer.encode(constraint_str)[:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># slice to remove eos token</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>constraints = [PhrasalConstraint(token_ids=constraint_token_ids)]
 
