@@ -125,7 +125,7 @@ hidden_states = outputs.last_hidden_state`,highlighted:`<span class="hljs-meta">
 <span class="hljs-meta">... </span>    labels = tokenizer(summary, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(input_ids=inputs[<span class="hljs-string">&quot;input_ids&quot;</span>], decoder_input_ids=labels[<span class="hljs-string">&quot;input_ids&quot;</span>])
-<span class="hljs-meta">&gt;&gt;&gt; </span>hidden_states = outputs.last_hidden_state`}}),ut=new C({}),gt=new T({props:{name:"class transformers.MT5ForConditionalGeneration",anchor:"transformers.MT5ForConditionalGeneration",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/mt5/modeling_mt5.py#L62"}}),kt=new Ce({props:{code:`from transformers import MT5ForConditionalGeneration, T5Tokenizer
+<span class="hljs-meta">&gt;&gt;&gt; </span>hidden_states = outputs.last_hidden_state`}}),ut=new C({}),gt=new T({props:{name:"class transformers.MT5ForConditionalGeneration",anchor:"transformers.MT5ForConditionalGeneration",parameters:[{name:"config",val:": T5Config"}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/mt5/modeling_mt5.py#L62"}}),kt=new Ce({props:{code:`from transformers import MT5ForConditionalGeneration, T5Tokenizer
 
 model = MT5ForConditionalGeneration.from_pretrained("google/mt5-small")
 tokenizer = T5Tokenizer.from_pretrained("google/mt5-small")
