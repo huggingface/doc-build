@@ -1,16 +1,15 @@
 <meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;normalization-and-pretokenization&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;normalization&quot;,&quot;title&quot;:&quot;Normalization&quot;},{&quot;local&quot;:&quot;pretokenization&quot;,&quot;title&quot;:&quot;Pre-tokenization&quot;},{&quot;local&quot;:&quot;sentencepiece&quot;,&quot;title&quot;:&quot;SentencePiece&quot;},{&quot;local&quot;:&quot;algorithm-overview&quot;,&quot;title&quot;:&quot;Algorithm overview&quot;}],&quot;title&quot;:&quot;Normalization and pre-tokenization&quot;}" data-svelte="svelte-1phssyn">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/assets/pages/__layout.svelte-d90c6527.css">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/assets/WidgetTextarea.svelte_svelte_type_style_lang-0f4efe71.css">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/start-fb6c4283.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/vendor-e7c81d8a.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/assets/pages/__layout.svelte-c2a33a9c.css">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/start-509a84e2.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/vendor-1e8b365d.js">
 	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/paths-4b3c6e7e.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/pages/__layout.svelte-460ed72d.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/pages/chapter6/4.mdx-1b42d9f8.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/Tip-989931f5.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/Youtube-365ea064.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/WidgetTextarea.svelte_svelte_type_style_lang-08e92eaf.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/CodeBlock-105940ae.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/DocNotebookDropdown-928568b4.js"> 
+	<link rel="modulepreload" href="/docs/course/master/en/_app/pages/__layout.svelte-05c2fb0c.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/pages/chapter6/4.mdx-35f8cd6c.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/Tip-62b14c6e.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/Youtube-c2a8cc39.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/IconCopyLink-483c28ba.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/CodeBlock-e5764662.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/DocNotebookDropdown-37d928d3.js"> 
 
 
 
@@ -22,11 +21,11 @@
 
 
 
-<div class="flex space-x-1 absolute z-10 right-0 top-0"><a href="https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter6/section4.ipynb" class="!no-underline colab-dropdown" target="_blank"><img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
-	
-		 <a href="https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter6/section4.ipynb" class="!no-underline colab-dropdown" target="_blank"><img alt="Open In Studio Lab" class="!m-0" src="https://studiolab.sagemaker.aws/studiolab.svg"></a></div>
+<div class="flex space-x-1 absolute z-10 right-0 top-0"><a href="https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter6/section4.ipynb" target="_blank"><img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
+	<a href="https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter6/section4.ipynb" target="_blank"><img alt="Open In Studio Lab" class="!m-0" src="https://studiolab.sagemaker.aws/studiolab.svg"></a></div>
 <p>Before we dive more deeply into the three most common subword tokenization algorithms used with Transformer models (Byte-Pair Encoding [BPE], WordPiece, and Unigram), we’ll first take a look at the preprocessing that each tokenizer applies to text. Here’s a high-level overview of the steps in the tokenization pipeline:</p>
-<img src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/tokenization_pipeline.PNG" alt="The tokenization pipeline." width="100%">
+<div class="flex justify-center"><img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/tokenization_pipeline.svg" alt="The tokenization pipeline.">
+<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/tokenization_pipeline-dark.svg" alt="The tokenization pipeline."></div>
 <p>Before splitting a text into subtokens (according to its model), the tokenizer performs two steps: <em>normalization</em> and <em>pre-tokenization</em>.</p>
 <h2 class="relative group"><a id="normalization" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#normalization"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
 	<span>Normalization
@@ -144,10 +143,10 @@ tokenizer.backend_tokenizer.pre_tokenizer.pre_tokenize_str(<span class="hljs-str
 <p>Now let’s dive into BPE!</p>
 
 
-		<script type="module" data-hydrate="1b0etch">
-		import { start } from "/docs/course/master/en/_app/start-fb6c4283.js";
+		<script type="module" data-hydrate="15gf5uj">
+		import { start } from "/docs/course/master/en/_app/start-509a84e2.js";
 		start({
-			target: document.querySelector('[data-hydrate="1b0etch"]').parentNode,
+			target: document.querySelector('[data-hydrate="15gf5uj"]').parentNode,
 			paths: {"base":"/docs/course/master/en","assets":"/docs/course/master/en"},
 			session: {},
 			route: false,
@@ -157,8 +156,8 @@ tokenizer.backend_tokenizer.pre_tokenizer.pre_tokenize_str(<span class="hljs-str
 				status: 200,
 				error: null,
 				nodes: [
-					import("/docs/course/master/en/_app/pages/__layout.svelte-460ed72d.js"),
-						import("/docs/course/master/en/_app/pages/chapter6/4.mdx-1b42d9f8.js")
+					import("/docs/course/master/en/_app/pages/__layout.svelte-05c2fb0c.js"),
+						import("/docs/course/master/en/_app/pages/chapter6/4.mdx-35f8cd6c.js")
 				],
 				params: {}
 			}

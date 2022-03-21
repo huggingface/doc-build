@@ -1,16 +1,15 @@
 <meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;building-a-tokenizer-block-by-block&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;acquiring-a-corpus&quot;,&quot;title&quot;:&quot;Acquiring a corpus&quot;},{&quot;local&quot;:&quot;building-a-wordpiece-tokenizer-from-scratch&quot;,&quot;title&quot;:&quot;Building a WordPiece tokenizer from scratch&quot;},{&quot;local&quot;:&quot;building-a-bpe-tokenizer-from-scratch&quot;,&quot;title&quot;:&quot;Building a BPE tokenizer from scratch&quot;},{&quot;local&quot;:&quot;building-a-unigram-tokenizer-from-scratch&quot;,&quot;title&quot;:&quot;Building a Unigram tokenizer from scratch&quot;}],&quot;title&quot;:&quot;Building a tokenizer, block by block&quot;}" data-svelte="svelte-1phssyn">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/assets/pages/__layout.svelte-d90c6527.css">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/assets/WidgetTextarea.svelte_svelte_type_style_lang-0f4efe71.css">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/start-fb6c4283.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/vendor-e7c81d8a.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/assets/pages/__layout.svelte-c2a33a9c.css">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/start-509a84e2.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/vendor-1e8b365d.js">
 	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/paths-4b3c6e7e.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/pages/__layout.svelte-460ed72d.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/pages/chapter6/8.mdx-e3ffb83d.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/Tip-989931f5.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/Youtube-365ea064.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/WidgetTextarea.svelte_svelte_type_style_lang-08e92eaf.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/CodeBlock-105940ae.js">
-	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/DocNotebookDropdown-928568b4.js"> 
+	<link rel="modulepreload" href="/docs/course/master/en/_app/pages/__layout.svelte-05c2fb0c.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/pages/chapter6/8.mdx-a4c4aa84.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/Tip-62b14c6e.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/Youtube-c2a8cc39.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/IconCopyLink-483c28ba.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/CodeBlock-e5764662.js">
+	<link rel="modulepreload" href="/docs/course/master/en/_app/chunks/DocNotebookDropdown-37d928d3.js"> 
 
 
 
@@ -22,16 +21,16 @@
 
 
 
-<div class="flex space-x-1 absolute z-10 right-0 top-0"><a href="https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter6/section8.ipynb" class="!no-underline colab-dropdown" target="_blank"><img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
-	
-		 <a href="https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter6/section8.ipynb" class="!no-underline colab-dropdown" target="_blank"><img alt="Open In Studio Lab" class="!m-0" src="https://studiolab.sagemaker.aws/studiolab.svg"></a></div>
+<div class="flex space-x-1 absolute z-10 right-0 top-0"><a href="https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter6/section8.ipynb" target="_blank"><img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
+	<a href="https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter6/section8.ipynb" target="_blank"><img alt="Open In Studio Lab" class="!m-0" src="https://studiolab.sagemaker.aws/studiolab.svg"></a></div>
 <p>As we’ve seen in the previous sections, tokenization comprises several steps:</p>
 <ul><li>Normalization (any cleanup of the text that is deemed necessary, such as removing spaces or accents, Unicode normalization, etc.)</li>
 <li>Pre-tokenization (splitting the input into words)</li>
 <li>Running the input through the model (using the pre-tokenized words to produce a sequence of tokens)</li>
 <li>Post-processing (adding the special tokens of the tokenizer, generating the attention mask and token type IDs)</li></ul>
 <p>As a reminder, here’s another look at the overall process:</p>
-<img src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/tokenization_pipeline.PNG" alt="The tokenization pipeline." width="100%">
+<div class="flex justify-center"><img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/tokenization_pipeline.svg" alt="The tokenization pipeline.">
+<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/tokenization_pipeline-dark.svg" alt="The tokenization pipeline."></div>
 <p>The 🤗 Tokenizers library has been built to provide several options for each of those steps, which you can mix and match together. In this section we’ll see how we can build a tokenizer from scratch, as opposed to training a new tokenizer from an old one as we did in <a href="/course/chapter6/2">section 2</a>. You’ll then be able to build any kind of tokenizer you can think of!</p>
 <iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/MR8tZm5ViWU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p>More precisely, the library is built around a central <code>Tokenizer</code> class with the building blocks regrouped in submodules:</p>
@@ -575,10 +574,10 @@ wrapped_tokenizer = XLNetTokenizerFast(tokenizer_object=tokenizer)<!-- HTML_TAG_
 <p>Now that you have seen how the various building blocks are used to build existing tokenizers, you should be able to write any tokenizer you want with the 🤗 Tokenizers library and be able to use it in 🤗 Transformers.</p>
 
 
-		<script type="module" data-hydrate="gu471o">
-		import { start } from "/docs/course/master/en/_app/start-fb6c4283.js";
+		<script type="module" data-hydrate="sn97d2">
+		import { start } from "/docs/course/master/en/_app/start-509a84e2.js";
 		start({
-			target: document.querySelector('[data-hydrate="gu471o"]').parentNode,
+			target: document.querySelector('[data-hydrate="sn97d2"]').parentNode,
 			paths: {"base":"/docs/course/master/en","assets":"/docs/course/master/en"},
 			session: {},
 			route: false,
@@ -588,8 +587,8 @@ wrapped_tokenizer = XLNetTokenizerFast(tokenizer_object=tokenizer)<!-- HTML_TAG_
 				status: 200,
 				error: null,
 				nodes: [
-					import("/docs/course/master/en/_app/pages/__layout.svelte-460ed72d.js"),
-						import("/docs/course/master/en/_app/pages/chapter6/8.mdx-e3ffb83d.js")
+					import("/docs/course/master/en/_app/pages/__layout.svelte-05c2fb0c.js"),
+						import("/docs/course/master/en/_app/pages/chapter6/8.mdx-a4c4aa84.js")
 				],
 				params: {}
 			}
