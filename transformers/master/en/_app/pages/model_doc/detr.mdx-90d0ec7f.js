@@ -200,7 +200,7 @@ objects.`,name:"return_tensors"}],returnDescription:`
   href="/docs/transformers/master/en/main_classes/feature_extractor#transformers.BatchFeature"
 >BatchFeature</a></p>
 `}}),eo=new S({props:{name:"post_process",anchor:"transformers.DetrFeatureExtractor.post_process",parameters:[{name:"outputs",val:""},{name:"target_sizes",val:""}],source:"https://github.com/huggingface/transformers/blob/master/src/transformers/models/detr/feature_extraction_detr.py#L677",parametersDescription:[{anchor:"transformers.DetrFeatureExtractor.post_process.outputs",description:`<strong>outputs</strong> (<code>DetrObjectDetectionOutput</code>) &#x2014;
-Raw outputs of the model.`,name:"outputs"},{anchor:"transformers.DetrFeatureExtractor.post_process.target_sizes",description:`<strong>target_sizes</strong> (<code>torch.Tensor</code> of shape <code>(batch_size, 2)</code>, <em>optional</em>) &#x2014;
+Raw outputs of the model.`,name:"outputs"},{anchor:"transformers.DetrFeatureExtractor.post_process.target_sizes",description:`<strong>target_sizes</strong> (<code>torch.Tensor</code> of shape <code>(batch_size, 2)</code>) &#x2014;
 Tensor containing the size (h, w) of each image of the batch. For evaluation, this must be the original
 image size (before any data augmentation). For visualization, this should be the image size after data
 augment, but before padding.`,name:"target_sizes"}],returnDescription:`
