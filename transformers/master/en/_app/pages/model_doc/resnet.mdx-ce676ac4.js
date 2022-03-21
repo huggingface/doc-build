@@ -64,8 +64,8 @@ from datasets import load_dataset
 dataset = load_dataset("huggingface/cats-image")
 image = dataset["test"]["image"][0]
 
-feature_extractor = AutoFeatureExtractor.from_pretrained("")
-model = ResNetModel.from_pretrained("")
+feature_extractor = AutoFeatureExtractor.from_pretrained("microsoft/resnet-50")
+model = ResNetModel.from_pretrained("microsoft/resnet-50")
 
 inputs = feature_extractor(image, return_tensors="pt")
 
@@ -80,8 +80,8 @@ list(last_hidden_states.shape)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt
 <span class="hljs-meta">&gt;&gt;&gt; </span>dataset = load_dataset(<span class="hljs-string">&quot;huggingface/cats-image&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>image = dataset[<span class="hljs-string">&quot;test&quot;</span>][<span class="hljs-string">&quot;image&quot;</span>][<span class="hljs-number">0</span>]
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = AutoFeatureExtractor.from_pretrained(<span class="hljs-string">&quot;&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = ResNetModel.from_pretrained(<span class="hljs-string">&quot;&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = AutoFeatureExtractor.from_pretrained(<span class="hljs-string">&quot;microsoft/resnet-50&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = ResNetModel.from_pretrained(<span class="hljs-string">&quot;microsoft/resnet-50&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = feature_extractor(image, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 
@@ -131,8 +131,8 @@ from datasets import load_dataset
 dataset = load_dataset("huggingface/cats-image")
 image = dataset["test"]["image"][0]
 
-feature_extractor = AutoFeatureExtractor.from_pretrained("")
-model = ResNetForImageClassification.from_pretrained("")
+feature_extractor = AutoFeatureExtractor.from_pretrained("microsoft/resnet-50")
+model = ResNetForImageClassification.from_pretrained("microsoft/resnet-50")
 
 inputs = feature_extractor(image, return_tensors="pt")
 
@@ -148,8 +148,8 @@ print(model.config.id2label[predicted_label])`,highlighted:`<span class="hljs-me
 <span class="hljs-meta">&gt;&gt;&gt; </span>dataset = load_dataset(<span class="hljs-string">&quot;huggingface/cats-image&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>image = dataset[<span class="hljs-string">&quot;test&quot;</span>][<span class="hljs-string">&quot;image&quot;</span>][<span class="hljs-number">0</span>]
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = AutoFeatureExtractor.from_pretrained(<span class="hljs-string">&quot;&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = ResNetForImageClassification.from_pretrained(<span class="hljs-string">&quot;&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = AutoFeatureExtractor.from_pretrained(<span class="hljs-string">&quot;microsoft/resnet-50&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = ResNetForImageClassification.from_pretrained(<span class="hljs-string">&quot;microsoft/resnet-50&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = feature_extractor(image, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 
@@ -159,7 +159,7 @@ print(model.config.id2label[predicted_label])`,highlighted:`<span class="hljs-me
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># model predicts one of the 1000 ImageNet classes</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>predicted_label = logits.argmax(-<span class="hljs-number">1</span>).item()
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(model.config.id2label[predicted_label])
-<span class="hljs-string">&#x27;tabby, tabby cat&#x27;</span>`}}),{c(){p=o("meta"),E=d(),m=o("h1"),u=o("a"),j=o("span"),b(g.$$.fragment),_=d(),F=o("span"),Pt=n("ResNet"),dt=d(),z=o("h2"),U=o("a"),We=o("span"),b(te.$$.fragment),qt=d(),He=o("span"),Ot=n("Overview"),ht=d(),v=o("p"),zt=n("The ResNet model was proposed in "),se=o("a"),St=n("Deep Residual Learning for Image Recognition"),Dt=n(" by Kaiming He, Xiangyu Zhang, Shaoqing Ren and Jian Sun. Our implementation follows the small changes made by "),oe=o("a"),Lt=n("Nvidia"),Vt=n(", we apply the "),Ge=o("code"),Wt=n("stride=2"),Ht=n(" for downsampling in bottleneck\u2019s "),Ue=o("code"),Gt=n("3x3"),Ut=n(" conv and not in the first "),Je=o("code"),Jt=n("1x1"),Kt=n(". This is generally known as \u201CResNet v1.5\u201D."),ft=d(),Ee=o("p"),Bt=n("ResNet introduced residual connections, they allow to train networks with an unseen number of layers (up to 1000). ResNet won the 2015 ILSVRC & COCO competition, one important milestone in deep computer vision."),pt=d(),xe=o("p"),Xt=n("The abstract from the paper is the following:"),mt=d(),Te=o("p"),Ke=o("em"),Zt=n(`Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth. On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers---8x deeper than VGG nets but still having lower complexity. An ensemble of these residual nets achieves 3.57% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task. We also present analysis on CIFAR-10 with 100 and 1000 layers.
+tiger cat`}}),{c(){p=o("meta"),E=d(),m=o("h1"),u=o("a"),j=o("span"),b(g.$$.fragment),_=d(),F=o("span"),Pt=n("ResNet"),dt=d(),z=o("h2"),U=o("a"),We=o("span"),b(te.$$.fragment),qt=d(),He=o("span"),Ot=n("Overview"),ht=d(),v=o("p"),zt=n("The ResNet model was proposed in "),se=o("a"),St=n("Deep Residual Learning for Image Recognition"),Dt=n(" by Kaiming He, Xiangyu Zhang, Shaoqing Ren and Jian Sun. Our implementation follows the small changes made by "),oe=o("a"),Lt=n("Nvidia"),Vt=n(", we apply the "),Ge=o("code"),Wt=n("stride=2"),Ht=n(" for downsampling in bottleneck\u2019s "),Ue=o("code"),Gt=n("3x3"),Ut=n(" conv and not in the first "),Je=o("code"),Jt=n("1x1"),Kt=n(". This is generally known as \u201CResNet v1.5\u201D."),ft=d(),Ee=o("p"),Bt=n("ResNet introduced residual connections, they allow to train networks with an unseen number of layers (up to 1000). ResNet won the 2015 ILSVRC & COCO competition, one important milestone in deep computer vision."),pt=d(),xe=o("p"),Xt=n("The abstract from the paper is the following:"),mt=d(),Te=o("p"),Ke=o("em"),Zt=n(`Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth. On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers---8x deeper than VGG nets but still having lower complexity. An ensemble of these residual nets achieves 3.57% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task. We also present analysis on CIFAR-10 with 100 and 1000 layers.
 The depth of representations is of central importance for many visual recognition tasks. Solely due to our extremely deep representations, we obtain a 28% relative improvement on the COCO object detection dataset. Deep residual nets are foundations of our submissions to ILSVRC & COCO 2015 competitions, where we also won the 1st places on the tasks of ImageNet detection, ImageNet localization, COCO detection, and COCO segmentation.`),ut=d(),je=o("p"),Qt=n("Tips:"),gt=d(),ke=o("ul"),ae=o("li"),Yt=n("One can use "),Ie=o("a"),es=n("AutoFeatureExtractor"),ts=n(" to prepare images for the model."),_t=d(),J=o("p"),ss=n("The figure below illustrates the architecture of ResNet. Taken from the "),re=o("a"),os=n("original paper"),as=n("."),vt=d(),ne=o("img"),wt=d(),M=o("p"),rs=n("This model was contributed by "),ie=o("a"),ns=n("Francesco"),is=n(". The original code can be found "),le=o("a"),ls=n("here"),cs=n("."),bt=d(),S=o("h2"),K=o("a"),Be=o("span"),b(ce.$$.fragment),ds=d(),Xe=o("span"),hs=n("ResNetConfig"),yt=d(),w=o("div"),b(de.$$.fragment),fs=d(),D=o("p"),ps=n("This is the configuration class to store the configuration of a "),Fe=o("a"),ms=n("ResNetModel"),us=n(`. It is used to instantiate an
 ResNet model according to the specified arguments, defining the model architecture. Instantiating a configuration
 with the defaults will yield a similar configuration to that of the
