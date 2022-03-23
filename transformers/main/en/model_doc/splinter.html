@@ -1,10 +1,10 @@
 <meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;splinter&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;overview&quot;,&quot;title&quot;:&quot;Overview&quot;},{&quot;local&quot;:&quot;transformers.SplinterConfig&quot;,&quot;title&quot;:&quot;SplinterConfig&quot;},{&quot;local&quot;:&quot;transformers.SplinterTokenizer&quot;,&quot;title&quot;:&quot;SplinterTokenizer&quot;},{&quot;local&quot;:&quot;transformers.SplinterTokenizerFast&quot;,&quot;title&quot;:&quot;SplinterTokenizerFast&quot;},{&quot;local&quot;:&quot;transformers.SplinterModel&quot;,&quot;title&quot;:&quot;SplinterModel&quot;},{&quot;local&quot;:&quot;transformers.SplinterForQuestionAnswering&quot;,&quot;title&quot;:&quot;SplinterForQuestionAnswering&quot;}],&quot;title&quot;:&quot;Splinter&quot;}" data-svelte="svelte-1phssyn">
 	<link rel="stylesheet" href="/docs/transformers/main/en/_app/assets/pages/__layout.svelte-a6ed50f6.css">
-	<link rel="modulepreload" href="/docs/transformers/main/en/_app/start-0b3762ea.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/start-8b1b4a35.js">
 	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/vendor-6b77c823.js">
 	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/paths-4b3c6e7e.js">
 	<link rel="modulepreload" href="/docs/transformers/main/en/_app/pages/__layout.svelte-3f22c1e5.js">
-	<link rel="modulepreload" href="/docs/transformers/main/en/_app/pages/model_doc/splinter.mdx-871b4189.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/pages/model_doc/splinter.mdx-e067e6b0.js">
 	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/Tip-39098574.js">
 	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/Docstring-abef54e3.js">
 	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/IconCopyLink-7a11ce68.js">
@@ -915,33 +915,38 @@ the latter silently ignores them.</p></div>
 	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> SplinterTokenizer, SplinterForQuestionAnswering
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>torch.manual_seed(<span class="hljs-number">0</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = SplinterTokenizer.from_pretrained(<span class="hljs-string">&quot;tau/splinter-base&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = SplinterForQuestionAnswering.from_pretrained(<span class="hljs-string">&quot;tau/splinter-base&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>question, text = <span class="hljs-string">&quot;Who was Jim Henson?&quot;</span>, <span class="hljs-string">&quot;Jim Henson was a nice puppet&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(question, text, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>start_positions = torch.tensor([<span class="hljs-number">1</span>])
-<span class="hljs-meta">&gt;&gt;&gt; </span>end_positions = torch.tensor([<span class="hljs-number">3</span>])
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, start_positions=start_positions, end_positions=end_positions)
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(question, text, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>    outputs = model(**inputs)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>answer_start_index = outputs.start_logits.argmax()
+<span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = outputs.end_logits.argmax()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># target is &quot;nice puppet&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>target_start_index, target_end_index = torch.tensor([<span class="hljs-number">14</span>]), torch.tensor([<span class="hljs-number">15</span>])
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, start_positions=target_start_index, end_positions=target_end_index)
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss = outputs.loss
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
-
-
-<span class="hljs-meta">&gt;&gt;&gt; </span>start_scores = outputs.start_logits
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>(start_scores.shape)
-
-
-<span class="hljs-meta">&gt;&gt;&gt; </span>end_scores = outputs.end_logits
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>(end_scores.shape)
 <!-- HTML_TAG_END --></pre></div></div></div>
 
 
-		<script type="module" data-hydrate="1bprwjp">
-		import { start } from "/docs/transformers/main/en/_app/start-0b3762ea.js";
+		<script type="module" data-hydrate="1gd4gjc">
+		import { start } from "/docs/transformers/main/en/_app/start-8b1b4a35.js";
 		start({
-			target: document.querySelector('[data-hydrate="1bprwjp"]').parentNode,
+			target: document.querySelector('[data-hydrate="1gd4gjc"]').parentNode,
 			paths: {"base":"/docs/transformers/main/en","assets":"/docs/transformers/main/en"},
 			session: {},
 			route: false,
@@ -952,7 +957,7 @@ the latter silently ignores them.</p></div>
 				error: null,
 				nodes: [
 					import("/docs/transformers/main/en/_app/pages/__layout.svelte-3f22c1e5.js"),
-						import("/docs/transformers/main/en/_app/pages/model_doc/splinter.mdx-871b4189.js")
+						import("/docs/transformers/main/en/_app/pages/model_doc/splinter.mdx-e067e6b0.js")
 				],
 				params: {}
 			}
