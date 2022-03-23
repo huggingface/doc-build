@@ -1,0 +1,726 @@
+import{S as vi,i as bi,s as wi,e as n,k as d,w as _,t as a,M as Ti,c as s,d as t,m as c,a as r,x as y,h as i,b as l,F as e,g as h,y as k,q as v,o as b,B as w,v as Ni}from"../../chunks/vendor-6b77c823.js";import{T as Ko}from"../../chunks/Tip-39098574.js";import{D as O}from"../../chunks/Docstring-abef54e3.js";import{C as Ee}from"../../chunks/CodeBlock-3a8b25a8.js";import{I as fe}from"../../chunks/IconCopyLink-7a11ce68.js";function $i(F){let m,$,f,T,N;return{c(){m=n("p"),$=a("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=n("code"),T=a("Module"),N=a(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(g){m=s(g,"P",{});var u=r(m);$=i(u,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=s(u,"CODE",{});var M=r(f);T=i(M,"Module"),M.forEach(t),N=i(u,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),u.forEach(t)},m(g,u){h(g,m,u),e(m,$),e(m,f),e(f,T),e(m,N)},d(g){g&&t(m)}}}function Mi(F){let m,$,f,T,N;return{c(){m=n("p"),$=a("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=n("code"),T=a("Module"),N=a(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(g){m=s(g,"P",{});var u=r(m);$=i(u,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=s(u,"CODE",{});var M=r(f);T=i(M,"Module"),M.forEach(t),N=i(u,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),u.forEach(t)},m(g,u){h(g,m,u),e(m,$),e(m,f),e(f,T),e(m,N)},d(g){g&&t(m)}}}function zi(F){let m,$,f,T,N;return{c(){m=n("p"),$=a("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=n("code"),T=a("Module"),N=a(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(g){m=s(g,"P",{});var u=r(m);$=i(u,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=s(u,"CODE",{});var M=r(f);T=i(M,"Module"),M.forEach(t),N=i(u,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),u.forEach(t)},m(g,u){h(g,m,u),e(m,$),e(m,f),e(f,T),e(m,N)},d(g){g&&t(m)}}}function qi(F){let m,$,f,T,N;return{c(){m=n("p"),$=a("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=n("code"),T=a("Module"),N=a(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(g){m=s(g,"P",{});var u=r(m);$=i(u,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=s(u,"CODE",{});var M=r(f);T=i(M,"Module"),M.forEach(t),N=i(u,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),u.forEach(t)},m(g,u){h(g,m,u),e(m,$),e(m,f),e(f,T),e(m,N)},d(g){g&&t(m)}}}function Fi(F){let m,$,f,T,N;return{c(){m=n("p"),$=a("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=n("code"),T=a("Module"),N=a(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(g){m=s(g,"P",{});var u=r(m);$=i(u,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=s(u,"CODE",{});var M=r(f);T=i(M,"Module"),M.forEach(t),N=i(u,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),u.forEach(t)},m(g,u){h(g,m,u),e(m,$),e(m,f),e(f,T),e(m,N)},d(g){g&&t(m)}}}function Ci(F){let m,$,f,T,N;return{c(){m=n("p"),$=a("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=n("code"),T=a("Module"),N=a(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(g){m=s(g,"P",{});var u=r(m);$=i(u,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=s(u,"CODE",{});var M=r(f);T=i(M,"Module"),M.forEach(t),N=i(u,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),u.forEach(t)},m(g,u){h(g,m,u),e(m,$),e(m,f),e(f,T),e(m,N)},d(g){g&&t(m)}}}function ji(F){let m,$,f,T,N,g,u,M,bn,Wt,Y,ue,Xo,Pe,wn,et,Tn,Bt,ge,Nn,Se,ot,$n,Mn,Qt,qo,zn,Ht,Fo,tt,qn,Ut,Q,Fn,Le,Cn,jn,Ie,An,xn,Rt,Z,_e,nt,De,En,st,Pn,Vt,q,Oe,Sn,K,Ln,Co,In,Dn,We,On,Wn,Bn,X,Qn,jo,Hn,Un,Ao,Rn,Vn,Gn,rt,Jn,Yn,Be,Gt,ee,ye,at,Qe,Zn,it,Kn,Jt,W,He,Xn,Ue,es,Re,os,ts,ns,C,Ve,ss,oe,rs,xo,as,is,lt,ls,ds,cs,ke,ms,dt,ps,hs,Ge,Yt,te,ve,ct,Je,fs,mt,us,Zt,B,Ye,gs,ne,_s,pt,ys,ks,Ze,vs,bs,ws,j,Ke,Ts,se,Ns,Eo,$s,Ms,ht,zs,qs,Fs,be,Cs,ft,js,As,Xe,Kt,re,we,ut,eo,xs,gt,Es,Xt,S,oo,Ps,_t,Ss,Ls,to,Is,no,Ds,Os,Ws,z,so,Bs,ae,Qs,Po,Hs,Us,yt,Rs,Vs,Gs,Te,Js,kt,Ys,Zs,ro,Ks,vt,Xs,er,ao,en,ie,Ne,bt,io,or,wt,tr,on,L,lo,nr,Tt,sr,rr,co,ar,mo,ir,lr,dr,A,po,cr,le,mr,So,pr,hr,Nt,fr,ur,gr,$e,_r,$t,yr,kr,ho,tn,de,Me,Mt,fo,vr,zt,br,nn,I,uo,wr,qt,Tr,Nr,go,$r,_o,Mr,zr,qr,x,yo,Fr,ce,Cr,Lo,jr,Ar,Ft,xr,Er,Pr,ze,Sr,Ct,Lr,Ir,ko,sn,me,qe,jt,vo,Dr,At,Or,rn,D,bo,Wr,pe,Br,xt,Qr,Hr,Et,Ur,Rr,Vr,wo,Gr,To,Jr,Yr,Zr,E,No,Kr,he,Xr,Io,ea,oa,Pt,ta,na,sa,Fe,ra,St,aa,ia,$o,an;return g=new fe({}),Pe=new fe({}),De=new fe({}),Oe=new O({props:{name:"class transformers.NystromformerConfig",anchor:"transformers.NystromformerConfig",parameters:[{name:"vocab_size",val:" = 30000"},{name:"hidden_size",val:" = 768"},{name:"num_hidden_layers",val:" = 12"},{name:"num_attention_heads",val:" = 12"},{name:"intermediate_size",val:" = 3072"},{name:"hidden_act",val:" = 'gelu_new'"},{name:"hidden_dropout_prob",val:" = 0.1"},{name:"attention_probs_dropout_prob",val:" = 0.1"},{name:"max_position_embeddings",val:" = 510"},{name:"type_vocab_size",val:" = 2"},{name:"segment_means_seq_len",val:" = 64"},{name:"num_landmarks",val:" = 64"},{name:"conv_kernel_size",val:" = 65"},{name:"inv_coeff_init_option",val:" = False"},{name:"initializer_range",val:" = 0.02"},{name:"layer_norm_eps",val:" = 1e-05"},{name:"pad_token_id",val:" = 1"},{name:"bos_token_id",val:" = 0"},{name:"eos_token_id",val:" = 2"},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/configuration_nystromformer.py#L29",parametersDescription:[{anchor:"transformers.NystromformerConfig.vocab_size",description:`<strong>vocab_size</strong> (<code>int</code>, <em>optional</em>, defaults to 30000) &#x2014;
+Vocabulary size of the Nystromformer model. Defines the number of different tokens that can be represented
+by the <code>inputs_ids</code> passed when calling <a href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerModel">NystromformerModel</a>.`,name:"vocab_size"},{anchor:"transformers.NystromformerConfig.hidden_size",description:`<strong>hidden_size</strong> (<code>int</code>, <em>optional</em>, defaults to 768) &#x2014;
+Dimension of the encoder layers and the pooler layer.`,name:"hidden_size"},{anchor:"transformers.NystromformerConfig.num_hidden_layers",description:`<strong>num_hidden_layers</strong> (<code>int</code>, <em>optional</em>, defaults to 12) &#x2014;
+Number of hidden layers in the Transformer encoder.`,name:"num_hidden_layers"},{anchor:"transformers.NystromformerConfig.num_attention_heads",description:`<strong>num_attention_heads</strong> (<code>int</code>, <em>optional</em>, defaults to 12) &#x2014;
+Number of attention heads for each attention layer in the Transformer encoder.`,name:"num_attention_heads"},{anchor:"transformers.NystromformerConfig.intermediate_size",description:`<strong>intermediate_size</strong> (<code>int</code>, <em>optional</em>, defaults to 3072) &#x2014;
+Dimension of the &#x201C;intermediate&#x201D; (i.e., feed-forward) layer in the Transformer encoder.`,name:"intermediate_size"},{anchor:"transformers.NystromformerConfig.hidden_act",description:`<strong>hidden_act</strong> (<code>str</code> or <code>function</code>, <em>optional</em>, defaults to <code>&quot;gelu&quot;</code>) &#x2014;
+The non-linear activation function (function or string) in the encoder and pooler. If string, <code>&quot;gelu&quot;</code>,
+<code>&quot;relu&quot;</code>, <code>&quot;selu&quot;</code> and <code>&quot;gelu_new&quot;</code> are supported.`,name:"hidden_act"},{anchor:"transformers.NystromformerConfig.hidden_dropout_prob",description:`<strong>hidden_dropout_prob</strong> (<code>float</code>, <em>optional</em>, defaults to 0.1) &#x2014;
+The dropout probabilitiy for all fully connected layers in the embeddings, encoder, and pooler.`,name:"hidden_dropout_prob"},{anchor:"transformers.NystromformerConfig.attention_probs_dropout_prob",description:`<strong>attention_probs_dropout_prob</strong> (<code>float</code>, <em>optional</em>, defaults to 0.1) &#x2014;
+The dropout ratio for the attention probabilities.`,name:"attention_probs_dropout_prob"},{anchor:"transformers.NystromformerConfig.max_position_embeddings",description:`<strong>max_position_embeddings</strong> (<code>int</code>, <em>optional</em>, defaults to 512) &#x2014;
+The maximum sequence length that this model might ever be used with. Typically set this to something large
+just in case (e.g., 512 or 1024 or 2048).`,name:"max_position_embeddings"},{anchor:"transformers.NystromformerConfig.type_vocab_size",description:`<strong>type_vocab_size</strong> (<code>int</code>, <em>optional</em>, defaults to 2) &#x2014;
+The vocabulary size of the <code>token_type_ids</code> passed when calling <a href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerModel">NystromformerModel</a>.`,name:"type_vocab_size"},{anchor:"transformers.NystromformerConfig.segment_means_seq_len",description:`<strong>segment_means_seq_len</strong> (<code>int</code>, <em>optional</em>, defaults to 64) &#x2014;
+Sequence length used in segment-means.`,name:"segment_means_seq_len"},{anchor:"transformers.NystromformerConfig.num_landmarks",description:`<strong>num_landmarks</strong> (<code>int</code>, <em>optional</em>, defaults to 64) &#x2014;
+The number of landmark (or Nystrom) points to use in Nystrom approximation of the softmax self-attention
+matrix.`,name:"num_landmarks"},{anchor:"transformers.NystromformerConfig.conv_kernel_size",description:`<strong>conv_kernel_size</strong> (<code>int</code>, <em>optional</em>, defaults to 65) &#x2014;
+The kernel size of depthwise convolution used in Nystrom approximation.`,name:"conv_kernel_size"},{anchor:"transformers.NystromformerConfig.inv_coeff_init_option",description:`<strong>inv_coeff_init_option</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether or not to use exact coefficient computation for the initial values for the iterative method of
+calculating the Moore-Penrose inverse of a matrix.`,name:"inv_coeff_init_option"},{anchor:"transformers.NystromformerConfig.initializer_range",description:`<strong>initializer_range</strong> (<code>float</code>, <em>optional</em>, defaults to 0.02) &#x2014;
+The standard deviation of the truncated_normal_initializer for initializing all weight matrices.`,name:"initializer_range"},{anchor:"transformers.NystromformerConfig.layer_norm_eps",description:`<strong>layer_norm_eps</strong> (<code>float</code>, <em>optional</em>, defaults to 1e-12) &#x2014;
+The epsilon used by the layer normalization layers.`,name:"layer_norm_eps"}]}}),Be=new Ee({props:{code:`from transformers import NystromformerModel, NystromformerConfig
+
+# Initializing a Nystromformer uw-madison/nystromformer-512 style configuration
+configuration = NystromformerConfig()
+
+# Initializing a model from the uw-madison/nystromformer-512 style configuration
+model = NystromformerModel(configuration)
+
+# Accessing the model configuration
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> NystromformerModel, NystromformerConfig
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Nystromformer uw-madison/nystromformer-512 style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>configuration = NystromformerConfig()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the uw-madison/nystromformer-512 style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = NystromformerModel(configuration)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>configuration = model.config`}}),Qe=new fe({}),He=new O({props:{name:"class transformers.NystromformerModel",anchor:"transformers.NystromformerModel",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py#L555",parametersDescription:[{anchor:"transformers.NystromformerModel.config",description:`<strong>config</strong> (<a href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerConfig">NystromformerConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/main/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),Ve=new O({props:{name:"forward",anchor:"transformers.NystromformerModel.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py#L580",parametersDescription:[{anchor:"transformers.NystromformerModel.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/main/en/model_doc/auto#transformers.AutoTokenizer">AutoTokenizer</a>. See <a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.NystromformerModel.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.NystromformerModel.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.NystromformerModel.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.NystromformerModel.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.NystromformerModel.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.NystromformerModel.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.NystromformerModel.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.NystromformerModel.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.BaseModelOutputWithPastAndCrossAttentions"
+>transformers.modeling_outputs.BaseModelOutputWithPastAndCrossAttentions</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerConfig"
+>NystromformerConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>last_hidden_state</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>) \u2014 Sequence of hidden-states at the output of the last layer of the model.</p>
+<p>If <code>past_key_values</code> is used only the last hidden-state of the sequences of shape <code>(batch_size, 1, hidden_size)</code> is output.</p>
+</li>
+<li>
+<p><strong>past_key_values</strong> (<code>tuple(tuple(torch.FloatTensor))</code>, <em>optional</em>, returned when <code>use_cache=True</code> is passed or when <code>config.use_cache=True</code>) \u2014 Tuple of <code>tuple(torch.FloatTensor)</code> of length <code>config.n_layers</code>, with each tuple having 2 tensors of shape
+<code>(batch_size, num_heads, sequence_length, embed_size_per_head)</code>) and optionally if
+<code>config.is_encoder_decoder=True</code> 2 additional tensors of shape <code>(batch_size, num_heads, encoder_sequence_length, embed_size_per_head)</code>.</p>
+<p>Contains pre-computed hidden-states (key and values in the self-attention blocks and optionally if
+<code>config.is_encoder_decoder=True</code> in the cross-attention blocks) that can be used (see <code>past_key_values</code>
+input) to speed up sequential decoding.</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings + one for the output of each layer) of
+shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+<li>
+<p><strong>cross_attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> and <code>config.add_cross_attention=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights of the decoder\u2019s cross-attention layer, after the attention softmax, used to compute the
+weighted average in the cross-attention heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.BaseModelOutputWithPastAndCrossAttentions"
+>transformers.modeling_outputs.BaseModelOutputWithPastAndCrossAttentions</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),ke=new Ko({props:{$$slots:{default:[$i]},$$scope:{ctx:F}}}),Ge=new Ee({props:{code:`from transformers import AutoTokenizer, NystromformerModel
+import torch
+
+tokenizer = AutoTokenizer.from_pretrained("uw-madison/nystromformer-512")
+model = NystromformerModel.from_pretrained("uw-madison/nystromformer-512")
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
+outputs = model(**inputs)
+
+last_hidden_states = outputs.last_hidden_state`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, NystromformerModel
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = NystromformerModel.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>last_hidden_states = outputs.last_hidden_state`}}),Je=new fe({}),Ye=new O({props:{name:"class transformers.NystromformerForMaskedLM",anchor:"transformers.NystromformerForMaskedLM",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py#L667",parametersDescription:[{anchor:"transformers.NystromformerForMaskedLM.config",description:`<strong>config</strong> (<a href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerConfig">NystromformerConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/main/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),Ke=new O({props:{name:"forward",anchor:"transformers.NystromformerForMaskedLM.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"labels",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py#L683",parametersDescription:[{anchor:"transformers.NystromformerForMaskedLM.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/main/en/model_doc/auto#transformers.AutoTokenizer">AutoTokenizer</a>. See <a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.NystromformerForMaskedLM.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.NystromformerForMaskedLM.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.NystromformerForMaskedLM.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.NystromformerForMaskedLM.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.NystromformerForMaskedLM.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.NystromformerForMaskedLM.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.NystromformerForMaskedLM.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.NystromformerForMaskedLM.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.NystromformerForMaskedLM.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Labels for computing the masked language modeling loss. Indices should be in <code>[-100, 0, ..., config.vocab_size]</code> (see <code>input_ids</code> docstring) Tokens with indices set to <code>-100</code> are ignored (masked), the
+loss is only computed for the tokens with labels in <code>[0, ..., config.vocab_size]</code>.`,name:"labels"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.MaskedLMOutput"
+>transformers.modeling_outputs.MaskedLMOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerConfig"
+>NystromformerConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Masked language modeling (MLM) loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, config.vocab_size)</code>) \u2014 Prediction scores of the language modeling head (scores for each vocabulary token before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings + one for the output of each layer) of
+shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.MaskedLMOutput"
+>transformers.modeling_outputs.MaskedLMOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),be=new Ko({props:{$$slots:{default:[Mi]},$$scope:{ctx:F}}}),Xe=new Ee({props:{code:`from transformers import AutoTokenizer, NystromformerForMaskedLM
+import torch
+
+tokenizer = AutoTokenizer.from_pretrained("uw-madison/nystromformer-512")
+model = NystromformerForMaskedLM.from_pretrained("uw-madison/nystromformer-512")
+
+inputs = tokenizer("The capital of France is [MASK].", return_tensors="pt")
+labels = tokenizer("The capital of France is Paris.", return_tensors="pt")["input_ids"]
+
+outputs = model(**inputs, labels=labels)
+loss = outputs.loss
+logits = outputs.logits`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, NystromformerForMaskedLM
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = NystromformerForMaskedLM.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;The capital of France is [MASK].&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = tokenizer(<span class="hljs-string">&quot;The capital of France is Paris.&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)[<span class="hljs-string">&quot;input_ids&quot;</span>]
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, labels=labels)
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = outputs.loss
+<span class="hljs-meta">&gt;&gt;&gt; </span>logits = outputs.logits`}}),eo=new fe({}),oo=new O({props:{name:"class transformers.NystromformerForSequenceClassification",anchor:"transformers.NystromformerForSequenceClassification",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py#L771",parametersDescription:[{anchor:"transformers.NystromformerForSequenceClassification.config",description:`<strong>config</strong> (<a href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerConfig">NystromformerConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/main/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),so=new O({props:{name:"forward",anchor:"transformers.NystromformerForSequenceClassification.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"labels",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py#L781",parametersDescription:[{anchor:"transformers.NystromformerForSequenceClassification.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/main/en/model_doc/auto#transformers.AutoTokenizer">AutoTokenizer</a>. See <a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.NystromformerForSequenceClassification.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.NystromformerForSequenceClassification.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.NystromformerForSequenceClassification.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.NystromformerForSequenceClassification.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.NystromformerForSequenceClassification.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.NystromformerForSequenceClassification.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.NystromformerForSequenceClassification.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.NystromformerForSequenceClassification.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.NystromformerForSequenceClassification.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for computing the sequence classification/regression loss. Indices should be in <code>[0, ..., config.num_labels - 1]</code>. If <code>config.num_labels == 1</code> a regression loss is computed (Mean-Square loss), If
+<code>config.num_labels &gt; 1</code> a classification loss is computed (Cross-Entropy).`,name:"labels"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.SequenceClassifierOutput"
+>transformers.modeling_outputs.SequenceClassifierOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerConfig"
+>NystromformerConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Classification (or regression if config.num_labels==1) loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, config.num_labels)</code>) \u2014 Classification (or regression if config.num_labels==1) scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings + one for the output of each layer) of
+shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.SequenceClassifierOutput"
+>transformers.modeling_outputs.SequenceClassifierOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),Te=new Ko({props:{$$slots:{default:[zi]},$$scope:{ctx:F}}}),ro=new Ee({props:{code:`import torch
+from transformers import AutoTokenizer, NystromformerForSequenceClassification
+
+torch.manual_seed(0)
+tokenizer = AutoTokenizer.from_pretrained("uw-madison/nystromformer-512")
+model = NystromformerForSequenceClassification.from_pretrained("uw-madison/nystromformer-512", num_labels=2)
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
+labels = torch.tensor([1]).unsqueeze(0)  # Batch size 1
+outputs = model(**inputs, labels=labels)
+loss = outputs.loss
+logits = outputs.logits
+list(logits.shape)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, NystromformerForSequenceClassification
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>torch.manual_seed(<span class="hljs-number">0</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = NystromformerForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>, num_labels=<span class="hljs-number">2</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor([<span class="hljs-number">1</span>]).unsqueeze(<span class="hljs-number">0</span>)  <span class="hljs-comment"># Batch size 1</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, labels=labels)
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = outputs.loss
+<span class="hljs-meta">&gt;&gt;&gt; </span>logits = outputs.logits
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>(logits.shape)
+`}}),ao=new Ee({props:{code:`import torch
+from transformers import AutoTokenizer, NystromformerForSequenceClassification
+
+torch.manual_seed(0)
+tokenizer = AutoTokenizer.from_pretrained("uw-madison/nystromformer-512")
+model = NystromformerForSequenceClassification.from_pretrained("uw-madison/nystromformer-512", problem_type="multi_label_classification", num_labels=2)
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
+labels = torch.tensor([[1, 1]], dtype=torch.float)  # need dtype=float for BCEWithLogitsLoss
+outputs = model(**inputs, labels=labels)
+loss = outputs.loss
+list(logits.shape)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, NystromformerForSequenceClassification
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>torch.manual_seed(<span class="hljs-number">0</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = NystromformerForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>, problem_type=<span class="hljs-string">&quot;multi_label_classification&quot;</span>, num_labels=<span class="hljs-number">2</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor([[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]], dtype=torch.<span class="hljs-built_in">float</span>)  <span class="hljs-comment"># need dtype=float for BCEWithLogitsLoss</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, labels=labels)
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = outputs.loss
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>(logits.shape)
+`}}),io=new fe({}),lo=new O({props:{name:"class transformers.NystromformerForMultipleChoice",anchor:"transformers.NystromformerForMultipleChoice",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py#L865",parametersDescription:[{anchor:"transformers.NystromformerForMultipleChoice.config",description:`<strong>config</strong> (<a href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerConfig">NystromformerConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/main/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),po=new O({props:{name:"forward",anchor:"transformers.NystromformerForMultipleChoice.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"labels",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py#L876",parametersDescription:[{anchor:"transformers.NystromformerForMultipleChoice.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, num_choices, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/main/en/model_doc/auto#transformers.AutoTokenizer">AutoTokenizer</a>. See <a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.NystromformerForMultipleChoice.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, num_choices, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.NystromformerForMultipleChoice.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, num_choices, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.NystromformerForMultipleChoice.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, num_choices, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.NystromformerForMultipleChoice.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.NystromformerForMultipleChoice.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, num_choices, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.NystromformerForMultipleChoice.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.NystromformerForMultipleChoice.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.NystromformerForMultipleChoice.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.NystromformerForMultipleChoice.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for computing the multiple choice classification loss. Indices should be in <code>[0, ..., num_choices-1]</code> where <code>num_choices</code> is the size of the second dimension of the input tensors. (See
+<code>input_ids</code> above)`,name:"labels"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.MultipleChoiceModelOutput"
+>transformers.modeling_outputs.MultipleChoiceModelOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerConfig"
+>NystromformerConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <em>(1,)</em>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Classification loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, num_choices)</code>) \u2014 <em>num_choices</em> is the second dimension of the input tensors. (see <em>input_ids</em> above).</p>
+<p>Classification scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings + one for the output of each layer) of
+shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.MultipleChoiceModelOutput"
+>transformers.modeling_outputs.MultipleChoiceModelOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),$e=new Ko({props:{$$slots:{default:[qi]},$$scope:{ctx:F}}}),ho=new Ee({props:{code:`from transformers import AutoTokenizer, NystromformerForMultipleChoice
+import torch
+
+tokenizer = AutoTokenizer.from_pretrained("uw-madison/nystromformer-512")
+model = NystromformerForMultipleChoice.from_pretrained("uw-madison/nystromformer-512")
+
+prompt = "In Italy, pizza served in formal settings, such as at a restaurant, is presented unsliced."
+choice0 = "It is eaten with a fork and a knife."
+choice1 = "It is eaten while held in the hand."
+labels = torch.tensor(0).unsqueeze(0)  # choice0 is correct (according to Wikipedia ;)), batch size 1
+
+encoding = tokenizer([prompt, prompt], [choice0, choice1], return_tensors="pt", padding=True)
+outputs = model(**{k: v.unsqueeze(0) for k, v in encoding.items()}, labels=labels)  # batch size is 1
+
+# the linear classifier still needs to be trained
+loss = outputs.loss
+logits = outputs.logits`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, NystromformerForMultipleChoice
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = NystromformerForMultipleChoice.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>prompt = <span class="hljs-string">&quot;In Italy, pizza served in formal settings, such as at a restaurant, is presented unsliced.&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>choice0 = <span class="hljs-string">&quot;It is eaten with a fork and a knife.&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>choice1 = <span class="hljs-string">&quot;It is eaten while held in the hand.&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor(<span class="hljs-number">0</span>).unsqueeze(<span class="hljs-number">0</span>)  <span class="hljs-comment"># choice0 is correct (according to Wikipedia ;)), batch size 1</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>encoding = tokenizer([prompt, prompt], [choice0, choice1], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>, padding=<span class="hljs-literal">True</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**{k: v.unsqueeze(<span class="hljs-number">0</span>) <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> encoding.items()}, labels=labels)  <span class="hljs-comment"># batch size is 1</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># the linear classifier still needs to be trained</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = outputs.loss
+<span class="hljs-meta">&gt;&gt;&gt; </span>logits = outputs.logits`}}),fo=new fe({}),uo=new O({props:{name:"class transformers.NystromformerForTokenClassification",anchor:"transformers.NystromformerForTokenClassification",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py#L961",parametersDescription:[{anchor:"transformers.NystromformerForTokenClassification.config",description:`<strong>config</strong> (<a href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerConfig">NystromformerConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/main/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),yo=new O({props:{name:"forward",anchor:"transformers.NystromformerForTokenClassification.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"labels",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py#L973",parametersDescription:[{anchor:"transformers.NystromformerForTokenClassification.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/main/en/model_doc/auto#transformers.AutoTokenizer">AutoTokenizer</a>. See <a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.NystromformerForTokenClassification.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.NystromformerForTokenClassification.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.NystromformerForTokenClassification.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.NystromformerForTokenClassification.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.NystromformerForTokenClassification.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.NystromformerForTokenClassification.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.NystromformerForTokenClassification.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.NystromformerForTokenClassification.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.NystromformerForTokenClassification.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Labels for computing the token classification loss. Indices should be in <code>[0, ..., config.num_labels - 1]</code>.`,name:"labels"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.TokenClassifierOutput"
+>transformers.modeling_outputs.TokenClassifierOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerConfig"
+>NystromformerConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided)  \u2014 Classification loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, config.num_labels)</code>) \u2014 Classification scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings + one for the output of each layer) of
+shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.TokenClassifierOutput"
+>transformers.modeling_outputs.TokenClassifierOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),ze=new Ko({props:{$$slots:{default:[Fi]},$$scope:{ctx:F}}}),ko=new Ee({props:{code:`from transformers import AutoTokenizer, NystromformerForTokenClassification
+import torch
+
+tokenizer = AutoTokenizer.from_pretrained("uw-madison/nystromformer-512")
+model = NystromformerForTokenClassification.from_pretrained("uw-madison/nystromformer-512")
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
+labels = torch.tensor([1] * inputs["input_ids"].size(1)).unsqueeze(0)  # Batch size 1
+
+outputs = model(**inputs, labels=labels)
+loss = outputs.loss
+logits = outputs.logits`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, NystromformerForTokenClassification
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = NystromformerForTokenClassification.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor([<span class="hljs-number">1</span>] * inputs[<span class="hljs-string">&quot;input_ids&quot;</span>].size(<span class="hljs-number">1</span>)).unsqueeze(<span class="hljs-number">0</span>)  <span class="hljs-comment"># Batch size 1</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, labels=labels)
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = outputs.loss
+<span class="hljs-meta">&gt;&gt;&gt; </span>logits = outputs.logits`}}),vo=new fe({}),bo=new O({props:{name:"class transformers.NystromformerForQuestionAnswering",anchor:"transformers.NystromformerForQuestionAnswering",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py#L1040",parametersDescription:[{anchor:"transformers.NystromformerForQuestionAnswering.config",description:`<strong>config</strong> (<a href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerConfig">NystromformerConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/main/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),No=new O({props:{name:"forward",anchor:"transformers.NystromformerForQuestionAnswering.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"start_positions",val:" = None"},{name:"end_positions",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py#L1053",parametersDescription:[{anchor:"transformers.NystromformerForQuestionAnswering.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/main/en/model_doc/auto#transformers.AutoTokenizer">AutoTokenizer</a>. See <a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.NystromformerForQuestionAnswering.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.NystromformerForQuestionAnswering.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.NystromformerForQuestionAnswering.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.NystromformerForQuestionAnswering.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.NystromformerForQuestionAnswering.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.NystromformerForQuestionAnswering.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.NystromformerForQuestionAnswering.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.NystromformerForQuestionAnswering.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.NystromformerForQuestionAnswering.forward.start_positions",description:`<strong>start_positions</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for position (index) of the start of the labelled span for computing the token classification loss.
+Positions are clamped to the length of the sequence (<code>sequence_length</code>). Position outside of the sequence
+are not taken into account for computing the loss.`,name:"start_positions"},{anchor:"transformers.NystromformerForQuestionAnswering.forward.end_positions",description:`<strong>end_positions</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for position (index) of the end of the labelled span for computing the token classification loss.
+Positions are clamped to the length of the sequence (<code>sequence_length</code>). Position outside of the sequence
+are not taken into account for computing the loss.`,name:"end_positions"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.QuestionAnsweringModelOutput"
+>transformers.modeling_outputs.QuestionAnsweringModelOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerConfig"
+>NystromformerConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Total span extraction loss is the sum of a Cross-Entropy for the start and end positions.</p>
+</li>
+<li>
+<p><strong>start_logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>) \u2014 Span-start scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>end_logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>) \u2014 Span-end scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings + one for the output of each layer) of
+shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.QuestionAnsweringModelOutput"
+>transformers.modeling_outputs.QuestionAnsweringModelOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),Fe=new Ko({props:{$$slots:{default:[Ci]},$$scope:{ctx:F}}}),$o=new Ee({props:{code:`from transformers import AutoTokenizer, NystromformerForQuestionAnswering
+import torch
+
+torch.manual_seed(0)
+tokenizer = AutoTokenizer.from_pretrained("uw-madison/nystromformer-512")
+model = NystromformerForQuestionAnswering.from_pretrained("uw-madison/nystromformer-512")
+
+question, text = "Who was Jim Henson?", "Jim Henson was a nice puppet"
+inputs = tokenizer(question, text, return_tensors="pt")
+start_positions = torch.tensor([1])
+end_positions = torch.tensor([3])
+
+outputs = model(**inputs, start_positions=start_positions, end_positions=end_positions)
+loss = outputs.loss
+round(loss.item(), 2)
+
+
+start_scores = outputs.start_logits
+list(start_scores.shape)
+
+
+end_scores = outputs.end_logits
+list(end_scores.shape)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, NystromformerForQuestionAnswering
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>torch.manual_seed(<span class="hljs-number">0</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = NystromformerForQuestionAnswering.from_pretrained(<span class="hljs-string">&quot;uw-madison/nystromformer-512&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>question, text = <span class="hljs-string">&quot;Who was Jim Henson?&quot;</span>, <span class="hljs-string">&quot;Jim Henson was a nice puppet&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(question, text, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>start_positions = torch.tensor([<span class="hljs-number">1</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>end_positions = torch.tensor([<span class="hljs-number">3</span>])
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, start_positions=start_positions, end_positions=end_positions)
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = outputs.loss
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
+
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>start_scores = outputs.start_logits
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>(start_scores.shape)
+
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>end_scores = outputs.end_logits
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>(end_scores.shape)
+`}}),{c(){m=n("meta"),$=d(),f=n("h1"),T=n("a"),N=n("span"),_(g.$$.fragment),u=d(),M=n("span"),bn=a("Nystr\xF6mformer"),Wt=d(),Y=n("h2"),ue=n("a"),Xo=n("span"),_(Pe.$$.fragment),wn=d(),et=n("span"),Tn=a("Overview"),Bt=d(),ge=n("p"),Nn=a("The Nystr\xF6mformer model was proposed in "),Se=n("a"),ot=n("em"),$n=a("Nystr\xF6mformer: A Nystr\xF6m-Based Algorithm for Approximating Self-Attention"),Mn=a(` by Yunyang Xiong, Zhanpeng Zeng, Rudrasis Chakraborty, Mingxing Tan, Glenn
+Fung, Yin Li, and Vikas Singh.`),Qt=d(),qo=n("p"),zn=a("The abstract from the paper is the following:"),Ht=d(),Fo=n("p"),tt=n("em"),qn=a(`Transformers have emerged as a powerful tool for a broad range of natural language processing tasks. A key component
+that drives the impressive performance of Transformers is the self-attention mechanism that encodes the influence or
+dependence of other tokens on each specific token. While beneficial, the quadratic complexity of self-attention on the
+input sequence length has limited its application to longer sequences \u2014 a topic being actively studied in the
+community. To address this limitation, we propose Nystr\xF6mformer \u2014 a model that exhibits favorable scalability as a
+function of sequence length. Our idea is based on adapting the Nystr\xF6m method to approximate standard self-attention
+with O(n) complexity. The scalability of Nystr\xF6mformer enables application to longer sequences with thousands of
+tokens. We perform evaluations on multiple downstream tasks on the GLUE benchmark and IMDB reviews with standard
+sequence length, and find that our Nystr\xF6mformer performs comparably, or in a few cases, even slightly better, than
+standard self-attention. On longer sequence tasks in the Long Range Arena (LRA) benchmark, Nystr\xF6mformer performs
+favorably relative to other efficient self-attention methods. Our code is available at this https URL.`),Ut=d(),Q=n("p"),Fn=a("This model was contributed by "),Le=n("a"),Cn=a("novice03"),jn=a(". The original code can be found "),Ie=n("a"),An=a("here"),xn=a("."),Rt=d(),Z=n("h2"),_e=n("a"),nt=n("span"),_(De.$$.fragment),En=d(),st=n("span"),Pn=a("NystromformerConfig"),Vt=d(),q=n("div"),_(Oe.$$.fragment),Sn=d(),K=n("p"),Ln=a("This is the configuration class to store the configuration of a "),Co=n("a"),In=a("NystromformerModel"),Dn=a(`. It is used to instantiate
+an Nystromformer model according to the specified arguments, defining the model architecture. Instantiating a
+configuration with the defaults will yield a similar configuration to that of the Nystromformer
+`),We=n("a"),On=a("uw-madison/nystromformer-512"),Wn=a(" architecture."),Bn=d(),X=n("p"),Qn=a("Configuration objects inherit from "),jo=n("a"),Hn=a("PretrainedConfig"),Un=a(` and can be used to control the model outputs. Read the
+documentation from `),Ao=n("a"),Rn=a("PretrainedConfig"),Vn=a(" for more information."),Gn=d(),rt=n("p"),Jn=a("Example:"),Yn=d(),_(Be.$$.fragment),Gt=d(),ee=n("h2"),ye=n("a"),at=n("span"),_(Qe.$$.fragment),Zn=d(),it=n("span"),Kn=a("NystromformerModel"),Jt=d(),W=n("div"),_(He.$$.fragment),Xn=d(),Ue=n("p"),es=a(`The bare Nystr\xF6mformer Model transformer outputting raw hidden-states without any specific head on top.
+This model is a PyTorch `),Re=n("a"),os=a("torch.nn.Module"),ts=a(` sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.`),ns=d(),C=n("div"),_(Ve.$$.fragment),ss=d(),oe=n("p"),rs=a("The "),xo=n("a"),as=a("NystromformerModel"),is=a(" forward method, overrides the "),lt=n("code"),ls=a("__call__"),ds=a(" special method."),cs=d(),_(ke.$$.fragment),ms=d(),dt=n("p"),ps=a("Example:"),hs=d(),_(Ge.$$.fragment),Yt=d(),te=n("h2"),ve=n("a"),ct=n("span"),_(Je.$$.fragment),fs=d(),mt=n("span"),us=a("NystromformerForMaskedLM"),Zt=d(),B=n("div"),_(Ye.$$.fragment),gs=d(),ne=n("p"),_s=a("Nystr\xF6mformer Model with a "),pt=n("code"),ys=a("language modeling"),ks=a(` head on top.
+This model is a PyTorch `),Ze=n("a"),vs=a("torch.nn.Module"),bs=a(` sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.`),ws=d(),j=n("div"),_(Ke.$$.fragment),Ts=d(),se=n("p"),Ns=a("The "),Eo=n("a"),$s=a("NystromformerForMaskedLM"),Ms=a(" forward method, overrides the "),ht=n("code"),zs=a("__call__"),qs=a(" special method."),Fs=d(),_(be.$$.fragment),Cs=d(),ft=n("p"),js=a("Example:"),As=d(),_(Xe.$$.fragment),Kt=d(),re=n("h2"),we=n("a"),ut=n("span"),_(eo.$$.fragment),xs=d(),gt=n("span"),Es=a("NystromformerForSequenceClassification"),Xt=d(),S=n("div"),_(oo.$$.fragment),Ps=d(),_t=n("p"),Ss=a(`Nystr\xF6mformer Model transformer with a sequence classification/regression head on top (a linear layer on top of the
+pooled output) e.g. for GLUE tasks.`),Ls=d(),to=n("p"),Is=a("This model is a PyTorch "),no=n("a"),Ds=a("torch.nn.Module"),Os=a(` sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.`),Ws=d(),z=n("div"),_(so.$$.fragment),Bs=d(),ae=n("p"),Qs=a("The "),Po=n("a"),Hs=a("NystromformerForSequenceClassification"),Us=a(" forward method, overrides the "),yt=n("code"),Rs=a("__call__"),Vs=a(" special method."),Gs=d(),_(Te.$$.fragment),Js=d(),kt=n("p"),Ys=a("Example of single-label classification:"),Zs=d(),_(ro.$$.fragment),Ks=d(),vt=n("p"),Xs=a("Example of multi-label classification:"),er=d(),_(ao.$$.fragment),en=d(),ie=n("h2"),Ne=n("a"),bt=n("span"),_(io.$$.fragment),or=d(),wt=n("span"),tr=a("NystromformerForMultipleChoice"),on=d(),L=n("div"),_(lo.$$.fragment),nr=d(),Tt=n("p"),sr=a(`Nystr\xF6mformer Model with a multiple choice classification head on top (a linear layer on top of the pooled output
+and a softmax) e.g. for RocStories/SWAG tasks.`),rr=d(),co=n("p"),ar=a("This model is a PyTorch "),mo=n("a"),ir=a("torch.nn.Module"),lr=a(` sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.`),dr=d(),A=n("div"),_(po.$$.fragment),cr=d(),le=n("p"),mr=a("The "),So=n("a"),pr=a("NystromformerForMultipleChoice"),hr=a(" forward method, overrides the "),Nt=n("code"),fr=a("__call__"),ur=a(" special method."),gr=d(),_($e.$$.fragment),_r=d(),$t=n("p"),yr=a("Example:"),kr=d(),_(ho.$$.fragment),tn=d(),de=n("h2"),Me=n("a"),Mt=n("span"),_(fo.$$.fragment),vr=d(),zt=n("span"),br=a("NystromformerForTokenClassification"),nn=d(),I=n("div"),_(uo.$$.fragment),wr=d(),qt=n("p"),Tr=a(`Nystr\xF6mformer Model with a token classification head on top (a linear layer on top of the hidden-states output)
+e.g. for Named-Entity-Recognition (NER) tasks.`),Nr=d(),go=n("p"),$r=a("This model is a PyTorch "),_o=n("a"),Mr=a("torch.nn.Module"),zr=a(` sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.`),qr=d(),x=n("div"),_(yo.$$.fragment),Fr=d(),ce=n("p"),Cr=a("The "),Lo=n("a"),jr=a("NystromformerForTokenClassification"),Ar=a(" forward method, overrides the "),Ft=n("code"),xr=a("__call__"),Er=a(" special method."),Pr=d(),_(ze.$$.fragment),Sr=d(),Ct=n("p"),Lr=a("Example:"),Ir=d(),_(ko.$$.fragment),sn=d(),me=n("h2"),qe=n("a"),jt=n("span"),_(vo.$$.fragment),Dr=d(),At=n("span"),Or=a("NystromformerForQuestionAnswering"),rn=d(),D=n("div"),_(bo.$$.fragment),Wr=d(),pe=n("p"),Br=a(`Nystr\xF6mformer Model with a span classification head on top for extractive question-answering tasks like SQuAD (a
+linear layers on top of the hidden-states output to compute `),xt=n("code"),Qr=a("span start logits"),Hr=a(" and "),Et=n("code"),Ur=a("span end logits"),Rr=a(")."),Vr=d(),wo=n("p"),Gr=a("This model is a PyTorch "),To=n("a"),Jr=a("torch.nn.Module"),Yr=a(` sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.`),Zr=d(),E=n("div"),_(No.$$.fragment),Kr=d(),he=n("p"),Xr=a("The "),Io=n("a"),ea=a("NystromformerForQuestionAnswering"),oa=a(" forward method, overrides the "),Pt=n("code"),ta=a("__call__"),na=a(" special method."),sa=d(),_(Fe.$$.fragment),ra=d(),St=n("p"),aa=a("Example:"),ia=d(),_($o.$$.fragment),this.h()},l(o){const p=Ti('[data-svelte="svelte-1phssyn"]',document.head);m=s(p,"META",{name:!0,content:!0}),p.forEach(t),$=c(o),f=s(o,"H1",{class:!0});var Mo=r(f);T=s(Mo,"A",{id:!0,class:!0,href:!0});var Lt=r(T);N=s(Lt,"SPAN",{});var It=r(N);y(g.$$.fragment,It),It.forEach(t),Lt.forEach(t),u=c(Mo),M=s(Mo,"SPAN",{});var Dt=r(M);bn=i(Dt,"Nystr\xF6mformer"),Dt.forEach(t),Mo.forEach(t),Wt=c(o),Y=s(o,"H2",{class:!0});var zo=r(Y);ue=s(zo,"A",{id:!0,class:!0,href:!0});var Ot=r(ue);Xo=s(Ot,"SPAN",{});var la=r(Xo);y(Pe.$$.fragment,la),la.forEach(t),Ot.forEach(t),wn=c(zo),et=s(zo,"SPAN",{});var da=r(et);Tn=i(da,"Overview"),da.forEach(t),zo.forEach(t),Bt=c(o),ge=s(o,"P",{});var ln=r(ge);Nn=i(ln,"The Nystr\xF6mformer model was proposed in "),Se=s(ln,"A",{href:!0,rel:!0});var ca=r(Se);ot=s(ca,"EM",{});var ma=r(ot);$n=i(ma,"Nystr\xF6mformer: A Nystr\xF6m-Based Algorithm for Approximating Self-Attention"),ma.forEach(t),ca.forEach(t),Mn=i(ln,` by Yunyang Xiong, Zhanpeng Zeng, Rudrasis Chakraborty, Mingxing Tan, Glenn
+Fung, Yin Li, and Vikas Singh.`),ln.forEach(t),Qt=c(o),qo=s(o,"P",{});var pa=r(qo);zn=i(pa,"The abstract from the paper is the following:"),pa.forEach(t),Ht=c(o),Fo=s(o,"P",{});var ha=r(Fo);tt=s(ha,"EM",{});var fa=r(tt);qn=i(fa,`Transformers have emerged as a powerful tool for a broad range of natural language processing tasks. A key component
+that drives the impressive performance of Transformers is the self-attention mechanism that encodes the influence or
+dependence of other tokens on each specific token. While beneficial, the quadratic complexity of self-attention on the
+input sequence length has limited its application to longer sequences \u2014 a topic being actively studied in the
+community. To address this limitation, we propose Nystr\xF6mformer \u2014 a model that exhibits favorable scalability as a
+function of sequence length. Our idea is based on adapting the Nystr\xF6m method to approximate standard self-attention
+with O(n) complexity. The scalability of Nystr\xF6mformer enables application to longer sequences with thousands of
+tokens. We perform evaluations on multiple downstream tasks on the GLUE benchmark and IMDB reviews with standard
+sequence length, and find that our Nystr\xF6mformer performs comparably, or in a few cases, even slightly better, than
+standard self-attention. On longer sequence tasks in the Long Range Arena (LRA) benchmark, Nystr\xF6mformer performs
+favorably relative to other efficient self-attention methods. Our code is available at this https URL.`),fa.forEach(t),ha.forEach(t),Ut=c(o),Q=s(o,"P",{});var Do=r(Q);Fn=i(Do,"This model was contributed by "),Le=s(Do,"A",{href:!0,rel:!0});var ua=r(Le);Cn=i(ua,"novice03"),ua.forEach(t),jn=i(Do,". The original code can be found "),Ie=s(Do,"A",{href:!0,rel:!0});var ga=r(Ie);An=i(ga,"here"),ga.forEach(t),xn=i(Do,"."),Do.forEach(t),Rt=c(o),Z=s(o,"H2",{class:!0});var dn=r(Z);_e=s(dn,"A",{id:!0,class:!0,href:!0});var _a=r(_e);nt=s(_a,"SPAN",{});var ya=r(nt);y(De.$$.fragment,ya),ya.forEach(t),_a.forEach(t),En=c(dn),st=s(dn,"SPAN",{});var ka=r(st);Pn=i(ka,"NystromformerConfig"),ka.forEach(t),dn.forEach(t),Vt=c(o),q=s(o,"DIV",{class:!0});var H=r(q);y(Oe.$$.fragment,H),Sn=c(H),K=s(H,"P",{});var Oo=r(K);Ln=i(Oo,"This is the configuration class to store the configuration of a "),Co=s(Oo,"A",{href:!0});var va=r(Co);In=i(va,"NystromformerModel"),va.forEach(t),Dn=i(Oo,`. It is used to instantiate
+an Nystromformer model according to the specified arguments, defining the model architecture. Instantiating a
+configuration with the defaults will yield a similar configuration to that of the Nystromformer
+`),We=s(Oo,"A",{href:!0,rel:!0});var ba=r(We);On=i(ba,"uw-madison/nystromformer-512"),ba.forEach(t),Wn=i(Oo," architecture."),Oo.forEach(t),Bn=c(H),X=s(H,"P",{});var Wo=r(X);Qn=i(Wo,"Configuration objects inherit from "),jo=s(Wo,"A",{href:!0});var wa=r(jo);Hn=i(wa,"PretrainedConfig"),wa.forEach(t),Un=i(Wo,` and can be used to control the model outputs. Read the
+documentation from `),Ao=s(Wo,"A",{href:!0});var Ta=r(Ao);Rn=i(Ta,"PretrainedConfig"),Ta.forEach(t),Vn=i(Wo," for more information."),Wo.forEach(t),Gn=c(H),rt=s(H,"P",{});var Na=r(rt);Jn=i(Na,"Example:"),Na.forEach(t),Yn=c(H),y(Be.$$.fragment,H),H.forEach(t),Gt=c(o),ee=s(o,"H2",{class:!0});var cn=r(ee);ye=s(cn,"A",{id:!0,class:!0,href:!0});var $a=r(ye);at=s($a,"SPAN",{});var Ma=r(at);y(Qe.$$.fragment,Ma),Ma.forEach(t),$a.forEach(t),Zn=c(cn),it=s(cn,"SPAN",{});var za=r(it);Kn=i(za,"NystromformerModel"),za.forEach(t),cn.forEach(t),Jt=c(o),W=s(o,"DIV",{class:!0});var Bo=r(W);y(He.$$.fragment,Bo),Xn=c(Bo),Ue=s(Bo,"P",{});var mn=r(Ue);es=i(mn,`The bare Nystr\xF6mformer Model transformer outputting raw hidden-states without any specific head on top.
+This model is a PyTorch `),Re=s(mn,"A",{href:!0,rel:!0});var qa=r(Re);os=i(qa,"torch.nn.Module"),qa.forEach(t),ts=i(mn,` sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.`),mn.forEach(t),ns=c(Bo),C=s(Bo,"DIV",{class:!0});var U=r(C);y(Ve.$$.fragment,U),ss=c(U),oe=s(U,"P",{});var Qo=r(oe);rs=i(Qo,"The "),xo=s(Qo,"A",{href:!0});var Fa=r(xo);as=i(Fa,"NystromformerModel"),Fa.forEach(t),is=i(Qo," forward method, overrides the "),lt=s(Qo,"CODE",{});var Ca=r(lt);ls=i(Ca,"__call__"),Ca.forEach(t),ds=i(Qo," special method."),Qo.forEach(t),cs=c(U),y(ke.$$.fragment,U),ms=c(U),dt=s(U,"P",{});var ja=r(dt);ps=i(ja,"Example:"),ja.forEach(t),hs=c(U),y(Ge.$$.fragment,U),U.forEach(t),Bo.forEach(t),Yt=c(o),te=s(o,"H2",{class:!0});var pn=r(te);ve=s(pn,"A",{id:!0,class:!0,href:!0});var Aa=r(ve);ct=s(Aa,"SPAN",{});var xa=r(ct);y(Je.$$.fragment,xa),xa.forEach(t),Aa.forEach(t),fs=c(pn),mt=s(pn,"SPAN",{});var Ea=r(mt);us=i(Ea,"NystromformerForMaskedLM"),Ea.forEach(t),pn.forEach(t),Zt=c(o),B=s(o,"DIV",{class:!0});var Ho=r(B);y(Ye.$$.fragment,Ho),gs=c(Ho),ne=s(Ho,"P",{});var Uo=r(ne);_s=i(Uo,"Nystr\xF6mformer Model with a "),pt=s(Uo,"CODE",{});var Pa=r(pt);ys=i(Pa,"language modeling"),Pa.forEach(t),ks=i(Uo,` head on top.
+This model is a PyTorch `),Ze=s(Uo,"A",{href:!0,rel:!0});var Sa=r(Ze);vs=i(Sa,"torch.nn.Module"),Sa.forEach(t),bs=i(Uo,` sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.`),Uo.forEach(t),ws=c(Ho),j=s(Ho,"DIV",{class:!0});var R=r(j);y(Ke.$$.fragment,R),Ts=c(R),se=s(R,"P",{});var Ro=r(se);Ns=i(Ro,"The "),Eo=s(Ro,"A",{href:!0});var La=r(Eo);$s=i(La,"NystromformerForMaskedLM"),La.forEach(t),Ms=i(Ro," forward method, overrides the "),ht=s(Ro,"CODE",{});var Ia=r(ht);zs=i(Ia,"__call__"),Ia.forEach(t),qs=i(Ro," special method."),Ro.forEach(t),Fs=c(R),y(be.$$.fragment,R),Cs=c(R),ft=s(R,"P",{});var Da=r(ft);js=i(Da,"Example:"),Da.forEach(t),As=c(R),y(Xe.$$.fragment,R),R.forEach(t),Ho.forEach(t),Kt=c(o),re=s(o,"H2",{class:!0});var hn=r(re);we=s(hn,"A",{id:!0,class:!0,href:!0});var Oa=r(we);ut=s(Oa,"SPAN",{});var Wa=r(ut);y(eo.$$.fragment,Wa),Wa.forEach(t),Oa.forEach(t),xs=c(hn),gt=s(hn,"SPAN",{});var Ba=r(gt);Es=i(Ba,"NystromformerForSequenceClassification"),Ba.forEach(t),hn.forEach(t),Xt=c(o),S=s(o,"DIV",{class:!0});var Ce=r(S);y(oo.$$.fragment,Ce),Ps=c(Ce),_t=s(Ce,"P",{});var Qa=r(_t);Ss=i(Qa,`Nystr\xF6mformer Model transformer with a sequence classification/regression head on top (a linear layer on top of the
+pooled output) e.g. for GLUE tasks.`),Qa.forEach(t),Ls=c(Ce),to=s(Ce,"P",{});var fn=r(to);Is=i(fn,"This model is a PyTorch "),no=s(fn,"A",{href:!0,rel:!0});var Ha=r(no);Ds=i(Ha,"torch.nn.Module"),Ha.forEach(t),Os=i(fn,` sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.`),fn.forEach(t),Ws=c(Ce),z=s(Ce,"DIV",{class:!0});var P=r(z);y(so.$$.fragment,P),Bs=c(P),ae=s(P,"P",{});var Vo=r(ae);Qs=i(Vo,"The "),Po=s(Vo,"A",{href:!0});var Ua=r(Po);Hs=i(Ua,"NystromformerForSequenceClassification"),Ua.forEach(t),Us=i(Vo," forward method, overrides the "),yt=s(Vo,"CODE",{});var Ra=r(yt);Rs=i(Ra,"__call__"),Ra.forEach(t),Vs=i(Vo," special method."),Vo.forEach(t),Gs=c(P),y(Te.$$.fragment,P),Js=c(P),kt=s(P,"P",{});var Va=r(kt);Ys=i(Va,"Example of single-label classification:"),Va.forEach(t),Zs=c(P),y(ro.$$.fragment,P),Ks=c(P),vt=s(P,"P",{});var Ga=r(vt);Xs=i(Ga,"Example of multi-label classification:"),Ga.forEach(t),er=c(P),y(ao.$$.fragment,P),P.forEach(t),Ce.forEach(t),en=c(o),ie=s(o,"H2",{class:!0});var un=r(ie);Ne=s(un,"A",{id:!0,class:!0,href:!0});var Ja=r(Ne);bt=s(Ja,"SPAN",{});var Ya=r(bt);y(io.$$.fragment,Ya),Ya.forEach(t),Ja.forEach(t),or=c(un),wt=s(un,"SPAN",{});var Za=r(wt);tr=i(Za,"NystromformerForMultipleChoice"),Za.forEach(t),un.forEach(t),on=c(o),L=s(o,"DIV",{class:!0});var je=r(L);y(lo.$$.fragment,je),nr=c(je),Tt=s(je,"P",{});var Ka=r(Tt);sr=i(Ka,`Nystr\xF6mformer Model with a multiple choice classification head on top (a linear layer on top of the pooled output
+and a softmax) e.g. for RocStories/SWAG tasks.`),Ka.forEach(t),rr=c(je),co=s(je,"P",{});var gn=r(co);ar=i(gn,"This model is a PyTorch "),mo=s(gn,"A",{href:!0,rel:!0});var Xa=r(mo);ir=i(Xa,"torch.nn.Module"),Xa.forEach(t),lr=i(gn,` sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.`),gn.forEach(t),dr=c(je),A=s(je,"DIV",{class:!0});var V=r(A);y(po.$$.fragment,V),cr=c(V),le=s(V,"P",{});var Go=r(le);mr=i(Go,"The "),So=s(Go,"A",{href:!0});var ei=r(So);pr=i(ei,"NystromformerForMultipleChoice"),ei.forEach(t),hr=i(Go," forward method, overrides the "),Nt=s(Go,"CODE",{});var oi=r(Nt);fr=i(oi,"__call__"),oi.forEach(t),ur=i(Go," special method."),Go.forEach(t),gr=c(V),y($e.$$.fragment,V),_r=c(V),$t=s(V,"P",{});var ti=r($t);yr=i(ti,"Example:"),ti.forEach(t),kr=c(V),y(ho.$$.fragment,V),V.forEach(t),je.forEach(t),tn=c(o),de=s(o,"H2",{class:!0});var _n=r(de);Me=s(_n,"A",{id:!0,class:!0,href:!0});var ni=r(Me);Mt=s(ni,"SPAN",{});var si=r(Mt);y(fo.$$.fragment,si),si.forEach(t),ni.forEach(t),vr=c(_n),zt=s(_n,"SPAN",{});var ri=r(zt);br=i(ri,"NystromformerForTokenClassification"),ri.forEach(t),_n.forEach(t),nn=c(o),I=s(o,"DIV",{class:!0});var Ae=r(I);y(uo.$$.fragment,Ae),wr=c(Ae),qt=s(Ae,"P",{});var ai=r(qt);Tr=i(ai,`Nystr\xF6mformer Model with a token classification head on top (a linear layer on top of the hidden-states output)
+e.g. for Named-Entity-Recognition (NER) tasks.`),ai.forEach(t),Nr=c(Ae),go=s(Ae,"P",{});var yn=r(go);$r=i(yn,"This model is a PyTorch "),_o=s(yn,"A",{href:!0,rel:!0});var ii=r(_o);Mr=i(ii,"torch.nn.Module"),ii.forEach(t),zr=i(yn,` sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.`),yn.forEach(t),qr=c(Ae),x=s(Ae,"DIV",{class:!0});var G=r(x);y(yo.$$.fragment,G),Fr=c(G),ce=s(G,"P",{});var Jo=r(ce);Cr=i(Jo,"The "),Lo=s(Jo,"A",{href:!0});var li=r(Lo);jr=i(li,"NystromformerForTokenClassification"),li.forEach(t),Ar=i(Jo," forward method, overrides the "),Ft=s(Jo,"CODE",{});var di=r(Ft);xr=i(di,"__call__"),di.forEach(t),Er=i(Jo," special method."),Jo.forEach(t),Pr=c(G),y(ze.$$.fragment,G),Sr=c(G),Ct=s(G,"P",{});var ci=r(Ct);Lr=i(ci,"Example:"),ci.forEach(t),Ir=c(G),y(ko.$$.fragment,G),G.forEach(t),Ae.forEach(t),sn=c(o),me=s(o,"H2",{class:!0});var kn=r(me);qe=s(kn,"A",{id:!0,class:!0,href:!0});var mi=r(qe);jt=s(mi,"SPAN",{});var pi=r(jt);y(vo.$$.fragment,pi),pi.forEach(t),mi.forEach(t),Dr=c(kn),At=s(kn,"SPAN",{});var hi=r(At);Or=i(hi,"NystromformerForQuestionAnswering"),hi.forEach(t),kn.forEach(t),rn=c(o),D=s(o,"DIV",{class:!0});var xe=r(D);y(bo.$$.fragment,xe),Wr=c(xe),pe=s(xe,"P",{});var Yo=r(pe);Br=i(Yo,`Nystr\xF6mformer Model with a span classification head on top for extractive question-answering tasks like SQuAD (a
+linear layers on top of the hidden-states output to compute `),xt=s(Yo,"CODE",{});var fi=r(xt);Qr=i(fi,"span start logits"),fi.forEach(t),Hr=i(Yo," and "),Et=s(Yo,"CODE",{});var ui=r(Et);Ur=i(ui,"span end logits"),ui.forEach(t),Rr=i(Yo,")."),Yo.forEach(t),Vr=c(xe),wo=s(xe,"P",{});var vn=r(wo);Gr=i(vn,"This model is a PyTorch "),To=s(vn,"A",{href:!0,rel:!0});var gi=r(To);Jr=i(gi,"torch.nn.Module"),gi.forEach(t),Yr=i(vn,` sub-class. Use
+it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage and
+behavior.`),vn.forEach(t),Zr=c(xe),E=s(xe,"DIV",{class:!0});var J=r(E);y(No.$$.fragment,J),Kr=c(J),he=s(J,"P",{});var Zo=r(he);Xr=i(Zo,"The "),Io=s(Zo,"A",{href:!0});var _i=r(Io);ea=i(_i,"NystromformerForQuestionAnswering"),_i.forEach(t),oa=i(Zo," forward method, overrides the "),Pt=s(Zo,"CODE",{});var yi=r(Pt);ta=i(yi,"__call__"),yi.forEach(t),na=i(Zo," special method."),Zo.forEach(t),sa=c(J),y(Fe.$$.fragment,J),ra=c(J),St=s(J,"P",{});var ki=r(St);aa=i(ki,"Example:"),ki.forEach(t),ia=c(J),y($o.$$.fragment,J),J.forEach(t),xe.forEach(t),this.h()},h(){l(m,"name","hf:doc:metadata"),l(m,"content",JSON.stringify(Ai)),l(T,"id","nystrmformer"),l(T,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),l(T,"href","#nystrmformer"),l(f,"class","relative group"),l(ue,"id","overview"),l(ue,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),l(ue,"href","#overview"),l(Y,"class","relative group"),l(Se,"href","https://arxiv.org/abs/2102.03902"),l(Se,"rel","nofollow"),l(Le,"href","https://huggingface.co/novice03"),l(Le,"rel","nofollow"),l(Ie,"href","https://github.com/mlpen/Nystromformer"),l(Ie,"rel","nofollow"),l(_e,"id","transformers.NystromformerConfig"),l(_e,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),l(_e,"href","#transformers.NystromformerConfig"),l(Z,"class","relative group"),l(Co,"href","/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerModel"),l(We,"href","https://huggingface.co/uw-madison/nystromformer-512"),l(We,"rel","nofollow"),l(jo,"href","/docs/transformers/main/en/main_classes/configuration#transformers.PretrainedConfig"),l(Ao,"href","/docs/transformers/main/en/main_classes/configuration#transformers.PretrainedConfig"),l(q,"class","docstring"),l(ye,"id","transformers.NystromformerModel"),l(ye,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),l(ye,"href","#transformers.NystromformerModel"),l(ee,"class","relative group"),l(Re,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),l(Re,"rel","nofollow"),l(xo,"href","/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerModel"),l(C,"class","docstring"),l(W,"class","docstring"),l(ve,"id","transformers.NystromformerForMaskedLM"),l(ve,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),l(ve,"href","#transformers.NystromformerForMaskedLM"),l(te,"class","relative group"),l(Ze,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),l(Ze,"rel","nofollow"),l(Eo,"href","/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerForMaskedLM"),l(j,"class","docstring"),l(B,"class","docstring"),l(we,"id","transformers.NystromformerForSequenceClassification"),l(we,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),l(we,"href","#transformers.NystromformerForSequenceClassification"),l(re,"class","relative group"),l(no,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),l(no,"rel","nofollow"),l(Po,"href","/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerForSequenceClassification"),l(z,"class","docstring"),l(S,"class","docstring"),l(Ne,"id","transformers.NystromformerForMultipleChoice"),l(Ne,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),l(Ne,"href","#transformers.NystromformerForMultipleChoice"),l(ie,"class","relative group"),l(mo,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),l(mo,"rel","nofollow"),l(So,"href","/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerForMultipleChoice"),l(A,"class","docstring"),l(L,"class","docstring"),l(Me,"id","transformers.NystromformerForTokenClassification"),l(Me,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),l(Me,"href","#transformers.NystromformerForTokenClassification"),l(de,"class","relative group"),l(_o,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),l(_o,"rel","nofollow"),l(Lo,"href","/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerForTokenClassification"),l(x,"class","docstring"),l(I,"class","docstring"),l(qe,"id","transformers.NystromformerForQuestionAnswering"),l(qe,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),l(qe,"href","#transformers.NystromformerForQuestionAnswering"),l(me,"class","relative group"),l(To,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),l(To,"rel","nofollow"),l(Io,"href","/docs/transformers/main/en/model_doc/nystromformer#transformers.NystromformerForQuestionAnswering"),l(E,"class","docstring"),l(D,"class","docstring")},m(o,p){e(document.head,m),h(o,$,p),h(o,f,p),e(f,T),e(T,N),k(g,N,null),e(f,u),e(f,M),e(M,bn),h(o,Wt,p),h(o,Y,p),e(Y,ue),e(ue,Xo),k(Pe,Xo,null),e(Y,wn),e(Y,et),e(et,Tn),h(o,Bt,p),h(o,ge,p),e(ge,Nn),e(ge,Se),e(Se,ot),e(ot,$n),e(ge,Mn),h(o,Qt,p),h(o,qo,p),e(qo,zn),h(o,Ht,p),h(o,Fo,p),e(Fo,tt),e(tt,qn),h(o,Ut,p),h(o,Q,p),e(Q,Fn),e(Q,Le),e(Le,Cn),e(Q,jn),e(Q,Ie),e(Ie,An),e(Q,xn),h(o,Rt,p),h(o,Z,p),e(Z,_e),e(_e,nt),k(De,nt,null),e(Z,En),e(Z,st),e(st,Pn),h(o,Vt,p),h(o,q,p),k(Oe,q,null),e(q,Sn),e(q,K),e(K,Ln),e(K,Co),e(Co,In),e(K,Dn),e(K,We),e(We,On),e(K,Wn),e(q,Bn),e(q,X),e(X,Qn),e(X,jo),e(jo,Hn),e(X,Un),e(X,Ao),e(Ao,Rn),e(X,Vn),e(q,Gn),e(q,rt),e(rt,Jn),e(q,Yn),k(Be,q,null),h(o,Gt,p),h(o,ee,p),e(ee,ye),e(ye,at),k(Qe,at,null),e(ee,Zn),e(ee,it),e(it,Kn),h(o,Jt,p),h(o,W,p),k(He,W,null),e(W,Xn),e(W,Ue),e(Ue,es),e(Ue,Re),e(Re,os),e(Ue,ts),e(W,ns),e(W,C),k(Ve,C,null),e(C,ss),e(C,oe),e(oe,rs),e(oe,xo),e(xo,as),e(oe,is),e(oe,lt),e(lt,ls),e(oe,ds),e(C,cs),k(ke,C,null),e(C,ms),e(C,dt),e(dt,ps),e(C,hs),k(Ge,C,null),h(o,Yt,p),h(o,te,p),e(te,ve),e(ve,ct),k(Je,ct,null),e(te,fs),e(te,mt),e(mt,us),h(o,Zt,p),h(o,B,p),k(Ye,B,null),e(B,gs),e(B,ne),e(ne,_s),e(ne,pt),e(pt,ys),e(ne,ks),e(ne,Ze),e(Ze,vs),e(ne,bs),e(B,ws),e(B,j),k(Ke,j,null),e(j,Ts),e(j,se),e(se,Ns),e(se,Eo),e(Eo,$s),e(se,Ms),e(se,ht),e(ht,zs),e(se,qs),e(j,Fs),k(be,j,null),e(j,Cs),e(j,ft),e(ft,js),e(j,As),k(Xe,j,null),h(o,Kt,p),h(o,re,p),e(re,we),e(we,ut),k(eo,ut,null),e(re,xs),e(re,gt),e(gt,Es),h(o,Xt,p),h(o,S,p),k(oo,S,null),e(S,Ps),e(S,_t),e(_t,Ss),e(S,Ls),e(S,to),e(to,Is),e(to,no),e(no,Ds),e(to,Os),e(S,Ws),e(S,z),k(so,z,null),e(z,Bs),e(z,ae),e(ae,Qs),e(ae,Po),e(Po,Hs),e(ae,Us),e(ae,yt),e(yt,Rs),e(ae,Vs),e(z,Gs),k(Te,z,null),e(z,Js),e(z,kt),e(kt,Ys),e(z,Zs),k(ro,z,null),e(z,Ks),e(z,vt),e(vt,Xs),e(z,er),k(ao,z,null),h(o,en,p),h(o,ie,p),e(ie,Ne),e(Ne,bt),k(io,bt,null),e(ie,or),e(ie,wt),e(wt,tr),h(o,on,p),h(o,L,p),k(lo,L,null),e(L,nr),e(L,Tt),e(Tt,sr),e(L,rr),e(L,co),e(co,ar),e(co,mo),e(mo,ir),e(co,lr),e(L,dr),e(L,A),k(po,A,null),e(A,cr),e(A,le),e(le,mr),e(le,So),e(So,pr),e(le,hr),e(le,Nt),e(Nt,fr),e(le,ur),e(A,gr),k($e,A,null),e(A,_r),e(A,$t),e($t,yr),e(A,kr),k(ho,A,null),h(o,tn,p),h(o,de,p),e(de,Me),e(Me,Mt),k(fo,Mt,null),e(de,vr),e(de,zt),e(zt,br),h(o,nn,p),h(o,I,p),k(uo,I,null),e(I,wr),e(I,qt),e(qt,Tr),e(I,Nr),e(I,go),e(go,$r),e(go,_o),e(_o,Mr),e(go,zr),e(I,qr),e(I,x),k(yo,x,null),e(x,Fr),e(x,ce),e(ce,Cr),e(ce,Lo),e(Lo,jr),e(ce,Ar),e(ce,Ft),e(Ft,xr),e(ce,Er),e(x,Pr),k(ze,x,null),e(x,Sr),e(x,Ct),e(Ct,Lr),e(x,Ir),k(ko,x,null),h(o,sn,p),h(o,me,p),e(me,qe),e(qe,jt),k(vo,jt,null),e(me,Dr),e(me,At),e(At,Or),h(o,rn,p),h(o,D,p),k(bo,D,null),e(D,Wr),e(D,pe),e(pe,Br),e(pe,xt),e(xt,Qr),e(pe,Hr),e(pe,Et),e(Et,Ur),e(pe,Rr),e(D,Vr),e(D,wo),e(wo,Gr),e(wo,To),e(To,Jr),e(wo,Yr),e(D,Zr),e(D,E),k(No,E,null),e(E,Kr),e(E,he),e(he,Xr),e(he,Io),e(Io,ea),e(he,oa),e(he,Pt),e(Pt,ta),e(he,na),e(E,sa),k(Fe,E,null),e(E,ra),e(E,St),e(St,aa),e(E,ia),k($o,E,null),an=!0},p(o,[p]){const Mo={};p&2&&(Mo.$$scope={dirty:p,ctx:o}),ke.$set(Mo);const Lt={};p&2&&(Lt.$$scope={dirty:p,ctx:o}),be.$set(Lt);const It={};p&2&&(It.$$scope={dirty:p,ctx:o}),Te.$set(It);const Dt={};p&2&&(Dt.$$scope={dirty:p,ctx:o}),$e.$set(Dt);const zo={};p&2&&(zo.$$scope={dirty:p,ctx:o}),ze.$set(zo);const Ot={};p&2&&(Ot.$$scope={dirty:p,ctx:o}),Fe.$set(Ot)},i(o){an||(v(g.$$.fragment,o),v(Pe.$$.fragment,o),v(De.$$.fragment,o),v(Oe.$$.fragment,o),v(Be.$$.fragment,o),v(Qe.$$.fragment,o),v(He.$$.fragment,o),v(Ve.$$.fragment,o),v(ke.$$.fragment,o),v(Ge.$$.fragment,o),v(Je.$$.fragment,o),v(Ye.$$.fragment,o),v(Ke.$$.fragment,o),v(be.$$.fragment,o),v(Xe.$$.fragment,o),v(eo.$$.fragment,o),v(oo.$$.fragment,o),v(so.$$.fragment,o),v(Te.$$.fragment,o),v(ro.$$.fragment,o),v(ao.$$.fragment,o),v(io.$$.fragment,o),v(lo.$$.fragment,o),v(po.$$.fragment,o),v($e.$$.fragment,o),v(ho.$$.fragment,o),v(fo.$$.fragment,o),v(uo.$$.fragment,o),v(yo.$$.fragment,o),v(ze.$$.fragment,o),v(ko.$$.fragment,o),v(vo.$$.fragment,o),v(bo.$$.fragment,o),v(No.$$.fragment,o),v(Fe.$$.fragment,o),v($o.$$.fragment,o),an=!0)},o(o){b(g.$$.fragment,o),b(Pe.$$.fragment,o),b(De.$$.fragment,o),b(Oe.$$.fragment,o),b(Be.$$.fragment,o),b(Qe.$$.fragment,o),b(He.$$.fragment,o),b(Ve.$$.fragment,o),b(ke.$$.fragment,o),b(Ge.$$.fragment,o),b(Je.$$.fragment,o),b(Ye.$$.fragment,o),b(Ke.$$.fragment,o),b(be.$$.fragment,o),b(Xe.$$.fragment,o),b(eo.$$.fragment,o),b(oo.$$.fragment,o),b(so.$$.fragment,o),b(Te.$$.fragment,o),b(ro.$$.fragment,o),b(ao.$$.fragment,o),b(io.$$.fragment,o),b(lo.$$.fragment,o),b(po.$$.fragment,o),b($e.$$.fragment,o),b(ho.$$.fragment,o),b(fo.$$.fragment,o),b(uo.$$.fragment,o),b(yo.$$.fragment,o),b(ze.$$.fragment,o),b(ko.$$.fragment,o),b(vo.$$.fragment,o),b(bo.$$.fragment,o),b(No.$$.fragment,o),b(Fe.$$.fragment,o),b($o.$$.fragment,o),an=!1},d(o){t(m),o&&t($),o&&t(f),w(g),o&&t(Wt),o&&t(Y),w(Pe),o&&t(Bt),o&&t(ge),o&&t(Qt),o&&t(qo),o&&t(Ht),o&&t(Fo),o&&t(Ut),o&&t(Q),o&&t(Rt),o&&t(Z),w(De),o&&t(Vt),o&&t(q),w(Oe),w(Be),o&&t(Gt),o&&t(ee),w(Qe),o&&t(Jt),o&&t(W),w(He),w(Ve),w(ke),w(Ge),o&&t(Yt),o&&t(te),w(Je),o&&t(Zt),o&&t(B),w(Ye),w(Ke),w(be),w(Xe),o&&t(Kt),o&&t(re),w(eo),o&&t(Xt),o&&t(S),w(oo),w(so),w(Te),w(ro),w(ao),o&&t(en),o&&t(ie),w(io),o&&t(on),o&&t(L),w(lo),w(po),w($e),w(ho),o&&t(tn),o&&t(de),w(fo),o&&t(nn),o&&t(I),w(uo),w(yo),w(ze),w(ko),o&&t(sn),o&&t(me),w(vo),o&&t(rn),o&&t(D),w(bo),w(No),w(Fe),w($o)}}}const Ai={local:"nystrmformer",sections:[{local:"overview",title:"Overview"},{local:"transformers.NystromformerConfig",title:"NystromformerConfig"},{local:"transformers.NystromformerModel",title:"NystromformerModel"},{local:"transformers.NystromformerForMaskedLM",title:"NystromformerForMaskedLM"},{local:"transformers.NystromformerForSequenceClassification",title:"NystromformerForSequenceClassification"},{local:"transformers.NystromformerForMultipleChoice",title:"NystromformerForMultipleChoice"},{local:"transformers.NystromformerForTokenClassification",title:"NystromformerForTokenClassification"},{local:"transformers.NystromformerForQuestionAnswering",title:"NystromformerForQuestionAnswering"}],title:"Nystr\xF6mformer"};function xi(F){return Ni(()=>{new URLSearchParams(window.location.search).get("fw")}),[]}class Di extends vi{constructor(m){super();bi(this,m,xi,ji,wi,{})}}export{Di as default,Ai as metadata};
