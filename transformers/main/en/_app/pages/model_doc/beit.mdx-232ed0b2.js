@@ -396,7 +396,7 @@ Whether or not to return the hidden states of all layers. See <code>hidden_state
 more detail.`,name:"output_hidden_states"},{anchor:"transformers.BeitForSemanticSegmentation.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.BeitForSemanticSegmentation.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, height, width)</code>, <em>optional</em>) &#x2014;
 Ground truth semantic segmentation maps for computing the loss. Indices should be in <code>[0, ..., config.num_labels - 1]</code>. If <code>config.num_labels &gt; 1</code>, a classification loss is computed (Cross-Entropy).`,name:"labels"}],returnDescription:`
-<p>A <code>transformers.modeling_outputs.SemanticSegmentationModelOutput</code>or a tuple of
+<p>A <code>transformers.modeling_outputs.SemanticSegmenterOutput</code>or a tuple of
 <code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
 elements depending on the configuration (<a
   href="/docs/transformers/main/en/model_doc/beit#transformers.BeitConfig"
@@ -425,7 +425,7 @@ heads.</p>
 </li>
 </ul>
 `,returnType:`
-<p><code>transformers.modeling_outputs.SemanticSegmentationModelOutput</code>or <code>tuple(torch.FloatTensor)</code></p>
+<p><code>transformers.modeling_outputs.SemanticSegmenterOutput</code>or <code>tuple(torch.FloatTensor)</code></p>
 `}}),Ke=new mt({props:{$$slots:{default:[Ap]},$$scope:{ctx:P}}}),ho=new pt({props:{code:`from transformers import BeitFeatureExtractor, BeitForSemanticSegmentation
 from PIL import Image
 import requests
