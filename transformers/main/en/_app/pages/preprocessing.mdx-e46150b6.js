@@ -21,13 +21,13 @@ print(encoded_input)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>b
     "Don't think he knows about second breakfast, Pip.",
     "What about elevensies?",
 ]
-encoded_input = tokenizer(batch, padding=True, truncation=True, return_tensors="tf")
+encoded_input = tokenizer(batch_sentences, padding=True, truncation=True, return_tensors="tf")
 print(encoded_input)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>batch_sentences = [
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;But what about second breakfast?&quot;</span>,
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;Don&#x27;t think he knows about second breakfast, Pip.&quot;</span>,
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;What about elevensies?&quot;</span>,
 <span class="hljs-meta">... </span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>encoded_input = tokenizer(batch, padding=<span class="hljs-literal">True</span>, truncation=<span class="hljs-literal">True</span>, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>encoded_input = tokenizer(batch_sentences, padding=<span class="hljs-literal">True</span>, truncation=<span class="hljs-literal">True</span>, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(encoded_input)
 {<span class="hljs-string">&#x27;input_ids&#x27;</span>: &lt;tf.Tensor: shape=(<span class="hljs-number">2</span>, <span class="hljs-number">9</span>), dtype=int32, numpy=
 array([[  <span class="hljs-number">101</span>,   <span class="hljs-number">153</span>,  <span class="hljs-number">7719</span>, <span class="hljs-number">21490</span>,  <span class="hljs-number">1122</span>,  <span class="hljs-number">1114</span>,  <span class="hljs-number">9582</span>,  <span class="hljs-number">1623</span>,   <span class="hljs-number">102</span>],
