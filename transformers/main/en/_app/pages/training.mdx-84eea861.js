@@ -20,9 +20,9 @@ metric = load_metric("accuracy")`,highlighted:`<span class="hljs-meta">&gt;&gt;&
     return metric.compute(predictions=predictions, references=labels)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_metrics</span>(<span class="hljs-params">eval_pred</span>):
 <span class="hljs-meta">... </span>    logits, labels = eval_pred
 <span class="hljs-meta">... </span>    predictions = np.argmax(logits, axis=-<span class="hljs-number">1</span>)
-<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> metric.compute(predictions=predictions, references=labels)`}}),Ee=new J({props:{code:`from transformers import TrainingArguments
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> metric.compute(predictions=predictions, references=labels)`}}),Ee=new J({props:{code:`from transformers import TrainingArguments, Trainer
 
-training_args = TrainingArguments(output_dir="test_trainer", evaluation_strategy="epoch")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TrainingArguments
+training_args = TrainingArguments(output_dir="test_trainer", evaluation_strategy="epoch")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TrainingArguments, Trainer
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>training_args = TrainingArguments(output_dir=<span class="hljs-string">&quot;test_trainer&quot;</span>, evaluation_strategy=<span class="hljs-string">&quot;epoch&quot;</span>)`}}),ht=new Lt({}),At=new J({props:{code:`trainer = Trainer(
     model=model,
