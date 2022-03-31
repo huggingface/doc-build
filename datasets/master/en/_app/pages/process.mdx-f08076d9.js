@@ -301,15 +301,15 @@ if training_args.local_rank == 0:
 <span class="hljs-meta">... </span>    torch.distributed.barrier()`}}),tt=new E({}),nt=new w({props:{code:`from datasets import concatenate_datasets, load_dataset
 
 bookcorpus = load_dataset("bookcorpus", split="train")
-wiki = load_dataset("wikipedia", "20200501.en", split="train")
-wiki = wiki.remove_columns("title")  # only keep the text
+wiki = load_dataset("wikipedia", "20220301.en", split="train")
+wiki = wiki.remove_columns([col for col in wiki.column_names if col != "text"])  # only keep the 'text' column
 
 assert bookcorpus.features.type == wiki.features.type
 bert_dataset = concatenate_datasets([bookcorpus, wiki])`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> concatenate_datasets, load_dataset
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>bookcorpus = load_dataset(<span class="hljs-string">&quot;bookcorpus&quot;</span>, split=<span class="hljs-string">&quot;train&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>wiki = load_dataset(<span class="hljs-string">&quot;wikipedia&quot;</span>, <span class="hljs-string">&quot;20200501.en&quot;</span>, split=<span class="hljs-string">&quot;train&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>wiki = wiki.remove_columns(<span class="hljs-string">&quot;title&quot;</span>)  <span class="hljs-comment"># only keep the text</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>wiki = load_dataset(<span class="hljs-string">&quot;wikipedia&quot;</span>, <span class="hljs-string">&quot;20220301.en&quot;</span>, split=<span class="hljs-string">&quot;train&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>wiki = wiki.remove_columns([col <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> wiki.column_names <span class="hljs-keyword">if</span> col != <span class="hljs-string">&quot;text&quot;</span>])  <span class="hljs-comment"># only keep the &#x27;text&#x27; column</span>
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">assert</span> bookcorpus.features.<span class="hljs-built_in">type</span> == wiki.features.<span class="hljs-built_in">type</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>bert_dataset = concatenate_datasets([bookcorpus, wiki])`}}),Na=new al({props:{$$slots:{default:[Rb]},$$scope:{ctx:z}}}),lt=new w({props:{code:`from datasets import Dataset
