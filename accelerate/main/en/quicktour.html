@@ -1,10 +1,10 @@
 <meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;quick-tour&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;main-use&quot;,&quot;title&quot;:&quot;Main use&quot;},{&quot;local&quot;:&quot;distributed-evaluation&quot;,&quot;title&quot;:&quot;Distributed evaluation&quot;},{&quot;local&quot;:&quot;launching-your-distributed-script&quot;,&quot;title&quot;:&quot;Launching your distributed script&quot;},{&quot;local&quot;:&quot;launching-training-from-a-notebook&quot;,&quot;title&quot;:&quot;Launching training from a notebook&quot;},{&quot;local&quot;:&quot;training-on-tpu&quot;,&quot;title&quot;:&quot;Training on TPU&quot;},{&quot;local&quot;:&quot;other-caveats&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;execute-a-statement-only-on-one-processes&quot;,&quot;title&quot;:&quot;Execute a statement only on one processes&quot;},{&quot;local&quot;:&quot;defer-execution&quot;,&quot;title&quot;:&quot;Defer execution&quot;},{&quot;local&quot;:&quot;savingloading-a-model&quot;,&quot;title&quot;:&quot;Saving/loading a model&quot;}],&quot;title&quot;:&quot;Other caveats&quot;},{&quot;local&quot;:&quot;savingloading-entire-states&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;gradient-clipping&quot;,&quot;title&quot;:&quot;Gradient clipping&quot;},{&quot;local&quot;:&quot;mixed-precision-training&quot;,&quot;title&quot;:&quot;Mixed Precision training&quot;},{&quot;local&quot;:&quot;deepspeed&quot;,&quot;title&quot;:&quot;DeepSpeed&quot;}],&quot;title&quot;:&quot;Saving/loading entire states&quot;},{&quot;local&quot;:&quot;internal-mechanism&quot;,&quot;title&quot;:&quot;Internal mechanism&quot;}],&quot;title&quot;:&quot;Quick tour&quot;}" data-svelte="svelte-1phssyn">
 	<link rel="stylesheet" href="/docs/accelerate/main/en/_app/assets/pages/__layout.svelte-731420cf.css">
-	<link rel="modulepreload" href="/docs/accelerate/main/en/_app/start-d5c132a0.js">
+	<link rel="modulepreload" href="/docs/accelerate/main/en/_app/start-d07d97d6.js">
 	<link rel="modulepreload" href="/docs/accelerate/main/en/_app/chunks/vendor-19e06bd2.js">
 	<link rel="modulepreload" href="/docs/accelerate/main/en/_app/chunks/paths-4b3c6e7e.js">
 	<link rel="modulepreload" href="/docs/accelerate/main/en/_app/pages/__layout.svelte-00a862c5.js">
-	<link rel="modulepreload" href="/docs/accelerate/main/en/_app/pages/quicktour.mdx-3cea41ae.js">
+	<link rel="modulepreload" href="/docs/accelerate/main/en/_app/pages/quicktour.mdx-0d3d51e4.js">
 	<link rel="modulepreload" href="/docs/accelerate/main/en/_app/chunks/Tip-f0fa2d82.js">
 	<link rel="modulepreload" href="/docs/accelerate/main/en/_app/chunks/IconCopyLink-3c713d38.js">
 	<link rel="modulepreload" href="/docs/accelerate/main/en/_app/chunks/CodeBlock-9dd1fdfb.js"> 
@@ -45,13 +45,15 @@ can leave those <code>.to(device)</code> calls but you should use the device pro
 
 <div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>If you place your objects manually on the proper device, be careful to create your optimizer after putting your
 model on <code>accelerator.device</code> or your training will fail on TPU.</p></div>
-<ol start="3"><li>Pass all objects relevant to training (optimizer, model, training dataloader) to the
+<ol start="3"><li>Pass all objects relevant to training (optimizer, model, training dataloader, learning rate scheduler) to the
 <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.prepare">prepare()</a> method. This will make sure everything is ready for training.</li></ol>
 
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
 	Copied</div></button></div>
-	<pre><!-- HTML_TAG_START -->model, optimizer, train_dataloader = accelerator.prepare(model, optimizer, train_dataloader)<!-- HTML_TAG_END --></pre></div>
+	<pre><!-- HTML_TAG_START -->model, optimizer, train_dataloader, lr_scheduler = accelerator.prepare(
+    model, optimizer, train_dataloader, lr_scheduler
+)<!-- HTML_TAG_END --></pre></div>
 <p>In particular, your training dataloader will be sharded accross all GPUs/TPU cores available so that each one sees a
 different portion of the training dataset. Also, the random states of all processes will be synchronized at the
 beginning of each iteration through your dataloader, to make sure the data is shuffled the same way (if you decided to
@@ -68,11 +70,15 @@ script on 1, 2, 4 or 64 GPUs.</p>
 training loop.</p>
 
 
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>You should only pass the learning rate scheduler to <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.prepare">prepare()</a> when the scheduler needs to be stepped
+at each optimizer step.</p></div>
+
+
 <div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>Your training dataloader may change length when going through this method: if you run on X GPUs, it will have its
 length divided by X (since your actual batch size will be multiplied by X), unless you set
 <code>split_batches=True</code>.</p></div>
-<p>Any instruction using your training dataloader length (for instance if you need the number of total training steps
-to create a learning rate scheduler) should go after the call to <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.prepare">prepare()</a>.</p>
+<p>Any instruction using your training dataloader length (for instance if you want to log the number of total training
+steps) should go after the call to <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.prepare">prepare()</a>.</p>
 <p>You can perfectly send your dataloader to <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.prepare">prepare()</a> on its own, but it’s best to send the
 model and optimizer to <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.prepare">prepare()</a> together.</p>
 <p>You may or may not want to send your validation dataloader to <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.prepare">prepare()</a>, depending on
@@ -407,10 +413,10 @@ controlled by torch).</p></div>
 <p>See more details about the internal in the <a href="internal">Internals page</a>.</p>
 
 
-		<script type="module" data-hydrate="7wq59w">
-		import { start } from "/docs/accelerate/main/en/_app/start-d5c132a0.js";
+		<script type="module" data-hydrate="1rstcvd">
+		import { start } from "/docs/accelerate/main/en/_app/start-d07d97d6.js";
 		start({
-			target: document.querySelector('[data-hydrate="7wq59w"]').parentNode,
+			target: document.querySelector('[data-hydrate="1rstcvd"]').parentNode,
 			paths: {"base":"/docs/accelerate/main/en","assets":"/docs/accelerate/main/en"},
 			session: {},
 			route: false,
@@ -421,7 +427,7 @@ controlled by torch).</p></div>
 				error: null,
 				nodes: [
 					import("/docs/accelerate/main/en/_app/pages/__layout.svelte-00a862c5.js"),
-						import("/docs/accelerate/main/en/_app/pages/quicktour.mdx-3cea41ae.js")
+						import("/docs/accelerate/main/en/_app/pages/quicktour.mdx-0d3d51e4.js")
 				],
 				params: {}
 			}
