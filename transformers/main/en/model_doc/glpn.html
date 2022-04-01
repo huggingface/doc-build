@@ -1,10 +1,10 @@
 <meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;glpn&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;overview&quot;,&quot;title&quot;:&quot;Overview&quot;},{&quot;local&quot;:&quot;transformers.GLPNConfig&quot;,&quot;title&quot;:&quot;GLPNConfig&quot;},{&quot;local&quot;:&quot;transformers.GLPNFeatureExtractor&quot;,&quot;title&quot;:&quot;GLPNFeatureExtractor&quot;},{&quot;local&quot;:&quot;transformers.GLPNModel&quot;,&quot;title&quot;:&quot;GLPNModel&quot;},{&quot;local&quot;:&quot;transformers.GLPNForDepthEstimation&quot;,&quot;title&quot;:&quot;GLPNForDepthEstimation&quot;}],&quot;title&quot;:&quot;GLPN&quot;}" data-svelte="svelte-1phssyn">
 	<link rel="stylesheet" href="/docs/transformers/main/en/_app/assets/pages/__layout.svelte-a6ed50f6.css">
-	<link rel="modulepreload" href="/docs/transformers/main/en/_app/start-6598e1bc.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/start-5bcd9969.js">
 	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/vendor-6b77c823.js">
 	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/paths-4b3c6e7e.js">
 	<link rel="modulepreload" href="/docs/transformers/main/en/_app/pages/__layout.svelte-3f22c1e5.js">
-	<link rel="modulepreload" href="/docs/transformers/main/en/_app/pages/model_doc/glpn.mdx-a53cc5f2.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/pages/model_doc/glpn.mdx-40318285.js">
 	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/Tip-39098574.js">
 	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/Docstring-abef54e3.js">
 	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/IconCopyLink-7a11ce68.js">
@@ -524,24 +524,42 @@ the latter silently ignores them.</p></div>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
 	Copied</div></button></div>
 	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> GLPNFeatureExtractor, GLPNForDepthEstimation
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> requests
-
-<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = GLPNFeatureExtractor.from_pretrained(<span class="hljs-string">&quot;vinvino02/glpn-kitti&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = GLPNForDepthEstimation.from_pretrained(<span class="hljs-string">&quot;vinvino02/glpn-kitti&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>url = <span class="hljs-string">&quot;http://images.cocodataset.org/val2017/000000039769.jpg&quot;</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>image = Image.<span class="hljs-built_in">open</span>(requests.get(url, stream=<span class="hljs-literal">True</span>).raw)
 
+<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = GLPNFeatureExtractor.from_pretrained(<span class="hljs-string">&quot;vinvino02/glpn-kitti&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = GLPNForDepthEstimation.from_pretrained(<span class="hljs-string">&quot;vinvino02/glpn-kitti&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># prepare image for the model</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = feature_extractor(images=image, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)
-<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_depth = outputs.predicted_depth  <span class="hljs-comment"># shape (batch_size, height, width)</span><!-- HTML_TAG_END --></pre></div></div></div>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>    outputs = model(**inputs)
+<span class="hljs-meta">... </span>    predicted_depth = outputs.predicted_depth
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># interpolate to original size</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>prediction = torch.nn.functional.interpolate(
+<span class="hljs-meta">... </span>    predicted_depth.unsqueeze(<span class="hljs-number">1</span>),
+<span class="hljs-meta">... </span>    size=image.size[::-<span class="hljs-number">1</span>],
+<span class="hljs-meta">... </span>    mode=<span class="hljs-string">&quot;bicubic&quot;</span>,
+<span class="hljs-meta">... </span>    align_corners=<span class="hljs-literal">False</span>,
+<span class="hljs-meta">... </span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># visualize the prediction</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>output = prediction.squeeze().cpu().numpy()
+<span class="hljs-meta">&gt;&gt;&gt; </span>formatted = (output * <span class="hljs-number">255</span> / np.<span class="hljs-built_in">max</span>(output)).astype(<span class="hljs-string">&quot;uint8&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>depth = Image.fromarray(formatted)<!-- HTML_TAG_END --></pre></div></div></div>
 
 
-		<script type="module" data-hydrate="1tok0s7">
-		import { start } from "/docs/transformers/main/en/_app/start-6598e1bc.js";
+		<script type="module" data-hydrate="1xg7sju">
+		import { start } from "/docs/transformers/main/en/_app/start-5bcd9969.js";
 		start({
-			target: document.querySelector('[data-hydrate="1tok0s7"]').parentNode,
+			target: document.querySelector('[data-hydrate="1xg7sju"]').parentNode,
 			paths: {"base":"/docs/transformers/main/en","assets":"/docs/transformers/main/en"},
 			session: {},
 			route: false,
@@ -552,7 +570,7 @@ the latter silently ignores them.</p></div>
 				error: null,
 				nodes: [
 					import("/docs/transformers/main/en/_app/pages/__layout.svelte-3f22c1e5.js"),
-						import("/docs/transformers/main/en/_app/pages/model_doc/glpn.mdx-a53cc5f2.js")
+						import("/docs/transformers/main/en/_app/pages/model_doc/glpn.mdx-40318285.js")
 				],
 				params: {}
 			}
