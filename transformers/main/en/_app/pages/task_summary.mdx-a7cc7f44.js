@@ -1073,14 +1073,10 @@ audio_classifier("jfk_moon_speech.wav")`,highlighted:`<span class="hljs-meta">&g
  {<span class="hljs-string">&#x27;label&#x27;</span>: <span class="hljs-string">&#x27;angry&#x27;</span>, <span class="hljs-string">&#x27;score&#x27;</span>: <span class="hljs-number">0.12439591437578201</span>},
  {<span class="hljs-string">&#x27;label&#x27;</span>: <span class="hljs-string">&#x27;fearful&#x27;</span>, <span class="hljs-string">&#x27;score&#x27;</span>: <span class="hljs-number">0.12404385954141617</span>}]`}}),ze=new ms({props:{pytorch:!0,tensorflow:!0,jax:!1,$$slots:{pytorch:[zj]},$$scope:{ctx:$}}}),Ht=new J({}),Wt=new q({props:{code:`from transformers import pipeline
 
-speech_recognizer = pipeline(
-    task="automatic-speech-recognition", model="facebook/wav2vec2-base-960h"
-)
+speech_recognizer = pipeline(task="automatic-speech-recognition", model="facebook/wav2vec2-base-960h")
 speech_recognizer("jfk_moon_speech.wav")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>speech_recognizer = pipeline(
-<span class="hljs-meta">... </span>    task=<span class="hljs-string">&quot;automatic-speech-recognition&quot;</span>, model=<span class="hljs-string">&quot;facebook/wav2vec2-base-960h&quot;</span>
-<span class="hljs-meta">... </span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>speech_recognizer = pipeline(task=<span class="hljs-string">&quot;automatic-speech-recognition&quot;</span>, model=<span class="hljs-string">&quot;facebook/wav2vec2-base-960h&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>speech_recognizer(<span class="hljs-string">&quot;jfk_moon_speech.wav&quot;</span>)
 {<span class="hljs-string">&#x27;text&#x27;</span>: <span class="hljs-string">&quot;PRESENTETE MISTER VICE PRESIDENT GOVERNOR CONGRESSMEN THOMAS SAN O TE WILAN CONGRESSMAN MILLA MISTER WEBB MSTBELL SCIENIS DISTINGUISHED GUESS AT LADIES AND GENTLEMAN I APPRECIATE TO YOUR PRESIDENT HAVING MADE ME AN HONORARY VISITING PROFESSOR AND I WILL ASSURE YOU THAT MY FIRST LECTURE WILL BE A VERY BRIEF I AM DELIGHTED TO BE HERE AND I&#x27;M PARTICULARLY DELIGHTED TO BE HERE ON THIS OCCASION WE MEED AT A COLLEGE NOTED FOR KNOWLEGE IN A CITY NOTED FOR PROGRESS IN A STATE NOTED FOR STRAINTH AN WE STAND IN NEED OF ALL THREE&quot;</span>}`}}),Pe=new ms({props:{pytorch:!0,tensorflow:!0,jax:!1,$$slots:{pytorch:[Lj]},$$scope:{ctx:$}}}),Xt=new J({}),Kt=new q({props:{code:`from transformers import pipeline
 
