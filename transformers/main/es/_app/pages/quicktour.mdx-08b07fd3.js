@@ -120,9 +120,9 @@ speech_recognizer = pipeline("automatic-speech-recognition", model="facebook/wav
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>speech_recognizer = pipeline(<span class="hljs-string">&quot;automatic-speech-recognition&quot;</span>, model=<span class="hljs-string">&quot;facebook/wav2vec2-base-960h&quot;</span>, device=<span class="hljs-number">0</span>)`}}),St=new J({props:{code:`import datasets
 
-dataset = datasets.load_dataset("minds14", name="en-US", split="train")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> datasets
+dataset = datasets.load_dataset("PolyAI/minds14", name="en-US", split="train")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> datasets
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>dataset = datasets.load_dataset(<span class="hljs-string">&quot;minds14&quot;</span>, name=<span class="hljs-string">&quot;en-US&quot;</span>, split=<span class="hljs-string">&quot;train&quot;</span>)`}}),Ot=new J({props:{code:`files = dataset["path"]
+<span class="hljs-meta">&gt;&gt;&gt; </span>dataset = datasets.load_dataset(<span class="hljs-string">&quot;PolyAI/minds14&quot;</span>, name=<span class="hljs-string">&quot;en-US&quot;</span>, split=<span class="hljs-string">&quot;train&quot;</span>)`}}),Ot=new J({props:{code:`files = dataset["path"]
 speech_recognizer(files[:4])`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>files = dataset[<span class="hljs-string">&quot;path&quot;</span>]
 <span class="hljs-meta">&gt;&gt;&gt; </span>speech_recognizer(files[:<span class="hljs-number">4</span>])
 [{<span class="hljs-string">&#x27;text&#x27;</span>: <span class="hljs-string">&#x27;I WOULD LIKE TO SET UP A JOINT ACCOUNT WITH MY PARTNER HOW DO I PROCEED WITH DOING THAT&#x27;</span>}, 
