@@ -12,11 +12,11 @@ The tokenizer used for encoding the data.`,name:"tokenizer"},{anchor:"transforme
 Select a strategy to pad the returned sequences (according to the model&#x2019;s padding side and padding index)
 among:</p>
 <ul>
-<li><code>True</code> or <code>&apos;longest&apos;</code>: Pad to the longest sequence in the batch (or no padding if only a single sequence
+<li><code>True</code> or <code>&apos;longest&apos;</code> (default): Pad to the longest sequence in the batch (or no padding if only a single sequence
 is provided).</li>
 <li><code>&apos;max_length&apos;</code>: Pad to a maximum length specified with the argument <code>max_length</code> or to the maximum
 acceptable input length for the model if that argument is not provided.</li>
-<li><code>False</code> or <code>&apos;do_not_pad&apos;</code> (default): No padding (i.e., can output a batch with sequences of different
+<li><code>False</code> or <code>&apos;do_not_pad&apos;</code>: No padding (i.e., can output a batch with sequences of different
 lengths).</li>
 </ul>`,name:"padding"},{anchor:"transformers.DataCollatorWithPadding.max_length",description:`<strong>max_length</strong> (<code>int</code>, <em>optional</em>) &#x2014;
 Maximum length of the returned list and optionally padding length (see above).`,name:"max_length"},{anchor:"transformers.DataCollatorWithPadding.pad_to_multiple_of",description:`<strong>pad_to_multiple_of</strong> (<code>int</code>, <em>optional</em>) &#x2014;
