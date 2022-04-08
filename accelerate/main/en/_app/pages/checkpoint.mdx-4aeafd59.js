@@ -1,4 +1,4 @@
-import{S as Be,i as Ne,s as Te,e as s,k as d,w as Re,t as r,M as De,c as o,d as a,m as h,a as n,x as qe,h as i,b as f,F as t,g as p,y as xe,L as Ge,q as Ce,o as Ie,B as Ue,v as Oe}from"../chunks/vendor-19e06bd2.js";import{I as Me}from"../chunks/IconCopyLink-3c713d38.js";import{C as We}from"../chunks/CodeBlock-9dd1fdfb.js";function Fe(fe){let u,B,_,g,P,w,K,R,Q,N,E,V,T,y,k,X,j,Y,Z,ee,v,te,A,ae,se,q,oe,D,$,re,G,z,l,ne,S,ie,ce,x,le,pe,C,me,de,I,he,ue,O,L,_e,M,b,W;return w=new Me({}),b=new We({props:{code:`from accelerate import Accelerator
+import{S as Be,i as Ne,s as Te,e as s,k as d,w as Re,t as r,M as De,c as o,d as a,m as h,a as n,x as qe,h as i,b as f,F as t,g as p,y as xe,L as Ge,q as Ce,o as Ie,B as Ue,v as Oe}from"../chunks/vendor-4918fc3c.js";import{I as Me}from"../chunks/IconCopyLink-21d338b1.js";import{C as We}from"../chunks/CodeBlock-99419108.js";function Fe(fe){let u,B,_,g,P,w,K,R,Q,N,E,V,T,y,k,X,j,Y,Z,ee,v,te,A,ae,se,q,oe,D,$,re,G,z,l,ne,S,ie,ce,x,le,pe,C,me,de,I,he,ue,O,L,_e,M,b,W;return w=new Me({}),b=new We({props:{code:`from accelerate import Accelerator
 import torch
 
 accelerator = Accelerator()
