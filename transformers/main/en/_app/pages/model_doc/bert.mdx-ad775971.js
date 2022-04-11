@@ -1640,9 +1640,10 @@ inputs = tokenizer("The capital of France is [MASK].", return_tensors="tf")
 logits = model(**inputs).logits
 
 # retrieve index of [MASK]
-mask_token_index = tf.where(inputs.input_ids == tokenizer.mask_token_id)[0][1]
+mask_token_index = tf.where((inputs.input_ids == tokenizer.mask_token_id)[0])
+selected_logits = tf.gather_nd(logits[0], indices=mask_token_index)
 
-predicted_token_id = tf.math.argmax(logits[0, mask_token_index], axis=-1)
+predicted_token_id = tf.math.argmax(selected_logits, axis=-1)
 tokenizer.decode(predicted_token_id)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, TFBertForMaskedLM
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
 
@@ -1653,9 +1654,10 @@ tokenizer.decode(predicted_token_id)`,highlighted:`<span class="hljs-meta">&gt;&
 <span class="hljs-meta">&gt;&gt;&gt; </span>logits = model(**inputs).logits
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># retrieve index of [MASK]</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>mask_token_index = tf.where(inputs.input_ids == tokenizer.mask_token_id)[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>mask_token_index = tf.where((inputs.input_ids == tokenizer.mask_token_id)[<span class="hljs-number">0</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>selected_logits = tf.gather_nd(logits[<span class="hljs-number">0</span>], indices=mask_token_index)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_token_id = tf.math.argmax(logits[<span class="hljs-number">0</span>, mask_token_index], axis=-<span class="hljs-number">1</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_token_id = tf.math.argmax(selected_logits, axis=-<span class="hljs-number">1</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predicted_token_id)
 <span class="hljs-string">&#x27;paris&#x27;</span>`}}),sl=new se({props:{code:`labels = tokenizer("The capital of France is Paris.", return_tensors="tf")["input_ids"]
 # mask labels of non-[MASK] tokens
