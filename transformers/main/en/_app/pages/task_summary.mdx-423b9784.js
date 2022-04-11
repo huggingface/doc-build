@@ -1107,21 +1107,21 @@ speech_recognizer(audio_file)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt;
 {<span class="hljs-string">&#x27;text&#x27;</span>: <span class="hljs-string">&#x27;MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL&#x27;</span>}`}}),Pe=new ms({props:{pytorch:!0,tensorflow:!0,jax:!1,$$slots:{pytorch:[Mj]},$$scope:{ctx:$}}}),Xt=new J({}),Kt=new q({props:{code:`from transformers import pipeline
 
 vision_classifier = pipeline(task="image-classification")
-vision_classifier(
+result = vision_classifier(
     images="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pipeline-cat-chonk.jpeg"
-)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline
+)
+print("\\n".join([f"Class {d['label']} with score {round(d['score'], 4)}" for d in result]))`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>vision_classifier = pipeline(task=<span class="hljs-string">&quot;image-classification&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>vision_classifier(
+<span class="hljs-meta">&gt;&gt;&gt; </span>result = vision_classifier(
 <span class="hljs-meta">... </span>    images=<span class="hljs-string">&quot;https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pipeline-cat-chonk.jpeg&quot;</span>
 <span class="hljs-meta">... </span>)
-[{<span class="hljs-string">&#x27;label&#x27;</span>: <span class="hljs-string">&#x27;lynx, catamount&#x27;</span>, <span class="hljs-string">&#x27;score&#x27;</span>: <span class="hljs-number">0.4403027892112732</span>},
- {<span class="hljs-string">&#x27;label&#x27;</span>: <span class="hljs-string">&#x27;cougar, puma, catamount, mountain lion, painter, panther, Felis concolor&#x27;</span>,
-  <span class="hljs-string">&#x27;score&#x27;</span>: <span class="hljs-number">0.03433405980467796</span>},
- {<span class="hljs-string">&#x27;label&#x27;</span>: <span class="hljs-string">&#x27;snow leopard, ounce, Panthera uncia&#x27;</span>,
-  <span class="hljs-string">&#x27;score&#x27;</span>: <span class="hljs-number">0.032148055732250214</span>},
- {<span class="hljs-string">&#x27;label&#x27;</span>: <span class="hljs-string">&#x27;Egyptian cat&#x27;</span>, <span class="hljs-string">&#x27;score&#x27;</span>: <span class="hljs-number">0.02353910356760025</span>},
- {<span class="hljs-string">&#x27;label&#x27;</span>: <span class="hljs-string">&#x27;tiger cat&#x27;</span>, <span class="hljs-string">&#x27;score&#x27;</span>: <span class="hljs-number">0.023034192621707916</span>}]`}}),Se=new ms({props:{pytorch:!0,tensorflow:!0,jax:!1,$$slots:{pytorch:[Fj]},$$scope:{ctx:$}}}),{c(){n=l("meta"),u=m(),a=l("h1"),f=l("a"),_=l("span"),j(E.$$.fragment),A=m(),I=l("span"),v=o("Summary of the tasks"),z=m(),j(F.$$.fragment),Vs=m(),gs=l("p"),As=o(`This page shows the most frequent use-cases when using the library. The models available allow for many different
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\\n&quot;</span>.join([<span class="hljs-string">f&quot;Class <span class="hljs-subst">{d[<span class="hljs-string">&#x27;label&#x27;</span>]}</span> with score <span class="hljs-subst">{<span class="hljs-built_in">round</span>(d[<span class="hljs-string">&#x27;score&#x27;</span>], <span class="hljs-number">4</span>)}</span>&quot;</span> <span class="hljs-keyword">for</span> d <span class="hljs-keyword">in</span> result]))
+Class lynx, catamount <span class="hljs-keyword">with</span> score <span class="hljs-number">0.4335</span>                                                    
+Class cougar, puma, catamount, mountain lion, painter, panther, Felis concolor <span class="hljs-keyword">with</span> score <span class="hljs-number">0.0348</span>
+Class snow leopard, ounce, Panthera uncia <span class="hljs-keyword">with</span> score <span class="hljs-number">0.0324</span>          
+Class Egyptian cat <span class="hljs-keyword">with</span> score <span class="hljs-number">0.0239</span>                                                       
+Class tiger cat <span class="hljs-keyword">with</span> score <span class="hljs-number">0.0229</span>`}}),Se=new ms({props:{pytorch:!0,tensorflow:!0,jax:!1,$$slots:{pytorch:[Fj]},$$scope:{ctx:$}}}),{c(){n=l("meta"),u=m(),a=l("h1"),f=l("a"),_=l("span"),j(E.$$.fragment),A=m(),I=l("span"),v=o("Summary of the tasks"),z=m(),j(F.$$.fragment),Vs=m(),gs=l("p"),As=o(`This page shows the most frequent use-cases when using the library. The models available allow for many different
 configurations and a great versatility in use-cases. The most simple ones are presented here, showcasing usage for
 tasks such as question answering, sequence classification, named entity recognition and others.`),Js=m(),K=l("p"),zs=o(`These examples leverage auto-models, which are classes that will instantiate a model according to a given checkpoint,
 automatically selecting the correct model architecture. Please check the `),fs=l("a"),Qe=o("AutoModel"),Ks=o(` documentation
