@@ -1,0 +1,731 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;il-est-temps-de-trancher-et-de-dcouper&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;trancher-et-dcouper-nos-donnes&quot;,&quot;title&quot;:&quot;Trancher et découper nos données&quot;},{&quot;local&quot;:&quot;cration-de-nouvelles-colonnes&quot;,&quot;title&quot;:&quot;Création de nouvelles colonnes&quot;},{&quot;local&quot;:&quot;les-superpouvoirs-de-la-mthode-map&quot;,&quot;title&quot;:&quot;Les superpouvoirs de la méthode `map()`&quot;},{&quot;local&quot;:&quot;de-datasets-dataframes-et-vice-versa&quot;,&quot;title&quot;:&quot;De `Dataset`s à `DataFrame`s et vice versa&quot;},{&quot;local&quot;:&quot;cration-dun-ensemble-de-validation&quot;,&quot;title&quot;:&quot;Création d&#39;un ensemble de validation&quot;},{&quot;local&quot;:&quot;enregistrer-un-jeu-de-donnes&quot;,&quot;title&quot;:&quot;Enregistrer un jeu de données&quot;}],&quot;title&quot;:&quot;Il est temps de trancher et de découper&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="stylesheet" href="/docs/course/main/fr/_app/assets/pages/__layout.svelte-85c919b8.css">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/start-87bf1b9b.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/vendor-e6c5d93e.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/paths-4b3c6e7e.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/pages/__layout.svelte-20ef27ff.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/pages/chapter5/3.mdx-eefc2db5.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/DocNotebookDropdown-b3e38740.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/IconCopyLink-7b8d27fe.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/CodeBlock-37867453.js"> 
+
+
+
+
+
+<h1 class="relative group"><a id="il-est-temps-de-trancher-et-de-dcouper" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#il-est-temps-de-trancher-et-de-dcouper"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Il est temps de trancher et de découper
+	</span></h1>
+
+
+
+<div class="flex space-x-1 absolute z-10 right-0 top-0"><a href="https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter5/section3.ipynb" target="_blank"><img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
+	<a href="https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter5/section3.ipynb" target="_blank"><img alt="Open In Studio Lab" class="!m-0" src="https://studiolab.sagemaker.aws/studiolab.svg"></a></div>
+<p>La plupart du temps, les données avec lesquelles vous travaillez ne seront pas parfaitement préparées pour les modèles de formation. Dans cette section, nous allons explorer les différentes fonctionnalités fournies par 🤗 Datasets pour nettoyer vos ensembles de données.</p>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/tqfSFcPMgOI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 class="relative group"><a id="trancher-et-dcouper-nos-donnes" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#trancher-et-dcouper-nos-donnes"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Trancher et découper nos données
+	</span></h2>
+
+<p>Semblable à Pandas, 🤗 Datasets fournit plusieurs fonctions pour manipuler le contenu des objets <code>Dataset</code> et <code>DatasetDict</code>. Nous avons déjà rencontré la méthode <code>Dataset.map()</code> dans le <a href="/course/chapter3">Chapitre 3</a>, et dans cette section nous allons explorer certaines des autres fonctions à notre disposition.</p>
+<p>Pour cet exemple, nous utiliserons le <a href="https://archive.ics.uci.edu/ml/datasets/Drug+Review+Dataset+%28Drugs.com%29" rel="nofollow">Drug Review Dataset</a> qui est hébergé sur [UC Irvine Machine Learning Repository] (<a href="https://archive.ics.uci.edu/ml/index.php" rel="nofollow">https://archive.ics.uci.edu/ml/index.php</a>), qui contient des avis de patients sur divers médicaments, ainsi que la condition traitée et une note de 10 étoiles sur la satisfaction du patient.</p>
+<p>Nous devons d’abord télécharger et extraire les données, ce qui peut être fait avec les commandes <code>wget</code> et <code>unzip</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->!wget <span class="hljs-string">&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/00462/drugsCom_raw.zip&quot;</span>
+!unzip drugsCom_raw.<span class="hljs-built_in">zip</span><!-- HTML_TAG_END --></pre></div>
+<p>Étant donné que TSV n’est qu’une variante de CSV qui utilise des tabulations au lieu de virgules comme séparateurs, nous pouvons charger ces fichiers en utilisant le script de chargement <code>csv</code> et en spécifiant l’argument <code>delimiter</code> dans la fonction <code>load_dataset()</code> comme suit :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+
+data_files = {<span class="hljs-string">&quot;train&quot;</span>: <span class="hljs-string">&quot;drugsComTrain_raw.tsv&quot;</span>, <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-string">&quot;drugsComTest_raw.tsv&quot;</span>}
+<span class="hljs-comment"># \t is the tab character in Python</span>
+drug_dataset = load_dataset(<span class="hljs-string">&quot;csv&quot;</span>, data_files=data_files, delimiter=<span class="hljs-string">&quot;\t&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Une bonne pratique lors de toute sorte d’analyse de données consiste à prélever un petit échantillon aléatoire pour avoir une idée rapide du type de données avec lesquelles vous travaillez. Dans 🤗 Datasets, nous pouvons créer un échantillon aléatoire en enchaînant les fonctions <code>Dataset.shuffle()</code> et <code>Dataset.select()</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_sample = drug_dataset[<span class="hljs-string">&quot;train&quot;</span>].shuffle(seed=<span class="hljs-number">42</span>).select(<span class="hljs-built_in">range</span>(<span class="hljs-number">1000</span>))
+<span class="hljs-comment"># Peek at the first few examples</span>
+drug_sample[:<span class="hljs-number">3</span>]<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-string">&#x27;Unnamed: 0&#x27;</span>: [<span class="hljs-number">87571</span>, <span class="hljs-number">178045</span>, <span class="hljs-number">80482</span>],
+ <span class="hljs-string">&#x27;drugName&#x27;</span>: [<span class="hljs-string">&#x27;Naproxen&#x27;</span>, <span class="hljs-string">&#x27;Duloxetine&#x27;</span>, <span class="hljs-string">&#x27;Mobic&#x27;</span>],
+ <span class="hljs-string">&#x27;condition&#x27;</span>: [<span class="hljs-string">&#x27;Gout, Acute&#x27;</span>, <span class="hljs-string">&#x27;ibromyalgia&#x27;</span>, <span class="hljs-string">&#x27;Inflammatory Conditions&#x27;</span>],
+ <span class="hljs-string">&#x27;review&#x27;</span>: [<span class="hljs-string">&#x27;&quot;like the previous person mention, I&amp;#039;m a strong believer of aleve, it works faster for my gout than the prescription meds I take. No more going to the doctor for refills.....Aleve works!&quot;&#x27;</span>,
+  <span class="hljs-string">&#x27;&quot;I have taken Cymbalta for about a year and a half for fibromyalgia pain. It is great\r\nas a pain reducer and an anti-depressant, however, the side effects outweighed \r\nany benefit I got from it. I had trouble with restlessness, being tired constantly,\r\ndizziness, dry mouth, numbness and tingling in my feet, and horrible sweating. I am\r\nbeing weaned off of it now. Went from 60 mg to 30mg and now to 15 mg. I will be\r\noff completely in about a week. The fibro pain is coming back, but I would rather deal with it than the side effects.&quot;&#x27;</span>,
+  <span class="hljs-string">&#x27;&quot;I have been taking Mobic for over a year with no side effects other than an elevated blood pressure.  I had severe knee and ankle pain which completely went away after taking Mobic.  I attempted to stop the medication however pain returned after a few days.&quot;&#x27;</span>],
+ <span class="hljs-string">&#x27;rating&#x27;</span>: [<span class="hljs-number">9.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">10.0</span>],
+ <span class="hljs-string">&#x27;date&#x27;</span>: [<span class="hljs-string">&#x27;September 2, 2015&#x27;</span>, <span class="hljs-string">&#x27;November 7, 2011&#x27;</span>, <span class="hljs-string">&#x27;June 5, 2013&#x27;</span>],
+ <span class="hljs-string">&#x27;usefulCount&#x27;</span>: [<span class="hljs-number">36</span>, <span class="hljs-number">13</span>, <span class="hljs-number">128</span>]}<!-- HTML_TAG_END --></pre></div>
+<p>Notez que nous avons corrigé la graine dans <code>Dataset.shuffle()</code> à des fins de reproductibilité. <code>Dataset.select()</code> attend un itérable d’indices, nous avons donc passé <code>range(1000)</code> pour récupérer les 1 000 premiers exemples de l’ensemble de données mélangé. À partir de cet échantillon, nous pouvons déjà voir quelques bizarreries dans notre ensemble de données :</p>
+<ul><li>La colonne “Sans nom : 0” ressemble étrangement à un identifiant anonyme pour chaque patient.</li>
+<li>La colonne “condition” comprend un mélange d’étiquettes en majuscules et en minuscules.</li>
+<li>Les avis sont de longueur variable et contiennent un mélange de séparateurs de lignes Python (<code>\r\n</code>) ainsi que des codes de caractères HTML comme <code>&amp;\#039;</code>.</li></ul>
+<p>Voyons comment nous pouvons utiliser 🤗 Datasets pour traiter chacun de ces problèmes. Pour tester l’hypothèse de l’ID patient pour la colonne <code>Unnamed : 0</code>, nous pouvons utiliser la fonction <code>Dataset.unique()</code> pour vérifier que le nombre d’ID correspond au nombre de lignes dans chaque division :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">for</span> split <span class="hljs-keyword">in</span> drug_dataset.keys():
+    <span class="hljs-keyword">assert</span> <span class="hljs-built_in">len</span>(drug_dataset[split]) == <span class="hljs-built_in">len</span>(drug_dataset[split].unique(<span class="hljs-string">&quot;Unnamed: 0&quot;</span>))<!-- HTML_TAG_END --></pre></div>
+<p>Cela semble confirmer notre hypothèse, alors nettoyons un peu l’ensemble de données en renommant la colonne <code>Unnamed: 0</code> en quelque chose d’un peu plus interprétable. Nous pouvons utiliser la fonction <code>DatasetDict.rename_column()</code> pour renommer la colonne sur les deux divisions en une seule fois :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_dataset = drug_dataset.rename_column(
+    original_column_name=<span class="hljs-string">&quot;Unnamed: 0&quot;</span>, new_column_name=<span class="hljs-string">&quot;patient_id&quot;</span>
+)
+drug_dataset<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->DatasetDict({
+    train: Dataset({
+        features: [<span class="hljs-string">&#x27;patient_id&#x27;</span>, <span class="hljs-string">&#x27;drugName&#x27;</span>, <span class="hljs-string">&#x27;condition&#x27;</span>, <span class="hljs-string">&#x27;review&#x27;</span>, <span class="hljs-string">&#x27;rating&#x27;</span>, <span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;usefulCount&#x27;</span>],
+        num_rows: <span class="hljs-number">161297</span>
+    })
+    test: Dataset({
+        features: [<span class="hljs-string">&#x27;patient_id&#x27;</span>, <span class="hljs-string">&#x27;drugName&#x27;</span>, <span class="hljs-string">&#x27;condition&#x27;</span>, <span class="hljs-string">&#x27;review&#x27;</span>, <span class="hljs-string">&#x27;rating&#x27;</span>, <span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;usefulCount&#x27;</span>],
+        num_rows: <span class="hljs-number">53766</span>
+    })
+})<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>✏️ <strong>Essayez-le !</strong> Utilisez la fonction “Dataset.unique()” pour trouver le nombre de médicaments et de conditions uniques dans les ensembles d’entraînement et de test.</p></div>
+<p>Ensuite, normalisons toutes les étiquettes <code>condition</code> en utilisant <code>Dataset.map()</code>. Comme nous l’avons fait avec la tokenisation dans le <a href="/course/chapter3">chapitre 3</a>, nous pouvons définir une fonction simple qui peut être appliquée sur toutes les lignes de chaque division dans <code>drug_dataset</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">lowercase_condition</span>(<span class="hljs-params">example</span>):
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">&quot;condition&quot;</span>: example[<span class="hljs-string">&quot;condition&quot;</span>].lower()}
+
+
+drug_dataset.<span class="hljs-built_in">map</span>(lowercase_condition)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->AttributeError: <span class="hljs-string">&#x27;NoneType&#x27;</span> <span class="hljs-built_in">object</span> has no attribute <span class="hljs-string">&#x27;lower&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>Oh non, nous avons rencontré un problème avec notre fonction de carte ! À partir de l’erreur, nous pouvons déduire que certaines des entrées de la colonne “condition” sont “Aucune”, qui ne peuvent pas être mises en minuscules car ce ne sont pas des chaînes. Supprimons ces lignes en utilisant <code>Dataset.filter()</code>, qui fonctionne de manière similaire à <code>Dataset.map()</code> et attend une fonction qui reçoit un seul exemple de l’ensemble de données. Au lieu d’écrire une fonction explicite comme :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">filter_nones</span>(<span class="hljs-params">x</span>):
+    <span class="hljs-keyword">return</span> x[<span class="hljs-string">&quot;condition&quot;</span>] <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span><!-- HTML_TAG_END --></pre></div>
+<p>puis en exécutant <code>drug_dataset.filter(filter_nones)</code>, nous pouvons le faire en une seule ligne en utilisant une <em>lambda function</em>. En Python, les fonctions lambda sont de petites fonctions que vous pouvez définir sans les nommer explicitement. Ils prennent la forme générale :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->lambda <span class="hljs-tag">&lt;<span class="hljs-name">arguments</span>&gt;</span> : <span class="hljs-tag">&lt;<span class="hljs-name">expression</span>&gt;</span><!-- HTML_TAG_END --></pre></div>
+<p>où <code>lambda</code> est l’un des [mots clés] spéciaux de Python (<a href="https://docs.python.org/3/reference/lexical_analysis.html#keywords" rel="nofollow">https://docs.python.org/3/reference/lexical_analysis.html#keywords</a>), <code>&lt;arguments&gt;</code> est une liste/ensemble de valeurs séparées par des virgules qui définissent les entrées de la fonction et <code>&lt;expression&gt;</code> représente les opérations que vous souhaitez exécuter. Par exemple, nous pouvons définir une simple fonction lambda qui met au carré un nombre comme suit :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->lambda <span class="hljs-keyword">x</span> : <span class="hljs-keyword">x</span> * <span class="hljs-keyword">x</span><!-- HTML_TAG_END --></pre></div>
+<p>Pour appliquer cette fonction à une entrée, nous devons l’envelopper ainsi que l’entrée entre parenthèses :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->(<span class="hljs-keyword">lambda</span> x: x * x)(<span class="hljs-number">3</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-number">9</span><!-- HTML_TAG_END --></pre></div>
+<p>De même, nous pouvons définir des fonctions lambda avec plusieurs arguments en les séparant par des virgules. Par exemple, nous pouvons calculer l’aire d’un triangle comme suit :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->(<span class="hljs-keyword">lambda</span> base, height: <span class="hljs-number">0.5</span> * base * height)(<span class="hljs-number">4</span>, <span class="hljs-number">8</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-number">16.0</span><!-- HTML_TAG_END --></pre></div>
+<p>Les fonctions Lambda sont pratiques lorsque vous souhaitez définir de petites fonctions à usage unique (pour plus d’informations à leur sujet, nous vous recommandons de lire l’excellent <a href="https://realpython.com/python-lambda/" rel="nofollow">tutoriel Real Python</a> d’André Burgaud) . Dans le contexte 🤗 Datasets, nous pouvons utiliser des fonctions lambda pour définir des opérations simples de mappage et de filtrage, alors utilisons cette astuce pour éliminer les entrées “None” dans notre jeu de données :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_dataset = drug_dataset.<span class="hljs-built_in">filter</span>(<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-string">&quot;condition&quot;</span>] <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Avec les entrées “None” supprimées, nous pouvons normaliser notre colonne “condition” :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_dataset = drug_dataset.<span class="hljs-built_in">map</span>(lowercase_condition)
+<span class="hljs-comment"># Check that lowercasing worked</span>
+drug_dataset[<span class="hljs-string">&quot;train&quot;</span>][<span class="hljs-string">&quot;condition&quot;</span>][:<span class="hljs-number">3</span>]<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->[<span class="hljs-string">&#x27;left ventricular dysfunction&#x27;</span>, <span class="hljs-string">&#x27;adhd&#x27;</span>, <span class="hljs-string">&#x27;birth control&#x27;</span>]<!-- HTML_TAG_END --></pre></div>
+<p>Ça marche ! Maintenant que nous avons nettoyé les étiquettes, examinons le nettoyage des avis eux-mêmes.</p>
+<h2 class="relative group"><a id="cration-de-nouvelles-colonnes" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#cration-de-nouvelles-colonnes"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Création de nouvelles colonnes
+	</span></h2>
+
+<p>Chaque fois que vous avez affaire à des avis de clients, une bonne pratique consiste à vérifier le nombre de mots dans chaque avis. Une critique peut être un simple mot comme “Génial !” ou un essai complet avec des milliers de mots, et selon le cas d’utilisation, vous devrez gérer ces extrêmes différemment. Pour calculer le nombre de mots dans chaque révision, nous utiliserons une heuristique approximative basée sur la division de chaque texte par des espaces.</p>
+<p>Définissons une fonction simple qui compte le nombre de mots dans chaque avis :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_review_length</span>(<span class="hljs-params">example</span>):
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">&quot;review_length&quot;</span>: <span class="hljs-built_in">len</span>(example[<span class="hljs-string">&quot;review&quot;</span>].split())}<!-- HTML_TAG_END --></pre></div>
+<p>Contrairement à notre fonction <code>lowercase_condition()</code>, <code>compute_review_length()</code> renvoie un dictionnaire dont la clé ne correspond pas à l’un des noms de colonne de l’ensemble de données. Dans ce cas, lorsque <code>compute_review_length()</code> est passé à <code>Dataset.map()</code>, il sera appliqué à toutes les lignes du jeu de données pour créer une nouvelle colonne <code>review_length</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_dataset = drug_dataset.<span class="hljs-built_in">map</span>(compute_review_length)
+<span class="hljs-comment"># Inspect the first training example</span>
+drug_dataset[<span class="hljs-string">&quot;train&quot;</span>][<span class="hljs-number">0</span>]<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-string">&#x27;patient_id&#x27;</span>: <span class="hljs-number">206461</span>,
+ <span class="hljs-string">&#x27;drugName&#x27;</span>: <span class="hljs-string">&#x27;Valsartan&#x27;</span>,
+ <span class="hljs-string">&#x27;condition&#x27;</span>: <span class="hljs-string">&#x27;left ventricular dysfunction&#x27;</span>,
+ <span class="hljs-string">&#x27;review&#x27;</span>: <span class="hljs-string">&#x27;&quot;It has no side effect, I take it in combination of Bystolic 5 Mg and Fish Oil&quot;&#x27;</span>,
+ <span class="hljs-string">&#x27;rating&#x27;</span>: <span class="hljs-number">9.0</span>,
+ <span class="hljs-string">&#x27;date&#x27;</span>: <span class="hljs-string">&#x27;May 20, 2012&#x27;</span>,
+ <span class="hljs-string">&#x27;usefulCount&#x27;</span>: <span class="hljs-number">27</span>,
+ <span class="hljs-string">&#x27;review_length&#x27;</span>: <span class="hljs-number">17</span>}<!-- HTML_TAG_END --></pre></div>
+<p>Comme prévu, nous pouvons voir qu’une colonne “review_length” a été ajoutée à notre ensemble d’entraînement. Nous pouvons trier cette nouvelle colonne avec <code>Dataset.sort()</code> pour voir à quoi ressemblent les valeurs extrêmes :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_dataset[<span class="hljs-string">&quot;train&quot;</span>].sort(<span class="hljs-string">&quot;review_length&quot;</span>)[:<span class="hljs-number">3</span>]<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-string">&#x27;patient_id&#x27;</span>: [<span class="hljs-number">103488</span>, <span class="hljs-number">23627</span>, <span class="hljs-number">20558</span>],
+ <span class="hljs-string">&#x27;drugName&#x27;</span>: [<span class="hljs-string">&#x27;Loestrin 21 1 / 20&#x27;</span>, <span class="hljs-string">&#x27;Chlorzoxazone&#x27;</span>, <span class="hljs-string">&#x27;Nucynta&#x27;</span>],
+ <span class="hljs-string">&#x27;condition&#x27;</span>: [<span class="hljs-string">&#x27;birth control&#x27;</span>, <span class="hljs-string">&#x27;muscle spasm&#x27;</span>, <span class="hljs-string">&#x27;pain&#x27;</span>],
+ <span class="hljs-string">&#x27;review&#x27;</span>: [<span class="hljs-string">&#x27;&quot;Excellent.&quot;&#x27;</span>, <span class="hljs-string">&#x27;&quot;useless&quot;&#x27;</span>, <span class="hljs-string">&#x27;&quot;ok&quot;&#x27;</span>],
+ <span class="hljs-string">&#x27;rating&#x27;</span>: [<span class="hljs-number">10.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">6.0</span>],
+ <span class="hljs-string">&#x27;date&#x27;</span>: [<span class="hljs-string">&#x27;November 4, 2008&#x27;</span>, <span class="hljs-string">&#x27;March 24, 2017&#x27;</span>, <span class="hljs-string">&#x27;August 20, 2016&#x27;</span>],
+ <span class="hljs-string">&#x27;usefulCount&#x27;</span>: [<span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">10</span>],
+ <span class="hljs-string">&#x27;review_length&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]}<!-- HTML_TAG_END --></pre></div>
+<p>Comme nous le soupçonnions, certaines critiques ne contiennent qu’un seul mot, ce qui, bien que cela puisse convenir à l’analyse des sentiments, ne serait pas informatif si nous voulons prédire la condition.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>🙋 Une autre façon d’ajouter de nouvelles colonnes à un ensemble de données consiste à utiliser la fonction <code>Dataset.add_column()</code>. Cela vous permet de fournir la colonne sous forme de liste Python ou de tableau NumPy et peut être utile dans les situations où <code>Dataset.map()</code> n’est pas bien adapté à votre analyse.</p></div>
+<p>Utilisons la fonction <code>Dataset.filter()</code> pour supprimer les avis contenant moins de 30 mots. De la même manière que nous l’avons fait avec la colonne “condition”, nous pouvons filtrer les avis très courts en exigeant que les avis aient une longueur supérieure à ce seuil :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_dataset = drug_dataset.<span class="hljs-built_in">filter</span>(<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-string">&quot;review_length&quot;</span>] &gt; <span class="hljs-number">30</span>)
+<span class="hljs-built_in">print</span>(drug_dataset.num_rows)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-string">&#x27;train&#x27;</span>: <span class="hljs-number">138514</span>, <span class="hljs-string">&#x27;test&#x27;</span>: <span class="hljs-number">46108</span>}<!-- HTML_TAG_END --></pre></div>
+<p>Comme vous pouvez le constater, cela a supprimé environ 15 % des avis de nos ensembles d’entraînement et de test d’origine.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>✏️ <strong>Essayez-le !</strong> Utilisez la fonction <code>Dataset.sort()</code> pour inspecter les avis avec le plus grand nombre de mots. Consultez la <a href="https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.sort" rel="nofollow">documentation</a> pour voir quel argument vous devez utiliser pour trier les avis par longueur dans l’ordre décroissant.</p></div>
+<p>La dernière chose à laquelle nous devons faire face est la présence de codes de caractères HTML dans nos avis. Nous pouvons utiliser le module <code>html</code> de Python pour supprimer ces caractères, comme ceci :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> html
+
+text = <span class="hljs-string">&quot;I&amp;#039;m a transformer called BERT&quot;</span>
+html.unescape(text)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&quot;I&#x27;m a transformer called BERT&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>Nous utiliserons <code>Dataset.map()</code> pour démasquer tous les caractères HTML de notre corpus :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_dataset = drug_dataset.<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> x: {<span class="hljs-string">&quot;review&quot;</span>: html.unescape(x[<span class="hljs-string">&quot;review&quot;</span>])})<!-- HTML_TAG_END --></pre></div>
+<p>Comme vous pouvez le voir, la méthode <code>Dataset.map()</code> est très utile pour le traitement des données — et nous n’avons même pas effleuré la surface de tout ce qu’elle peut faire !</p>
+<h2 class="relative group"><a id="les-superpouvoirs-de-la-mthode-map" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#les-superpouvoirs-de-la-mthode-map"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Les superpouvoirs de la méthode <code>map()</code></span></h2>
+
+<p>La méthode <code>Dataset.map()</code> prend un argument <code>batched</code> qui, s’il est défini sur <code>True</code>, l’amène à envoyer un lot d’exemples à la fonction map en une seule fois (la taille du lot est configurable mais par défaut à 1 000). Par exemple, la fonction de carte précédente qui dégageait tout le code HTML prenait un peu de temps à s’exécuter (vous pouvez lire le temps pris dans les barres de progression). On peut accélérer cela en traitant plusieurs éléments en même temps à l’aide d’une liste en compréhension.</p>
+<p>Lorsque vous spécifiez <code>batched=True</code>, la fonction reçoit un dictionnaire avec les champs de l’ensemble de données, mais chaque valeur est maintenant une <em>liste de valeurs</em>, et non plus une seule valeur. La valeur de retour de <code>Dataset.map()</code> devrait être la même : un dictionnaire avec les champs que nous voulons mettre à jour ou ajouter à notre ensemble de données, et une liste de valeurs. Par exemple, voici une autre façon de supprimer tous les caractères HTML, mais en utilisant <code>batched=True</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->new_drug_dataset = drug_dataset.<span class="hljs-built_in">map</span>(
+    <span class="hljs-keyword">lambda</span> x: {<span class="hljs-string">&quot;review&quot;</span>: [html.unescape(o) <span class="hljs-keyword">for</span> o <span class="hljs-keyword">in</span> x[<span class="hljs-string">&quot;review&quot;</span>]]}, batched=<span class="hljs-literal">True</span>
+)<!-- HTML_TAG_END --></pre></div>
+<p>Si vous exécutez ce code dans un notebook, vous verrez que cette commande s’exécute beaucoup plus rapidement que la précédente. Et ce n’est pas parce que nos critiques ont déjà été sans échappement HTML — si vous ré-exécutez l’instruction de la section précédente (sans <code>batched=True</code>), cela prendra le même temps qu’avant. En effet, les compréhensions de liste sont généralement plus rapides que l’exécution du même code dans une boucle “for”, et nous gagnons également en performances en accédant à de nombreux éléments en même temps au lieu d’un par un.</p>
+<p>L’utilisation de <code>Dataset.map()</code> avec <code>batched=True</code> sera essentielle pour débloquer la vitesse des tokenizers “rapides” que nous rencontrerons dans <a href="/course/chapter6">Chapitre 6</a>, qui peuvent rapidement tokeniser de grandes listes de textes. Par exemple, pour tokeniser toutes les revues de médicaments avec un tokenizer rapide, nous pourrions utiliser une fonction comme celle-ci :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">tokenize_function</span>(<span class="hljs-params">examples</span>):
+    <span class="hljs-keyword">return</span> tokenizer(examples[<span class="hljs-string">&quot;review&quot;</span>], truncation=<span class="hljs-literal">True</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Comme vous l’avez vu dans le <a href="/course/chapter3">Chapitre 3</a>, nous pouvons passer un ou plusieurs exemples au tokenizer, nous pouvons donc utiliser cette fonction avec ou sans <code>batched=True</code>. Profitons-en pour comparer les performances des différentes options. Dans un cahier, vous pouvez chronométrer une instruction d’une ligne en ajoutant <code>%time</code> avant la ligne de code que vous souhaitez mesurer :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->%time tokenized_dataset = drug_dataset.<span class="hljs-built_in">map</span>(tokenize_function, batched=<span class="hljs-literal">True</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Vous pouvez également chronométrer une cellule entière en mettant <code>%%time</code> au début de la cellule. Sur le matériel sur lequel nous avons exécuté cela, il affichait 10,8 s pour cette instruction (c’est le nombre écrit après “Wall time”).</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>✏️ <strong>Essayez-le !</strong> Exécutez la même instruction avec et sans <code>batched=True</code>, puis essayez-le avec un tokenizer lent (ajoutez <code>use_fast=False</code> dans la méthode <code>AutoTokenizer.from_pretrained()</code>) afin que vous puissiez voir quels numéros vous obtenez sur votre matériel.</p></div>
+<p>Voici les résultats que nous avons obtenus avec et sans batching, avec un tokenizer rapide et un lent :</p>
+<table><thead><tr><th align="center">Options</th>
+<th align="center">Tokenizer rapide</th>
+<th align="center">Tokenizer lent</th></tr></thead>
+<tbody><tr><td align="center"><code>batched=True</code></td>
+<td align="center">10.8s</td>
+<td align="center">4min41s</td></tr>
+<tr><td align="center"><code>batched=False</code></td>
+<td align="center">59.2s</td>
+<td align="center">5min3s</td></tr></tbody></table>
+<p>Cela signifie que l’utilisation d’un tokenizer rapide avec l’option <code>batched=True</code> est 30 fois plus rapide que son homologue lent sans traitement par lot — c’est vraiment incroyable ! C’est la raison principale pour laquelle les tokenizers rapides sont la valeur par défaut lors de l’utilisation de <code>AutoTokenizer</code> (et pourquoi ils sont appelés “rapides”). Ils sont capables d’atteindre une telle accélération car dans les coulisses, le code de tokenisation est exécuté dans Rust, qui est un langage qui facilite la parallélisation de l’exécution du code.</p>
+<p>La parallélisation est également la raison de l’accélération de près de 6 fois obtenue par le fast tokenizer avec le traitement par lots : vous ne pouvez pas paralléliser une seule opération de tokenisation, mais lorsque vous souhaitez tokeniser de nombreux textes en même temps, vous pouvez simplement répartir l’exécution sur plusieurs processus. chacun responsable de ses propres textes.</p>
+<p><code>Dataset.map()</code> possède également ses propres capacités de parallélisation. Comme ils ne sont pas soutenus par Rust, ils ne laisseront pas un tokenizer lent rattraper un rapide, mais ils peuvent toujours être utiles (surtout si vous utilisez un tokenizer qui n’a pas de version rapide). Pour activer le multitraitement, utilisez l’argument <code>num_proc</code> et spécifiez le nombre de processus à utiliser dans votre appel à <code>Dataset.map()</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->slow_tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>, use_fast=<span class="hljs-literal">False</span>)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">slow_tokenize_function</span>(<span class="hljs-params">examples</span>):
+    <span class="hljs-keyword">return</span> slow_tokenizer(examples[<span class="hljs-string">&quot;review&quot;</span>], truncation=<span class="hljs-literal">True</span>)
+
+
+tokenized_dataset = drug_dataset.<span class="hljs-built_in">map</span>(slow_tokenize_function, batched=<span class="hljs-literal">True</span>, num_proc=<span class="hljs-number">8</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Vous pouvez expérimenter un peu le timing pour déterminer le nombre optimal de processus à utiliser ; dans notre cas 8 semblait produire le meilleur gain de vitesse. Voici les chiffres que nous avons obtenus avec et sans multitraitement :</p>
+<table><thead><tr><th align="center">Options</th>
+<th align="center">Tokenizer rapide</th>
+<th align="center">Tokenizer lent</th></tr></thead>
+<tbody><tr><td align="center"><code>batched=True</code></td>
+<td align="center">10.8s</td>
+<td align="center">4min41s</td></tr>
+<tr><td align="center"><code>batched=False</code></td>
+<td align="center">59.2s</td>
+<td align="center">5min3s</td></tr>
+<tr><td align="center"><code>batched=True</code>, <code>num_proc=8</code></td>
+<td align="center">6.52s</td>
+<td align="center">41.3s</td></tr>
+<tr><td align="center"><code>batched=False</code>, <code>num_proc=8</code></td>
+<td align="center">9.49s</td>
+<td align="center">45.2s</td></tr></tbody></table>
+<p>Ce sont des résultats beaucoup plus raisonnables pour le tokenizer lent, mais les performances du tokenizer rapide ont également été considérablement améliorées. Notez, cependant, que ce ne sera pas toujours le cas - pour les valeurs de <code>num_proc</code> autres que 8, nos tests ont montré qu’il était plus rapide d’utiliser <code>batched=True</code> sans cette option. En général, nous ne recommandons pas d’utiliser le multitraitement Python pour les tokenizers rapides avec <code>batched=True</code>.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Utiliser <code>num_proc</code> pour accélérer votre traitement est généralement une bonne idée, tant que la fonction que vous utilisez n’effectue pas déjà une sorte de multitraitement.</p></div>
+<p>Toutes ces fonctionnalités condensées en une seule méthode sont déjà assez étonnantes, mais il y a plus ! Avec <code>Dataset.map()</code> et <code>batched=True</code> vous pouvez modifier le nombre d’éléments dans votre jeu de données. Ceci est très utile dans de nombreuses situations où vous souhaitez créer plusieurs fonctionnalités d’entraînement à partir d’un exemple, et nous devrons le faire dans le cadre du prétraitement de plusieurs des tâches NLP que nous entreprendrons dans [Chapitre 7](/course/ Chapitre 7).</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>💡 En machine learning, un <em>example</em> est généralement défini comme l’ensemble de <em>features</em> que nous alimentons au modèle. Dans certains contextes, ces caractéristiques seront l’ensemble des colonnes d’un <code>Dataset</code>, mais dans d’autres (comme ici et pour la réponse aux questions), plusieurs caractéristiques peuvent être extraites d’un seul exemple et appartenir à une seule colonne.</p></div>
+<p>Voyons comment cela fonctionne ! Ici, nous allons tokeniser nos exemples et les tronquer à une longueur maximale de 128, mais nous demanderons au tokenizer de renvoyer <em>tous</em> les morceaux des textes au lieu du premier. Cela peut être fait avec <code>return_overflowing_tokens=True</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">tokenize_and_split</span>(<span class="hljs-params">examples</span>):
+    <span class="hljs-keyword">return</span> tokenizer(
+        examples[<span class="hljs-string">&quot;review&quot;</span>],
+        truncation=<span class="hljs-literal">True</span>,
+        max_length=<span class="hljs-number">128</span>,
+        return_overflowing_tokens=<span class="hljs-literal">True</span>,
+    )<!-- HTML_TAG_END --></pre></div>
+<p>Testons cela sur un exemple avant d’utiliser <code>Dataset.map()</code> sur l’ensemble de données :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->result = tokenize_and_split(drug_dataset[<span class="hljs-string">&quot;train&quot;</span>][<span class="hljs-number">0</span>])
+[<span class="hljs-built_in">len</span>(inp) <span class="hljs-keyword">for</span> inp <span class="hljs-keyword">in</span> result[<span class="hljs-string">&quot;input_ids&quot;</span>]]<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->[<span class="hljs-number">128</span>, <span class="hljs-number">49</span>]<!-- HTML_TAG_END --></pre></div>
+<p>Ainsi, notre premier exemple dans l’ensemble de formation est devenu deux fonctionnalités car il a été segmenté à plus que le nombre maximum de jetons que nous avons spécifié : le premier de longueur 128 et le second de longueur 49. Faisons maintenant cela pour tous les éléments du base de données!</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tokenized_dataset = drug_dataset.<span class="hljs-built_in">map</span>(tokenize_and_split, batched=<span class="hljs-literal">True</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->ArrowInvalid: Column <span class="hljs-number">1</span> named condition expected length <span class="hljs-number">1463</span> but got length <span class="hljs-number">1000</span><!-- HTML_TAG_END --></pre></div>
+<p>Oh non! Cela n’a pas fonctionné ! Pourquoi pas? L’examen du message d’erreur nous donnera un indice : il y a une incompatibilité dans les longueurs de l’une des colonnes, l’une étant de longueur 1 463 et l’autre de longueur 1 000. Si vous avez consulté la [documentation] <code>Dataset.map()</code>(<a href="https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.map" rel="nofollow">https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.map</a>), vous vous souviendrez peut-être qu’il s’agit du nombre d’échantillons passés à la fonction que nous mappons ; ici, ces 1 000 exemples ont donné 1 463 nouvelles fonctionnalités, entraînant une erreur de forme.</p>
+<p>Le problème est que nous essayons de mélanger deux ensembles de données différents de tailles différentes : les colonnes <code>drug_dataset</code> auront un certain nombre d’exemples (les 1 000 dans notre erreur), mais le <code>tokenized_dataset</code> que nous construisons en aura plus (le 1 463 dans le message d’erreur). Cela ne fonctionne pas pour un <code>Dataset</code>, nous devons donc soit supprimer les colonnes de l’ancien jeu de données, soit leur donner la même taille que dans le nouveau jeu de données. Nous pouvons faire le premier avec l’argument <code>remove_columns</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tokenized_dataset = drug_dataset.<span class="hljs-built_in">map</span>(
+    tokenize_and_split, batched=<span class="hljs-literal">True</span>, remove_columns=drug_dataset[<span class="hljs-string">&quot;train&quot;</span>].column_names
+)<!-- HTML_TAG_END --></pre></div>
+<p>Maintenant, cela fonctionne sans erreur. Nous pouvons vérifier que notre nouveau jeu de données contient beaucoup plus d’éléments que le jeu de données d’origine en comparant les longueurs :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-built_in">len</span>(tokenized_dataset[<span class="hljs-string">&quot;train&quot;</span>]), <span class="hljs-built_in">len</span>(drug_dataset[<span class="hljs-string">&quot;train&quot;</span>])<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->(<span class="hljs-number">206772</span>, <span class="hljs-number">138514</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Nous avons mentionné que nous pouvions également résoudre le problème de longueur non concordante en donnant aux anciennes colonnes la même taille que les nouvelles. Pour ce faire, nous aurons besoin du champ <code>overflow_to_sample_mapping</code> que le tokenizer renvoie lorsque nous définissons <code>return_overflowing_tokens=True</code>. Il nous donne une correspondance entre un nouvel index de fonctionnalité et l’index de l’échantillon dont il est issu. Grâce à cela, nous pouvons associer chaque clé présente dans notre jeu de données d’origine à une liste de valeurs de la bonne taille en répétant les valeurs de chaque exemple autant de fois qu’il génère de nouvelles fonctionnalités :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">tokenize_and_split</span>(<span class="hljs-params">examples</span>):
+    result = tokenizer(
+        examples[<span class="hljs-string">&quot;review&quot;</span>],
+        truncation=<span class="hljs-literal">True</span>,
+        max_length=<span class="hljs-number">128</span>,
+        return_overflowing_tokens=<span class="hljs-literal">True</span>,
+    )
+    <span class="hljs-comment"># Extract mapping between new and old indices</span>
+    sample_map = result.pop(<span class="hljs-string">&quot;overflow_to_sample_mapping&quot;</span>)
+    <span class="hljs-keyword">for</span> key, values <span class="hljs-keyword">in</span> examples.items():
+        result[key] = [values[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> sample_map]
+    <span class="hljs-keyword">return</span> result<!-- HTML_TAG_END --></pre></div>
+<p>Nous pouvons voir que cela fonctionne avec <code>Dataset.map()</code> sans que nous ayons besoin de supprimer les anciennes colonnes :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tokenized_dataset = drug_dataset.<span class="hljs-built_in">map</span>(tokenize_and_split, batched=<span class="hljs-literal">True</span>)
+tokenized_dataset<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->DatasetDict({
+    train: Dataset({
+        features: [<span class="hljs-string">&#x27;attention_mask&#x27;</span>, <span class="hljs-string">&#x27;condition&#x27;</span>, <span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;drugName&#x27;</span>, <span class="hljs-string">&#x27;input_ids&#x27;</span>, <span class="hljs-string">&#x27;patient_id&#x27;</span>, <span class="hljs-string">&#x27;rating&#x27;</span>, <span class="hljs-string">&#x27;review&#x27;</span>, <span class="hljs-string">&#x27;review_length&#x27;</span>, <span class="hljs-string">&#x27;token_type_ids&#x27;</span>, <span class="hljs-string">&#x27;usefulCount&#x27;</span>],
+        num_rows: <span class="hljs-number">206772</span>
+    })
+    test: Dataset({
+        features: [<span class="hljs-string">&#x27;attention_mask&#x27;</span>, <span class="hljs-string">&#x27;condition&#x27;</span>, <span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;drugName&#x27;</span>, <span class="hljs-string">&#x27;input_ids&#x27;</span>, <span class="hljs-string">&#x27;patient_id&#x27;</span>, <span class="hljs-string">&#x27;rating&#x27;</span>, <span class="hljs-string">&#x27;review&#x27;</span>, <span class="hljs-string">&#x27;review_length&#x27;</span>, <span class="hljs-string">&#x27;token_type_ids&#x27;</span>, <span class="hljs-string">&#x27;usefulCount&#x27;</span>],
+        num_rows: <span class="hljs-number">68876</span>
+    })
+})<!-- HTML_TAG_END --></pre></div>
+<p>Nous obtenons le même nombre de fonctionnalités d’entraînement qu’auparavant, mais ici nous avons conservé tous les anciens champs. Si vous en avez besoin pour un post-traitement après l’application de votre modèle, vous pouvez utiliser cette approche.</p>
+<p>Vous avez maintenant vu comment 🤗 Datasets peut être utilisé pour prétraiter un ensemble de données de différentes manières. Bien que les fonctions de traitement de 🤗 Datasets couvrent la plupart de vos besoins de formation de modèles,
+il peut arriver que vous deviez passer à Pandas pour accéder à des fonctionnalités plus puissantes, telles que <code>DataFrame.groupby()</code> ou des API de haut niveau pour la visualisation. Heureusement, 🤗 Datasets est conçu pour être interopérable avec des bibliothèques telles que Pandas, NumPy, PyTorch, TensorFlow et JAX. Voyons comment cela fonctionne.</p>
+<h2 class="relative group"><a id="de-datasets-dataframes-et-vice-versa" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#de-datasets-dataframes-et-vice-versa"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>De <code>Dataset</code>s à <code>DataFrame</code>s et vice versa
+	</span></h2>
+
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/tfcY1067A5Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Pour permettre la conversion entre diverses bibliothèques tierces, 🤗 Datasets fournit une fonction <code>Dataset.set_format()</code>. Cette fonction ne modifie que le <em>format de sortie</em> de l’ensemble de données, vous pouvez donc facilement passer à un autre format sans affecter le <em>format de données</em> sous-jacent, qui est Apache Arrow. Le formatage se fait sur place. Pour démontrer, convertissons notre jeu de données en Pandas :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_dataset.set_format(<span class="hljs-string">&quot;pandas&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Maintenant, lorsque nous accédons aux éléments du jeu de données, nous obtenons un <code>pandas.DataFrame</code> au lieu d’un dictionnaire :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_dataset[<span class="hljs-string">&quot;train&quot;</span>][:<span class="hljs-number">3</span>]<!-- HTML_TAG_END --></pre></div>
+<table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th>
+      <th>patient_id</th>
+      <th>drugName</th>
+      <th>condition</th>
+      <th>review</th>
+      <th>rating</th>
+      <th>date</th>
+      <th>usefulCount</th>
+      <th>review_length</th></tr></thead>
+  <tbody><tr><th>0</th>
+      <td>95260</td>
+      <td>Guanfacine</td>
+      <td>adhd</td>
+      <td>&quot;My son is halfway through his fourth week of Intuniv...&quot;</td>
+      <td>8.0</td>
+      <td>April 27, 2010</td>
+      <td>192</td>
+      <td>141</td></tr>
+    <tr><th>1</th>
+      <td>92703</td>
+      <td>Lybrel</td>
+      <td>birth control</td>
+      <td>&quot;I used to take another oral contraceptive, which had 21 pill cycle, and was very happy- very light periods, max 5 days, no other side effects...&quot;</td>
+      <td>5.0</td>
+      <td>December 14, 2009</td>
+      <td>17</td>
+      <td>134</td></tr>
+    <tr><th>2</th>
+      <td>138000</td>
+      <td>Ortho Evra</td>
+      <td>birth control</td>
+      <td>&quot;This is my first time using any form of birth control...&quot;</td>
+      <td>8.0</td>
+      <td>November 3, 2015</td>
+      <td>10</td>
+      <td>89</td></tr></tbody></table>
+<p>Créons un <code>pandas.DataFrame</code> pour l’ensemble d’entraînement en sélectionnant tous les éléments de <code>drug_dataset[&quot;train&quot;]</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->train_df = drug_dataset[<span class="hljs-string">&quot;train&quot;</span>][:]<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>🚨 Sous le capot, <code>Dataset.set_format()</code> change le format de retour pour la méthode dunder <code>__getitem__()</code> de l’ensemble de données. Cela signifie que lorsque nous voulons créer un nouvel objet comme <code>train_df</code> à partir d’un <code>Dataset</code> au format <code>&quot;pandas&quot;</code>, nous devons découper tout l’ensemble de données pour obtenir un <code>pandas.DataFrame</code>. Vous pouvez vérifier par vous-même que le type de <code>drug_dataset[&quot;train&quot;]</code> est <code>Dataset</code>, quel que soit le format de sortie.</p></div>
+<p>De là, nous pouvons utiliser toutes les fonctionnalités Pandas que nous voulons. Par exemple, nous pouvons faire un chaînage sophistiqué pour calculer la distribution de classe parmi les entrées <code>condition</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->frequencies = (
+    train_df[<span class="hljs-string">&quot;condition&quot;</span>]
+    .value_counts()
+    .to_frame()
+    .reset_index()
+    .rename(columns={<span class="hljs-string">&quot;index&quot;</span>: <span class="hljs-string">&quot;condition&quot;</span>, <span class="hljs-string">&quot;condition&quot;</span>: <span class="hljs-string">&quot;frequency&quot;</span>})
+)
+frequencies.head()<!-- HTML_TAG_END --></pre></div>
+<table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th>
+      <th>condition</th>
+      <th>frequency</th></tr></thead>
+  <tbody><tr><th>0</th>
+      <td>birth control</td>
+      <td>27655</td></tr>
+    <tr><th>1</th>
+      <td>depression</td>
+      <td>8023</td></tr>
+    <tr><th>2</th>
+      <td>acne</td>
+      <td>5209</td></tr>
+    <tr><th>3</th>
+      <td>anxiety</td>
+      <td>4991</td></tr>
+    <tr><th>4</th>
+      <td>pain</td>
+      <td>4744</td></tr></tbody></table>
+<p>Et une fois que nous avons terminé notre analyse Pandas, nous pouvons toujours créer un nouvel objet <code>Dataset</code> en utilisant la fonction <code>Dataset.from_pandas()</code> comme suit :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> Dataset
+
+freq_dataset = Dataset.from_pandas(frequencies)
+freq_dataset<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->Dataset({
+    features: [<span class="hljs-string">&#x27;condition&#x27;</span>, <span class="hljs-string">&#x27;frequency&#x27;</span>],
+    num_rows: <span class="hljs-number">819</span>
+})<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>✏️ <strong>Essayez-le !</strong> Calculez la note moyenne par médicament et stockez le résultat dans un nouvel ensemble de données.</p></div>
+<p>Ceci conclut notre visite des différentes techniques de prétraitement disponibles dans 🤗 Datasets. Pour compléter la section, créons un ensemble de validation pour préparer l’ensemble de données pour la formation d’un classificateur. Avant cela, nous allons réinitialiser le format de sortie de <code>drug_dataset</code> de <code>&quot;pandas&quot;</code> à <code>&quot;arrow&quot;</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_dataset.reset_format()<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="cration-dun-ensemble-de-validation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#cration-dun-ensemble-de-validation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Création d&#39;un ensemble de validation
+	</span></h2>
+
+<p>Bien que nous ayons un jeu de test que nous pourrions utiliser pour l’évaluation, il est recommandé de ne pas toucher au jeu de test et de créer un jeu de validation séparé pendant le développement. Une fois que vous êtes satisfait des performances de vos modèles sur l’ensemble de validation, vous pouvez effectuer une dernière vérification d’intégrité sur l’ensemble de test. Ce processus permet d’atténuer le risque de dépassement de l’ensemble de test et de déploiement d’un modèle qui échoue sur des données du monde réel.</p>
+<p>🤗 Datasets fournit une fonction <code>Dataset.train_test_split()</code> basée sur la célèbre fonctionnalité de <code>scikit-learn</code>. Utilisons-le pour diviser notre ensemble d’entraînement en divisions “train” et “validation” (nous définissons l’argument “seed” pour la reproductibilité) :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_dataset_clean = drug_dataset[<span class="hljs-string">&quot;train&quot;</span>].train_test_split(train_size=<span class="hljs-number">0.8</span>, seed=<span class="hljs-number">42</span>)
+<span class="hljs-comment"># Rename the default &quot;test&quot; split to &quot;validation&quot;</span>
+drug_dataset_clean[<span class="hljs-string">&quot;validation&quot;</span>] = drug_dataset_clean.pop(<span class="hljs-string">&quot;test&quot;</span>)
+<span class="hljs-comment"># Add the &quot;test&quot; set to our `DatasetDict`</span>
+drug_dataset_clean[<span class="hljs-string">&quot;test&quot;</span>] = drug_dataset[<span class="hljs-string">&quot;test&quot;</span>]
+drug_dataset_clean<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->DatasetDict({
+    train: Dataset({
+        features: [<span class="hljs-string">&#x27;patient_id&#x27;</span>, <span class="hljs-string">&#x27;drugName&#x27;</span>, <span class="hljs-string">&#x27;condition&#x27;</span>, <span class="hljs-string">&#x27;review&#x27;</span>, <span class="hljs-string">&#x27;rating&#x27;</span>, <span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;usefulCount&#x27;</span>, <span class="hljs-string">&#x27;review_length&#x27;</span>, <span class="hljs-string">&#x27;review_clean&#x27;</span>],
+        num_rows: <span class="hljs-number">110811</span>
+    })
+    validation: Dataset({
+        features: [<span class="hljs-string">&#x27;patient_id&#x27;</span>, <span class="hljs-string">&#x27;drugName&#x27;</span>, <span class="hljs-string">&#x27;condition&#x27;</span>, <span class="hljs-string">&#x27;review&#x27;</span>, <span class="hljs-string">&#x27;rating&#x27;</span>, <span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;usefulCount&#x27;</span>, <span class="hljs-string">&#x27;review_length&#x27;</span>, <span class="hljs-string">&#x27;review_clean&#x27;</span>],
+        num_rows: <span class="hljs-number">27703</span>
+    })
+    test: Dataset({
+        features: [<span class="hljs-string">&#x27;patient_id&#x27;</span>, <span class="hljs-string">&#x27;drugName&#x27;</span>, <span class="hljs-string">&#x27;condition&#x27;</span>, <span class="hljs-string">&#x27;review&#x27;</span>, <span class="hljs-string">&#x27;rating&#x27;</span>, <span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;usefulCount&#x27;</span>, <span class="hljs-string">&#x27;review_length&#x27;</span>, <span class="hljs-string">&#x27;review_clean&#x27;</span>],
+        num_rows: <span class="hljs-number">46108</span>
+    })
+})<!-- HTML_TAG_END --></pre></div>
+<p>Génial, nous avons maintenant préparé un jeu de données prêt pour l’entraînement de certains modèles ! Dans la <a href="/course/chapter5/5">section 5</a>, nous vous montrerons comment télécharger des ensembles de données sur le Hugging Face Hub, mais pour l’instant, terminons notre analyse en examinant quelques façons d’enregistrer des ensembles de données sur votre ordinateur local. </p>
+<h2 class="relative group"><a id="enregistrer-un-jeu-de-donnes" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#enregistrer-un-jeu-de-donnes"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Enregistrer un jeu de données
+	</span></h2>
+
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/blF9uxYcKHo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Bien que 🤗 Datasets mette en cache chaque jeu de données téléchargé et les opérations qui y sont effectuées, il y a des moments où vous voudrez enregistrer un jeu de données sur le disque (par exemple, au cas où le cache serait supprimé). Comme indiqué dans le tableau ci-dessous, 🤗 Datasets fournit trois fonctions principales pour enregistrer votre jeu de données dans différents formats :</p>
+<table><thead><tr><th align="center">Format de données</th>
+<th align="center">Fonction</th></tr></thead>
+<tbody><tr><td align="center">Flèche</td>
+<td align="center"><code>Dataset.save_to_disk()</code></td></tr>
+<tr><td align="center">CSV</td>
+<td align="center"><code>Dataset.to_csv()</code></td></tr>
+<tr><td align="center">JSON</td>
+<td align="center"><code>Dataset.to_json()</code></td></tr></tbody></table>
+<p>Par exemple, enregistrons notre jeu de données nettoyé au format Arrow :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug_dataset_clean.save_to_disk(<span class="hljs-string">&quot;drug-reviews&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Cela créera un répertoire avec la structure suivante :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->drug-reviews/
+├── dataset_dict.json
+├── test
+│   ├── dataset.arrow
+│   ├── dataset_info.json
+│   └── <span class="hljs-keyword">state</span>.json
+├── train
+│   ├── dataset.arrow
+│   ├── dataset_info.json
+│   ├── indices.arrow
+│   └── <span class="hljs-keyword">state</span>.json
+└── validation
+    ├── dataset.arrow
+    ├── dataset_info.json
+    ├── indices.arrow
+    └── <span class="hljs-keyword">state</span>.json<!-- HTML_TAG_END --></pre></div>
+<p>où nous pouvons voir que chaque division est associée à sa propre table <em>dataset.arrow </em> et à certaines métadonnées dans <em>dataset_info.json </em> et <em>state.json </em>. Vous pouvez considérer le format Arrow comme un tableau sophistiqué de colonnes et de lignes optimisé pour la création d’applications hautes performances qui traitent et transportent de grands ensembles de données.</p>
+<p>Une fois le jeu de données enregistré, nous pouvons le charger en utilisant la fonction <code>load_from_disk()</code> comme suit :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_from_disk
+
+drug_dataset_reloaded = load_from_disk(<span class="hljs-string">&quot;drug-reviews&quot;</span>)
+drug_dataset_reloaded<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->DatasetDict({
+    train: Dataset({
+        features: [<span class="hljs-string">&#x27;patient_id&#x27;</span>, <span class="hljs-string">&#x27;drugName&#x27;</span>, <span class="hljs-string">&#x27;condition&#x27;</span>, <span class="hljs-string">&#x27;review&#x27;</span>, <span class="hljs-string">&#x27;rating&#x27;</span>, <span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;usefulCount&#x27;</span>, <span class="hljs-string">&#x27;review_length&#x27;</span>],
+        num_rows: <span class="hljs-number">110811</span>
+    })
+    validation: Dataset({
+        features: [<span class="hljs-string">&#x27;patient_id&#x27;</span>, <span class="hljs-string">&#x27;drugName&#x27;</span>, <span class="hljs-string">&#x27;condition&#x27;</span>, <span class="hljs-string">&#x27;review&#x27;</span>, <span class="hljs-string">&#x27;rating&#x27;</span>, <span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;usefulCount&#x27;</span>, <span class="hljs-string">&#x27;review_length&#x27;</span>],
+        num_rows: <span class="hljs-number">27703</span>
+    })
+    test: Dataset({
+        features: [<span class="hljs-string">&#x27;patient_id&#x27;</span>, <span class="hljs-string">&#x27;drugName&#x27;</span>, <span class="hljs-string">&#x27;condition&#x27;</span>, <span class="hljs-string">&#x27;review&#x27;</span>, <span class="hljs-string">&#x27;rating&#x27;</span>, <span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;usefulCount&#x27;</span>, <span class="hljs-string">&#x27;review_length&#x27;</span>],
+        num_rows: <span class="hljs-number">46108</span>
+    })
+})<!-- HTML_TAG_END --></pre></div>
+<p>Pour les formats CSV et JSON, nous devons stocker chaque fractionnement dans un fichier séparé. Pour ce faire, vous pouvez parcourir les clés et les valeurs de l’objet “DatasetDict” :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">for</span> split, dataset <span class="hljs-keyword">in</span> drug_dataset_clean.items():
+    dataset.to_json(<span class="hljs-string">f&quot;drug-reviews-<span class="hljs-subst">{split}</span>.jsonl&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Cela enregistre chaque fractionnement au [format de lignes JSON] (<a href="https://jsonlines.org" rel="nofollow">https://jsonlines.org</a>), où chaque ligne de l’ensemble de données est stockée sous la forme d’une seule ligne de JSON. Voici à quoi ressemble le premier exemple :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->!head -n <span class="hljs-number">1</span> drug-reviews-train.jsonl<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-string">&quot;patient_id&quot;</span>:<span class="hljs-number">141780</span>,<span class="hljs-string">&quot;drugName&quot;</span>:<span class="hljs-string">&quot;Escitalopram&quot;</span>,<span class="hljs-string">&quot;condition&quot;</span>:<span class="hljs-string">&quot;depression&quot;</span>,<span class="hljs-string">&quot;review&quot;</span>:<span class="hljs-string">&quot;\&quot;I seemed to experience the regular side effects of LEXAPRO, insomnia, low sex drive, sleepiness during the day. I am taking it at night because my doctor said if it made me tired to take it at night. I assumed it would and started out taking it at night. Strange dreams, some pleasant. I was diagnosed with fibromyalgia. Seems to be helping with the pain. Have had anxiety and depression in my family, and have tried quite a few other medications that haven&#x27;t worked. Only have been on it for two weeks but feel more positive in my mind, want to accomplish more in my life. Hopefully the side effects will dwindle away, worth it to stick with it from hearing others responses. Great medication.\&quot;&quot;</span>,<span class="hljs-string">&quot;rating&quot;</span>:<span class="hljs-number">9.0</span>,<span class="hljs-string">&quot;date&quot;</span>:<span class="hljs-string">&quot;May 29, 2011&quot;</span>,<span class="hljs-string">&quot;usefulCount&quot;</span>:<span class="hljs-number">10</span>,<span class="hljs-string">&quot;review_length&quot;</span>:<span class="hljs-number">125</span>}<!-- HTML_TAG_END --></pre></div>
+<p>Nous pouvons ensuite utiliser les techniques de <a href="/course/chapter5/2">section 2</a> pour charger les fichiers JSON comme suit :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->data_files = {
+    <span class="hljs-string">&quot;train&quot;</span>: <span class="hljs-string">&quot;drug-reviews-train.jsonl&quot;</span>,
+    <span class="hljs-string">&quot;validation&quot;</span>: <span class="hljs-string">&quot;drug-reviews-validation.jsonl&quot;</span>,
+    <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-string">&quot;drug-reviews-test.jsonl&quot;</span>,
+}
+drug_dataset_reloaded = load_dataset(<span class="hljs-string">&quot;json&quot;</span>, data_files=data_files)<!-- HTML_TAG_END --></pre></div>
+<p>Et c’est tout pour notre excursion dans le data wrangling avec 🤗 Datasets ! Maintenant que nous disposons d’un ensemble de données nettoyé pour entraîner un modèle, voici quelques idées que vous pouvez essayer :</p>
+<ol><li>Utilisez les techniques du <a href="/course/chapter3">Chapitre 3</a> pour former un classificateur capable de prédire l’état du patient en fonction de l’examen du médicament.</li>
+<li>Utilisez le pipeline <code>summarization</code> du <a href="/course/chapter1">Chapitre 1</a> pour générer des résumés des révisions.</li></ol>
+<p>Ensuite, nous verrons comment 🤗 Datasets peut vous permettre de travailler avec d’énormes ensembles de données sans faire exploser votre ordinateur portable !</p>
+
+
+		<script type="module" data-hydrate="2j9mlf">
+		import { start } from "/docs/course/main/fr/_app/start-87bf1b9b.js";
+		start({
+			target: document.querySelector('[data-hydrate="2j9mlf"]').parentNode,
+			paths: {"base":"/docs/course/main/fr","assets":"/docs/course/main/fr"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/course/main/fr/_app/pages/__layout.svelte-20ef27ff.js"),
+						import("/docs/course/main/fr/_app/pages/chapter5/3.mdx-eefc2db5.js")
+				],
+				params: {}
+			}
+		});
+	</script>
