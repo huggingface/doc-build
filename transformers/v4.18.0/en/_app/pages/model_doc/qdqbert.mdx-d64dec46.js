@@ -1,0 +1,1167 @@
+import{S as am,i as rm,s as im,e as a,k as l,w as g,t as n,M as lm,c as r,d as o,m as d,a as i,x as _,h as s,b as c,F as e,g as u,y as b,q as v,o as k,B as Q,v as dm}from"../../chunks/vendor-6b77c823.js";import{T as ut}from"../../chunks/Tip-39098574.js";import{D as E}from"../../chunks/Docstring-af1d0ae0.js";import{C as x}from"../../chunks/CodeBlock-3a8b25a8.js";import{I as Y}from"../../chunks/IconCopyLink-7a11ce68.js";function cm(B){let p,q,f,T,y;return{c(){p=a("p"),q=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=a("code"),T=n("Module"),y=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(w){p=r(w,"P",{});var m=i(p);q=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=r(m,"CODE",{});var $=i(f);T=s($,"Module"),$.forEach(o),y=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(o)},m(w,m){u(w,p,m),e(p,q),e(p,f),e(f,T),e(p,y)},d(w){w&&o(p)}}}function hm(B){let p,q,f,T,y;return{c(){p=a("p"),q=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=a("code"),T=n("Module"),y=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(w){p=r(w,"P",{});var m=i(p);q=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=r(m,"CODE",{});var $=i(f);T=s($,"Module"),$.forEach(o),y=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(o)},m(w,m){u(w,p,m),e(p,q),e(p,f),e(f,T),e(p,y)},d(w){w&&o(p)}}}function pm(B){let p,q,f,T,y;return{c(){p=a("p"),q=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=a("code"),T=n("Module"),y=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(w){p=r(w,"P",{});var m=i(p);q=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=r(m,"CODE",{});var $=i(f);T=s($,"Module"),$.forEach(o),y=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(o)},m(w,m){u(w,p,m),e(p,q),e(p,f),e(f,T),e(p,y)},d(w){w&&o(p)}}}function um(B){let p,q,f,T,y;return{c(){p=a("p"),q=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=a("code"),T=n("Module"),y=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(w){p=r(w,"P",{});var m=i(p);q=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=r(m,"CODE",{});var $=i(f);T=s($,"Module"),$.forEach(o),y=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(o)},m(w,m){u(w,p,m),e(p,q),e(p,f),e(f,T),e(p,y)},d(w){w&&o(p)}}}function mm(B){let p,q,f,T,y;return{c(){p=a("p"),q=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=a("code"),T=n("Module"),y=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(w){p=r(w,"P",{});var m=i(p);q=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=r(m,"CODE",{});var $=i(f);T=s($,"Module"),$.forEach(o),y=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(o)},m(w,m){u(w,p,m),e(p,q),e(p,f),e(f,T),e(p,y)},d(w){w&&o(p)}}}function fm(B){let p,q,f,T,y;return{c(){p=a("p"),q=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=a("code"),T=n("Module"),y=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(w){p=r(w,"P",{});var m=i(p);q=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=r(m,"CODE",{});var $=i(f);T=s($,"Module"),$.forEach(o),y=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(o)},m(w,m){u(w,p,m),e(p,q),e(p,f),e(f,T),e(p,y)},d(w){w&&o(p)}}}function gm(B){let p,q,f,T,y;return{c(){p=a("p"),q=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=a("code"),T=n("Module"),y=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(w){p=r(w,"P",{});var m=i(p);q=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=r(m,"CODE",{});var $=i(f);T=s($,"Module"),$.forEach(o),y=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(o)},m(w,m){u(w,p,m),e(p,q),e(p,f),e(f,T),e(p,y)},d(w){w&&o(p)}}}function _m(B){let p,q,f,T,y;return{c(){p=a("p"),q=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=a("code"),T=n("Module"),y=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(w){p=r(w,"P",{});var m=i(p);q=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=r(m,"CODE",{});var $=i(f);T=s($,"Module"),$.forEach(o),y=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(o)},m(w,m){u(w,p,m),e(p,q),e(p,f),e(f,T),e(p,y)},d(w){w&&o(p)}}}function bm(B){let p,q,f,T,y,w,m,$,yr,sa,_e,Ie,Fn,mt,qr,Pn,$r,aa,Oe,Dr,ft,zr,Br,ra,Ko,Mr,ia,Go,Cn,xr,la,Yo,jr,da,Z,An,Nn,Er,Fr,Sn,We,Pr,gt,Cr,Ar,Ln,Nr,Sr,In,_t,Lr,On,Ir,Or,Wr,Wn,bt,Hr,Zo,Rr,Ur,ca,He,Vr,vt,Xr,Jr,ha,be,Re,Hn,kt,Kr,Rn,Gr,pa,F,Yr,Un,Zr,ei,Qt,ti,oi,Vn,ni,si,Xn,ai,ri,wt,ii,li,ua,Ue,di,Jn,ci,hi,ma,en,pi,fa,Tt,ga,ve,Ve,Kn,yt,ui,Gn,mi,_a,tn,fi,ba,qt,va,ke,Xe,Yn,$t,gi,Zn,_i,ka,se,bi,Dt,vi,ki,zt,Qi,wi,Qa,Bt,wa,Qe,Je,es,Mt,Ti,ts,yi,Ta,N,xt,qi,we,$i,on,Di,zi,jt,Bi,Mi,xi,Te,ji,nn,Ei,Fi,sn,Pi,Ci,Ai,os,Ni,Si,Et,ya,ye,Ke,ns,Ft,Li,ss,Ii,qa,z,Pt,Oi,as,Wi,Hi,Ct,Ri,an,Ui,Vi,Xi,At,Ji,Nt,Ki,Gi,Yi,St,Zi,Lt,el,tl,ol,j,nl,rs,sl,al,is,rl,il,ls,ll,dl,ds,cl,hl,cs,pl,ul,hs,ml,fl,gl,U,It,_l,qe,bl,rn,vl,kl,ps,Ql,wl,Tl,Ge,yl,us,ql,$l,Ot,$a,$e,Ye,ms,Wt,Dl,fs,zl,Da,S,Ht,Bl,Rt,Ml,gs,xl,jl,El,Ut,Fl,ln,Pl,Cl,Al,Vt,Nl,Xt,Sl,Ll,Il,V,Jt,Ol,De,Wl,dn,Hl,Rl,_s,Ul,Vl,Xl,Ze,Jl,bs,Kl,Gl,Kt,za,ze,et,vs,Gt,Yl,ks,Zl,Ba,L,Yt,ed,Zt,td,Qs,od,nd,sd,eo,ad,cn,rd,id,ld,to,dd,oo,cd,hd,pd,P,no,ud,Be,md,hn,fd,gd,ws,_d,bd,vd,tt,kd,Ts,Qd,wd,so,Td,ao,Ma,Me,ot,ys,ro,yd,qs,qd,xa,I,io,$d,$s,Dd,zd,lo,Bd,pn,Md,xd,jd,co,Ed,ho,Fd,Pd,Cd,D,po,Ad,xe,Nd,un,Sd,Ld,Ds,Id,Od,Wd,nt,Hd,zs,Rd,Ud,uo,Vd,mo,Xd,Bs,Jd,Kd,fo,Gd,go,ja,je,st,Ms,_o,Yd,xs,Zd,Ea,O,bo,ec,vo,tc,js,oc,nc,sc,ko,ac,mn,rc,ic,lc,Qo,dc,wo,cc,hc,pc,X,To,uc,Ee,mc,fn,fc,gc,Es,_c,bc,vc,at,kc,Fs,Qc,wc,yo,Fa,Fe,rt,Ps,qo,Tc,Cs,yc,Pa,W,$o,qc,As,$c,Dc,Do,zc,gn,Bc,Mc,xc,zo,jc,Bo,Ec,Fc,Pc,J,Mo,Cc,Pe,Ac,_n,Nc,Sc,Ns,Lc,Ic,Oc,it,Wc,Ss,Hc,Rc,xo,Ca,Ce,lt,Ls,jo,Uc,Is,Vc,Aa,H,Eo,Xc,Os,Jc,Kc,Fo,Gc,bn,Yc,Zc,eh,Po,th,Co,oh,nh,sh,C,Ao,ah,Ae,rh,vn,ih,lh,Ws,dh,ch,hh,dt,ph,Hs,uh,mh,No,fh,So,Na,Ne,ct,Rs,Lo,gh,Us,_h,Sa,R,Io,bh,Se,vh,Vs,kh,Qh,Xs,wh,Th,yh,Oo,qh,kn,$h,Dh,zh,Wo,Bh,Ho,Mh,xh,jh,A,Ro,Eh,Le,Fh,Qn,Ph,Ch,Js,Ah,Nh,Sh,ht,Lh,Ks,Ih,Oh,Uo,Wh,Vo,La;return w=new Y({}),mt=new Y({}),kt=new Y({}),Tt=new x({props:{code:`import pytorch_quantization.nn as quant_nn
+from pytorch_quantization.tensor_quant import QuantDescriptor
+
+# The default tensor quantizer is set to use Max calibration method
+input_desc = QuantDescriptor(num_bits=8, calib_method="max")
+# The default tensor quantizer is set to be per-channel quantization for weights
+weight_desc = QuantDescriptor(num_bits=8, axis=((0,)))
+quant_nn.QuantLinear.set_default_quant_desc_input(input_desc)
+quant_nn.QuantLinear.set_default_quant_desc_weight(weight_desc)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> pytorch_quantization.nn <span class="hljs-keyword">as</span> quant_nn
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> pytorch_quantization.tensor_quant <span class="hljs-keyword">import</span> QuantDescriptor
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># The default tensor quantizer is set to use Max calibration method</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>input_desc = QuantDescriptor(num_bits=<span class="hljs-number">8</span>, calib_method=<span class="hljs-string">&quot;max&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># The default tensor quantizer is set to be per-channel quantization for weights</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>weight_desc = QuantDescriptor(num_bits=<span class="hljs-number">8</span>, axis=((<span class="hljs-number">0</span>,)))
+<span class="hljs-meta">&gt;&gt;&gt; </span>quant_nn.QuantLinear.set_default_quant_desc_input(input_desc)
+<span class="hljs-meta">&gt;&gt;&gt; </span>quant_nn.QuantLinear.set_default_quant_desc_weight(weight_desc)`}}),yt=new Y({}),qt=new x({props:{code:`# Find the TensorQuantizer and enable calibration
+for name, module in model.named_modules():
+    if name.endswith("_input_quantizer"):
+        module.enable_calib()
+        module.disable_quant()  # Use full precision data to calibrate
+
+# Feeding data samples
+model(x)
+# ...
+
+# Finalize calibration
+for name, module in model.named_modules():
+    if name.endswith("_input_quantizer"):
+        module.load_calib_amax()
+        module.enable_quant()
+
+# If running on GPU, it needs to call .cuda() again because new tensors will be created by calibration process
+model.cuda()
+
+# Keep running the quantized model
+# ...`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Find the TensorQuantizer and enable calibration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> name, module <span class="hljs-keyword">in</span> model.named_modules():
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">if</span> name.endswith(<span class="hljs-string">&quot;_input_quantizer&quot;</span>):
+<span class="hljs-meta">... </span>        module.enable_calib()
+<span class="hljs-meta">... </span>        module.disable_quant()  <span class="hljs-comment"># Use full precision data to calibrate</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Feeding data samples</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>model(x)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># ...</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Finalize calibration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> name, module <span class="hljs-keyword">in</span> model.named_modules():
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">if</span> name.endswith(<span class="hljs-string">&quot;_input_quantizer&quot;</span>):
+<span class="hljs-meta">... </span>        module.load_calib_amax()
+<span class="hljs-meta">... </span>        module.enable_quant()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># If running on GPU, it needs to call .cuda() again because new tensors will be created by calibration process</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>model.cuda()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Keep running the quantized model</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># ...</span>`}}),$t=new Y({}),Bt=new x({props:{code:`from pytorch_quantization.nn import TensorQuantizer
+
+TensorQuantizer.use_fb_fake_quant = True
+
+# Load the calibrated model
+...
+# ONNX export
+torch.onnx.export(...)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> pytorch_quantization.nn <span class="hljs-keyword">import</span> TensorQuantizer
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>TensorQuantizer.use_fb_fake_quant = <span class="hljs-literal">True</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Load the calibrated model</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>...
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># ONNX export</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>torch.onnx.export(...)`}}),Mt=new Y({}),xt=new E({props:{name:"class transformers.QDQBertConfig",anchor:"transformers.QDQBertConfig",parameters:[{name:"vocab_size",val:" = 30522"},{name:"hidden_size",val:" = 768"},{name:"num_hidden_layers",val:" = 12"},{name:"num_attention_heads",val:" = 12"},{name:"intermediate_size",val:" = 3072"},{name:"hidden_act",val:" = 'gelu'"},{name:"hidden_dropout_prob",val:" = 0.1"},{name:"attention_probs_dropout_prob",val:" = 0.1"},{name:"max_position_embeddings",val:" = 512"},{name:"type_vocab_size",val:" = 2"},{name:"initializer_range",val:" = 0.02"},{name:"layer_norm_eps",val:" = 1e-12"},{name:"use_cache",val:" = True"},{name:"is_encoder_decoder",val:" = False"},{name:"pad_token_id",val:" = 1"},{name:"bos_token_id",val:" = 0"},{name:"eos_token_id",val:" = 2"},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/configuration_qdqbert.py#L29",parametersDescription:[{anchor:"transformers.QDQBertConfig.vocab_size",description:`<strong>vocab_size</strong> (<code>int</code>, <em>optional</em>, defaults to 30522) &#x2014;
+Vocabulary size of the QDQBERT model. Defines the number of different tokens that can be represented by the
+<code>inputs_ids</code> passed when calling <a href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertModel">QDQBertModel</a>.`,name:"vocab_size"},{anchor:"transformers.QDQBertConfig.hidden_size",description:`<strong>hidden_size</strong> (<code>int</code>, <em>optional</em>, defaults to 768) &#x2014;
+Dimension of the encoder layers and the pooler layer.`,name:"hidden_size"},{anchor:"transformers.QDQBertConfig.num_hidden_layers",description:`<strong>num_hidden_layers</strong> (<code>int</code>, <em>optional</em>, defaults to 12) &#x2014;
+Number of hidden layers in the Transformer encoder.`,name:"num_hidden_layers"},{anchor:"transformers.QDQBertConfig.num_attention_heads",description:`<strong>num_attention_heads</strong> (<code>int</code>, <em>optional</em>, defaults to 12) &#x2014;
+Number of attention heads for each attention layer in the Transformer encoder.`,name:"num_attention_heads"},{anchor:"transformers.QDQBertConfig.intermediate_size",description:`<strong>intermediate_size</strong> (<code>int</code>, <em>optional</em>, defaults to 3072) &#x2014;
+Dimension of the &#x201C;intermediate&#x201D; (i.e., feed-forward) layer in the Transformer encoder.`,name:"intermediate_size"},{anchor:"transformers.QDQBertConfig.hidden_act",description:`<strong>hidden_act</strong> (<code>str</code> or <code>function</code>, <em>optional</em>, defaults to <code>&quot;gelu&quot;</code>) &#x2014;
+The non-linear activation function (function or string) in the encoder and pooler. If string, <code>&quot;gelu&quot;</code>,
+<code>&quot;relu&quot;</code>, <code>&quot;selu&quot;</code> and <code>&quot;gelu_new&quot;</code> are supported.`,name:"hidden_act"},{anchor:"transformers.QDQBertConfig.hidden_dropout_prob",description:`<strong>hidden_dropout_prob</strong> (<code>float</code>, <em>optional</em>, defaults to 0.1) &#x2014;
+The dropout probabilitiy for all fully connected layers in the embeddings, encoder, and pooler.`,name:"hidden_dropout_prob"},{anchor:"transformers.QDQBertConfig.attention_probs_dropout_prob",description:`<strong>attention_probs_dropout_prob</strong> (<code>float</code>, <em>optional</em>, defaults to 0.1) &#x2014;
+The dropout ratio for the attention probabilities.`,name:"attention_probs_dropout_prob"},{anchor:"transformers.QDQBertConfig.max_position_embeddings",description:`<strong>max_position_embeddings</strong> (<code>int</code>, <em>optional</em>, defaults to 512) &#x2014;
+The maximum sequence length that this model might ever be used with. Typically set this to something large
+just in case (e.g., 512 or 1024 or 2048).`,name:"max_position_embeddings"},{anchor:"transformers.QDQBertConfig.type_vocab_size",description:`<strong>type_vocab_size</strong> (<code>int</code>, <em>optional</em>, defaults to 2) &#x2014;
+The vocabulary size of the <code>token_type_ids</code> passed when calling <a href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertModel">QDQBertModel</a>.`,name:"type_vocab_size"},{anchor:"transformers.QDQBertConfig.initializer_range",description:`<strong>initializer_range</strong> (<code>float</code>, <em>optional</em>, defaults to 0.02) &#x2014;
+The standard deviation of the truncated_normal_initializer for initializing all weight matrices.`,name:"initializer_range"},{anchor:"transformers.QDQBertConfig.layer_norm_eps",description:`<strong>layer_norm_eps</strong> (<code>float</code>, <em>optional</em>, defaults to 1e-12) &#x2014;
+The epsilon used by the layer normalization layers.`,name:"layer_norm_eps"},{anchor:"transformers.QDQBertConfig.use_cache",description:`<strong>use_cache</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
+Whether or not the model should return the last key/values attentions (not used by all models). Only
+relevant if <code>config.is_decoder=True</code>.`,name:"use_cache"}]}}),Et=new x({props:{code:`from transformers import QDQBertModel, QDQBertConfig
+
+# Initializing a QDQBERT bert-base-uncased style configuration
+configuration = QDQBertConfig()
+
+# Initializing a model from the bert-base-uncased style configuration
+model = QDQBertModel(configuration)
+
+# Accessing the model configuration
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> QDQBertModel, QDQBertConfig
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a QDQBERT bert-base-uncased style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>configuration = QDQBertConfig()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the bert-base-uncased style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = QDQBertModel(configuration)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>configuration = model.config`}}),Ft=new Y({}),Pt=new E({props:{name:"class transformers.QDQBertModel",anchor:"transformers.QDQBertModel",parameters:[{name:"config",val:""},{name:"add_pooling_layer",val:" = True"}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L831",parametersDescription:[{anchor:"transformers.QDQBertModel.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig">QDQBertConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),It=new E({props:{name:"forward",anchor:"transformers.QDQBertModel.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"encoder_hidden_states",val:" = None"},{name:"encoder_attention_mask",val:" = None"},{name:"past_key_values",val:" = None"},{name:"use_cache",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L871",parametersDescription:[{anchor:"transformers.QDQBertModel.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.18.0/en/model_doc/bert#transformers.BertTokenizer">BertTokenizer</a>. See <a href="/docs/transformers/v4.18.0/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.18.0/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.QDQBertModel.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.QDQBertModel.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.QDQBertModel.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.QDQBertModel.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.QDQBertModel.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <code>input_ids</code> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.QDQBertModel.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.QDQBertModel.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.QDQBertModel.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.QDQBertModel.forward.encoder_hidden_states",description:`<strong>encoder_hidden_states</strong>  (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Sequence of hidden-states at the output of the last layer of the encoder. Used in the cross-attention if
+the model is configured as a decoder.`,name:"encoder_hidden_states"},{anchor:"transformers.QDQBertModel.forward.encoder_attention_mask",description:`<strong>encoder_attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on the padding token indices of the encoder input. This mask is used in
+the cross-attention if the model is configured as a decoder. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>`,name:"encoder_attention_mask"},{anchor:"transformers.QDQBertModel.forward.past_key_values",description:`<strong>past_key_values</strong> (<code>tuple(tuple(torch.FloatTensor))</code> of length <code>config.n_layers</code> with each tuple having 4 tensors of shape <code>(batch_size, num_heads, sequence_length - 1, embed_size_per_head)</code>) &#x2014;
+Contains precomputed key and value hidden states of the attention blocks. Can be used to speed up decoding.</p>
+<p>If <code>past_key_values</code> are used, the user can optionally input only the last <code>decoder_input_ids</code> (those that
+don&#x2019;t have their past key value states given to this model) of shape <code>(batch_size, 1)</code> instead of all
+<code>decoder_input_ids</code> of shape <code>(batch_size, sequence_length)</code>.`,name:"past_key_values"},{anchor:"transformers.QDQBertModel.forward.use_cache",description:`<strong>use_cache</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+If set to <code>True</code>, <code>past_key_values</code> key value states are returned and can be used to speed up decoding (see
+<code>past_key_values</code>).`,name:"use_cache"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.BaseModelOutputWithPoolingAndCrossAttentions"
+>transformers.modeling_outputs.BaseModelOutputWithPoolingAndCrossAttentions</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig"
+>QDQBertConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>last_hidden_state</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>) \u2014 Sequence of hidden-states at the output of the last layer of the model.</p>
+</li>
+<li>
+<p><strong>pooler_output</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, hidden_size)</code>) \u2014 Last layer hidden-state of the first token of the sequence (classification token) after further processing
+through the layers used for the auxiliary pretraining task. E.g. for BERT-family of models, this returns
+the classification token after processing through a linear layer and a tanh activation function. The linear
+layer weights are trained from the next sentence prediction (classification) objective during pretraining.</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+<li>
+<p><strong>cross_attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> and <code>config.add_cross_attention=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights of the decoder\u2019s cross-attention layer, after the attention softmax, used to compute the
+weighted average in the cross-attention heads.</p>
+</li>
+<li>
+<p><strong>past_key_values</strong> (<code>tuple(tuple(torch.FloatTensor))</code>, <em>optional</em>, returned when <code>use_cache=True</code> is passed or when <code>config.use_cache=True</code>) \u2014 Tuple of <code>tuple(torch.FloatTensor)</code> of length <code>config.n_layers</code>, with each tuple having 2 tensors of shape
+<code>(batch_size, num_heads, sequence_length, embed_size_per_head)</code>) and optionally if
+<code>config.is_encoder_decoder=True</code> 2 additional tensors of shape <code>(batch_size, num_heads, encoder_sequence_length, embed_size_per_head)</code>.</p>
+<p>Contains pre-computed hidden-states (key and values in the self-attention blocks and optionally if
+<code>config.is_encoder_decoder=True</code> in the cross-attention blocks) that can be used (see <code>past_key_values</code>
+input) to speed up sequential decoding.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.BaseModelOutputWithPoolingAndCrossAttentions"
+>transformers.modeling_outputs.BaseModelOutputWithPoolingAndCrossAttentions</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),Ge=new ut({props:{$$slots:{default:[cm]},$$scope:{ctx:B}}}),Ot=new x({props:{code:`from transformers import BertTokenizer, QDQBertModel
+import torch
+
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+model = QDQBertModel.from_pretrained("bert-base-uncased")
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
+outputs = model(**inputs)
+
+last_hidden_states = outputs.last_hidden_state`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, QDQBertModel
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = QDQBertModel.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>last_hidden_states = outputs.last_hidden_state`}}),Wt=new Y({}),Ht=new E({props:{name:"class transformers.QDQBertLMHeadModel",anchor:"transformers.QDQBertLMHeadModel",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1012",parametersDescription:[{anchor:"transformers.QDQBertLMHeadModel.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig">QDQBertConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),Jt=new E({props:{name:"forward",anchor:"transformers.QDQBertLMHeadModel.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"encoder_hidden_states",val:" = None"},{name:"encoder_attention_mask",val:" = None"},{name:"labels",val:" = None"},{name:"past_key_values",val:" = None"},{name:"use_cache",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1035",parametersDescription:[{anchor:"transformers.QDQBertLMHeadModel.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.18.0/en/model_doc/bert#transformers.BertTokenizer">BertTokenizer</a>. See <a href="/docs/transformers/v4.18.0/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.18.0/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.QDQBertLMHeadModel.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.QDQBertLMHeadModel.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.QDQBertLMHeadModel.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.QDQBertLMHeadModel.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.QDQBertLMHeadModel.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <code>input_ids</code> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.QDQBertLMHeadModel.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.QDQBertLMHeadModel.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.QDQBertLMHeadModel.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.QDQBertLMHeadModel.forward.encoder_hidden_states",description:`<strong>encoder_hidden_states</strong>  (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Sequence of hidden-states at the output of the last layer of the encoder. Used in the cross-attention if
+the model is configured as a decoder.`,name:"encoder_hidden_states"},{anchor:"transformers.QDQBertLMHeadModel.forward.encoder_attention_mask",description:`<strong>encoder_attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on the padding token indices of the encoder input. This mask is used in
+the cross-attention if the model is configured as a decoder. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>`,name:"encoder_attention_mask"},{anchor:"transformers.QDQBertLMHeadModel.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Labels for computing the left-to-right language modeling loss (next word prediction). Indices should be in
+<code>[-100, 0, ..., config.vocab_size]</code> (see <code>input_ids</code> docstring) Tokens with indices set to <code>-100</code> are
+ignored (masked), the loss is only computed for the tokens with labels n <code>[0, ..., config.vocab_size]</code>`,name:"labels"},{anchor:"transformers.QDQBertLMHeadModel.forward.past_key_values",description:`<strong>past_key_values</strong> (<code>tuple(tuple(torch.FloatTensor))</code> of length <code>config.n_layers</code> with each tuple having 4 tensors of shape <code>(batch_size, num_heads, sequence_length - 1, embed_size_per_head)</code>) &#x2014;
+Contains precomputed key and value hidden states of the attention blocks. Can be used to speed up decoding.</p>
+<p>If <code>past_key_values</code> are used, the user can optionally input only the last <code>decoder_input_ids</code> (those that
+don&#x2019;t have their past key value states given to this model) of shape <code>(batch_size, 1)</code> instead of all
+<code>decoder_input_ids</code> of shape <code>(batch_size, sequence_length)</code>.`,name:"past_key_values"},{anchor:"transformers.QDQBertLMHeadModel.forward.use_cache",description:`<strong>use_cache</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+If set to <code>True</code>, <code>past_key_values</code> key value states are returned and can be used to speed up decoding (see
+<code>past_key_values</code>).`,name:"use_cache"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.CausalLMOutputWithCrossAttentions"
+>transformers.modeling_outputs.CausalLMOutputWithCrossAttentions</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig"
+>QDQBertConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Language modeling loss (for next-token prediction).</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, config.vocab_size)</code>) \u2014 Prediction scores of the language modeling head (scores for each vocabulary token before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+<li>
+<p><strong>cross_attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Cross attentions weights after the attention softmax, used to compute the weighted average in the
+cross-attention heads.</p>
+</li>
+<li>
+<p><strong>past_key_values</strong> (<code>tuple(tuple(torch.FloatTensor))</code>, <em>optional</em>, returned when <code>use_cache=True</code> is passed or when <code>config.use_cache=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> tuples of length <code>config.n_layers</code>, with each tuple containing the cached key,
+value states of the self-attention and the cross-attention layers if model is used in encoder-decoder
+setting. Only relevant if <code>config.is_decoder = True</code>.</p>
+<p>Contains pre-computed hidden-states (key and values in the attention blocks) that can be used (see
+<code>past_key_values</code> input) to speed up sequential decoding.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.CausalLMOutputWithCrossAttentions"
+>transformers.modeling_outputs.CausalLMOutputWithCrossAttentions</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),Ze=new ut({props:{$$slots:{default:[hm]},$$scope:{ctx:B}}}),Kt=new x({props:{code:`from transformers import BertTokenizer, QDQBertLMHeadModel, QDQBertConfig
+import torch
+
+tokenizer = BertTokenizer.from_pretrained("bert-base-cased")
+config = QDQBertConfig.from_pretrained("bert-base-cased")
+config.is_decoder = True
+model = QDQBertLMHeadModel.from_pretrained("bert-base-cased", config=config)
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
+outputs = model(**inputs)
+
+prediction_logits = outputs.logits`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, QDQBertLMHeadModel, QDQBertConfig
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>config = QDQBertConfig.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>config.is_decoder = <span class="hljs-literal">True</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = QDQBertLMHeadModel.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>, config=config)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>prediction_logits = outputs.logits`}}),Gt=new Y({}),Yt=new E({props:{name:"class transformers.QDQBertForMaskedLM",anchor:"transformers.QDQBertForMaskedLM",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1160",parametersDescription:[{anchor:"transformers.QDQBertForMaskedLM.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig">QDQBertConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),no=new E({props:{name:"forward",anchor:"transformers.QDQBertForMaskedLM.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"encoder_hidden_states",val:" = None"},{name:"encoder_attention_mask",val:" = None"},{name:"labels",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1186",parametersDescription:[{anchor:"transformers.QDQBertForMaskedLM.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.18.0/en/model_doc/bert#transformers.BertTokenizer">BertTokenizer</a>. See <a href="/docs/transformers/v4.18.0/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.18.0/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.QDQBertForMaskedLM.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.QDQBertForMaskedLM.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.QDQBertForMaskedLM.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.QDQBertForMaskedLM.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.QDQBertForMaskedLM.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <code>input_ids</code> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.QDQBertForMaskedLM.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.QDQBertForMaskedLM.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.QDQBertForMaskedLM.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.QDQBertForMaskedLM.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Labels for computing the masked language modeling loss. Indices should be in <code>[-100, 0, ..., config.vocab_size]</code> (see <code>input_ids</code> docstring) Tokens with indices set to <code>-100</code> are ignored (masked), the
+loss is only computed for the tokens with labels in <code>[0, ..., config.vocab_size]</code>`,name:"labels"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.MaskedLMOutput"
+>transformers.modeling_outputs.MaskedLMOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig"
+>QDQBertConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Masked language modeling (MLM) loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, config.vocab_size)</code>) \u2014 Prediction scores of the language modeling head (scores for each vocabulary token before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.MaskedLMOutput"
+>transformers.modeling_outputs.MaskedLMOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),tt=new ut({props:{$$slots:{default:[pm]},$$scope:{ctx:B}}}),so=new x({props:{code:`from transformers import BertTokenizer, QDQBertForMaskedLM
+import torch
+
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+model = QDQBertForMaskedLM.from_pretrained("bert-base-uncased")
+
+inputs = tokenizer("The capital of France is [MASK].", return_tensors="pt")
+
+with torch.no_grad():
+    logits = model(**inputs).logits
+
+# retrieve index of [MASK]
+mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
+
+predicted_token_id = logits[0, mask_token_index].argmax(axis=-1)
+tokenizer.decode(predicted_token_id)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, QDQBertForMaskedLM
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = QDQBertForMaskedLM.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;The capital of France is [MASK].&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>    logits = model(**inputs).logits
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># retrieve index of [MASK]</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[<span class="hljs-number">0</span>].nonzero(as_tuple=<span class="hljs-literal">True</span>)[<span class="hljs-number">0</span>]
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_token_id = logits[<span class="hljs-number">0</span>, mask_token_index].argmax(axis=-<span class="hljs-number">1</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predicted_token_id)
+`}}),ao=new x({props:{code:`labels = tokenizer("The capital of France is Paris.", return_tensors="pt")["input_ids"]
+# mask labels of non-[MASK] tokens
+labels = torch.where(inputs.input_ids == tokenizer.mask_token_id, labels, -100)
+
+outputs = model(**inputs, labels=labels)
+round(outputs.loss.item(), 2)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>labels = tokenizer(<span class="hljs-string">&quot;The capital of France is Paris.&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)[<span class="hljs-string">&quot;input_ids&quot;</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># mask labels of non-[MASK] tokens</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.where(inputs.input_ids == tokenizer.mask_token_id, labels, -<span class="hljs-number">100</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, labels=labels)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(outputs.loss.item(), <span class="hljs-number">2</span>)
+`}}),ro=new Y({}),io=new E({props:{name:"class transformers.QDQBertForSequenceClassification",anchor:"transformers.QDQBertForSequenceClassification",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1374",parametersDescription:[{anchor:"transformers.QDQBertForSequenceClassification.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig">QDQBertConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),po=new E({props:{name:"forward",anchor:"transformers.QDQBertForSequenceClassification.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"labels",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1386",parametersDescription:[{anchor:"transformers.QDQBertForSequenceClassification.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.18.0/en/model_doc/bert#transformers.BertTokenizer">BertTokenizer</a>. See <a href="/docs/transformers/v4.18.0/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.18.0/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.QDQBertForSequenceClassification.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.QDQBertForSequenceClassification.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.QDQBertForSequenceClassification.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.QDQBertForSequenceClassification.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.QDQBertForSequenceClassification.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <code>input_ids</code> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.QDQBertForSequenceClassification.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.QDQBertForSequenceClassification.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.QDQBertForSequenceClassification.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.QDQBertForSequenceClassification.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for computing the sequence classification/regression loss. Indices should be in <code>[0, ..., config.num_labels - 1]</code>. If <code>config.num_labels == 1</code> a regression loss is computed (Mean-Square loss), If
+<code>config.num_labels &gt; 1</code> a classification loss is computed (Cross-Entropy).`,name:"labels"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.SequenceClassifierOutput"
+>transformers.modeling_outputs.SequenceClassifierOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig"
+>QDQBertConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Classification (or regression if config.num_labels==1) loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, config.num_labels)</code>) \u2014 Classification (or regression if config.num_labels==1) scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.SequenceClassifierOutput"
+>transformers.modeling_outputs.SequenceClassifierOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),nt=new ut({props:{$$slots:{default:[um]},$$scope:{ctx:B}}}),uo=new x({props:{code:`import torch
+from transformers import BertTokenizer, QDQBertForSequenceClassification
+
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+model = QDQBertForSequenceClassification.from_pretrained("bert-base-uncased")
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
+
+with torch.no_grad():
+    logits = model(**inputs).logits
+
+predicted_class_id = logits.argmax().item()
+model.config.id2label[predicted_class_id]
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, QDQBertForSequenceClassification
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = QDQBertForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>    logits = model(**inputs).logits
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_class_id = logits.argmax().item()
+<span class="hljs-meta">&gt;&gt;&gt; </span>model.config.id2label[predicted_class_id]
+`}}),mo=new x({props:{code:`# To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`
+num_labels = len(model.config.id2label)
+model = QDQBertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=num_labels)
+
+labels = torch.tensor(1)
+loss = model(**inputs, labels=labels).loss
+round(loss.item(), 2)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = QDQBertForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>, num_labels=num_labels)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor(<span class="hljs-number">1</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
+`}}),fo=new x({props:{code:`import torch
+from transformers import BertTokenizer, QDQBertForSequenceClassification
+
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+model = QDQBertForSequenceClassification.from_pretrained("bert-base-uncased", problem_type="multi_label_classification")
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
+
+with torch.no_grad():
+    logits = model(**inputs).logits
+
+predicted_class_id = logits.argmax().item()
+model.config.id2label[predicted_class_id]
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, QDQBertForSequenceClassification
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = QDQBertForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>, problem_type=<span class="hljs-string">&quot;multi_label_classification&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>    logits = model(**inputs).logits
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_class_id = logits.argmax().item()
+<span class="hljs-meta">&gt;&gt;&gt; </span>model.config.id2label[predicted_class_id]
+`}}),go=new x({props:{code:`# To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`
+num_labels = len(model.config.id2label)
+model = QDQBertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=num_labels)
+
+num_labels = len(model.config.id2label)
+labels = torch.nn.functional.one_hot(torch.tensor([predicted_class_id]), num_classes=num_labels).to(
+    torch.float
+)
+loss = model(**inputs, labels=labels).loss
+loss.backward()`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = QDQBertForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>, num_labels=num_labels)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.nn.functional.one_hot(torch.tensor([predicted_class_id]), num_classes=num_labels).to(
+<span class="hljs-meta">... </span>    torch.<span class="hljs-built_in">float</span>
+<span class="hljs-meta">... </span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss.backward()`}}),_o=new Y({}),bo=new E({props:{name:"class transformers.QDQBertForNextSentencePrediction",anchor:"transformers.QDQBertForNextSentencePrediction",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1271",parametersDescription:[{anchor:"transformers.QDQBertForNextSentencePrediction.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig">QDQBertConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),To=new E({props:{name:"forward",anchor:"transformers.QDQBertForNextSentencePrediction.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"labels",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1281",parametersDescription:[{anchor:"transformers.QDQBertForNextSentencePrediction.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.18.0/en/model_doc/bert#transformers.BertTokenizer">BertTokenizer</a>. See <a href="/docs/transformers/v4.18.0/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.18.0/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.QDQBertForNextSentencePrediction.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.QDQBertForNextSentencePrediction.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.QDQBertForNextSentencePrediction.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.QDQBertForNextSentencePrediction.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.QDQBertForNextSentencePrediction.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <code>input_ids</code> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.QDQBertForNextSentencePrediction.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.QDQBertForNextSentencePrediction.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.QDQBertForNextSentencePrediction.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.QDQBertForNextSentencePrediction.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for computing the next sequence prediction (classification) loss. Input should be a sequence pair
+(see <code>input_ids</code> docstring). Indices should be in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 indicates sequence B is a continuation of sequence A,</li>
+<li>1 indicates sequence B is a random sequence.</li>
+</ul>`,name:"labels"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.NextSentencePredictorOutput"
+>transformers.modeling_outputs.NextSentencePredictorOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig"
+>QDQBertConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>next_sentence_label</code> is provided) \u2014 Next sequence prediction (classification) loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, 2)</code>) \u2014 Prediction scores of the next sequence prediction (classification) head (scores of True/False continuation
+before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.NextSentencePredictorOutput"
+>transformers.modeling_outputs.NextSentencePredictorOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),at=new ut({props:{$$slots:{default:[mm]},$$scope:{ctx:B}}}),yo=new x({props:{code:`from transformers import BertTokenizer, QDQBertForNextSentencePrediction
+import torch
+
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+model = QDQBertForNextSentencePrediction.from_pretrained("bert-base-uncased")
+
+prompt = "In Italy, pizza served in formal settings, such as at a restaurant, is presented unsliced."
+next_sentence = "The sky is blue due to the shorter wavelength of blue light."
+encoding = tokenizer(prompt, next_sentence, return_tensors="pt")
+
+outputs = model(**encoding, labels=torch.LongTensor([1]))
+logits = outputs.logits
+assert logits[0, 0] < logits[0, 1]  # next sentence was random`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, QDQBertForNextSentencePrediction
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = QDQBertForNextSentencePrediction.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>prompt = <span class="hljs-string">&quot;In Italy, pizza served in formal settings, such as at a restaurant, is presented unsliced.&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>next_sentence = <span class="hljs-string">&quot;The sky is blue due to the shorter wavelength of blue light.&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>encoding = tokenizer(prompt, next_sentence, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**encoding, labels=torch.LongTensor([<span class="hljs-number">1</span>]))
+<span class="hljs-meta">&gt;&gt;&gt; </span>logits = outputs.logits
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">assert</span> logits[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>] &lt; logits[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]  <span class="hljs-comment"># next sentence was random</span>`}}),qo=new Y({}),$o=new E({props:{name:"class transformers.QDQBertForMultipleChoice",anchor:"transformers.QDQBertForMultipleChoice",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1472",parametersDescription:[{anchor:"transformers.QDQBertForMultipleChoice.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig">QDQBertConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),Mo=new E({props:{name:"forward",anchor:"transformers.QDQBertForMultipleChoice.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"labels",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1483",parametersDescription:[{anchor:"transformers.QDQBertForMultipleChoice.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, num_choices, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.18.0/en/model_doc/bert#transformers.BertTokenizer">BertTokenizer</a>. See <a href="/docs/transformers/v4.18.0/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.18.0/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.QDQBertForMultipleChoice.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, num_choices, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.QDQBertForMultipleChoice.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, num_choices, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.QDQBertForMultipleChoice.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, num_choices, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.QDQBertForMultipleChoice.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.QDQBertForMultipleChoice.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, num_choices, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <code>input_ids</code> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.QDQBertForMultipleChoice.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.QDQBertForMultipleChoice.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.QDQBertForMultipleChoice.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.QDQBertForMultipleChoice.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for computing the multiple choice classification loss. Indices should be in <code>[0, ..., num_choices-1]</code> where <code>num_choices</code> is the size of the second dimension of the input tensors. (See
+<code>input_ids</code> above)`,name:"labels"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.MultipleChoiceModelOutput"
+>transformers.modeling_outputs.MultipleChoiceModelOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig"
+>QDQBertConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <em>(1,)</em>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Classification loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, num_choices)</code>) \u2014 <em>num_choices</em> is the second dimension of the input tensors. (see <em>input_ids</em> above).</p>
+<p>Classification scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.MultipleChoiceModelOutput"
+>transformers.modeling_outputs.MultipleChoiceModelOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),it=new ut({props:{$$slots:{default:[fm]},$$scope:{ctx:B}}}),xo=new x({props:{code:`from transformers import BertTokenizer, QDQBertForMultipleChoice
+import torch
+
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+model = QDQBertForMultipleChoice.from_pretrained("bert-base-uncased")
+
+prompt = "In Italy, pizza served in formal settings, such as at a restaurant, is presented unsliced."
+choice0 = "It is eaten with a fork and a knife."
+choice1 = "It is eaten while held in the hand."
+labels = torch.tensor(0).unsqueeze(0)  # choice0 is correct (according to Wikipedia ;)), batch size 1
+
+encoding = tokenizer([prompt, prompt], [choice0, choice1], return_tensors="pt", padding=True)
+outputs = model(**{k: v.unsqueeze(0) for k, v in encoding.items()}, labels=labels)  # batch size is 1
+
+# the linear classifier still needs to be trained
+loss = outputs.loss
+logits = outputs.logits`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, QDQBertForMultipleChoice
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = QDQBertForMultipleChoice.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>prompt = <span class="hljs-string">&quot;In Italy, pizza served in formal settings, such as at a restaurant, is presented unsliced.&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>choice0 = <span class="hljs-string">&quot;It is eaten with a fork and a knife.&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>choice1 = <span class="hljs-string">&quot;It is eaten while held in the hand.&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor(<span class="hljs-number">0</span>).unsqueeze(<span class="hljs-number">0</span>)  <span class="hljs-comment"># choice0 is correct (according to Wikipedia ;)), batch size 1</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>encoding = tokenizer([prompt, prompt], [choice0, choice1], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>, padding=<span class="hljs-literal">True</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**{k: v.unsqueeze(<span class="hljs-number">0</span>) <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> encoding.items()}, labels=labels)  <span class="hljs-comment"># batch size is 1</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># the linear classifier still needs to be trained</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = outputs.loss
+<span class="hljs-meta">&gt;&gt;&gt; </span>logits = outputs.logits`}}),jo=new Y({}),Eo=new E({props:{name:"class transformers.QDQBertForTokenClassification",anchor:"transformers.QDQBertForTokenClassification",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1564",parametersDescription:[{anchor:"transformers.QDQBertForTokenClassification.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig">QDQBertConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),Ao=new E({props:{name:"forward",anchor:"transformers.QDQBertForTokenClassification.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"labels",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1579",parametersDescription:[{anchor:"transformers.QDQBertForTokenClassification.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.18.0/en/model_doc/bert#transformers.BertTokenizer">BertTokenizer</a>. See <a href="/docs/transformers/v4.18.0/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.18.0/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.QDQBertForTokenClassification.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.QDQBertForTokenClassification.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.QDQBertForTokenClassification.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.QDQBertForTokenClassification.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.QDQBertForTokenClassification.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <code>input_ids</code> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.QDQBertForTokenClassification.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.QDQBertForTokenClassification.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.QDQBertForTokenClassification.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.QDQBertForTokenClassification.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Labels for computing the token classification loss. Indices should be in <code>[0, ..., config.num_labels - 1]</code>.`,name:"labels"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.TokenClassifierOutput"
+>transformers.modeling_outputs.TokenClassifierOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig"
+>QDQBertConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided)  \u2014 Classification loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, config.num_labels)</code>) \u2014 Classification scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.TokenClassifierOutput"
+>transformers.modeling_outputs.TokenClassifierOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),dt=new ut({props:{$$slots:{default:[gm]},$$scope:{ctx:B}}}),No=new x({props:{code:`from transformers import BertTokenizer, QDQBertForTokenClassification
+import torch
+
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+model = QDQBertForTokenClassification.from_pretrained("bert-base-uncased")
+
+inputs = tokenizer(
+    "HuggingFace is a company based in Paris and New York", add_special_tokens=False, return_tensors="pt"
+)
+
+with torch.no_grad():
+    logits = model(**inputs).logits
+
+predicted_token_class_ids = logits.argmax(-1)
+
+# Note that tokens are classified rather then input words which means that
+# there might be more predicted token classes than words.
+# Multiple token classes might account for the same word
+predicted_tokens_classes = [model.config.id2label[t.item()] for t in predicted_token_class_ids[0]]
+predicted_tokens_classes
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, QDQBertForTokenClassification
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = QDQBertForTokenClassification.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(
+<span class="hljs-meta">... </span>    <span class="hljs-string">&quot;HuggingFace is a company based in Paris and New York&quot;</span>, add_special_tokens=<span class="hljs-literal">False</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>
+<span class="hljs-meta">... </span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>    logits = model(**inputs).logits
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_token_class_ids = logits.argmax(-<span class="hljs-number">1</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Note that tokens are classified rather then input words which means that</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># there might be more predicted token classes than words.</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Multiple token classes might account for the same word</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_tokens_classes = [model.config.id2label[t.item()] <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> predicted_token_class_ids[<span class="hljs-number">0</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_tokens_classes
+`}}),So=new x({props:{code:`labels = predicted_token_class_ids
+loss = model(**inputs, labels=labels).loss
+round(loss.item(), 2)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>labels = predicted_token_class_ids
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
+`}}),Lo=new Y({}),Io=new E({props:{name:"class transformers.QDQBertForQuestionAnswering",anchor:"transformers.QDQBertForQuestionAnswering",parameters:[{name:"config",val:""}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1646",parametersDescription:[{anchor:"transformers.QDQBertForQuestionAnswering.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig">QDQBertConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}]}}),Ro=new E({props:{name:"forward",anchor:"transformers.QDQBertForQuestionAnswering.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"head_mask",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"start_positions",val:" = None"},{name:"end_positions",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/qdqbert/modeling_qdqbert.py#L1660",parametersDescription:[{anchor:"transformers.QDQBertForQuestionAnswering.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.18.0/en/model_doc/bert#transformers.BertTokenizer">BertTokenizer</a>. See <a href="/docs/transformers/v4.18.0/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.18.0/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.QDQBertForQuestionAnswering.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.QDQBertForQuestionAnswering.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.QDQBertForQuestionAnswering.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.QDQBertForQuestionAnswering.forward.head_mask",description:`<strong>head_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(num_heads,)</code> or <code>(num_layers, num_heads)</code>, <em>optional</em>) &#x2014;
+Mask to nullify selected heads of the self-attention modules. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 indicates the head is <strong>not masked</strong>,</li>
+<li>0 indicates the head is <strong>masked</strong>.</li>
+</ul>`,name:"head_mask"},{anchor:"transformers.QDQBertForQuestionAnswering.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <code>input_ids</code> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.QDQBertForQuestionAnswering.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.QDQBertForQuestionAnswering.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.QDQBertForQuestionAnswering.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.QDQBertForQuestionAnswering.forward.start_positions",description:`<strong>start_positions</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for position (index) of the start of the labelled span for computing the token classification loss.
+Positions are clamped to the length of the sequence (<code>sequence_length</code>). Position outside of the sequence
+are not taken into account for computing the loss.`,name:"start_positions"},{anchor:"transformers.QDQBertForQuestionAnswering.forward.end_positions",description:`<strong>end_positions</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for position (index) of the end of the labelled span for computing the token classification loss.
+Positions are clamped to the length of the sequence (<code>sequence_length</code>). Position outside of the sequence
+are not taken into account for computing the loss.`,name:"end_positions"}],returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.QuestionAnsweringModelOutput"
+>transformers.modeling_outputs.QuestionAnsweringModelOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertConfig"
+>QDQBertConfig</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Total span extraction loss is the sum of a Cross-Entropy for the start and end positions.</p>
+</li>
+<li>
+<p><strong>start_logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>) \u2014 Span-start scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>end_logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>) \u2014 Span-end scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.18.0/en/main_classes/output#transformers.modeling_outputs.QuestionAnsweringModelOutput"
+>transformers.modeling_outputs.QuestionAnsweringModelOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),ht=new ut({props:{$$slots:{default:[_m]},$$scope:{ctx:B}}}),Uo=new x({props:{code:`from transformers import BertTokenizer, QDQBertForQuestionAnswering
+import torch
+
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+model = QDQBertForQuestionAnswering.from_pretrained("bert-base-uncased")
+
+question, text = "Who was Jim Henson?", "Jim Henson was a nice puppet"
+
+inputs = tokenizer(question, text, return_tensors="pt")
+with torch.no_grad():
+    outputs = model(**inputs)
+
+answer_start_index = outputs.start_logits.argmax()
+answer_end_index = outputs.end_logits.argmax()
+
+predict_answer_tokens = inputs.input_ids[0, answer_start_index : answer_end_index + 1]
+tokenizer.decode(predict_answer_tokens)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, QDQBertForQuestionAnswering
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = QDQBertForQuestionAnswering.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>question, text = <span class="hljs-string">&quot;Who was Jim Henson?&quot;</span>, <span class="hljs-string">&quot;Jim Henson was a nice puppet&quot;</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(question, text, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>    outputs = model(**inputs)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>answer_start_index = outputs.start_logits.argmax()
+<span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = outputs.end_logits.argmax()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+`}}),Vo=new x({props:{code:`# target is "nice puppet"
+target_start_index, target_end_index = torch.tensor([14]), torch.tensor([15])
+
+outputs = model(**inputs, start_positions=target_start_index, end_positions=target_end_index)
+loss = outputs.loss
+round(loss.item(), 2)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># target is &quot;nice puppet&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>target_start_index, target_end_index = torch.tensor([<span class="hljs-number">14</span>]), torch.tensor([<span class="hljs-number">15</span>])
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, start_positions=target_start_index, end_positions=target_end_index)
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = outputs.loss
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
+`}}),{c(){p=a("meta"),q=l(),f=a("h1"),T=a("a"),y=a("span"),g(w.$$.fragment),m=l(),$=a("span"),yr=n("QDQBERT"),sa=l(),_e=a("h2"),Ie=a("a"),Fn=a("span"),g(mt.$$.fragment),qr=l(),Pn=a("span"),$r=n("Overview"),aa=l(),Oe=a("p"),Dr=n("The QDQBERT model can be referenced in "),ft=a("a"),zr=n(`Integer Quantization for Deep Learning Inference: Principles and Empirical
+Evaluation`),Br=n(` by Hao Wu, Patrick Judd, Xiaojie Zhang, Mikhail Isaev and Paulius
+Micikevicius.`),ra=l(),Ko=a("p"),Mr=n("The abstract from the paper is the following:"),ia=l(),Go=a("p"),Cn=a("em"),xr=n(`Quantization techniques can reduce the size of Deep Neural Networks and improve inference latency and throughput by
+taking advantage of high throughput integer instructions. In this paper we review the mathematical aspects of
+quantization parameters and evaluate their choices on a wide range of neural network models for different application
+domains, including vision, speech, and language. We focus on quantization techniques that are amenable to acceleration
+by processors with high-throughput integer math pipelines. We also present a workflow for 8-bit quantization that is
+able to maintain accuracy within 1% of the floating-point baseline on all networks studied, including models that are
+more difficult to quantize, such as MobileNets and BERT-large.`),la=l(),Yo=a("p"),jr=n("Tips:"),da=l(),Z=a("ul"),An=a("li"),Nn=a("p"),Er=n(`QDQBERT model adds fake quantization operations (pair of QuantizeLinear/DequantizeLinear ops) to (i) linear layer
+inputs and weights, (ii) matmul inputs, (iii) residual add inputs, in BERT model.`),Fr=l(),Sn=a("li"),We=a("p"),Pr=n("QDQBERT requires the dependency of "),gt=a("a"),Cr=n("Pytorch Quantization Toolkit"),Ar=n(". To install "),Ln=a("code"),Nr=n("pip install pytorch-quantization --extra-index-url https://pypi.ngc.nvidia.com"),Sr=l(),In=a("li"),_t=a("p"),Lr=n("QDQBERT model can be loaded from any checkpoint of HuggingFace BERT model (for example "),On=a("em"),Ir=n("bert-base-uncased"),Or=n(`), and
+perform Quantization Aware Training/Post Training Quantization.`),Wr=l(),Wn=a("li"),bt=a("p"),Hr=n(`A complete example of using QDQBERT model to perform Quatization Aware Training and Post Training Quantization for
+SQUAD task can be found at `),Zo=a("a"),Rr=n("transformers/examples/research_projects/quantization-qdqbert/"),Ur=n("."),ca=l(),He=a("p"),Vr=n("This model was contributed by "),vt=a("a"),Xr=n("shangz"),Jr=n("."),ha=l(),be=a("h3"),Re=a("a"),Hn=a("span"),g(kt.$$.fragment),Kr=l(),Rn=a("span"),Gr=n("Set default quantizers"),pa=l(),F=a("p"),Yr=n(`QDQBERT model adds fake quantization operations (pair of QuantizeLinear/DequantizeLinear ops) to BERT by
+`),Un=a("code"),Zr=n("TensorQuantizer"),ei=n(" in "),Qt=a("a"),ti=n("Pytorch Quantization Toolkit"),oi=n(". "),Vn=a("code"),ni=n("TensorQuantizer"),si=n(` is the module
+for quantizing tensors, with `),Xn=a("code"),ai=n("QuantDescriptor"),ri=n(" defining how the tensor should be quantized. Refer to "),wt=a("a"),ii=n(`Pytorch
+Quantization Toolkit userguide`),li=n(" for more details."),ua=l(),Ue=a("p"),di=n("Before creating QDQBERT model, one has to set the default "),Jn=a("code"),ci=n("QuantDescriptor"),hi=n(" defining default tensor quantizers."),ma=l(),en=a("p"),pi=n("Example:"),fa=l(),g(Tt.$$.fragment),ga=l(),ve=a("h3"),Ve=a("a"),Kn=a("span"),g(yt.$$.fragment),ui=l(),Gn=a("span"),mi=n("Calibration"),_a=l(),tn=a("p"),fi=n(`Calibration is the terminology of passing data samples to the quantizer and deciding the best scaling factors for
+tensors. After setting up the tensor quantizers, one can use the following example to calibrate the model:`),ba=l(),g(qt.$$.fragment),va=l(),ke=a("h3"),Xe=a("a"),Yn=a("span"),g($t.$$.fragment),gi=l(),Zn=a("span"),_i=n("Export to ONNX"),ka=l(),se=a("p"),bi=n("The goal of exporting to ONNX is to deploy inference by "),Dt=a("a"),vi=n("TensorRT"),ki=n(`. Fake
+quantization will be broken into a pair of QuantizeLinear/DequantizeLinear ONNX ops. After setting static member of
+TensorQuantizer to use Pytorch\u2019s own fake quantization functions, fake quantized model can be exported to ONNX, follow
+the instructions in `),zt=a("a"),Qi=n("torch.onnx"),wi=n(". Example:"),Qa=l(),g(Bt.$$.fragment),wa=l(),Qe=a("h2"),Je=a("a"),es=a("span"),g(Mt.$$.fragment),Ti=l(),ts=a("span"),yi=n("QDQBertConfig"),Ta=l(),N=a("div"),g(xt.$$.fragment),qi=l(),we=a("p"),$i=n("This is the configuration class to store the configuration of a "),on=a("a"),Di=n("QDQBertModel"),zi=n(`. It is used to instantiate an
+QDQBERT model according to the specified arguments, defining the model architecture. Instantiating a configuration
+with the defaults will yield a similar configuration to that of the BERT
+`),jt=a("a"),Bi=n("bert-base-uncased"),Mi=n(" architecture."),xi=l(),Te=a("p"),ji=n("Configuration objects inherit from "),nn=a("a"),Ei=n("PretrainedConfig"),Fi=n(` and can be used to control the model outputs. Read the
+documentation from `),sn=a("a"),Pi=n("PretrainedConfig"),Ci=n(" for more information."),Ai=l(),os=a("p"),Ni=n("Examples:"),Si=l(),g(Et.$$.fragment),ya=l(),ye=a("h2"),Ke=a("a"),ns=a("span"),g(Ft.$$.fragment),Li=l(),ss=a("span"),Ii=n("QDQBertModel"),qa=l(),z=a("div"),g(Pt.$$.fragment),Oi=l(),as=a("p"),Wi=n("The bare QDQBERT Model transformer outputting raw hidden-states without any specific head on top."),Hi=l(),Ct=a("p"),Ri=n("This model inherits from "),an=a("a"),Ui=n("PreTrainedModel"),Vi=n(`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),Xi=l(),At=a("p"),Ji=n("This model is also a PyTorch "),Nt=a("a"),Ki=n("torch.nn.Module"),Gi=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Yi=l(),St=a("p"),Zi=n(`The model can behave as an encoder (with only self-attention) as well as a decoder, in which case a layer of
+cross-attention is added between the self-attention layers, following the architecture described in `),Lt=a("a"),el=n(`Attention is
+all you need`),tl=n(` by Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit,
+Llion Jones, Aidan N. Gomez, Lukasz Kaiser and Illia Polosukhin.`),ol=l(),j=a("p"),nl=n("To behave as an decoder the model needs to be initialized with the "),rs=a("code"),sl=n("is_decoder"),al=n(` argument of the configuration set
+to `),is=a("code"),rl=n("True"),il=n(". To be used in a Seq2Seq model, the model needs to initialized with both "),ls=a("code"),ll=n("is_decoder"),dl=n(` argument and
+`),ds=a("code"),cl=n("add_cross_attention"),hl=n(" set to "),cs=a("code"),pl=n("True"),ul=n("; an "),hs=a("code"),ml=n("encoder_hidden_states"),fl=n(" is then expected as an input to the forward pass."),gl=l(),U=a("div"),g(It.$$.fragment),_l=l(),qe=a("p"),bl=n("The "),rn=a("a"),vl=n("QDQBertModel"),kl=n(" forward method, overrides the "),ps=a("code"),Ql=n("__call__"),wl=n(" special method."),Tl=l(),g(Ge.$$.fragment),yl=l(),us=a("p"),ql=n("Example:"),$l=l(),g(Ot.$$.fragment),$a=l(),$e=a("h2"),Ye=a("a"),ms=a("span"),g(Wt.$$.fragment),Dl=l(),fs=a("span"),zl=n("QDQBertLMHeadModel"),Da=l(),S=a("div"),g(Ht.$$.fragment),Bl=l(),Rt=a("p"),Ml=n("QDQBERT Model with a "),gs=a("code"),xl=n("language modeling"),jl=n(" head on top for CLM fine-tuning."),El=l(),Ut=a("p"),Fl=n("This model inherits from "),ln=a("a"),Pl=n("PreTrainedModel"),Cl=n(`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),Al=l(),Vt=a("p"),Nl=n("This model is also a PyTorch "),Xt=a("a"),Sl=n("torch.nn.Module"),Ll=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Il=l(),V=a("div"),g(Jt.$$.fragment),Ol=l(),De=a("p"),Wl=n("The "),dn=a("a"),Hl=n("QDQBertLMHeadModel"),Rl=n(" forward method, overrides the "),_s=a("code"),Ul=n("__call__"),Vl=n(" special method."),Xl=l(),g(Ze.$$.fragment),Jl=l(),bs=a("p"),Kl=n("Example:"),Gl=l(),g(Kt.$$.fragment),za=l(),ze=a("h2"),et=a("a"),vs=a("span"),g(Gt.$$.fragment),Yl=l(),ks=a("span"),Zl=n("QDQBertForMaskedLM"),Ba=l(),L=a("div"),g(Yt.$$.fragment),ed=l(),Zt=a("p"),td=n("QDQBERT Model with a "),Qs=a("code"),od=n("language modeling"),nd=n(" head on top."),sd=l(),eo=a("p"),ad=n("This model inherits from "),cn=a("a"),rd=n("PreTrainedModel"),id=n(`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),ld=l(),to=a("p"),dd=n("This model is also a PyTorch "),oo=a("a"),cd=n("torch.nn.Module"),hd=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),pd=l(),P=a("div"),g(no.$$.fragment),ud=l(),Be=a("p"),md=n("The "),hn=a("a"),fd=n("QDQBertForMaskedLM"),gd=n(" forward method, overrides the "),ws=a("code"),_d=n("__call__"),bd=n(" special method."),vd=l(),g(tt.$$.fragment),kd=l(),Ts=a("p"),Qd=n("Example:"),wd=l(),g(so.$$.fragment),Td=l(),g(ao.$$.fragment),Ma=l(),Me=a("h2"),ot=a("a"),ys=a("span"),g(ro.$$.fragment),yd=l(),qs=a("span"),qd=n("QDQBertForSequenceClassification"),xa=l(),I=a("div"),g(io.$$.fragment),$d=l(),$s=a("p"),Dd=n(`Bert Model transformer with a sequence classification/regression head on top (a linear layer on top of the pooled
+output) e.g. for GLUE tasks.`),zd=l(),lo=a("p"),Bd=n("This model inherits from "),pn=a("a"),Md=n("PreTrainedModel"),xd=n(`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),jd=l(),co=a("p"),Ed=n("This model is also a PyTorch "),ho=a("a"),Fd=n("torch.nn.Module"),Pd=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Cd=l(),D=a("div"),g(po.$$.fragment),Ad=l(),xe=a("p"),Nd=n("The "),un=a("a"),Sd=n("QDQBertForSequenceClassification"),Ld=n(" forward method, overrides the "),Ds=a("code"),Id=n("__call__"),Od=n(" special method."),Wd=l(),g(nt.$$.fragment),Hd=l(),zs=a("p"),Rd=n("Example of single-label classification:"),Ud=l(),g(uo.$$.fragment),Vd=l(),g(mo.$$.fragment),Xd=l(),Bs=a("p"),Jd=n("Example of multi-label classification:"),Kd=l(),g(fo.$$.fragment),Gd=l(),g(go.$$.fragment),ja=l(),je=a("h2"),st=a("a"),Ms=a("span"),g(_o.$$.fragment),Yd=l(),xs=a("span"),Zd=n("QDQBertForNextSentencePrediction"),Ea=l(),O=a("div"),g(bo.$$.fragment),ec=l(),vo=a("p"),tc=n("Bert Model with a "),js=a("code"),oc=n("next sentence prediction (classification)"),nc=n(" head on top."),sc=l(),ko=a("p"),ac=n("This model inherits from "),mn=a("a"),rc=n("PreTrainedModel"),ic=n(`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),lc=l(),Qo=a("p"),dc=n("This model is also a PyTorch "),wo=a("a"),cc=n("torch.nn.Module"),hc=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),pc=l(),X=a("div"),g(To.$$.fragment),uc=l(),Ee=a("p"),mc=n("The "),fn=a("a"),fc=n("QDQBertForNextSentencePrediction"),gc=n(" forward method, overrides the "),Es=a("code"),_c=n("__call__"),bc=n(" special method."),vc=l(),g(at.$$.fragment),kc=l(),Fs=a("p"),Qc=n("Example:"),wc=l(),g(yo.$$.fragment),Fa=l(),Fe=a("h2"),rt=a("a"),Ps=a("span"),g(qo.$$.fragment),Tc=l(),Cs=a("span"),yc=n("QDQBertForMultipleChoice"),Pa=l(),W=a("div"),g($o.$$.fragment),qc=l(),As=a("p"),$c=n(`Bert Model with a multiple choice classification head on top (a linear layer on top of the pooled output and a
+softmax) e.g. for RocStories/SWAG tasks.`),Dc=l(),Do=a("p"),zc=n("This model inherits from "),gn=a("a"),Bc=n("PreTrainedModel"),Mc=n(`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),xc=l(),zo=a("p"),jc=n("This model is also a PyTorch "),Bo=a("a"),Ec=n("torch.nn.Module"),Fc=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Pc=l(),J=a("div"),g(Mo.$$.fragment),Cc=l(),Pe=a("p"),Ac=n("The "),_n=a("a"),Nc=n("QDQBertForMultipleChoice"),Sc=n(" forward method, overrides the "),Ns=a("code"),Lc=n("__call__"),Ic=n(" special method."),Oc=l(),g(it.$$.fragment),Wc=l(),Ss=a("p"),Hc=n("Example:"),Rc=l(),g(xo.$$.fragment),Ca=l(),Ce=a("h2"),lt=a("a"),Ls=a("span"),g(jo.$$.fragment),Uc=l(),Is=a("span"),Vc=n("QDQBertForTokenClassification"),Aa=l(),H=a("div"),g(Eo.$$.fragment),Xc=l(),Os=a("p"),Jc=n(`QDQBERT Model with a token classification head on top (a linear layer on top of the hidden-states output) e.g. for
+Named-Entity-Recognition (NER) tasks.`),Kc=l(),Fo=a("p"),Gc=n("This model inherits from "),bn=a("a"),Yc=n("PreTrainedModel"),Zc=n(`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),eh=l(),Po=a("p"),th=n("This model is also a PyTorch "),Co=a("a"),oh=n("torch.nn.Module"),nh=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),sh=l(),C=a("div"),g(Ao.$$.fragment),ah=l(),Ae=a("p"),rh=n("The "),vn=a("a"),ih=n("QDQBertForTokenClassification"),lh=n(" forward method, overrides the "),Ws=a("code"),dh=n("__call__"),ch=n(" special method."),hh=l(),g(dt.$$.fragment),ph=l(),Hs=a("p"),uh=n("Example:"),mh=l(),g(No.$$.fragment),fh=l(),g(So.$$.fragment),Na=l(),Ne=a("h2"),ct=a("a"),Rs=a("span"),g(Lo.$$.fragment),gh=l(),Us=a("span"),_h=n("QDQBertForQuestionAnswering"),Sa=l(),R=a("div"),g(Io.$$.fragment),bh=l(),Se=a("p"),vh=n(`QDQBERT Model with a span classification head on top for extractive question-answering tasks like SQuAD (a linear
+layers on top of the hidden-states output to compute `),Vs=a("code"),kh=n("span start logits"),Qh=n(" and "),Xs=a("code"),wh=n("span end logits"),Th=n(")."),yh=l(),Oo=a("p"),qh=n("This model inherits from "),kn=a("a"),$h=n("PreTrainedModel"),Dh=n(`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),zh=l(),Wo=a("p"),Bh=n("This model is also a PyTorch "),Ho=a("a"),Mh=n("torch.nn.Module"),xh=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),jh=l(),A=a("div"),g(Ro.$$.fragment),Eh=l(),Le=a("p"),Fh=n("The "),Qn=a("a"),Ph=n("QDQBertForQuestionAnswering"),Ch=n(" forward method, overrides the "),Js=a("code"),Ah=n("__call__"),Nh=n(" special method."),Sh=l(),g(ht.$$.fragment),Lh=l(),Ks=a("p"),Ih=n("Example:"),Oh=l(),g(Uo.$$.fragment),Wh=l(),g(Vo.$$.fragment),this.h()},l(t){const h=lm('[data-svelte="svelte-1phssyn"]',document.head);p=r(h,"META",{name:!0,content:!0}),h.forEach(o),q=d(t),f=r(t,"H1",{class:!0});var Xo=i(f);T=r(Xo,"A",{id:!0,class:!0,href:!0});var Gs=i(T);y=r(Gs,"SPAN",{});var Ys=i(y);_(w.$$.fragment,Ys),Ys.forEach(o),Gs.forEach(o),m=d(Xo),$=r(Xo,"SPAN",{});var Zs=i($);yr=s(Zs,"QDQBERT"),Zs.forEach(o),Xo.forEach(o),sa=d(t),_e=r(t,"H2",{class:!0});var Jo=i(_e);Ie=r(Jo,"A",{id:!0,class:!0,href:!0});var ea=i(Ie);Fn=r(ea,"SPAN",{});var ta=i(Fn);_(mt.$$.fragment,ta),ta.forEach(o),ea.forEach(o),qr=d(Jo),Pn=r(Jo,"SPAN",{});var oa=i(Pn);$r=s(oa,"Overview"),oa.forEach(o),Jo.forEach(o),aa=d(t),Oe=r(t,"P",{});var Ia=i(Oe);Dr=s(Ia,"The QDQBERT model can be referenced in "),ft=r(Ia,"A",{href:!0,rel:!0});var Hh=i(ft);zr=s(Hh,`Integer Quantization for Deep Learning Inference: Principles and Empirical
+Evaluation`),Hh.forEach(o),Br=s(Ia,` by Hao Wu, Patrick Judd, Xiaojie Zhang, Mikhail Isaev and Paulius
+Micikevicius.`),Ia.forEach(o),ra=d(t),Ko=r(t,"P",{});var Rh=i(Ko);Mr=s(Rh,"The abstract from the paper is the following:"),Rh.forEach(o),ia=d(t),Go=r(t,"P",{});var Uh=i(Go);Cn=r(Uh,"EM",{});var Vh=i(Cn);xr=s(Vh,`Quantization techniques can reduce the size of Deep Neural Networks and improve inference latency and throughput by
+taking advantage of high throughput integer instructions. In this paper we review the mathematical aspects of
+quantization parameters and evaluate their choices on a wide range of neural network models for different application
+domains, including vision, speech, and language. We focus on quantization techniques that are amenable to acceleration
+by processors with high-throughput integer math pipelines. We also present a workflow for 8-bit quantization that is
+able to maintain accuracy within 1% of the floating-point baseline on all networks studied, including models that are
+more difficult to quantize, such as MobileNets and BERT-large.`),Vh.forEach(o),Uh.forEach(o),la=d(t),Yo=r(t,"P",{});var Xh=i(Yo);jr=s(Xh,"Tips:"),Xh.forEach(o),da=d(t),Z=r(t,"UL",{});var pt=i(Z);An=r(pt,"LI",{});var Jh=i(An);Nn=r(Jh,"P",{});var Kh=i(Nn);Er=s(Kh,`QDQBERT model adds fake quantization operations (pair of QuantizeLinear/DequantizeLinear ops) to (i) linear layer
+inputs and weights, (ii) matmul inputs, (iii) residual add inputs, in BERT model.`),Kh.forEach(o),Jh.forEach(o),Fr=d(pt),Sn=r(pt,"LI",{});var Gh=i(Sn);We=r(Gh,"P",{});var na=i(We);Pr=s(na,"QDQBERT requires the dependency of "),gt=r(na,"A",{href:!0,rel:!0});var Yh=i(gt);Cr=s(Yh,"Pytorch Quantization Toolkit"),Yh.forEach(o),Ar=s(na,". To install "),Ln=r(na,"CODE",{});var Zh=i(Ln);Nr=s(Zh,"pip install pytorch-quantization --extra-index-url https://pypi.ngc.nvidia.com"),Zh.forEach(o),na.forEach(o),Gh.forEach(o),Sr=d(pt),In=r(pt,"LI",{});var ep=i(In);_t=r(ep,"P",{});var Oa=i(_t);Lr=s(Oa,"QDQBERT model can be loaded from any checkpoint of HuggingFace BERT model (for example "),On=r(Oa,"EM",{});var tp=i(On);Ir=s(tp,"bert-base-uncased"),tp.forEach(o),Or=s(Oa,`), and
+perform Quantization Aware Training/Post Training Quantization.`),Oa.forEach(o),ep.forEach(o),Wr=d(pt),Wn=r(pt,"LI",{});var op=i(Wn);bt=r(op,"P",{});var Wa=i(bt);Hr=s(Wa,`A complete example of using QDQBERT model to perform Quatization Aware Training and Post Training Quantization for
+SQUAD task can be found at `),Zo=r(Wa,"A",{href:!0});var np=i(Zo);Rr=s(np,"transformers/examples/research_projects/quantization-qdqbert/"),np.forEach(o),Ur=s(Wa,"."),Wa.forEach(o),op.forEach(o),pt.forEach(o),ca=d(t),He=r(t,"P",{});var Ha=i(He);Vr=s(Ha,"This model was contributed by "),vt=r(Ha,"A",{href:!0,rel:!0});var sp=i(vt);Xr=s(sp,"shangz"),sp.forEach(o),Jr=s(Ha,"."),Ha.forEach(o),ha=d(t),be=r(t,"H3",{class:!0});var Ra=i(be);Re=r(Ra,"A",{id:!0,class:!0,href:!0});var ap=i(Re);Hn=r(ap,"SPAN",{});var rp=i(Hn);_(kt.$$.fragment,rp),rp.forEach(o),ap.forEach(o),Kr=d(Ra),Rn=r(Ra,"SPAN",{});var ip=i(Rn);Gr=s(ip,"Set default quantizers"),ip.forEach(o),Ra.forEach(o),pa=d(t),F=r(t,"P",{});var ee=i(F);Yr=s(ee,`QDQBERT model adds fake quantization operations (pair of QuantizeLinear/DequantizeLinear ops) to BERT by
+`),Un=r(ee,"CODE",{});var lp=i(Un);Zr=s(lp,"TensorQuantizer"),lp.forEach(o),ei=s(ee," in "),Qt=r(ee,"A",{href:!0,rel:!0});var dp=i(Qt);ti=s(dp,"Pytorch Quantization Toolkit"),dp.forEach(o),oi=s(ee,". "),Vn=r(ee,"CODE",{});var cp=i(Vn);ni=s(cp,"TensorQuantizer"),cp.forEach(o),si=s(ee,` is the module
+for quantizing tensors, with `),Xn=r(ee,"CODE",{});var hp=i(Xn);ai=s(hp,"QuantDescriptor"),hp.forEach(o),ri=s(ee," defining how the tensor should be quantized. Refer to "),wt=r(ee,"A",{href:!0,rel:!0});var pp=i(wt);ii=s(pp,`Pytorch
+Quantization Toolkit userguide`),pp.forEach(o),li=s(ee," for more details."),ee.forEach(o),ua=d(t),Ue=r(t,"P",{});var Ua=i(Ue);di=s(Ua,"Before creating QDQBERT model, one has to set the default "),Jn=r(Ua,"CODE",{});var up=i(Jn);ci=s(up,"QuantDescriptor"),up.forEach(o),hi=s(Ua," defining default tensor quantizers."),Ua.forEach(o),ma=d(t),en=r(t,"P",{});var mp=i(en);pi=s(mp,"Example:"),mp.forEach(o),fa=d(t),_(Tt.$$.fragment,t),ga=d(t),ve=r(t,"H3",{class:!0});var Va=i(ve);Ve=r(Va,"A",{id:!0,class:!0,href:!0});var fp=i(Ve);Kn=r(fp,"SPAN",{});var gp=i(Kn);_(yt.$$.fragment,gp),gp.forEach(o),fp.forEach(o),ui=d(Va),Gn=r(Va,"SPAN",{});var _p=i(Gn);mi=s(_p,"Calibration"),_p.forEach(o),Va.forEach(o),_a=d(t),tn=r(t,"P",{});var bp=i(tn);fi=s(bp,`Calibration is the terminology of passing data samples to the quantizer and deciding the best scaling factors for
+tensors. After setting up the tensor quantizers, one can use the following example to calibrate the model:`),bp.forEach(o),ba=d(t),_(qt.$$.fragment,t),va=d(t),ke=r(t,"H3",{class:!0});var Xa=i(ke);Xe=r(Xa,"A",{id:!0,class:!0,href:!0});var vp=i(Xe);Yn=r(vp,"SPAN",{});var kp=i(Yn);_($t.$$.fragment,kp),kp.forEach(o),vp.forEach(o),gi=d(Xa),Zn=r(Xa,"SPAN",{});var Qp=i(Zn);_i=s(Qp,"Export to ONNX"),Qp.forEach(o),Xa.forEach(o),ka=d(t),se=r(t,"P",{});var wn=i(se);bi=s(wn,"The goal of exporting to ONNX is to deploy inference by "),Dt=r(wn,"A",{href:!0,rel:!0});var wp=i(Dt);vi=s(wp,"TensorRT"),wp.forEach(o),ki=s(wn,`. Fake
+quantization will be broken into a pair of QuantizeLinear/DequantizeLinear ONNX ops. After setting static member of
+TensorQuantizer to use Pytorch\u2019s own fake quantization functions, fake quantized model can be exported to ONNX, follow
+the instructions in `),zt=r(wn,"A",{href:!0,rel:!0});var Tp=i(zt);Qi=s(Tp,"torch.onnx"),Tp.forEach(o),wi=s(wn,". Example:"),wn.forEach(o),Qa=d(t),_(Bt.$$.fragment,t),wa=d(t),Qe=r(t,"H2",{class:!0});var Ja=i(Qe);Je=r(Ja,"A",{id:!0,class:!0,href:!0});var yp=i(Je);es=r(yp,"SPAN",{});var qp=i(es);_(Mt.$$.fragment,qp),qp.forEach(o),yp.forEach(o),Ti=d(Ja),ts=r(Ja,"SPAN",{});var $p=i(ts);yi=s($p,"QDQBertConfig"),$p.forEach(o),Ja.forEach(o),Ta=d(t),N=r(t,"DIV",{class:!0});var ae=i(N);_(xt.$$.fragment,ae),qi=d(ae),we=r(ae,"P",{});var Tn=i(we);$i=s(Tn,"This is the configuration class to store the configuration of a "),on=r(Tn,"A",{href:!0});var Dp=i(on);Di=s(Dp,"QDQBertModel"),Dp.forEach(o),zi=s(Tn,`. It is used to instantiate an
+QDQBERT model according to the specified arguments, defining the model architecture. Instantiating a configuration
+with the defaults will yield a similar configuration to that of the BERT
+`),jt=r(Tn,"A",{href:!0,rel:!0});var zp=i(jt);Bi=s(zp,"bert-base-uncased"),zp.forEach(o),Mi=s(Tn," architecture."),Tn.forEach(o),xi=d(ae),Te=r(ae,"P",{});var yn=i(Te);ji=s(yn,"Configuration objects inherit from "),nn=r(yn,"A",{href:!0});var Bp=i(nn);Ei=s(Bp,"PretrainedConfig"),Bp.forEach(o),Fi=s(yn,` and can be used to control the model outputs. Read the
+documentation from `),sn=r(yn,"A",{href:!0});var Mp=i(sn);Pi=s(Mp,"PretrainedConfig"),Mp.forEach(o),Ci=s(yn," for more information."),yn.forEach(o),Ai=d(ae),os=r(ae,"P",{});var xp=i(os);Ni=s(xp,"Examples:"),xp.forEach(o),Si=d(ae),_(Et.$$.fragment,ae),ae.forEach(o),ya=d(t),ye=r(t,"H2",{class:!0});var Ka=i(ye);Ke=r(Ka,"A",{id:!0,class:!0,href:!0});var jp=i(Ke);ns=r(jp,"SPAN",{});var Ep=i(ns);_(Ft.$$.fragment,Ep),Ep.forEach(o),jp.forEach(o),Li=d(Ka),ss=r(Ka,"SPAN",{});var Fp=i(ss);Ii=s(Fp,"QDQBertModel"),Fp.forEach(o),Ka.forEach(o),qa=d(t),z=r(t,"DIV",{class:!0});var K=i(z);_(Pt.$$.fragment,K),Oi=d(K),as=r(K,"P",{});var Pp=i(as);Wi=s(Pp,"The bare QDQBERT Model transformer outputting raw hidden-states without any specific head on top."),Pp.forEach(o),Hi=d(K),Ct=r(K,"P",{});var Ga=i(Ct);Ri=s(Ga,"This model inherits from "),an=r(Ga,"A",{href:!0});var Cp=i(an);Ui=s(Cp,"PreTrainedModel"),Cp.forEach(o),Vi=s(Ga,`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),Ga.forEach(o),Xi=d(K),At=r(K,"P",{});var Ya=i(At);Ji=s(Ya,"This model is also a PyTorch "),Nt=r(Ya,"A",{href:!0,rel:!0});var Ap=i(Nt);Ki=s(Ap,"torch.nn.Module"),Ap.forEach(o),Gi=s(Ya,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Ya.forEach(o),Yi=d(K),St=r(K,"P",{});var Za=i(St);Zi=s(Za,`The model can behave as an encoder (with only self-attention) as well as a decoder, in which case a layer of
+cross-attention is added between the self-attention layers, following the architecture described in `),Lt=r(Za,"A",{href:!0,rel:!0});var Np=i(Lt);el=s(Np,`Attention is
+all you need`),Np.forEach(o),tl=s(Za,` by Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit,
+Llion Jones, Aidan N. Gomez, Lukasz Kaiser and Illia Polosukhin.`),Za.forEach(o),ol=d(K),j=r(K,"P",{});var G=i(j);nl=s(G,"To behave as an decoder the model needs to be initialized with the "),rs=r(G,"CODE",{});var Sp=i(rs);sl=s(Sp,"is_decoder"),Sp.forEach(o),al=s(G,` argument of the configuration set
+to `),is=r(G,"CODE",{});var Lp=i(is);rl=s(Lp,"True"),Lp.forEach(o),il=s(G,". To be used in a Seq2Seq model, the model needs to initialized with both "),ls=r(G,"CODE",{});var Ip=i(ls);ll=s(Ip,"is_decoder"),Ip.forEach(o),dl=s(G,` argument and
+`),ds=r(G,"CODE",{});var Op=i(ds);cl=s(Op,"add_cross_attention"),Op.forEach(o),hl=s(G," set to "),cs=r(G,"CODE",{});var Wp=i(cs);pl=s(Wp,"True"),Wp.forEach(o),ul=s(G,"; an "),hs=r(G,"CODE",{});var Hp=i(hs);ml=s(Hp,"encoder_hidden_states"),Hp.forEach(o),fl=s(G," is then expected as an input to the forward pass."),G.forEach(o),gl=d(K),U=r(K,"DIV",{class:!0});var re=i(U);_(It.$$.fragment,re),_l=d(re),qe=r(re,"P",{});var qn=i(qe);bl=s(qn,"The "),rn=r(qn,"A",{href:!0});var Rp=i(rn);vl=s(Rp,"QDQBertModel"),Rp.forEach(o),kl=s(qn," forward method, overrides the "),ps=r(qn,"CODE",{});var Up=i(ps);Ql=s(Up,"__call__"),Up.forEach(o),wl=s(qn," special method."),qn.forEach(o),Tl=d(re),_(Ge.$$.fragment,re),yl=d(re),us=r(re,"P",{});var Vp=i(us);ql=s(Vp,"Example:"),Vp.forEach(o),$l=d(re),_(Ot.$$.fragment,re),re.forEach(o),K.forEach(o),$a=d(t),$e=r(t,"H2",{class:!0});var er=i($e);Ye=r(er,"A",{id:!0,class:!0,href:!0});var Xp=i(Ye);ms=r(Xp,"SPAN",{});var Jp=i(ms);_(Wt.$$.fragment,Jp),Jp.forEach(o),Xp.forEach(o),Dl=d(er),fs=r(er,"SPAN",{});var Kp=i(fs);zl=s(Kp,"QDQBertLMHeadModel"),Kp.forEach(o),er.forEach(o),Da=d(t),S=r(t,"DIV",{class:!0});var ie=i(S);_(Ht.$$.fragment,ie),Bl=d(ie),Rt=r(ie,"P",{});var tr=i(Rt);Ml=s(tr,"QDQBERT Model with a "),gs=r(tr,"CODE",{});var Gp=i(gs);xl=s(Gp,"language modeling"),Gp.forEach(o),jl=s(tr," head on top for CLM fine-tuning."),tr.forEach(o),El=d(ie),Ut=r(ie,"P",{});var or=i(Ut);Fl=s(or,"This model inherits from "),ln=r(or,"A",{href:!0});var Yp=i(ln);Pl=s(Yp,"PreTrainedModel"),Yp.forEach(o),Cl=s(or,`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),or.forEach(o),Al=d(ie),Vt=r(ie,"P",{});var nr=i(Vt);Nl=s(nr,"This model is also a PyTorch "),Xt=r(nr,"A",{href:!0,rel:!0});var Zp=i(Xt);Sl=s(Zp,"torch.nn.Module"),Zp.forEach(o),Ll=s(nr,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),nr.forEach(o),Il=d(ie),V=r(ie,"DIV",{class:!0});var le=i(V);_(Jt.$$.fragment,le),Ol=d(le),De=r(le,"P",{});var $n=i(De);Wl=s($n,"The "),dn=r($n,"A",{href:!0});var eu=i(dn);Hl=s(eu,"QDQBertLMHeadModel"),eu.forEach(o),Rl=s($n," forward method, overrides the "),_s=r($n,"CODE",{});var tu=i(_s);Ul=s(tu,"__call__"),tu.forEach(o),Vl=s($n," special method."),$n.forEach(o),Xl=d(le),_(Ze.$$.fragment,le),Jl=d(le),bs=r(le,"P",{});var ou=i(bs);Kl=s(ou,"Example:"),ou.forEach(o),Gl=d(le),_(Kt.$$.fragment,le),le.forEach(o),ie.forEach(o),za=d(t),ze=r(t,"H2",{class:!0});var sr=i(ze);et=r(sr,"A",{id:!0,class:!0,href:!0});var nu=i(et);vs=r(nu,"SPAN",{});var su=i(vs);_(Gt.$$.fragment,su),su.forEach(o),nu.forEach(o),Yl=d(sr),ks=r(sr,"SPAN",{});var au=i(ks);Zl=s(au,"QDQBertForMaskedLM"),au.forEach(o),sr.forEach(o),Ba=d(t),L=r(t,"DIV",{class:!0});var de=i(L);_(Yt.$$.fragment,de),ed=d(de),Zt=r(de,"P",{});var ar=i(Zt);td=s(ar,"QDQBERT Model with a "),Qs=r(ar,"CODE",{});var ru=i(Qs);od=s(ru,"language modeling"),ru.forEach(o),nd=s(ar," head on top."),ar.forEach(o),sd=d(de),eo=r(de,"P",{});var rr=i(eo);ad=s(rr,"This model inherits from "),cn=r(rr,"A",{href:!0});var iu=i(cn);rd=s(iu,"PreTrainedModel"),iu.forEach(o),id=s(rr,`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),rr.forEach(o),ld=d(de),to=r(de,"P",{});var ir=i(to);dd=s(ir,"This model is also a PyTorch "),oo=r(ir,"A",{href:!0,rel:!0});var lu=i(oo);cd=s(lu,"torch.nn.Module"),lu.forEach(o),hd=s(ir,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),ir.forEach(o),pd=d(de),P=r(de,"DIV",{class:!0});var te=i(P);_(no.$$.fragment,te),ud=d(te),Be=r(te,"P",{});var Dn=i(Be);md=s(Dn,"The "),hn=r(Dn,"A",{href:!0});var du=i(hn);fd=s(du,"QDQBertForMaskedLM"),du.forEach(o),gd=s(Dn," forward method, overrides the "),ws=r(Dn,"CODE",{});var cu=i(ws);_d=s(cu,"__call__"),cu.forEach(o),bd=s(Dn," special method."),Dn.forEach(o),vd=d(te),_(tt.$$.fragment,te),kd=d(te),Ts=r(te,"P",{});var hu=i(Ts);Qd=s(hu,"Example:"),hu.forEach(o),wd=d(te),_(so.$$.fragment,te),Td=d(te),_(ao.$$.fragment,te),te.forEach(o),de.forEach(o),Ma=d(t),Me=r(t,"H2",{class:!0});var lr=i(Me);ot=r(lr,"A",{id:!0,class:!0,href:!0});var pu=i(ot);ys=r(pu,"SPAN",{});var uu=i(ys);_(ro.$$.fragment,uu),uu.forEach(o),pu.forEach(o),yd=d(lr),qs=r(lr,"SPAN",{});var mu=i(qs);qd=s(mu,"QDQBertForSequenceClassification"),mu.forEach(o),lr.forEach(o),xa=d(t),I=r(t,"DIV",{class:!0});var ce=i(I);_(io.$$.fragment,ce),$d=d(ce),$s=r(ce,"P",{});var fu=i($s);Dd=s(fu,`Bert Model transformer with a sequence classification/regression head on top (a linear layer on top of the pooled
+output) e.g. for GLUE tasks.`),fu.forEach(o),zd=d(ce),lo=r(ce,"P",{});var dr=i(lo);Bd=s(dr,"This model inherits from "),pn=r(dr,"A",{href:!0});var gu=i(pn);Md=s(gu,"PreTrainedModel"),gu.forEach(o),xd=s(dr,`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),dr.forEach(o),jd=d(ce),co=r(ce,"P",{});var cr=i(co);Ed=s(cr,"This model is also a PyTorch "),ho=r(cr,"A",{href:!0,rel:!0});var _u=i(ho);Fd=s(_u,"torch.nn.Module"),_u.forEach(o),Pd=s(cr,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),cr.forEach(o),Cd=d(ce),D=r(ce,"DIV",{class:!0});var M=i(D);_(po.$$.fragment,M),Ad=d(M),xe=r(M,"P",{});var zn=i(xe);Nd=s(zn,"The "),un=r(zn,"A",{href:!0});var bu=i(un);Sd=s(bu,"QDQBertForSequenceClassification"),bu.forEach(o),Ld=s(zn," forward method, overrides the "),Ds=r(zn,"CODE",{});var vu=i(Ds);Id=s(vu,"__call__"),vu.forEach(o),Od=s(zn," special method."),zn.forEach(o),Wd=d(M),_(nt.$$.fragment,M),Hd=d(M),zs=r(M,"P",{});var ku=i(zs);Rd=s(ku,"Example of single-label classification:"),ku.forEach(o),Ud=d(M),_(uo.$$.fragment,M),Vd=d(M),_(mo.$$.fragment,M),Xd=d(M),Bs=r(M,"P",{});var Qu=i(Bs);Jd=s(Qu,"Example of multi-label classification:"),Qu.forEach(o),Kd=d(M),_(fo.$$.fragment,M),Gd=d(M),_(go.$$.fragment,M),M.forEach(o),ce.forEach(o),ja=d(t),je=r(t,"H2",{class:!0});var hr=i(je);st=r(hr,"A",{id:!0,class:!0,href:!0});var wu=i(st);Ms=r(wu,"SPAN",{});var Tu=i(Ms);_(_o.$$.fragment,Tu),Tu.forEach(o),wu.forEach(o),Yd=d(hr),xs=r(hr,"SPAN",{});var yu=i(xs);Zd=s(yu,"QDQBertForNextSentencePrediction"),yu.forEach(o),hr.forEach(o),Ea=d(t),O=r(t,"DIV",{class:!0});var he=i(O);_(bo.$$.fragment,he),ec=d(he),vo=r(he,"P",{});var pr=i(vo);tc=s(pr,"Bert Model with a "),js=r(pr,"CODE",{});var qu=i(js);oc=s(qu,"next sentence prediction (classification)"),qu.forEach(o),nc=s(pr," head on top."),pr.forEach(o),sc=d(he),ko=r(he,"P",{});var ur=i(ko);ac=s(ur,"This model inherits from "),mn=r(ur,"A",{href:!0});var $u=i(mn);rc=s($u,"PreTrainedModel"),$u.forEach(o),ic=s(ur,`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),ur.forEach(o),lc=d(he),Qo=r(he,"P",{});var mr=i(Qo);dc=s(mr,"This model is also a PyTorch "),wo=r(mr,"A",{href:!0,rel:!0});var Du=i(wo);cc=s(Du,"torch.nn.Module"),Du.forEach(o),hc=s(mr,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),mr.forEach(o),pc=d(he),X=r(he,"DIV",{class:!0});var pe=i(X);_(To.$$.fragment,pe),uc=d(pe),Ee=r(pe,"P",{});var Bn=i(Ee);mc=s(Bn,"The "),fn=r(Bn,"A",{href:!0});var zu=i(fn);fc=s(zu,"QDQBertForNextSentencePrediction"),zu.forEach(o),gc=s(Bn," forward method, overrides the "),Es=r(Bn,"CODE",{});var Bu=i(Es);_c=s(Bu,"__call__"),Bu.forEach(o),bc=s(Bn," special method."),Bn.forEach(o),vc=d(pe),_(at.$$.fragment,pe),kc=d(pe),Fs=r(pe,"P",{});var Mu=i(Fs);Qc=s(Mu,"Example:"),Mu.forEach(o),wc=d(pe),_(yo.$$.fragment,pe),pe.forEach(o),he.forEach(o),Fa=d(t),Fe=r(t,"H2",{class:!0});var fr=i(Fe);rt=r(fr,"A",{id:!0,class:!0,href:!0});var xu=i(rt);Ps=r(xu,"SPAN",{});var ju=i(Ps);_(qo.$$.fragment,ju),ju.forEach(o),xu.forEach(o),Tc=d(fr),Cs=r(fr,"SPAN",{});var Eu=i(Cs);yc=s(Eu,"QDQBertForMultipleChoice"),Eu.forEach(o),fr.forEach(o),Pa=d(t),W=r(t,"DIV",{class:!0});var ue=i(W);_($o.$$.fragment,ue),qc=d(ue),As=r(ue,"P",{});var Fu=i(As);$c=s(Fu,`Bert Model with a multiple choice classification head on top (a linear layer on top of the pooled output and a
+softmax) e.g. for RocStories/SWAG tasks.`),Fu.forEach(o),Dc=d(ue),Do=r(ue,"P",{});var gr=i(Do);zc=s(gr,"This model inherits from "),gn=r(gr,"A",{href:!0});var Pu=i(gn);Bc=s(Pu,"PreTrainedModel"),Pu.forEach(o),Mc=s(gr,`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),gr.forEach(o),xc=d(ue),zo=r(ue,"P",{});var _r=i(zo);jc=s(_r,"This model is also a PyTorch "),Bo=r(_r,"A",{href:!0,rel:!0});var Cu=i(Bo);Ec=s(Cu,"torch.nn.Module"),Cu.forEach(o),Fc=s(_r,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),_r.forEach(o),Pc=d(ue),J=r(ue,"DIV",{class:!0});var me=i(J);_(Mo.$$.fragment,me),Cc=d(me),Pe=r(me,"P",{});var Mn=i(Pe);Ac=s(Mn,"The "),_n=r(Mn,"A",{href:!0});var Au=i(_n);Nc=s(Au,"QDQBertForMultipleChoice"),Au.forEach(o),Sc=s(Mn," forward method, overrides the "),Ns=r(Mn,"CODE",{});var Nu=i(Ns);Lc=s(Nu,"__call__"),Nu.forEach(o),Ic=s(Mn," special method."),Mn.forEach(o),Oc=d(me),_(it.$$.fragment,me),Wc=d(me),Ss=r(me,"P",{});var Su=i(Ss);Hc=s(Su,"Example:"),Su.forEach(o),Rc=d(me),_(xo.$$.fragment,me),me.forEach(o),ue.forEach(o),Ca=d(t),Ce=r(t,"H2",{class:!0});var br=i(Ce);lt=r(br,"A",{id:!0,class:!0,href:!0});var Lu=i(lt);Ls=r(Lu,"SPAN",{});var Iu=i(Ls);_(jo.$$.fragment,Iu),Iu.forEach(o),Lu.forEach(o),Uc=d(br),Is=r(br,"SPAN",{});var Ou=i(Is);Vc=s(Ou,"QDQBertForTokenClassification"),Ou.forEach(o),br.forEach(o),Aa=d(t),H=r(t,"DIV",{class:!0});var fe=i(H);_(Eo.$$.fragment,fe),Xc=d(fe),Os=r(fe,"P",{});var Wu=i(Os);Jc=s(Wu,`QDQBERT Model with a token classification head on top (a linear layer on top of the hidden-states output) e.g. for
+Named-Entity-Recognition (NER) tasks.`),Wu.forEach(o),Kc=d(fe),Fo=r(fe,"P",{});var vr=i(Fo);Gc=s(vr,"This model inherits from "),bn=r(vr,"A",{href:!0});var Hu=i(bn);Yc=s(Hu,"PreTrainedModel"),Hu.forEach(o),Zc=s(vr,`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),vr.forEach(o),eh=d(fe),Po=r(fe,"P",{});var kr=i(Po);th=s(kr,"This model is also a PyTorch "),Co=r(kr,"A",{href:!0,rel:!0});var Ru=i(Co);oh=s(Ru,"torch.nn.Module"),Ru.forEach(o),nh=s(kr,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),kr.forEach(o),sh=d(fe),C=r(fe,"DIV",{class:!0});var oe=i(C);_(Ao.$$.fragment,oe),ah=d(oe),Ae=r(oe,"P",{});var xn=i(Ae);rh=s(xn,"The "),vn=r(xn,"A",{href:!0});var Uu=i(vn);ih=s(Uu,"QDQBertForTokenClassification"),Uu.forEach(o),lh=s(xn," forward method, overrides the "),Ws=r(xn,"CODE",{});var Vu=i(Ws);dh=s(Vu,"__call__"),Vu.forEach(o),ch=s(xn," special method."),xn.forEach(o),hh=d(oe),_(dt.$$.fragment,oe),ph=d(oe),Hs=r(oe,"P",{});var Xu=i(Hs);uh=s(Xu,"Example:"),Xu.forEach(o),mh=d(oe),_(No.$$.fragment,oe),fh=d(oe),_(So.$$.fragment,oe),oe.forEach(o),fe.forEach(o),Na=d(t),Ne=r(t,"H2",{class:!0});var Qr=i(Ne);ct=r(Qr,"A",{id:!0,class:!0,href:!0});var Ju=i(ct);Rs=r(Ju,"SPAN",{});var Ku=i(Rs);_(Lo.$$.fragment,Ku),Ku.forEach(o),Ju.forEach(o),gh=d(Qr),Us=r(Qr,"SPAN",{});var Gu=i(Us);_h=s(Gu,"QDQBertForQuestionAnswering"),Gu.forEach(o),Qr.forEach(o),Sa=d(t),R=r(t,"DIV",{class:!0});var ge=i(R);_(Io.$$.fragment,ge),bh=d(ge),Se=r(ge,"P",{});var jn=i(Se);vh=s(jn,`QDQBERT Model with a span classification head on top for extractive question-answering tasks like SQuAD (a linear
+layers on top of the hidden-states output to compute `),Vs=r(jn,"CODE",{});var Yu=i(Vs);kh=s(Yu,"span start logits"),Yu.forEach(o),Qh=s(jn," and "),Xs=r(jn,"CODE",{});var Zu=i(Xs);wh=s(Zu,"span end logits"),Zu.forEach(o),Th=s(jn,")."),jn.forEach(o),yh=d(ge),Oo=r(ge,"P",{});var wr=i(Oo);qh=s(wr,"This model inherits from "),kn=r(wr,"A",{href:!0});var em=i(kn);$h=s(em,"PreTrainedModel"),em.forEach(o),Dh=s(wr,`. Check the superclass documentation for the generic methods the
+library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads
+etc.)`),wr.forEach(o),zh=d(ge),Wo=r(ge,"P",{});var Tr=i(Wo);Bh=s(Tr,"This model is also a PyTorch "),Ho=r(Tr,"A",{href:!0,rel:!0});var tm=i(Ho);Mh=s(tm,"torch.nn.Module"),tm.forEach(o),xh=s(Tr,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Tr.forEach(o),jh=d(ge),A=r(ge,"DIV",{class:!0});var ne=i(A);_(Ro.$$.fragment,ne),Eh=d(ne),Le=r(ne,"P",{});var En=i(Le);Fh=s(En,"The "),Qn=r(En,"A",{href:!0});var om=i(Qn);Ph=s(om,"QDQBertForQuestionAnswering"),om.forEach(o),Ch=s(En," forward method, overrides the "),Js=r(En,"CODE",{});var nm=i(Js);Ah=s(nm,"__call__"),nm.forEach(o),Nh=s(En," special method."),En.forEach(o),Sh=d(ne),_(ht.$$.fragment,ne),Lh=d(ne),Ks=r(ne,"P",{});var sm=i(Ks);Ih=s(sm,"Example:"),sm.forEach(o),Oh=d(ne),_(Uo.$$.fragment,ne),Wh=d(ne),_(Vo.$$.fragment,ne),ne.forEach(o),ge.forEach(o),this.h()},h(){c(p,"name","hf:doc:metadata"),c(p,"content",JSON.stringify(vm)),c(T,"id","qdqbert"),c(T,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(T,"href","#qdqbert"),c(f,"class","relative group"),c(Ie,"id","overview"),c(Ie,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(Ie,"href","#overview"),c(_e,"class","relative group"),c(ft,"href","https://arxiv.org/abs/2004.09602"),c(ft,"rel","nofollow"),c(gt,"href","https://github.com/NVIDIA/TensorRT/tree/master/tools/pytorch-quantization"),c(gt,"rel","nofollow"),c(Zo,"href","examples/research_projects/quantization-qdqbert/"),c(vt,"href","https://huggingface.co/shangz"),c(vt,"rel","nofollow"),c(Re,"id","set-default-quantizers"),c(Re,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(Re,"href","#set-default-quantizers"),c(be,"class","relative group"),c(Qt,"href","https://github.com/NVIDIA/TensorRT/tree/master/tools/pytorch-quantization"),c(Qt,"rel","nofollow"),c(wt,"href","https://docs.nvidia.com/deeplearning/tensorrt/pytorch-quantization-toolkit/docs/userguide.html"),c(wt,"rel","nofollow"),c(Ve,"id","calibration"),c(Ve,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(Ve,"href","#calibration"),c(ve,"class","relative group"),c(Xe,"id","export-to-onnx"),c(Xe,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(Xe,"href","#export-to-onnx"),c(ke,"class","relative group"),c(Dt,"href","https://developer.nvidia.com/tensorrt"),c(Dt,"rel","nofollow"),c(zt,"href","https://pytorch.org/docs/stable/onnx.html"),c(zt,"rel","nofollow"),c(Je,"id","transformers.QDQBertConfig"),c(Je,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(Je,"href","#transformers.QDQBertConfig"),c(Qe,"class","relative group"),c(on,"href","/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertModel"),c(jt,"href","https://huggingface.co/bert-base-uncased"),c(jt,"rel","nofollow"),c(nn,"href","/docs/transformers/v4.18.0/en/main_classes/configuration#transformers.PretrainedConfig"),c(sn,"href","/docs/transformers/v4.18.0/en/main_classes/configuration#transformers.PretrainedConfig"),c(N,"class","docstring"),c(Ke,"id","transformers.QDQBertModel"),c(Ke,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(Ke,"href","#transformers.QDQBertModel"),c(ye,"class","relative group"),c(an,"href","/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel"),c(Nt,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),c(Nt,"rel","nofollow"),c(Lt,"href","https://arxiv.org/abs/1706.03762"),c(Lt,"rel","nofollow"),c(rn,"href","/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertModel"),c(U,"class","docstring"),c(z,"class","docstring"),c(Ye,"id","transformers.QDQBertLMHeadModel"),c(Ye,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(Ye,"href","#transformers.QDQBertLMHeadModel"),c($e,"class","relative group"),c(ln,"href","/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel"),c(Xt,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),c(Xt,"rel","nofollow"),c(dn,"href","/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertLMHeadModel"),c(V,"class","docstring"),c(S,"class","docstring"),c(et,"id","transformers.QDQBertForMaskedLM"),c(et,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(et,"href","#transformers.QDQBertForMaskedLM"),c(ze,"class","relative group"),c(cn,"href","/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel"),c(oo,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),c(oo,"rel","nofollow"),c(hn,"href","/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertForMaskedLM"),c(P,"class","docstring"),c(L,"class","docstring"),c(ot,"id","transformers.QDQBertForSequenceClassification"),c(ot,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(ot,"href","#transformers.QDQBertForSequenceClassification"),c(Me,"class","relative group"),c(pn,"href","/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel"),c(ho,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),c(ho,"rel","nofollow"),c(un,"href","/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertForSequenceClassification"),c(D,"class","docstring"),c(I,"class","docstring"),c(st,"id","transformers.QDQBertForNextSentencePrediction"),c(st,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(st,"href","#transformers.QDQBertForNextSentencePrediction"),c(je,"class","relative group"),c(mn,"href","/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel"),c(wo,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),c(wo,"rel","nofollow"),c(fn,"href","/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertForNextSentencePrediction"),c(X,"class","docstring"),c(O,"class","docstring"),c(rt,"id","transformers.QDQBertForMultipleChoice"),c(rt,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(rt,"href","#transformers.QDQBertForMultipleChoice"),c(Fe,"class","relative group"),c(gn,"href","/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel"),c(Bo,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),c(Bo,"rel","nofollow"),c(_n,"href","/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertForMultipleChoice"),c(J,"class","docstring"),c(W,"class","docstring"),c(lt,"id","transformers.QDQBertForTokenClassification"),c(lt,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(lt,"href","#transformers.QDQBertForTokenClassification"),c(Ce,"class","relative group"),c(bn,"href","/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel"),c(Co,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),c(Co,"rel","nofollow"),c(vn,"href","/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertForTokenClassification"),c(C,"class","docstring"),c(H,"class","docstring"),c(ct,"id","transformers.QDQBertForQuestionAnswering"),c(ct,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),c(ct,"href","#transformers.QDQBertForQuestionAnswering"),c(Ne,"class","relative group"),c(kn,"href","/docs/transformers/v4.18.0/en/main_classes/model#transformers.PreTrainedModel"),c(Ho,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),c(Ho,"rel","nofollow"),c(Qn,"href","/docs/transformers/v4.18.0/en/model_doc/qdqbert#transformers.QDQBertForQuestionAnswering"),c(A,"class","docstring"),c(R,"class","docstring")},m(t,h){e(document.head,p),u(t,q,h),u(t,f,h),e(f,T),e(T,y),b(w,y,null),e(f,m),e(f,$),e($,yr),u(t,sa,h),u(t,_e,h),e(_e,Ie),e(Ie,Fn),b(mt,Fn,null),e(_e,qr),e(_e,Pn),e(Pn,$r),u(t,aa,h),u(t,Oe,h),e(Oe,Dr),e(Oe,ft),e(ft,zr),e(Oe,Br),u(t,ra,h),u(t,Ko,h),e(Ko,Mr),u(t,ia,h),u(t,Go,h),e(Go,Cn),e(Cn,xr),u(t,la,h),u(t,Yo,h),e(Yo,jr),u(t,da,h),u(t,Z,h),e(Z,An),e(An,Nn),e(Nn,Er),e(Z,Fr),e(Z,Sn),e(Sn,We),e(We,Pr),e(We,gt),e(gt,Cr),e(We,Ar),e(We,Ln),e(Ln,Nr),e(Z,Sr),e(Z,In),e(In,_t),e(_t,Lr),e(_t,On),e(On,Ir),e(_t,Or),e(Z,Wr),e(Z,Wn),e(Wn,bt),e(bt,Hr),e(bt,Zo),e(Zo,Rr),e(bt,Ur),u(t,ca,h),u(t,He,h),e(He,Vr),e(He,vt),e(vt,Xr),e(He,Jr),u(t,ha,h),u(t,be,h),e(be,Re),e(Re,Hn),b(kt,Hn,null),e(be,Kr),e(be,Rn),e(Rn,Gr),u(t,pa,h),u(t,F,h),e(F,Yr),e(F,Un),e(Un,Zr),e(F,ei),e(F,Qt),e(Qt,ti),e(F,oi),e(F,Vn),e(Vn,ni),e(F,si),e(F,Xn),e(Xn,ai),e(F,ri),e(F,wt),e(wt,ii),e(F,li),u(t,ua,h),u(t,Ue,h),e(Ue,di),e(Ue,Jn),e(Jn,ci),e(Ue,hi),u(t,ma,h),u(t,en,h),e(en,pi),u(t,fa,h),b(Tt,t,h),u(t,ga,h),u(t,ve,h),e(ve,Ve),e(Ve,Kn),b(yt,Kn,null),e(ve,ui),e(ve,Gn),e(Gn,mi),u(t,_a,h),u(t,tn,h),e(tn,fi),u(t,ba,h),b(qt,t,h),u(t,va,h),u(t,ke,h),e(ke,Xe),e(Xe,Yn),b($t,Yn,null),e(ke,gi),e(ke,Zn),e(Zn,_i),u(t,ka,h),u(t,se,h),e(se,bi),e(se,Dt),e(Dt,vi),e(se,ki),e(se,zt),e(zt,Qi),e(se,wi),u(t,Qa,h),b(Bt,t,h),u(t,wa,h),u(t,Qe,h),e(Qe,Je),e(Je,es),b(Mt,es,null),e(Qe,Ti),e(Qe,ts),e(ts,yi),u(t,Ta,h),u(t,N,h),b(xt,N,null),e(N,qi),e(N,we),e(we,$i),e(we,on),e(on,Di),e(we,zi),e(we,jt),e(jt,Bi),e(we,Mi),e(N,xi),e(N,Te),e(Te,ji),e(Te,nn),e(nn,Ei),e(Te,Fi),e(Te,sn),e(sn,Pi),e(Te,Ci),e(N,Ai),e(N,os),e(os,Ni),e(N,Si),b(Et,N,null),u(t,ya,h),u(t,ye,h),e(ye,Ke),e(Ke,ns),b(Ft,ns,null),e(ye,Li),e(ye,ss),e(ss,Ii),u(t,qa,h),u(t,z,h),b(Pt,z,null),e(z,Oi),e(z,as),e(as,Wi),e(z,Hi),e(z,Ct),e(Ct,Ri),e(Ct,an),e(an,Ui),e(Ct,Vi),e(z,Xi),e(z,At),e(At,Ji),e(At,Nt),e(Nt,Ki),e(At,Gi),e(z,Yi),e(z,St),e(St,Zi),e(St,Lt),e(Lt,el),e(St,tl),e(z,ol),e(z,j),e(j,nl),e(j,rs),e(rs,sl),e(j,al),e(j,is),e(is,rl),e(j,il),e(j,ls),e(ls,ll),e(j,dl),e(j,ds),e(ds,cl),e(j,hl),e(j,cs),e(cs,pl),e(j,ul),e(j,hs),e(hs,ml),e(j,fl),e(z,gl),e(z,U),b(It,U,null),e(U,_l),e(U,qe),e(qe,bl),e(qe,rn),e(rn,vl),e(qe,kl),e(qe,ps),e(ps,Ql),e(qe,wl),e(U,Tl),b(Ge,U,null),e(U,yl),e(U,us),e(us,ql),e(U,$l),b(Ot,U,null),u(t,$a,h),u(t,$e,h),e($e,Ye),e(Ye,ms),b(Wt,ms,null),e($e,Dl),e($e,fs),e(fs,zl),u(t,Da,h),u(t,S,h),b(Ht,S,null),e(S,Bl),e(S,Rt),e(Rt,Ml),e(Rt,gs),e(gs,xl),e(Rt,jl),e(S,El),e(S,Ut),e(Ut,Fl),e(Ut,ln),e(ln,Pl),e(Ut,Cl),e(S,Al),e(S,Vt),e(Vt,Nl),e(Vt,Xt),e(Xt,Sl),e(Vt,Ll),e(S,Il),e(S,V),b(Jt,V,null),e(V,Ol),e(V,De),e(De,Wl),e(De,dn),e(dn,Hl),e(De,Rl),e(De,_s),e(_s,Ul),e(De,Vl),e(V,Xl),b(Ze,V,null),e(V,Jl),e(V,bs),e(bs,Kl),e(V,Gl),b(Kt,V,null),u(t,za,h),u(t,ze,h),e(ze,et),e(et,vs),b(Gt,vs,null),e(ze,Yl),e(ze,ks),e(ks,Zl),u(t,Ba,h),u(t,L,h),b(Yt,L,null),e(L,ed),e(L,Zt),e(Zt,td),e(Zt,Qs),e(Qs,od),e(Zt,nd),e(L,sd),e(L,eo),e(eo,ad),e(eo,cn),e(cn,rd),e(eo,id),e(L,ld),e(L,to),e(to,dd),e(to,oo),e(oo,cd),e(to,hd),e(L,pd),e(L,P),b(no,P,null),e(P,ud),e(P,Be),e(Be,md),e(Be,hn),e(hn,fd),e(Be,gd),e(Be,ws),e(ws,_d),e(Be,bd),e(P,vd),b(tt,P,null),e(P,kd),e(P,Ts),e(Ts,Qd),e(P,wd),b(so,P,null),e(P,Td),b(ao,P,null),u(t,Ma,h),u(t,Me,h),e(Me,ot),e(ot,ys),b(ro,ys,null),e(Me,yd),e(Me,qs),e(qs,qd),u(t,xa,h),u(t,I,h),b(io,I,null),e(I,$d),e(I,$s),e($s,Dd),e(I,zd),e(I,lo),e(lo,Bd),e(lo,pn),e(pn,Md),e(lo,xd),e(I,jd),e(I,co),e(co,Ed),e(co,ho),e(ho,Fd),e(co,Pd),e(I,Cd),e(I,D),b(po,D,null),e(D,Ad),e(D,xe),e(xe,Nd),e(xe,un),e(un,Sd),e(xe,Ld),e(xe,Ds),e(Ds,Id),e(xe,Od),e(D,Wd),b(nt,D,null),e(D,Hd),e(D,zs),e(zs,Rd),e(D,Ud),b(uo,D,null),e(D,Vd),b(mo,D,null),e(D,Xd),e(D,Bs),e(Bs,Jd),e(D,Kd),b(fo,D,null),e(D,Gd),b(go,D,null),u(t,ja,h),u(t,je,h),e(je,st),e(st,Ms),b(_o,Ms,null),e(je,Yd),e(je,xs),e(xs,Zd),u(t,Ea,h),u(t,O,h),b(bo,O,null),e(O,ec),e(O,vo),e(vo,tc),e(vo,js),e(js,oc),e(vo,nc),e(O,sc),e(O,ko),e(ko,ac),e(ko,mn),e(mn,rc),e(ko,ic),e(O,lc),e(O,Qo),e(Qo,dc),e(Qo,wo),e(wo,cc),e(Qo,hc),e(O,pc),e(O,X),b(To,X,null),e(X,uc),e(X,Ee),e(Ee,mc),e(Ee,fn),e(fn,fc),e(Ee,gc),e(Ee,Es),e(Es,_c),e(Ee,bc),e(X,vc),b(at,X,null),e(X,kc),e(X,Fs),e(Fs,Qc),e(X,wc),b(yo,X,null),u(t,Fa,h),u(t,Fe,h),e(Fe,rt),e(rt,Ps),b(qo,Ps,null),e(Fe,Tc),e(Fe,Cs),e(Cs,yc),u(t,Pa,h),u(t,W,h),b($o,W,null),e(W,qc),e(W,As),e(As,$c),e(W,Dc),e(W,Do),e(Do,zc),e(Do,gn),e(gn,Bc),e(Do,Mc),e(W,xc),e(W,zo),e(zo,jc),e(zo,Bo),e(Bo,Ec),e(zo,Fc),e(W,Pc),e(W,J),b(Mo,J,null),e(J,Cc),e(J,Pe),e(Pe,Ac),e(Pe,_n),e(_n,Nc),e(Pe,Sc),e(Pe,Ns),e(Ns,Lc),e(Pe,Ic),e(J,Oc),b(it,J,null),e(J,Wc),e(J,Ss),e(Ss,Hc),e(J,Rc),b(xo,J,null),u(t,Ca,h),u(t,Ce,h),e(Ce,lt),e(lt,Ls),b(jo,Ls,null),e(Ce,Uc),e(Ce,Is),e(Is,Vc),u(t,Aa,h),u(t,H,h),b(Eo,H,null),e(H,Xc),e(H,Os),e(Os,Jc),e(H,Kc),e(H,Fo),e(Fo,Gc),e(Fo,bn),e(bn,Yc),e(Fo,Zc),e(H,eh),e(H,Po),e(Po,th),e(Po,Co),e(Co,oh),e(Po,nh),e(H,sh),e(H,C),b(Ao,C,null),e(C,ah),e(C,Ae),e(Ae,rh),e(Ae,vn),e(vn,ih),e(Ae,lh),e(Ae,Ws),e(Ws,dh),e(Ae,ch),e(C,hh),b(dt,C,null),e(C,ph),e(C,Hs),e(Hs,uh),e(C,mh),b(No,C,null),e(C,fh),b(So,C,null),u(t,Na,h),u(t,Ne,h),e(Ne,ct),e(ct,Rs),b(Lo,Rs,null),e(Ne,gh),e(Ne,Us),e(Us,_h),u(t,Sa,h),u(t,R,h),b(Io,R,null),e(R,bh),e(R,Se),e(Se,vh),e(Se,Vs),e(Vs,kh),e(Se,Qh),e(Se,Xs),e(Xs,wh),e(Se,Th),e(R,yh),e(R,Oo),e(Oo,qh),e(Oo,kn),e(kn,$h),e(Oo,Dh),e(R,zh),e(R,Wo),e(Wo,Bh),e(Wo,Ho),e(Ho,Mh),e(Wo,xh),e(R,jh),e(R,A),b(Ro,A,null),e(A,Eh),e(A,Le),e(Le,Fh),e(Le,Qn),e(Qn,Ph),e(Le,Ch),e(Le,Js),e(Js,Ah),e(Le,Nh),e(A,Sh),b(ht,A,null),e(A,Lh),e(A,Ks),e(Ks,Ih),e(A,Oh),b(Uo,A,null),e(A,Wh),b(Vo,A,null),La=!0},p(t,[h]){const Xo={};h&2&&(Xo.$$scope={dirty:h,ctx:t}),Ge.$set(Xo);const Gs={};h&2&&(Gs.$$scope={dirty:h,ctx:t}),Ze.$set(Gs);const Ys={};h&2&&(Ys.$$scope={dirty:h,ctx:t}),tt.$set(Ys);const Zs={};h&2&&(Zs.$$scope={dirty:h,ctx:t}),nt.$set(Zs);const Jo={};h&2&&(Jo.$$scope={dirty:h,ctx:t}),at.$set(Jo);const ea={};h&2&&(ea.$$scope={dirty:h,ctx:t}),it.$set(ea);const ta={};h&2&&(ta.$$scope={dirty:h,ctx:t}),dt.$set(ta);const oa={};h&2&&(oa.$$scope={dirty:h,ctx:t}),ht.$set(oa)},i(t){La||(v(w.$$.fragment,t),v(mt.$$.fragment,t),v(kt.$$.fragment,t),v(Tt.$$.fragment,t),v(yt.$$.fragment,t),v(qt.$$.fragment,t),v($t.$$.fragment,t),v(Bt.$$.fragment,t),v(Mt.$$.fragment,t),v(xt.$$.fragment,t),v(Et.$$.fragment,t),v(Ft.$$.fragment,t),v(Pt.$$.fragment,t),v(It.$$.fragment,t),v(Ge.$$.fragment,t),v(Ot.$$.fragment,t),v(Wt.$$.fragment,t),v(Ht.$$.fragment,t),v(Jt.$$.fragment,t),v(Ze.$$.fragment,t),v(Kt.$$.fragment,t),v(Gt.$$.fragment,t),v(Yt.$$.fragment,t),v(no.$$.fragment,t),v(tt.$$.fragment,t),v(so.$$.fragment,t),v(ao.$$.fragment,t),v(ro.$$.fragment,t),v(io.$$.fragment,t),v(po.$$.fragment,t),v(nt.$$.fragment,t),v(uo.$$.fragment,t),v(mo.$$.fragment,t),v(fo.$$.fragment,t),v(go.$$.fragment,t),v(_o.$$.fragment,t),v(bo.$$.fragment,t),v(To.$$.fragment,t),v(at.$$.fragment,t),v(yo.$$.fragment,t),v(qo.$$.fragment,t),v($o.$$.fragment,t),v(Mo.$$.fragment,t),v(it.$$.fragment,t),v(xo.$$.fragment,t),v(jo.$$.fragment,t),v(Eo.$$.fragment,t),v(Ao.$$.fragment,t),v(dt.$$.fragment,t),v(No.$$.fragment,t),v(So.$$.fragment,t),v(Lo.$$.fragment,t),v(Io.$$.fragment,t),v(Ro.$$.fragment,t),v(ht.$$.fragment,t),v(Uo.$$.fragment,t),v(Vo.$$.fragment,t),La=!0)},o(t){k(w.$$.fragment,t),k(mt.$$.fragment,t),k(kt.$$.fragment,t),k(Tt.$$.fragment,t),k(yt.$$.fragment,t),k(qt.$$.fragment,t),k($t.$$.fragment,t),k(Bt.$$.fragment,t),k(Mt.$$.fragment,t),k(xt.$$.fragment,t),k(Et.$$.fragment,t),k(Ft.$$.fragment,t),k(Pt.$$.fragment,t),k(It.$$.fragment,t),k(Ge.$$.fragment,t),k(Ot.$$.fragment,t),k(Wt.$$.fragment,t),k(Ht.$$.fragment,t),k(Jt.$$.fragment,t),k(Ze.$$.fragment,t),k(Kt.$$.fragment,t),k(Gt.$$.fragment,t),k(Yt.$$.fragment,t),k(no.$$.fragment,t),k(tt.$$.fragment,t),k(so.$$.fragment,t),k(ao.$$.fragment,t),k(ro.$$.fragment,t),k(io.$$.fragment,t),k(po.$$.fragment,t),k(nt.$$.fragment,t),k(uo.$$.fragment,t),k(mo.$$.fragment,t),k(fo.$$.fragment,t),k(go.$$.fragment,t),k(_o.$$.fragment,t),k(bo.$$.fragment,t),k(To.$$.fragment,t),k(at.$$.fragment,t),k(yo.$$.fragment,t),k(qo.$$.fragment,t),k($o.$$.fragment,t),k(Mo.$$.fragment,t),k(it.$$.fragment,t),k(xo.$$.fragment,t),k(jo.$$.fragment,t),k(Eo.$$.fragment,t),k(Ao.$$.fragment,t),k(dt.$$.fragment,t),k(No.$$.fragment,t),k(So.$$.fragment,t),k(Lo.$$.fragment,t),k(Io.$$.fragment,t),k(Ro.$$.fragment,t),k(ht.$$.fragment,t),k(Uo.$$.fragment,t),k(Vo.$$.fragment,t),La=!1},d(t){o(p),t&&o(q),t&&o(f),Q(w),t&&o(sa),t&&o(_e),Q(mt),t&&o(aa),t&&o(Oe),t&&o(ra),t&&o(Ko),t&&o(ia),t&&o(Go),t&&o(la),t&&o(Yo),t&&o(da),t&&o(Z),t&&o(ca),t&&o(He),t&&o(ha),t&&o(be),Q(kt),t&&o(pa),t&&o(F),t&&o(ua),t&&o(Ue),t&&o(ma),t&&o(en),t&&o(fa),Q(Tt,t),t&&o(ga),t&&o(ve),Q(yt),t&&o(_a),t&&o(tn),t&&o(ba),Q(qt,t),t&&o(va),t&&o(ke),Q($t),t&&o(ka),t&&o(se),t&&o(Qa),Q(Bt,t),t&&o(wa),t&&o(Qe),Q(Mt),t&&o(Ta),t&&o(N),Q(xt),Q(Et),t&&o(ya),t&&o(ye),Q(Ft),t&&o(qa),t&&o(z),Q(Pt),Q(It),Q(Ge),Q(Ot),t&&o($a),t&&o($e),Q(Wt),t&&o(Da),t&&o(S),Q(Ht),Q(Jt),Q(Ze),Q(Kt),t&&o(za),t&&o(ze),Q(Gt),t&&o(Ba),t&&o(L),Q(Yt),Q(no),Q(tt),Q(so),Q(ao),t&&o(Ma),t&&o(Me),Q(ro),t&&o(xa),t&&o(I),Q(io),Q(po),Q(nt),Q(uo),Q(mo),Q(fo),Q(go),t&&o(ja),t&&o(je),Q(_o),t&&o(Ea),t&&o(O),Q(bo),Q(To),Q(at),Q(yo),t&&o(Fa),t&&o(Fe),Q(qo),t&&o(Pa),t&&o(W),Q($o),Q(Mo),Q(it),Q(xo),t&&o(Ca),t&&o(Ce),Q(jo),t&&o(Aa),t&&o(H),Q(Eo),Q(Ao),Q(dt),Q(No),Q(So),t&&o(Na),t&&o(Ne),Q(Lo),t&&o(Sa),t&&o(R),Q(Io),Q(Ro),Q(ht),Q(Uo),Q(Vo)}}}const vm={local:"qdqbert",sections:[{local:"overview",sections:[{local:"set-default-quantizers",title:"Set default quantizers"},{local:"calibration",title:"Calibration"},{local:"export-to-onnx",title:"Export to ONNX"}],title:"Overview"},{local:"transformers.QDQBertConfig",title:"QDQBertConfig"},{local:"transformers.QDQBertModel",title:"QDQBertModel"},{local:"transformers.QDQBertLMHeadModel",title:"QDQBertLMHeadModel"},{local:"transformers.QDQBertForMaskedLM",title:"QDQBertForMaskedLM"},{local:"transformers.QDQBertForSequenceClassification",title:"QDQBertForSequenceClassification"},{local:"transformers.QDQBertForNextSentencePrediction",title:"QDQBertForNextSentencePrediction"},{local:"transformers.QDQBertForMultipleChoice",title:"QDQBertForMultipleChoice"},{local:"transformers.QDQBertForTokenClassification",title:"QDQBertForTokenClassification"},{local:"transformers.QDQBertForQuestionAnswering",title:"QDQBertForQuestionAnswering"}],title:"QDQBERT"};function km(B){return dm(()=>{new URLSearchParams(window.location.search).get("fw")}),[]}class $m extends am{constructor(p){super();rm(this,p,km,bm,im,{})}}export{$m as default,vm as metadata};
