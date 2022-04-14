@@ -1,0 +1,189 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;parallelism-and-batch-jobs&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;streaming&quot;,&quot;title&quot;:&quot;Streaming&quot;},{&quot;local&quot;:&quot;dataset&quot;,&quot;title&quot;:&quot;Dataset&quot;}],&quot;title&quot;:&quot;Parallelism and batch jobs&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="stylesheet" href="/docs/api-inference/main/en/_app/assets/pages/__layout.svelte-ab71f83a.css">
+	<link rel="modulepreload" href="/docs/api-inference/main/en/_app/start-41f82a8e.js">
+	<link rel="modulepreload" href="/docs/api-inference/main/en/_app/chunks/vendor-7c454903.js">
+	<link rel="modulepreload" href="/docs/api-inference/main/en/_app/chunks/paths-4b3c6e7e.js">
+	<link rel="modulepreload" href="/docs/api-inference/main/en/_app/pages/__layout.svelte-6835d907.js">
+	<link rel="modulepreload" href="/docs/api-inference/main/en/_app/pages/parallelism.mdx-aad43dbc.js">
+	<link rel="modulepreload" href="/docs/api-inference/main/en/_app/chunks/IconCopyLink-5457534b.js">
+	<link rel="modulepreload" href="/docs/api-inference/main/en/_app/chunks/InferenceApi-041dc1b2.js"> 
+
+
+
+
+
+<h1 class="relative group"><a id="parallelism-and-batch-jobs" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#parallelism-and-batch-jobs"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Parallelism and batch jobs
+	</span></h1>
+
+<p>In order to get your answers as quickly as possible, you probably want
+to run some kind of parallelism on your jobs.</p>
+<p>There are two options at your disposal for this.</p>
+<ul><li>The streaming option</li>
+<li>The dataset option</li></ul>
+<h2 class="relative group"><a id="streaming" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#streaming"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Streaming
+	</span></h2>
+
+<p>In order to maximize the speed of inference, instead of running many
+HTTP requests it will be more efficient to stream your data to the API.
+This will require the use of websockets on your end. Internally we’re
+using a queue system where machines can variously pull work, seamlessly
+using parallelism for you. <strong>This is meant as a batching mechanism and a
+single stream should be open at any give time</strong>. If multiple streams are
+open, requests will go to either without any guarantee. This is intended
+as it allows recovering from a stream cut. Simply reinitializing the
+stream will recover results, everything that was sent is being processed
+even if you are not connected anymore. So make sure you don’t send item
+multiple times other wise you will be billed multiple times.</p>
+<p>Here is a small example:</p>
+<div class="flex space-x-2 items-center my-1.5 mr-8 h-7 !pl-0 -mx-3 md:mx-0"><div class="flex items-center border rounded-lg px-1.5 py-1 leading-none select-none text-smd border-gray-800 bg-black dark:bg-gray-700 text-white"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M15.84.5a16.4,16.4,0,0,0-3.57.32C9.1,1.39,8.53,2.53,8.53,4.64V7.48H16v1H5.77a4.73,4.73,0,0,0-4.7,3.74,14.82,14.82,0,0,0,0,7.54c.57,2.28,1.86,3.82,4,3.82h2.6V20.14a4.73,4.73,0,0,1,4.63-4.63h7.38a3.72,3.72,0,0,0,3.73-3.73V4.64A4.16,4.16,0,0,0,19.65.82,20.49,20.49,0,0,0,15.84.5ZM11.78,2.77a1.39,1.39,0,0,1,1.38,1.46,1.37,1.37,0,0,1-1.38,1.38A1.42,1.42,0,0,1,10.4,4.23,1.44,1.44,0,0,1,11.78,2.77Z" fill="#5a9fd4"></path><path d="M16.16,31.5a16.4,16.4,0,0,0,3.57-.32c3.17-.57,3.74-1.71,3.74-3.82V24.52H16v-1H26.23a4.73,4.73,0,0,0,4.7-3.74,14.82,14.82,0,0,0,0-7.54c-.57-2.28-1.86-3.82-4-3.82h-2.6v3.41a4.73,4.73,0,0,1-4.63,4.63H12.35a3.72,3.72,0,0,0-3.73,3.73v7.14a4.16,4.16,0,0,0,3.73,3.82A20.49,20.49,0,0,0,16.16,31.5Zm4.06-2.27a1.39,1.39,0,0,1-1.38-1.46,1.37,1.37,0,0,1,1.38-1.38,1.42,1.42,0,0,1,1.38,1.38A1.44,1.44,0,0,1,20.22,29.23Z" fill="#ffd43b"></path></svg>
+			Python
+		</div><div class="flex items-center border rounded-lg px-1.5 py-1 leading-none select-none text-smd text-gray-500 cursor-pointer opacity-90 hover:text-gray-700 dark:hover:text-gray-200 hover:shadow-sm"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><rect width="32" height="32" fill="#f7df1e"></rect><path d="M21.5,25a3.27,3.27,0,0,0,3,1.83c1.25,0,2-.63,2-1.49,0-1-.81-1.39-2.19-2L23.56,23C21.39,22.1,20,20.94,20,18.49c0-2.25,1.72-4,4.41-4a4.44,4.44,0,0,1,4.27,2.41l-2.34,1.5a2,2,0,0,0-1.93-1.29,1.31,1.31,0,0,0-1.44,1.29c0,.9.56,1.27,1.85,1.83l.75.32c2.55,1.1,4,2.21,4,4.72,0,2.71-2.12,4.19-5,4.19a5.78,5.78,0,0,1-5.48-3.07Zm-10.63.26c.48.84.91,1.55,1.94,1.55s1.61-.39,1.61-1.89V14.69h3V25c0,3.11-1.83,4.53-4.49,4.53a4.66,4.66,0,0,1-4.51-2.75Z"></path></svg>
+			JavaScript
+		</div><div class="flex items-center border rounded-lg px-1.5 py-1 leading-none select-none text-smd text-gray-500 cursor-pointer opacity-90 hover:text-gray-700 dark:hover:text-gray-200 hover:shadow-sm"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><rect width="32" height="32" rx="4" fill="#1683a5"></rect><path d="M6.71,14A5,5,0,0,1,8.82,9.29l2.64-2.2c1.67-1.37,2.52-1.41,4.6-1.41H21.7c1.19,0,2.45.27,2.45,1.79s-1.4,1.78-2.45,1.78H15.44a3.31,3.31,0,0,0-2,.89L11.24,12c-.55.44-1,.81-1,1.52v4.41c0,.7.41,1.07,1,1.52l2.16,1.82a3.34,3.34,0,0,0,2,.89H21.7c1.05,0,2.45.23,2.45,1.78s-1.26,1.78-2.45,1.78H16.06c-2.08,0-2.94,0-4.6-1.4L8.82,22.09A5.05,5.05,0,0,1,6.71,17.4Z" fill="#fff"></path></svg>
+			cURL
+		</div></div>
+<div class="language-select">
+<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># !pip install websockets</span>
+<span class="hljs-keyword">import</span> asyncio
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">import</span> uuid
+<span class="hljs-keyword">import</span> websockets
+MODEL_ID = <span class="hljs-string">&quot;facebook/bart-large-mnli&quot;</span>
+COMPUTE_TYPE = <span class="hljs-string">&quot;cpu&quot;</span>  <span class="hljs-comment"># or &quot;gpu&quot;</span>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">send</span>(<span class="hljs-params">websocket, payloads</span>):
+    <span class="hljs-comment"># You need to login with a first message as headers are not forwarded</span>
+    <span class="hljs-comment"># for websockets</span>
+    <span class="hljs-keyword">await</span> websocket.send(<span class="hljs-string">f&quot;Bearer <span class="hljs-subst">{API_TOKEN}</span>&quot;</span>.encode(<span class="hljs-string">&quot;utf-8&quot;</span>))
+    <span class="hljs-keyword">for</span> payload <span class="hljs-keyword">in</span> payloads:
+        <span class="hljs-keyword">await</span> websocket.send(json.dumps(payload).encode(<span class="hljs-string">&quot;utf-8&quot;</span>))
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Sent &quot;</span>)
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">recv</span>(<span class="hljs-params">websocket, last_id</span>):
+    outputs = []
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        data = <span class="hljs-keyword">await</span> websocket.recv()
+        payload = json.loads(data)
+        <span class="hljs-keyword">if</span> payload[<span class="hljs-string">&quot;type&quot;</span>] == <span class="hljs-string">&quot;results&quot;</span>:
+            <span class="hljs-comment"># {&quot;type&quot;: &quot;results&quot;, &quot;outputs&quot;: JSONFormatted results, &quot;id&quot;: the id we sent}</span>
+            <span class="hljs-built_in">print</span>(payload[<span class="hljs-string">&quot;outputs&quot;</span>])
+            outputs.append(payload[<span class="hljs-string">&quot;outputs&quot;</span>])
+            <span class="hljs-keyword">if</span> payload[<span class="hljs-string">&quot;id&quot;</span>] == last_id:
+                <span class="hljs-keyword">return</span> outputs
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-comment"># {&quot;type&quot;: &quot;status&quot;, &quot;message&quot;: &quot;Some information about the queue&quot;}</span>
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;&lt; <span class="hljs-subst">{payload[<span class="hljs-string">&#x27;message&#x27;</span>]}</span>&quot;</span>)
+            <span class="hljs-keyword">pass</span>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    uri = <span class="hljs-string">f&quot;wss://api-inference.huggingface.co/bulk/stream/<span class="hljs-subst">{COMPUTE_TYPE}</span>/<span class="hljs-subst">{MODEL_ID}</span>&quot;</span>
+    <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> websockets.connect(uri) <span class="hljs-keyword">as</span> websocket:
+        <span class="hljs-comment"># inputs and parameters are classic, &quot;id&quot; is a way to track that query</span>
+        payloads = [
+            {
+                <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-built_in">str</span>(uuid.uuid4()),
+                <span class="hljs-string">&quot;inputs&quot;</span>: <span class="hljs-string">&quot;This is a test about a new dress shop than opened up on 5th avenue&quot;</span>,
+                <span class="hljs-string">&quot;parameters&quot;</span>: {<span class="hljs-string">&quot;candidate_labels&quot;</span>: [<span class="hljs-string">&quot;medical&quot;</span>, <span class="hljs-string">&quot;fashion&quot;</span>, <span class="hljs-string">&quot;politics&quot;</span>]},
+            }
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>)
+        ]
+        last_id = payloads[-<span class="hljs-number">1</span>][<span class="hljs-string">&quot;id&quot;</span>]
+        future = send(websocket, payloads)
+        future_r = recv(websocket, last_id)
+        _, outputs = <span class="hljs-keyword">await</span> asyncio.gather(future, future_r)
+    results = [out[<span class="hljs-string">&quot;labels&quot;</span>][<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> out <span class="hljs-keyword">in</span> outputs]
+    <span class="hljs-keyword">return</span> results
+loop = asyncio.get_event_loop()
+<span class="hljs-keyword">if</span> loop.is_running():
+    <span class="hljs-comment"># When running in notebooks</span>
+    <span class="hljs-keyword">import</span> nest_asyncio
+    nest_asyncio.apply()
+results = loop.run_until_complete(main())
+<span class="hljs-comment"># All results are &quot;fashion&quot;</span><!-- HTML_TAG_END --></pre></div>
+	
+	</div>
+<p>The messages you need to send need to contain inputs keys.</p>
+<p>Optionnally you can specifiy id key that will be sent back
+with the result. We try to maintain the ordering of results as you sent,
+but it’s better to be sure, the id key is there for that.</p>
+<p>Optionnally, you can specify parameters key that
+corresponds to <code>detailed_parameters</code> of
+the pipeline you are using.</p>
+<p>The received messages will <em>always</em> contain a type key.</p>
+<ul><li>status message: These messages will contain a
+message key that will inform you about the current
+status of the job</li>
+<li>results message: These messages will contain the
+actual results of the computation. id will contain the
+id you have sent (or one will be generated automatically).
+outputs will contain the result like it would be sent
+by the HTTP endpoint. See <code>detailed_parameters</code> for more information.</li></ul>
+<h2 class="relative group"><a id="dataset" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#dataset"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Dataset
+	</span></h2>
+
+<p>If you are running regulary against the same dataset to check
+differences between models or drifts we recommend using a
+<a href="https://huggingface.co/docs/datasets/" rel="nofollow">dataset</a> .</p>
+<p>Or use any of the 2000 available datasets:
+<a href="https://huggingface.co/datasets" rel="nofollow">here</a>.</p>
+<p>The outputs of this method will automatically create a private dataset
+on your account, and use git mechanisms to store versions of the various
+outputs.</p>
+<div class="flex space-x-2 items-center my-1.5 mr-8 h-7 !pl-0 -mx-3 md:mx-0"><div class="flex items-center border rounded-lg px-1.5 py-1 leading-none select-none text-smd border-gray-800 bg-black dark:bg-gray-700 text-white"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M15.84.5a16.4,16.4,0,0,0-3.57.32C9.1,1.39,8.53,2.53,8.53,4.64V7.48H16v1H5.77a4.73,4.73,0,0,0-4.7,3.74,14.82,14.82,0,0,0,0,7.54c.57,2.28,1.86,3.82,4,3.82h2.6V20.14a4.73,4.73,0,0,1,4.63-4.63h7.38a3.72,3.72,0,0,0,3.73-3.73V4.64A4.16,4.16,0,0,0,19.65.82,20.49,20.49,0,0,0,15.84.5ZM11.78,2.77a1.39,1.39,0,0,1,1.38,1.46,1.37,1.37,0,0,1-1.38,1.38A1.42,1.42,0,0,1,10.4,4.23,1.44,1.44,0,0,1,11.78,2.77Z" fill="#5a9fd4"></path><path d="M16.16,31.5a16.4,16.4,0,0,0,3.57-.32c3.17-.57,3.74-1.71,3.74-3.82V24.52H16v-1H26.23a4.73,4.73,0,0,0,4.7-3.74,14.82,14.82,0,0,0,0-7.54c-.57-2.28-1.86-3.82-4-3.82h-2.6v3.41a4.73,4.73,0,0,1-4.63,4.63H12.35a3.72,3.72,0,0,0-3.73,3.73v7.14a4.16,4.16,0,0,0,3.73,3.82A20.49,20.49,0,0,0,16.16,31.5Zm4.06-2.27a1.39,1.39,0,0,1-1.38-1.46,1.37,1.37,0,0,1,1.38-1.38,1.42,1.42,0,0,1,1.38,1.38A1.44,1.44,0,0,1,20.22,29.23Z" fill="#ffd43b"></path></svg>
+			Python
+		</div><div class="flex items-center border rounded-lg px-1.5 py-1 leading-none select-none text-smd text-gray-500 cursor-pointer opacity-90 hover:text-gray-700 dark:hover:text-gray-200 hover:shadow-sm"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><rect width="32" height="32" fill="#f7df1e"></rect><path d="M21.5,25a3.27,3.27,0,0,0,3,1.83c1.25,0,2-.63,2-1.49,0-1-.81-1.39-2.19-2L23.56,23C21.39,22.1,20,20.94,20,18.49c0-2.25,1.72-4,4.41-4a4.44,4.44,0,0,1,4.27,2.41l-2.34,1.5a2,2,0,0,0-1.93-1.29,1.31,1.31,0,0,0-1.44,1.29c0,.9.56,1.27,1.85,1.83l.75.32c2.55,1.1,4,2.21,4,4.72,0,2.71-2.12,4.19-5,4.19a5.78,5.78,0,0,1-5.48-3.07Zm-10.63.26c.48.84.91,1.55,1.94,1.55s1.61-.39,1.61-1.89V14.69h3V25c0,3.11-1.83,4.53-4.49,4.53a4.66,4.66,0,0,1-4.51-2.75Z"></path></svg>
+			JavaScript
+		</div><div class="flex items-center border rounded-lg px-1.5 py-1 leading-none select-none text-smd text-gray-500 cursor-pointer opacity-90 hover:text-gray-700 dark:hover:text-gray-200 hover:shadow-sm"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><rect width="32" height="32" rx="4" fill="#1683a5"></rect><path d="M6.71,14A5,5,0,0,1,8.82,9.29l2.64-2.2c1.67-1.37,2.52-1.41,4.6-1.41H21.7c1.19,0,2.45.27,2.45,1.79s-1.4,1.78-2.45,1.78H15.44a3.31,3.31,0,0,0-2,.89L11.24,12c-.55.44-1,.81-1,1.52v4.41c0,.7.41,1.07,1,1.52l2.16,1.82a3.34,3.34,0,0,0,2,.89H21.7c1.05,0,2.45.23,2.45,1.78s-1.26,1.78-2.45,1.78H16.06c-2.08,0-2.94,0-4.6-1.4L8.82,22.09A5.05,5.05,0,0,1,6.71,17.4Z" fill="#fff"></path></svg>
+			cURL
+		</div></div>
+<div class="language-select">
+<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> requests
+model_id = <span class="hljs-string">&quot;facebook/wav2vec2-base-960h&quot;</span>
+API_URL = <span class="hljs-string">f&quot;https://api-inference.huggingface.co/bulk/run/cpu/<span class="hljs-subst">{model_id}</span>&quot;</span>
+headers = {<span class="hljs-string">&quot;Authorization&quot;</span>: <span class="hljs-string">f&quot;Bearer <span class="hljs-subst">{API_TOKEN}</span>&quot;</span>}
+data = json.dumps(
+    {
+        <span class="hljs-string">&quot;dataset_name&quot;</span>: <span class="hljs-string">&quot;ApiInferenceTest/asr_dummy&quot;</span>,
+        <span class="hljs-string">&quot;dataset_config&quot;</span>: <span class="hljs-string">&quot;asr&quot;</span>,
+        <span class="hljs-string">&quot;dataset_split&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>,
+        <span class="hljs-string">&quot;dataset_column&quot;</span>: <span class="hljs-string">&quot;file&quot;</span>,
+    }
+)
+response = requests.request(<span class="hljs-string">&quot;POST&quot;</span>, API_URL, headers=headers, data=data)
+data = json.loads(response.content)
+self.assertIn(<span class="hljs-string">&quot;jobid&quot;</span>, data, <span class="hljs-string">f&quot;Expected some job id, got <span class="hljs-subst">{data}</span>&quot;</span>)
+STATUS_URL = <span class="hljs-string">f&quot;https://api-inference.huggingface.co/bulk/status/<span class="hljs-subst">{data[<span class="hljs-string">&#x27;jobid&#x27;</span>]}</span>&quot;</span>
+status = requests.request(<span class="hljs-string">&quot;GET&quot;</span>, STATUS_URL, headers=headers)
+<span class="hljs-comment"># results will contain a `jobid` to track the job, and `bulk_name` the name of the output</span>
+<span class="hljs-comment"># dataset, accessible at https://huggingface.co/datasets/{bulk_name}</span>
+<span class="hljs-comment"># status == {&quot;status&quot;:{&quot;active&quot;:1,&quot;start_time&quot;:1627479091.0}}</span><!-- HTML_TAG_END --></pre></div>
+	
+	</div>
+
+
+		<script type="module" data-hydrate="19jywc4">
+		import { start } from "/docs/api-inference/main/en/_app/start-41f82a8e.js";
+		start({
+			target: document.querySelector('[data-hydrate="19jywc4"]').parentNode,
+			paths: {"base":"/docs/api-inference/main/en","assets":"/docs/api-inference/main/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/api-inference/main/en/_app/pages/__layout.svelte-6835d907.js"),
+						import("/docs/api-inference/main/en/_app/pages/parallelism.mdx-aad43dbc.js")
+				],
+				params: {}
+			}
+		});
+	</script>
