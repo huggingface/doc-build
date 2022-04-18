@@ -1018,7 +1018,7 @@ for multilingual models like <a href="../model_doc/mbart">mBART</a> where the fi
 the target language token.`,name:"forced_bos_token_id"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.forced_eos_token_id",description:`<strong>forced_eos_token_id</strong> (<code>int</code>, <em>optional</em>) &#x2014;
 The id of the token to force as the last generated token when <code>max_length</code> is reached.
 model_specific_kwargs &#x2014;
-Additional model specific kwargs will be forwarded to the <code>forward</code> function of the model.`,name:"forced_eos_token_id"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_tf_utils.py#L364",returnDescription:`
+Additional model specific kwargs will be forwarded to the <code>forward</code> function of the model.`,name:"forced_eos_token_id"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_tf_utils.py#L366",returnDescription:`
 <p>A <a
   href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput"
 >ModelOutput</a> (if <code>return_dict_in_generate=True</code> or when
