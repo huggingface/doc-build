@@ -130,7 +130,7 @@ understand how to make use of <code>output_word_offsets</code>.
 and batched output.</p>
 
 					</div>`,name:"output_char_offsets"},{anchor:"transformers.Wav2Vec2PhonemeCTCTokenizer.batch_decode.kwargs",description:`<strong>kwargs</strong> (additional keyword arguments, <em>optional</em>) &#x2014;
-Will be passed to the underlying model specific decode method.`,name:"kwargs"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/wav2vec2_phoneme/tokenization_wav2vec2_phoneme.py#L489",returnDescription:`
+Will be passed to the underlying model specific decode method.`,name:"kwargs"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/wav2vec2_phoneme/tokenization_wav2vec2_phoneme.py#L502",returnDescription:`
 <p>The
 decoded sentence. Will be a
 <code>Wav2Vec2PhonemeCTCTokenizerOutput</code> when
@@ -151,13 +151,13 @@ understand how to make use of <code>output_word_offsets</code>.
 phonemes.</p>
 
 					</div>`,name:"output_char_offsets"},{anchor:"transformers.Wav2Vec2PhonemeCTCTokenizer.decode.kwargs",description:`<strong>kwargs</strong> (additional keyword arguments, <em>optional</em>) &#x2014;
-Will be passed to the underlying model specific decode method.`,name:"kwargs"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/wav2vec2_phoneme/tokenization_wav2vec2_phoneme.py#L433",returnDescription:`
+Will be passed to the underlying model specific decode method.`,name:"kwargs"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/wav2vec2_phoneme/tokenization_wav2vec2_phoneme.py#L446",returnDescription:`
 <p>The decoded
 sentence. Will be a <code>Wav2Vec2PhonemeCTCTokenizerOutput</code>
 when <code>output_char_offsets == True</code>.</p>
 `,returnType:`
 <p><code>str</code> or <code>Wav2Vec2PhonemeCTCTokenizerOutput</code></p>
-`}}),K=new ye({props:{name:"phonemize",anchor:"transformers.Wav2Vec2PhonemeCTCTokenizer.phonemize",parameters:[{name:"text",val:": str"},{name:"phonemizer_lang",val:": typing.Optional[str] = None"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/wav2vec2_phoneme/tokenization_wav2vec2_phoneme.py#L236"}}),{c(){v=n("meta"),ze=c(),k=n("h1"),w=n("a"),se=n("span"),E(N.$$.fragment),Je=c(),ie=n("span"),Ge=s("Wav2Vec2Phoneme"),Ce=c(),b=n("h2"),y=n("a"),ce=n("span"),E(D.$$.fragment),Ke=c(),le=n("span"),Ye=s("Overview"),Pe=c(),z=n("p"),eo=s("The Wav2Vec2Phoneme model was proposed in "),S=n("a"),oo=s(`Simple and Effective Zero-shot Cross-lingual Phoneme Recognition (Xu et al.,
+`}}),K=new ye({props:{name:"phonemize",anchor:"transformers.Wav2Vec2PhonemeCTCTokenizer.phonemize",parameters:[{name:"text",val:": str"},{name:"phonemizer_lang",val:": typing.Optional[str] = None"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/wav2vec2_phoneme/tokenization_wav2vec2_phoneme.py#L252"}}),{c(){v=n("meta"),ze=c(),k=n("h1"),w=n("a"),se=n("span"),E(N.$$.fragment),Je=c(),ie=n("span"),Ge=s("Wav2Vec2Phoneme"),Ce=c(),b=n("h2"),y=n("a"),ce=n("span"),E(D.$$.fragment),Ke=c(),le=n("span"),Ye=s("Overview"),Pe=c(),z=n("p"),eo=s("The Wav2Vec2Phoneme model was proposed in "),S=n("a"),oo=s(`Simple and Effective Zero-shot Cross-lingual Phoneme Recognition (Xu et al.,
 2021`),to=s(" by Qiantong Xu, Alexei Baevski, Michael Auli."),xe=c(),Y=n("p"),no=s("The abstract from the paper is the following:"),We=c(),ee=n("p"),de=n("em"),ro=s(`Recent progress in self-training, self-supervised pretraining and unsupervised learning enabled well performing speech
 recognition systems without any labeled data. However, in many cases there is labeled data available for related
 languages which is not utilized by these methods. This paper extends previous work on zero-shot cross-lingual transfer
