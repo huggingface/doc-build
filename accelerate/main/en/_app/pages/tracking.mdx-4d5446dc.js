@@ -14,17 +14,17 @@ The name of the experiment run.`,name:"run_name"}],source:"https://github.com/hu
 Values to be logged as key-value pairs. The values need to have type <code>str</code>, <code>float</code>, or <code>int</code>.`,name:"values"},{anchor:"accelerate.tracking.CometMLTracker.log.step",description:`<strong>step</strong> (<code>int</code>, <em>optional</em>) &#x2014;
 The run step. If included, the log will be affiliated with this step.`,name:"step"}],source:"https://github.com/huggingface/accelerate/blob/main/src/accelerate/tracking.py#L245"}}),xe=new E({props:{name:"store_init_configuration",anchor:"accelerate.tracking.CometMLTracker.store_init_configuration",parameters:[{name:"values",val:": dict"}],parametersDescription:[{anchor:"accelerate.tracking.CometMLTracker.store_init_configuration.values",description:`<strong>values</strong> (Dictionary <code>str</code> to <code>bool</code>, <code>str</code>, <code>float</code> or <code>int</code>) &#x2014;
 Values to be stored as initial hyperparameters as key-value pairs. The values need to have type <code>bool</code>,
-<code>str</code>, <code>float</code>, <code>int</code>, or <code>None</code>.`,name:"values"}],source:"https://github.com/huggingface/accelerate/blob/main/src/accelerate/tracking.py#L233"}}),De=new V({props:{code:`from accelerate import Accelerate
+<code>str</code>, <code>float</code>, <code>int</code>, or <code>None</code>.`,name:"values"}],source:"https://github.com/huggingface/accelerate/blob/main/src/accelerate/tracking.py#L233"}}),De=new V({props:{code:`from accelerate import Accelerator
 from accelerate.utils import LoggerType
 
-accelerator = Accelerate(log_with="all")  # For all available trackers in the environment
-accelerator = Accelerate(log_with="wandb")
-accelerator = Accelerate(log_with=["wandb", LoggerType.TENSORBOARD])`,highlighted:`<span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> Accelerate
+accelerator = Accelerator(log_with="all")  # For all available trackers in the environment
+accelerator = Accelerator(log_with="wandb")
+accelerator = Accelerator(log_with=["wandb", LoggerType.TENSORBOARD])`,highlighted:`<span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> Accelerator
 <span class="hljs-keyword">from</span> accelerate.utils <span class="hljs-keyword">import</span> LoggerType
 
-accelerator = Accelerate(log_with=<span class="hljs-string">&quot;all&quot;</span>)  <span class="hljs-comment"># For all available trackers in the environment</span>
-accelerator = Accelerate(log_with=<span class="hljs-string">&quot;wandb&quot;</span>)
-accelerator = Accelerate(log_with=[<span class="hljs-string">&quot;wandb&quot;</span>, LoggerType.TENSORBOARD])`}}),Le=new V({props:{code:`hps = {"num_iterations": 5, "learning_rate": 1e-2}
+accelerator = Accelerator(log_with=<span class="hljs-string">&quot;all&quot;</span>)  <span class="hljs-comment"># For all available trackers in the environment</span>
+accelerator = Accelerator(log_with=<span class="hljs-string">&quot;wandb&quot;</span>)
+accelerator = Accelerator(log_with=[<span class="hljs-string">&quot;wandb&quot;</span>, LoggerType.TENSORBOARD])`}}),Le=new V({props:{code:`hps = {"num_iterations": 5, "learning_rate": 1e-2}
 accelerator.init_trackers("my_project", config=hps)`,highlighted:`hps = {<span class="hljs-string">&quot;num_iterations&quot;</span>: <span class="hljs-number">5</span>, <span class="hljs-string">&quot;learning_rate&quot;</span>: <span class="hljs-number">1e-2</span>}
 accelerator.init_trackers(<span class="hljs-string">&quot;my_project&quot;</span>, config=hps)`}}),Pe=new V({props:{code:'accelerator.log({"train_loss": 1.12, "valid_loss": 0.8}, step=1)',highlighted:'accelerator.log({<span class="hljs-string">&quot;train_loss&quot;</span>: <span class="hljs-number">1.12</span>, <span class="hljs-string">&quot;valid_loss&quot;</span>: <span class="hljs-number">0.8</span>}, step=<span class="hljs-number">1</span>)'}}),Oe=new V({props:{code:"accelerator.end_training()",highlighted:"accelerator.end_training()"}}),Ie=new V({props:{code:`from accelerate import Accelerator
 
@@ -109,10 +109,10 @@ class MyCustomTracker(GeneralTracker):
 
     <span class="hljs-keyword">def</span> <span class="hljs-title function_">log</span>(<span class="hljs-params">self, values: <span class="hljs-built_in">dict</span>, step: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">int</span>] = <span class="hljs-literal">None</span></span>):
         wandb.log(values, step=step)`}}),Re=new V({props:{code:`tracker = MyCustomTracker("some_run_name")
-accelerator = Accelerate(log_with=tracker)`,highlighted:`tracker = MyCustomTracker(<span class="hljs-string">&quot;some_run_name&quot;</span>)
-accelerator = Accelerate(log_with=tracker)`}}),Ue=new V({props:{code:`tracker = MyCustomTracker("some_run_name")
-accelerator = Accelerate(log_with=[tracker, "all"])`,highlighted:`tracker = MyCustomTracker(<span class="hljs-string">&quot;some_run_name&quot;</span>)
-accelerator = Accelerate(log_with=[tracker, <span class="hljs-string">&quot;all&quot;</span>])`}}),He=new dr({}),Fe=new V({props:{code:`from accelerate import Accelerator
+accelerator = Accelerator(log_with=tracker)`,highlighted:`tracker = MyCustomTracker(<span class="hljs-string">&quot;some_run_name&quot;</span>)
+accelerator = Accelerator(log_with=tracker)`}}),Ue=new V({props:{code:`tracker = MyCustomTracker("some_run_name")
+accelerator = Accelerator(log_with=[tracker, "all"])`,highlighted:`tracker = MyCustomTracker(<span class="hljs-string">&quot;some_run_name&quot;</span>)
+accelerator = Accelerator(log_with=[tracker, <span class="hljs-string">&quot;all&quot;</span>])`}}),He=new dr({}),Fe=new V({props:{code:`from accelerate import Accelerator
 + import neptune.new as neptune
 
 accelerator = Accelerator()
