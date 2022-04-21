@@ -74,8 +74,7 @@ If set, will return tensors of a particular framework. Acceptable values are:</p
   href="/docs/transformers/main/en/main_classes/feature_extractor#transformers.BatchFeature"
 >BatchFeature</a> with the following fields:</p>
 <ul>
-<li><strong>pixel_values</strong> \u2014 Pixel values to be fed to a model, of shape (batch_size, num_channels, height,
-width).</li>
+<li><strong>input_ids</strong> \u2014 Input IDs to be fed to a model, of shape <code>(batch_size, height * width)</code>.</li>
 </ul>
 `,returnType:`
 <p><a
