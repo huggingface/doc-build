@@ -95,7 +95,7 @@ Whether or not to return <code>(char_start, char_end)</code> for each token.</p>
 Python&#x2019;s tokenizer, this method will raise <code>NotImplementedError</code>.`,name:"return_offsets_mapping"},{anchor:"transformers.PreTrainedTokenizer.__call__.return_length",description:`<strong>return_length</strong>  (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether or not to return the lengths of the encoded inputs.`,name:"return_length"},{anchor:"transformers.PreTrainedTokenizer.__call__.verbose",description:`<strong>verbose</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not to print more information and warnings.
-**kwargs &#x2014; passed to the <code>self.tokenize()</code> method`,name:"verbose"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L2371",returnDescription:`
+**kwargs &#x2014; passed to the <code>self.tokenize()</code> method`,name:"verbose"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L2374",returnDescription:`
 <p>A <a
   href="/docs/transformers/main/en/main_classes/tokenizer#transformers.BatchEncoding"
 >BatchEncoding</a> with the following fields:</p>
@@ -138,7 +138,7 @@ regular sequence tokens (when <code>add_special_tokens=True</code> and <code>ret
 List of tokenized input ids. Can be obtained using the <code>__call__</code> method.`,name:"sequences"},{anchor:"transformers.PreTrainedTokenizer.batch_decode.skip_special_tokens",description:`<strong>skip_special_tokens</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether or not to remove special tokens in the decoding.`,name:"skip_special_tokens"},{anchor:"transformers.PreTrainedTokenizer.batch_decode.clean_up_tokenization_spaces",description:`<strong>clean_up_tokenization_spaces</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not to clean up the tokenization spaces.`,name:"clean_up_tokenization_spaces"},{anchor:"transformers.PreTrainedTokenizer.batch_decode.kwargs",description:`<strong>kwargs</strong> (additional keyword arguments, <em>optional</em>) &#x2014;
-Will be passed to the underlying model specific decode method.`,name:"kwargs"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L3242",returnDescription:`
+Will be passed to the underlying model specific decode method.`,name:"kwargs"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L3245",returnDescription:`
 <p>The list of decoded sentences.</p>
 `,returnType:`
 <p><code>List[str]</code></p>
@@ -146,7 +146,7 @@ Will be passed to the underlying model specific decode method.`,name:"kwargs"}],
 List of tokenized input ids. Can be obtained using the <code>__call__</code> method.`,name:"token_ids"},{anchor:"transformers.PreTrainedTokenizer.decode.skip_special_tokens",description:`<strong>skip_special_tokens</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether or not to remove special tokens in the decoding.`,name:"skip_special_tokens"},{anchor:"transformers.PreTrainedTokenizer.decode.clean_up_tokenization_spaces",description:`<strong>clean_up_tokenization_spaces</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not to clean up the tokenization spaces.`,name:"clean_up_tokenization_spaces"},{anchor:"transformers.PreTrainedTokenizer.decode.kwargs",description:`<strong>kwargs</strong> (additional keyword arguments, <em>optional</em>) &#x2014;
-Will be passed to the underlying model specific decode method.`,name:"kwargs"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L3275",returnDescription:`
+Will be passed to the underlying model specific decode method.`,name:"kwargs"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L3278",returnDescription:`
 <p>The decoded sentence.</p>
 `,returnType:`
 <p><code>str</code></p>
@@ -201,7 +201,7 @@ If set, will return tensors instead of list of python integers. Acceptable value
 <li><code>&apos;pt&apos;</code>: Return PyTorch <code>torch.Tensor</code> objects.</li>
 <li><code>&apos;np&apos;</code>: Return Numpy <code>np.ndarray</code> objects.</li>
 </ul>
-<p>**kwargs &#x2014; Passed along to the <code>.tokenize()</code> method.`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L2181",returnDescription:`
+<p>**kwargs &#x2014; Passed along to the <code>.tokenize()</code> method.`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L2184",returnDescription:`
 <p>The tokenized ids of the text.</p>
 `,returnType:`
 <p><code>List[int]</code>, <code>torch.Tensor</code>, <code>tf.Tensor</code> or <code>np.ndarray</code></p>
@@ -388,7 +388,7 @@ Whether or not to return <code>(char_start, char_end)</code> for each token.</p>
 Python&#x2019;s tokenizer, this method will raise <code>NotImplementedError</code>.`,name:"return_offsets_mapping"},{anchor:"transformers.PreTrainedTokenizerFast.__call__.return_length",description:`<strong>return_length</strong>  (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether or not to return the lengths of the encoded inputs.`,name:"return_length"},{anchor:"transformers.PreTrainedTokenizerFast.__call__.verbose",description:`<strong>verbose</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not to print more information and warnings.
-**kwargs &#x2014; passed to the <code>self.tokenize()</code> method`,name:"verbose"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L2371",returnDescription:`
+**kwargs &#x2014; passed to the <code>self.tokenize()</code> method`,name:"verbose"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L2374",returnDescription:`
 <p>A <a
   href="/docs/transformers/main/en/main_classes/tokenizer#transformers.BatchEncoding"
 >BatchEncoding</a> with the following fields:</p>
@@ -431,7 +431,7 @@ regular sequence tokens (when <code>add_special_tokens=True</code> and <code>ret
 List of tokenized input ids. Can be obtained using the <code>__call__</code> method.`,name:"sequences"},{anchor:"transformers.PreTrainedTokenizerFast.batch_decode.skip_special_tokens",description:`<strong>skip_special_tokens</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether or not to remove special tokens in the decoding.`,name:"skip_special_tokens"},{anchor:"transformers.PreTrainedTokenizerFast.batch_decode.clean_up_tokenization_spaces",description:`<strong>clean_up_tokenization_spaces</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not to clean up the tokenization spaces.`,name:"clean_up_tokenization_spaces"},{anchor:"transformers.PreTrainedTokenizerFast.batch_decode.kwargs",description:`<strong>kwargs</strong> (additional keyword arguments, <em>optional</em>) &#x2014;
-Will be passed to the underlying model specific decode method.`,name:"kwargs"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L3242",returnDescription:`
+Will be passed to the underlying model specific decode method.`,name:"kwargs"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L3245",returnDescription:`
 <p>The list of decoded sentences.</p>
 `,returnType:`
 <p><code>List[str]</code></p>
@@ -439,7 +439,7 @@ Will be passed to the underlying model specific decode method.`,name:"kwargs"}],
 List of tokenized input ids. Can be obtained using the <code>__call__</code> method.`,name:"token_ids"},{anchor:"transformers.PreTrainedTokenizerFast.decode.skip_special_tokens",description:`<strong>skip_special_tokens</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether or not to remove special tokens in the decoding.`,name:"skip_special_tokens"},{anchor:"transformers.PreTrainedTokenizerFast.decode.clean_up_tokenization_spaces",description:`<strong>clean_up_tokenization_spaces</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not to clean up the tokenization spaces.`,name:"clean_up_tokenization_spaces"},{anchor:"transformers.PreTrainedTokenizerFast.decode.kwargs",description:`<strong>kwargs</strong> (additional keyword arguments, <em>optional</em>) &#x2014;
-Will be passed to the underlying model specific decode method.`,name:"kwargs"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L3275",returnDescription:`
+Will be passed to the underlying model specific decode method.`,name:"kwargs"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L3278",returnDescription:`
 <p>The decoded sentence.</p>
 `,returnType:`
 <p><code>str</code></p>
@@ -494,7 +494,7 @@ If set, will return tensors instead of list of python integers. Acceptable value
 <li><code>&apos;pt&apos;</code>: Return PyTorch <code>torch.Tensor</code> objects.</li>
 <li><code>&apos;np&apos;</code>: Return Numpy <code>np.ndarray</code> objects.</li>
 </ul>
-<p>**kwargs &#x2014; Passed along to the <code>.tokenize()</code> method.`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L2181",returnDescription:`
+<p>**kwargs &#x2014; Passed along to the <code>.tokenize()</code> method.`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L2184",returnDescription:`
 <p>The tokenized ids of the text.</p>
 `,returnType:`
 <p><code>List[int]</code>, <code>torch.Tensor</code>, <code>tf.Tensor</code> or <code>np.ndarray</code></p>
@@ -606,7 +606,7 @@ the word in the sequence`,name:"batch_or_char_index"},{anchor:"transformers.Batc
 If a batch index is provided in <em>batch_or_token_index</em>, this can be the index of the word in the
 sequence.`,name:"char_index"},{anchor:"transformers.BatchEncoding.char_to_token.sequence_index",description:`<strong>sequence_index</strong> (<code>int</code>, <em>optional</em>, defaults to 0) &#x2014;
 If pair of sequences are encoded in the batch this can be used to specify which sequence in the pair (0
-or 1) the provided character index belongs to.`,name:"sequence_index"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L518",returnDescription:`
+or 1) the provided character index belongs to.`,name:"sequence_index"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L521",returnDescription:`
 <p>Index of the token.</p>
 `,returnType:`
 <p><code>int</code></p>
@@ -616,20 +616,20 @@ the character in the original string.`,name:"batch_or_char_index"},{anchor:"tran
 If a batch index is provided in <em>batch_or_token_index</em>, this can be the index of the character in the
 original string.`,name:"char_index"},{anchor:"transformers.BatchEncoding.char_to_word.sequence_index",description:`<strong>sequence_index</strong> (<code>int</code>, <em>optional</em>, defaults to 0) &#x2014;
 If pair of sequences are encoded in the batch this can be used to specify which sequence in the pair (0
-or 1) the provided character index belongs to.`,name:"sequence_index"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L604",returnDescription:`
+or 1) the provided character index belongs to.`,name:"sequence_index"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L607",returnDescription:`
 <p>Index or indices of the associated encoded token(s).</p>
 `,returnType:`
 <p><code>int</code> or <code>List[int]</code></p>
 `}}),hn=new b({props:{name:"convert_to_tensors",anchor:"transformers.BatchEncoding.convert_to_tensors",parameters:[{name:"tensor_type",val:": typing.Union[str, transformers.utils.generic.TensorType, NoneType] = None"},{name:"prepend_batch_axis",val:": bool = False"}],parametersDescription:[{anchor:"transformers.BatchEncoding.convert_to_tensors.tensor_type",description:`<strong>tensor_type</strong> (<code>str</code> or <a href="/docs/transformers/main/en/internal/file_utils#transformers.TensorType">TensorType</a>, <em>optional</em>) &#x2014;
 The type of tensors to use. If <code>str</code>, should be one of the values of the enum <a href="/docs/transformers/main/en/internal/file_utils#transformers.TensorType">TensorType</a>. If
 <code>None</code>, no modification is done.`,name:"tensor_type"},{anchor:"transformers.BatchEncoding.convert_to_tensors.prepend_batch_axis",description:`<strong>prepend_batch_axis</strong> (<code>int</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
-Whether or not to add the batch dimension during the conversion.`,name:"prepend_batch_axis"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L643"}}),pn=new b({props:{name:"sequence_ids",anchor:"transformers.BatchEncoding.sequence_ids",parameters:[{name:"batch_index",val:": int = 0"}],parametersDescription:[{anchor:"transformers.BatchEncoding.sequence_ids.batch_index",description:"<strong>batch_index</strong> (<code>int</code>, <em>optional</em>, defaults to 0) &#x2014; The index to access in the batch.",name:"batch_index"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L296",returnDescription:`
+Whether or not to add the batch dimension during the conversion.`,name:"prepend_batch_axis"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L646"}}),pn=new b({props:{name:"sequence_ids",anchor:"transformers.BatchEncoding.sequence_ids",parameters:[{name:"batch_index",val:": int = 0"}],parametersDescription:[{anchor:"transformers.BatchEncoding.sequence_ids.batch_index",description:"<strong>batch_index</strong> (<code>int</code>, <em>optional</em>, defaults to 0) &#x2014; The index to access in the batch.",name:"batch_index"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L296",returnDescription:`
 <p>A list indicating the sequence id corresponding to each token. Special tokens added
 by the tokenizer are mapped to <code>None</code> and other tokens are mapped to the index of their corresponding
 sequence.</p>
 `,returnType:`
 <p><code>List[Optional[int]]</code></p>
-`}}),mn=new b({props:{name:"to",anchor:"transformers.BatchEncoding.to",parameters:[{name:"device",val:": typing.Union[str, ForwardRef('torch.device')]"}],parametersDescription:[{anchor:"transformers.BatchEncoding.to.device",description:"<strong>device</strong> (<code>str</code> or <code>torch.device</code>) &#x2014; The device to put the tensors on.",name:"device"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L726",returnDescription:`
+`}}),mn=new b({props:{name:"to",anchor:"transformers.BatchEncoding.to",parameters:[{name:"device",val:": typing.Union[str, ForwardRef('torch.device')]"}],parametersDescription:[{anchor:"transformers.BatchEncoding.to.device",description:"<strong>device</strong> (<code>str</code> or <code>torch.device</code>) &#x2014; The device to put the tensors on.",name:"device"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L729",returnDescription:`
 <p>The same instance after modification.</p>
 `,returnType:`
 <p><a
@@ -640,7 +640,8 @@ Index of the sequence in the batch. If the batch only comprise one sequence, thi
 the token in the sequence.`,name:"batch_or_token_index"},{anchor:"transformers.BatchEncoding.token_to_chars.token_index",description:`<strong>token_index</strong> (<code>int</code>, <em>optional</em>) &#x2014;
 If a batch index is provided in <em>batch_or_token_index</em>, this can be the index of the token or tokens in
 the sequence.`,name:"token_index"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L482",returnDescription:`
-<p>Span of characters in the original string.</p>
+<p>Span of characters in the original string, or None, if the token
+(e.g. <s>, </s>) doesn\u2019t correspond to any chars in the origin string.</p>
 `,returnType:`
 <p><a
   href="/docs/transformers/main/en/internal/tokenization_utils#transformers.CharSpan"
@@ -677,7 +678,7 @@ the word in the sequence`,name:"batch_or_word_index"},{anchor:"transformers.Batc
 If a batch index is provided in <em>batch_or_token_index</em>, this can be the index of the word in the
 sequence.`,name:"word_index"},{anchor:"transformers.BatchEncoding.word_to_chars.sequence_index",description:`<strong>sequence_index</strong> (<code>int</code>, <em>optional</em>, defaults to 0) &#x2014;
 If pair of sequences are encoded in the batch this can be used to specify which sequence in the pair (0
-or 1) the provided word index belongs to.`,name:"sequence_index"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L559",returnDescription:`
+or 1) the provided word index belongs to.`,name:"sequence_index"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L562",returnDescription:`
 <p>Span(s) of the associated character or characters in the string. CharSpan
 are NamedTuple with:</p>
 <ul>
