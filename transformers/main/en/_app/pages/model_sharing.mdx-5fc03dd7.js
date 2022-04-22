@@ -32,7 +32,7 @@ push_to_hub_callback = PushToHubCallback(
 
 notebook_login()`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> notebook_login
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>notebook_login()`}}),ot=new We({}),Se=new Ms({props:{pytorch:!0,tensorflow:!0,jax:!0,$$slots:{jax:[Ks],tensorflow:[Ws],pytorch:[Ys]},$$scope:{ctx:I}}}),rt=new We({}),qe=new Ms({props:{pytorch:!0,tensorflow:!0,jax:!0,$$slots:{tensorflow:[ei],pytorch:[Zs]},$$scope:{ctx:I}}}),at=new We({}),st=new V({props:{code:'pt_model.push_to_hub("my-awesome-model")',highlighted:'<span class="hljs-meta">&gt;&gt;&gt; </span>pt_model.push_to_hub(<span class="hljs-string">&quot;my-awesome-model&quot;</span>)'}}),it=new V({props:{code:`from transformers import AutoModel
+<span class="hljs-meta">&gt;&gt;&gt; </span>notebook_login()`}}),ot=new We({}),Se=new Ms({props:{pytorch:!0,tensorflow:!0,jax:!0,$$slots:{jax:[Ks],tensorflow:[Ws],pytorch:[Ys]},$$scope:{ctx:I}}}),rt=new We({}),qe=new Ms({props:{pytorch:!0,tensorflow:!0,jax:!1,$$slots:{tensorflow:[ei],pytorch:[Zs]},$$scope:{ctx:I}}}),at=new We({}),st=new V({props:{code:'pt_model.push_to_hub("my-awesome-model")',highlighted:'<span class="hljs-meta">&gt;&gt;&gt; </span>pt_model.push_to_hub(<span class="hljs-string">&quot;my-awesome-model&quot;</span>)'}}),it=new V({props:{code:`from transformers import AutoModel
 
 model = AutoModel.from_pretrained("your_username/my-awesome-model")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModel
 
