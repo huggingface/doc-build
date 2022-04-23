@@ -1753,27 +1753,27 @@ heads.</p>
 </ul>
 `,returnType:`
 <p><code>transformers.modeling_outputs.SemanticSegmenterOutput</code> or <code>tuple(torch.FloatTensor)</code></p>
-`}}),go=new ee({props:{$$slots:{default:[gT]},$$scope:{ctx:F}}}),fs=new A({props:{code:`from transformers import Data2VecVisionFeatureExtractor, Data2VecVisionForSemanticSegmentation
+`}}),go=new ee({props:{$$slots:{default:[gT]},$$scope:{ctx:F}}}),fs=new A({props:{code:`from transformers import AutoFeatureExtractor, Data2VecVisionForSemanticSegmentation
 from PIL import Image
 import requests
 
 url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 image = Image.open(requests.get(url, stream=True).raw)
 
-feature_extractor = Data2VecVisionFeatureExtractor.from_pretrained("facebook/data2vec-vision-base")
+feature_extractor = AutoFeatureExtractor.from_pretrained("facebook/data2vec-vision-base")
 model = Data2VecVisionForSemanticSegmentation.from_pretrained("facebook/data2vec-vision-base")
 
 inputs = feature_extractor(images=image, return_tensors="pt")
 outputs = model(**inputs)
 # logits are of shape (batch_size, num_labels, height, width)
-logits = outputs.logits`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Data2VecVisionFeatureExtractor, Data2VecVisionForSemanticSegmentation
+logits = outputs.logits`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoFeatureExtractor, Data2VecVisionForSemanticSegmentation
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> requests
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>url = <span class="hljs-string">&quot;http://images.cocodataset.org/val2017/000000039769.jpg&quot;</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>image = Image.<span class="hljs-built_in">open</span>(requests.get(url, stream=<span class="hljs-literal">True</span>).raw)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = Data2VecVisionFeatureExtractor.from_pretrained(<span class="hljs-string">&quot;facebook/data2vec-vision-base&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = AutoFeatureExtractor.from_pretrained(<span class="hljs-string">&quot;facebook/data2vec-vision-base&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = Data2VecVisionForSemanticSegmentation.from_pretrained(<span class="hljs-string">&quot;facebook/data2vec-vision-base&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = feature_extractor(images=image, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)

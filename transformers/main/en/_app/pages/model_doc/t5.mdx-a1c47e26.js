@@ -204,10 +204,9 @@ tokenizer = T5Tokenizer.from_pretrained("t5-small")
 model = T5ForConditionalGeneration.from_pretrained("t5-small")
 
 task_prefix = "translate English to German: "
-sentences = [
-    "The house is wonderful.",
-    "I like to work in NYC.",
-]  # use different length sentences to test batching
+# use different length sentences to test batching
+sentences = ["The house is wonderful.", "I like to work in NYC."]
+
 inputs = tokenizer([task_prefix + sentence for sentence in sentences], return_tensors="pt", padding=True)
 
 output_sequences = model.generate(
@@ -222,10 +221,9 @@ print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))`,highl
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = T5ForConditionalGeneration.from_pretrained(<span class="hljs-string">&quot;t5-small&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>task_prefix = <span class="hljs-string">&quot;translate English to German: &quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>sentences = [
-<span class="hljs-meta">... </span>    <span class="hljs-string">&quot;The house is wonderful.&quot;</span>,
-<span class="hljs-meta">... </span>    <span class="hljs-string">&quot;I like to work in NYC.&quot;</span>,
-<span class="hljs-meta">&gt;&gt;&gt; </span>]  <span class="hljs-comment"># use different length sentences to test batching</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># use different length sentences to test batching</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>sentences = [<span class="hljs-string">&quot;The house is wonderful.&quot;</span>, <span class="hljs-string">&quot;I like to work in NYC.&quot;</span>]
+
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer([task_prefix + sentence <span class="hljs-keyword">for</span> sentence <span class="hljs-keyword">in</span> sentences], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>, padding=<span class="hljs-literal">True</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>output_sequences = model.generate(
