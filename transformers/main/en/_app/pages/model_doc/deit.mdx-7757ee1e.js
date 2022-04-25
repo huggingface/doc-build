@@ -33,7 +33,7 @@ The size (resolution) of each image.`,name:"image_size"},{anchor:"transformers.D
 The size (resolution) of each patch.`,name:"patch_size"},{anchor:"transformers.DeiTConfig.num_channels",description:`<strong>num_channels</strong> (<code>int</code>, <em>optional</em>, defaults to <code>3</code>) &#x2014;
 The number of input channels.`,name:"num_channels"},{anchor:"transformers.DeiTConfig.qkv_bias",description:`<strong>qkv_bias</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether to add a bias to the queries, keys and values.`,name:"qkv_bias"},{anchor:"transformers.DeiTConfig.encoder_stride",description:`<strong>encoder_stride</strong> (<code>int</code>, <code>optional</code>, defaults to 16) &#x2014;
-Factor to increase the spatial resolution by in the decoder head for masked image modeling.`,name:"encoder_stride"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/deit/configuration_deit.py#L29"}}),Ne=new jo({props:{code:`from transformers import DeiTModel, DeiTConfig
+Factor to increase the spatial resolution by in the decoder head for masked image modeling.`,name:"encoder_stride"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/deit/configuration_deit.py#L35"}}),Ne=new jo({props:{code:`from transformers import DeiTModel, DeiTConfig
 
 # Initializing a DeiT deit-base-distilled-patch16-224 style configuration
 configuration = DeiTConfig()
