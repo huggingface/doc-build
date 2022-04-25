@@ -1,0 +1,806 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;dbogage-du-pipeline-dentranement&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;dboguer-le-pipeline-dentranement&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;vrifiez-vos-donnes&quot;,&quot;title&quot;:&quot;Vérifiez vos données&quot;},{&quot;local&quot;:&quot;des-jeux-de-donnes-aux-chargeurs-de-donnes&quot;,&quot;title&quot;:&quot;Des jeux de données aux chargeurs de données&quot;},{&quot;local&quot;:&quot;passage-par-le-modle&quot;,&quot;title&quot;:&quot;Passage par le modèle&quot;},{&quot;local&quot;:&quot;excution-dune-tape-doptimisation&quot;,&quot;title&quot;:&quot;Exécution d&#39;une étape d&#39;optimisation&quot;},{&quot;local&quot;:&quot;grer-les-erreurs-cuda-horsmmoire&quot;,&quot;title&quot;:&quot;Gérer les erreurs CUDA hors-mémoire&quot;},{&quot;local&quot;:&quot;valuation-du-modle&quot;,&quot;title&quot;:&quot;Évaluation du modèle&quot;}],&quot;title&quot;:&quot;Déboguer le pipeline d&#39;entraînement&quot;},{&quot;local&quot;:&quot;dboguer-les-erreurs-silencieuses-pendant-lentranement&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;vrifiez-vos-donnes-encore&quot;,&quot;title&quot;:&quot;Vérifiez vos données (encore !)&quot;},{&quot;local&quot;:&quot;surentranement-du-modle-sur-un-seul-batch&quot;,&quot;title&quot;:&quot;Surentraînement du modèle sur un seul batch&quot;},{&quot;local&quot;:&quot;ne-rglez-rien-tant-que-vous-navez-pas-une-premire-ligne-de-base&quot;,&quot;title&quot;:&quot;Ne réglez rien tant que vous n&#39;avez pas une première ligne de base.&quot;},{&quot;local&quot;:&quot;demander-de-laide&quot;,&quot;title&quot;:&quot;Demander de l&#39;aide&quot;}],&quot;title&quot;:&quot;Déboguer les erreurs silencieuses pendant l&#39;entraînement&quot;}],&quot;title&quot;:&quot;Débogage du pipeline d&#39;entraînement&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="stylesheet" href="/docs/course/main/fr/_app/assets/pages/__layout.svelte-4e40f570.css">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/start-21c8b5be.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/vendor-1e8b365d.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/paths-4b3c6e7e.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/pages/__layout.svelte-05c2fb0c.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/pages/chapter8/4.mdx-65e85d1e.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/Tip-62b14c6e.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/Youtube-c2a8cc39.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/IconCopyLink-483c28ba.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/CodeBlock-e5764662.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/DocNotebookDropdown-37d928d3.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/FrameworkSwitchCourse-7f8f0f31.js"> 
+
+
+
+
+
+<div class="bg-white leading-none border border-gray-100 rounded-lg flex p-0.5 w-56 text-sm mb-4"><a class="flex justify-center flex-1 py-1.5 px-2.5 focus:outline-none !no-underline rounded-l bg-red-50 dark:bg-transparent text-red-600" href="?fw=pt"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><defs><clipPath id="a"><rect x="3.05" y="0.5" width="25.73" height="31" fill="none"></rect></clipPath></defs><g clip-path="url(#a)"><path d="M24.94,9.51a12.81,12.81,0,0,1,0,18.16,12.68,12.68,0,0,1-18,0,12.81,12.81,0,0,1,0-18.16l9-9V5l-.84.83-6,6a9.58,9.58,0,1,0,13.55,0ZM20.44,9a1.68,1.68,0,1,1,1.67-1.67A1.68,1.68,0,0,1,20.44,9Z" fill="#ee4c2c"></path></g></svg>
+			Pytorch
+		</a><a class="flex justify-center flex-1 py-1.5 px-2.5 focus:outline-none !no-underline rounded-r text-gray-500 filter grayscale" href="?fw=tf"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="0.94em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 274"><path d="M145.726 42.065v42.07l72.861 42.07v-42.07l-72.86-42.07zM0 84.135v42.07l36.43 21.03V105.17L0 84.135zm109.291 21.035l-36.43 21.034v126.2l36.43 21.035v-84.135l36.435 21.035v-42.07l-36.435-21.034V105.17z" fill="#E55B2D"></path><path d="M145.726 42.065L36.43 105.17v42.065l72.861-42.065v42.065l36.435-21.03v-84.14zM255.022 63.1l-36.435 21.035v42.07l36.435-21.035V63.1zm-72.865 84.135l-36.43 21.035v42.07l36.43-21.036v-42.07zm-36.43 63.104l-36.436-21.035v84.135l36.435-21.035V210.34z" fill="#ED8E24"></path><path d="M145.726 0L0 84.135l36.43 21.035l109.296-63.105l72.861 42.07L255.022 63.1L145.726 0zm0 126.204l-36.435 21.03l36.435 21.036l36.43-21.035l-36.43-21.03z" fill="#F8BF3C"></path></svg>
+			TensorFlow
+		</a></div>
+<h1 class="relative group"><a id="dbogage-du-pipeline-dentranement" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#dbogage-du-pipeline-dentranement"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Débogage du pipeline d&#39;entraînement
+	</span></h1>
+
+
+
+<div class="flex space-x-1 absolute z-10 right-0 top-0"><a href="https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter8/section4_pt.ipynb" target="_blank"><img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
+	<a href="https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter8/section4_pt.ipynb" target="_blank"><img alt="Open In Studio Lab" class="!m-0" src="https://studiolab.sagemaker.aws/studiolab.svg"></a></div>
+<p>Vous avez écrit un magnifique script pour entraîner ou <em>finetuner</em> un modèle sur une tâche donnée, en suivant consciencieusement les conseils du <a href="/course/fr/chapter7">Chapitre 7</a>. Mais lorsque vous lancez la commande <code>model.fit()</code>, quelque chose d’horrible se produit : vous obtenez une erreur 😱 ! Ou pire, tout semble aller bien et l’entraînement se déroule sans erreur, mais le modèle résultant est merdique. Dans cette section, nous allons vous montrer ce que vous pouvez faire pour déboguer ce genre de problèmes.</p>
+<h2 class="relative group"><a id="dboguer-le-pipeline-dentranement" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#dboguer-le-pipeline-dentranement"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Déboguer le pipeline d&#39;entraînement
+	</span></h2>
+
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/L-WSwUWde1U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Le problème lorsque vous rencontrez une erreur dans <code>trainer.train()</code> est qu’elle peut provenir de plusieurs sources, car le <code>Trainer</code> assemble généralement des batchs de choses. Il convertit les jeux de données en chargeurs de données, donc le problème pourrait être quelque chose d’erroné dans votre jeu de données, ou un problème en essayant de regrouper les éléments des jeux de données ensemble. Ensuite, il prend un batch de données et le transmet au modèle, le problème peut donc se situer dans le code du modèle. Après cela, il calcule les gradients et effectue l’étape d’optimisation, le problème peut donc également se situer dans votre optimiseur. Et même si tout se passe bien pendant l’entraînement, quelque chose peut encore mal tourner pendant l’évaluation si votre métrique pose problème.</p>
+<p>La meilleure façon de déboguer une erreur qui survient dans <code>trainer.train()</code> est de passer manuellement en revue tout le pipeline pour voir où les choses se sont mal passées. L’erreur est alors souvent très facile à résoudre.</p>
+<p>Pour le démontrer, nous utiliserons le script suivant qui tente d’ajuster un modèle DistilBERT sur le <a href="https://huggingface.co/datasets/glue" rel="nofollow">jeu de données MNLI</a> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset, load_metric
+<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> (
+    AutoTokenizer,
+    AutoModelForSequenceClassification,
+    TrainingArguments,
+    Trainer,
+)
+
+raw_datasets = load_dataset(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mnli&quot;</span>)
+
+model_checkpoint = <span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">preprocess_function</span>(<span class="hljs-params">examples</span>):
+    <span class="hljs-keyword">return</span> tokenizer(examples[<span class="hljs-string">&quot;premise&quot;</span>], examples[<span class="hljs-string">&quot;hypothesis&quot;</span>], truncation=<span class="hljs-literal">True</span>)
+
+
+tokenized_datasets = raw_datasets.<span class="hljs-built_in">map</span>(preprocess_function, batched=<span class="hljs-literal">True</span>)
+model = AutoModelForSequenceClassification.from_pretrained(model_checkpoint)
+
+args = TrainingArguments(
+    <span class="hljs-string">f&quot;distilbert-finetuned-mnli&quot;</span>,
+    evaluation_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+    save_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+    learning_rate=<span class="hljs-number">2e-5</span>,
+    num_train_epochs=<span class="hljs-number">3</span>,
+    weight_decay=<span class="hljs-number">0.01</span>,
+)
+
+metric = load_metric(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mnli&quot;</span>)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_metrics</span>(<span class="hljs-params">eval_pred</span>):
+    predictions, labels = eval_pred
+    <span class="hljs-keyword">return</span> metric.compute(predictions=predictions, references=labels)
+
+
+trainer = Trainer(
+    model,
+    args,
+    train_dataset=raw_datasets[<span class="hljs-string">&quot;train&quot;</span>],
+    eval_dataset=raw_datasets[<span class="hljs-string">&quot;validation_matched&quot;</span>],
+    compute_metrics=compute_metrics,
+)
+trainer.train()<!-- HTML_TAG_END --></pre></div>
+<p>Si vous essayez de l’exécuter, vous serez confronté à une erreur plutôt cryptique :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;ValueError: You have to specify either input_ids or inputs_embeds&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="vrifiez-vos-donnes" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#vrifiez-vos-donnes"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Vérifiez vos données
+	</span></h3>
+
+<p>Cela va sans dire, mais si vos données sont corrompues, le <code>Trainer</code> ne sera pas capable de former des batchs, et encore moins d’entraîner votre modèle. Donc, tout d’abord, vous devez jeter un coup d’oeil à ce qui se trouve dans votre ensemble d’entraînement.</p>
+<p>Pour éviter d’innombrables heures passées à essayer de corriger quelque chose qui n’est pas la source du bug, nous vous recommandons d’utiliser <code>trainer.train_dataset</code> pour vos vérifications et rien d’autre. Faisons donc cela ici :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->trainer.train_dataset[<span class="hljs-number">0</span>]<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-string">&#x27;hypothesis&#x27;</span>: <span class="hljs-string">&#x27;Product and geography are what make cream skimming work. &#x27;</span>,
+ <span class="hljs-string">&#x27;idx&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;label&#x27;</span>: <span class="hljs-number">1</span>,
+ <span class="hljs-string">&#x27;premise&#x27;</span>: <span class="hljs-string">&#x27;Conceptually cream skimming has two basic dimensions - product and geography.&#x27;</span>}<!-- HTML_TAG_END --></pre></div>
+<p>Vous remarquez quelque chose d’anormal ? Ceci, en conjonction avec le message d’erreur sur les <code>input_ids</code> manquants, devrait vous faire réaliser que ce sont des textes, et non des nombres que le modèle peut comprendre. Ici, l’erreur originale est très trompeuse parce que le <code>Trainer</code> enlève automatiquement les colonnes qui ne correspondent pas à la signature du modèle (c’est-à-dire, les arguments attendus par le modèle). Cela signifie qu’ici, tout, sauf les étiquettes, a été éliminé. Il n’y avait donc aucun problème à créer des batchs et à les envoyer ensuite au modèle, qui s’est plaint à son tour de ne pas avoir reçu les bons arguments.</p>
+<p>Pourquoi les données n’ont-elles pas été traitées ? Nous avons utilisé la méthode <code>Dataset.map()</code> sur les ensembles de données pour appliquer le <em>tokenizer</em> sur chaque échantillon. Mais si vous regardez attentivement le code, vous verrez que nous avons fait une erreur en passant les ensembles d’entraînement et d’évaluation au <code>Trainer</code>. Au lieu d’utiliser <code>tokenized_datasets</code> ici, nous avons utilisé <code>raw_datasets</code> 🤦. Alors corrigeons ça !</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset, load_metric
+<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> (
+    AutoTokenizer,
+    AutoModelForSequenceClassification,
+    TrainingArguments,
+    Trainer,
+)
+
+raw_datasets = load_dataset(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mnli&quot;</span>)
+
+model_checkpoint = <span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">preprocess_function</span>(<span class="hljs-params">examples</span>):
+    <span class="hljs-keyword">return</span> tokenizer(examples[<span class="hljs-string">&quot;premise&quot;</span>], examples[<span class="hljs-string">&quot;hypothesis&quot;</span>], truncation=<span class="hljs-literal">True</span>)
+
+
+tokenized_datasets = raw_datasets.<span class="hljs-built_in">map</span>(preprocess_function, batched=<span class="hljs-literal">True</span>)
+model = AutoModelForSequenceClassification.from_pretrained(model_checkpoint)
+
+args = TrainingArguments(
+    <span class="hljs-string">f&quot;distilbert-finetuned-mnli&quot;</span>,
+    evaluation_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+    save_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+    learning_rate=<span class="hljs-number">2e-5</span>,
+    num_train_epochs=<span class="hljs-number">3</span>,
+    weight_decay=<span class="hljs-number">0.01</span>,
+)
+
+metric = load_metric(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mnli&quot;</span>)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_metrics</span>(<span class="hljs-params">eval_pred</span>):
+    predictions, labels = eval_pred
+    <span class="hljs-keyword">return</span> metric.compute(predictions=predictions, references=labels)
+
+
+trainer = Trainer(
+    model,
+    args,
+    train_dataset=tokenized_datasets[<span class="hljs-string">&quot;train&quot;</span>],
+    eval_dataset=tokenized_datasets[<span class="hljs-string">&quot;validation_matched&quot;</span>],
+    compute_metrics=compute_metrics,
+)
+trainer.train()<!-- HTML_TAG_END --></pre></div>
+<p>Ce nouveau code donnera maintenant une erreur différente (progrès !) :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;ValueError: expected sequence of length 43 at dim 1 (got 37)&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>En regardant la trace, nous pouvons voir que l’erreur se produit dans l’étape de collationnement des données :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->~/git/transformers/src/transformers/data/data_collator.py <span class="hljs-keyword">in</span> torch_default_data_collator(features)
+    <span class="hljs-number">105</span>                 batch[k] = torch.stack([f[k] <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> features])
+    <span class="hljs-number">106</span>             <span class="hljs-keyword">else</span>:
+--&gt; <span class="hljs-number">107</span>                 batch[k] = torch.tensor([f[k] <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> features])
+    <span class="hljs-number">108</span> 
+    <span class="hljs-number">109</span>     <span class="hljs-keyword">return</span> batch<!-- HTML_TAG_END --></pre></div>
+<p>Donc, nous devrions passer à cela. Mais avant cela, finissons d’inspecter nos données, pour être sûrs à 100% qu’elles sont correctes.</p>
+<p>Une chose que vous devriez toujours faire lorsque vous déboguez une session d’entraînement est de jeter un coup d’oeil aux entrées décodées de votre modèle. Nous ne pouvons pas donner un sens aux chiffres que nous lui fournissons directement, nous devons donc examiner ce que ces chiffres représentent. Dans le domaine de la vision par ordinateur, par exemple, cela signifie regarder les images décodées des pixels que vous passez, dans le domaine de la parole, cela signifie écouter les échantillons audio décodés, et pour notre exemple NLP, cela signifie utiliser notre <em>tokenizer</em> pour décoder les entrées :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tokenizer.decode(trainer.train_dataset[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;input_ids&quot;</span>])<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;[CLS] conceptually cream skimming has two basic dimensions - product and geography. [SEP] product and geography are what make cream skimming work. [SEP]&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>Cela semble donc correct. Vous devriez faire cela pour toutes les clés dans les entrées : </p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->trainer.train_dataset[<span class="hljs-number">0</span>].keys()<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->dict_keys([<span class="hljs-string">&#x27;attention_mask&#x27;</span>, <span class="hljs-string">&#x27;hypothesis&#x27;</span>, <span class="hljs-string">&#x27;idx&#x27;</span>, <span class="hljs-string">&#x27;input_ids&#x27;</span>, <span class="hljs-string">&#x27;label&#x27;</span>, <span class="hljs-string">&#x27;premise&#x27;</span>])<!-- HTML_TAG_END --></pre></div>
+<p>Note that the keys that don’t correspond to inputs accepted by the model will be automatically discarded, so here we will only keep <code>input_ids</code>, <code>attention_mask</code>, and <code>label</code> (which will be renamed <code>labels</code>). To double-check the model signature, you can print the class of your model, then go check its documentation:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-built_in">type</span>(trainer.model)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->transformers.models.distilbert.modeling_distilbert.DistilBertForSequenceClassification<!-- HTML_TAG_END --></pre></div>
+<p>Donc dans notre cas, nous pouvons vérifier les paramètres acceptés sur <a href="https://huggingface.co/transformers/model_doc/distilbert.html#distilbertforsequenceclassification" rel="nofollow">cette page</a>. Le <code>Trainer</code> va également enregistrer les colonnes qu’il rejette.</p>
+<p>Nous avons vérifié que les IDs d’entrée sont corrects en les décodant. Ensuite, il y a le <code>attention_mask</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tokenizer.decode(trainer.train_dataset[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;attention_mask&quot;</span>])<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]<!-- HTML_TAG_END --></pre></div>
+<p>Comme nous n’avons pas appliqué de <em>padding</em> dans notre prétraitement, cela semble parfaitement naturel. Pour être sûr qu’il n’y a pas de problème avec ce masque d’attention, vérifions qu’il est de la même longueur que nos identifiants d’entrée :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-built_in">len</span>(trainer.train_dataset[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;attention_mask&quot;</span>]) == <span class="hljs-built_in">len</span>(
+    trainer.train_dataset[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;input_ids&quot;</span>]
+)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-literal">True</span><!-- HTML_TAG_END --></pre></div>
+<p>C’est bien ! Enfin, vérifions notre étiquette :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->trainer.train_dataset[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;label&quot;</span>]<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-number">1</span><!-- HTML_TAG_END --></pre></div>
+<p>Comme les ID d’entrée, c’est un nombre qui n’a pas vraiment de sens en soi. Comme nous l’avons vu précédemment, la correspondance entre les entiers et les noms d’étiquettes est stockée dans l’attribut <code>names</code> de la <em>caractéristique</em> correspondante de l’ensemble de données :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->trainer.train_dataset.features[<span class="hljs-string">&quot;label&quot;</span>].names<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->[<span class="hljs-string">&#x27;entailment&#x27;</span>, <span class="hljs-string">&#x27;neutral&#x27;</span>, <span class="hljs-string">&#x27;contradiction&#x27;</span>]<!-- HTML_TAG_END --></pre></div>
+<p>Donc <code>1</code> signifie <code>neutral</code>, ce qui signifie que les deux phrases que nous avons vues ci-dessus ne sont pas en contradiction, et que la première n’implique pas la seconde. Cela semble correct !</p>
+<p>Nous n’avons pas d’ID de type de <em>token</em> ici, puisque DistilBERT ne les attend pas ; si vous en avez dans votre modèle, vous devriez également vous assurer qu’ils correspondent correctement à l’endroit où se trouvent la première et la deuxième phrase dans l’entrée.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>✏️ <em>Votre tour !</em> Vérifiez que tout semble correct avec le deuxième élément du jeu de données d’entraînement.</p></div>
+<p>Nous ne vérifions ici que l’ensemble d’entraînement, mais vous devez bien sûr vérifier de la même façon les ensembles de validation et de test.</p>
+<p>Maintenant que nous savons que nos ensembles de données sont bons, il est temps de vérifier l’étape suivante du pipeline d’entraînement.</p>
+<h3 class="relative group"><a id="des-jeux-de-donnes-aux-chargeurs-de-donnes" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#des-jeux-de-donnes-aux-chargeurs-de-donnes"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Des jeux de données aux chargeurs de données
+	</span></h3>
+
+<p>La prochaine chose qui peut mal tourner dans le pipeline d’entraînement est lorsque le <code>Trainer</code> essaie de former des batchs à partir de l’ensemble d’entraînement ou de validation. Une fois que vous êtes sûr que les jeux de données du <code>Trainer</code> sont corrects, vous pouvez essayer de former manuellement un batch en exécutant ce qui suit (remplacez <code>train</code> par <code>eval</code> pour le dataloader de validation) :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> trainer.get_train_dataloader():
+    <span class="hljs-keyword">break</span><!-- HTML_TAG_END --></pre></div>
+<p>Ce code crée le dataloader d’entraînement, puis le parcourt en s’arrêtant à la première itération. Si le code s’exécute sans erreur, vous avez le premier batch d’entraînement que vous pouvez inspecter, et si le code se trompe, vous êtes sûr que le problème se situe dans le dataloader, comme c’est le cas ici :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->~/git/transformers/src/transformers/data/data_collator.py <span class="hljs-keyword">in</span> torch_default_data_collator(features)
+    <span class="hljs-number">105</span>                 batch[k] = torch.stack([f[k] <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> features])
+    <span class="hljs-number">106</span>             <span class="hljs-keyword">else</span>:
+--&gt; <span class="hljs-number">107</span>                 batch[k] = torch.tensor([f[k] <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> features])
+    <span class="hljs-number">108</span> 
+    <span class="hljs-number">109</span>     <span class="hljs-keyword">return</span> batch
+
+ValueError: expected sequence of length <span class="hljs-number">45</span> at dim <span class="hljs-number">1</span> (got <span class="hljs-number">76</span>)<!-- HTML_TAG_END --></pre></div>
+<p>L’inspection de la dernière image du traceback devrait suffire à vous donner un indice, mais creusons un peu plus. La plupart des problèmes lors de la création d’un batch sont dus à l’assemblage des exemples en un seul batch, donc la première chose à vérifier en cas de doute est le <code>collate_fn</code> utilisé par votre <code>DataLoader</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->data_collator = trainer.get_train_dataloader().collate_fn
+data_collator<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->&lt;function transformers.data.data_collator.default_data_collator(features: <span class="hljs-type">List</span>[InputDataClass], return_tensors=<span class="hljs-string">&#x27;pt&#x27;</span>) -&gt; <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">Any</span>]&gt;<!-- HTML_TAG_END --></pre></div>
+<p>C’est donc le collateur <code>default_data_collator</code>, mais ce n’est pas ce que nous voulons dans ce cas. Nous voulons rembourrer nos exemples à la phrase la plus longue du batch, ce qui est fait par le collateur <code>DataCollatorWithPadding</code>. Et ce collateur de données est censé être utilisé par défaut par le <code>Trainer</code>, alors pourquoi n’est-il pas utilisé ici ?</p>
+<p>La réponse est que nous n’avons pas passé le <code>tokenizer</code> au <code>Trainer</code>, donc il ne pouvait pas créer le <code>DataCollatorWithPadding</code> que nous voulons. En pratique, il ne faut jamais hésiter à transmettre explicitement le collateur de données que l’on veut utiliser, pour être sûr d’éviter ce genre d’erreurs. Adaptons notre code pour faire exactement cela :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset, load_metric
+<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> (
+    AutoTokenizer,
+    AutoModelForSequenceClassification,
+    DataCollatorWithPadding,
+    TrainingArguments,
+    Trainer,
+)
+
+raw_datasets = load_dataset(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mnli&quot;</span>)
+
+model_checkpoint = <span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">preprocess_function</span>(<span class="hljs-params">examples</span>):
+    <span class="hljs-keyword">return</span> tokenizer(examples[<span class="hljs-string">&quot;premise&quot;</span>], examples[<span class="hljs-string">&quot;hypothesis&quot;</span>], truncation=<span class="hljs-literal">True</span>)
+
+
+tokenized_datasets = raw_datasets.<span class="hljs-built_in">map</span>(preprocess_function, batched=<span class="hljs-literal">True</span>)
+model = AutoModelForSequenceClassification.from_pretrained(model_checkpoint)
+
+args = TrainingArguments(
+    <span class="hljs-string">f&quot;distilbert-finetuned-mnli&quot;</span>,
+    evaluation_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+    save_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+    learning_rate=<span class="hljs-number">2e-5</span>,
+    num_train_epochs=<span class="hljs-number">3</span>,
+    weight_decay=<span class="hljs-number">0.01</span>,
+)
+
+metric = load_metric(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mnli&quot;</span>)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_metrics</span>(<span class="hljs-params">eval_pred</span>):
+    predictions, labels = eval_pred
+    <span class="hljs-keyword">return</span> metric.compute(predictions=predictions, references=labels)
+
+
+data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
+
+trainer = Trainer(
+    model,
+    args,
+    train_dataset=tokenized_datasets[<span class="hljs-string">&quot;train&quot;</span>],
+    eval_dataset=tokenized_datasets[<span class="hljs-string">&quot;validation_matched&quot;</span>],
+    compute_metrics=compute_metrics,
+    data_collator=data_collator,
+    tokenizer=tokenizer,
+)
+trainer.train()<!-- HTML_TAG_END --></pre></div>
+<p>La bonne nouvelle ? Nous n’avons plus la même erreur qu’avant, ce qui est un progrès certain. La mauvaise nouvelle ? Nous obtenons une erreur CUDA infâme à la place :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->RuntimeError: CUDA error: CUBLAS_STATUS_ALLOC_FAILED when calling `cublasCreate(handle)`<!-- HTML_TAG_END --></pre></div>
+<p>C’est une mauvaise chose car les erreurs CUDA sont extrêmement difficiles à déboguer en général. Nous verrons dans une minute comment résoudre ce problème, mais terminons d’abord notre analyse de la création de batchs.</p>
+<p>Si vous êtes sûr que votre collecteur de données est le bon, vous devriez essayer de l’appliquer sur quelques échantillons de votre ensemble de données :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->data_collator = trainer.get_train_dataloader().collate_fn
+batch = data_collator([trainer.train_dataset[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>)])<!-- HTML_TAG_END --></pre></div>
+<p>Ce code échouera parce que le <code>train_dataset</code> contient des colonnes de type string, que le <code>Trainer</code> supprime habituellement. Vous pouvez les supprimer manuellement, ou si vous voulez reproduire exactement ce que le <code>Trainer</code> fait en coulisse, vous pouvez appeler la méthode privée <code>Trainer._remove_unused_columns()</code> qui fait cela :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->data_collator = trainer.get_train_dataloader().collate_fn
+actual_train_set = trainer._remove_unused_columns(trainer.train_dataset)
+batch = data_collator([actual_train_set[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>)])<!-- HTML_TAG_END --></pre></div>
+<p>Vous devriez alors être en mesure de déboguer manuellement ce qui se passe dans le collecteur de données si l’erreur persiste.</p>
+<p>Maintenant que nous avons débogué le processus de création de batch, il est temps d’en passer un dans le modèle !</p>
+<h3 class="relative group"><a id="passage-par-le-modle" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#passage-par-le-modle"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Passage par le modèle
+	</span></h3>
+
+<p>Vous devriez être en mesure d’obtenir un batch en exécutant la commande suivante :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> trainer.get_train_dataloader():
+    <span class="hljs-keyword">break</span><!-- HTML_TAG_END --></pre></div>
+<p>Si vous exécutez ce code dans un <em>notebook</em>, vous risquez d’obtenir une erreur CUDA similaire à celle que nous avons vue précédemment, auquel cas vous devrez redémarrer votre notebook et réexécuter le dernier extrait sans la ligne <code>trainer.train()</code>. C’est la deuxième chose la plus ennuyeuse à propos des erreurs CUDA : elles cassent irrémédiablement votre noyau. La chose la plus ennuyeuse à leur sujet est le fait qu’elles sont difficiles à déboguer.</p>
+<p>Comment cela se fait-il ? Cela tient à la façon dont les GPU fonctionnent. Ils sont extrêmement efficaces pour exécuter un batch d’opérations en parallèle, mais l’inconvénient est que lorsque l’une de ces instructions entraîne une erreur, vous ne le savez pas immédiatement. Ce n’est que lorsque le programme appelle une synchronisation des multiples processus sur le GPU qu’il réalise que quelque chose s’est mal passé, de sorte que l’erreur est en fait soulevée à un endroit qui n’a rien à voir avec ce qui l’a créée. Par exemple, si nous regardons notre traceback précédent, l’erreur a été soulevée pendant la passe arrière, mais nous verrons dans une minute qu’elle provient en fait de quelque chose dans la passe avant.</p>
+<p>Alors comment déboguer ces erreurs ? La réponse est simple : nous ne le faisons pas. À moins que votre erreur CUDA ne soit une erreur out-of-memory (ce qui signifie qu’il n’y a pas assez de mémoire dans votre GPU), vous devez toujours revenir au CPU pour la déboguer.</p>
+<p>Pour faire cela dans notre cas, nous devons juste remettre le modèle sur le CPU et l’appeler sur notre batch. Le batch retourné par le <code>DataLoader</code> n’a pas encore été déplacé sur le GPU :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->outputs = trainer.model.cpu()(**batch)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->~/.pyenv/versions/<span class="hljs-number">3.7</span><span class="hljs-number">.9</span>/envs/base/lib/python3<span class="hljs-number">.7</span>/site-packages/torch/nn/functional.py <span class="hljs-keyword">in</span> nll_loss(<span class="hljs-built_in">input</span>, target, weight, size_average, ignore_index, reduce, reduction)
+   <span class="hljs-number">2386</span>         )
+   <span class="hljs-number">2387</span>     <span class="hljs-keyword">if</span> dim == <span class="hljs-number">2</span>:
+-&gt; <span class="hljs-number">2388</span>         ret = torch._C._nn.nll_loss(<span class="hljs-built_in">input</span>, target, weight, _Reduction.get_enum(reduction), ignore_index)
+   <span class="hljs-number">2389</span>     <span class="hljs-keyword">elif</span> dim == <span class="hljs-number">4</span>:
+   <span class="hljs-number">2390</span>         ret = torch._C._nn.nll_loss2d(<span class="hljs-built_in">input</span>, target, weight, _Reduction.get_enum(reduction), ignore_index)
+
+IndexError: Target <span class="hljs-number">2</span> <span class="hljs-keyword">is</span> out of bounds.<!-- HTML_TAG_END --></pre></div>
+<p>Donc, l’image devient plus claire. Au lieu d’avoir une erreur CUDA, nous avons maintenant une <code>IndexError</code> dans le calcul de la perte (donc rien à voir avec le backward pass, comme nous l’avons dit plus tôt). Plus précisément, nous pouvons voir que c’est la cible 2 qui crée l’erreur, donc c’est un très bon moment pour vérifier le nombre de labels de notre modèle :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->trainer.model.config.num_labels<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-number">2</span><!-- HTML_TAG_END --></pre></div>
+<p>Avec deux étiquettes, seuls les 0 et les 1 sont autorisés comme cibles, mais d’après le message d’erreur, nous avons obtenu un 2. Obtenir un 2 est en fait normal : si nous nous souvenons des noms d’étiquettes que nous avons extraits plus tôt, il y en avait trois, donc nous avons des indices 0, 1 et 2 dans notre ensemble de données. Le problème est que nous n’avons pas indiqué cela à notre modèle, qui aurait dû être créé avec trois étiquettes. Alors, corrigeons cela !</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset, load_metric
+<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> (
+    AutoTokenizer,
+    AutoModelForSequenceClassification,
+    DataCollatorWithPadding,
+    TrainingArguments,
+    Trainer,
+)
+
+raw_datasets = load_dataset(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mnli&quot;</span>)
+
+model_checkpoint = <span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">preprocess_function</span>(<span class="hljs-params">examples</span>):
+    <span class="hljs-keyword">return</span> tokenizer(examples[<span class="hljs-string">&quot;premise&quot;</span>], examples[<span class="hljs-string">&quot;hypothesis&quot;</span>], truncation=<span class="hljs-literal">True</span>)
+
+
+tokenized_datasets = raw_datasets.<span class="hljs-built_in">map</span>(preprocess_function, batched=<span class="hljs-literal">True</span>)
+model = AutoModelForSequenceClassification.from_pretrained(model_checkpoint, num_labels=<span class="hljs-number">3</span>)
+
+args = TrainingArguments(
+    <span class="hljs-string">f&quot;distilbert-finetuned-mnli&quot;</span>,
+    evaluation_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+    save_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+    learning_rate=<span class="hljs-number">2e-5</span>,
+    num_train_epochs=<span class="hljs-number">3</span>,
+    weight_decay=<span class="hljs-number">0.01</span>,
+)
+
+metric = load_metric(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mnli&quot;</span>)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_metrics</span>(<span class="hljs-params">eval_pred</span>):
+    predictions, labels = eval_pred
+    <span class="hljs-keyword">return</span> metric.compute(predictions=predictions, references=labels)
+
+
+data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
+
+trainer = Trainer(
+    model,
+    args,
+    train_dataset=tokenized_datasets[<span class="hljs-string">&quot;train&quot;</span>],
+    eval_dataset=tokenized_datasets[<span class="hljs-string">&quot;validation_matched&quot;</span>],
+    compute_metrics=compute_metrics,
+    data_collator=data_collator,
+    tokenizer=tokenizer,
+)<!-- HTML_TAG_END --></pre></div>
+<p>Nous n’incluons pas encore la ligne <code>trainer.train()</code>, pour prendre le temps de vérifier que tout se passe bien. Si nous demandons un batch et le passons à notre modèle, il fonctionne maintenant sans erreur !</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> trainer.get_train_dataloader():
+    <span class="hljs-keyword">break</span>
+
+outputs = trainer.model.cpu()(**batch)<!-- HTML_TAG_END --></pre></div>
+<p>L’étape suivante consiste alors à revenir au GPU et à vérifier que tout fonctionne encore :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> torch
+
+device = torch.device(<span class="hljs-string">&quot;cuda&quot;</span>) <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> torch.device(<span class="hljs-string">&quot;cpu&quot;</span>)
+batch = {k: v.to(device) <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> batch.items()}
+
+outputs = trainer.model.to(device)(**batch)<!-- HTML_TAG_END --></pre></div>
+<p>Si vous obtenez toujours une erreur, assurez-vous de redémarrer votre <em>notebook</em> et d’exécuter uniquement la dernière version du script.</p>
+<h3 class="relative group"><a id="excution-dune-tape-doptimisation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#excution-dune-tape-doptimisation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Exécution d&#39;une étape d&#39;optimisation
+	</span></h3>
+
+<p>Maintenant que nous savons que nous pouvons construire des batchs qui passent réellement par le modèle, nous sommes prêts pour l’étape suivante du pipeline d’entraînement : calculer les gradients et effectuer une étape d’optimisation.</p>
+<p>La première partie est juste une question d’appel de la méthode <code>backward()</code> sur la perte :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->loss = outputs.loss
+loss.backward()<!-- HTML_TAG_END --></pre></div>
+<p>Il est plutôt rare d’obtenir une erreur à ce stade, mais si vous en obtenez une, assurez-vous de retourner au CPU pour obtenir un message d’erreur utile.</p>
+<p>Pour effectuer l’étape d’optimisation, il suffit de créer le <code>optimizer</code> et d’appeler sa méthode <code>step()</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->trainer.create_optimizer()
+trainer.optimizer.step()<!-- HTML_TAG_END --></pre></div>
+<p>Encore une fois, si vous utilisez l’optimiseur par défaut dans le <code>Trainer</code>, vous ne devriez pas avoir d’erreur à ce stade, mais si vous avez un optimiseur personnalisé, il pourrait y avoir quelques problèmes à déboguer ici. N’oubliez pas de revenir au CPU si vous obtenez une erreur CUDA bizarre à ce stade. En parlant d’erreurs CUDA, nous avons mentionné précédemment un cas particulier. Voyons cela maintenant.</p>
+<h3 class="relative group"><a id="grer-les-erreurs-cuda-horsmmoire" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#grer-les-erreurs-cuda-horsmmoire"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Gérer les erreurs CUDA hors-mémoire
+	</span></h3>
+
+<p>Chaque fois que vous obtenez un message d’erreur qui commence par <code>RuntimeError : CUDA out of memory</code>, cela indique que vous êtes à court de mémoire GPU. Cela n’est pas directement lié à votre code, et cela peut arriver avec un script qui fonctionne parfaitement bien. Cette erreur signifie que vous avez essayé de mettre trop de choses dans la mémoire interne de votre GPU, et que cela a entraîné une erreur. Comme pour d’autres erreurs CUDA, vous devrez redémarrer votre noyau pour être en mesure d’exécuter à nouveau votre entraînement.</p>
+<p>Pour résoudre ce problème, il suffit d’utiliser moins d’espace GPU, ce qui est souvent plus facile à dire qu’à faire. Tout d’abord, assurez-vous que vous n’avez pas deux modèles sur le GPU en même temps (sauf si cela est nécessaire pour votre problème, bien sûr). Ensuite, vous devriez probablement réduire la taille de votre batch, car elle affecte directement les tailles de toutes les sorties intermédiaires du modèle et leurs gradients. Si le problème persiste, envisagez d’utiliser une version plus petite de votre modèle.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>In the next part of the course, we’ll look at more advanced techniques that can help you reduce your memory footprint and let you fine-tune the biggest models.</p></div>
+<h3 class="relative group"><a id="valuation-du-modle" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#valuation-du-modle"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Évaluation du modèle
+	</span></h3>
+
+<p>Maintenant que nous avons résolu tous les problèmes liés à notre code, tout est parfait et l’entraînement devrait se dérouler sans problème, n’est-ce pas ? Pas si vite ! Si vous exécutez la commande <code>trainer.train()</code>, tout aura l’air bien au début, mais après un moment vous obtiendrez ce qui suit :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># This will take a long time and error out, so you shouldn&#x27;t run this cell</span>
+trainer.train()<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->TypeError: only size-<span class="hljs-number">1</span> arrays can be converted to Python scalars<!-- HTML_TAG_END --></pre></div>
+<p>Vous réaliserez que cette erreur apparaît pendant la phase d’évaluation, donc c’est la dernière chose que nous aurons besoin de déboguer.</p>
+<p>Vous pouvez exécuter la boucle d’évaluation du <code>Trainer</code> indépendamment de l’entraînement comme ceci :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->trainer.evaluate()<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->TypeError: only size-<span class="hljs-number">1</span> arrays can be converted to Python scalars<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>💡 Vous devriez toujours vous assurer que vous pouvez exécuter <code>trainer.evaluate()</code> avant de lancer <code>trainer.train()</code>, pour éviter de gaspiller beaucoup de ressources de calcul avant de tomber sur une erreur.</p></div>
+<p>Avant de tenter de déboguer un problème dans la boucle d’évaluation, vous devez d’abord vous assurer que vous avez examiné les données, que vous êtes en mesure de former un batch correctement et que vous pouvez exécuter votre modèle sur ces données. Nous avons effectué toutes ces étapes, et le code suivant peut donc être exécuté sans erreur :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> trainer.get_eval_dataloader():
+    <span class="hljs-keyword">break</span>
+
+batch = {k: v.to(device) <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> batch.items()}
+
+<span class="hljs-keyword">with</span> torch.no_grad():
+    outputs = trainer.model(**batch)<!-- HTML_TAG_END --></pre></div>
+<p>L’erreur survient plus tard, à la fin de la phase d’évaluation, et si nous regardons la <em>traceback</em>, nous voyons ceci :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->~/git/datasets/src/datasets/metric.py <span class="hljs-keyword">in</span> add_batch(self, predictions, references)
+    <span class="hljs-number">431</span>         <span class="hljs-string">&quot;&quot;&quot;
+    432         batch = {&quot;predictions&quot;: predictions, &quot;references&quot;: references}
+--&gt; 433         batch = self.info.features.encode_batch(batch)
+    434         if self.writer is None:
+    435             self._init_writer()</span><!-- HTML_TAG_END --></pre></div>
+<p>Cela nous indique que l’erreur provient du module <code>datasets/metric.py</code> donc c’est un problème avec notre fonction <code>compute_metrics()</code>. Elle prend un <em>tuple</em> avec les logits et les labels sous forme de tableaux NumPy, alors essayons de lui fournir cela :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->predictions = outputs.logits.cpu().numpy()
+labels = batch[<span class="hljs-string">&quot;labels&quot;</span>].cpu().numpy()
+
+compute_metrics((predictions, labels))<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->TypeError: only size-<span class="hljs-number">1</span> arrays can be converted to Python scalars<!-- HTML_TAG_END --></pre></div>
+<p>Nous obtenons la même erreur, donc le problème vient bien de cette fonction. Si on regarde son code, on voit qu’elle transmet simplement les <code>predictions</code> et les <code>labels</code> à <code>metric.compute()</code>. Y a-t-il donc un problème avec cette méthode ? Pas vraiment. Jetons un coup d’oeil rapide aux formes :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->predictions.shape, labels.shape<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->((<span class="hljs-number">8</span>, <span class="hljs-number">3</span>), (<span class="hljs-number">8</span>,))<!-- HTML_TAG_END --></pre></div>
+<p>Nos prédictions sont toujours des logits, et non les prédictions réelles, c’est pourquoi la métrique retourne cette erreur (quelque peu obscure). La correction est assez simple, il suffit d’ajouter un argmax dans la fonction <code>compute_metrics()</code> :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_metrics</span>(<span class="hljs-params">eval_pred</span>):
+    predictions, labels = eval_pred
+    predictions = np.argmax(predictions, axis=<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">return</span> metric.compute(predictions=predictions, references=labels)
+
+
+compute_metrics((predictions, labels))<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-string">&#x27;accuracy&#x27;</span>: <span class="hljs-number">0.625</span>}<!-- HTML_TAG_END --></pre></div>
+<p>Maintenant notre erreur est corrigée ! C’était la dernière, donc notre script va maintenant entraîner un modèle correctement.</p>
+<p>Pour référence, voici le script complètement corrigé :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset, load_metric
+<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> (
+    AutoTokenizer,
+    AutoModelForSequenceClassification,
+    DataCollatorWithPadding,
+    TrainingArguments,
+    Trainer,
+)
+
+raw_datasets = load_dataset(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mnli&quot;</span>)
+
+model_checkpoint = <span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">preprocess_function</span>(<span class="hljs-params">examples</span>):
+    <span class="hljs-keyword">return</span> tokenizer(examples[<span class="hljs-string">&quot;premise&quot;</span>], examples[<span class="hljs-string">&quot;hypothesis&quot;</span>], truncation=<span class="hljs-literal">True</span>)
+
+
+tokenized_datasets = raw_datasets.<span class="hljs-built_in">map</span>(preprocess_function, batched=<span class="hljs-literal">True</span>)
+model = AutoModelForSequenceClassification.from_pretrained(model_checkpoint, num_labels=<span class="hljs-number">3</span>)
+
+args = TrainingArguments(
+    <span class="hljs-string">f&quot;distilbert-finetuned-mnli&quot;</span>,
+    evaluation_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+    save_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+    learning_rate=<span class="hljs-number">2e-5</span>,
+    num_train_epochs=<span class="hljs-number">3</span>,
+    weight_decay=<span class="hljs-number">0.01</span>,
+)
+
+metric = load_metric(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mnli&quot;</span>)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_metrics</span>(<span class="hljs-params">eval_pred</span>):
+    predictions, labels = eval_pred
+    predictions = np.argmax(predictions, axis=<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">return</span> metric.compute(predictions=predictions, references=labels)
+
+
+data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
+
+trainer = Trainer(
+    model,
+    args,
+    train_dataset=tokenized_datasets[<span class="hljs-string">&quot;train&quot;</span>],
+    eval_dataset=tokenized_datasets[<span class="hljs-string">&quot;validation_matched&quot;</span>],
+    compute_metrics=compute_metrics,
+    data_collator=data_collator,
+    tokenizer=tokenizer,
+)
+trainer.train()<!-- HTML_TAG_END --></pre></div>
+<p>Dans ce cas, il n’y a plus de problème, et notre script va affiner un modèle qui devrait donner des résultats raisonnables. Mais que faire lorsque l’entraînement se déroule sans erreur, et que le modèle entraîné n’est pas du tout performant ? C’est la partie la plus difficile de l’apprentissage automatique, et nous allons vous montrer quelques techniques qui peuvent vous aider.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>💡 Si vous utilisez une boucle d’entraînement manuelle, les mêmes étapes s’appliquent pour déboguer votre pipeline d’entraînement, mais il est plus facile de les séparer. Assurez-vous cependant de ne pas avoir oublié le <code>model.eval()</code> ou le <code>model.train()</code> aux bons endroits, ou le <code>zero_grad()</code> à chaque étape !</p></div>
+<h2 class="relative group"><a id="dboguer-les-erreurs-silencieuses-pendant-lentranement" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#dboguer-les-erreurs-silencieuses-pendant-lentranement"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Déboguer les erreurs silencieuses pendant l&#39;entraînement
+	</span></h2>
+
+<p>Que peut-on faire pour déboguer un entraînement qui se termine sans erreur mais qui ne donne pas de bons résultats ? Nous allons vous donner quelques pistes ici, mais sachez que ce type de débogage est la partie la plus difficile de l’apprentissage automatique, et qu’il n’y a pas de réponse magique.</p>
+<h3 class="relative group"><a id="vrifiez-vos-donnes-encore" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#vrifiez-vos-donnes-encore"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Vérifiez vos données (encore !)
+	</span></h3>
+
+<p>Votre modèle n’apprendra quelque chose que s’il est réellement possible d’apprendre quelque chose de vos données. Si un bogue corrompt les données ou si les étiquettes sont attribuées de manière aléatoire, il est très probable que vous n’obtiendrez aucun entraînement de modèle sur votre ensemble de données. Commencez donc toujours par revérifier vos entrées et étiquettes décodées, et posez-vous les questions suivantes :</p>
+<ul><li>les données décodées sont-elles compréhensibles ?</li>
+<li>êtes-vous d’accord avec les étiquettes ?</li>
+<li>y a-t-il une étiquette qui est plus courante que les autres ?</li>
+<li>quelle devrait être la perte/métrie si le modèle prédisait une réponse aléatoire/toujours la même réponse ?</li></ul>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>⚠️ Si vous effectuez un entraînement distribué, imprimez des échantillons de votre ensemble de données dans chaque processus et vérifiez par trois fois que vous obtenez la même chose. Un bug courant consiste à avoir une source d’aléa dans la création des données qui fait que chaque processus a une version différente de l’ensemble de données.</p></div>
+<p>Après avoir examiné vos données, examinez quelques-unes des prédictions du modèle et décodez-les également. Si le modèle prédit toujours la même chose, c’est peut-être parce que votre ensemble de données est biaisé en faveur d’une catégorie (pour les problèmes de classification) ; des techniques comme le suréchantillonnage de classes rares peuvent aider.</p>
+<p>Si la perte/la métrique que vous obtenez sur votre modèle initial est très différente de la perte/la métrique à laquelle vous vous attendez pour des prédictions aléatoires, vérifiez à nouveau la façon dont votre perte ou votre métrique est calculée, car il y a probablement un bug à ce niveau. Si vous utilisez plusieurs pertes que vous ajoutez à la fin, assurez-vous qu’elles sont de la même échelle.</p>
+<p>Lorsque vous êtes sûr que vos données sont parfaites, vous pouvez voir si le modèle est capable de s’entraîner sur elles grâce à un test simple.</p>
+<h3 class="relative group"><a id="surentranement-du-modle-sur-un-seul-batch" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#surentranement-du-modle-sur-un-seul-batch"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Surentraînement du modèle sur un seul batch
+	</span></h3>
+
+<p>Le surentraînement est généralement une chose que nous essayons d’éviter lors de l’entraînement, car cela signifie que le modèle n’apprend pas à reconnaître les caractéristiques générales que nous voulons qu’il reconnaisse, mais qu’il se contente de mémoriser les échantillons d’entraînement. Cependant, essayer d’entraîner votre modèle sur un batch encore et encore est un bon test pour vérifier si le problème tel que vous l’avez formulé peut être résolu par le modèle que vous essayez d’entraîner. Cela vous aidera également à voir si votre taux d’apprentissage initial est trop élevé.</p>
+<p>Une fois que vous avez défini votre <code>Trainer</code>, c’est très facile ; il suffit de prendre un batch de données d’entraînement, puis d’exécuter une petite boucle d’entraînement manuel en utilisant uniquement ce batch pour quelque chose comme 20 étapes :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> trainer.get_train_dataloader():
+    <span class="hljs-keyword">break</span>
+
+batch = {k: v.to(device) <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> batch.items()}
+trainer.create_optimizer()
+
+<span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>):
+    outputs = trainer.model(**batch)
+    loss = outputs.loss
+    loss.backward()
+    trainer.optimizer.step()
+    trainer.optimizer.zero_grad()<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>💡 Si vos données d’entraînement ne sont pas équilibrées, veillez à créer un batch de données d’entraînement contenant toutes les étiquettes.</p></div>
+<p>Le modèle résultant devrait avoir des résultats proches de la perfection sur le même <code>batch</code>. Calculons la métrique sur les prédictions résultantes :</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">with</span> torch.no_grad():
+    outputs = trainer.model(**batch)
+preds = outputs.logits
+labels = batch[<span class="hljs-string">&quot;labels&quot;</span>]
+
+compute_metrics((preds.cpu().numpy(), labels.cpu().numpy()))<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-string">&#x27;accuracy&#x27;</span>: <span class="hljs-number">1.0</span>}<!-- HTML_TAG_END --></pre></div>
+<p>100% de précision, voilà un bel exemple de surentraînement (ce qui signifie que si vous essayez votre modèle sur n’importe quelle autre phrase, il vous donnera très probablement une mauvaise réponse) !</p>
+<p>Si vous ne parvenez pas à ce que votre modèle obtienne des résultats parfaits comme celui-ci, cela signifie qu’il y a quelque chose qui ne va pas dans la façon dont vous avez formulé le problème ou dans vos données, et vous devez donc y remédier. Ce n’est que lorsque vous parviendrez à passer le test de surentraînement que vous pourrez être sûr que votre modèle peut réellement apprendre quelque chose.</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>⚠️ Vous devrez recréer votre modèle et votre <code>Trainer</code> après ce test, car le modèle obtenu ne sera probablement pas capable de récupérer et d’apprendre quelque chose d’utile sur votre jeu de données complet.</p></div>
+<h3 class="relative group"><a id="ne-rglez-rien-tant-que-vous-navez-pas-une-premire-ligne-de-base" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#ne-rglez-rien-tant-que-vous-navez-pas-une-premire-ligne-de-base"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Ne réglez rien tant que vous n&#39;avez pas une première ligne de base.
+	</span></h3>
+
+<p>Le réglage des hyperparamètres est toujours considéré comme la partie la plus difficile de l’apprentissage automatique, mais c’est juste la dernière étape pour vous aider à gagner un peu sur la métrique. La plupart du temps, les hyperparamètres par défaut du <code>Trainer</code> fonctionneront très bien pour vous donner de bons résultats, donc ne vous lancez pas dans une recherche d’hyperparamètres longue et coûteuse jusqu’à ce que vous ayez quelque chose qui batte la ligne de base que vous avez sur votre jeu de données.</p>
+<p>Une fois que vous avez un modèle suffisamment bon, vous pouvez commencer à l’affiner un peu. N’essayez pas de lancer un millier d’exécutions avec différents hyperparamètres, mais comparez quelques exécutions avec différentes valeurs pour un hyperparamètre afin de vous faire une idée de celui qui a le plus d’impact.</p>
+<p>Si vous modifiez le modèle lui-même, restez simple et n’essayez rien que vous ne puissiez raisonnablement justifier. Veillez toujours à revenir au test de surentraînement pour vérifier que votre modification n’a pas eu de conséquences inattendues.</p>
+<h3 class="relative group"><a id="demander-de-laide" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#demander-de-laide"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Demander de l&#39;aide
+	</span></h3>
+
+<p>Nous espérons que vous avez trouvé dans cette section des conseils qui vous ont aidé à résoudre votre problème, mais si ce n’est pas le cas, n’oubliez pas que vous pouvez toujours demander de l’aide à la communauté sur le <a href="https://discuss.huggingface.co/" rel="nofollow">forum</a>. </p>
+<p>Voici quelques ressources (en anglais) supplémentaires qui peuvent s’avérer utiles :</p>
+<ul><li><a href="https://docs.google.com/presentation/d/1yHLPvPhUs2KGI5ZWo0sU-PKU3GimAk3iTsI38Z-B5Gw/edit#slide=id.p" rel="nofollow">“La reproductibilité comme vecteur des meilleures pratiques d’ingénierie”</a> par Joel Grus</li>
+<li><a href="https://towardsdatascience.com/checklist-for-debugging-neural-networks-d8b2a9434f21" rel="nofollow">“Liste de contrôle pour le débogage des réseaux neuronaux”</a> par Cecelia Shao</li>
+<li><a href="https://medium.com/@keeper6928/how-to-unit-test-machine-learning-code-57cf6fd81765" rel="nofollow">“Comment tester unitairement le code d’apprentissage automatique”</a> par Chase Roberts</li>
+<li><a href="http://karpathy.github.io/2019/04/25/recipe/" rel="nofollow">“Une recette pour Entraîner les réseaux neuronaux”</a> par Andrej Karpathy</li></ul>
+<p>Bien sûr, tous les problèmes rencontrés lors de l’Entraînement des réseaux neuronaux ne sont pas forcément de votre faute ! Si vous rencontrez quelque chose dans la bibliothèque 🤗 <em>Transformers</em> ou 🤗 <em>Datasets</em> qui ne semble pas correct, vous avez peut-être rencontré un bogue. Vous devez absolument nous en parler, et dans la section suivante, nous allons vous expliquer exactement comment faire.</p>
+
+
+		<script type="module" data-hydrate="13u6ooz">
+		import { start } from "/docs/course/main/fr/_app/start-21c8b5be.js";
+		start({
+			target: document.querySelector('[data-hydrate="13u6ooz"]').parentNode,
+			paths: {"base":"/docs/course/main/fr","assets":"/docs/course/main/fr"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/course/main/fr/_app/pages/__layout.svelte-05c2fb0c.js"),
+						import("/docs/course/main/fr/_app/pages/chapter8/4.mdx-65e85d1e.js")
+				],
+				params: {}
+			}
+		});
+	</script>
