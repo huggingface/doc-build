@@ -419,7 +419,7 @@ lm_prediction_scores, mc_prediction_scores = outputs[:2]`,highlighted:`<span cla
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>embedding_layer = model.resize_token_embeddings(
 <span class="hljs-meta">... </span>    <span class="hljs-built_in">len</span>(tokenizer)
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># Update the model embeddings with the new vocabulary size</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># Update the model embeddings with the new vocabulary size</span>
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>choices = [<span class="hljs-string">&quot;Hello, my dog is cute [CLS]&quot;</span>, <span class="hljs-string">&quot;Hello, my cat is cute [CLS]&quot;</span>]
 <span class="hljs-meta">&gt;&gt;&gt; </span>encoded_choices = [tokenizer.encode(s) <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> choices]

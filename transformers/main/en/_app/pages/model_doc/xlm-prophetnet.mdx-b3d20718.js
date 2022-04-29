@@ -17,7 +17,7 @@ last_hidden_states_ngram = outputs.last_hidden_state_ngram  # predict hidden sta
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = tokenizer(
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;Studies have been shown that owning a dog is good for you&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>).input_ids  <span class="hljs-comment"># Batch size 1</span>
+<span class="hljs-meta">... </span>).input_ids  <span class="hljs-comment"># Batch size 1</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>decoder_input_ids = tokenizer(<span class="hljs-string">&quot;Studies show that&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).input_ids  <span class="hljs-comment"># Batch size 1</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(input_ids=input_ids, decoder_input_ids=decoder_input_ids)
 
@@ -81,7 +81,7 @@ logits_ngram_next_tokens = outputs.logits_ngram  # logits to predict 2nd, 3rd, .
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = tokenizer(
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;Studies have been shown that owning a dog is good for you&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>).input_ids  <span class="hljs-comment"># Batch size 1</span>
+<span class="hljs-meta">... </span>).input_ids  <span class="hljs-comment"># Batch size 1</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>decoder_input_ids = tokenizer(<span class="hljs-string">&quot;Studies show that&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).input_ids  <span class="hljs-comment"># Batch size 1</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(input_ids=input_ids, decoder_input_ids=decoder_input_ids)
 

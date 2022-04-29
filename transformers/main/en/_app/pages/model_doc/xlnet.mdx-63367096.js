@@ -104,47 +104,47 @@ next_token_logits = (
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># We show how to setup inputs to predict a next token using a bi-directional context.</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = torch.tensor(
 <span class="hljs-meta">... </span>    tokenizer.encode(<span class="hljs-string">&quot;Hello, my dog is very &lt;mask&gt;&quot;</span>, add_special_tokens=<span class="hljs-literal">False</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>).unsqueeze(
+<span class="hljs-meta">... </span>).unsqueeze(
 <span class="hljs-meta">... </span>    <span class="hljs-number">0</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># We will predict the masked token</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># We will predict the masked token</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>perm_mask = torch.zeros((<span class="hljs-number">1</span>, input_ids.shape[<span class="hljs-number">1</span>], input_ids.shape[<span class="hljs-number">1</span>]), dtype=torch.<span class="hljs-built_in">float</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>perm_mask[:, :, -<span class="hljs-number">1</span>] = <span class="hljs-number">1.0</span>  <span class="hljs-comment"># Previous tokens don&#x27;t see last token</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>target_mapping = torch.zeros(
 <span class="hljs-meta">... </span>    (<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, input_ids.shape[<span class="hljs-number">1</span>]), dtype=torch.<span class="hljs-built_in">float</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># Shape [1, 1, seq_length] =&gt; let&#x27;s predict one token</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># Shape [1, 1, seq_length] =&gt; let&#x27;s predict one token</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>target_mapping[
 <span class="hljs-meta">... </span>    <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>] = <span class="hljs-number">1.0</span>  <span class="hljs-comment"># Our first (and only) prediction will be the last token of the sequence (the masked token)</span>
+<span class="hljs-meta">... </span>] = <span class="hljs-number">1.0</span>  <span class="hljs-comment"># Our first (and only) prediction will be the last token of the sequence (the masked token)</span>
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(input_ids, perm_mask=perm_mask, target_mapping=target_mapping)
 <span class="hljs-meta">&gt;&gt;&gt; </span>next_token_logits = outputs[
 <span class="hljs-meta">... </span>    <span class="hljs-number">0</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>]  <span class="hljs-comment"># Output has shape [target_mapping.size(0), target_mapping.size(1), config.vocab_size]</span>
+<span class="hljs-meta">... </span>]  <span class="hljs-comment"># Output has shape [target_mapping.size(0), target_mapping.size(1), config.vocab_size]</span>
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># The same way can the XLNetLMHeadModel be used to be trained by standard auto-regressive language modeling.</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = torch.tensor(
 <span class="hljs-meta">... </span>    tokenizer.encode(<span class="hljs-string">&quot;Hello, my dog is very &lt;mask&gt;&quot;</span>, add_special_tokens=<span class="hljs-literal">False</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>).unsqueeze(
+<span class="hljs-meta">... </span>).unsqueeze(
 <span class="hljs-meta">... </span>    <span class="hljs-number">0</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># We will predict the masked token</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># We will predict the masked token</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor(tokenizer.encode(<span class="hljs-string">&quot;cute&quot;</span>, add_special_tokens=<span class="hljs-literal">False</span>)).unsqueeze(<span class="hljs-number">0</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">assert</span> labels.shape[<span class="hljs-number">0</span>] == <span class="hljs-number">1</span>, <span class="hljs-string">&quot;only one word will be predicted&quot;</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>perm_mask = torch.zeros((<span class="hljs-number">1</span>, input_ids.shape[<span class="hljs-number">1</span>], input_ids.shape[<span class="hljs-number">1</span>]), dtype=torch.<span class="hljs-built_in">float</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>perm_mask[
 <span class="hljs-meta">... </span>    :, :, -<span class="hljs-number">1</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>] = <span class="hljs-number">1.0</span>  <span class="hljs-comment"># Previous tokens don&#x27;t see last token as is done in standard auto-regressive lm training</span>
+<span class="hljs-meta">... </span>] = <span class="hljs-number">1.0</span>  <span class="hljs-comment"># Previous tokens don&#x27;t see last token as is done in standard auto-regressive lm training</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>target_mapping = torch.zeros(
 <span class="hljs-meta">... </span>    (<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, input_ids.shape[<span class="hljs-number">1</span>]), dtype=torch.<span class="hljs-built_in">float</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># Shape [1, 1, seq_length] =&gt; let&#x27;s predict one token</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># Shape [1, 1, seq_length] =&gt; let&#x27;s predict one token</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>target_mapping[
 <span class="hljs-meta">... </span>    <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>] = <span class="hljs-number">1.0</span>  <span class="hljs-comment"># Our first (and only) prediction will be the last token of the sequence (the masked token)</span>
+<span class="hljs-meta">... </span>] = <span class="hljs-number">1.0</span>  <span class="hljs-comment"># Our first (and only) prediction will be the last token of the sequence (the masked token)</span>
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(input_ids, perm_mask=perm_mask, target_mapping=target_mapping, labels=labels)
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss = outputs.loss
 <span class="hljs-meta">&gt;&gt;&gt; </span>next_token_logits = (
 <span class="hljs-meta">... </span>    outputs.logits
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># Logits have shape [target_mapping.size(0), target_mapping.size(1), config.vocab_size]</span>`}}),{c(){d=a("p"),b=n("Examples:"),m=c(),v(h.$$.fragment)},l(l){d=r(l,"P",{});var u=i(d);b=s(u,"Examples:"),u.forEach(t),m=p(l),y(h.$$.fragment,l)},m(l,u){f(l,d,u),e(d,b),f(l,m,u),w(h,l,u),T=!0},p:Te,i(l){T||($(h.$$.fragment,l),T=!0)},o(l){N(h.$$.fragment,l),T=!1},d(l){l&&t(d),l&&t(m),L(h,l)}}}function hw(x){let d,b,m,h,T;return{c(){d=a("p"),b=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),m=a("code"),h=n("Module"),T=n(`
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># Logits have shape [target_mapping.size(0), target_mapping.size(1), config.vocab_size]</span>`}}),{c(){d=a("p"),b=n("Examples:"),m=c(),v(h.$$.fragment)},l(l){d=r(l,"P",{});var u=i(d);b=s(u,"Examples:"),u.forEach(t),m=p(l),y(h.$$.fragment,l)},m(l,u){f(l,d,u),e(d,b),f(l,m,u),w(h,l,u),T=!0},p:Te,i(l){T||($(h.$$.fragment,l),T=!0)},o(l){N(h.$$.fragment,l),T=!1},d(l){l&&t(d),l&&t(m),L(h,l)}}}function hw(x){let d,b,m,h,T;return{c(){d=a("p"),b=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),m=a("code"),h=n("Module"),T=n(`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
 the latter silently ignores them.`)},l(l){d=r(l,"P",{});var u=i(d);b=s(u,"Although the recipe for forward pass needs to be defined within this function, one should call the "),m=r(u,"CODE",{});var X=i(m);h=s(X,"Module"),X.forEach(t),T=s(u,`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
@@ -397,7 +397,7 @@ loss = outputs.loss`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><s
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = torch.tensor(tokenizer.encode(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, add_special_tokens=<span class="hljs-literal">True</span>)).unsqueeze(
 <span class="hljs-meta">... </span>    <span class="hljs-number">0</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># Batch size 1</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># Batch size 1</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>start_positions = torch.tensor([<span class="hljs-number">1</span>])
 <span class="hljs-meta">&gt;&gt;&gt; </span>end_positions = torch.tensor([<span class="hljs-number">3</span>])
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(input_ids, start_positions=start_positions, end_positions=end_positions)
@@ -484,17 +484,17 @@ next_token_logits = outputs[
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># We show how to setup inputs to predict a next token using a bi-directional context.</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = tf.constant(tokenizer.encode(<span class="hljs-string">&quot;Hello, my dog is very &lt;mask&gt;&quot;</span>, add_special_tokens=<span class="hljs-literal">True</span>))[
 <span class="hljs-meta">... </span>    <span class="hljs-literal">None</span>, :
-<span class="hljs-meta">&gt;&gt;&gt; </span>]  <span class="hljs-comment"># We will predict the masked token</span>
+<span class="hljs-meta">... </span>]  <span class="hljs-comment"># We will predict the masked token</span>
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>perm_mask = np.zeros((<span class="hljs-number">1</span>, input_ids.shape[<span class="hljs-number">1</span>], input_ids.shape[<span class="hljs-number">1</span>]))
 <span class="hljs-meta">&gt;&gt;&gt; </span>perm_mask[:, :, -<span class="hljs-number">1</span>] = <span class="hljs-number">1.0</span>  <span class="hljs-comment"># Previous tokens don&#x27;t see last token</span>
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>target_mapping = np.zeros(
 <span class="hljs-meta">... </span>    (<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, input_ids.shape[<span class="hljs-number">1</span>])
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># Shape [1, 1, seq_length] =&gt; let&#x27;s predict one token</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># Shape [1, 1, seq_length] =&gt; let&#x27;s predict one token</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>target_mapping[
 <span class="hljs-meta">... </span>    <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>] = <span class="hljs-number">1.0</span>  <span class="hljs-comment"># Our first (and only) prediction will be the last token of the sequence (the masked token)</span>
+<span class="hljs-meta">... </span>] = <span class="hljs-number">1.0</span>  <span class="hljs-comment"># Our first (and only) prediction will be the last token of the sequence (the masked token)</span>
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(
 <span class="hljs-meta">... </span>    input_ids,
@@ -504,7 +504,7 @@ next_token_logits = outputs[
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>next_token_logits = outputs[
 <span class="hljs-meta">... </span>    <span class="hljs-number">0</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>]  <span class="hljs-comment"># Output has shape [target_mapping.size(0), target_mapping.size(1), config.vocab_size]</span>`}}),{c(){d=a("p"),b=n("Examples:"),m=c(),v(h.$$.fragment)},l(l){d=r(l,"P",{});var u=i(d);b=s(u,"Examples:"),u.forEach(t),m=p(l),y(h.$$.fragment,l)},m(l,u){f(l,d,u),e(d,b),f(l,m,u),w(h,l,u),T=!0},p:Te,i(l){T||($(h.$$.fragment,l),T=!0)},o(l){N(h.$$.fragment,l),T=!1},d(l){l&&t(d),l&&t(m),L(h,l)}}}function Ew(x){let d,b,m,h,T,l,u,X,pe,Y,q,Z,D,ee,me,I,he,le,R,O,te,G,M,C,ne,W,de,se,H,ue,ce,z,fe,Q,K,oe,U,ae,ge,P,_e,S,ke;return{c(){d=a("p"),b=n("TF 2.0 models accepts two formats as inputs:"),m=c(),h=a("ul"),T=a("li"),l=n("having all inputs as keyword arguments (like PyTorch models), or"),u=c(),X=a("li"),pe=n("having all inputs as a list, tuple or dict in the first positional arguments."),Y=c(),q=a("p"),Z=n("This second option is useful when using "),D=a("code"),ee=n("tf.keras.Model.fit"),me=n(` method which currently requires having all the
+<span class="hljs-meta">... </span>]  <span class="hljs-comment"># Output has shape [target_mapping.size(0), target_mapping.size(1), config.vocab_size]</span>`}}),{c(){d=a("p"),b=n("Examples:"),m=c(),v(h.$$.fragment)},l(l){d=r(l,"P",{});var u=i(d);b=s(u,"Examples:"),u.forEach(t),m=p(l),y(h.$$.fragment,l)},m(l,u){f(l,d,u),e(d,b),f(l,m,u),w(h,l,u),T=!0},p:Te,i(l){T||($(h.$$.fragment,l),T=!0)},o(l){N(h.$$.fragment,l),T=!1},d(l){l&&t(d),l&&t(m),L(h,l)}}}function Ew(x){let d,b,m,h,T,l,u,X,pe,Y,q,Z,D,ee,me,I,he,le,R,O,te,G,M,C,ne,W,de,se,H,ue,ce,z,fe,Q,K,oe,U,ae,ge,P,_e,S,ke;return{c(){d=a("p"),b=n("TF 2.0 models accepts two formats as inputs:"),m=c(),h=a("ul"),T=a("li"),l=n("having all inputs as keyword arguments (like PyTorch models), or"),u=c(),X=a("li"),pe=n("having all inputs as a list, tuple or dict in the first positional arguments."),Y=c(),q=a("p"),Z=n("This second option is useful when using "),D=a("code"),ee=n("tf.keras.Model.fit"),me=n(` method which currently requires having all the
 tensors in the first argument of the model call function: `),I=a("code"),he=n("model(inputs)"),le=n("."),R=c(),O=a("p"),te=n(`If you choose this second option, there are three possibilities you can use to gather all the input Tensors in the
 first positional argument :`),G=c(),M=a("ul"),C=a("li"),ne=n("a single Tensor with "),W=a("code"),de=n("input_ids"),se=n(" only and nothing else: "),H=a("code"),ue=n("model(inputs_ids)"),ce=c(),z=a("li"),fe=n(`a list of varying length with one or several input Tensors IN THE ORDER given in the docstring:
 `),Q=a("code"),K=n("model([input_ids, attention_mask])"),oe=n(" or "),U=a("code"),ae=n("model([input_ids, attention_mask, token_type_ids])"),ge=c(),P=a("li"),_e=n(`a dictionary with one or several input Tensors associated to the input names given in the docstring:

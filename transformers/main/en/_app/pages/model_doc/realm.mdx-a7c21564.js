@@ -176,7 +176,7 @@ loss = reader_output.loss`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </s
 <span class="hljs-meta">... </span>    add_special_tokens=<span class="hljs-literal">False</span>,
 <span class="hljs-meta">... </span>    return_token_type_ids=<span class="hljs-literal">False</span>,
 <span class="hljs-meta">... </span>    return_attention_mask=<span class="hljs-literal">False</span>,
-<span class="hljs-meta">&gt;&gt;&gt; </span>).input_ids
+<span class="hljs-meta">... </span>).input_ids
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>reader_output, predicted_answer_ids = model(**question_ids, answer_ids=answer_ids, return_dict=<span class="hljs-literal">False</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>predicted_answer = tokenizer.decode(predicted_answer_ids)

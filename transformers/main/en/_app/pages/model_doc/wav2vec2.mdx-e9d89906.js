@@ -647,7 +647,7 @@ hidden_states = model(input_values).last_hidden_state`,highlighted:`<span class=
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_values = processor(
 <span class="hljs-meta">... </span>    ds[<span class="hljs-string">&quot;speech&quot;</span>][<span class="hljs-number">0</span>], sampling_rate=<span class="hljs-number">16_000</span>, return_tensors=<span class="hljs-string">&quot;np&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>).input_values  <span class="hljs-comment"># Batch size 1</span>
+<span class="hljs-meta">... </span>).input_values  <span class="hljs-comment"># Batch size 1</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>hidden_states = model(input_values).last_hidden_state`}}),{c(){c=a("p"),b=r("Example:"),f=d(),w(h.$$.fragment)},l(l){c=s(l,"P",{});var u=n(c);b=i(u,"Example:"),u.forEach(t),f=p(l),y(h.$$.fragment,l)},m(l,u){_(l,c,u),e(c,b),_(l,f,u),k(h,l,u),v=!0},p:fe,i(l){v||(T(h.$$.fragment,l),v=!0)},o(l){$(h.$$.fragment,l),v=!1},d(l){l&&t(c),l&&t(f),x(h,l)}}}function Z0(W){let c,b,f,h,v;return{c(){c=a("p"),b=r("Although the recipe for forward pass needs to be defined within this function, one should call the "),f=a("code"),h=r("Module"),v=r(`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
 the latter silently ignores them.`)},l(l){c=s(l,"P",{});var u=n(c);b=i(u,"Although the recipe for forward pass needs to be defined within this function, one should call the "),f=s(u,"CODE",{});var j=n(f);h=i(j,"Module"),j.forEach(t),v=i(u,`
@@ -697,7 +697,7 @@ transcription = processor.decode(predicted_ids[0])
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_values = processor(
 <span class="hljs-meta">... </span>    ds[<span class="hljs-string">&quot;speech&quot;</span>][<span class="hljs-number">0</span>], sampling_rate=<span class="hljs-number">16_000</span>, return_tensors=<span class="hljs-string">&quot;np&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>).input_values  <span class="hljs-comment"># Batch size 1</span>
+<span class="hljs-meta">... </span>).input_values  <span class="hljs-comment"># Batch size 1</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>logits = model(input_values).logits
 <span class="hljs-meta">&gt;&gt;&gt; </span>predicted_ids = jnp.argmax(logits, axis=-<span class="hljs-number">1</span>)
 

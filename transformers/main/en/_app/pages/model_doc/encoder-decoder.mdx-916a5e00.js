@@ -77,7 +77,7 @@ generated = model.generate(input_ids)`,highlighted:`<span class="hljs-meta">&gt;
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = EncoderDecoderModel.from_encoder_decoder_pretrained(
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;bert-base-uncased&quot;</span>, <span class="hljs-string">&quot;bert-base-uncased&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># initialize Bert2Bert from pre-trained checkpoints</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># initialize Bert2Bert from pre-trained checkpoints</span>
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># training</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model.config.decoder_start_token_id = tokenizer.cls_token_id
@@ -144,7 +144,7 @@ generated = model.generate(input_ids, decoder_start_token_id=model.config.decode
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># forward</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = tokenizer.encode(
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, add_special_tokens=<span class="hljs-literal">True</span>, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># Batch size 1</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># Batch size 1</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(input_ids=input_ids, decoder_input_ids=input_ids)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># training</span>

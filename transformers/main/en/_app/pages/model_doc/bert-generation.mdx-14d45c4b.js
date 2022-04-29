@@ -101,7 +101,7 @@ loss.backward()`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span 
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = tokenizer(
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;This is a long article to summarize&quot;</span>, add_special_tokens=<span class="hljs-literal">False</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>).input_ids
+<span class="hljs-meta">... </span>).input_ids
 <span class="hljs-meta">&gt;&gt;&gt; </span>labels = tokenizer(<span class="hljs-string">&quot;This is a short summary&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).input_ids
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># train...</span>
@@ -122,7 +122,7 @@ print(tokenizer.decode(outputs[0]))`,highlighted:`<span class="hljs-meta">&gt;&g
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = tokenizer(
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;This is the first sentence. This is the second sentence.&quot;</span>, add_special_tokens=<span class="hljs-literal">False</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>).input_ids
+<span class="hljs-meta">... </span>).input_ids
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = sentence_fuser.generate(input_ids)
 

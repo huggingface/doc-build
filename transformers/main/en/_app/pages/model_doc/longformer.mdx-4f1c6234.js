@@ -60,10 +60,10 @@ pooled_output = outputs.pooler_output`,highlighted:`<span class="hljs-meta">&gt;
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>attention_mask = torch.ones(
 <span class="hljs-meta">... </span>    input_ids.shape, dtype=torch.long, device=input_ids.device
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># initialize to local attention</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># initialize to local attention</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>global_attention_mask = torch.zeros(
 <span class="hljs-meta">... </span>    input_ids.shape, dtype=torch.long, device=input_ids.device
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># initialize to global attention to be deactivated for all tokens</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># initialize to global attention to be deactivated for all tokens</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>global_attention_mask[
 <span class="hljs-meta">... </span>    :,
 <span class="hljs-meta">... </span>    [
@@ -71,7 +71,7 @@ pooled_output = outputs.pooler_output`,highlighted:`<span class="hljs-meta">&gt;
 <span class="hljs-meta">... </span>        <span class="hljs-number">4</span>,
 <span class="hljs-meta">... </span>        <span class="hljs-number">21</span>,
 <span class="hljs-meta">... </span>    ],
-<span class="hljs-meta">&gt;&gt;&gt; </span>] = <span class="hljs-number">1</span>  <span class="hljs-comment"># Set global attention to random tokens for the sake of this example</span>
+<span class="hljs-meta">... </span>] = <span class="hljs-number">1</span>  <span class="hljs-comment"># Set global attention to random tokens for the sake of this example</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Usually, set global attention based on the task. For example,</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># classification: the &lt;s&gt; token</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># QA: question tokens</span>
@@ -332,7 +332,7 @@ answer = tokenizer.decode(
 <span class="hljs-meta">&gt;&gt;&gt; </span>answer_tokens = all_tokens[torch.argmax(start_logits) : torch.argmax(end_logits) + <span class="hljs-number">1</span>]
 <span class="hljs-meta">&gt;&gt;&gt; </span>answer = tokenizer.decode(
 <span class="hljs-meta">... </span>    tokenizer.convert_tokens_to_ids(answer_tokens)
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># remove space prepending space token</span>`}}),{c(){d=r("p"),k=n("Examples:"),h=c(),v(p.$$.fragment)},l(l){d=a(l,"P",{});var u=i(d);k=s(u,"Examples:"),u.forEach(o),h=m(l),T(p.$$.fragment,l)},m(l,u){f(l,d,u),e(d,k),f(l,h,u),y(p,l,u),b=!0},p:Oe,i(l){b||($(p.$$.fragment,l),b=!0)},o(l){L(p.$$.fragment,l),b=!1},d(l){l&&o(d),l&&o(h),x(p,l)}}}function ET(M){let d,k,h,p,b,l,u,E,he,J,q,Z,S,ee,pe,D,fe,le,G,P,oe,X,z,j,ne,B,de,se,W,ge,ce,C,ue,U,re,K,H,ae,_e,N,ie,R,we;return{c(){d=r("p"),k=n("TF 2.0 models accepts two formats as inputs:"),h=c(),p=r("ul"),b=r("li"),l=n("having all inputs as keyword arguments (like PyTorch models), or"),u=c(),E=r("li"),he=n("having all inputs as a list, tuple or dict in the first positional arguments."),J=c(),q=r("p"),Z=n("This second option is useful when using "),S=r("code"),ee=n("tf.keras.Model.fit"),pe=n(` method which currently requires having all the
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># remove space prepending space token</span>`}}),{c(){d=r("p"),k=n("Examples:"),h=c(),v(p.$$.fragment)},l(l){d=a(l,"P",{});var u=i(d);k=s(u,"Examples:"),u.forEach(o),h=m(l),T(p.$$.fragment,l)},m(l,u){f(l,d,u),e(d,k),f(l,h,u),y(p,l,u),b=!0},p:Oe,i(l){b||($(p.$$.fragment,l),b=!0)},o(l){L(p.$$.fragment,l),b=!1},d(l){l&&o(d),l&&o(h),x(p,l)}}}function ET(M){let d,k,h,p,b,l,u,E,he,J,q,Z,S,ee,pe,D,fe,le,G,P,oe,X,z,j,ne,B,de,se,W,ge,ce,C,ue,U,re,K,H,ae,_e,N,ie,R,we;return{c(){d=r("p"),k=n("TF 2.0 models accepts two formats as inputs:"),h=c(),p=r("ul"),b=r("li"),l=n("having all inputs as keyword arguments (like PyTorch models), or"),u=c(),E=r("li"),he=n("having all inputs as a list, tuple or dict in the first positional arguments."),J=c(),q=r("p"),Z=n("This second option is useful when using "),S=r("code"),ee=n("tf.keras.Model.fit"),pe=n(` method which currently requires having all the
 tensors in the first argument of the model call function: `),D=r("code"),fe=n("model(inputs)"),le=n("."),G=c(),P=r("p"),oe=n(`If you choose this second option, there are three possibilities you can use to gather all the input Tensors in the
 first positional argument :`),X=c(),z=r("ul"),j=r("li"),ne=n("a single Tensor with "),B=r("code"),de=n("input_ids"),se=n(" only and nothing else: "),W=r("code"),ge=n("model(inputs_ids)"),ce=c(),C=r("li"),ue=n(`a list of varying length with one or several input Tensors IN THE ORDER given in the docstring:
 `),U=r("code"),re=n("model([input_ids, attention_mask])"),K=n(" or "),H=r("code"),ae=n("model([input_ids, attention_mask, token_type_ids])"),_e=c(),N=r("li"),ie=n(`a dictionary with one or several input Tensors associated to the input names given in the docstring:

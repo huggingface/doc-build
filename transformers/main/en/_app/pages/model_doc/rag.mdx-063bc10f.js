@@ -40,7 +40,7 @@ retriever = RagRetriever.from_pretrained("facebook/dpr-ctx_encoder-single-nq-bas
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>dataset = (
 <span class="hljs-meta">... </span>    ...
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># dataset must be a datasets.Datasets object with columns &quot;title&quot;, &quot;text&quot; and &quot;embeddings&quot;, and it must have a faiss index</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># dataset must be a datasets.Datasets object with columns &quot;title&quot;, &quot;text&quot; and &quot;embeddings&quot;, and it must have a faiss index</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>retriever = RagRetriever.from_pretrained(<span class="hljs-string">&quot;facebook/dpr-ctx_encoder-single-nq-base&quot;</span>, indexed_dataset=dataset)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To load your own indexed dataset built with the datasets library that was saved on disk. More info in examples/rag/use_own_knowledge_dataset.py</span>
@@ -153,7 +153,7 @@ outputs = model(
 <span class="hljs-meta">&gt;&gt;&gt; </span>docs_dict = retriever(input_ids.numpy(), question_hidden_states.detach().numpy(), return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>doc_scores = torch.bmm(
 <span class="hljs-meta">... </span>    question_hidden_states.unsqueeze(<span class="hljs-number">1</span>), docs_dict[<span class="hljs-string">&quot;retrieved_doc_embeds&quot;</span>].<span class="hljs-built_in">float</span>().transpose(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>).squeeze(<span class="hljs-number">1</span>)
+<span class="hljs-meta">... </span>).squeeze(<span class="hljs-number">1</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># 3. Forward to generator</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(
 <span class="hljs-meta">... </span>    context_input_ids=docs_dict[<span class="hljs-string">&quot;context_input_ids&quot;</span>],
@@ -233,7 +233,7 @@ generated_string = tokenizer.batch_decode(generated, skip_special_tokens=True)`,
 <span class="hljs-meta">&gt;&gt;&gt; </span>docs_dict = retriever(input_ids.numpy(), question_hidden_states.detach().numpy(), return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>doc_scores = torch.bmm(
 <span class="hljs-meta">... </span>    question_hidden_states.unsqueeze(<span class="hljs-number">1</span>), docs_dict[<span class="hljs-string">&quot;retrieved_doc_embeds&quot;</span>].<span class="hljs-built_in">float</span>().transpose(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>).squeeze(<span class="hljs-number">1</span>)
+<span class="hljs-meta">... </span>).squeeze(<span class="hljs-number">1</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># 3. Forward to generator</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(
 <span class="hljs-meta">... </span>    context_input_ids=docs_dict[<span class="hljs-string">&quot;context_input_ids&quot;</span>],

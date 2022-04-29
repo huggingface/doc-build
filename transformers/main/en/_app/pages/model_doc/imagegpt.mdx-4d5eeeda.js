@@ -103,7 +103,7 @@ for img, ax in zip(samples_img, axes):
 <span class="hljs-meta">&gt;&gt;&gt; </span>samples = output[:, <span class="hljs-number">1</span>:].cpu().detach().numpy()
 <span class="hljs-meta">&gt;&gt;&gt; </span>samples_img = [
 <span class="hljs-meta">... </span>    np.reshape(np.rint(<span class="hljs-number">127.5</span> * (clusters[s] + <span class="hljs-number">1.0</span>)), [n_px, n_px, <span class="hljs-number">3</span>]).astype(np.uint8) <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> samples
-<span class="hljs-meta">&gt;&gt;&gt; </span>]  <span class="hljs-comment"># convert color cluster tokens back to pixels</span>
+<span class="hljs-meta">... </span>]  <span class="hljs-comment"># convert color cluster tokens back to pixels</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>f, axes = plt.subplots(<span class="hljs-number">1</span>, batch_size, dpi=<span class="hljs-number">300</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> img, ax <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(samples_img, axes):

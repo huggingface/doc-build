@@ -67,11 +67,11 @@ entity_last_hidden_state = outputs.entity_last_hidden_state`,highlighted:`<span 
 <span class="hljs-meta">&gt;&gt;&gt; </span>entities = [
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;Beyonc\xE9&quot;</span>,
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;Los Angeles&quot;</span>,
-<span class="hljs-meta">&gt;&gt;&gt; </span>]  <span class="hljs-comment"># Wikipedia entity titles corresponding to the entity mentions &quot;Beyonc\xE9&quot; and &quot;Los Angeles&quot;</span>
+<span class="hljs-meta">... </span>]  <span class="hljs-comment"># Wikipedia entity titles corresponding to the entity mentions &quot;Beyonc\xE9&quot; and &quot;Los Angeles&quot;</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>entity_spans = [
 <span class="hljs-meta">... </span>    (<span class="hljs-number">0</span>, <span class="hljs-number">7</span>),
 <span class="hljs-meta">... </span>    (<span class="hljs-number">17</span>, <span class="hljs-number">28</span>),
-<span class="hljs-meta">&gt;&gt;&gt; </span>]  <span class="hljs-comment"># character-based entity spans corresponding to &quot;Beyonc\xE9&quot; and &quot;Los Angeles&quot;</span>
+<span class="hljs-meta">... </span>]  <span class="hljs-comment"># character-based entity spans corresponding to &quot;Beyonc\xE9&quot; and &quot;Los Angeles&quot;</span>
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>encoding = tokenizer(
 <span class="hljs-meta">... </span>    text, entities=entities, entity_spans=entity_spans, add_prefix_space=<span class="hljs-literal">True</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>
@@ -136,7 +136,7 @@ print("Predicted class:", model.config.id2label[predicted_class_idx])`,highlight
 <span class="hljs-meta">&gt;&gt;&gt; </span>entity_spans = [
 <span class="hljs-meta">... </span>    (<span class="hljs-number">0</span>, <span class="hljs-number">7</span>),
 <span class="hljs-meta">... </span>    (<span class="hljs-number">17</span>, <span class="hljs-number">28</span>),
-<span class="hljs-meta">&gt;&gt;&gt; </span>]  <span class="hljs-comment"># character-based entity spans corresponding to &quot;Beyonc\xE9&quot; and &quot;Los Angeles&quot;</span>
+<span class="hljs-meta">... </span>]  <span class="hljs-comment"># character-based entity spans corresponding to &quot;Beyonc\xE9&quot; and &quot;Los Angeles&quot;</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(text, entity_spans=entity_spans, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)
 <span class="hljs-meta">&gt;&gt;&gt; </span>logits = outputs.logits
@@ -235,7 +235,7 @@ print("Predicted class:", model.config.id2label[predicted_class_idx])`,highlight
 <span class="hljs-meta">&gt;&gt;&gt; </span>entities = [
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;Beyonc\xE9&quot;</span>,
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;Los Angeles&quot;</span>,
-<span class="hljs-meta">&gt;&gt;&gt; </span>]  <span class="hljs-comment"># Wikipedia entity titles corresponding to the entity mentions &quot;Beyonc\xE9&quot; and &quot;Los Angeles&quot;</span>
+<span class="hljs-meta">... </span>]  <span class="hljs-comment"># Wikipedia entity titles corresponding to the entity mentions &quot;Beyonc\xE9&quot; and &quot;Los Angeles&quot;</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>entity_spans = [(<span class="hljs-number">0</span>, <span class="hljs-number">7</span>), (<span class="hljs-number">17</span>, <span class="hljs-number">28</span>)]  <span class="hljs-comment"># character-based entity spans corresponding to &quot;Beyonc\xE9&quot; and &quot;Los Angeles&quot;</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(text, entities=entities, entity_spans=entity_spans, add_prefix_space=<span class="hljs-literal">True</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)

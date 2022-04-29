@@ -87,7 +87,7 @@ mc_logits = outputs.mc_logits`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt;
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = OpenAIGPTDoubleHeadsModel.from_pretrained(<span class="hljs-string">&quot;openai-gpt&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.add_special_tokens(
 <span class="hljs-meta">... </span>    {<span class="hljs-string">&quot;cls_token&quot;</span>: <span class="hljs-string">&quot;[CLS]&quot;</span>}
-<span class="hljs-meta">&gt;&gt;&gt; </span>)  <span class="hljs-comment"># Add a [CLS] to the vocabulary (we should train it also!)</span>
+<span class="hljs-meta">... </span>)  <span class="hljs-comment"># Add a [CLS] to the vocabulary (we should train it also!)</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model.resize_token_embeddings(<span class="hljs-built_in">len</span>(tokenizer))
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>choices = [<span class="hljs-string">&quot;Hello, my dog is cute [CLS]&quot;</span>, <span class="hljs-string">&quot;Hello, my cat is cute [CLS]&quot;</span>]
@@ -292,9 +292,9 @@ lm_prediction_scores, mc_prediction_scores = outputs[:2]`,highlighted:`<span cla
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = {k: tf.expand_dims(v, <span class="hljs-number">0</span>) <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> encoding.items()}
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs[<span class="hljs-string">&quot;mc_token_ids&quot;</span>] = tf.constant(
 <span class="hljs-meta">... </span>    [inputs[<span class="hljs-string">&quot;input_ids&quot;</span>].shape[-<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>, inputs[<span class="hljs-string">&quot;input_ids&quot;</span>].shape[-<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>)[
+<span class="hljs-meta">... </span>)[
 <span class="hljs-meta">... </span>    <span class="hljs-literal">None</span>, :
-<span class="hljs-meta">&gt;&gt;&gt; </span>]  <span class="hljs-comment"># Batch size 1</span>
+<span class="hljs-meta">... </span>]  <span class="hljs-comment"># Batch size 1</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(inputs)
 <span class="hljs-meta">&gt;&gt;&gt; </span>lm_prediction_scores, mc_prediction_scores = outputs[:<span class="hljs-number">2</span>]`}}),{c(){d=a("p"),v=n("Examples:"),h=c(),y(m.$$.fragment)},l(l){d=r(l,"P",{});var f=i(d);v=s(f,"Examples:"),f.forEach(t),h=p(l),k(m.$$.fragment,l)},m(l,f){u(l,d,f),e(d,v),u(l,h,f),w(m,l,f),b=!0},p:Je,i(l){b||($(m.$$.fragment,l),b=!0)},o(l){P(m.$$.fragment,l),b=!1},d(l){l&&t(d),l&&t(h),O(m,l)}}}function Jf(M){let d,v,h,m,b,l,f,A,me,J,G,X,D,Y,he,H,fe,de,L,C,Z,ee,E,F,oe,W,ce,ne,S,ue,pe,z,ge,N,Q,re,B,_e,te,x,ie,U,Te;return{c(){d=a("p"),v=n("TF 2.0 models accepts two formats as inputs:"),h=c(),m=a("ul"),b=a("li"),l=n("having all inputs as keyword arguments (like PyTorch models), or"),f=c(),A=a("li"),me=n("having all inputs as a list, tuple or dict in the first positional arguments."),J=c(),G=a("p"),X=n("This second option is useful when using "),D=a("code"),Y=n("tf.keras.Model.fit"),he=n(` method which currently requires having all the
 tensors in the first argument of the model call function: `),H=a("code"),fe=n("model(inputs)"),de=n("."),L=c(),C=a("p"),Z=n(`If you choose this second option, there are three possibilities you can use to gather all the input Tensors in the
