@@ -1,4 +1,4 @@
-import{S as ng,i as ag,s as ig,e as r,k as l,w as d,t as i,M as sg,c as n,d as o,m as c,a,x as u,h as s,b as p,F as e,g as $,y as m,q as f,o as _,B as b,v as lg,L as cg}from"../../chunks/vendor-d3924577.js";import{D as v}from"../../chunks/Docstring-6e765b82.js";import{C as gg}from"../../chunks/CodeBlock-ff545b14.js";import{I as Tn}from"../../chunks/IconCopyLink-f94c3d80.js";import{E as hg}from"../../chunks/ExampleCodeBlock-53170663.js";function pg(xr){let E,ie,D,x,j;return x=new gg({props:{code:`with Repository(
+import{S as ng,i as ag,s as ig,e as r,k as l,w as d,t as i,M as sg,c as n,d as o,m as c,a,x as u,h as s,b as p,F as e,g as $,y as m,q as f,o as _,B as b,v as lg,L as cg}from"../../chunks/vendor-a09ded63.js";import{D as v}from"../../chunks/Docstring-3f63de13.js";import{C as gg}from"../../chunks/CodeBlock-879da7fe.js";import{I as Tn}from"../../chunks/IconCopyLink-3f5556be.js";import{E as hg}from"../../chunks/ExampleCodeBlock-7aff195a.js";function pg(xr){let E,ie,D,x,j;return x=new gg({props:{code:`with Repository(
     "text-files",
     clone_from="<user>/text-files",
     use_auth_token=True,
