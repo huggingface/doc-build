@@ -1,13 +1,13 @@
-import{S as yn,i as xn,s as On,e as o,k as m,w as v,t as i,M as $n,c as a,d as s,m as c,a as n,x as w,h as r,b as d,F as t,g as p,y as q,q as k,o as z,B as j,v as En}from"../chunks/vendor-4918fc3c.js";import{T as Tn}from"../chunks/Tip-3d800dd6.js";import{I as oe}from"../chunks/IconCopyLink-21d338b1.js";import{C as Te}from"../chunks/CodeBlock-99419108.js";function bn(Ct){let u,B,y,T,F,$,ae,Q;return{c(){u=o("p"),B=i("You can also use the "),y=o("code"),T=i("pipeline()"),F=i(" function from Transformers and provide your "),$=o("code"),ae=i("OptimumModel"),Q=i(".")},l(D){u=a(D,"P",{});var E=n(u);B=r(E,"You can also use the "),y=a(E,"CODE",{});var x=n(y);T=r(x,"pipeline()"),x.forEach(s),F=r(E," function from Transformers and provide your "),$=a(E,"CODE",{});var be=n($);ae=r(be,"OptimumModel"),be.forEach(s),Q=r(E,"."),E.forEach(s)},m(D,E){p(D,u,E),t(u,B),t(u,y),t(y,T),t(u,F),t(u,$),t($,ae),t(u,Q)},d(D){D&&s(u)}}}function An(Ct){let u,B,y,T,F,$,ae,Q,D,E,x,be,Pe,ws,qs,ne,ks,zs,Fe,js,ys,Mt,X,Pt,Ae,xs,Ft,Re,Qe,Os,Qt,h,De,Ne,$s,Es,Se,Ie,Ts,bs,He,Le,As,Rs,Ue,We,Cs,Ms,Be,Xe,Ps,Fs,Ye,Ge,Qs,Dt,N,Y,Je,ie,Ds,Ve,Ns,Nt,b,Ss,Ke,Is,Hs,Ze,Ls,Us,et,Ws,Bs,St,Ce,re,Xs,tt,Ys,Gs,It,le,Ht,pe,me,Js,st,Vs,Ks,Lt,ce,Ut,Me,de,Zs,ot,eo,to,Wt,S,G,at,ue,so,nt,oo,Bt,f,ao,it,no,io,he,ro,lo,rt,po,mo,lt,co,uo,pt,ho,fo,Xt,fe,Yt,I,J,mt,ge,go,ct,_o,Gt,O,vo,dt,wo,qo,_e,ko,zo,ut,jo,yo,ht,xo,Oo,Jt,ve,Vt,H,V,ft,we,$o,gt,Eo,Kt,g,To,_t,bo,Ao,vt,Ro,Co,wt,Mo,Po,qt,Fo,Qo,kt,Do,No,Zt,L,K,zt,qe,So,ke,Io,jt,Ho,Lo,es,ze,ts,U,Z,yt,je,Uo,ye,Wo,xt,Bo,Xo,ss,xe,os,W,ee,Ot,Oe,Yo,$t,Go,as,_,Jo,Et,Vo,Ko,Tt,Zo,ea,bt,ta,sa,At,oa,aa,Rt,na,ia,ns,$e,is;return $=new oe({}),X=new Tn({props:{$$slots:{default:[bn]},$$scope:{ctx:Ct}}}),ie=new oe({}),le=new Te({props:{code:`from optimum import pipeline
+import{S as yn,i as xn,s as On,e as o,k as m,w as v,t as i,M as $n,c as a,d as s,m as c,a as n,x as w,h as r,b as d,F as t,g as p,y as q,q as k,o as z,B as j,v as En}from"../chunks/vendor-4918fc3c.js";import{T as Tn}from"../chunks/Tip-3d800dd6.js";import{I as oe}from"../chunks/IconCopyLink-21d338b1.js";import{C as Te}from"../chunks/CodeBlock-99419108.js";function bn(Ct){let u,B,y,T,F,$,ae,Q;return{c(){u=o("p"),B=i("You can also use the "),y=o("code"),T=i("pipeline()"),F=i(" function from Transformers and provide your "),$=o("code"),ae=i("OptimumModel"),Q=i(".")},l(D){u=a(D,"P",{});var E=n(u);B=r(E,"You can also use the "),y=a(E,"CODE",{});var x=n(y);T=r(x,"pipeline()"),x.forEach(s),F=r(E," function from Transformers and provide your "),$=a(E,"CODE",{});var be=n($);ae=r(be,"OptimumModel"),be.forEach(s),Q=r(E,"."),E.forEach(s)},m(D,E){p(D,u,E),t(u,B),t(u,y),t(y,T),t(u,F),t(u,$),t($,ae),t(u,Q)},d(D){D&&s(u)}}}function An(Ct){let u,B,y,T,F,$,ae,Q,D,E,x,be,Pe,ws,qs,ne,ks,zs,Fe,js,ys,Mt,X,Pt,Ae,xs,Ft,Re,Qe,Os,Qt,h,De,Ne,$s,Es,Se,Ie,Ts,bs,He,Le,As,Rs,Ue,We,Cs,Ms,Be,Xe,Ps,Fs,Ye,Ge,Qs,Dt,N,Y,Je,ie,Ds,Ve,Ns,Nt,b,Ss,Ke,Is,Hs,Ze,Ls,Us,et,Ws,Bs,St,Ce,re,Xs,tt,Ys,Gs,It,le,Ht,pe,me,Js,st,Vs,Ks,Lt,ce,Ut,Me,de,Zs,ot,eo,to,Wt,S,G,at,ue,so,nt,oo,Bt,f,ao,it,no,io,he,ro,lo,rt,po,mo,lt,co,uo,pt,ho,fo,Xt,fe,Yt,I,J,mt,ge,go,ct,_o,Gt,O,vo,dt,wo,qo,_e,ko,zo,ut,jo,yo,ht,xo,Oo,Jt,ve,Vt,H,V,ft,we,$o,gt,Eo,Kt,g,To,_t,bo,Ao,vt,Ro,Co,wt,Mo,Po,qt,Fo,Qo,kt,Do,No,Zt,L,K,zt,qe,So,ke,Io,jt,Ho,Lo,es,ze,ts,U,Z,yt,je,Uo,ye,Wo,xt,Bo,Xo,ss,xe,os,W,ee,Ot,Oe,Yo,$t,Go,as,_,Jo,Et,Vo,Ko,Tt,Zo,ea,bt,ta,sa,At,oa,aa,Rt,na,ia,ns,$e,is;return $=new oe({}),X=new Tn({props:{$$slots:{default:[bn]},$$scope:{ctx:Ct}}}),ie=new oe({}),le=new Te({props:{code:`from optimum.pipelines import pipeline
 
 classifier = pipeline(task="text-classification", accelerator="ort")
-`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum <span class="hljs-keyword">import</span> pipeline
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.pipelines <span class="hljs-keyword">import</span> pipeline
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>classifier = pipeline(task=<span class="hljs-string">&quot;text-classification&quot;</span>, accelerator=<span class="hljs-string">&quot;ort&quot;</span>)
 `}}),ce=new Te({props:{code:'classifier("I like you. I love you.")',highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>classifier(<span class="hljs-string">&quot;I like you. I love you.&quot;</span>)
 [{<span class="hljs-string">&#x27;label&#x27;</span>: <span class="hljs-string">&#x27;POSITIVE&#x27;</span>, <span class="hljs-string">&#x27;score&#x27;</span>: <span class="hljs-number">0.9998838901519775</span>}]`}}),ue=new oe({}),fe=new Te({props:{code:`from transformers import AutoTokenizer
 from optimum.onnxruntime import ORTModelForQuestionAnswering
-from optimum import pipeline
+from optimum.pipelines import pipeline
 
 tokenizer = AutoTokenizer.from_pretrained("deepset/roberta-base-squad2")
 # loading the pytorch checkpoint and converting to ORT format by providing the from_transformers=True parameter
@@ -19,7 +19,7 @@ context = "My name is Philipp and I live in Nuremberg."
 
 pred = onnx_qa(question=question, context=context)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTModelForQuestionAnswering
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum <span class="hljs-keyword">import</span> pipeline
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.pipelines <span class="hljs-keyword">import</span> pipeline
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;deepset/roberta-base-squad2&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># loading the pytorch checkpoint and converting to ORT format by providing the from_transformers=True parameter</span>
@@ -31,7 +31,7 @@ pred = onnx_qa(question=question, context=context)`,highlighted:`<span class="hl
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>pred = onnx_qa(question=question, context=context)`}}),ge=new oe({}),ve=new Te({props:{code:`from transformers import AutoTokenizer
 from optimum.onnxruntime import ORTModelForQuestionAnswering
-from optimum import pipeline
+from optimum.pipelines import pipeline
 
 tokenizer = AutoTokenizer.from_pretrained("optimum/roberta-base-squad2")
 # loading already converted and optimized ORT checkpoint for inference
@@ -43,7 +43,7 @@ context = "My name is Philipp and I live in Nuremberg."
 
 pred = onnx_qa(question=question, context=context)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTModelForQuestionAnswering
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum <span class="hljs-keyword">import</span> pipeline
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.pipelines <span class="hljs-keyword">import</span> pipeline
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;optimum/roberta-base-squad2&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># loading already converted and optimized ORT checkpoint for inference</span>
