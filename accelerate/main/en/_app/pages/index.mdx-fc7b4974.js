@@ -25,7 +25,7 @@ for batch in my_training_dataloader:
 + device = accelerator.device
   my_model.to(device)
   # Pass every important object (model, optimizer, dataloader) to *accelerator.prepare*
-+ my_model, my_optimizer, my_training_dataloader = accelerate.prepare(
++ my_model, my_optimizer, my_training_dataloader = accelerator.prepare(
 +     my_model, my_optimizer, my_training_dataloader
 + )
 
@@ -46,7 +46,7 @@ for batch in my_training_dataloader:
 <span class="hljs-addition">+ device = accelerator.device</span>
   my_model.to(device)
   # Pass every important object (model, optimizer, dataloader) to *accelerator.prepare*
-<span class="hljs-addition">+ my_model, my_optimizer, my_training_dataloader = accelerate.prepare(</span>
+<span class="hljs-addition">+ my_model, my_optimizer, my_training_dataloader = accelerator.prepare(</span>
 <span class="hljs-addition">+     my_model, my_optimizer, my_training_dataloader</span>
 <span class="hljs-addition">+ )</span>
 
