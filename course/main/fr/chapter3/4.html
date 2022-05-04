@@ -1,10 +1,10 @@
 <meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;un-entranement-complet&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;prparer-lentranement&quot;,&quot;title&quot;:&quot;Préparer l&#39;entraînement&quot;},{&quot;local&quot;:&quot;la-boucle-dentranement&quot;,&quot;title&quot;:&quot;La boucle d&#39;entraînement&quot;},{&quot;local&quot;:&quot;la-boucle-dvaluation&quot;,&quot;title&quot;:&quot;La boucle d&#39;évaluation&quot;},{&quot;local&quot;:&quot;optimisez-votre-boucle-dentranement-avec-accelerate&quot;,&quot;title&quot;:&quot;Optimisez votre boucle d&#39;entraînement avec 🤗 *Accelerate*&quot;}],&quot;title&quot;:&quot;Un entraînement complet&quot;}" data-svelte="svelte-1phssyn">
-	<link rel="modulepreload" href="/docs/course/main/fr/_app/assets/pages/__layout.svelte-fd83428f.css">
-	<link rel="modulepreload" href="/docs/course/main/fr/_app/start-bc1096a4.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/assets/pages/__layout.svelte-0ba3497a.css">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/start-b9c33b1c.js">
 	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/vendor-1e8b365d.js">
 	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/paths-4b3c6e7e.js">
 	<link rel="modulepreload" href="/docs/course/main/fr/_app/pages/__layout.svelte-05c2fb0c.js">
-	<link rel="modulepreload" href="/docs/course/main/fr/_app/pages/chapter3/4.mdx-bcfc252e.js">
+	<link rel="modulepreload" href="/docs/course/main/fr/_app/pages/chapter3/4.mdx-6fb46619.js">
 	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/Tip-62b14c6e.js">
 	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/Youtube-c2a8cc39.js">
 	<link rel="modulepreload" href="/docs/course/main/fr/_app/chunks/IconCopyLink-483c28ba.js">
@@ -95,7 +95,7 @@ eval_dataloader = DataLoader(
  <span class="hljs-string">&#x27;input_ids&#x27;</span>: torch.Size([<span class="hljs-number">8</span>, <span class="hljs-number">65</span>]),
  <span class="hljs-string">&#x27;labels&#x27;</span>: torch.Size([<span class="hljs-number">8</span>]),
  <span class="hljs-string">&#x27;token_type_ids&#x27;</span>: torch.Size([<span class="hljs-number">8</span>, <span class="hljs-number">65</span>])}<!-- HTML_TAG_END --></pre></div>
-<p>Notez que les formes réelles seront probablement légèrement différentes pour vous puisque nous avons défini <code>shuffle=True</code> pour le chargeur de données d’entraînement et que nous <em>paddons</em> à la longueur maximale dans le lot.</p>
+<p>Notez que les formes réelles seront probablement légèrement différentes pour vous puisque nous avons défini <code>shuffle=True</code> pour le chargeur de données d’entraînement et que nous <em>paddons</em> à la longueur maximale dans le batch.</p>
 <p>Maintenant que nous en avons terminé avec le prétraitement des données (un objectif satisfaisant mais difficile à atteindre pour tout praticien d’apprentissage automatique), passons au modèle. Nous l’instancions exactement comme nous l’avons fait dans la section précédente :</p>
 
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
@@ -117,7 +117,7 @@ model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_label
 	Copied</div></button></div>
 	<pre><!-- HTML_TAG_START -->tensor(<span class="hljs-number">0.5441</span>, grad_fn=&lt;NllLossBackward&gt;) torch.Size([<span class="hljs-number">8</span>, <span class="hljs-number">2</span>])<!-- HTML_TAG_END --></pre></div>
 <p>Tous les modèles 🤗 <em>Transformers</em> renvoient la perte lorsque les <code>labels</code> sont fournis. Nous obtenons également les logits (deux pour chaque entrée de notre batch, donc un tenseur de taille 8 x 2).</p>
-<p>Nous sommes presque prêts à écrire notre boucle d’entraînement ! Il nous manque juste deux choses : un optimiseur et un planificateur de taux d’apprentissage. Puisque nous essayons de reproduire à la main ce que fait la fonction <code>Trainer</code>, utilisons les mêmes paramètres par défaut. L’optimiseur utilisé par <code>Trainer</code> est <code>AdamW</code>, qui est le même qu’Adam, mais avec une torsion pour la régularisation par décroissance de poids (voir <a href="https://arxiv.org/abs/1711.05101" rel="nofollow">“Decoupled Weight Decay Regularization”</a> par Ilya Loshchilov et Frank Hutter) :</p>
+<p>Nous sommes presque prêts à écrire notre boucle d’entraînement ! Il nous manque juste deux choses : un optimiseur et un planificateur de taux d’apprentissage. Puisque nous essayons de reproduire à la main ce que fait la fonction <code>Trainer</code>, utilisons les mêmes paramètres par défaut. L’optimiseur utilisé par <code>Trainer</code> est <code>AdamW</code>, qui est le même qu’Adam, mais avec une torsion pour la régularisation par décroissance de poids (voir <a href="https://arxiv.org/abs/1711.05101" rel="nofollow"><em>Decoupled Weight Decay Regularization</em></a> par Ilya Loshchilov et Frank Hutter) :</p>
 
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
@@ -125,7 +125,7 @@ model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_label
 	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AdamW
 
 optimizer = AdamW(model.parameters(), lr=<span class="hljs-number">5e-5</span>)<!-- HTML_TAG_END --></pre></div>
-<p>Enfin, le planificateur du taux d’apprentissage utilisé par défaut est juste une décroissance linéaire de la valeur maximale (5e-5) à 0. Pour le définir correctement, nous devons connaître le nombre d’étapes d’entraînement que nous prendrons, qui est le nombre d’époques que nous voulons exécuter multiplié par le nombre de lots d’entraînement (qui est la longueur de notre dataloader d’entraînement). Le <code>Trainer</code> utilise trois époques par défaut, nous allons donc suivre ça :</p>
+<p>Enfin, le planificateur du taux d’apprentissage utilisé par défaut est juste une décroissance linéaire de la valeur maximale (5e-5) à 0. Pour le définir correctement, nous devons connaître le nombre d’étapes d’entraînement que nous prendrons, qui est le nombre d’époques que nous voulons exécuter multiplié par le nombre de batch d’entraînement (qui est la longueur de notre <em>dataloader</em> d’entraînement). Le <code>Trainer</code> utilise trois époques par défaut, nous allons donc suivre ça :</p>
 
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
@@ -373,10 +373,10 @@ notebook_launcher(training_function)<!-- HTML_TAG_END --></pre></div>
 <p>Vous trouverez d’autres exemples dans le dépôt d’<a href="https://github.com/huggingface/accelerate/tree/main/examples" rel="nofollow">🤗 <em>Accelerate</em></a>.</p>
 
 
-		<script type="module" data-hydrate="1m7iu35">
-		import { start } from "/docs/course/main/fr/_app/start-bc1096a4.js";
+		<script type="module" data-hydrate="5hn88z">
+		import { start } from "/docs/course/main/fr/_app/start-b9c33b1c.js";
 		start({
-			target: document.querySelector('[data-hydrate="1m7iu35"]').parentNode,
+			target: document.querySelector('[data-hydrate="5hn88z"]').parentNode,
 			paths: {"base":"/docs/course/main/fr","assets":"/docs/course/main/fr"},
 			session: {},
 			route: false,
@@ -387,7 +387,7 @@ notebook_launcher(training_function)<!-- HTML_TAG_END --></pre></div>
 				error: null,
 				nodes: [
 					import("/docs/course/main/fr/_app/pages/__layout.svelte-05c2fb0c.js"),
-						import("/docs/course/main/fr/_app/pages/chapter3/4.mdx-bcfc252e.js")
+						import("/docs/course/main/fr/_app/pages/chapter3/4.mdx-6fb46619.js")
 				],
 				params: {}
 			}
