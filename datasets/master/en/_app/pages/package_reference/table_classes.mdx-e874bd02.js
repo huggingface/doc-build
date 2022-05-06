@@ -8,16 +8,16 @@ pa.Table.from_pandas(df)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </sp
     ...     <span class="hljs-string">&#x27;str&#x27;</span>: [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>]
     ... })
 <span class="hljs-meta">&gt;&gt;&gt; </span>pa.Table.from_pandas(df)
-&lt;pyarrow.lib.Table <span class="hljs-built_in">object</span> at <span class="hljs-number">0x7f05d1fb1b40</span>&gt;`}}),{c(){D=r("p"),oe=d("Examples:"),P=n(),m(C.$$.fragment)},l(I){D=o(I,"P",{});var N=s(D);oe=c(N,"Examples:"),N.forEach(a),P=l(I),p(C.$$.fragment,I)},m(I,N){M(I,D,N),e(D,oe),M(I,P,N),b(C,I,N),A=!0},p:h$,i(I){A||(h(C.$$.fragment,I),A=!0)},o(I){u(C.$$.fragment,I),A=!1},d(I){I&&a(D),I&&a(P),g(C,I)}}}function y$(_l){let D,oe,P,C,A,I,N,No,Mc,Tl,j,Ic,jo,Dc,Cc,co,Pc,Lc,wl,K,se,Fo,zt,Ac,Vo,Nc,xl,x,Bt,jc,So,Fc,Vc,qo,Sc,qc,Ro,Rc,Uc,F,Ot,zc,Uo,Bc,Oc,Wt,Wc,zo,Xc,Hc,Gc,ne,Xt,Yc,Bo,Jc,Kc,le,Ht,Qc,Oo,Zc,ei,de,Gt,ti,Wo,ai,ri,ce,Yt,oi,Xo,si,ni,io,Jt,li,ie,Kt,di,Ho,ci,ii,me,Qt,mi,Go,pi,bi,pe,Zt,hi,Yo,ui,gi,be,ea,fi,Jo,yi,vi,he,ta,$i,Ko,_i,Ti,ue,aa,wi,Qo,xi,ki,V,ra,Ei,Zo,Mi,Ii,es,Di,Ci,ge,oa,Pi,ts,Li,Ai,fe,sa,Ni,as,ji,kl,Q,ye,rs,na,Fi,os,Vi,El,y,la,Si,ss,qi,Ri,ns,Ui,zi,ls,Bi,Oi,ds,Wi,Xi,S,da,Hi,cs,Gi,Yi,ca,Ji,is,Ki,Qi,Zi,ve,ia,em,ms,tm,am,$e,ma,rm,ps,om,sm,_e,pa,nm,bs,lm,dm,Te,ba,cm,hs,im,mm,mo,ha,pm,we,ua,bm,us,hm,um,xe,ga,gm,gs,fm,ym,ke,fa,vm,fs,$m,_m,Ee,ya,Tm,ys,wm,xm,Me,va,km,vs,Em,Mm,Ie,$a,Im,$s,Dm,Cm,q,_a,Pm,_s,Lm,Am,Ts,Nm,jm,De,Ta,Fm,ws,Vm,Sm,Ce,wa,qm,xs,Rm,Um,Pe,xa,zm,ks,Bm,Om,Le,ka,Wm,Es,Xm,Hm,Ae,Ea,Gm,Ms,Ym,Jm,Ne,Ma,Km,Is,Qm,Zm,R,Ia,ep,Ds,tp,ap,Cs,rp,op,je,Da,sp,Ps,np,lp,Fe,Ca,dp,Ls,cp,ip,U,Pa,mp,As,pp,bp,Ns,hp,up,Ve,La,gp,js,fp,yp,Se,Aa,vp,Fs,$p,_p,qe,Na,Tp,Vs,wp,xp,Re,ja,kp,Ss,Ep,Mp,Ue,Fa,Ip,qs,Dp,Cp,po,Va,Pp,bo,Sa,Lp,L,qa,Ap,Rs,Np,jp,Ra,Fp,Us,Vp,Sp,qp,Ua,Rp,zs,Up,zp,Bp,ze,Op,Be,za,Wp,Bs,Xp,Hp,Oe,Ba,Gp,Os,Yp,Jp,We,Oa,Kp,Ws,Qp,Ml,Z,Xe,Xs,Wa,Zp,Hs,eb,Il,_,Xa,tb,Gs,ab,rb,Ys,ob,sb,Js,nb,lb,Ks,db,cb,Qs,ib,mb,z,Ha,pb,Zs,bb,hb,Ga,ub,en,gb,fb,yb,He,Ya,vb,tn,$b,_b,Ge,Ja,Tb,an,wb,xb,Ye,Ka,kb,rn,Eb,Mb,Je,Qa,Ib,on,Db,Cb,ho,Za,Pb,Ke,er,Lb,sn,Ab,Nb,Qe,tr,jb,nn,Fb,Vb,Ze,ar,Sb,ln,qb,Rb,et,rr,Ub,dn,zb,Bb,tt,or,Ob,cn,Wb,Xb,at,sr,Hb,mn,Gb,Yb,B,nr,Jb,pn,Kb,Qb,bn,Zb,eh,rt,lr,th,hn,ah,rh,ot,dr,oh,un,sh,nh,st,cr,lh,gn,dh,ch,nt,ir,ih,fn,mh,ph,lt,mr,bh,yn,hh,uh,dt,pr,gh,vn,fh,yh,O,br,vh,$n,$h,_h,_n,Th,wh,ct,hr,xh,Tn,kh,Eh,it,ur,Mh,wn,Ih,Dh,W,gr,Ch,xn,Ph,Lh,kn,Ah,Nh,mt,fr,jh,En,Fh,Vh,pt,yr,Sh,Mn,qh,Rh,bt,vr,Uh,In,zh,Bh,ht,$r,Oh,Dn,Wh,Xh,ut,_r,Hh,Cn,Gh,Yh,uo,Tr,Dl,ee,gt,Pn,wr,Jh,Ln,Kh,Cl,$,xr,Qh,An,Zh,eu,Nn,tu,au,kr,jn,ru,ou,Fn,su,nu,Er,lu,Vn,du,cu,iu,Sn,mu,pu,X,Mr,bu,qn,hu,uu,Ir,gu,Rn,fu,yu,vu,ft,Dr,$u,Un,_u,Tu,yt,Cr,wu,zn,xu,ku,vt,Pr,Eu,Bn,Mu,Iu,$t,Lr,Du,On,Cu,Pu,go,Ar,Lu,_t,Nr,Au,Wn,Nu,ju,Tt,jr,Fu,Xn,Vu,Su,wt,Fr,qu,Hn,Ru,Uu,xt,Vr,zu,Gn,Bu,Ou,kt,Sr,Wu,Yn,Xu,Hu,Et,qr,Gu,Jn,Yu,Ju,H,Rr,Ku,Kn,Qu,Zu,Qn,eg,tg,Mt,Ur,ag,Zn,rg,og,It,zr,sg,el,ng,lg,Dt,Br,dg,tl,cg,ig,Ct,Or,mg,al,pg,bg,Pt,Wr,hg,rl,ug,gg,Lt,Xr,fg,ol,yg,vg,G,Hr,$g,sl,_g,Tg,nl,wg,xg,At,Gr,kg,ll,Eg,Mg,Nt,Yr,Ig,dl,Dg,Cg,Y,Jr,Pg,cl,Lg,Ag,il,Ng,jg,jt,Kr,Fg,ml,Vg,Sg,Ft,Qr,qg,pl,Rg,Ug,Vt,Zr,zg,bl,Bg,Og,St,eo,Wg,hl,Xg,Hg,qt,to,Gg,ul,Yg,Jg,fo,ao,Kg,Rt,ro,Qg,gl,Zg,Pl,te,Ut,fl,oo,ef,yl,tf,Ll,ae,so,af,vl,rf,Al,re,no,of,$l,sf,Nl;return I=new Ao({}),zt=new Ao({}),Bt=new f({props:{name:"class datasets.table.Table",anchor:"datasets.table.Table",parameters:[{name:"table",val:": Table"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L147"}}),Ot=new f({props:{name:"validate",anchor:"datasets.table.Table.validate",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.Table.validate.full",description:`<strong>full</strong> (<code>bool</code>, defaults to <code>False</code>) &#x2014;
-If True, run expensive checks, otherwise cheap checks only.`,name:"full"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L198"}}),Xt=new f({props:{name:"equals",anchor:"datasets.table.Table.equals",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.Table.equals.other",description:`<strong>other</strong> (<a href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table">datasets.table.Table</a>) &#x2014;
+&lt;pyarrow.lib.Table <span class="hljs-built_in">object</span> at <span class="hljs-number">0x7f05d1fb1b40</span>&gt;`}}),{c(){D=r("p"),oe=d("Examples:"),P=n(),m(C.$$.fragment)},l(I){D=o(I,"P",{});var N=s(D);oe=c(N,"Examples:"),N.forEach(a),P=l(I),p(C.$$.fragment,I)},m(I,N){M(I,D,N),e(D,oe),M(I,P,N),b(C,I,N),A=!0},p:h$,i(I){A||(h(C.$$.fragment,I),A=!0)},o(I){u(C.$$.fragment,I),A=!1},d(I){I&&a(D),I&&a(P),g(C,I)}}}function y$(_l){let D,oe,P,C,A,I,N,No,Mc,Tl,j,Ic,jo,Dc,Cc,co,Pc,Lc,wl,K,se,Fo,zt,Ac,Vo,Nc,xl,x,Bt,jc,So,Fc,Vc,qo,Sc,qc,Ro,Rc,Uc,F,Ot,zc,Uo,Bc,Oc,Wt,Wc,zo,Xc,Hc,Gc,ne,Xt,Yc,Bo,Jc,Kc,le,Ht,Qc,Oo,Zc,ei,de,Gt,ti,Wo,ai,ri,ce,Yt,oi,Xo,si,ni,io,Jt,li,ie,Kt,di,Ho,ci,ii,me,Qt,mi,Go,pi,bi,pe,Zt,hi,Yo,ui,gi,be,ea,fi,Jo,yi,vi,he,ta,$i,Ko,_i,Ti,ue,aa,wi,Qo,xi,ki,V,ra,Ei,Zo,Mi,Ii,es,Di,Ci,ge,oa,Pi,ts,Li,Ai,fe,sa,Ni,as,ji,kl,Q,ye,rs,na,Fi,os,Vi,El,y,la,Si,ss,qi,Ri,ns,Ui,zi,ls,Bi,Oi,ds,Wi,Xi,S,da,Hi,cs,Gi,Yi,ca,Ji,is,Ki,Qi,Zi,ve,ia,em,ms,tm,am,$e,ma,rm,ps,om,sm,_e,pa,nm,bs,lm,dm,Te,ba,cm,hs,im,mm,mo,ha,pm,we,ua,bm,us,hm,um,xe,ga,gm,gs,fm,ym,ke,fa,vm,fs,$m,_m,Ee,ya,Tm,ys,wm,xm,Me,va,km,vs,Em,Mm,Ie,$a,Im,$s,Dm,Cm,q,_a,Pm,_s,Lm,Am,Ts,Nm,jm,De,Ta,Fm,ws,Vm,Sm,Ce,wa,qm,xs,Rm,Um,Pe,xa,zm,ks,Bm,Om,Le,ka,Wm,Es,Xm,Hm,Ae,Ea,Gm,Ms,Ym,Jm,Ne,Ma,Km,Is,Qm,Zm,R,Ia,ep,Ds,tp,ap,Cs,rp,op,je,Da,sp,Ps,np,lp,Fe,Ca,dp,Ls,cp,ip,U,Pa,mp,As,pp,bp,Ns,hp,up,Ve,La,gp,js,fp,yp,Se,Aa,vp,Fs,$p,_p,qe,Na,Tp,Vs,wp,xp,Re,ja,kp,Ss,Ep,Mp,Ue,Fa,Ip,qs,Dp,Cp,po,Va,Pp,bo,Sa,Lp,L,qa,Ap,Rs,Np,jp,Ra,Fp,Us,Vp,Sp,qp,Ua,Rp,zs,Up,zp,Bp,ze,Op,Be,za,Wp,Bs,Xp,Hp,Oe,Ba,Gp,Os,Yp,Jp,We,Oa,Kp,Ws,Qp,Ml,Z,Xe,Xs,Wa,Zp,Hs,eb,Il,_,Xa,tb,Gs,ab,rb,Ys,ob,sb,Js,nb,lb,Ks,db,cb,Qs,ib,mb,z,Ha,pb,Zs,bb,hb,Ga,ub,en,gb,fb,yb,He,Ya,vb,tn,$b,_b,Ge,Ja,Tb,an,wb,xb,Ye,Ka,kb,rn,Eb,Mb,Je,Qa,Ib,on,Db,Cb,ho,Za,Pb,Ke,er,Lb,sn,Ab,Nb,Qe,tr,jb,nn,Fb,Vb,Ze,ar,Sb,ln,qb,Rb,et,rr,Ub,dn,zb,Bb,tt,or,Ob,cn,Wb,Xb,at,sr,Hb,mn,Gb,Yb,B,nr,Jb,pn,Kb,Qb,bn,Zb,eh,rt,lr,th,hn,ah,rh,ot,dr,oh,un,sh,nh,st,cr,lh,gn,dh,ch,nt,ir,ih,fn,mh,ph,lt,mr,bh,yn,hh,uh,dt,pr,gh,vn,fh,yh,O,br,vh,$n,$h,_h,_n,Th,wh,ct,hr,xh,Tn,kh,Eh,it,ur,Mh,wn,Ih,Dh,W,gr,Ch,xn,Ph,Lh,kn,Ah,Nh,mt,fr,jh,En,Fh,Vh,pt,yr,Sh,Mn,qh,Rh,bt,vr,Uh,In,zh,Bh,ht,$r,Oh,Dn,Wh,Xh,ut,_r,Hh,Cn,Gh,Yh,uo,Tr,Dl,ee,gt,Pn,wr,Jh,Ln,Kh,Cl,$,xr,Qh,An,Zh,eu,Nn,tu,au,kr,jn,ru,ou,Fn,su,nu,Er,lu,Vn,du,cu,iu,Sn,mu,pu,X,Mr,bu,qn,hu,uu,Ir,gu,Rn,fu,yu,vu,ft,Dr,$u,Un,_u,Tu,yt,Cr,wu,zn,xu,ku,vt,Pr,Eu,Bn,Mu,Iu,$t,Lr,Du,On,Cu,Pu,go,Ar,Lu,_t,Nr,Au,Wn,Nu,ju,Tt,jr,Fu,Xn,Vu,Su,wt,Fr,qu,Hn,Ru,Uu,xt,Vr,zu,Gn,Bu,Ou,kt,Sr,Wu,Yn,Xu,Hu,Et,qr,Gu,Jn,Yu,Ju,H,Rr,Ku,Kn,Qu,Zu,Qn,eg,tg,Mt,Ur,ag,Zn,rg,og,It,zr,sg,el,ng,lg,Dt,Br,dg,tl,cg,ig,Ct,Or,mg,al,pg,bg,Pt,Wr,hg,rl,ug,gg,Lt,Xr,fg,ol,yg,vg,G,Hr,$g,sl,_g,Tg,nl,wg,xg,At,Gr,kg,ll,Eg,Mg,Nt,Yr,Ig,dl,Dg,Cg,Y,Jr,Pg,cl,Lg,Ag,il,Ng,jg,jt,Kr,Fg,ml,Vg,Sg,Ft,Qr,qg,pl,Rg,Ug,Vt,Zr,zg,bl,Bg,Og,St,eo,Wg,hl,Xg,Hg,qt,to,Gg,ul,Yg,Jg,fo,ao,Kg,Rt,ro,Qg,gl,Zg,Pl,te,Ut,fl,oo,ef,yl,tf,Ll,ae,so,af,vl,rf,Al,re,no,of,$l,sf,Nl;return I=new Ao({}),zt=new Ao({}),Bt=new f({props:{name:"class datasets.table.Table",anchor:"datasets.table.Table",parameters:[{name:"table",val:": Table"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L148"}}),Ot=new f({props:{name:"validate",anchor:"datasets.table.Table.validate",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.Table.validate.full",description:`<strong>full</strong> (<code>bool</code>, defaults to <code>False</code>) &#x2014;
+If True, run expensive checks, otherwise cheap checks only.`,name:"full"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L199"}}),Xt=new f({props:{name:"equals",anchor:"datasets.table.Table.equals",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.Table.equals.other",description:`<strong>other</strong> (<a href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table">datasets.table.Table</a>) &#x2014;
 Table to compare against.`,name:"other"},{anchor:"datasets.table.Table.equals.check_metadata",description:`<strong>check_metadata</strong> (<code>bool</code>, defaults to <code>False</code>) &#x2014;
-Whether schema metadata equality should be checked as well.`,name:"check_metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L214",returnType:`
+Whether schema metadata equality should be checked as well.`,name:"check_metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L215",returnType:`
 <p><code>bool</code></p>
 `}}),Ht=new f({props:{name:"to_batches",anchor:"datasets.table.Table.to_batches",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.Table.to_batches.max_chunksize",description:`<strong>max_chunksize</strong> (<code>int</code>, defaults to <em>None</em>) &#x2014;
 Maximum size for RecordBatch chunks. Individual chunks may be
-smaller depending on the chunk layout of individual columns.`,name:"max_chunksize"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L231",returnType:`
+smaller depending on the chunk layout of individual columns.`,name:"max_chunksize"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L232",returnType:`
 <p><code>List[pyarrow.RecordBatch]</code></p>
-`}}),Gt=new f({props:{name:"to_pydict",anchor:"datasets.table.Table.to_pydict",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L245",returnType:`
+`}}),Gt=new f({props:{name:"to_pydict",anchor:"datasets.table.Table.to_pydict",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L246",returnType:`
 <p><code>dict</code></p>
 `}}),Yt=new f({props:{name:"to_pandas",anchor:"datasets.table.Table.to_pandas",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.Table.to_pandas.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
 Arrow MemoryPool to use for allocations. Uses the default memory
@@ -56,38 +56,38 @@ of built-in pyarrow types or in absence of pandas_metadata in the
 Table schema. The function receives a pyarrow DataType and is
 expected to return a pandas ExtensionDtype or <code>None</code> if the
 default conversion should be used for that type. If you have
-a dictionary mapping, you can pass <code>dict.get</code> as function.`,name:"types_mapper"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L254",returnDescription:`
+a dictionary mapping, you can pass <code>dict.get</code> as function.`,name:"types_mapper"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L255",returnDescription:`
 <p><code>pandas.Series</code> or <code>pandas.DataFrame</code> depending on type of object</p>
 `,returnType:`
 <p><code>pandas.Series</code> or <code>pandas.DataFrame</code></p>
-`}}),Jt=new f({props:{name:"to_string",anchor:"datasets.table.Table.to_string",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L316"}}),Kt=new f({props:{name:"field",anchor:"datasets.table.Table.field",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.Table.field.i",description:`<strong>i</strong> (<code>Union[int, str]</code>) &#x2014;
-The index or name of the field to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L319",returnType:`
+`}}),Jt=new f({props:{name:"to_string",anchor:"datasets.table.Table.to_string",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L317"}}),Kt=new f({props:{name:"field",anchor:"datasets.table.Table.field",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.Table.field.i",description:`<strong>i</strong> (<code>Union[int, str]</code>) &#x2014;
+The index or name of the field to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L320",returnType:`
 <p><code>pyarrow.Field</code></p>
 `}}),Qt=new f({props:{name:"column",anchor:"datasets.table.Table.column",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.Table.column.i",description:`<strong>i</strong> (<code>Union[int, str]</code>) &#x2014;
-The index or name of the column to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L332",returnType:`
+The index or name of the column to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L333",returnType:`
 <p><code>pyarrow.ChunkedArray</code></p>
-`}}),Zt=new f({props:{name:"itercolumns",anchor:"datasets.table.Table.itercolumns",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L345"}}),ea=new f({props:{name:"schema",anchor:"datasets.table.Table.schema",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L354",returnType:`
+`}}),Zt=new f({props:{name:"itercolumns",anchor:"datasets.table.Table.itercolumns",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L346"}}),ea=new f({props:{name:"schema",anchor:"datasets.table.Table.schema",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L355",returnType:`
 <p><code>pyarrow.Schema</code></p>
-`}}),ta=new f({props:{name:"columns",anchor:"datasets.table.Table.columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L364",returnType:`
+`}}),ta=new f({props:{name:"columns",anchor:"datasets.table.Table.columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L365",returnType:`
 <p><code>List[pa.ChunkedArray]</code></p>
-`}}),aa=new f({props:{name:"num_columns",anchor:"datasets.table.Table.num_columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L374",returnType:`
+`}}),aa=new f({props:{name:"num_columns",anchor:"datasets.table.Table.num_columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L375",returnType:`
 <p>int</p>
-`}}),ra=new f({props:{name:"num_rows",anchor:"datasets.table.Table.num_rows",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L384",returnType:`
+`}}),ra=new f({props:{name:"num_rows",anchor:"datasets.table.Table.num_rows",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L385",returnType:`
 <p>int</p>
-`}}),oa=new f({props:{name:"shape",anchor:"datasets.table.Table.shape",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L397",returnDescription:`
+`}}),oa=new f({props:{name:"shape",anchor:"datasets.table.Table.shape",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L398",returnDescription:`
 <p>Number of rows and number of columns.</p>
 `,returnType:`
 <p><code>(int, int)</code></p>
-`}}),sa=new f({props:{name:"nbytes",anchor:"datasets.table.Table.nbytes",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L407"}}),na=new Ao({}),la=new f({props:{name:"class datasets.table.InMemoryTable",anchor:"datasets.table.InMemoryTable",parameters:[{name:"table",val:": Table"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L630"}}),da=new f({props:{name:"validate",anchor:"datasets.table.InMemoryTable.validate",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.validate.full",description:`<strong>full</strong> (<code>bool</code>, defaults to <code>False</code>) &#x2014;
-If True, run expensive checks, otherwise cheap checks only.`,name:"full"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L198"}}),ia=new f({props:{name:"equals",anchor:"datasets.table.InMemoryTable.equals",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.equals.other",description:`<strong>other</strong> (<a href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table">datasets.table.Table</a>) &#x2014;
+`}}),sa=new f({props:{name:"nbytes",anchor:"datasets.table.Table.nbytes",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L408"}}),na=new Ao({}),la=new f({props:{name:"class datasets.table.InMemoryTable",anchor:"datasets.table.InMemoryTable",parameters:[{name:"table",val:": Table"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L631"}}),da=new f({props:{name:"validate",anchor:"datasets.table.InMemoryTable.validate",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.validate.full",description:`<strong>full</strong> (<code>bool</code>, defaults to <code>False</code>) &#x2014;
+If True, run expensive checks, otherwise cheap checks only.`,name:"full"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L199"}}),ia=new f({props:{name:"equals",anchor:"datasets.table.InMemoryTable.equals",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.equals.other",description:`<strong>other</strong> (<a href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table">datasets.table.Table</a>) &#x2014;
 Table to compare against.`,name:"other"},{anchor:"datasets.table.InMemoryTable.equals.check_metadata",description:`<strong>check_metadata</strong> (<code>bool</code>, defaults to <code>False</code>) &#x2014;
-Whether schema metadata equality should be checked as well.`,name:"check_metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L214",returnType:`
+Whether schema metadata equality should be checked as well.`,name:"check_metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L215",returnType:`
 <p><code>bool</code></p>
 `}}),ma=new f({props:{name:"to_batches",anchor:"datasets.table.InMemoryTable.to_batches",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.to_batches.max_chunksize",description:`<strong>max_chunksize</strong> (<code>int</code>, defaults to <em>None</em>) &#x2014;
 Maximum size for RecordBatch chunks. Individual chunks may be
-smaller depending on the chunk layout of individual columns.`,name:"max_chunksize"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L231",returnType:`
+smaller depending on the chunk layout of individual columns.`,name:"max_chunksize"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L232",returnType:`
 <p><code>List[pyarrow.RecordBatch]</code></p>
-`}}),pa=new f({props:{name:"to_pydict",anchor:"datasets.table.InMemoryTable.to_pydict",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L245",returnType:`
+`}}),pa=new f({props:{name:"to_pydict",anchor:"datasets.table.InMemoryTable.to_pydict",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L246",returnType:`
 <p><code>dict</code></p>
 `}}),ba=new f({props:{name:"to_pandas",anchor:"datasets.table.InMemoryTable.to_pandas",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.to_pandas.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
 Arrow MemoryPool to use for allocations. Uses the default memory
@@ -126,52 +126,52 @@ of built-in pyarrow types or in absence of pandas_metadata in the
 Table schema. The function receives a pyarrow DataType and is
 expected to return a pandas ExtensionDtype or <code>None</code> if the
 default conversion should be used for that type. If you have
-a dictionary mapping, you can pass <code>dict.get</code> as function.`,name:"types_mapper"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L254",returnDescription:`
+a dictionary mapping, you can pass <code>dict.get</code> as function.`,name:"types_mapper"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L255",returnDescription:`
 <p><code>pandas.Series</code> or <code>pandas.DataFrame</code> depending on type of object</p>
 `,returnType:`
 <p><code>pandas.Series</code> or <code>pandas.DataFrame</code></p>
-`}}),ha=new f({props:{name:"to_string",anchor:"datasets.table.InMemoryTable.to_string",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L316"}}),ua=new f({props:{name:"field",anchor:"datasets.table.InMemoryTable.field",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.field.i",description:`<strong>i</strong> (<code>Union[int, str]</code>) &#x2014;
-The index or name of the field to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L319",returnType:`
+`}}),ha=new f({props:{name:"to_string",anchor:"datasets.table.InMemoryTable.to_string",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L317"}}),ua=new f({props:{name:"field",anchor:"datasets.table.InMemoryTable.field",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.field.i",description:`<strong>i</strong> (<code>Union[int, str]</code>) &#x2014;
+The index or name of the field to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L320",returnType:`
 <p><code>pyarrow.Field</code></p>
 `}}),ga=new f({props:{name:"column",anchor:"datasets.table.InMemoryTable.column",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.column.i",description:`<strong>i</strong> (<code>Union[int, str]</code>) &#x2014;
-The index or name of the column to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L332",returnType:`
+The index or name of the column to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L333",returnType:`
 <p><code>pyarrow.ChunkedArray</code></p>
-`}}),fa=new f({props:{name:"itercolumns",anchor:"datasets.table.InMemoryTable.itercolumns",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L345"}}),ya=new f({props:{name:"schema",anchor:"datasets.table.InMemoryTable.schema",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L354",returnType:`
+`}}),fa=new f({props:{name:"itercolumns",anchor:"datasets.table.InMemoryTable.itercolumns",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L346"}}),ya=new f({props:{name:"schema",anchor:"datasets.table.InMemoryTable.schema",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L355",returnType:`
 <p><code>pyarrow.Schema</code></p>
-`}}),va=new f({props:{name:"columns",anchor:"datasets.table.InMemoryTable.columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L364",returnType:`
+`}}),va=new f({props:{name:"columns",anchor:"datasets.table.InMemoryTable.columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L365",returnType:`
 <p><code>List[pa.ChunkedArray]</code></p>
-`}}),$a=new f({props:{name:"num_columns",anchor:"datasets.table.InMemoryTable.num_columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L374",returnType:`
+`}}),$a=new f({props:{name:"num_columns",anchor:"datasets.table.InMemoryTable.num_columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L375",returnType:`
 <p>int</p>
-`}}),_a=new f({props:{name:"num_rows",anchor:"datasets.table.InMemoryTable.num_rows",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L384",returnType:`
+`}}),_a=new f({props:{name:"num_rows",anchor:"datasets.table.InMemoryTable.num_rows",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L385",returnType:`
 <p>int</p>
-`}}),Ta=new f({props:{name:"shape",anchor:"datasets.table.InMemoryTable.shape",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L397",returnDescription:`
+`}}),Ta=new f({props:{name:"shape",anchor:"datasets.table.InMemoryTable.shape",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L398",returnDescription:`
 <p>Number of rows and number of columns.</p>
 `,returnType:`
 <p><code>(int, int)</code></p>
-`}}),wa=new f({props:{name:"nbytes",anchor:"datasets.table.InMemoryTable.nbytes",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L407"}}),xa=new f({props:{name:"column_names",anchor:"datasets.table.InMemoryTable.column_names",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L414"}}),ka=new f({props:{name:"slice",anchor:"datasets.table.InMemoryTable.slice",parameters:[{name:"offset",val:" = 0"},{name:"length",val:" = None"}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.slice.offset",description:`<strong>offset</strong> (<code>int</code>, defaults to <code>0</code>) &#x2014;
+`}}),wa=new f({props:{name:"nbytes",anchor:"datasets.table.InMemoryTable.nbytes",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L408"}}),xa=new f({props:{name:"column_names",anchor:"datasets.table.InMemoryTable.column_names",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L415"}}),ka=new f({props:{name:"slice",anchor:"datasets.table.InMemoryTable.slice",parameters:[{name:"offset",val:" = 0"},{name:"length",val:" = None"}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.slice.offset",description:`<strong>offset</strong> (<code>int</code>, defaults to <code>0</code>) &#x2014;
 Offset from start of table to slice`,name:"offset"},{anchor:"datasets.table.InMemoryTable.slice.length",description:`<strong>length</strong> (<code>int</code>, defaults to <code>None</code>) &#x2014;
 Length of slice (default is until end of table starting from
-offset)`,name:"length"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L767",returnType:`
+offset)`,name:"length"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L768",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),Ea=new f({props:{name:"filter",anchor:"datasets.table.InMemoryTable.filter",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L784"}}),Ma=new f({props:{name:"flatten",anchor:"datasets.table.InMemoryTable.flatten",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.flatten.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
-For memory allocations, if required, otherwise use default pool`,name:"memory_pool"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L790",returnType:`
+`}}),Ea=new f({props:{name:"filter",anchor:"datasets.table.InMemoryTable.filter",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L785"}}),Ma=new f({props:{name:"flatten",anchor:"datasets.table.InMemoryTable.flatten",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.flatten.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
+For memory allocations, if required, otherwise use default pool`,name:"memory_pool"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L791",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
 `}}),Ia=new f({props:{name:"combine_chunks",anchor:"datasets.table.InMemoryTable.combine_chunks",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.combine_chunks.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
-For memory allocations, if required, otherwise use default pool`,name:"memory_pool"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L804",returnType:`
+For memory allocations, if required, otherwise use default pool`,name:"memory_pool"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L805",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
 `}}),Da=new f({props:{name:"cast",anchor:"datasets.table.InMemoryTable.cast",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.cast.target_schema",description:`<strong>target_schema</strong> (<code>Schema</code>) &#x2014;
 Schema to cast to, the names and order of fields must match`,name:"target_schema"},{anchor:"datasets.table.InMemoryTable.cast.safe",description:`<strong>safe</strong> (<code>bool</code>, defaults to <code>True</code>) &#x2014;
-Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L820",returnType:`
+Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L821",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),Ca=new f({props:{name:"replace_schema_metadata",anchor:"datasets.table.InMemoryTable.replace_schema_metadata",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.replace_schema_metadata.metadata",description:"<strong>metadata</strong> (<code>dict</code>, defaults to <code>None</code>) &#x2014;",name:"metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L835",returnDescription:`
+`}}),Ca=new f({props:{name:"replace_schema_metadata",anchor:"datasets.table.InMemoryTable.replace_schema_metadata",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.replace_schema_metadata.metadata",description:"<strong>metadata</strong> (<code>dict</code>, defaults to <code>None</code>) &#x2014;",name:"metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L836",returnDescription:`
 <p>shallow_copy</p>
 `,returnType:`
 <p><a
@@ -181,7 +181,7 @@ Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://g
 Index to place the column at.`,name:"i"},{anchor:"datasets.table.InMemoryTable.add_column.field_",description:`<strong>field_</strong> (<code>Union[str, pyarrow.Field]</code>) &#x2014;
 If a string is passed then the type is deduced from the column
 data.`,name:"field_"},{anchor:"datasets.table.InMemoryTable.add_column.column",description:`<strong>column</strong> (<code>Union[pyarrow.Array, List[pyarrow.Array]]</code>) &#x2014;
-Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L849",returnDescription:`
+Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L850",returnDescription:`
 <p>New table with the passed column added.</p>
 `,returnType:`
 <p><a
@@ -190,14 +190,14 @@ Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/bl
 `}}),La=new f({props:{name:"append_column",anchor:"datasets.table.InMemoryTable.append_column",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.append_column.field_",description:`<strong>field_</strong> (<code>Union[str, pyarrow.Field]</code>) &#x2014;
 If a string is passed then the type is deduced from the column
 data.`,name:"field_"},{anchor:"datasets.table.InMemoryTable.append_column.column",description:`<strong>column</strong> (<code>Union[pyarrow.Array, List[pyarrow.Array]]</code>) &#x2014;
-Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L870",returnDescription:`
+Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L871",returnDescription:`
 <p>New table with the passed column added.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
 `}}),Aa=new f({props:{name:"remove_column",anchor:"datasets.table.InMemoryTable.remove_column",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.remove_column.i",description:`<strong>i</strong> (<code>int</code>) &#x2014;
-Index of column to remove.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L887",returnDescription:`
+Index of column to remove.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L888",returnDescription:`
 <p>New table without the column.</p>
 `,returnType:`
 <p><a
@@ -207,20 +207,20 @@ Index of column to remove.`,name:"i"}],source:"https://github.com/huggingface/da
 Index to place the column at.`,name:"i"},{anchor:"datasets.table.InMemoryTable.set_column.field_",description:`<strong>field_</strong> (<code>Union[str, pyarrow.Field]</code>) &#x2014;
 If a string is passed then the type is deduced from the column
 data.`,name:"field_"},{anchor:"datasets.table.InMemoryTable.set_column.column",description:`<strong>column</strong> (<code>Union[pyarrow.Array, List[pyarrow.Array]]</code>) &#x2014;
-Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L901",returnDescription:`
+Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L902",returnDescription:`
 <p>New table with the passed column set.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),ja=new f({props:{name:"rename_columns",anchor:"datasets.table.InMemoryTable.rename_columns",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L920"}}),Fa=new f({props:{name:"drop",anchor:"datasets.table.InMemoryTable.drop",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.drop.columns",description:`<strong>columns</strong> (<code>List[str]</code>) &#x2014;
-List of field names referencing existing columns.`,name:"columns"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L926",returnDescription:`
+`}}),ja=new f({props:{name:"rename_columns",anchor:"datasets.table.InMemoryTable.rename_columns",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L921"}}),Fa=new f({props:{name:"drop",anchor:"datasets.table.InMemoryTable.drop",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.drop.columns",description:`<strong>columns</strong> (<code>List[str]</code>) &#x2014;
+List of field names referencing existing columns.`,name:"columns"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L927",returnDescription:`
 <p>New table without the columns.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),Va=new f({props:{name:"from_file",anchor:"datasets.table.InMemoryTable.from_file",parameters:[{name:"filename",val:": str"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L645"}}),Sa=new f({props:{name:"from_buffer",anchor:"datasets.table.InMemoryTable.from_buffer",parameters:[{name:"buffer",val:": Buffer"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L650"}}),qa=new f({props:{name:"from_pandas",anchor:"datasets.table.InMemoryTable.from_pandas",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.from_pandas.df",description:"<strong>df</strong> (<code>pandas.DataFrame</code>) &#x2014;",name:"df"},{anchor:"datasets.table.InMemoryTable.from_pandas.schema",description:`<strong>schema</strong> (<code>pyarrow.Schema</code>, optional) &#x2014;
+`}}),Va=new f({props:{name:"from_file",anchor:"datasets.table.InMemoryTable.from_file",parameters:[{name:"filename",val:": str"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L646"}}),Sa=new f({props:{name:"from_buffer",anchor:"datasets.table.InMemoryTable.from_buffer",parameters:[{name:"buffer",val:": Buffer"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L651"}}),qa=new f({props:{name:"from_pandas",anchor:"datasets.table.InMemoryTable.from_pandas",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.from_pandas.df",description:"<strong>df</strong> (<code>pandas.DataFrame</code>) &#x2014;",name:"df"},{anchor:"datasets.table.InMemoryTable.from_pandas.schema",description:`<strong>schema</strong> (<code>pyarrow.Schema</code>, optional) &#x2014;
 The expected schema of the Arrow Table. This can be used to
 indicate the type of columns if we cannot infer it automatically.
 If passed, the output will have exactly this schema. Columns
@@ -235,7 +235,7 @@ except for RangeIndex which is stored as metadata only. Use
 If greater than 1, convert columns to Arrow in parallel using
 indicated number of threads`,name:"nthreads"},{anchor:"datasets.table.InMemoryTable.from_pandas.columns",description:`<strong>columns</strong> (<code>List[str]</code>, optional) &#x2014;
 List of column to be converted. If None, use all columns.`,name:"columns"},{anchor:"datasets.table.InMemoryTable.from_pandas.safe",description:`<strong>safe</strong> (<code>bool</code>, defaults to <code>True</code>) &#x2014;
-Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L655",returnType:`
+Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L656",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
@@ -243,33 +243,33 @@ Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://g
 Equal-length arrays that should form the table.`,name:"arrays"},{anchor:"datasets.table.InMemoryTable.from_arrays.names",description:`<strong>names</strong> (<code>List[str]</code>, optional) &#x2014;
 Names for the table columns. If not passed, schema must be passed`,name:"names"},{anchor:"datasets.table.InMemoryTable.from_arrays.schema",description:`<strong>schema</strong> (<code>Schema</code>, defaults to <code>None</code>) &#x2014;
 Schema for the created table. If not passed, names must be passed`,name:"schema"},{anchor:"datasets.table.InMemoryTable.from_arrays.metadata",description:`<strong>metadata</strong> (<code>Union[dict, Mapping]</code>, default None) &#x2014;
-Optional metadata for the schema (if inferred).`,name:"metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L713",returnType:`
+Optional metadata for the schema (if inferred).`,name:"metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L714",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
 `}}),Ba=new f({props:{name:"from_pydict",anchor:"datasets.table.InMemoryTable.from_pydict",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.from_pydict.mapping",description:`<strong>mapping</strong> (<code>Union[dict, Mapping]</code>) &#x2014;
 A mapping of strings to Arrays or Python lists.`,name:"mapping"},{anchor:"datasets.table.InMemoryTable.from_pydict.schema",description:`<strong>schema</strong> (<code>Schema</code>, defaults to <code>None</code>) &#x2014;
 If not passed, will be inferred from the Mapping values`,name:"schema"},{anchor:"datasets.table.InMemoryTable.from_pydict.metadata",description:`<strong>metadata</strong> (<code>Union[dict, Mapping]</code>, default None) &#x2014;
-Optional metadata for the schema (if inferred).`,name:"metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L733",returnType:`
+Optional metadata for the schema (if inferred).`,name:"metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L734",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
 `}}),Oa=new f({props:{name:"from_batches",anchor:"datasets.table.InMemoryTable.from_batches",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.InMemoryTable.from_batches.batches",description:`<strong>batches</strong> (<code>Union[Sequence[pyarrow.RecordBatch], Iterator[pyarrow.RecordBatch]]</code>) &#x2014;
 Sequence of RecordBatch to be converted, all schemas must be equal.`,name:"batches"},{anchor:"datasets.table.InMemoryTable.from_batches.schema",description:`<strong>schema</strong> (<code>Schema</code>, defaults to <code>None</code>) &#x2014;
-If not passed, will be inferred from the first RecordBatch.`,name:"schema"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L751",returnType:`
+If not passed, will be inferred from the first RecordBatch.`,name:"schema"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L752",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),Wa=new Ao({}),Xa=new f({props:{name:"class datasets.table.MemoryMappedTable",anchor:"datasets.table.MemoryMappedTable",parameters:[{name:"table",val:": Table"},{name:"path",val:": str"},{name:"replays",val:": typing.Union[typing.List[typing.Tuple[str, tuple, dict]], NoneType] = None"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L948"}}),Ha=new f({props:{name:"validate",anchor:"datasets.table.MemoryMappedTable.validate",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.validate.full",description:`<strong>full</strong> (<code>bool</code>, defaults to <code>False</code>) &#x2014;
-If True, run expensive checks, otherwise cheap checks only.`,name:"full"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L198"}}),Ya=new f({props:{name:"equals",anchor:"datasets.table.MemoryMappedTable.equals",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.equals.other",description:`<strong>other</strong> (<a href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table">datasets.table.Table</a>) &#x2014;
+`}}),Wa=new Ao({}),Xa=new f({props:{name:"class datasets.table.MemoryMappedTable",anchor:"datasets.table.MemoryMappedTable",parameters:[{name:"table",val:": Table"},{name:"path",val:": str"},{name:"replays",val:": typing.Union[typing.List[typing.Tuple[str, tuple, dict]], NoneType] = None"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L949"}}),Ha=new f({props:{name:"validate",anchor:"datasets.table.MemoryMappedTable.validate",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.validate.full",description:`<strong>full</strong> (<code>bool</code>, defaults to <code>False</code>) &#x2014;
+If True, run expensive checks, otherwise cheap checks only.`,name:"full"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L199"}}),Ya=new f({props:{name:"equals",anchor:"datasets.table.MemoryMappedTable.equals",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.equals.other",description:`<strong>other</strong> (<a href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table">datasets.table.Table</a>) &#x2014;
 Table to compare against.`,name:"other"},{anchor:"datasets.table.MemoryMappedTable.equals.check_metadata",description:`<strong>check_metadata</strong> (<code>bool</code>, defaults to <code>False</code>) &#x2014;
-Whether schema metadata equality should be checked as well.`,name:"check_metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L214",returnType:`
+Whether schema metadata equality should be checked as well.`,name:"check_metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L215",returnType:`
 <p><code>bool</code></p>
 `}}),Ja=new f({props:{name:"to_batches",anchor:"datasets.table.MemoryMappedTable.to_batches",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.to_batches.max_chunksize",description:`<strong>max_chunksize</strong> (<code>int</code>, defaults to <em>None</em>) &#x2014;
 Maximum size for RecordBatch chunks. Individual chunks may be
-smaller depending on the chunk layout of individual columns.`,name:"max_chunksize"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L231",returnType:`
+smaller depending on the chunk layout of individual columns.`,name:"max_chunksize"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L232",returnType:`
 <p><code>List[pyarrow.RecordBatch]</code></p>
-`}}),Ka=new f({props:{name:"to_pydict",anchor:"datasets.table.MemoryMappedTable.to_pydict",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L245",returnType:`
+`}}),Ka=new f({props:{name:"to_pydict",anchor:"datasets.table.MemoryMappedTable.to_pydict",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L246",returnType:`
 <p><code>dict</code></p>
 `}}),Qa=new f({props:{name:"to_pandas",anchor:"datasets.table.MemoryMappedTable.to_pandas",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.to_pandas.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
 Arrow MemoryPool to use for allocations. Uses the default memory
@@ -308,52 +308,52 @@ of built-in pyarrow types or in absence of pandas_metadata in the
 Table schema. The function receives a pyarrow DataType and is
 expected to return a pandas ExtensionDtype or <code>None</code> if the
 default conversion should be used for that type. If you have
-a dictionary mapping, you can pass <code>dict.get</code> as function.`,name:"types_mapper"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L254",returnDescription:`
+a dictionary mapping, you can pass <code>dict.get</code> as function.`,name:"types_mapper"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L255",returnDescription:`
 <p><code>pandas.Series</code> or <code>pandas.DataFrame</code> depending on type of object</p>
 `,returnType:`
 <p><code>pandas.Series</code> or <code>pandas.DataFrame</code></p>
-`}}),Za=new f({props:{name:"to_string",anchor:"datasets.table.MemoryMappedTable.to_string",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L316"}}),er=new f({props:{name:"field",anchor:"datasets.table.MemoryMappedTable.field",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.field.i",description:`<strong>i</strong> (<code>Union[int, str]</code>) &#x2014;
-The index or name of the field to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L319",returnType:`
+`}}),Za=new f({props:{name:"to_string",anchor:"datasets.table.MemoryMappedTable.to_string",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L317"}}),er=new f({props:{name:"field",anchor:"datasets.table.MemoryMappedTable.field",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.field.i",description:`<strong>i</strong> (<code>Union[int, str]</code>) &#x2014;
+The index or name of the field to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L320",returnType:`
 <p><code>pyarrow.Field</code></p>
 `}}),tr=new f({props:{name:"column",anchor:"datasets.table.MemoryMappedTable.column",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.column.i",description:`<strong>i</strong> (<code>Union[int, str]</code>) &#x2014;
-The index or name of the column to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L332",returnType:`
+The index or name of the column to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L333",returnType:`
 <p><code>pyarrow.ChunkedArray</code></p>
-`}}),ar=new f({props:{name:"itercolumns",anchor:"datasets.table.MemoryMappedTable.itercolumns",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L345"}}),rr=new f({props:{name:"schema",anchor:"datasets.table.MemoryMappedTable.schema",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L354",returnType:`
+`}}),ar=new f({props:{name:"itercolumns",anchor:"datasets.table.MemoryMappedTable.itercolumns",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L346"}}),rr=new f({props:{name:"schema",anchor:"datasets.table.MemoryMappedTable.schema",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L355",returnType:`
 <p><code>pyarrow.Schema</code></p>
-`}}),or=new f({props:{name:"columns",anchor:"datasets.table.MemoryMappedTable.columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L364",returnType:`
+`}}),or=new f({props:{name:"columns",anchor:"datasets.table.MemoryMappedTable.columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L365",returnType:`
 <p><code>List[pa.ChunkedArray]</code></p>
-`}}),sr=new f({props:{name:"num_columns",anchor:"datasets.table.MemoryMappedTable.num_columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L374",returnType:`
+`}}),sr=new f({props:{name:"num_columns",anchor:"datasets.table.MemoryMappedTable.num_columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L375",returnType:`
 <p>int</p>
-`}}),nr=new f({props:{name:"num_rows",anchor:"datasets.table.MemoryMappedTable.num_rows",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L384",returnType:`
+`}}),nr=new f({props:{name:"num_rows",anchor:"datasets.table.MemoryMappedTable.num_rows",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L385",returnType:`
 <p>int</p>
-`}}),lr=new f({props:{name:"shape",anchor:"datasets.table.MemoryMappedTable.shape",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L397",returnDescription:`
+`}}),lr=new f({props:{name:"shape",anchor:"datasets.table.MemoryMappedTable.shape",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L398",returnDescription:`
 <p>Number of rows and number of columns.</p>
 `,returnType:`
 <p><code>(int, int)</code></p>
-`}}),dr=new f({props:{name:"nbytes",anchor:"datasets.table.MemoryMappedTable.nbytes",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L407"}}),cr=new f({props:{name:"column_names",anchor:"datasets.table.MemoryMappedTable.column_names",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L414"}}),ir=new f({props:{name:"slice",anchor:"datasets.table.MemoryMappedTable.slice",parameters:[{name:"offset",val:" = 0"},{name:"length",val:" = None"}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.slice.offset",description:`<strong>offset</strong> (<code>int</code>, defaults to <code>0</code>) &#x2014;
+`}}),dr=new f({props:{name:"nbytes",anchor:"datasets.table.MemoryMappedTable.nbytes",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L408"}}),cr=new f({props:{name:"column_names",anchor:"datasets.table.MemoryMappedTable.column_names",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L415"}}),ir=new f({props:{name:"slice",anchor:"datasets.table.MemoryMappedTable.slice",parameters:[{name:"offset",val:" = 0"},{name:"length",val:" = None"}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.slice.offset",description:`<strong>offset</strong> (<code>int</code>, defaults to <code>0</code>) &#x2014;
 Offset from start of table to slice`,name:"offset"},{anchor:"datasets.table.MemoryMappedTable.slice.length",description:`<strong>length</strong> (<code>int</code>, defaults to <code>None</code>) &#x2014;
 Length of slice (default is until end of table starting from
-offset)`,name:"length"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1007",returnType:`
+offset)`,name:"length"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1008",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),mr=new f({props:{name:"filter",anchor:"datasets.table.MemoryMappedTable.filter",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1026"}}),pr=new f({props:{name:"flatten",anchor:"datasets.table.MemoryMappedTable.flatten",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.flatten.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
-For memory allocations, if required, otherwise use default pool`,name:"memory_pool"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1034",returnType:`
+`}}),mr=new f({props:{name:"filter",anchor:"datasets.table.MemoryMappedTable.filter",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1027"}}),pr=new f({props:{name:"flatten",anchor:"datasets.table.MemoryMappedTable.flatten",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.flatten.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
+For memory allocations, if required, otherwise use default pool`,name:"memory_pool"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1035",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
 `}}),br=new f({props:{name:"combine_chunks",anchor:"datasets.table.MemoryMappedTable.combine_chunks",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.combine_chunks.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
-For memory allocations, if required, otherwise use default pool`,name:"memory_pool"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1050",returnType:`
+For memory allocations, if required, otherwise use default pool`,name:"memory_pool"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1051",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
 `}}),hr=new f({props:{name:"cast",anchor:"datasets.table.MemoryMappedTable.cast",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.cast.target_schema",description:`<strong>target_schema</strong> (<code>Schema</code>) &#x2014;
 Schema to cast to, the names and order of fields must match`,name:"target_schema"},{anchor:"datasets.table.MemoryMappedTable.cast.safe",description:`<strong>safe</strong> (<code>bool</code>, defaults to <code>True</code>) &#x2014;
-Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1068",returnType:`
+Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1069",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),ur=new f({props:{name:"replace_schema_metadata",anchor:"datasets.table.MemoryMappedTable.replace_schema_metadata",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.replace_schema_metadata.metadata",description:"<strong>metadata</strong> (<code>dict</code>, defaults to <code>None</code>) &#x2014;",name:"metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1085",returnDescription:`
+`}}),ur=new f({props:{name:"replace_schema_metadata",anchor:"datasets.table.MemoryMappedTable.replace_schema_metadata",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.replace_schema_metadata.metadata",description:"<strong>metadata</strong> (<code>dict</code>, defaults to <code>None</code>) &#x2014;",name:"metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1086",returnDescription:`
 <p>shallow_copy</p>
 `,returnType:`
 <p><a
@@ -363,7 +363,7 @@ Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://g
 Index to place the column at.`,name:"i"},{anchor:"datasets.table.MemoryMappedTable.add_column.field_",description:`<strong>field_</strong> (<code>Union[str, pyarrow.Field]</code>) &#x2014;
 If a string is passed then the type is deduced from the column
 data.`,name:"field_"},{anchor:"datasets.table.MemoryMappedTable.add_column.column",description:`<strong>column</strong> (<code>Union[pyarrow.Array, List[pyarrow.Array]]</code>) &#x2014;
-Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1101",returnDescription:`
+Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1102",returnDescription:`
 <p>New table with the passed column added.</p>
 `,returnType:`
 <p><a
@@ -372,14 +372,14 @@ Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/bl
 `}}),fr=new f({props:{name:"append_column",anchor:"datasets.table.MemoryMappedTable.append_column",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.append_column.field_",description:`<strong>field_</strong> (<code>Union[str, pyarrow.Field]</code>) &#x2014;
 If a string is passed then the type is deduced from the column
 data.`,name:"field_"},{anchor:"datasets.table.MemoryMappedTable.append_column.column",description:`<strong>column</strong> (<code>Union[pyarrow.Array, List[pyarrow.Array]]</code>) &#x2014;
-Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1124",returnDescription:`
+Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1125",returnDescription:`
 <p>New table with the passed column added.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
 `}}),yr=new f({props:{name:"remove_column",anchor:"datasets.table.MemoryMappedTable.remove_column",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.remove_column.i",description:`<strong>i</strong> (<code>int</code>) &#x2014;
-Index of column to remove.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1143",returnDescription:`
+Index of column to remove.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1144",returnDescription:`
 <p>New table without the column.</p>
 `,returnType:`
 <p><a
@@ -389,29 +389,29 @@ Index of column to remove.`,name:"i"}],source:"https://github.com/huggingface/da
 Index to place the column at.`,name:"i"},{anchor:"datasets.table.MemoryMappedTable.set_column.field_",description:`<strong>field_</strong> (<code>Union[str, pyarrow.Field]</code>) &#x2014;
 If a string is passed then the type is deduced from the column
 data.`,name:"field_"},{anchor:"datasets.table.MemoryMappedTable.set_column.column",description:`<strong>column</strong> (<code>Union[pyarrow.Array, List[pyarrow.Array]]</code>) &#x2014;
-Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1159",returnDescription:`
+Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1160",returnDescription:`
 <p>New table with the passed column set.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),$r=new f({props:{name:"rename_columns",anchor:"datasets.table.MemoryMappedTable.rename_columns",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1180"}}),_r=new f({props:{name:"drop",anchor:"datasets.table.MemoryMappedTable.drop",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.drop.columns",description:`<strong>columns</strong> (<code>List[str]</code>) &#x2014;
-List of field names referencing existing columns.`,name:"columns"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1188",returnDescription:`
+`}}),$r=new f({props:{name:"rename_columns",anchor:"datasets.table.MemoryMappedTable.rename_columns",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1181"}}),_r=new f({props:{name:"drop",anchor:"datasets.table.MemoryMappedTable.drop",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.MemoryMappedTable.drop.columns",description:`<strong>columns</strong> (<code>List[str]</code>) &#x2014;
+List of field names referencing existing columns.`,name:"columns"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1189",returnDescription:`
 <p>New table without the columns.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),Tr=new f({props:{name:"from_file",anchor:"datasets.table.MemoryMappedTable.from_file",parameters:[{name:"filename",val:": str"},{name:"replays",val:" = None"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L974"}}),wr=new Ao({}),xr=new f({props:{name:"class datasets.table.ConcatenationTable",anchor:"datasets.table.ConcatenationTable",parameters:[{name:"table",val:": Table"},{name:"blocks",val:": typing.List[typing.List[datasets.table.TableBlock]]"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1215"}}),Mr=new f({props:{name:"validate",anchor:"datasets.table.ConcatenationTable.validate",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.validate.full",description:`<strong>full</strong> (<code>bool</code>, defaults to <code>False</code>) &#x2014;
-If True, run expensive checks, otherwise cheap checks only.`,name:"full"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L198"}}),Dr=new f({props:{name:"equals",anchor:"datasets.table.ConcatenationTable.equals",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.equals.other",description:`<strong>other</strong> (<a href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table">datasets.table.Table</a>) &#x2014;
+`}}),Tr=new f({props:{name:"from_file",anchor:"datasets.table.MemoryMappedTable.from_file",parameters:[{name:"filename",val:": str"},{name:"replays",val:" = None"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L975"}}),wr=new Ao({}),xr=new f({props:{name:"class datasets.table.ConcatenationTable",anchor:"datasets.table.ConcatenationTable",parameters:[{name:"table",val:": Table"},{name:"blocks",val:": typing.List[typing.List[datasets.table.TableBlock]]"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1216"}}),Mr=new f({props:{name:"validate",anchor:"datasets.table.ConcatenationTable.validate",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.validate.full",description:`<strong>full</strong> (<code>bool</code>, defaults to <code>False</code>) &#x2014;
+If True, run expensive checks, otherwise cheap checks only.`,name:"full"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L199"}}),Dr=new f({props:{name:"equals",anchor:"datasets.table.ConcatenationTable.equals",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.equals.other",description:`<strong>other</strong> (<a href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table">datasets.table.Table</a>) &#x2014;
 Table to compare against.`,name:"other"},{anchor:"datasets.table.ConcatenationTable.equals.check_metadata",description:`<strong>check_metadata</strong> (<code>bool</code>, defaults to <code>False</code>) &#x2014;
-Whether schema metadata equality should be checked as well.`,name:"check_metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L214",returnType:`
+Whether schema metadata equality should be checked as well.`,name:"check_metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L215",returnType:`
 <p><code>bool</code></p>
 `}}),Cr=new f({props:{name:"to_batches",anchor:"datasets.table.ConcatenationTable.to_batches",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.to_batches.max_chunksize",description:`<strong>max_chunksize</strong> (<code>int</code>, defaults to <em>None</em>) &#x2014;
 Maximum size for RecordBatch chunks. Individual chunks may be
-smaller depending on the chunk layout of individual columns.`,name:"max_chunksize"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L231",returnType:`
+smaller depending on the chunk layout of individual columns.`,name:"max_chunksize"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L232",returnType:`
 <p><code>List[pyarrow.RecordBatch]</code></p>
-`}}),Pr=new f({props:{name:"to_pydict",anchor:"datasets.table.ConcatenationTable.to_pydict",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L245",returnType:`
+`}}),Pr=new f({props:{name:"to_pydict",anchor:"datasets.table.ConcatenationTable.to_pydict",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L246",returnType:`
 <p><code>dict</code></p>
 `}}),Lr=new f({props:{name:"to_pandas",anchor:"datasets.table.ConcatenationTable.to_pandas",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.to_pandas.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
 Arrow MemoryPool to use for allocations. Uses the default memory
@@ -450,52 +450,52 @@ of built-in pyarrow types or in absence of pandas_metadata in the
 Table schema. The function receives a pyarrow DataType and is
 expected to return a pandas ExtensionDtype or <code>None</code> if the
 default conversion should be used for that type. If you have
-a dictionary mapping, you can pass <code>dict.get</code> as function.`,name:"types_mapper"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L254",returnDescription:`
+a dictionary mapping, you can pass <code>dict.get</code> as function.`,name:"types_mapper"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L255",returnDescription:`
 <p><code>pandas.Series</code> or <code>pandas.DataFrame</code> depending on type of object</p>
 `,returnType:`
 <p><code>pandas.Series</code> or <code>pandas.DataFrame</code></p>
-`}}),Ar=new f({props:{name:"to_string",anchor:"datasets.table.ConcatenationTable.to_string",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L316"}}),Nr=new f({props:{name:"field",anchor:"datasets.table.ConcatenationTable.field",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.field.i",description:`<strong>i</strong> (<code>Union[int, str]</code>) &#x2014;
-The index or name of the field to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L319",returnType:`
+`}}),Ar=new f({props:{name:"to_string",anchor:"datasets.table.ConcatenationTable.to_string",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L317"}}),Nr=new f({props:{name:"field",anchor:"datasets.table.ConcatenationTable.field",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.field.i",description:`<strong>i</strong> (<code>Union[int, str]</code>) &#x2014;
+The index or name of the field to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L320",returnType:`
 <p><code>pyarrow.Field</code></p>
 `}}),jr=new f({props:{name:"column",anchor:"datasets.table.ConcatenationTable.column",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.column.i",description:`<strong>i</strong> (<code>Union[int, str]</code>) &#x2014;
-The index or name of the column to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L332",returnType:`
+The index or name of the column to retrieve.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L333",returnType:`
 <p><code>pyarrow.ChunkedArray</code></p>
-`}}),Fr=new f({props:{name:"itercolumns",anchor:"datasets.table.ConcatenationTable.itercolumns",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L345"}}),Vr=new f({props:{name:"schema",anchor:"datasets.table.ConcatenationTable.schema",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L354",returnType:`
+`}}),Fr=new f({props:{name:"itercolumns",anchor:"datasets.table.ConcatenationTable.itercolumns",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L346"}}),Vr=new f({props:{name:"schema",anchor:"datasets.table.ConcatenationTable.schema",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L355",returnType:`
 <p><code>pyarrow.Schema</code></p>
-`}}),Sr=new f({props:{name:"columns",anchor:"datasets.table.ConcatenationTable.columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L364",returnType:`
+`}}),Sr=new f({props:{name:"columns",anchor:"datasets.table.ConcatenationTable.columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L365",returnType:`
 <p><code>List[pa.ChunkedArray]</code></p>
-`}}),qr=new f({props:{name:"num_columns",anchor:"datasets.table.ConcatenationTable.num_columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L374",returnType:`
+`}}),qr=new f({props:{name:"num_columns",anchor:"datasets.table.ConcatenationTable.num_columns",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L375",returnType:`
 <p>int</p>
-`}}),Rr=new f({props:{name:"num_rows",anchor:"datasets.table.ConcatenationTable.num_rows",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L384",returnType:`
+`}}),Rr=new f({props:{name:"num_rows",anchor:"datasets.table.ConcatenationTable.num_rows",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L385",returnType:`
 <p>int</p>
-`}}),Ur=new f({props:{name:"shape",anchor:"datasets.table.ConcatenationTable.shape",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L397",returnDescription:`
+`}}),Ur=new f({props:{name:"shape",anchor:"datasets.table.ConcatenationTable.shape",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L398",returnDescription:`
 <p>Number of rows and number of columns.</p>
 `,returnType:`
 <p><code>(int, int)</code></p>
-`}}),zr=new f({props:{name:"nbytes",anchor:"datasets.table.ConcatenationTable.nbytes",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L407"}}),Br=new f({props:{name:"column_names",anchor:"datasets.table.ConcatenationTable.column_names",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L414"}}),Or=new f({props:{name:"slice",anchor:"datasets.table.ConcatenationTable.slice",parameters:[{name:"offset",val:" = 0"},{name:"length",val:" = None"}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.slice.offset",description:`<strong>offset</strong> (<code>int</code>, defaults to <code>0</code>) &#x2014;
+`}}),zr=new f({props:{name:"nbytes",anchor:"datasets.table.ConcatenationTable.nbytes",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L408"}}),Br=new f({props:{name:"column_names",anchor:"datasets.table.ConcatenationTable.column_names",parameters:[],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L415"}}),Or=new f({props:{name:"slice",anchor:"datasets.table.ConcatenationTable.slice",parameters:[{name:"offset",val:" = 0"},{name:"length",val:" = None"}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.slice.offset",description:`<strong>offset</strong> (<code>int</code>, defaults to <code>0</code>) &#x2014;
 Offset from start of table to slice`,name:"offset"},{anchor:"datasets.table.ConcatenationTable.slice.length",description:`<strong>length</strong> (<code>int</code>, defaults to <code>None</code>) &#x2014;
 Length of slice (default is until end of table starting from
-offset)`,name:"length"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1383",returnType:`
+offset)`,name:"length"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1384",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),Wr=new f({props:{name:"filter",anchor:"datasets.table.ConcatenationTable.filter",parameters:[{name:"mask",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1414"}}),Xr=new f({props:{name:"flatten",anchor:"datasets.table.ConcatenationTable.flatten",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.flatten.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
-For memory allocations, if required, otherwise use default pool`,name:"memory_pool"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1425",returnType:`
+`}}),Wr=new f({props:{name:"filter",anchor:"datasets.table.ConcatenationTable.filter",parameters:[{name:"mask",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1415"}}),Xr=new f({props:{name:"flatten",anchor:"datasets.table.ConcatenationTable.flatten",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.flatten.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
+For memory allocations, if required, otherwise use default pool`,name:"memory_pool"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1426",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
 `}}),Hr=new f({props:{name:"combine_chunks",anchor:"datasets.table.ConcatenationTable.combine_chunks",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.combine_chunks.memory_pool",description:`<strong>memory_pool</strong> (<code>MemoryPool</code>, defaults to <code>None</code>) &#x2014;
-For memory allocations, if required, otherwise use default pool`,name:"memory_pool"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1443",returnType:`
+For memory allocations, if required, otherwise use default pool`,name:"memory_pool"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1444",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
 `}}),Gr=new f({props:{name:"cast",anchor:"datasets.table.ConcatenationTable.cast",parameters:[{name:"target_schema",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.cast.target_schema",description:`<strong>target_schema</strong> (<code>Schema</code>) &#x2014;
 Schema to cast to, the names and order of fields must match`,name:"target_schema"},{anchor:"datasets.table.ConcatenationTable.cast.safe",description:`<strong>safe</strong> (<code>bool</code>, defaults to <code>True</code>) &#x2014;
-Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1463",returnType:`
+Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1464",returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),Yr=new f({props:{name:"replace_schema_metadata",anchor:"datasets.table.ConcatenationTable.replace_schema_metadata",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.replace_schema_metadata.metadata",description:"<strong>metadata</strong> (<code>dict</code>, defaults to <code>None</code>) &#x2014;",name:"metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1490",returnDescription:`
+`}}),Yr=new f({props:{name:"replace_schema_metadata",anchor:"datasets.table.ConcatenationTable.replace_schema_metadata",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.replace_schema_metadata.metadata",description:"<strong>metadata</strong> (<code>dict</code>, defaults to <code>None</code>) &#x2014;",name:"metadata"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1491",returnDescription:`
 <p>shallow_copy</p>
 `,returnType:`
 <p><a
@@ -505,7 +505,7 @@ Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://g
 Index to place the column at.`,name:"i"},{anchor:"datasets.table.ConcatenationTable.add_column.field_",description:`<strong>field_</strong> (<code>Union[str, pyarrow.Field]</code>) &#x2014;
 If a string is passed then the type is deduced from the column
 data.`,name:"field_"},{anchor:"datasets.table.ConcatenationTable.add_column.column",description:`<strong>column</strong> (<code>Union[pyarrow.Array, List[pyarrow.Array]]</code>) &#x2014;
-Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1508",returnDescription:`
+Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1509",returnDescription:`
 <p>New table with the passed column added.</p>
 `,returnType:`
 <p><a
@@ -514,14 +514,14 @@ Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/bl
 `}}),Kr=new f({props:{name:"append_column",anchor:"datasets.table.ConcatenationTable.append_column",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.append_column.field_",description:`<strong>field_</strong> (<code>Union[str, pyarrow.Field]</code>) &#x2014;
 If a string is passed then the type is deduced from the column
 data.`,name:"field_"},{anchor:"datasets.table.ConcatenationTable.append_column.column",description:`<strong>column</strong> (<code>Union[pyarrow.Array, List[pyarrow.Array]]</code>) &#x2014;
-Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1529",returnDescription:`
+Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1530",returnDescription:`
 <p>New table with the passed column added.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
 `}}),Qr=new f({props:{name:"remove_column",anchor:"datasets.table.ConcatenationTable.remove_column",parameters:[{name:"i",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.remove_column.i",description:`<strong>i</strong> (<code>int</code>) &#x2014;
-Index of column to remove.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1546",returnDescription:`
+Index of column to remove.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1547",returnDescription:`
 <p>New table without the column.</p>
 `,returnType:`
 <p><a
@@ -531,32 +531,32 @@ Index of column to remove.`,name:"i"}],source:"https://github.com/huggingface/da
 Index to place the column at.`,name:"i"},{anchor:"datasets.table.ConcatenationTable.set_column.field_",description:`<strong>field_</strong> (<code>Union[str, pyarrow.Field]</code>) &#x2014;
 If a string is passed then the type is deduced from the column
 data.`,name:"field_"},{anchor:"datasets.table.ConcatenationTable.set_column.column",description:`<strong>column</strong> (<code>Union[pyarrow.Array, List[pyarrow.Array]]</code>) &#x2014;
-Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1570",returnDescription:`
+Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1571",returnDescription:`
 <p>New table with the passed column set.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),eo=new f({props:{name:"rename_columns",anchor:"datasets.table.ConcatenationTable.rename_columns",parameters:[{name:"names",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1589"}}),to=new f({props:{name:"drop",anchor:"datasets.table.ConcatenationTable.drop",parameters:[{name:"columns",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.drop.columns",description:`<strong>columns</strong> (<code>List[str]</code>) &#x2014;
-List of field names referencing existing columns.`,name:"columns"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1602",returnDescription:`
+`}}),eo=new f({props:{name:"rename_columns",anchor:"datasets.table.ConcatenationTable.rename_columns",parameters:[{name:"names",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1590"}}),to=new f({props:{name:"drop",anchor:"datasets.table.ConcatenationTable.drop",parameters:[{name:"columns",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.drop.columns",description:`<strong>columns</strong> (<code>List[str]</code>) &#x2014;
+List of field names referencing existing columns.`,name:"columns"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1603",returnDescription:`
 <p>New table without the columns.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),ao=new f({props:{name:"from_blocks",anchor:"datasets.table.ConcatenationTable.from_blocks",parameters:[{name:"blocks",val:": TableBlockContainer"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1310"}}),ro=new f({props:{name:"from_tables",anchor:"datasets.table.ConcatenationTable.from_tables",parameters:[{name:"tables",val:": typing.List[typing.Union[pyarrow.lib.Table, datasets.table.Table]]"},{name:"axis",val:": int = 0"}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.from_tables.tables",description:`<strong>tables</strong> (list of <code>Table</code> or list of <code>pyarrow.Table</code>) &#x2014; List of tables.
+`}}),ao=new f({props:{name:"from_blocks",anchor:"datasets.table.ConcatenationTable.from_blocks",parameters:[{name:"blocks",val:": TableBlockContainer"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1311"}}),ro=new f({props:{name:"from_tables",anchor:"datasets.table.ConcatenationTable.from_tables",parameters:[{name:"tables",val:": typing.List[typing.Union[pyarrow.lib.Table, datasets.table.Table]]"},{name:"axis",val:": int = 0"}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.from_tables.tables",description:`<strong>tables</strong> (list of <code>Table</code> or list of <code>pyarrow.Table</code>) &#x2014; List of tables.
 axis &#x2014; (<code>{0, 1}</code>, defaults to <code>0</code>, meaning over rows):`,name:"tables"},{anchor:"datasets.table.ConcatenationTable.from_tables.Axis",description:`<strong>Axis</strong> to concatenate over, where <code>0</code> means over rows (vertically) and <code>1</code> means over columns &#x2014;
-(horizontally). &#x2014;`,name:"Axis"},{anchor:"datasets.table.ConcatenationTable.from_tables.*New",description:"<strong>*New</strong> in version 1.6.0* &#x2014;",name:"*New"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1324"}}),oo=new Ao({}),so=new f({props:{name:"datasets.table.concat_tables",anchor:"datasets.table.concat_tables",parameters:[{name:"tables",val:": typing.List[datasets.table.Table]"},{name:"axis",val:": int = 0"}],parametersDescription:[{anchor:"datasets.table.concat_tables.tables",description:"<strong>tables</strong> (list of <code>Table</code>) &#x2014; List of tables to be concatenated.",name:"tables"},{anchor:"datasets.table.concat_tables.axis",description:`<strong>axis</strong> (<code>{0, 1}</code>, defaults to <code>0</code>, meaning over rows) &#x2014;
+(horizontally). &#x2014;`,name:"Axis"},{anchor:"datasets.table.ConcatenationTable.from_tables.*New",description:"<strong>*New</strong> in version 1.6.0* &#x2014;",name:"*New"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1325"}}),oo=new Ao({}),so=new f({props:{name:"datasets.table.concat_tables",anchor:"datasets.table.concat_tables",parameters:[{name:"tables",val:": typing.List[datasets.table.Table]"},{name:"axis",val:": int = 0"}],parametersDescription:[{anchor:"datasets.table.concat_tables.tables",description:"<strong>tables</strong> (list of <code>Table</code>) &#x2014; List of tables to be concatenated.",name:"tables"},{anchor:"datasets.table.concat_tables.axis",description:`<strong>axis</strong> (<code>{0, 1}</code>, defaults to <code>0</code>, meaning over rows) &#x2014;
 Axis to concatenate over, where <code>0</code> means over rows (vertically) and <code>1</code> means over columns
 (horizontally).</p>
-<p><em>New in version 1.6.0</em>`,name:"axis"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1624",returnDescription:`
+<p><em>New in version 1.6.0</em>`,name:"axis"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1625",returnDescription:`
 <p>If the number of input tables is > 1, then the returned table is a <code>datasets.table.ConcatenationTable</code>.
 Otherwise if there\u2019s only one table, it is returned as is.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/master/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),no=new f({props:{name:"datasets.table.list_table_cache_files",anchor:"datasets.table.list_table_cache_files",parameters:[{name:"table",val:": Table"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1647",returnDescription:`
+`}}),no=new f({props:{name:"datasets.table.list_table_cache_files",anchor:"datasets.table.list_table_cache_files",parameters:[{name:"table",val:": Table"}],source:"https://github.com/huggingface/datasets/blob/master/src/datasets/table.py#L1648",returnDescription:`
 <p>a list of paths to the cache files loaded by the table</p>
 `,returnType:`
 <p><code>List[str]</code></p>
