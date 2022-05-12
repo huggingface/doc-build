@@ -97,10 +97,14 @@ clasificador = pipeline("sentiment-analysis", model="pysentimiento/robertuito-se
 [{<span class="hljs-string">&#x27;label&#x27;</span>: <span class="hljs-string">&#x27;POS&#x27;</span>, <span class="hljs-string">&#x27;score&#x27;</span>: <span class="hljs-number">0.9916</span>}]`}}),wa=new U({props:{code:"pip install datasets",highlighted:"pip install datasets"}}),ya=new U({props:{code:`import torch
 from transformers import pipeline
 
-reconocedor_de_voz = pipeline("automatic-speech-recognition", model="jonatasgrosman/wav2vec2-large-xlsr-53-spanish", device=0)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+reconocedor_de_voz = pipeline(
+    "automatic-speech-recognition", model="jonatasgrosman/wav2vec2-large-xlsr-53-spanish", device=0
+)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>reconocedor_de_voz = pipeline(<span class="hljs-string">&quot;automatic-speech-recognition&quot;</span>, model=<span class="hljs-string">&quot;jonatasgrosman/wav2vec2-large-xlsr-53-spanish&quot;</span>, device=<span class="hljs-number">0</span>)`}}),Ta=new U({props:{code:`from datasets import load_dataset, Audio
+<span class="hljs-meta">&gt;&gt;&gt; </span>reconocedor_de_voz = pipeline(
+<span class="hljs-meta">... </span>    <span class="hljs-string">&quot;automatic-speech-recognition&quot;</span>, model=<span class="hljs-string">&quot;jonatasgrosman/wav2vec2-large-xlsr-53-spanish&quot;</span>, device=<span class="hljs-number">0</span>
+<span class="hljs-meta">... </span>)`}}),Ta=new U({props:{code:`from datasets import load_dataset, Audio
 
 dataset = load_dataset("PolyAI/minds14", name="es-ES", split="train")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset, Audio
 
