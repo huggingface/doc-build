@@ -1,10 +1,10 @@
 <meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;summarization&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;preparing-a-multilingual-corpus&quot;,&quot;title&quot;:&quot;Preparing a multilingual corpus&quot;},{&quot;local&quot;:&quot;models-for-text-summarization&quot;,&quot;title&quot;:&quot;Models for text summarization&quot;},{&quot;local&quot;:&quot;preprocessing-the-data&quot;,&quot;title&quot;:&quot;Preprocessing the data&quot;},{&quot;local&quot;:&quot;metrics-for-text-summarization&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;creating-a-strong-baseline&quot;,&quot;title&quot;:&quot;Creating a strong baseline&quot;}],&quot;title&quot;:&quot;Metrics for text summarization&quot;},{&quot;local&quot;:&quot;finetuning-mt5-with-the-trainer-api&quot;,&quot;title&quot;:&quot;Fine-tuning mT5 with the `Trainer` API&quot;},{&quot;local&quot;:&quot;finetuning-mt5-with-keras&quot;,&quot;title&quot;:&quot;Fine-tuning mT5 with Keras&quot;},{&quot;local&quot;:&quot;finetuning-mt5-with-accelerate&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;preparing-everything-for-training&quot;,&quot;title&quot;:&quot;Preparing everything for training&quot;},{&quot;local&quot;:&quot;training-loop&quot;,&quot;title&quot;:&quot;Training loop&quot;}],&quot;title&quot;:&quot;Fine-tuning mT5 with 🤗 Accelerate&quot;},{&quot;local&quot;:&quot;using-your-finetuned-model&quot;,&quot;title&quot;:&quot;Using your fine-tuned model&quot;}],&quot;title&quot;:&quot;Summarization&quot;}" data-svelte="svelte-1phssyn">
 	<link rel="modulepreload" href="/docs/course/main/en/_app/assets/pages/__layout.svelte-9b9c9c55.css">
-	<link rel="modulepreload" href="/docs/course/main/en/_app/start-2a7bebf0.js">
+	<link rel="modulepreload" href="/docs/course/main/en/_app/start-2f47c08f.js">
 	<link rel="modulepreload" href="/docs/course/main/en/_app/chunks/vendor-1e8b365d.js">
 	<link rel="modulepreload" href="/docs/course/main/en/_app/chunks/paths-4b3c6e7e.js">
 	<link rel="modulepreload" href="/docs/course/main/en/_app/pages/__layout.svelte-05c2fb0c.js">
-	<link rel="modulepreload" href="/docs/course/main/en/_app/pages/chapter7/5.mdx-67304d2f.js">
+	<link rel="modulepreload" href="/docs/course/main/en/_app/pages/chapter7/5.mdx-9a4eca94.js">
 	<link rel="modulepreload" href="/docs/course/main/en/_app/chunks/Tip-62b14c6e.js">
 	<link rel="modulepreload" href="/docs/course/main/en/_app/chunks/Youtube-c2a8cc39.js">
 	<link rel="modulepreload" href="/docs/course/main/en/_app/chunks/IconCopyLink-483c28ba.js">
@@ -33,7 +33,6 @@
 <iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/yHnr5Dk2zCI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p>Although there already exist various fine-tuned models for summarization on the <a href="https://huggingface.co/models?pipeline_tag=summarization&sort=downloads" rel="nofollow">Hugging Face Hub</a>, almost all of these are only suitable for English documents. So, to add a twist in this section, we’ll train a bilingual model for English and Spanish. By the end of this section, you’ll have a <a href="https://huggingface.co/huggingface-course/mt5-small-finetuned-amazon-en-es" rel="nofollow">model</a> that can summarize customer reviews like the one shown here:</p>
 <iframe src="https://hf.space/gradioiframe/course-demos/mt5-small-finetuned-amazon-en-es/+" frameborder="0" height="400" title="Gradio app" class="block dark:hidden container p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
-<iframe src="https://hf.space/gradioiframe/course-demos/mt5-small-finetuned-amazon-en-es-darkmode/+" frameborder="0" height="400" title="Gradio app" class="hidden dark:block container p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
 <p>As we’ll see, these summaries are concise because they’re learned from the titles that customers provide in their product reviews. Let’s start by putting together a suitable bilingual corpus for this task.</p>
 <h2 class="relative group"><a id="preparing-a-multilingual-corpus" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#preparing-a-multilingual-corpus"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
 	<span>Preparing a multilingual corpus
@@ -901,10 +900,10 @@ summarizer = pipeline(<span class="hljs-string">&quot;summarization&quot;</span>
 <p>Next, we’ll turn our attention to a slightly more complex task: training a language model from scratch.</p>
 
 
-		<script type="module" data-hydrate="1jxacn4">
-		import { start } from "/docs/course/main/en/_app/start-2a7bebf0.js";
+		<script type="module" data-hydrate="187rhej">
+		import { start } from "/docs/course/main/en/_app/start-2f47c08f.js";
 		start({
-			target: document.querySelector('[data-hydrate="1jxacn4"]').parentNode,
+			target: document.querySelector('[data-hydrate="187rhej"]').parentNode,
 			paths: {"base":"/docs/course/main/en","assets":"/docs/course/main/en"},
 			session: {},
 			route: false,
@@ -915,7 +914,7 @@ summarizer = pipeline(<span class="hljs-string">&quot;summarization&quot;</span>
 				error: null,
 				nodes: [
 					import("/docs/course/main/en/_app/pages/__layout.svelte-05c2fb0c.js"),
-						import("/docs/course/main/en/_app/pages/chapter7/5.mdx-67304d2f.js")
+						import("/docs/course/main/en/_app/pages/chapter7/5.mdx-9a4eca94.js")
 				],
 				params: {}
 			}
