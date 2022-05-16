@@ -264,7 +264,9 @@ Whether or not to return the hidden states of all layers. See <code>hidden_state
 more detail.`,name:"output_hidden_states"},{anchor:"transformers.SegformerForSemanticSegmentation.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.SegformerForSemanticSegmentation.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, height, width)</code>, <em>optional</em>) &#x2014;
 Ground truth semantic segmentation maps for computing the loss. Indices should be in <code>[0, ..., config.num_labels - 1]</code>. If <code>config.num_labels &gt; 1</code>, a classification loss is computed (Cross-Entropy).`,name:"labels"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/segformer/modeling_segformer.py#L750",returnDescription:`
-<p>A <code>transformers.modeling_outputs.SemanticSegmenterOutput</code> or a tuple of
+<p>A <a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.SemanticSegmenterOutput"
+>transformers.modeling_outputs.SemanticSegmenterOutput</a> or a tuple of
 <code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
 elements depending on the configuration (<a
   href="/docs/transformers/main/en/model_doc/segformer#transformers.SegformerConfig"
@@ -293,7 +295,9 @@ heads.</p>
 </li>
 </ul>
 `,returnType:`
-<p><code>transformers.modeling_outputs.SemanticSegmenterOutput</code> or <code>tuple(torch.FloatTensor)</code></p>
+<p><a
+  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.SemanticSegmenterOutput"
+>transformers.modeling_outputs.SemanticSegmenterOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
 `}}),Ne=new wa({props:{$$slots:{default:[Yc]},$$scope:{ctx:I}}}),Oe=new $a({props:{anchor:"transformers.SegformerForSemanticSegmentation.forward.example",$$slots:{default:[Zc]},$$scope:{ctx:I}}}),{c(){f=o("meta"),v=d(),u=o("h1"),p=o("a"),b=o("span"),S(m.$$.fragment),_=d(),N=o("span"),ya=s("SegFormer"),Lo=d(),ie=o("h2"),$e=o("a"),Dr=o("span"),S(Ge.$$.fragment),xa=d(),zr=o("span"),Fa=s("Overview"),No=d(),Ee=o("p"),Ia=s("The SegFormer model was proposed in "),Ke=o("a"),ka=s("SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers"),Pa=s(` by Enze Xie, Wenhai Wang, Zhiding Yu, Anima Anandkumar, Jose M. Alvarez, Ping
 Luo. The model consists of a hierarchical Transformer encoder and a lightweight all-MLP decode head to achieve great
 results on image segmentation benchmarks such as ADE20K and Cityscapes.`),Oo=d(),Mt=o("p"),Ma=s("The abstract from the paper is the following:"),qo=d(),Ct=o("p"),jr=o("em"),Ca=s(`We present SegFormer, a simple, efficient yet powerful semantic segmentation framework which unifies Transformers with
