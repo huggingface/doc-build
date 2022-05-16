@@ -133,7 +133,7 @@ url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 image = Image.open(requests.get(url, stream=True).raw)
 
 feature_extractor = ConvNextFeatureExtractor.from_pretrained("facebook/convnext-tiny-224")
-model = TFViTForImageClassification.from_pretrained("facebook/convnext-tiny-224")
+model = TFConvNextForImageClassification.from_pretrained("facebook/convnext-tiny-224")
 
 inputs = feature_extractor(images=image, return_tensors="tf")
 outputs = model(**inputs)
@@ -149,7 +149,7 @@ print("Predicted class:", model.config.id2label[int(predicted_class_idx)])`,high
 <span class="hljs-meta">&gt;&gt;&gt; </span>image = Image.<span class="hljs-built_in">open</span>(requests.get(url, stream=<span class="hljs-literal">True</span>).raw)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = ConvNextFeatureExtractor.from_pretrained(<span class="hljs-string">&quot;facebook/convnext-tiny-224&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = TFViTForImageClassification.from_pretrained(<span class="hljs-string">&quot;facebook/convnext-tiny-224&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = TFConvNextForImageClassification.from_pretrained(<span class="hljs-string">&quot;facebook/convnext-tiny-224&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = feature_extractor(images=image, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)
