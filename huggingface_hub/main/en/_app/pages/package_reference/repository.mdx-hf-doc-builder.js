@@ -1,4 +1,4 @@
-import{S as ng,i as ag,s as ig,e as r,k as l,w as d,t as i,M as sg,c as n,d as o,m as c,a,x as u,h as s,b as p,F as e,g as $,y as m,q as f,o as _,B as b,v as lg,L as cg}from"../../chunks/vendor-a09ded63.js";import{D as v}from"../../chunks/Docstring-3f63de13.js";import{C as gg}from"../../chunks/CodeBlock-879da7fe.js";import{I as Tn}from"../../chunks/IconCopyLink-3f5556be.js";import{E as hg}from"../../chunks/ExampleCodeBlock-7aff195a.js";function pg(xr){let E,ie,D,x,j;return x=new gg({props:{code:`with Repository(
+import{S as ng,i as ag,s as ig,e as r,k as l,w as d,t as i,M as sg,c as n,d as o,m as c,a,x as u,h as s,b as p,G as e,g as $,y as m,q as f,o as _,B as b,v as lg,L as cg}from"../../chunks/vendor-hf-doc-builder.js";import{D as v}from"../../chunks/Docstring-hf-doc-builder.js";import{C as gg}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Tn}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as hg}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function pg(xr){let E,ie,D,x,j;return x=new gg({props:{code:`with Repository(
     "text-files",
     clone_from="<user>/text-files",
     use_auth_token=True,
