@@ -1,4 +1,4 @@
-import{S as it,i as dt,s as pt,e as s,k as f,w as $,t as p,M as mt,c as n,d as a,m as b,a as l,x as y,h as m,b as h,G as t,g,y as w,q as C,o as x,B as T,v as ut,L as Fe}from"../../chunks/vendor-316217a5.js";import{D as ct}from"../../chunks/Docstring-1fe4a33a.js";import{C as Ge}from"../../chunks/CodeBlock-8418a95e.js";import{I as Be}from"../../chunks/IconCopyLink-40460835.js";import{E as We}from"../../chunks/ExampleCodeBlock-32fc0037.js";function ht(j){let r,u;return r=new Ge({props:{code:`from datasets import load_metric
+import{S as it,i as dt,s as pt,e as s,k as f,w as $,t as p,M as mt,c as n,d as a,m as b,a as l,x as y,h as m,b as h,G as t,g,y as w,q as C,o as x,B as T,v as ut,L as Fe}from"../../chunks/vendor-hf-doc-builder.js";import{D as ct}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Ge}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Be}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as We}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function ht(j){let r,u;return r=new Ge({props:{code:`from datasets import load_metric
 
 rouge_metric = load_metric("rouge")
 

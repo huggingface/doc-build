@@ -1,4 +1,4 @@
-import{S as Gu,i as Bu,s as Ju,e as a,k as h,w as E,t as s,M as Wu,c as o,d as r,m,a as i,x as b,h as l,b as p,G as t,g as u,y as x,q as z,o as T,B as k,v as Xu,L as ii}from"../chunks/vendor-316217a5.js";import{I as re}from"../chunks/IconCopyLink-40460835.js";import{C as M}from"../chunks/CodeBlock-8418a95e.js";import{F as Hu,M as si}from"../chunks/Markdown-57fe20b0.js";function Ku(H){let f,w,c,v,q,$,O,j,I,F,A,S,P,C,N,L,R,y,g,G;return g=new M({props:{code:`python examples/pytorch/summarization/run_summarization.py \\
+import{S as Gu,i as Bu,s as Ju,e as a,k as h,w as E,t as s,M as Wu,c as o,d as r,m,a as i,x as b,h as l,b as p,G as t,g as u,y as x,q as z,o as T,B as k,v as Xu,L as ii}from"../chunks/vendor-hf-doc-builder.js";import{I as re}from"../chunks/IconCopyLink-hf-doc-builder.js";import{C as M}from"../chunks/CodeBlock-hf-doc-builder.js";import{F as Hu,M as si}from"../chunks/Markdown-hf-doc-builder.js";function Ku(H){let f,w,c,v,q,$,O,j,I,F,A,S,P,C,N,L,R,y,g,G;return g=new M({props:{code:`python examples/pytorch/summarization/run_summarization.py \\
     --model_name_or_path t5-small \\
     --do_train \\
     --do_eval \\

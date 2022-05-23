@@ -1,4 +1,4 @@
-import{S as Q,i as R,s as W,l as S,g as y,q as C,o as F,d as u,F as Y,e as v,t as D,k as $,c as b,a as k,h as V,m as j,b as h,G as m,H as z,I as B,J as M,K as X,j as O}from"../chunks/vendor-59dda1c4.js";import{b as P}from"../chunks/paths-4b3c6e7e.js";function T(n,t,r){const a=n.slice();return a[3]=t[r],a}function Z(n){let t,r,a,e,l,o,w,c,d,q,g,A,x,E=n[0],f=[];for(let s=0;s<E.length;s+=1)f[s]=U(T(n,E,s));const L=n[2].default,_=Y(L,n,n[1],null);return{c(){t=v("style"),r=D(`body,
+import{S as Q,i as R,s as W,l as S,g as y,q as C,o as F,d as u,F as Y,e as v,t as D,k as $,c as b,a as k,h as V,m as j,b as h,G as m,H as z,I as B,J as M,K as X,j as O}from"../chunks/vendor-hf-doc-builder.js";import{b as P}from"../chunks/paths-hf-doc-builder.js";function T(n,t,r){const a=n.slice();return a[3]=t[r],a}function Z(n){let t,r,a,e,l,o,w,c,d,q,g,A,x,E=n[0],f=[];for(let s=0;s<E.length;s+=1)f[s]=U(T(n,E,s));const L=n[2].default,_=Y(L,n,n[1],null);return{c(){t=v("style"),r=D(`body,
 		html {
 			padding: 0;
 			margin: 0;
