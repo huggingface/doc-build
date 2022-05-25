@@ -298,7 +298,7 @@ lower than this size. If expressed as a string, needs to be digits followed by a
 <p>If a single weight of the model is bigger than <code>max_shard_size</code>, it will be in its own checkpoint shard
 which will be bigger than <code>max_shard_size</code>.</p>
 
-					</div>`,name:"max_shard_size"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L2511",returnDescription:`
+					</div>`,name:"max_shard_size"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L2517",returnDescription:`
 <p>The url of the commit of your {object} in the given repository.</p>
 `,returnType:`
 <p><code>str</code></p>
@@ -390,6 +390,11 @@ same device.</p>
 <p>To have Accelerate compute the most optimized <code>device_map</code> automatically, set <code>device_map="auto"</code>.</p>
 </li>
 <li>
+<p><strong>max_memory</strong> (<code>Dict</code>, <em>optional</em>) \u2014
+A dictionary device identifier to maximum memory. Will default to the maximum memory available for each
+GPU and the available CPU RAM if unset.</p>
+</li>
+<li>
 <p><strong>offload_folder</strong> (<code>str</code> or <code>os.PathLike</code>, <em>optional</em>) \u2014
 If the <code>device_map</code> contains any value <code>"disk"</code>, the folder where we will offload weights.</p>
 </li>
@@ -429,14 +434,14 @@ will be passed to the underlying model\u2019s <code>__init__</code> function.</l
 Dictionary with keys being selected layer indices (<code>int</code>) and associated values being the list of heads
 to prune in said layer (list of <code>int</code>). For instance {1: [0, 2], 2: [2, 3]} will prune heads 0 and 2 on
 layer 1 and heads 2 and 3 on layer 2.`,name:"heads_to_prune"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L1434"}}),No=new P({props:{name:"register_for_auto_class",anchor:"transformers.PreTrainedModel.register_for_auto_class",parameters:[{name:"auto_class",val:" = 'AutoModel'"}],parametersDescription:[{anchor:"transformers.PreTrainedModel.register_for_auto_class.auto_class",description:`<strong>auto_class</strong> (<code>str</code> or <code>type</code>, <em>optional</em>, defaults to <code>&quot;AutoModel&quot;</code>) &#x2014;
-The auto class to register this new model with.`,name:"auto_class"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L2485"}}),bt=new td({props:{warning:!0,$$slots:{default:[W2]},$$scope:{ctx:D}}}),So=new P({props:{name:"resize_token_embeddings",anchor:"transformers.PreTrainedModel.resize_token_embeddings",parameters:[{name:"new_num_tokens",val:": typing.Optional[int] = None"}],parametersDescription:[{anchor:"transformers.PreTrainedModel.resize_token_embeddings.new_num_tokens",description:`<strong>new_num_tokens</strong> (<code>int</code>, <em>optional</em>) &#x2014;
+The auto class to register this new model with.`,name:"auto_class"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L2491"}}),bt=new td({props:{warning:!0,$$slots:{default:[W2]},$$scope:{ctx:D}}}),So=new P({props:{name:"resize_token_embeddings",anchor:"transformers.PreTrainedModel.resize_token_embeddings",parameters:[{name:"new_num_tokens",val:": typing.Optional[int] = None"}],parametersDescription:[{anchor:"transformers.PreTrainedModel.resize_token_embeddings.new_num_tokens",description:`<strong>new_num_tokens</strong> (<code>int</code>, <em>optional</em>) &#x2014;
 The number of new tokens in the embedding matrix. Increasing the size will add newly initialized
 vectors at the end. Reducing the size will remove vectors from the end. If not provided or <code>None</code>, just
 returns a pointer to the input tokens <code>torch.nn.Embedding</code> module of the model without doing anything.`,name:"new_num_tokens"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L1209",returnDescription:`
 <p>Pointer to the input tokens Embeddings Module of the model.</p>
 `,returnType:`
 <p><code>torch.nn.Embedding</code></p>
-`}}),Vo=new P({props:{name:"save_pretrained",anchor:"transformers.PreTrainedModel.save_pretrained",parameters:[{name:"save_directory",val:": typing.Union[str, os.PathLike]"},{name:"is_main_process",val:": bool = True"},{name:"state_dict",val:": typing.Optional[dict] = None"},{name:"save_function",val:": typing.Callable = <function save at 0x7f80f773f820>"},{name:"push_to_hub",val:": bool = False"},{name:"max_shard_size",val:": typing.Union[int, str] = '10GB'"},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.PreTrainedModel.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
+`}}),Vo=new P({props:{name:"save_pretrained",anchor:"transformers.PreTrainedModel.save_pretrained",parameters:[{name:"save_directory",val:": typing.Union[str, os.PathLike]"},{name:"is_main_process",val:": bool = True"},{name:"state_dict",val:": typing.Optional[dict] = None"},{name:"save_function",val:": typing.Callable = <function save at 0x7feaa0f63940>"},{name:"push_to_hub",val:": bool = False"},{name:"max_shard_size",val:": typing.Union[int, str] = '10GB'"},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.PreTrainedModel.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
 Directory to which to save. Will be created if it doesn&#x2019;t exist.`,name:"save_directory"},{anchor:"transformers.PreTrainedModel.save_pretrained.is_main_process",description:`<strong>is_main_process</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether the process calling this is the main process or not. Useful when in distributed training like
 TPUs and need to call this function on all processes. In this case, set <code>is_main_process=True</code> only on
@@ -542,7 +547,7 @@ Whether or not to count embedding and softmax operations.`,name:"exclude_embeddi
 <p>The number of floating-point operations.</p>
 `,returnType:`
 <p><code>int</code></p>
-`}}),hr=new P({props:{name:"get_extended_attention_mask",anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask",parameters:[{name:"attention_mask",val:": Tensor"},{name:"input_shape",val:": typing.Tuple[int]"},{name:"device",val:": <property object at 0x7f8084788220> = None"}],parametersDescription:[{anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.Tensor</code>) &#x2014;
+`}}),hr=new P({props:{name:"get_extended_attention_mask",anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask",parameters:[{name:"attention_mask",val:": Tensor"},{name:"input_shape",val:": typing.Tuple[int]"},{name:"device",val:": <property object at 0x7fea25f4e130> = None"}],parametersDescription:[{anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.Tensor</code>) &#x2014;
 Mask with ones indicating tokens to attend to, zeros for tokens to ignore.`,name:"attention_mask"},{anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask.input_shape",description:`<strong>input_shape</strong> (<code>Tuple[int]</code>) &#x2014;
 The shape of the input to the model.`,name:"input_shape"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L736",returnDescription:`
 <p><code>torch.Tensor</code> The extended attention mask, with a the same dtype as <code>attention_mask.dtype</code>.</p>
