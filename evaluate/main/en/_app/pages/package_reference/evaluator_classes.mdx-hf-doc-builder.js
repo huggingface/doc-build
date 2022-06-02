@@ -62,8 +62,8 @@ specifies the evaluation strategy. Possible values are:</p>
 <ul>
 <li><code>&quot;simple&quot;</code> - we evaluate the metric and return the scores.</li>
 <li><code>&quot;bootstrap&quot;</code> - on top of computing the metric scores, we calculate the confidence interval for each
-of the returned metric keys, using \`<code>scipy</code>&#x2019;s <code>bootstrap</code> method
-<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.bootstrap.html%60" rel="nofollow">https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.bootstrap.html\`</a>.</li>
+of the returned metric keys, using <code>scipy</code>&#x2019;s <code>bootstrap</code> method
+<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.bootstrap.html" rel="nofollow">https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.bootstrap.html</a>.</li>
 </ul>`,name:"metric"},{anchor:"evaluate.TextClassificationEvaluator.compute.confidence_level",description:`<strong>confidence_level</strong> (<code>float</code>, defaults to <code>0.95</code>) &#x2014;
 The <code>confidence_level</code> value passed to <code>bootstrap</code> if <code>&quot;bootstrap&quot;</code> strategy is chosen.`,name:"confidence_level"},{anchor:"evaluate.TextClassificationEvaluator.compute.n_resamples",description:`<strong>n_resamples</strong> (<code>int</code>, defaults to <code>9999</code>) &#x2014;
 The <code>n_resamples</code> value passed to <code>bootstrap</code> if <code>&quot;bootstrap&quot;</code> strategy is chosen.`,name:"n_resamples"},{anchor:"evaluate.TextClassificationEvaluator.compute.random_state",description:`<strong>random_state</strong> (<code>int</code>, <em>optional</em>, defaults to <code>None</code>) &#x2014;
