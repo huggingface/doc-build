@@ -27,7 +27,7 @@ config, unused_kwargs = AutoConfig.from_pretrained(
 )
 config.output_attentions
 
-config.unused_kwargs`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoConfig
+unused_kwargs`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoConfig
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Download configuration from huggingface.co and cache.</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>config = AutoConfig.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
@@ -52,7 +52,7 @@ config.unused_kwargs`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><
 <span class="hljs-meta">&gt;&gt;&gt; </span>config.output_attentions
 <span class="hljs-literal">True</span>
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>config.unused_kwargs
+<span class="hljs-meta">&gt;&gt;&gt; </span>unused_kwargs
 {<span class="hljs-string">&#x27;foo&#x27;</span>: <span class="hljs-literal">False</span>}`}}),{c(){g=a("p"),v=o("Examples:"),u=l(),F(f.$$.fragment)},l(d){g=n(d,"P",{});var h=s(g);v=r(h,"Examples:"),h.forEach(t),u=i(d),T(f.$$.fragment,d)},m(d,h){b(d,g,h),e(g,v),b(d,u,h),M(f,d,h),p=!0},p:I,i(d){p||(E(f.$$.fragment,d),p=!0)},o(d){C(f.$$.fragment,d),p=!1},d(d){d&&t(g),d&&t(u),w(f,d)}}}function iSt(L){let g,v,u,f,p;return f=new P({props:{code:`from transformers import AutoTokenizer
 
 # Download vocabulary from huggingface.co and cache.
