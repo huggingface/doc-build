@@ -1,10 +1,10 @@
-import{S as ta,i as aa,s as oa,e as s,k as p,w as x,t as r,M as sa,c as l,d as a,m as d,a as n,x as T,h as i,b as g,G as t,g as f,y as k,q,o as j,B as P,v as la,L as Zt}from"../../chunks/vendor-hf-doc-builder.js";import{D as Ee}from"../../chunks/Docstring-hf-doc-builder.js";import{C as ea}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Xt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Yt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function na(X){let m,E,v,u,_;return u=new ea({props:{code:`from evaluation import evaluator
+import{S as ta,i as aa,s as oa,e as s,k as p,w as x,t as r,M as sa,c as l,d as a,m as d,a as n,x as T,h as i,b as g,G as t,g as f,y as k,q,o as j,B as P,v as la,L as Zt}from"../../chunks/vendor-hf-doc-builder.js";import{D as Ee}from"../../chunks/Docstring-hf-doc-builder.js";import{C as ea}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Xt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Yt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function na(X){let m,E,v,u,_;return u=new ea({props:{code:`from evaluate import evaluator
 
 # Sentiment analysis evaluator
-evaluator("sentiment-analysis")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> evaluation <span class="hljs-keyword">import</span> evaluator
+evaluator("sentiment-analysis")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> evaluate <span class="hljs-keyword">import</span> evaluator
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Sentiment analysis evaluator</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>evaluator(<span class="hljs-string">&quot;sentiment-analysis&quot;</span>)`}}),{c(){m=s("p"),E=r("Examples:"),v=p(),x(u.$$.fragment)},l(o){m=l(o,"P",{});var h=n(m);E=i(h,"Examples:"),h.forEach(a),v=d(o),T(u.$$.fragment,o)},m(o,h){f(o,m,h),t(m,E),f(o,v,h),k(u,o,h),_=!0},p:Zt,i(o){_||(q(u.$$.fragment,o),_=!0)},o(o){j(u.$$.fragment,o),_=!1},d(o){o&&a(m),o&&a(v),P(u,o)}}}function ra(X){let m,E,v,u,_;return u=new ea({props:{code:`from evaluation import evaluator
+<span class="hljs-meta">&gt;&gt;&gt; </span>evaluator(<span class="hljs-string">&quot;sentiment-analysis&quot;</span>)`}}),{c(){m=s("p"),E=r("Examples:"),v=p(),x(u.$$.fragment)},l(o){m=l(o,"P",{});var h=n(m);E=i(h,"Examples:"),h.forEach(a),v=d(o),T(u.$$.fragment,o)},m(o,h){f(o,m,h),t(m,E),f(o,v,h),k(u,o,h),_=!0},p:Zt,i(o){_||(q(u.$$.fragment,o),_=!0)},o(o){j(u.$$.fragment,o),_=!1},d(o){o&&a(m),o&&a(v),P(u,o)}}}function ra(X){let m,E,v,u,_;return u=new ea({props:{code:`from evaluate import evaluator
 from datasets import Dataset, load_dataset
 
 e = evaluator("text-classification")
@@ -20,7 +20,7 @@ results = e.compute(
     strategy="bootstrap",
     n_resamples=10,
     random_state=0
-)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> evaluation <span class="hljs-keyword">import</span> evaluator
+)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> evaluate <span class="hljs-keyword">import</span> evaluator
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> Dataset, load_dataset
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>e = evaluator(<span class="hljs-string">&quot;text-classification&quot;</span>)
