@@ -222,7 +222,7 @@ Organization in which you want to push your config (you must be a member of this
 Whether or not the repository created should be private (requires a paying subscription).`,name:"private"},{anchor:"transformers.PretrainedConfig.push_to_hub.use_auth_token",description:`<strong>use_auth_token</strong> (<code>bool</code> or <code>str</code>, <em>optional</em>) &#x2014;
 The token to use as HTTP bearer authorization for remote files. If <code>True</code>, will use the token generated
 when running <code>transformers-cli login</code> (stored in <code>~/.huggingface</code>). Will default to <code>True</code> if
-<code>repo_url</code> is not specified.`,name:"use_auth_token"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/utils/hub.py#L846",returnDescription:`
+<code>repo_url</code> is not specified.`,name:"use_auth_token"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/utils/hub.py#L847",returnDescription:`
 <p>The url of the commit of your config in the given repository.</p>
 `,returnType:`
 <p><code>str</code></p>
