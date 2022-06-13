@@ -365,8 +365,8 @@ which case it will default to <code>[&quot;start_positions&quot;, &quot;end_posi
 Whether or not to load the best model found during training at the end of training.</p>
 <div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400">
 						
-<p>When set to <code>True</code>, the parameters <code>save_strategy</code> needs to be the same as <code>eval_strategy</code>, and in the case
-it is &#x201C;steps&#x201D;, <code>save_steps</code> must be a round multiple of <code>eval_steps</code>.</p>
+<p>When set to <code>True</code>, the parameters <code>save_strategy</code> needs to be the same as <code>evaluation_strategy</code>, and in
+the case it is &#x201C;steps&#x201D;, <code>save_steps</code> must be a round multiple of <code>eval_steps</code>.</p>
 
 					</div>`,name:"load_best_model_at_end"},{anchor:"transformers.TrainingArguments.metric_for_best_model",description:`<strong>metric_for_best_model</strong> (<code>str</code>, <em>optional</em>) &#x2014;
 Use in conjunction with <code>load_best_model_at_end</code> to specify the metric to use to compare two different
@@ -623,8 +623,8 @@ which case it will default to <code>[&quot;start_positions&quot;, &quot;end_posi
 Whether or not to load the best model found during training at the end of training.</p>
 <div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400">
 						
-<p>When set to <code>True</code>, the parameters <code>save_strategy</code> needs to be the same as <code>eval_strategy</code>, and in the case
-it is &#x201C;steps&#x201D;, <code>save_steps</code> must be a round multiple of <code>eval_steps</code>.</p>
+<p>When set to <code>True</code>, the parameters <code>save_strategy</code> needs to be the same as <code>evaluation_strategy</code>, and in
+the case it is &#x201C;steps&#x201D;, <code>save_steps</code> must be a round multiple of <code>eval_steps</code>.</p>
 
 					</div>`,name:"load_best_model_at_end"},{anchor:"transformers.Seq2SeqTrainingArguments.metric_for_best_model",description:`<strong>metric_for_best_model</strong> (<code>str</code>, <em>optional</em>) &#x2014;
 Use in conjunction with <code>load_best_model_at_end</code> to specify the metric to use to compare two different
