@@ -1,0 +1,653 @@
+import{S as ii,i as li,s as ci,e as o,k as h,w as j,t as c,M as gi,c as n,d as t,m as d,a as s,x as H,h as g,b as k,G as e,g as $,y as F,q as D,o as N,B as q,v as pi,L as Ue}from"../../chunks/vendor-hf-doc-builder.js";import{T as fe}from"../../chunks/Tip-hf-doc-builder.js";import{D as C}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Ae}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as yr}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Me}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function hi(R){let i,_,f,l,p,r,u,E,m,b,x,w,A,T,P,M;return{c(){i=o("p"),_=c("Raises the following errors:"),f=h(),l=o("ul"),p=o("li"),r=o("a"),u=c("RepositoryNotFoundError"),E=c(`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=o("code"),b=c("private"),x=c(" and you do not have access."),w=h(),A=o("li"),T=o("a"),P=c("RevisionNotFoundError"),M=c(`
+If the revision to download from cannot be found.`),this.h()},l(y){i=n(y,"P",{});var O=s(i);_=g(O,"Raises the following errors:"),O.forEach(t),f=d(y),l=n(y,"UL",{});var S=s(l);p=n(S,"LI",{});var U=s(p);r=n(U,"A",{href:!0});var V=s(r);u=g(V,"RepositoryNotFoundError"),V.forEach(t),E=g(U,`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=n(U,"CODE",{});var G=s(m);b=g(G,"private"),G.forEach(t),x=g(U," and you do not have access."),U.forEach(t),w=d(S),A=n(S,"LI",{});var z=s(A);T=n(z,"A",{href:!0});var W=s(T);P=g(W,"RevisionNotFoundError"),W.forEach(t),M=g(z,`
+If the revision to download from cannot be found.`),z.forEach(t),S.forEach(t),this.h()},h(){k(r,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RepositoryNotFoundError"),k(T,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RevisionNotFoundError")},m(y,O){$(y,i,O),e(i,_),$(y,f,O),$(y,l,O),e(l,p),e(p,r),e(r,u),e(p,E),e(p,m),e(m,b),e(p,x),e(l,w),e(l,A),e(A,T),e(T,P),e(A,M)},d(y){y&&t(i),y&&t(f),y&&t(l)}}}function di(R){let i,_,f,l,p,r,u,E,m,b,x,w,A,T,P,M,y,O,S,U,V,G,z,W,Z,J,se,ee,Q,X,Y,ue,me;return{c(){i=o("p"),_=c("Raises the following errors:"),f=h(),l=o("ul"),p=o("li"),r=o("a"),u=o("code"),E=c("HTTPError"),m=c(`
+if the HuggingFace API returned an error`),b=h(),x=o("li"),w=o("a"),A=o("code"),T=c("ValueError"),P=c(`
+if some parameter value is invalid`),M=h(),y=o("li"),O=o("a"),S=c("RepositoryNotFoundError"),U=c(`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),V=o("code"),G=c("private"),z=c(" and you do not have access."),W=h(),Z=o("li"),J=o("a"),se=c("RevisionNotFoundError"),ee=c(`
+If the revision to download from cannot be found.`),Q=h(),X=o("li"),Y=o("a"),ue=c("EntryNotFoundError"),me=c(`
+If the file to download cannot be found.`),this.h()},l(B){i=n(B,"P",{});var te=s(i);_=g(te,"Raises the following errors:"),te.forEach(t),f=d(B),l=n(B,"UL",{});var K=s(l);p=n(K,"LI",{});var xe=s(p);r=n(xe,"A",{href:!0,rel:!0});var ae=s(r);u=n(ae,"CODE",{});var Te=s(u);E=g(Te,"HTTPError"),Te.forEach(t),ae.forEach(t),m=g(xe,`
+if the HuggingFace API returned an error`),xe.forEach(t),b=d(K),x=n(K,"LI",{});var je=s(x);w=n(je,"A",{href:!0,rel:!0});var _e=s(w);A=n(_e,"CODE",{});var I=s(A);T=g(I,"ValueError"),I.forEach(t),_e.forEach(t),P=g(je,`
+if some parameter value is invalid`),je.forEach(t),M=d(K),y=n(K,"LI",{});var oe=s(y);O=n(oe,"A",{href:!0});var _a=s(O);S=g(_a,"RepositoryNotFoundError"),_a.forEach(t),U=g(oe,`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),V=n(oe,"CODE",{});var be=s(V);G=g(be,"private"),be.forEach(t),z=g(oe," and you do not have access."),oe.forEach(t),W=d(K),Z=n(K,"LI",{});var ve=s(Z);J=n(ve,"A",{href:!0});var ba=s(J);se=g(ba,"RevisionNotFoundError"),ba.forEach(t),ee=g(ve,`
+If the revision to download from cannot be found.`),ve.forEach(t),Q=d(K),X=n(K,"LI",{});var Le=s(X);Y=n(Le,"A",{href:!0});var va=s(Y);ue=g(va,"EntryNotFoundError"),va.forEach(t),me=g(Le,`
+If the file to download cannot be found.`),Le.forEach(t),K.forEach(t),this.h()},h(){k(r,"href","https://2.python-requests.org/en/master/api/#requests.HTTPError"),k(r,"rel","nofollow"),k(w,"href","https://docs.python.org/3/library/exceptions.html#ValueError"),k(w,"rel","nofollow"),k(O,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RepositoryNotFoundError"),k(J,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RevisionNotFoundError"),k(Y,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.EntryNotFoundError")},m(B,te){$(B,i,te),e(i,_),$(B,f,te),$(B,l,te),e(l,p),e(p,r),e(r,u),e(u,E),e(p,m),e(l,b),e(l,x),e(x,w),e(w,A),e(A,T),e(x,P),e(l,M),e(l,y),e(y,O),e(O,S),e(y,U),e(y,V),e(V,G),e(y,z),e(l,W),e(l,Z),e(Z,J),e(J,se),e(Z,ee),e(l,Q),e(l,X),e(X,Y),e(Y,ue),e(X,me)},d(B){B&&t(i),B&&t(f),B&&t(l)}}}function fi(R){let i,_,f,l,p,r,u,E,m,b,x;return{c(){i=o("p"),_=c("Raises the following errors:"),f=h(),l=o("ul"),p=o("li"),r=o("a"),u=c("RepositoryNotFoundError"),E=c(`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=o("code"),b=c("private"),x=c(" and you do not have access."),this.h()},l(w){i=n(w,"P",{});var A=s(i);_=g(A,"Raises the following errors:"),A.forEach(t),f=d(w),l=n(w,"UL",{});var T=s(l);p=n(T,"LI",{});var P=s(p);r=n(P,"A",{href:!0});var M=s(r);u=g(M,"RepositoryNotFoundError"),M.forEach(t),E=g(P,`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=n(P,"CODE",{});var y=s(m);b=g(y,"private"),y.forEach(t),x=g(P," and you do not have access."),P.forEach(t),T.forEach(t),this.h()},h(){k(r,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RepositoryNotFoundError")},m(w,A){$(w,i,A),e(i,_),$(w,f,A),$(w,l,A),e(l,p),e(p,r),e(r,u),e(p,E),e(p,m),e(m,b),e(p,x)},d(w){w&&t(i),w&&t(f),w&&t(l)}}}function ui(R){let i,_,f,l,p,r,u,E;return u=new Ae({props:{code:`from huggingface_hub import HfApi
+
+api = HfApi()
+
+# List all datasets
+api.list_datasets()
+
+# Get all valid search arguments
+args = DatasetSearchArguments()
+
+# List only the text classification datasets
+api.list_datasets(filter="task_categories:text-classification")
+# Using the \`DatasetFilter\`
+filt = DatasetFilter(task_categories="text-classification")
+# With \`DatasetSearchArguments\`
+filt = DatasetFilter(task=args.task_categories.text_classification)
+api.list_models(filter=filt)
+
+# List only the datasets in russian for language modeling
+api.list_datasets(
+    filter=("languages:ru", "task_ids:language-modeling")
+)
+# Using the \`DatasetFilter\`
+filt = DatasetFilter(languages="ru", task_ids="language-modeling")
+# With \`DatasetSearchArguments\`
+filt = DatasetFilter(
+    languages=args.languages.ru,
+    task_ids=args.task_ids.language_modeling,
+)
+api.list_datasets(filter=filt)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> HfApi
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>api = HfApi()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># List all datasets</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_datasets()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Get all valid search arguments</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>args = DatasetSearchArguments()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># List only the text classification datasets</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_datasets(<span class="hljs-built_in">filter</span>=<span class="hljs-string">&quot;task_categories:text-classification&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using the \`DatasetFilter\`</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>filt = DatasetFilter(task_categories=<span class="hljs-string">&quot;text-classification&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># With \`DatasetSearchArguments\`</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>filt = DatasetFilter(task=args.task_categories.text_classification)
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_models(<span class="hljs-built_in">filter</span>=filt)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># List only the datasets in russian for language modeling</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_datasets(
+<span class="hljs-meta">... </span>    <span class="hljs-built_in">filter</span>=(<span class="hljs-string">&quot;languages:ru&quot;</span>, <span class="hljs-string">&quot;task_ids:language-modeling&quot;</span>)
+<span class="hljs-meta">... </span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using the \`DatasetFilter\`</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>filt = DatasetFilter(languages=<span class="hljs-string">&quot;ru&quot;</span>, task_ids=<span class="hljs-string">&quot;language-modeling&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># With \`DatasetSearchArguments\`</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>filt = DatasetFilter(
+<span class="hljs-meta">... </span>    languages=args.languages.ru,
+<span class="hljs-meta">... </span>    task_ids=args.task_ids.language_modeling,
+<span class="hljs-meta">... </span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_datasets(<span class="hljs-built_in">filter</span>=filt)`}}),{c(){i=o("p"),_=c("Example usage with the "),f=o("code"),l=c("filter"),p=c(" argument:"),r=h(),j(u.$$.fragment)},l(m){i=n(m,"P",{});var b=s(i);_=g(b,"Example usage with the "),f=n(b,"CODE",{});var x=s(f);l=g(x,"filter"),x.forEach(t),p=g(b," argument:"),b.forEach(t),r=d(m),H(u.$$.fragment,m)},m(m,b){$(m,i,b),e(i,_),e(i,f),e(f,l),e(i,p),$(m,r,b),F(u,m,b),E=!0},p:Ue,i(m){E||(D(u.$$.fragment,m),E=!0)},o(m){N(u.$$.fragment,m),E=!1},d(m){m&&t(i),m&&t(r),q(u,m)}}}function mi(R){let i,_,f,l,p,r,u,E;return u=new Ae({props:{code:`from huggingface_hub import HfApi
+
+api = HfApi()
+
+# List all datasets with "text" in their name
+api.list_datasets(search="text")
+
+# List all datasets with "text" in their name made by google
+api.list_datasets(search="text", author="google")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> HfApi
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>api = HfApi()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># List all datasets with &quot;text&quot; in their name</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_datasets(search=<span class="hljs-string">&quot;text&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># List all datasets with &quot;text&quot; in their name made by google</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_datasets(search=<span class="hljs-string">&quot;text&quot;</span>, author=<span class="hljs-string">&quot;google&quot;</span>)`}}),{c(){i=o("p"),_=c("Example usage with the "),f=o("code"),l=c("search"),p=c(" argument:"),r=h(),j(u.$$.fragment)},l(m){i=n(m,"P",{});var b=s(i);_=g(b,"Example usage with the "),f=n(b,"CODE",{});var x=s(f);l=g(x,"search"),x.forEach(t),p=g(b," argument:"),b.forEach(t),r=d(m),H(u.$$.fragment,m)},m(m,b){$(m,i,b),e(i,_),e(i,f),e(f,l),e(i,p),$(m,r,b),F(u,m,b),E=!0},p:Ue,i(m){E||(D(u.$$.fragment,m),E=!0)},o(m){N(u.$$.fragment,m),E=!1},d(m){m&&t(i),m&&t(r),q(u,m)}}}function _i(R){let i,_,f,l,p,r,u,E;return u=new Ae({props:{code:`from huggingface_hub import HfApi
+
+api = HfApi()
+
+# List all models
+api.list_models()
+
+# Get all valid search arguments
+args = ModelSearchArguments()
+
+# List only the text classification models
+api.list_models(filter="text-classification")
+# Using the \`ModelFilter\`
+filt = ModelFilter(task="text-classification")
+# With \`ModelSearchArguments\`
+filt = ModelFilter(task=args.pipeline_tags.TextClassification)
+api.list_models(filter=filt)
+
+# Using \`ModelFilter\` and \`ModelSearchArguments\` to find text classification in both PyTorch and TensorFlow
+filt = ModelFilter(
+    task=args.pipeline_tags.TextClassification,
+    library=[args.library.PyTorch, args.library.TensorFlow],
+)
+api.list_models(filter=filt)
+
+# List only models from the AllenNLP library
+api.list_models(filter="allennlp")
+# Using \`ModelFilter\` and \`ModelSearchArguments\`
+filt = ModelFilter(library=args.library.allennlp)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> HfApi
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>api = HfApi()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># List all models</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_models()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Get all valid search arguments</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>args = ModelSearchArguments()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># List only the text classification models</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_models(<span class="hljs-built_in">filter</span>=<span class="hljs-string">&quot;text-classification&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using the \`ModelFilter\`</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>filt = ModelFilter(task=<span class="hljs-string">&quot;text-classification&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># With \`ModelSearchArguments\`</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>filt = ModelFilter(task=args.pipeline_tags.TextClassification)
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_models(<span class="hljs-built_in">filter</span>=filt)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using \`ModelFilter\` and \`ModelSearchArguments\` to find text classification in both PyTorch and TensorFlow</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>filt = ModelFilter(
+<span class="hljs-meta">... </span>    task=args.pipeline_tags.TextClassification,
+<span class="hljs-meta">... </span>    library=[args.library.PyTorch, args.library.TensorFlow],
+<span class="hljs-meta">... </span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_models(<span class="hljs-built_in">filter</span>=filt)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># List only models from the AllenNLP library</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_models(<span class="hljs-built_in">filter</span>=<span class="hljs-string">&quot;allennlp&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using \`ModelFilter\` and \`ModelSearchArguments\`</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>filt = ModelFilter(library=args.library.allennlp)`}}),{c(){i=o("p"),_=c("Example usage with the "),f=o("code"),l=c("filter"),p=c(" argument:"),r=h(),j(u.$$.fragment)},l(m){i=n(m,"P",{});var b=s(i);_=g(b,"Example usage with the "),f=n(b,"CODE",{});var x=s(f);l=g(x,"filter"),x.forEach(t),p=g(b," argument:"),b.forEach(t),r=d(m),H(u.$$.fragment,m)},m(m,b){$(m,i,b),e(i,_),e(i,f),e(f,l),e(i,p),$(m,r,b),F(u,m,b),E=!0},p:Ue,i(m){E||(D(u.$$.fragment,m),E=!0)},o(m){N(u.$$.fragment,m),E=!1},d(m){m&&t(i),m&&t(r),q(u,m)}}}function bi(R){let i,_,f,l,p,r,u,E;return u=new Ae({props:{code:`from huggingface_hub import HfApi
+
+api = HfApi()
+
+# List all models with "bert" in their name
+api.list_models(search="bert")
+
+# List all models with "bert" in their name made by google
+api.list_models(search="bert", author="google")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> HfApi
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>api = HfApi()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># List all models with &quot;bert&quot; in their name</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_models(search=<span class="hljs-string">&quot;bert&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># List all models with &quot;bert&quot; in their name made by google</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.list_models(search=<span class="hljs-string">&quot;bert&quot;</span>, author=<span class="hljs-string">&quot;google&quot;</span>)`}}),{c(){i=o("p"),_=c("Example usage with the "),f=o("code"),l=c("search"),p=c(" argument:"),r=h(),j(u.$$.fragment)},l(m){i=n(m,"P",{});var b=s(i);_=g(b,"Example usage with the "),f=n(b,"CODE",{});var x=s(f);l=g(x,"search"),x.forEach(t),p=g(b," argument:"),b.forEach(t),r=d(m),H(u.$$.fragment,m)},m(m,b){$(m,i,b),e(i,_),e(i,f),e(f,l),e(i,p),$(m,r,b),F(u,m,b),E=!0},p:Ue,i(m){E||(D(u.$$.fragment,m),E=!0)},o(m){N(u.$$.fragment,m),E=!1},d(m){m&&t(i),m&&t(r),q(u,m)}}}function vi(R){let i,_,f,l,p;return{c(){i=o("p"),_=c(`Warning: Deprecated, will be removed in v0.8. Please use
+`),f=o("a"),l=c("HfApi.set_access_token()"),p=c(" instead."),this.h()},l(r){i=n(r,"P",{});var u=s(i);_=g(u,`Warning: Deprecated, will be removed in v0.8. Please use
+`),f=n(u,"A",{href:!0});var E=s(f);l=g(E,"HfApi.set_access_token()"),E.forEach(t),p=g(u," instead."),u.forEach(t),this.h()},h(){k(f,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/hf_api#huggingface_hub.HfApi.set_access_token")},m(r,u){$(r,i,u),e(i,_),e(i,f),e(f,l),e(i,p)},d(r){r&&t(i)}}}function $i(R){let i,_,f,l,p,r,u,E,m;return{c(){i=o("p"),_=c("Raises the following errors:"),f=h(),l=o("ul"),p=o("li"),r=o("a"),u=o("code"),E=c("HTTPError"),m=c(`
+if credentials are invalid`),this.h()},l(b){i=n(b,"P",{});var x=s(i);_=g(x,"Raises the following errors:"),x.forEach(t),f=d(b),l=n(b,"UL",{});var w=s(l);p=n(w,"LI",{});var A=s(p);r=n(A,"A",{href:!0,rel:!0});var T=s(r);u=n(T,"CODE",{});var P=s(u);E=g(P,"HTTPError"),P.forEach(t),T.forEach(t),m=g(A,`
+if credentials are invalid`),A.forEach(t),w.forEach(t),this.h()},h(){k(r,"href","https://2.python-requests.org/en/master/api/#requests.HTTPError"),k(r,"rel","nofollow")},m(b,x){$(b,i,x),e(i,_),$(b,f,x),$(b,l,x),e(l,p),e(p,r),e(r,u),e(u,E),e(p,m)},d(b){b&&t(i),b&&t(f),b&&t(l)}}}function yi(R){let i,_,f,l,p;return{c(){i=o("p"),_=c(`Warning: Deprecated, will be removed in v0.8. Please use
+`),f=o("a"),l=c("HfApi.unset_access_token()"),p=c(" instead."),this.h()},l(r){i=n(r,"P",{});var u=s(i);_=g(u,`Warning: Deprecated, will be removed in v0.8. Please use
+`),f=n(u,"A",{href:!0});var E=s(f);l=g(E,"HfApi.unset_access_token()"),E.forEach(t),p=g(u," instead."),u.forEach(t),this.h()},h(){k(f,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/hf_api#huggingface_hub.HfApi.unset_access_token")},m(r,u){$(r,i,u),e(i,_),e(i,f),e(f,l),e(i,p)},d(r){r&&t(i)}}}function ki(R){let i,_,f,l,p,r,u,E,m,b,x,w,A,T,P,M;return{c(){i=o("p"),_=c("Raises the following errors:"),f=h(),l=o("ul"),p=o("li"),r=o("a"),u=c("RepositoryNotFoundError"),E=c(`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=o("code"),b=c("private"),x=c(" and you do not have access."),w=h(),A=o("li"),T=o("a"),P=c("RevisionNotFoundError"),M=c(`
+If the revision to download from cannot be found.`),this.h()},l(y){i=n(y,"P",{});var O=s(i);_=g(O,"Raises the following errors:"),O.forEach(t),f=d(y),l=n(y,"UL",{});var S=s(l);p=n(S,"LI",{});var U=s(p);r=n(U,"A",{href:!0});var V=s(r);u=g(V,"RepositoryNotFoundError"),V.forEach(t),E=g(U,`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=n(U,"CODE",{});var G=s(m);b=g(G,"private"),G.forEach(t),x=g(U," and you do not have access."),U.forEach(t),w=d(S),A=n(S,"LI",{});var z=s(A);T=n(z,"A",{href:!0});var W=s(T);P=g(W,"RevisionNotFoundError"),W.forEach(t),M=g(z,`
+If the revision to download from cannot be found.`),z.forEach(t),S.forEach(t),this.h()},h(){k(r,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RepositoryNotFoundError"),k(T,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RevisionNotFoundError")},m(y,O){$(y,i,O),e(i,_),$(y,f,O),$(y,l,O),e(l,p),e(p,r),e(r,u),e(p,E),e(p,m),e(m,b),e(p,x),e(l,w),e(l,A),e(A,T),e(T,P),e(A,M)},d(y){y&&t(i),y&&t(f),y&&t(l)}}}function wi(R){let i,_,f,l,p,r,u,E,m,b,x;return{c(){i=o("p"),_=c("Raises the following errors:"),f=h(),l=o("ul"),p=o("li"),r=o("a"),u=c("RepositoryNotFoundError"),E=c(`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=o("code"),b=c("private"),x=c(" and you do not have access."),this.h()},l(w){i=n(w,"P",{});var A=s(i);_=g(A,"Raises the following errors:"),A.forEach(t),f=d(w),l=n(w,"UL",{});var T=s(l);p=n(T,"LI",{});var P=s(p);r=n(P,"A",{href:!0});var M=s(r);u=g(M,"RepositoryNotFoundError"),M.forEach(t),E=g(P,`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=n(P,"CODE",{});var y=s(m);b=g(y,"private"),y.forEach(t),x=g(P," and you do not have access."),P.forEach(t),T.forEach(t),this.h()},h(){k(r,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RepositoryNotFoundError")},m(w,A){$(w,i,A),e(i,_),$(w,f,A),$(w,l,A),e(l,p),e(p,r),e(r,u),e(p,E),e(p,m),e(m,b),e(p,x)},d(w){w&&t(i),w&&t(f),w&&t(l)}}}function Ei(R){let i,_,f,l,p,r,u,E,m,b,x,w,A,T,P,M;return{c(){i=o("p"),_=c("Raises the following errors:"),f=h(),l=o("ul"),p=o("li"),r=o("a"),u=c("RepositoryNotFoundError"),E=c(`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=o("code"),b=c("private"),x=c(" and you do not have access."),w=h(),A=o("li"),T=o("a"),P=c("RevisionNotFoundError"),M=c(`
+If the revision to download from cannot be found.`),this.h()},l(y){i=n(y,"P",{});var O=s(i);_=g(O,"Raises the following errors:"),O.forEach(t),f=d(y),l=n(y,"UL",{});var S=s(l);p=n(S,"LI",{});var U=s(p);r=n(U,"A",{href:!0});var V=s(r);u=g(V,"RepositoryNotFoundError"),V.forEach(t),E=g(U,`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=n(U,"CODE",{});var G=s(m);b=g(G,"private"),G.forEach(t),x=g(U," and you do not have access."),U.forEach(t),w=d(S),A=n(S,"LI",{});var z=s(A);T=n(z,"A",{href:!0});var W=s(T);P=g(W,"RevisionNotFoundError"),W.forEach(t),M=g(z,`
+If the revision to download from cannot be found.`),z.forEach(t),S.forEach(t),this.h()},h(){k(r,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RepositoryNotFoundError"),k(T,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RevisionNotFoundError")},m(y,O){$(y,i,O),e(i,_),$(y,f,O),$(y,l,O),e(l,p),e(p,r),e(r,u),e(p,E),e(p,m),e(m,b),e(p,x),e(l,w),e(l,A),e(A,T),e(T,P),e(A,M)},d(y){y&&t(i),y&&t(f),y&&t(l)}}}function Ai(R){let i,_,f,l,p,r,u,E,m,b,x,w,A,T,P,M;return{c(){i=o("p"),_=c("Raises the following errors:"),f=h(),l=o("ul"),p=o("li"),r=o("a"),u=c("RepositoryNotFoundError"),E=c(`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=o("code"),b=c("private"),x=c(" and you do not have access."),w=h(),A=o("li"),T=o("a"),P=c("RevisionNotFoundError"),M=c(`
+If the revision to download from cannot be found.`),this.h()},l(y){i=n(y,"P",{});var O=s(i);_=g(O,"Raises the following errors:"),O.forEach(t),f=d(y),l=n(y,"UL",{});var S=s(l);p=n(S,"LI",{});var U=s(p);r=n(U,"A",{href:!0});var V=s(r);u=g(V,"RepositoryNotFoundError"),V.forEach(t),E=g(U,`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=n(U,"CODE",{});var G=s(m);b=g(G,"private"),G.forEach(t),x=g(U," and you do not have access."),U.forEach(t),w=d(S),A=n(S,"LI",{});var z=s(A);T=n(z,"A",{href:!0});var W=s(T);P=g(W,"RevisionNotFoundError"),W.forEach(t),M=g(z,`
+If the revision to download from cannot be found.`),z.forEach(t),S.forEach(t),this.h()},h(){k(r,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RepositoryNotFoundError"),k(T,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RevisionNotFoundError")},m(y,O){$(y,i,O),e(i,_),$(y,f,O),$(y,l,O),e(l,p),e(p,r),e(r,u),e(p,E),e(p,m),e(m,b),e(p,x),e(l,w),e(l,A),e(A,T),e(T,P),e(A,M)},d(y){y&&t(i),y&&t(f),y&&t(l)}}}function xi(R){let i,_,f,l,p,r,u,E,m,b,x;return{c(){i=o("p"),_=c("Raises the following errors:"),f=h(),l=o("ul"),p=o("li"),r=o("a"),u=c("RepositoryNotFoundError"),E=c(`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=o("code"),b=c("private"),x=c(" and you do not have access."),this.h()},l(w){i=n(w,"P",{});var A=s(i);_=g(A,"Raises the following errors:"),A.forEach(t),f=d(w),l=n(w,"UL",{});var T=s(l);p=n(T,"LI",{});var P=s(p);r=n(P,"A",{href:!0});var M=s(r);u=g(M,"RepositoryNotFoundError"),M.forEach(t),E=g(P,`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),m=n(P,"CODE",{});var y=s(m);b=g(y,"private"),y.forEach(t),x=g(P," and you do not have access."),P.forEach(t),T.forEach(t),this.h()},h(){k(r,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RepositoryNotFoundError")},m(w,A){$(w,i,A),e(i,_),$(w,f,A),$(w,l,A),e(l,p),e(p,r),e(r,u),e(p,E),e(p,m),e(m,b),e(p,x)},d(w){w&&t(i),w&&t(f),w&&t(l)}}}function ji(R){let i,_,f,l,p,r,u,E,m,b,x,w,A,T,P,M,y,O,S,U,V,G,z,W,Z,J,se,ee;return{c(){i=o("p"),_=c("Raises the following errors:"),f=h(),l=o("ul"),p=o("li"),r=o("a"),u=o("code"),E=c("HTTPError"),m=c(`
+if the HuggingFace API returned an error`),b=h(),x=o("li"),w=o("a"),A=o("code"),T=c("ValueError"),P=c(`
+if some parameter value is invalid`),M=h(),y=o("li"),O=o("a"),S=c("RepositoryNotFoundError"),U=c(`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),V=o("code"),G=c("private"),z=c(" and you do not have access."),W=h(),Z=o("li"),J=o("a"),se=c("RevisionNotFoundError"),ee=c(`
+If the revision to download from cannot be found.`),this.h()},l(Q){i=n(Q,"P",{});var X=s(i);_=g(X,"Raises the following errors:"),X.forEach(t),f=d(Q),l=n(Q,"UL",{});var Y=s(l);p=n(Y,"LI",{});var ue=s(p);r=n(ue,"A",{href:!0,rel:!0});var me=s(r);u=n(me,"CODE",{});var B=s(u);E=g(B,"HTTPError"),B.forEach(t),me.forEach(t),m=g(ue,`
+if the HuggingFace API returned an error`),ue.forEach(t),b=d(Y),x=n(Y,"LI",{});var te=s(x);w=n(te,"A",{href:!0,rel:!0});var K=s(w);A=n(K,"CODE",{});var xe=s(A);T=g(xe,"ValueError"),xe.forEach(t),K.forEach(t),P=g(te,`
+if some parameter value is invalid`),te.forEach(t),M=d(Y),y=n(Y,"LI",{});var ae=s(y);O=n(ae,"A",{href:!0});var Te=s(O);S=g(Te,"RepositoryNotFoundError"),Te.forEach(t),U=g(ae,`
+If the repository to download from cannot be found. This may be because it doesn\u2019t exist,
+or because it is set to `),V=n(ae,"CODE",{});var je=s(V);G=g(je,"private"),je.forEach(t),z=g(ae," and you do not have access."),ae.forEach(t),W=d(Y),Z=n(Y,"LI",{});var _e=s(Z);J=n(_e,"A",{href:!0});var I=s(J);se=g(I,"RevisionNotFoundError"),I.forEach(t),ee=g(_e,`
+If the revision to download from cannot be found.`),_e.forEach(t),Y.forEach(t),this.h()},h(){k(r,"href","https://2.python-requests.org/en/master/api/#requests.HTTPError"),k(r,"rel","nofollow"),k(w,"href","https://docs.python.org/3/library/exceptions.html#ValueError"),k(w,"rel","nofollow"),k(O,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RepositoryNotFoundError"),k(J,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/utilities#huggingface_hub.utils.RevisionNotFoundError")},m(Q,X){$(Q,i,X),e(i,_),$(Q,f,X),$(Q,l,X),e(l,p),e(p,r),e(r,u),e(u,E),e(p,m),e(l,b),e(l,x),e(x,w),e(w,A),e(A,T),e(x,P),e(l,M),e(l,y),e(y,O),e(O,S),e(y,U),e(y,V),e(V,G),e(y,z),e(l,W),e(l,Z),e(Z,J),e(J,se),e(Z,ee)},d(Q){Q&&t(i),Q&&t(f),Q&&t(l)}}}function Hi(R){let i,_,f,l,p;return l=new Ae({props:{code:`with open("./local/filepath", "rb") as fobj:
+    upload_file(
+        path_or_fileobj=fileobj,
+        path_in_repo="remote/file/path.h5",
+        repo_id="username/my-dataset",
+        repo_type="datasets",
+        token="my_token",
+    )
+
+upload_file(
+    path_or_fileobj=".\\\\local\\\\file\\\\path",
+    path_in_repo="remote/file/path.h5",
+    repo_id="username/my-model",
+    token="my_token",
+)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;./local/filepath&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> fobj:
+<span class="hljs-meta">... </span>    upload_file(
+<span class="hljs-meta">... </span>        path_or_fileobj=fileobj,
+<span class="hljs-meta">... </span>        path_in_repo=<span class="hljs-string">&quot;remote/file/path.h5&quot;</span>,
+<span class="hljs-meta">... </span>        repo_id=<span class="hljs-string">&quot;username/my-dataset&quot;</span>,
+<span class="hljs-meta">... </span>        repo_type=<span class="hljs-string">&quot;datasets&quot;</span>,
+<span class="hljs-meta">... </span>        token=<span class="hljs-string">&quot;my_token&quot;</span>,
+<span class="hljs-meta">... </span>    )
+<span class="hljs-string">&quot;https://huggingface.co/datasets/username/my-dataset/blob/main/remote/file/path.h5&quot;</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>upload_file(
+<span class="hljs-meta">... </span>    path_or_fileobj=<span class="hljs-string">&quot;.\\\\local\\\\file\\\\path&quot;</span>,
+<span class="hljs-meta">... </span>    path_in_repo=<span class="hljs-string">&quot;remote/file/path.h5&quot;</span>,
+<span class="hljs-meta">... </span>    repo_id=<span class="hljs-string">&quot;username/my-model&quot;</span>,
+<span class="hljs-meta">... </span>    token=<span class="hljs-string">&quot;my_token&quot;</span>,
+<span class="hljs-meta">... </span>)
+<span class="hljs-string">&quot;https://huggingface.co/username/my-model/blob/main/remote/file/path.h5&quot;</span>`}}),{c(){i=o("p"),_=c("Example usage:"),f=h(),j(l.$$.fragment)},l(r){i=n(r,"P",{});var u=s(i);_=g(u,"Example usage:"),u.forEach(t),f=d(r),H(l.$$.fragment,r)},m(r,u){$(r,i,u),e(i,_),$(r,f,u),F(l,r,u),p=!0},p:Ue,i(r){p||(D(l.$$.fragment,r),p=!0)},o(r){N(l.$$.fragment,r),p=!1},d(r){r&&t(i),r&&t(f),q(l,r)}}}function Fi(R){let i,_,f,l,p;return l=new Ae({props:{code:`from huggingface_hub import DatasetFilter
+
+# Using author
+new_filter = DatasetFilter(author="facebook")
+
+# Using benchmark
+new_filter = DatasetFilter(benchmark="raft")
+
+# Using dataset_name
+new_filter = DatasetFilter(dataset_name="wikineural")
+
+# Using language_creator
+new_filter = DatasetFilter(language_creator="crowdsourced")
+
+# Using language
+new_filter = DatasetFilter(language="en")
+
+# Using multilinguality
+new_filter = DatasetFilter(multilinguality="yes")
+
+# Using size_categories
+new_filter = DatasetFilter(size_categories="100K<n<1M")
+
+# Using task_categories
+new_filter = DatasetFilter(task_categories="audio_classification")
+
+# Using task_ids
+new_filter = DatasetFilter(task_ids="paraphrase")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> DatasetFilter
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using author</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(author=<span class="hljs-string">&quot;facebook&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using benchmark</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(benchmark=<span class="hljs-string">&quot;raft&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using dataset_name</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(dataset_name=<span class="hljs-string">&quot;wikineural&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using language_creator</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(language_creator=<span class="hljs-string">&quot;crowdsourced&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using language</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(language=<span class="hljs-string">&quot;en&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using multilinguality</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(multilinguality=<span class="hljs-string">&quot;yes&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using size_categories</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(size_categories=<span class="hljs-string">&quot;100K&lt;n&lt;1M&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using task_categories</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(task_categories=<span class="hljs-string">&quot;audio_classification&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using task_ids</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(task_ids=<span class="hljs-string">&quot;paraphrase&quot;</span>)`}}),{c(){i=o("p"),_=c("Examples:"),f=h(),j(l.$$.fragment)},l(r){i=n(r,"P",{});var u=s(i);_=g(u,"Examples:"),u.forEach(t),f=d(r),H(l.$$.fragment,r)},m(r,u){$(r,i,u),e(i,_),$(r,f,u),F(l,r,u),p=!0},p:Ue,i(r){p||(D(l.$$.fragment,r),p=!0)},o(r){N(l.$$.fragment,r),p=!1},d(r){r&&t(i),r&&t(f),q(l,r)}}}function Di(R){let i,_;return i=new Ae({props:{code:`from huggingface_hub import ModelFilter
+
+# For the author_or_organization
+new_filter = ModelFilter(author_or_organization="facebook")
+
+# For the library
+new_filter = ModelFilter(library="pytorch")
+
+# For the language
+new_filter = ModelFilter(language="french")
+
+# For the model_name
+new_filter = ModelFilter(model_name="bert")
+
+# For the task
+new_filter = ModelFilter(task="text-classification")
+
+# Retrieving tags using the \`HfApi.get_model_tags\` method
+from huggingface_hub import HfApi
+
+api = HfApi()
+
+api.get_model_tags()
+
+api.get_dataset_tags()
+new_filter = ModelFilter(tags="benchmark:raft")
+
+# Related to the dataset
+new_filter = ModelFilter(trained_dataset="common_voice")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> ModelFilter
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># For the author_or_organization</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = ModelFilter(author_or_organization=<span class="hljs-string">&quot;facebook&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># For the library</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = ModelFilter(library=<span class="hljs-string">&quot;pytorch&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># For the language</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = ModelFilter(language=<span class="hljs-string">&quot;french&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># For the model_name</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = ModelFilter(model_name=<span class="hljs-string">&quot;bert&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># For the task</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = ModelFilter(task=<span class="hljs-string">&quot;text-classification&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Retrieving tags using the \`HfApi.get_model_tags\` method</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> HfApi
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>api = HfApi()
+<span class="hljs-comment"># To list model tags</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.get_model_tags()
+<span class="hljs-comment"># To list dataset tags</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>api.get_dataset_tags()
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = ModelFilter(tags=<span class="hljs-string">&quot;benchmark:raft&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Related to the dataset</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = ModelFilter(trained_dataset=<span class="hljs-string">&quot;common_voice&quot;</span>)`}}),{c(){j(i.$$.fragment)},l(f){H(i.$$.fragment,f)},m(f,l){F(i,f,l),_=!0},p:Ue,i(f){_||(D(i.$$.fragment,f),_=!0)},o(f){N(i.$$.fragment,f),_=!1},d(f){q(i,f)}}}function Ni(R){let i,_,f,l,p;return l=new Ae({props:{code:`args = DatasetSearchArguments()
+args.author_or_organization.huggingface
+args.language.en`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>args = DatasetSearchArguments()
+<span class="hljs-meta">&gt;&gt;&gt; </span>args.author_or_organization.huggingface
+<span class="hljs-meta">&gt;&gt;&gt; </span>args.language.en`}}),{c(){i=o("p"),_=c("Example:"),f=h(),j(l.$$.fragment)},l(r){i=n(r,"P",{});var u=s(i);_=g(u,"Example:"),u.forEach(t),f=d(r),H(l.$$.fragment,r)},m(r,u){$(r,i,u),e(i,_),$(r,f,u),F(l,r,u),p=!0},p:Ue,i(r){p||(D(l.$$.fragment,r),p=!0)},o(r){N(l.$$.fragment,r),p=!1},d(r){r&&t(i),r&&t(f),q(l,r)}}}function qi(R){let i,_,f,l,p;return l=new Ae({props:{code:`args = ModelSearchArguments()
+args.author_or_organization.huggingface
+args.language.en`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>args = ModelSearchArguments()
+<span class="hljs-meta">&gt;&gt;&gt; </span>args.author_or_organization.huggingface
+<span class="hljs-meta">&gt;&gt;&gt; </span>args.language.en`}}),{c(){i=o("p"),_=c("Example:"),f=h(),j(l.$$.fragment)},l(r){i=n(r,"P",{});var u=s(i);_=g(u,"Example:"),u.forEach(t),f=d(r),H(l.$$.fragment,r)},m(r,u){$(r,i,u),e(i,_),$(r,f,u),F(l,r,u),p=!0},p:Ue,i(r){p||(D(l.$$.fragment,r),p=!0)},o(r){N(l.$$.fragment,r),p=!1},d(r){r&&t(i),r&&t(f),q(l,r)}}}function Ii(R){let i,_,f,l,p,r,u,E,m,b,x,w,A,T,P,M,y,O,S,U,V,G,z,W,Z,J,se,ee,Q,X,Y,ue,me,B,te,K,xe,ae,Te,je,_e,I,oe,_a,be,ve,ba,Le,va,en,re,Dt,tn,Da,an,on,Na,nn,sn,Se,rn,He,Nt,ln,qa,cn,gn,Ce,pn,Fe,qt,hn,Ia,dn,fn,ze,un,Ve,It,mn,Ta,_n,bn,Ge,Tt,vn,La,$n,yn,We,Lt,kn,Pa,wn,En,ie,Pt,An,Oa,xn,jn,Be,Hn,Ke,Fn,Je,Ot,Dn,Ra,Nn,qn,le,Rt,In,Ma,Tn,Ln,Qe,Pn,Xe,On,Ye,Mt,Rn,Ua,Mn,Un,ce,Ut,Sn,Sa,Cn,zn,Ze,Vn,et,Gn,De,St,Wn,Ca,Bn,Kn,tt,Jn,ge,Ct,Qn,za,Xn,Yn,Va,Zn,es,at,ts,pe,zt,as,Ga,os,ns,Vt,ss,Gt,rs,is,ls,ot,cs,Ne,Wt,gs,Wa,ps,hs,nt,ds,st,Bt,fs,Ba,us,ms,he,Kt,_s,Ka,bs,vs,Ja,$s,ys,rt,ks,it,Jt,ws,Qa,Es,As,qe,Qt,xs,Xa,js,Hs,lt,Fs,de,Xt,Ds,Ya,Ns,qs,ct,Is,gt,Ts,pt,Yt,Ls,Za,Ps,jo,Pe,ht,eo,Zt,Os,to,Rs,Ho,ea,ao,Ms,Us,Fo,dt,Ss,$a,Cs,zs,Do,ne,ta,Vs,ft,aa,Gs,oo,Ws,Bs,Ie,oa,Ks,no,Js,Qs,na,Xs,so,Ys,Zs,er,ut,sa,tr,ro,ar,No,Oe,mt,io,ra,or,lo,nr,qo,_t,sr,co,rr,ir,Io,$e,ia,lr,go,cr,gr,bt,To,ye,la,pr,po,hr,dr,vt,Lo,ke,ca,fr,ho,ur,mr,$t,Po,we,ga,_r,fo,br,vr,yt,Oo;return r=new yr({}),J=new Ae({props:{code:`from huggingface_hub import list_models
+
+models = list_models()`,highlighted:`<span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> list_models
+
+models = list_models()`}}),B=new Ae({props:{code:`from huggingface_hub import HfApi
+
+hf_api = HfApi()
+models = hf_api.list_models()`,highlighted:`<span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> HfApi
+
+hf_api = HfApi()
+models = hf_api.list_models()`}}),oe=new C({props:{name:"class huggingface_hub.HfApi",anchor:"huggingface_hub.HfApi",parameters:[{name:"endpoint",val:" = None"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L554"}}),ve=new C({props:{name:"create_repo",anchor:"huggingface_hub.HfApi.create_repo",parameters:[{name:"repo_id",val:": str = None"},{name:"token",val:": typing.Optional[str] = None"},{name:"organization",val:": typing.Optional[str] = None"},{name:"private",val:": typing.Optional[bool] = None"},{name:"repo_type",val:": typing.Optional[str] = None"},{name:"exist_ok",val:": typing.Optional[bool] = False"},{name:"space_sdk",val:": typing.Optional[str] = None"},{name:"name",val:": typing.Optional[str] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.create_repo.repo_id",description:`<strong>repo_id</strong> (<code>str</code>) &#x2014;
+A namespace (user or an organization) and a repo name separated
+by a <code>/</code>.</p>
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400">
+						
+<p>Version added: 0.5</p>
+
+					</div>`,name:"repo_id"},{anchor:"huggingface_hub.HfApi.create_repo.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+An authentication token (See <a href="https://huggingface.co/settings/token" rel="nofollow">https://huggingface.co/settings/token</a>)`,name:"token"},{anchor:"huggingface_hub.HfApi.create_repo.private",description:`<strong>private</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether the model repo should be private.`,name:"private"},{anchor:"huggingface_hub.HfApi.create_repo.repo_type",description:`<strong>repo_type</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+Set to <code>&quot;dataset&quot;</code> or <code>&quot;space&quot;</code> if uploading to a dataset or
+space, <code>None</code> or <code>&quot;model&quot;</code> if uploading to a model. Default is
+<code>None</code>.`,name:"repo_type"},{anchor:"huggingface_hub.HfApi.create_repo.exist_ok",description:`<strong>exist_ok</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+If <code>True</code>, do not raise an error if repo already exists.`,name:"exist_ok"},{anchor:"huggingface_hub.HfApi.create_repo.space_sdk",description:`<strong>space_sdk</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+Choice of SDK to use if repo_type is &#x201C;space&#x201D;. Can be
+&#x201C;streamlit&#x201D;, &#x201C;gradio&#x201D;, or &#x201C;static&#x201D;.`,name:"space_sdk"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L1421",returnDescription:`
+<p>URL to the newly created repo.</p>
+`,returnType:`
+<p><code>str</code></p>
+`}}),Dt=new C({props:{name:"dataset_info",anchor:"huggingface_hub.HfApi.dataset_info",parameters:[{name:"repo_id",val:": str"},{name:"revision",val:": typing.Optional[str] = None"},{name:"token",val:": typing.Optional[str] = None"},{name:"timeout",val:": typing.Optional[float] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.dataset_info.repo_id",description:`<strong>repo_id</strong> (<code>str</code>) &#x2014;
+A namespace (user or an organization) and a repo name separated
+by a <code>/</code>.`,name:"repo_id"},{anchor:"huggingface_hub.HfApi.dataset_info.revision",description:`<strong>revision</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+The revision of the dataset repository from which to get the
+information.`,name:"revision"},{anchor:"huggingface_hub.HfApi.dataset_info.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+An authentication token (See <a href="https://huggingface.co/settings/token" rel="nofollow">https://huggingface.co/settings/token</a>)`,name:"token"},{anchor:"huggingface_hub.HfApi.dataset_info.timeout",description:`<strong>timeout</strong> (<code>float</code>, <em>optional</em>) &#x2014;
+Whether to set a timeout for the request to the Hub.`,name:"timeout"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L1214",returnDescription:`
+<p>The dataset repository information.</p>
+`,returnType:`
+<p><code>DatasetInfo</code></p>
+`}}),Se=new fe({props:{$$slots:{default:[hi]},$$scope:{ctx:R}}}),Nt=new C({props:{name:"delete_file",anchor:"huggingface_hub.HfApi.delete_file",parameters:[{name:"path_in_repo",val:": str"},{name:"repo_id",val:": str"},{name:"token",val:": typing.Optional[str] = None"},{name:"repo_type",val:": typing.Optional[str] = None"},{name:"revision",val:": typing.Optional[str] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.delete_file.path_in_repo",description:`<strong>path_in_repo</strong> (<code>str</code>) &#x2014;
+Relative filepath in the repo, for example:
+<code>&quot;checkpoints/1fec34a/weights.bin&quot;</code>`,name:"path_in_repo"},{anchor:"huggingface_hub.HfApi.delete_file.repo_id",description:`<strong>repo_id</strong> (<code>str</code>) &#x2014;
+The repository from which the file will be deleted, for example:
+<code>&quot;username/custom_transformers&quot;</code>`,name:"repo_id"},{anchor:"huggingface_hub.HfApi.delete_file.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+Authentication token, obtained with <code>HfApi.login</code> method. Will
+default to the stored token.`,name:"token"},{anchor:"huggingface_hub.HfApi.delete_file.repo_type",description:`<strong>repo_type</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+Set to <code>&quot;dataset&quot;</code> or <code>&quot;space&quot;</code> if the file is in a dataset or
+space, <code>None</code> or <code>&quot;model&quot;</code> if in a model. Default is <code>None</code>.`,name:"repo_type"},{anchor:"huggingface_hub.HfApi.delete_file.revision",description:`<strong>revision</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+The git revision to commit from. Defaults to the head of the
+<code>&quot;main&quot;</code> branch.`,name:"revision"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L1951"}}),Ce=new fe({props:{$$slots:{default:[di]},$$scope:{ctx:R}}}),qt=new C({props:{name:"delete_repo",anchor:"huggingface_hub.HfApi.delete_repo",parameters:[{name:"repo_id",val:": str = None"},{name:"token",val:": typing.Optional[str] = None"},{name:"organization",val:": typing.Optional[str] = None"},{name:"repo_type",val:": typing.Optional[str] = None"},{name:"name",val:": str = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.delete_repo.repo_id",description:`<strong>repo_id</strong> (<code>str</code>) &#x2014;
+A namespace (user or an organization) and a repo name separated
+by a <code>/</code>.</p>
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400">
+						
+<p>Version added: 0.5</p>
+
+					</div>`,name:"repo_id"},{anchor:"huggingface_hub.HfApi.delete_repo.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+An authentication token (See <a href="https://huggingface.co/settings/token" rel="nofollow">https://huggingface.co/settings/token</a>)`,name:"token"},{anchor:"huggingface_hub.HfApi.delete_repo.repo_type",description:`<strong>repo_type</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+Set to <code>&quot;dataset&quot;</code> or <code>&quot;space&quot;</code> if uploading to a dataset or
+space, <code>None</code> or <code>&quot;model&quot;</code> if uploading to a model.`,name:"repo_type"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L1551"}}),ze=new fe({props:{$$slots:{default:[fi]},$$scope:{ctx:R}}}),It=new C({props:{name:"get_dataset_tags",anchor:"huggingface_hub.HfApi.get_dataset_tags",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L753"}}),Tt=new C({props:{name:"get_full_repo_name",anchor:"huggingface_hub.HfApi.get_full_repo_name",parameters:[{name:"model_id",val:": str"},{name:"organization",val:": typing.Optional[str] = None"},{name:"token",val:": typing.Optional[str] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.get_full_repo_name.model_id",description:`<strong>model_id</strong> (<code>str</code>) &#x2014;
+The name of the model.`,name:"model_id"},{anchor:"huggingface_hub.HfApi.get_full_repo_name.organization",description:`<strong>organization</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+If passed, the repository name will be in the organization
+namespace instead of the user namespace.`,name:"organization"},{anchor:"huggingface_hub.HfApi.get_full_repo_name.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+The Hugging Face authentication token`,name:"token"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L2017",returnDescription:`
+<p>The repository name in the user\u2019s namespace
+({username}/{model_id}) if no organization is passed, and under the
+organization namespace ({organization}/{model_id}) otherwise.</p>
+`,returnType:`
+<p><code>str</code></p>
+`}}),Lt=new C({props:{name:"get_model_tags",anchor:"huggingface_hub.HfApi.get_model_tags",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L745"}}),Pt=new C({props:{name:"list_datasets",anchor:"huggingface_hub.HfApi.list_datasets",parameters:[{name:"filter",val:": typing.Union[huggingface_hub.utils.endpoint_helpers.DatasetFilter, str, typing.Iterable[str], NoneType] = None"},{name:"author",val:": typing.Optional[str] = None"},{name:"search",val:": typing.Optional[str] = None"},{name:"sort",val:": typing.Union[typing.Literal['lastModified'], str, NoneType] = None"},{name:"direction",val:": typing.Optional[typing.Literal[-1]] = None"},{name:"limit",val:": typing.Optional[int] = None"},{name:"cardData",val:": typing.Optional[bool] = None"},{name:"full",val:": typing.Optional[bool] = None"},{name:"use_auth_token",val:": typing.Optional[str] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.list_datasets.filter",description:`<strong>filter</strong> (<a href="/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/hf_api#huggingface_hub.DatasetFilter">DatasetFilter</a> or <code>str</code> or <code>Iterable</code>, <em>optional</em>) &#x2014;
+A string or <a href="/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/hf_api#huggingface_hub.DatasetFilter">DatasetFilter</a> which can be used to identify
+datasets on the hub.`,name:"filter"},{anchor:"huggingface_hub.HfApi.list_datasets.author",description:`<strong>author</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+A string which identify the author of the returned models`,name:"author"},{anchor:"huggingface_hub.HfApi.list_datasets.search",description:`<strong>search</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+A string that will be contained in the returned models.`,name:"search"},{anchor:"huggingface_hub.HfApi.list_datasets.sort",description:`<strong>sort</strong> (<code>Literal[&quot;lastModified&quot;]</code> or <code>str</code>, <em>optional</em>) &#x2014;
+The key with which to sort the resulting datasets. Possible
+values are the properties of the <code>DatasetInfo</code> class.`,name:"sort"},{anchor:"huggingface_hub.HfApi.list_datasets.direction",description:`<strong>direction</strong> (<code>Literal[-1]</code> or <code>int</code>, <em>optional</em>) &#x2014;
+Direction in which to sort. The value <code>-1</code> sorts by descending
+order while all other values sort by ascending order.`,name:"direction"},{anchor:"huggingface_hub.HfApi.list_datasets.limit",description:`<strong>limit</strong> (<code>int</code>, <em>optional</em>) &#x2014;
+The limit on the number of datasets fetched. Leaving this option
+to <code>None</code> fetches all datasets.`,name:"limit"},{anchor:"huggingface_hub.HfApi.list_datasets.cardData",description:`<strong>cardData</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether to grab the metadata for the dataset as well. Can
+contain useful information such as the PapersWithCode ID.`,name:"cardData"},{anchor:"huggingface_hub.HfApi.list_datasets.full",description:`<strong>full</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether to fetch all dataset data, including the <code>lastModified</code>
+and the <code>cardData</code>.`,name:"full"},{anchor:"huggingface_hub.HfApi.list_datasets.use_auth_token",description:`<strong>use_auth_token</strong> (<code>bool</code> or <code>str</code>, <em>optional</em>) &#x2014;
+Whether to use the <code>auth_token</code> provided from the
+<code>huggingface_hub</code> cli. If not logged in, a valid <code>auth_token</code>
+can be passed in as a string.`,name:"use_auth_token"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L972"}}),Be=new Me({props:{anchor:"huggingface_hub.HfApi.list_datasets.example",$$slots:{default:[ui]},$$scope:{ctx:R}}}),Ke=new Me({props:{anchor:"huggingface_hub.HfApi.list_datasets.example-2",$$slots:{default:[mi]},$$scope:{ctx:R}}}),Ot=new C({props:{name:"list_metrics",anchor:"huggingface_hub.HfApi.list_metrics",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L1138",returnDescription:`
+<p>a list of <code>MetricInfo</code> objects which.</p>
+`,returnType:`
+<p><code>List[MetricInfo]</code></p>
+`}}),Rt=new C({props:{name:"list_models",anchor:"huggingface_hub.HfApi.list_models",parameters:[{name:"filter",val:": typing.Union[huggingface_hub.utils.endpoint_helpers.ModelFilter, str, typing.Iterable[str], NoneType] = None"},{name:"author",val:": typing.Optional[str] = None"},{name:"search",val:": typing.Optional[str] = None"},{name:"emissions_thresholds",val:": typing.Union[typing.Tuple[float, float], NoneType] = None"},{name:"sort",val:": typing.Union[typing.Literal['lastModified'], str, NoneType] = None"},{name:"direction",val:": typing.Optional[typing.Literal[-1]] = None"},{name:"limit",val:": typing.Optional[int] = None"},{name:"full",val:": typing.Optional[bool] = None"},{name:"cardData",val:": typing.Optional[bool] = None"},{name:"fetch_config",val:": typing.Optional[bool] = None"},{name:"use_auth_token",val:": typing.Union[bool, str, NoneType] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.list_models.filter",description:`<strong>filter</strong> (<a href="/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/hf_api#huggingface_hub.ModelFilter">ModelFilter</a> or <code>str</code> or <code>Iterable</code>, <em>optional</em>) &#x2014;
+A string or <a href="/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/hf_api#huggingface_hub.ModelFilter">ModelFilter</a> which can be used to identify models
+on the Hub.`,name:"filter"},{anchor:"huggingface_hub.HfApi.list_models.author",description:`<strong>author</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+A string which identify the author (user or organization) of the
+returned models`,name:"author"},{anchor:"huggingface_hub.HfApi.list_models.search",description:`<strong>search</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+A string that will be contained in the returned models Example
+usage:`,name:"search"},{anchor:"huggingface_hub.HfApi.list_models.emissions_thresholds",description:`<strong>emissions_thresholds</strong> (<code>Tuple</code>, <em>optional</em>) &#x2014;
+A tuple of two ints or floats representing a minimum and maximum
+carbon footprint to filter the resulting models with in grams.`,name:"emissions_thresholds"},{anchor:"huggingface_hub.HfApi.list_models.sort",description:`<strong>sort</strong> (<code>Literal[&quot;lastModified&quot;]</code> or <code>str</code>, <em>optional</em>) &#x2014;
+The key with which to sort the resulting models. Possible values
+are the properties of the <code>ModelInfo</code> class.`,name:"sort"},{anchor:"huggingface_hub.HfApi.list_models.direction",description:`<strong>direction</strong> (<code>Literal[-1]</code> or <code>int</code>, <em>optional</em>) &#x2014;
+Direction in which to sort. The value <code>-1</code> sorts by descending
+order while all other values sort by ascending order.`,name:"direction"},{anchor:"huggingface_hub.HfApi.list_models.limit",description:`<strong>limit</strong> (<code>int</code>, <em>optional</em>) &#x2014;
+The limit on the number of models fetched. Leaving this option
+to <code>None</code> fetches all models.`,name:"limit"},{anchor:"huggingface_hub.HfApi.list_models.full",description:`<strong>full</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether to fetch all model data, including the <code>lastModified</code>,
+the <code>sha</code>, the files and the <code>tags</code>. This is set to <code>True</code> by
+default when using a filter.`,name:"full"},{anchor:"huggingface_hub.HfApi.list_models.cardData",description:`<strong>cardData</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether to grab the metadata for the model as well. Can contain
+useful information such as carbon emissions, metrics, and
+datasets trained on.`,name:"cardData"},{anchor:"huggingface_hub.HfApi.list_models.fetch_config",description:`<strong>fetch_config</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether to fetch the model configs as well. This is not included
+in <code>full</code> due to its size.`,name:"fetch_config"},{anchor:"huggingface_hub.HfApi.list_models.use_auth_token",description:`<strong>use_auth_token</strong> (<code>bool</code> or <code>str</code>, <em>optional</em>) &#x2014;
+Whether to use the <code>auth_token</code> provided from the
+<code>huggingface_hub</code> cli. If not logged in, a valid <code>auth_token</code>
+can be passed in as a string.`,name:"use_auth_token"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L763"}}),Qe=new Me({props:{anchor:"huggingface_hub.HfApi.list_models.example",$$slots:{default:[_i]},$$scope:{ctx:R}}}),Xe=new Me({props:{anchor:"huggingface_hub.HfApi.list_models.example-2",$$slots:{default:[bi]},$$scope:{ctx:R}}}),Mt=new C({props:{name:"list_repo_files",anchor:"huggingface_hub.HfApi.list_repo_files",parameters:[{name:"repo_id",val:": str"},{name:"revision",val:": typing.Optional[str] = None"},{name:"repo_type",val:": typing.Optional[str] = None"},{name:"token",val:": typing.Optional[str] = None"},{name:"timeout",val:": typing.Optional[float] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.list_repo_files.repo_id",description:`<strong>repo_id</strong> (<code>str</code>) &#x2014;
+A namespace (user or an organization) and a repo name separated
+by a <code>/</code>.`,name:"repo_id"},{anchor:"huggingface_hub.HfApi.list_repo_files.revision",description:`<strong>revision</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+The revision of the model repository from which to get the
+information.`,name:"revision"},{anchor:"huggingface_hub.HfApi.list_repo_files.repo_type",description:`<strong>repo_type</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+Set to <code>&quot;dataset&quot;</code> or <code>&quot;space&quot;</code> if uploading to a dataset or
+space, <code>None</code> or <code>&quot;model&quot;</code> if uploading to a model. Default is
+<code>None</code>.`,name:"repo_type"},{anchor:"huggingface_hub.HfApi.list_repo_files.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+An authentication token (See <a href="https://huggingface.co/settings/token" rel="nofollow">https://huggingface.co/settings/token</a>)`,name:"token"},{anchor:"huggingface_hub.HfApi.list_repo_files.timeout",description:`<strong>timeout</strong> (<code>float</code>, <em>optional</em>) &#x2014;
+Whether to set a timeout for the request to the Hub.`,name:"timeout"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L1380",returnDescription:`
+<p>the list of files in a given repository.</p>
+`,returnType:`
+<p><code>List[str]</code></p>
+`}}),Ut=new C({props:{name:"login",anchor:"huggingface_hub.HfApi.login",parameters:[{name:"username",val:": str"},{name:"password",val:": str"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.login.username",description:`<strong>username</strong> (<code>str</code>) &#x2014;
+The username of the account with which to login.`,name:"username"},{anchor:"huggingface_hub.HfApi.login.password",description:`<strong>password</strong> (<code>str</code>) &#x2014;
+The password of the account with which to login.`,name:"password"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L558",returnDescription:`
+<p>token if credentials are valid</p>
+`,returnType:`
+<p><code>str</code></p>
+`}}),Ze=new fe({props:{$$slots:{default:[vi]},$$scope:{ctx:R}}}),et=new fe({props:{$$slots:{default:[$i]},$$scope:{ctx:R}}}),St=new C({props:{name:"logout",anchor:"huggingface_hub.HfApi.logout",parameters:[{name:"token",val:": typing.Optional[str] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.logout.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+Hugging Face token. Will default to the locally saved token if
+not provided.`,name:"token"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L690"}}),tt=new fe({props:{$$slots:{default:[yi]},$$scope:{ctx:R}}}),Ct=new C({props:{name:"model_info",anchor:"huggingface_hub.HfApi.model_info",parameters:[{name:"repo_id",val:": str"},{name:"revision",val:": typing.Optional[str] = None"},{name:"token",val:": typing.Optional[str] = None"},{name:"timeout",val:": typing.Optional[float] = None"},{name:"securityStatus",val:": typing.Optional[bool] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.model_info.repo_id",description:`<strong>repo_id</strong> (<code>str</code>) &#x2014;
+A namespace (user or an organization) and a repo name separated
+by a <code>/</code>.`,name:"repo_id"},{anchor:"huggingface_hub.HfApi.model_info.revision",description:`<strong>revision</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+The revision of the model repository from which to get the
+information.`,name:"revision"},{anchor:"huggingface_hub.HfApi.model_info.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+An authentication token (See <a href="https://huggingface.co/settings/token" rel="nofollow">https://huggingface.co/settings/token</a>)`,name:"token"},{anchor:"huggingface_hub.HfApi.model_info.timeout",description:`<strong>timeout</strong> (<code>float</code>, <em>optional</em>) &#x2014;
+Whether to set a timeout for the request to the Hub.`,name:"timeout"},{anchor:"huggingface_hub.HfApi.model_info.securityStatus",description:`<strong>securityStatus</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether to retrieve the security status from the model
+repository as well.`,name:"securityStatus"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L1152",returnDescription:`
+<p>The model repository information.</p>
+`,returnType:`
+<p><code>huggingface_hub.hf_api.ModelInfo</code></p>
+`}}),at=new fe({props:{$$slots:{default:[ki]},$$scope:{ctx:R}}}),zt=new C({props:{name:"move_repo",anchor:"huggingface_hub.HfApi.move_repo",parameters:[{name:"from_id",val:": str"},{name:"to_id",val:": str"},{name:"repo_type",val:": typing.Optional[str] = None"},{name:"token",val:": typing.Optional[str] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.move_repo.from_id",description:`<strong>from_id</strong> (<code>str</code>) &#x2014;
+A namespace (user or an organization) and a repo name separated
+by a <code>/</code>. Original repository identifier.`,name:"from_id"},{anchor:"huggingface_hub.HfApi.move_repo.to_id",description:`<strong>to_id</strong> (<code>str</code>) &#x2014;
+A namespace (user or an organization) and a repo name separated
+by a <code>/</code>. Final repository identifier.`,name:"to_id"},{anchor:"huggingface_hub.HfApi.move_repo.repo_type",description:`<strong>repo_type</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+Set to <code>&quot;dataset&quot;</code> or <code>&quot;space&quot;</code> if uploading to a dataset or
+space, <code>None</code> or <code>&quot;model&quot;</code> if uploading to a model. Default is
+<code>None</code>.`,name:"repo_type"},{anchor:"huggingface_hub.HfApi.move_repo.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+An authentication token (See <a href="https://huggingface.co/settings/token" rel="nofollow">https://huggingface.co/settings/token</a>)`,name:"token"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L1730"}}),ot=new fe({props:{$$slots:{default:[wi]},$$scope:{ctx:R}}}),Wt=new C({props:{name:"repo_info",anchor:"huggingface_hub.HfApi.repo_info",parameters:[{name:"repo_id",val:": str"},{name:"revision",val:": typing.Optional[str] = None"},{name:"repo_type",val:": typing.Optional[str] = None"},{name:"token",val:": typing.Optional[str] = None"},{name:"timeout",val:": typing.Optional[float] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.repo_info.repo_id",description:`<strong>repo_id</strong> (<code>str</code>) &#x2014;
+A namespace (user or an organization) and a repo name separated
+by a <code>/</code>.`,name:"repo_id"},{anchor:"huggingface_hub.HfApi.repo_info.revision",description:`<strong>revision</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+The revision of the repository from which to get the
+information.`,name:"revision"},{anchor:"huggingface_hub.HfApi.repo_info.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+An authentication token (See <a href="https://huggingface.co/settings/token" rel="nofollow">https://huggingface.co/settings/token</a>)`,name:"token"},{anchor:"huggingface_hub.HfApi.repo_info.timeout",description:`<strong>timeout</strong> (<code>float</code>, <em>optional</em>) &#x2014;
+Whether to set a timeout for the request to the Hub.`,name:"timeout"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L1324",returnDescription:`
+<p>The repository
+information.</p>
+`,returnType:`
+<p><code>Union[SpaceInfo, DatasetInfo, ModelInfo]</code></p>
+`}}),nt=new fe({props:{$$slots:{default:[Ei]},$$scope:{ctx:R}}}),Bt=new C({props:{name:"set_access_token",anchor:"huggingface_hub.HfApi.set_access_token",parameters:[{name:"access_token",val:": str"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.set_access_token.access_token",description:`<strong>access_token</strong> (<code>str</code>) &#x2014;
+The access token to save.`,name:"access_token"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L726"}}),Kt=new C({props:{name:"space_info",anchor:"huggingface_hub.HfApi.space_info",parameters:[{name:"repo_id",val:": str"},{name:"revision",val:": typing.Optional[str] = None"},{name:"token",val:": typing.Optional[str] = None"},{name:"timeout",val:": typing.Optional[float] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.space_info.repo_id",description:`<strong>repo_id</strong> (<code>str</code>) &#x2014;
+A namespace (user or an organization) and a repo name separated
+by a <code>/</code>.`,name:"repo_id"},{anchor:"huggingface_hub.HfApi.space_info.revision",description:`<strong>revision</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+The revision of the space repository from which to get the
+information.`,name:"revision"},{anchor:"huggingface_hub.HfApi.space_info.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+An authentication token (See <a href="https://huggingface.co/settings/token" rel="nofollow">https://huggingface.co/settings/token</a>)`,name:"token"},{anchor:"huggingface_hub.HfApi.space_info.timeout",description:`<strong>timeout</strong> (<code>float</code>, <em>optional</em>) &#x2014;
+Whether to set a timeout for the request to the Hub.`,name:"timeout"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L1269",returnDescription:`
+<p>The space repository information.</p>
+`,returnType:`
+<p><code>SpaceInfo</code></p>
+`}}),rt=new fe({props:{$$slots:{default:[Ai]},$$scope:{ctx:R}}}),Jt=new C({props:{name:"unset_access_token",anchor:"huggingface_hub.HfApi.unset_access_token",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L738"}}),Qt=new C({props:{name:"update_repo_visibility",anchor:"huggingface_hub.HfApi.update_repo_visibility",parameters:[{name:"repo_id",val:": str = None"},{name:"private",val:": bool = False"},{name:"token",val:": typing.Optional[str] = None"},{name:"organization",val:": typing.Optional[str] = None"},{name:"repo_type",val:": typing.Optional[str] = None"},{name:"name",val:": str = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.update_repo_visibility.repo_id",description:`<strong>repo_id</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+A namespace (user or an organization) and a repo name separated
+by a <code>/</code>.</p>
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400">
+						
+<p>Version added: 0.5</p>
+
+					</div>`,name:"repo_id"},{anchor:"huggingface_hub.HfApi.update_repo_visibility.private",description:`<strong>private</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether the model repo should be private.`,name:"private"},{anchor:"huggingface_hub.HfApi.update_repo_visibility.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+An authentication token (See <a href="https://huggingface.co/settings/token" rel="nofollow">https://huggingface.co/settings/token</a>)`,name:"token"},{anchor:"huggingface_hub.HfApi.update_repo_visibility.repo_type",description:`<strong>repo_type</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+Set to <code>&quot;dataset&quot;</code> or <code>&quot;space&quot;</code> if uploading to a dataset or
+space, <code>None</code> or <code>&quot;model&quot;</code> if uploading to a model. Default is
+<code>None</code>.`,name:"repo_type"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L1654",returnDescription:`
+<p>The HTTP response in json.</p>
+`}}),lt=new fe({props:{$$slots:{default:[xi]},$$scope:{ctx:R}}}),Xt=new C({props:{name:"upload_file",anchor:"huggingface_hub.HfApi.upload_file",parameters:[{name:"path_or_fileobj",val:": typing.Union[str, bytes, typing.IO]"},{name:"path_in_repo",val:": str"},{name:"repo_id",val:": str"},{name:"token",val:": typing.Optional[str] = None"},{name:"repo_type",val:": typing.Optional[str] = None"},{name:"revision",val:": typing.Optional[str] = None"},{name:"identical_ok",val:": typing.Optional[bool] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.upload_file.path_or_fileobj",description:`<strong>path_or_fileobj</strong> (<code>str</code>, <code>bytes</code>, or <code>IO</code>) &#x2014;
+Path to a file on the local machine or binary data stream /
+fileobj / buffer.`,name:"path_or_fileobj"},{anchor:"huggingface_hub.HfApi.upload_file.path_in_repo",description:`<strong>path_in_repo</strong> (<code>str</code>) &#x2014;
+Relative filepath in the repo, for example:
+<code>&quot;checkpoints/1fec34a/weights.bin&quot;</code>`,name:"path_in_repo"},{anchor:"huggingface_hub.HfApi.upload_file.repo_id",description:`<strong>repo_id</strong> (<code>str</code>) &#x2014;
+The repository to which the file will be uploaded, for example:
+<code>&quot;username/custom_transformers&quot;</code>`,name:"repo_id"},{anchor:"huggingface_hub.HfApi.upload_file.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+Authentication token, obtained with <code>HfApi.login</code> method. Will
+default to the stored token.`,name:"token"},{anchor:"huggingface_hub.HfApi.upload_file.repo_type",description:`<strong>repo_type</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+Set to <code>&quot;dataset&quot;</code> or <code>&quot;space&quot;</code> if uploading to a dataset or
+space, <code>None</code> or <code>&quot;model&quot;</code> if uploading to a model. Default is
+<code>None</code>.`,name:"repo_type"},{anchor:"huggingface_hub.HfApi.upload_file.revision",description:`<strong>revision</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+The git revision to commit from. Defaults to the head of the
+<code>&quot;main&quot;</code> branch.`,name:"revision"},{anchor:"huggingface_hub.HfApi.upload_file.identical_ok",description:`<strong>identical_ok</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
+Deprecated: will be removed in 0.11.0.
+Changing this value has no effect.`,name:"identical_ok"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L1809",returnDescription:`
+<p>The URL to visualize the uploaded file on the hub</p>
+`,returnType:`
+<p><code>str</code></p>
+`}}),ct=new fe({props:{$$slots:{default:[ji]},$$scope:{ctx:R}}}),gt=new Me({props:{anchor:"huggingface_hub.HfApi.upload_file.example",$$slots:{default:[Hi]},$$scope:{ctx:R}}}),Yt=new C({props:{name:"whoami",anchor:"huggingface_hub.HfApi.whoami",parameters:[{name:"token",val:": typing.Optional[str] = None"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.whoami.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+Hugging Face token. Will default to the locally saved token if
+not provided.`,name:"token"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L600"}}),Zt=new yr({}),ta=new C({props:{name:"class huggingface_hub.HfFolder",anchor:"huggingface_hub.HfFolder",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L2053"}}),aa=new C({props:{name:"delete_token",anchor:"huggingface_hub.HfFolder.delete_token",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L2090"}}),oa=new C({props:{name:"get_token",anchor:"huggingface_hub.HfFolder.get_token",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L2069",returnDescription:`
+<p>The token, <code>None</code> if it doesn\u2019t exist.</p>
+`,returnType:`
+<p><code>str</code> or <code>None</code></p>
+`}}),sa=new C({props:{name:"save_token",anchor:"huggingface_hub.HfFolder.save_token",parameters:[{name:"token",val:""}],parametersDescription:[{anchor:"huggingface_hub.HfFolder.save_token.token",description:`<strong>token</strong> (<code>str</code>) &#x2014;
+The token to save to the <a href="/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/hf_api#huggingface_hub.HfFolder">HfFolder</a>`,name:"token"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L2056"}}),ra=new yr({}),ia=new C({props:{name:"class huggingface_hub.DatasetFilter",anchor:"huggingface_hub.DatasetFilter",parameters:[{name:"author",val:": str = None"},{name:"benchmark",val:": typing.Union[str, typing.List[str]] = None"},{name:"dataset_name",val:": str = None"},{name:"language_creators",val:": typing.Union[str, typing.List[str]] = None"},{name:"languages",val:": typing.Union[str, typing.List[str]] = None"},{name:"multilinguality",val:": typing.Union[str, typing.List[str]] = None"},{name:"size_categories",val:": typing.Union[str, typing.List[str]] = None"},{name:"task_categories",val:": typing.Union[str, typing.List[str]] = None"},{name:"task_ids",val:": typing.Union[str, typing.List[str]] = None"}],parametersDescription:[{anchor:"huggingface_hub.DatasetFilter.author",description:`<strong>author</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+A string or list of strings that can be used to identify datasets on
+the Hub by the original uploader (author or organization), such as
+<code>facebook</code> or <code>huggingface</code>.`,name:"author"},{anchor:"huggingface_hub.DatasetFilter.benchmark",description:`<strong>benchmark</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+A string or list of strings that can be used to identify datasets on
+the Hub by their official benchmark.`,name:"benchmark"},{anchor:"huggingface_hub.DatasetFilter.dataset_name",description:`<strong>dataset_name</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+A string or list of strings that can be used to identify datasets on
+the Hub by its name, such as <code>SQAC</code> or <code>wikineural</code>`,name:"dataset_name"},{anchor:"huggingface_hub.DatasetFilter.language_creators",description:`<strong>language_creators</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+A string or list of strings that can be used to identify datasets on
+the Hub with how the data was curated, such as <code>crowdsourced</code> or
+<code>machine_generated</code>.`,name:"language_creators"},{anchor:"huggingface_hub.DatasetFilter.languages",description:`<strong>languages</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+A string or list of strings representing a two-character language to
+filter datasets by on the Hub.`,name:"languages"},{anchor:"huggingface_hub.DatasetFilter.multilinguality",description:`<strong>multilinguality</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+A string or list of strings representing a filter for datasets that
+contain multiple languages.`,name:"multilinguality"},{anchor:"huggingface_hub.DatasetFilter.size_categories",description:`<strong>size_categories</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+A string or list of strings that can be used to identify datasets on
+the Hub by the size of the dataset such as <code>100K&lt;n&lt;1M</code> or
+<code>1M&lt;n&lt;10M</code>.`,name:"size_categories"},{anchor:"huggingface_hub.DatasetFilter.task_categories",description:`<strong>task_categories</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+A string or list of strings that can be used to identify datasets on
+the Hub by the designed task, such as <code>audio_classification</code> or
+<code>named_entity_recognition</code>.`,name:"task_categories"},{anchor:"huggingface_hub.DatasetFilter.task_ids",description:`<strong>task_ids</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+A string or list of strings that can be used to identify datasets on
+the Hub by the specific task such as <code>speech_emotion_recognition</code> or
+<code>paraphrase</code>.`,name:"task_ids"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/utils/endpoint_helpers.py#L67"}}),bt=new Me({props:{anchor:"huggingface_hub.DatasetFilter.example",$$slots:{default:[Fi]},$$scope:{ctx:R}}}),la=new C({props:{name:"class huggingface_hub.ModelFilter",anchor:"huggingface_hub.ModelFilter",parameters:[{name:"author",val:": str = None"},{name:"library",val:": typing.Union[str, typing.List[str]] = None"},{name:"language",val:": typing.Union[str, typing.List[str]] = None"},{name:"model_name",val:": str = None"},{name:"task",val:": typing.Union[str, typing.List[str]] = None"},{name:"trained_dataset",val:": typing.Union[str, typing.List[str]] = None"},{name:"tags",val:": typing.Union[str, typing.List[str]] = None"}],parametersDescription:[{anchor:"huggingface_hub.ModelFilter.author",description:`<strong>author</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+A string that can be used to identify models on the Hub by the
+original uploader (author or organization), such as <code>facebook</code> or
+<code>huggingface</code>.`,name:"author"},{anchor:"huggingface_hub.ModelFilter.library",description:`<strong>library</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+A string or list of strings of foundational libraries models were
+originally trained from, such as pytorch, tensorflow, or allennlp.`,name:"library"},{anchor:"huggingface_hub.ModelFilter.language",description:`<strong>language</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+A string or list of strings of languages, both by name and country
+code, such as &#x201C;en&#x201D; or &#x201C;English&#x201D;`,name:"language"},{anchor:"huggingface_hub.ModelFilter.model_name",description:`<strong>model_name</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+A string that contain complete or partial names for models on the
+Hub, such as &#x201C;bert&#x201D; or &#x201C;bert-base-cased&#x201D;`,name:"model_name"},{anchor:"huggingface_hub.ModelFilter.task",description:`<strong>task</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+A string or list of strings of tasks models were designed for, such
+as: &#x201C;fill-mask&#x201D; or &#x201C;automatic-speech-recognition&#x201D;`,name:"task"},{anchor:"huggingface_hub.ModelFilter.tags",description:`<strong>tags</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+A string tag or a list of tags to filter models on the Hub by, such
+as <code>text-generation</code> or <code>spacy</code>.`,name:"tags"},{anchor:"huggingface_hub.ModelFilter.trained_dataset",description:`<strong>trained_dataset</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+A string tag or a list of string tags of the trained dataset for a
+model on the Hub.`,name:"trained_dataset"}],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/utils/endpoint_helpers.py#L153"}}),vt=new Me({props:{anchor:"huggingface_hub.ModelFilter.example",$$slots:{default:[Di]},$$scope:{ctx:R}}}),ca=new C({props:{name:"class huggingface_hub.DatasetSearchArguments",anchor:"huggingface_hub.DatasetSearchArguments",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L442"}}),$t=new Me({props:{anchor:"huggingface_hub.DatasetSearchArguments.example",$$slots:{default:[Ni]},$$scope:{ctx:R}}}),ga=new C({props:{name:"class huggingface_hub.ModelSearchArguments",anchor:"huggingface_hub.ModelSearchArguments",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/v0.8.0.rc0/src/huggingface_hub/hf_api.py#L404"}}),yt=new Me({props:{anchor:"huggingface_hub.ModelSearchArguments.example",$$slots:{default:[qi]},$$scope:{ctx:R}}}),{c(){i=o("meta"),_=h(),f=o("h1"),l=o("a"),p=o("span"),j(r.$$.fragment),u=h(),E=o("span"),m=c("Hugging Face Hub API"),b=h(),x=o("p"),w=c("Below is the documentation for the "),A=o("code"),T=c("HfApi"),P=c(` class, which serves as a Python wrapper for the Hugging Face
+Hub\u2019s API.`),M=h(),y=o("p"),O=c("All methods from the "),S=o("code"),U=c("HfApi"),V=c(` are also accessible from the package\u2019s root directly, both approaches are detailed
+below.`),G=h(),z=o("p"),W=c("The following approach uses the method from the root of the package:"),Z=h(),j(J.$$.fragment),se=h(),ee=o("p"),Q=c("The following approach uses the "),X=o("code"),Y=c("HfApi"),ue=c(" class:"),me=h(),j(B.$$.fragment),te=h(),K=o("p"),xe=c("Using the "),ae=o("code"),Te=c("HfApi"),je=c(" class directly enables you to set a different endpoint to that of the Hugging Face\u2019s Hub."),_e=h(),I=o("div"),j(oe.$$.fragment),_a=h(),be=o("div"),j(ve.$$.fragment),ba=h(),Le=o("p"),va=c("Create an empty repo on the HuggingFace Hub."),en=h(),re=o("div"),j(Dt.$$.fragment),tn=h(),Da=o("p"),an=c("Get info on one specific dataset on huggingface.co."),on=h(),Na=o("p"),nn=c("Dataset can be private if you pass an acceptable token."),sn=h(),j(Se.$$.fragment),rn=h(),He=o("div"),j(Nt.$$.fragment),ln=h(),qa=o("p"),cn=c("Deletes a file in the given repo."),gn=h(),j(Ce.$$.fragment),pn=h(),Fe=o("div"),j(qt.$$.fragment),hn=h(),Ia=o("p"),dn=c("Delete a repo from the HuggingFace Hub. CAUTION: this is irreversible."),fn=h(),j(ze.$$.fragment),un=h(),Ve=o("div"),j(It.$$.fragment),mn=h(),Ta=o("p"),_n=c("Gets all valid dataset tags as a nested namespace object."),bn=h(),Ge=o("div"),j(Tt.$$.fragment),vn=h(),La=o("p"),$n=c(`Returns the repository name for a given model ID and optional
+organization.`),yn=h(),We=o("div"),j(Lt.$$.fragment),kn=h(),Pa=o("p"),wn=c("Gets all valid model tags as a nested namespace object"),En=h(),ie=o("div"),j(Pt.$$.fragment),An=h(),Oa=o("p"),xn=c("Get the public list of all the datasets on huggingface.co"),jn=h(),j(Be.$$.fragment),Hn=h(),j(Ke.$$.fragment),Fn=h(),Je=o("div"),j(Ot.$$.fragment),Dn=h(),Ra=o("p"),Nn=c("Get the public list of all the metrics on huggingface.co"),qn=h(),le=o("div"),j(Rt.$$.fragment),In=h(),Ma=o("p"),Tn=c("Get the public list of all the models on huggingface.co"),Ln=h(),j(Qe.$$.fragment),Pn=h(),j(Xe.$$.fragment),On=h(),Ye=o("div"),j(Mt.$$.fragment),Rn=h(),Ua=o("p"),Mn=c("Get the list of files in a given repo."),Un=h(),ce=o("div"),j(Ut.$$.fragment),Sn=h(),Sa=o("p"),Cn=c("Call HF API to sign in a user and get a token if credentials are valid."),zn=h(),j(Ze.$$.fragment),Vn=h(),j(et.$$.fragment),Gn=h(),De=o("div"),j(St.$$.fragment),Wn=h(),Ca=o("p"),Bn=c("Call HF API to log out."),Kn=h(),j(tt.$$.fragment),Jn=h(),ge=o("div"),j(Ct.$$.fragment),Qn=h(),za=o("p"),Xn=c("Get info on one specific model on huggingface.co"),Yn=h(),Va=o("p"),Zn=c("Model can be private if you pass an acceptable token or are logged in."),es=h(),j(at.$$.fragment),ts=h(),pe=o("div"),j(zt.$$.fragment),as=h(),Ga=o("p"),os=c("Moving a repository from namespace1/repo_name1 to namespace2/repo_name2"),ns=h(),Vt=o("p"),ss=c(`Note there are certain limitations. For more information about moving
+repositories, please see
+`),Gt=o("a"),rs=c("https://hf.co/docs/hub/main#how-can-i-rename-or-transfer-a-repo"),is=c("."),ls=h(),j(ot.$$.fragment),cs=h(),Ne=o("div"),j(Wt.$$.fragment),gs=h(),Wa=o("p"),ps=c("Get the info object for a given repo of a given type."),hs=h(),j(nt.$$.fragment),ds=h(),st=o("div"),j(Bt.$$.fragment),fs=h(),Ba=o("p"),us=c(`Saves the passed access token so git can correctly authenticate the
+user.`),ms=h(),he=o("div"),j(Kt.$$.fragment),_s=h(),Ka=o("p"),bs=c("Get info on one specific Space on huggingface.co."),vs=h(),Ja=o("p"),$s=c("Space can be private if you pass an acceptable token."),ys=h(),j(rt.$$.fragment),ks=h(),it=o("div"),j(Jt.$$.fragment),ws=h(),Qa=o("p"),Es=c("Resets the user\u2019s access token."),As=h(),qe=o("div"),j(Qt.$$.fragment),xs=h(),Xa=o("p"),js=c("Update the visibility setting of a repository."),Hs=h(),j(lt.$$.fragment),Fs=h(),de=o("div"),j(Xt.$$.fragment),Ds=h(),Ya=o("p"),Ns=c(`Upload a local file (up to 5GB) to the given repo. The upload is done
+through a HTTP post request, and doesn\u2019t require git or git-lfs to be
+installed.`),qs=h(),j(ct.$$.fragment),Is=h(),j(gt.$$.fragment),Ts=h(),pt=o("div"),j(Yt.$$.fragment),Ls=h(),Za=o("p"),Ps=c("Call HF API to know \u201Cwhoami\u201D."),jo=h(),Pe=o("h2"),ht=o("a"),eo=o("span"),j(Zt.$$.fragment),Os=h(),to=o("span"),Rs=c("Hugging Face local storage"),Ho=h(),ea=o("p"),ao=o("code"),Ms=c("huggingface_hub"),Us=c(` stores the authentication information locally so that it may be re-used in subsequent
+methods.`),Fo=h(),dt=o("p"),Ss=c("It does this using the "),$a=o("a"),Cs=c("HfFolder"),zs=c(" utility, which saves data at the root of the user."),Do=h(),ne=o("div"),j(ta.$$.fragment),Vs=h(),ft=o("div"),j(aa.$$.fragment),Gs=h(),oo=o("p"),Ws=c("Deletes the token from storage. Does not fail if token does not exist."),Bs=h(),Ie=o("div"),j(oa.$$.fragment),Ks=h(),no=o("p"),Js=c("Get token or None if not existent."),Qs=h(),na=o("p"),Xs=c("Note that a token can be also provided using the "),so=o("code"),Ys=c("HUGGING_FACE_HUB_TOKEN"),Zs=c(`
+environment variable.`),er=h(),ut=o("div"),j(sa.$$.fragment),tr=h(),ro=o("p"),ar=c("Save token, creating folder as needed."),No=h(),Oe=o("h2"),mt=o("a"),io=o("span"),j(ra.$$.fragment),or=h(),lo=o("span"),nr=c("Filtering helpers"),qo=h(),_t=o("p"),sr=c("Some helpers to filter repositories on the Hub are available in the "),co=o("code"),rr=c("huggingface_hub"),ir=c(" package."),Io=h(),$e=o("div"),j(ia.$$.fragment),lr=h(),go=o("p"),cr=c(`A class that converts human-readable dataset search parameters into ones
+compatible with the REST API. For all parameters capitalization does not
+matter.`),gr=h(),j(bt.$$.fragment),To=h(),ye=o("div"),j(la.$$.fragment),pr=h(),po=o("p"),hr=c(`A class that converts human-readable model search parameters into ones
+compatible with the REST API. For all parameters capitalization does not
+matter.`),dr=h(),j(vt.$$.fragment),Lo=h(),ke=o("div"),j(ca.$$.fragment),fr=h(),ho=o("p"),ur=c(`A nested namespace object holding all possible values for properties of
+datasets currently hosted in the Hub with tab-completion. If a value starts
+with a number, it will only exist in the dictionary`),mr=h(),j($t.$$.fragment),Po=h(),we=o("div"),j(ga.$$.fragment),_r=h(),fo=o("p"),br=c(`A nested namespace object holding all possible values for properties of
+models currently hosted in the Hub with tab-completion. If a value starts
+with a number, it will only exist in the dictionary`),vr=h(),j(yt.$$.fragment),this.h()},l(a){const v=gi('[data-svelte="svelte-1phssyn"]',document.head);i=n(v,"META",{name:!0,content:!0}),v.forEach(t),_=d(a),f=n(a,"H1",{class:!0});var pa=s(f);l=n(pa,"A",{id:!0,class:!0,href:!0});var uo=s(l);p=n(uo,"SPAN",{});var mo=s(p);H(r.$$.fragment,mo),mo.forEach(t),uo.forEach(t),u=d(pa),E=n(pa,"SPAN",{});var _o=s(E);m=g(_o,"Hugging Face Hub API"),_o.forEach(t),pa.forEach(t),b=d(a),x=n(a,"P",{});var ha=s(x);w=g(ha,"Below is the documentation for the "),A=n(ha,"CODE",{});var bo=s(A);T=g(bo,"HfApi"),bo.forEach(t),P=g(ha,` class, which serves as a Python wrapper for the Hugging Face
+Hub\u2019s API.`),ha.forEach(t),M=d(a),y=n(a,"P",{});var da=s(y);O=g(da,"All methods from the "),S=n(da,"CODE",{});var vo=s(S);U=g(vo,"HfApi"),vo.forEach(t),V=g(da,` are also accessible from the package\u2019s root directly, both approaches are detailed
+below.`),da.forEach(t),G=d(a),z=n(a,"P",{});var $o=s(z);W=g($o,"The following approach uses the method from the root of the package:"),$o.forEach(t),Z=d(a),H(J.$$.fragment,a),se=d(a),ee=n(a,"P",{});var fa=s(ee);Q=g(fa,"The following approach uses the "),X=n(fa,"CODE",{});var yo=s(X);Y=g(yo,"HfApi"),yo.forEach(t),ue=g(fa," class:"),fa.forEach(t),me=d(a),H(B.$$.fragment,a),te=d(a),K=n(a,"P",{});var ua=s(K);xe=g(ua,"Using the "),ae=n(ua,"CODE",{});var ko=s(ae);Te=g(ko,"HfApi"),ko.forEach(t),je=g(ua," class directly enables you to set a different endpoint to that of the Hugging Face\u2019s Hub."),ua.forEach(t),_e=d(a),I=n(a,"DIV",{class:!0});var L=s(I);H(oe.$$.fragment,L),_a=d(L),be=n(L,"DIV",{class:!0});var ma=s(be);H(ve.$$.fragment,ma),ba=d(ma),Le=n(ma,"P",{});var wo=s(Le);va=g(wo,"Create an empty repo on the HuggingFace Hub."),wo.forEach(t),ma.forEach(t),en=d(L),re=n(L,"DIV",{class:!0});var Ee=s(re);H(Dt.$$.fragment,Ee),tn=d(Ee),Da=n(Ee,"P",{});var Eo=s(Da);an=g(Eo,"Get info on one specific dataset on huggingface.co."),Eo.forEach(t),on=d(Ee),Na=n(Ee,"P",{});var Ao=s(Na);nn=g(Ao,"Dataset can be private if you pass an acceptable token."),Ao.forEach(t),sn=d(Ee),H(Se.$$.fragment,Ee),Ee.forEach(t),rn=d(L),He=n(L,"DIV",{class:!0});var Re=s(He);H(Nt.$$.fragment,Re),ln=d(Re),qa=n(Re,"P",{});var xo=s(qa);cn=g(xo,"Deletes a file in the given repo."),xo.forEach(t),gn=d(Re),H(Ce.$$.fragment,Re),Re.forEach(t),pn=d(L),Fe=n(L,"DIV",{class:!0});var ya=s(Fe);H(qt.$$.fragment,ya),hn=d(ya),Ia=n(ya,"P",{});var kr=s(Ia);dn=g(kr,"Delete a repo from the HuggingFace Hub. CAUTION: this is irreversible."),kr.forEach(t),fn=d(ya),H(ze.$$.fragment,ya),ya.forEach(t),un=d(L),Ve=n(L,"DIV",{class:!0});var Ro=s(Ve);H(It.$$.fragment,Ro),mn=d(Ro),Ta=n(Ro,"P",{});var wr=s(Ta);_n=g(wr,"Gets all valid dataset tags as a nested namespace object."),wr.forEach(t),Ro.forEach(t),bn=d(L),Ge=n(L,"DIV",{class:!0});var Mo=s(Ge);H(Tt.$$.fragment,Mo),vn=d(Mo),La=n(Mo,"P",{});var Er=s(La);$n=g(Er,`Returns the repository name for a given model ID and optional
+organization.`),Er.forEach(t),Mo.forEach(t),yn=d(L),We=n(L,"DIV",{class:!0});var Uo=s(We);H(Lt.$$.fragment,Uo),kn=d(Uo),Pa=n(Uo,"P",{});var Ar=s(Pa);wn=g(Ar,"Gets all valid model tags as a nested namespace object"),Ar.forEach(t),Uo.forEach(t),En=d(L),ie=n(L,"DIV",{class:!0});var kt=s(ie);H(Pt.$$.fragment,kt),An=d(kt),Oa=n(kt,"P",{});var xr=s(Oa);xn=g(xr,"Get the public list of all the datasets on huggingface.co"),xr.forEach(t),jn=d(kt),H(Be.$$.fragment,kt),Hn=d(kt),H(Ke.$$.fragment,kt),kt.forEach(t),Fn=d(L),Je=n(L,"DIV",{class:!0});var So=s(Je);H(Ot.$$.fragment,So),Dn=d(So),Ra=n(So,"P",{});var jr=s(Ra);Nn=g(jr,"Get the public list of all the metrics on huggingface.co"),jr.forEach(t),So.forEach(t),qn=d(L),le=n(L,"DIV",{class:!0});var wt=s(le);H(Rt.$$.fragment,wt),In=d(wt),Ma=n(wt,"P",{});var Hr=s(Ma);Tn=g(Hr,"Get the public list of all the models on huggingface.co"),Hr.forEach(t),Ln=d(wt),H(Qe.$$.fragment,wt),Pn=d(wt),H(Xe.$$.fragment,wt),wt.forEach(t),On=d(L),Ye=n(L,"DIV",{class:!0});var Co=s(Ye);H(Mt.$$.fragment,Co),Rn=d(Co),Ua=n(Co,"P",{});var Fr=s(Ua);Mn=g(Fr,"Get the list of files in a given repo."),Fr.forEach(t),Co.forEach(t),Un=d(L),ce=n(L,"DIV",{class:!0});var Et=s(ce);H(Ut.$$.fragment,Et),Sn=d(Et),Sa=n(Et,"P",{});var Dr=s(Sa);Cn=g(Dr,"Call HF API to sign in a user and get a token if credentials are valid."),Dr.forEach(t),zn=d(Et),H(Ze.$$.fragment,Et),Vn=d(Et),H(et.$$.fragment,Et),Et.forEach(t),Gn=d(L),De=n(L,"DIV",{class:!0});var ka=s(De);H(St.$$.fragment,ka),Wn=d(ka),Ca=n(ka,"P",{});var Nr=s(Ca);Bn=g(Nr,"Call HF API to log out."),Nr.forEach(t),Kn=d(ka),H(tt.$$.fragment,ka),ka.forEach(t),Jn=d(L),ge=n(L,"DIV",{class:!0});var At=s(ge);H(Ct.$$.fragment,At),Qn=d(At),za=n(At,"P",{});var qr=s(za);Xn=g(qr,"Get info on one specific model on huggingface.co"),qr.forEach(t),Yn=d(At),Va=n(At,"P",{});var Ir=s(Va);Zn=g(Ir,"Model can be private if you pass an acceptable token or are logged in."),Ir.forEach(t),es=d(At),H(at.$$.fragment,At),At.forEach(t),ts=d(L),pe=n(L,"DIV",{class:!0});var xt=s(pe);H(zt.$$.fragment,xt),as=d(xt),Ga=n(xt,"P",{});var Tr=s(Ga);os=g(Tr,"Moving a repository from namespace1/repo_name1 to namespace2/repo_name2"),Tr.forEach(t),ns=d(xt),Vt=n(xt,"P",{});var zo=s(Vt);ss=g(zo,`Note there are certain limitations. For more information about moving
+repositories, please see
+`),Gt=n(zo,"A",{href:!0,rel:!0});var Lr=s(Gt);rs=g(Lr,"https://hf.co/docs/hub/main#how-can-i-rename-or-transfer-a-repo"),Lr.forEach(t),is=g(zo,"."),zo.forEach(t),ls=d(xt),H(ot.$$.fragment,xt),xt.forEach(t),cs=d(L),Ne=n(L,"DIV",{class:!0});var wa=s(Ne);H(Wt.$$.fragment,wa),gs=d(wa),Wa=n(wa,"P",{});var Pr=s(Wa);ps=g(Pr,"Get the info object for a given repo of a given type."),Pr.forEach(t),hs=d(wa),H(nt.$$.fragment,wa),wa.forEach(t),ds=d(L),st=n(L,"DIV",{class:!0});var Vo=s(st);H(Bt.$$.fragment,Vo),fs=d(Vo),Ba=n(Vo,"P",{});var Or=s(Ba);us=g(Or,`Saves the passed access token so git can correctly authenticate the
+user.`),Or.forEach(t),Vo.forEach(t),ms=d(L),he=n(L,"DIV",{class:!0});var jt=s(he);H(Kt.$$.fragment,jt),_s=d(jt),Ka=n(jt,"P",{});var Rr=s(Ka);bs=g(Rr,"Get info on one specific Space on huggingface.co."),Rr.forEach(t),vs=d(jt),Ja=n(jt,"P",{});var Mr=s(Ja);$s=g(Mr,"Space can be private if you pass an acceptable token."),Mr.forEach(t),ys=d(jt),H(rt.$$.fragment,jt),jt.forEach(t),ks=d(L),it=n(L,"DIV",{class:!0});var Go=s(it);H(Jt.$$.fragment,Go),ws=d(Go),Qa=n(Go,"P",{});var Ur=s(Qa);Es=g(Ur,"Resets the user\u2019s access token."),Ur.forEach(t),Go.forEach(t),As=d(L),qe=n(L,"DIV",{class:!0});var Ea=s(qe);H(Qt.$$.fragment,Ea),xs=d(Ea),Xa=n(Ea,"P",{});var Sr=s(Xa);js=g(Sr,"Update the visibility setting of a repository."),Sr.forEach(t),Hs=d(Ea),H(lt.$$.fragment,Ea),Ea.forEach(t),Fs=d(L),de=n(L,"DIV",{class:!0});var Ht=s(de);H(Xt.$$.fragment,Ht),Ds=d(Ht),Ya=n(Ht,"P",{});var Cr=s(Ya);Ns=g(Cr,`Upload a local file (up to 5GB) to the given repo. The upload is done
+through a HTTP post request, and doesn\u2019t require git or git-lfs to be
+installed.`),Cr.forEach(t),qs=d(Ht),H(ct.$$.fragment,Ht),Is=d(Ht),H(gt.$$.fragment,Ht),Ht.forEach(t),Ts=d(L),pt=n(L,"DIV",{class:!0});var Wo=s(pt);H(Yt.$$.fragment,Wo),Ls=d(Wo),Za=n(Wo,"P",{});var zr=s(Za);Ps=g(zr,"Call HF API to know \u201Cwhoami\u201D."),zr.forEach(t),Wo.forEach(t),L.forEach(t),jo=d(a),Pe=n(a,"H2",{class:!0});var Bo=s(Pe);ht=n(Bo,"A",{id:!0,class:!0,href:!0});var Vr=s(ht);eo=n(Vr,"SPAN",{});var Gr=s(eo);H(Zt.$$.fragment,Gr),Gr.forEach(t),Vr.forEach(t),Os=d(Bo),to=n(Bo,"SPAN",{});var Wr=s(to);Rs=g(Wr,"Hugging Face local storage"),Wr.forEach(t),Bo.forEach(t),Ho=d(a),ea=n(a,"P",{});var $r=s(ea);ao=n($r,"CODE",{});var Br=s(ao);Ms=g(Br,"huggingface_hub"),Br.forEach(t),Us=g($r,` stores the authentication information locally so that it may be re-used in subsequent
+methods.`),$r.forEach(t),Fo=d(a),dt=n(a,"P",{});var Ko=s(dt);Ss=g(Ko,"It does this using the "),$a=n(Ko,"A",{href:!0});var Kr=s($a);Cs=g(Kr,"HfFolder"),Kr.forEach(t),zs=g(Ko," utility, which saves data at the root of the user."),Ko.forEach(t),Do=d(a),ne=n(a,"DIV",{class:!0});var Ft=s(ne);H(ta.$$.fragment,Ft),Vs=d(Ft),ft=n(Ft,"DIV",{class:!0});var Jo=s(ft);H(aa.$$.fragment,Jo),Gs=d(Jo),oo=n(Jo,"P",{});var Jr=s(oo);Ws=g(Jr,"Deletes the token from storage. Does not fail if token does not exist."),Jr.forEach(t),Jo.forEach(t),Bs=d(Ft),Ie=n(Ft,"DIV",{class:!0});var Aa=s(Ie);H(oa.$$.fragment,Aa),Ks=d(Aa),no=n(Aa,"P",{});var Qr=s(no);Js=g(Qr,"Get token or None if not existent."),Qr.forEach(t),Qs=d(Aa),na=n(Aa,"P",{});var Qo=s(na);Xs=g(Qo,"Note that a token can be also provided using the "),so=n(Qo,"CODE",{});var Xr=s(so);Ys=g(Xr,"HUGGING_FACE_HUB_TOKEN"),Xr.forEach(t),Zs=g(Qo,`
+environment variable.`),Qo.forEach(t),Aa.forEach(t),er=d(Ft),ut=n(Ft,"DIV",{class:!0});var Xo=s(ut);H(sa.$$.fragment,Xo),tr=d(Xo),ro=n(Xo,"P",{});var Yr=s(ro);ar=g(Yr,"Save token, creating folder as needed."),Yr.forEach(t),Xo.forEach(t),Ft.forEach(t),No=d(a),Oe=n(a,"H2",{class:!0});var Yo=s(Oe);mt=n(Yo,"A",{id:!0,class:!0,href:!0});var Zr=s(mt);io=n(Zr,"SPAN",{});var ei=s(io);H(ra.$$.fragment,ei),ei.forEach(t),Zr.forEach(t),or=d(Yo),lo=n(Yo,"SPAN",{});var ti=s(lo);nr=g(ti,"Filtering helpers"),ti.forEach(t),Yo.forEach(t),qo=d(a),_t=n(a,"P",{});var Zo=s(_t);sr=g(Zo,"Some helpers to filter repositories on the Hub are available in the "),co=n(Zo,"CODE",{});var ai=s(co);rr=g(ai,"huggingface_hub"),ai.forEach(t),ir=g(Zo," package."),Zo.forEach(t),Io=d(a),$e=n(a,"DIV",{class:!0});var xa=s($e);H(ia.$$.fragment,xa),lr=d(xa),go=n(xa,"P",{});var oi=s(go);cr=g(oi,`A class that converts human-readable dataset search parameters into ones
+compatible with the REST API. For all parameters capitalization does not
+matter.`),oi.forEach(t),gr=d(xa),H(bt.$$.fragment,xa),xa.forEach(t),To=d(a),ye=n(a,"DIV",{class:!0});var ja=s(ye);H(la.$$.fragment,ja),pr=d(ja),po=n(ja,"P",{});var ni=s(po);hr=g(ni,`A class that converts human-readable model search parameters into ones
+compatible with the REST API. For all parameters capitalization does not
+matter.`),ni.forEach(t),dr=d(ja),H(vt.$$.fragment,ja),ja.forEach(t),Lo=d(a),ke=n(a,"DIV",{class:!0});var Ha=s(ke);H(ca.$$.fragment,Ha),fr=d(Ha),ho=n(Ha,"P",{});var si=s(ho);ur=g(si,`A nested namespace object holding all possible values for properties of
+datasets currently hosted in the Hub with tab-completion. If a value starts
+with a number, it will only exist in the dictionary`),si.forEach(t),mr=d(Ha),H($t.$$.fragment,Ha),Ha.forEach(t),Po=d(a),we=n(a,"DIV",{class:!0});var Fa=s(we);H(ga.$$.fragment,Fa),_r=d(Fa),fo=n(Fa,"P",{});var ri=s(fo);br=g(ri,`A nested namespace object holding all possible values for properties of
+models currently hosted in the Hub with tab-completion. If a value starts
+with a number, it will only exist in the dictionary`),ri.forEach(t),vr=d(Fa),H(yt.$$.fragment,Fa),Fa.forEach(t),this.h()},h(){k(i,"name","hf:doc:metadata"),k(i,"content",JSON.stringify(Ti)),k(l,"id","huggingface_hub.HfApi"),k(l,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),k(l,"href","#huggingface_hub.HfApi"),k(f,"class","relative group"),k(be,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(re,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(He,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(Fe,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(Ve,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(Ge,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(We,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(ie,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(Je,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(le,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(Ye,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(ce,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(De,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(ge,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(Gt,"href","https://hf.co/docs/hub/main#how-can-i-rename-or-transfer-a-repo"),k(Gt,"rel","nofollow"),k(pe,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(Ne,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(st,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(he,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(it,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(qe,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(de,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(pt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(I,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(ht,"id","huggingface_hub.HfFolder"),k(ht,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),k(ht,"href","#huggingface_hub.HfFolder"),k(Pe,"class","relative group"),k($a,"href","/docs/huggingface_hub/v0.8.0.rc0/en/package_reference/hf_api#huggingface_hub.HfFolder"),k(ft,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(Ie,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(ut,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(ne,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(mt,"id","huggingface_hub.DatasetFilter"),k(mt,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),k(mt,"href","#huggingface_hub.DatasetFilter"),k(Oe,"class","relative group"),k($e,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(ye,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(ke,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),k(we,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8")},m(a,v){e(document.head,i),$(a,_,v),$(a,f,v),e(f,l),e(l,p),F(r,p,null),e(f,u),e(f,E),e(E,m),$(a,b,v),$(a,x,v),e(x,w),e(x,A),e(A,T),e(x,P),$(a,M,v),$(a,y,v),e(y,O),e(y,S),e(S,U),e(y,V),$(a,G,v),$(a,z,v),e(z,W),$(a,Z,v),F(J,a,v),$(a,se,v),$(a,ee,v),e(ee,Q),e(ee,X),e(X,Y),e(ee,ue),$(a,me,v),F(B,a,v),$(a,te,v),$(a,K,v),e(K,xe),e(K,ae),e(ae,Te),e(K,je),$(a,_e,v),$(a,I,v),F(oe,I,null),e(I,_a),e(I,be),F(ve,be,null),e(be,ba),e(be,Le),e(Le,va),e(I,en),e(I,re),F(Dt,re,null),e(re,tn),e(re,Da),e(Da,an),e(re,on),e(re,Na),e(Na,nn),e(re,sn),F(Se,re,null),e(I,rn),e(I,He),F(Nt,He,null),e(He,ln),e(He,qa),e(qa,cn),e(He,gn),F(Ce,He,null),e(I,pn),e(I,Fe),F(qt,Fe,null),e(Fe,hn),e(Fe,Ia),e(Ia,dn),e(Fe,fn),F(ze,Fe,null),e(I,un),e(I,Ve),F(It,Ve,null),e(Ve,mn),e(Ve,Ta),e(Ta,_n),e(I,bn),e(I,Ge),F(Tt,Ge,null),e(Ge,vn),e(Ge,La),e(La,$n),e(I,yn),e(I,We),F(Lt,We,null),e(We,kn),e(We,Pa),e(Pa,wn),e(I,En),e(I,ie),F(Pt,ie,null),e(ie,An),e(ie,Oa),e(Oa,xn),e(ie,jn),F(Be,ie,null),e(ie,Hn),F(Ke,ie,null),e(I,Fn),e(I,Je),F(Ot,Je,null),e(Je,Dn),e(Je,Ra),e(Ra,Nn),e(I,qn),e(I,le),F(Rt,le,null),e(le,In),e(le,Ma),e(Ma,Tn),e(le,Ln),F(Qe,le,null),e(le,Pn),F(Xe,le,null),e(I,On),e(I,Ye),F(Mt,Ye,null),e(Ye,Rn),e(Ye,Ua),e(Ua,Mn),e(I,Un),e(I,ce),F(Ut,ce,null),e(ce,Sn),e(ce,Sa),e(Sa,Cn),e(ce,zn),F(Ze,ce,null),e(ce,Vn),F(et,ce,null),e(I,Gn),e(I,De),F(St,De,null),e(De,Wn),e(De,Ca),e(Ca,Bn),e(De,Kn),F(tt,De,null),e(I,Jn),e(I,ge),F(Ct,ge,null),e(ge,Qn),e(ge,za),e(za,Xn),e(ge,Yn),e(ge,Va),e(Va,Zn),e(ge,es),F(at,ge,null),e(I,ts),e(I,pe),F(zt,pe,null),e(pe,as),e(pe,Ga),e(Ga,os),e(pe,ns),e(pe,Vt),e(Vt,ss),e(Vt,Gt),e(Gt,rs),e(Vt,is),e(pe,ls),F(ot,pe,null),e(I,cs),e(I,Ne),F(Wt,Ne,null),e(Ne,gs),e(Ne,Wa),e(Wa,ps),e(Ne,hs),F(nt,Ne,null),e(I,ds),e(I,st),F(Bt,st,null),e(st,fs),e(st,Ba),e(Ba,us),e(I,ms),e(I,he),F(Kt,he,null),e(he,_s),e(he,Ka),e(Ka,bs),e(he,vs),e(he,Ja),e(Ja,$s),e(he,ys),F(rt,he,null),e(I,ks),e(I,it),F(Jt,it,null),e(it,ws),e(it,Qa),e(Qa,Es),e(I,As),e(I,qe),F(Qt,qe,null),e(qe,xs),e(qe,Xa),e(Xa,js),e(qe,Hs),F(lt,qe,null),e(I,Fs),e(I,de),F(Xt,de,null),e(de,Ds),e(de,Ya),e(Ya,Ns),e(de,qs),F(ct,de,null),e(de,Is),F(gt,de,null),e(I,Ts),e(I,pt),F(Yt,pt,null),e(pt,Ls),e(pt,Za),e(Za,Ps),$(a,jo,v),$(a,Pe,v),e(Pe,ht),e(ht,eo),F(Zt,eo,null),e(Pe,Os),e(Pe,to),e(to,Rs),$(a,Ho,v),$(a,ea,v),e(ea,ao),e(ao,Ms),e(ea,Us),$(a,Fo,v),$(a,dt,v),e(dt,Ss),e(dt,$a),e($a,Cs),e(dt,zs),$(a,Do,v),$(a,ne,v),F(ta,ne,null),e(ne,Vs),e(ne,ft),F(aa,ft,null),e(ft,Gs),e(ft,oo),e(oo,Ws),e(ne,Bs),e(ne,Ie),F(oa,Ie,null),e(Ie,Ks),e(Ie,no),e(no,Js),e(Ie,Qs),e(Ie,na),e(na,Xs),e(na,so),e(so,Ys),e(na,Zs),e(ne,er),e(ne,ut),F(sa,ut,null),e(ut,tr),e(ut,ro),e(ro,ar),$(a,No,v),$(a,Oe,v),e(Oe,mt),e(mt,io),F(ra,io,null),e(Oe,or),e(Oe,lo),e(lo,nr),$(a,qo,v),$(a,_t,v),e(_t,sr),e(_t,co),e(co,rr),e(_t,ir),$(a,Io,v),$(a,$e,v),F(ia,$e,null),e($e,lr),e($e,go),e(go,cr),e($e,gr),F(bt,$e,null),$(a,To,v),$(a,ye,v),F(la,ye,null),e(ye,pr),e(ye,po),e(po,hr),e(ye,dr),F(vt,ye,null),$(a,Lo,v),$(a,ke,v),F(ca,ke,null),e(ke,fr),e(ke,ho),e(ho,ur),e(ke,mr),F($t,ke,null),$(a,Po,v),$(a,we,v),F(ga,we,null),e(we,_r),e(we,fo),e(fo,br),e(we,vr),F(yt,we,null),Oo=!0},p(a,[v]){const pa={};v&2&&(pa.$$scope={dirty:v,ctx:a}),Se.$set(pa);const uo={};v&2&&(uo.$$scope={dirty:v,ctx:a}),Ce.$set(uo);const mo={};v&2&&(mo.$$scope={dirty:v,ctx:a}),ze.$set(mo);const _o={};v&2&&(_o.$$scope={dirty:v,ctx:a}),Be.$set(_o);const ha={};v&2&&(ha.$$scope={dirty:v,ctx:a}),Ke.$set(ha);const bo={};v&2&&(bo.$$scope={dirty:v,ctx:a}),Qe.$set(bo);const da={};v&2&&(da.$$scope={dirty:v,ctx:a}),Xe.$set(da);const vo={};v&2&&(vo.$$scope={dirty:v,ctx:a}),Ze.$set(vo);const $o={};v&2&&($o.$$scope={dirty:v,ctx:a}),et.$set($o);const fa={};v&2&&(fa.$$scope={dirty:v,ctx:a}),tt.$set(fa);const yo={};v&2&&(yo.$$scope={dirty:v,ctx:a}),at.$set(yo);const ua={};v&2&&(ua.$$scope={dirty:v,ctx:a}),ot.$set(ua);const ko={};v&2&&(ko.$$scope={dirty:v,ctx:a}),nt.$set(ko);const L={};v&2&&(L.$$scope={dirty:v,ctx:a}),rt.$set(L);const ma={};v&2&&(ma.$$scope={dirty:v,ctx:a}),lt.$set(ma);const wo={};v&2&&(wo.$$scope={dirty:v,ctx:a}),ct.$set(wo);const Ee={};v&2&&(Ee.$$scope={dirty:v,ctx:a}),gt.$set(Ee);const Eo={};v&2&&(Eo.$$scope={dirty:v,ctx:a}),bt.$set(Eo);const Ao={};v&2&&(Ao.$$scope={dirty:v,ctx:a}),vt.$set(Ao);const Re={};v&2&&(Re.$$scope={dirty:v,ctx:a}),$t.$set(Re);const xo={};v&2&&(xo.$$scope={dirty:v,ctx:a}),yt.$set(xo)},i(a){Oo||(D(r.$$.fragment,a),D(J.$$.fragment,a),D(B.$$.fragment,a),D(oe.$$.fragment,a),D(ve.$$.fragment,a),D(Dt.$$.fragment,a),D(Se.$$.fragment,a),D(Nt.$$.fragment,a),D(Ce.$$.fragment,a),D(qt.$$.fragment,a),D(ze.$$.fragment,a),D(It.$$.fragment,a),D(Tt.$$.fragment,a),D(Lt.$$.fragment,a),D(Pt.$$.fragment,a),D(Be.$$.fragment,a),D(Ke.$$.fragment,a),D(Ot.$$.fragment,a),D(Rt.$$.fragment,a),D(Qe.$$.fragment,a),D(Xe.$$.fragment,a),D(Mt.$$.fragment,a),D(Ut.$$.fragment,a),D(Ze.$$.fragment,a),D(et.$$.fragment,a),D(St.$$.fragment,a),D(tt.$$.fragment,a),D(Ct.$$.fragment,a),D(at.$$.fragment,a),D(zt.$$.fragment,a),D(ot.$$.fragment,a),D(Wt.$$.fragment,a),D(nt.$$.fragment,a),D(Bt.$$.fragment,a),D(Kt.$$.fragment,a),D(rt.$$.fragment,a),D(Jt.$$.fragment,a),D(Qt.$$.fragment,a),D(lt.$$.fragment,a),D(Xt.$$.fragment,a),D(ct.$$.fragment,a),D(gt.$$.fragment,a),D(Yt.$$.fragment,a),D(Zt.$$.fragment,a),D(ta.$$.fragment,a),D(aa.$$.fragment,a),D(oa.$$.fragment,a),D(sa.$$.fragment,a),D(ra.$$.fragment,a),D(ia.$$.fragment,a),D(bt.$$.fragment,a),D(la.$$.fragment,a),D(vt.$$.fragment,a),D(ca.$$.fragment,a),D($t.$$.fragment,a),D(ga.$$.fragment,a),D(yt.$$.fragment,a),Oo=!0)},o(a){N(r.$$.fragment,a),N(J.$$.fragment,a),N(B.$$.fragment,a),N(oe.$$.fragment,a),N(ve.$$.fragment,a),N(Dt.$$.fragment,a),N(Se.$$.fragment,a),N(Nt.$$.fragment,a),N(Ce.$$.fragment,a),N(qt.$$.fragment,a),N(ze.$$.fragment,a),N(It.$$.fragment,a),N(Tt.$$.fragment,a),N(Lt.$$.fragment,a),N(Pt.$$.fragment,a),N(Be.$$.fragment,a),N(Ke.$$.fragment,a),N(Ot.$$.fragment,a),N(Rt.$$.fragment,a),N(Qe.$$.fragment,a),N(Xe.$$.fragment,a),N(Mt.$$.fragment,a),N(Ut.$$.fragment,a),N(Ze.$$.fragment,a),N(et.$$.fragment,a),N(St.$$.fragment,a),N(tt.$$.fragment,a),N(Ct.$$.fragment,a),N(at.$$.fragment,a),N(zt.$$.fragment,a),N(ot.$$.fragment,a),N(Wt.$$.fragment,a),N(nt.$$.fragment,a),N(Bt.$$.fragment,a),N(Kt.$$.fragment,a),N(rt.$$.fragment,a),N(Jt.$$.fragment,a),N(Qt.$$.fragment,a),N(lt.$$.fragment,a),N(Xt.$$.fragment,a),N(ct.$$.fragment,a),N(gt.$$.fragment,a),N(Yt.$$.fragment,a),N(Zt.$$.fragment,a),N(ta.$$.fragment,a),N(aa.$$.fragment,a),N(oa.$$.fragment,a),N(sa.$$.fragment,a),N(ra.$$.fragment,a),N(ia.$$.fragment,a),N(bt.$$.fragment,a),N(la.$$.fragment,a),N(vt.$$.fragment,a),N(ca.$$.fragment,a),N($t.$$.fragment,a),N(ga.$$.fragment,a),N(yt.$$.fragment,a),Oo=!1},d(a){t(i),a&&t(_),a&&t(f),q(r),a&&t(b),a&&t(x),a&&t(M),a&&t(y),a&&t(G),a&&t(z),a&&t(Z),q(J,a),a&&t(se),a&&t(ee),a&&t(me),q(B,a),a&&t(te),a&&t(K),a&&t(_e),a&&t(I),q(oe),q(ve),q(Dt),q(Se),q(Nt),q(Ce),q(qt),q(ze),q(It),q(Tt),q(Lt),q(Pt),q(Be),q(Ke),q(Ot),q(Rt),q(Qe),q(Xe),q(Mt),q(Ut),q(Ze),q(et),q(St),q(tt),q(Ct),q(at),q(zt),q(ot),q(Wt),q(nt),q(Bt),q(Kt),q(rt),q(Jt),q(Qt),q(lt),q(Xt),q(ct),q(gt),q(Yt),a&&t(jo),a&&t(Pe),q(Zt),a&&t(Ho),a&&t(ea),a&&t(Fo),a&&t(dt),a&&t(Do),a&&t(ne),q(ta),q(aa),q(oa),q(sa),a&&t(No),a&&t(Oe),q(ra),a&&t(qo),a&&t(_t),a&&t(Io),a&&t($e),q(ia),q(bt),a&&t(To),a&&t(ye),q(la),q(vt),a&&t(Lo),a&&t(ke),q(ca),q($t),a&&t(Po),a&&t(we),q(ga),q(yt)}}}const Ti={local:"huggingface_hub.HfApi",sections:[{local:"huggingface_hub.HfFolder",title:"Hugging Face local storage"},{local:"huggingface_hub.DatasetFilter",title:"Filtering helpers"}],title:"Hugging Face Hub API"};function Li(R){return pi(()=>{new URLSearchParams(window.location.search).get("fw")}),[]}class Ci extends ii{constructor(i){super();li(this,i,Li,Ii,ci,{})}}export{Ci as default,Ti as metadata};
