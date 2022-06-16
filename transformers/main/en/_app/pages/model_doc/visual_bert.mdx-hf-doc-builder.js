@@ -74,7 +74,7 @@ from transformers import BertTokenizer, VisualBertForPreTraining
 tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 model = VisualBertForPreTraining.from_pretrained("uclanlp/visualbert-vqa-coco-pre")
 
-inputs = tokenizer("The capital of France is {mask}.", return_tensors="pt")
+inputs = tokenizer("The capital of France is [MASK].", return_tensors="pt")
 visual_embeds = get_visual_embeddings(image).unsqueeze(0)
 visual_token_type_ids = torch.ones(visual_embeds.shape[:-1], dtype=torch.long)
 visual_attention_mask = torch.ones(visual_embeds.shape[:-1], dtype=torch.float)
@@ -102,7 +102,7 @@ seq_relationship_logits = outputs.seq_relationship_logits`,highlighted:`<span cl
 tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
 model = VisualBertForPreTraining.from_pretrained(<span class="hljs-string">&quot;uclanlp/visualbert-vqa-coco-pre&quot;</span>)
 
-inputs = tokenizer(<span class="hljs-string">&quot;The capital of France is {mask}.&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+inputs = tokenizer(<span class="hljs-string">&quot;The capital of France is [MASK].&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 visual_embeds = get_visual_embeddings(image).unsqueeze(<span class="hljs-number">0</span>)
 visual_token_type_ids = torch.ones(visual_embeds.shape[:-<span class="hljs-number">1</span>], dtype=torch.long)
 visual_attention_mask = torch.ones(visual_embeds.shape[:-<span class="hljs-number">1</span>], dtype=torch.<span class="hljs-built_in">float</span>)
