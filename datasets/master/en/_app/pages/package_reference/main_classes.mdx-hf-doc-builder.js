@@ -471,30 +471,24 @@ ds_aligned = ds.align_labels_with_mapping(label2id, "label")`,highlighted:`<span
 <span class="hljs-meta">&gt;&gt;&gt; </span>ds = load_dataset(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mnli&quot;</span>, split=<span class="hljs-string">&quot;train&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># mapping to align with</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>label2id = {<span class="hljs-string">&#x27;CONTRADICTION&#x27;</span>: <span class="hljs-number">0</span>, <span class="hljs-string">&#x27;NEUTRAL&#x27;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;ENTAILMENT&#x27;</span>: <span class="hljs-number">2</span>}
-<span class="hljs-meta">&gt;&gt;&gt; </span>ds_aligned = ds.align_labels_with_mapping(label2id, <span class="hljs-string">&quot;label&quot;</span>)`}}),{c(){c=r("p"),g=i("Example:"),f=m(),_(n.$$.fragment)},l(t){c=o(t,"P",{});var d=l(c);g=p(d,"Example:"),d.forEach(s),f=h(t),b(n.$$.fragment,t)},m(t,d){D(t,c,d),e(c,g),D(t,f,d),$(n,t,d),u=!0},p:N,i(t){u||(x(n.$$.fragment,t),u=!0)},o(t){v(n.$$.fragment,t),u=!1},d(t){t&&s(c),t&&s(f),y(n,t)}}}function ine(k){let c,g,f,n,u;return n=new P({props:{code:"ds3 = concatenate_datasets([ds1, ds2])",highlighted:'<span class="hljs-meta">&gt;&gt;&gt; </span>ds3 = concatenate_datasets([ds1, ds2])'}}),{c(){c=r("p"),g=i("Example:"),f=m(),_(n.$$.fragment)},l(t){c=o(t,"P",{});var d=l(c);g=p(d,"Example:"),d.forEach(s),f=h(t),b(n.$$.fragment,t)},m(t,d){D(t,c,d),e(c,g),D(t,f,d),$(n,t,d),u=!0},p:N,i(t){u||(x(n.$$.fragment,t),u=!0)},o(t){v(n.$$.fragment,t),u=!1},d(t){t&&s(c),t&&s(f),y(n,t)}}}function pne(k){let c,g,f,n,u;return n=new P({props:{code:`For regular datasets (map-style):
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds_aligned = ds.align_labels_with_mapping(label2id, <span class="hljs-string">&quot;label&quot;</span>)`}}),{c(){c=r("p"),g=i("Example:"),f=m(),_(n.$$.fragment)},l(t){c=o(t,"P",{});var d=l(c);g=p(d,"Example:"),d.forEach(s),f=h(t),b(n.$$.fragment,t)},m(t,d){D(t,c,d),e(c,g),D(t,f,d),$(n,t,d),u=!0},p:N,i(t){u||(x(n.$$.fragment,t),u=!0)},o(t){v(n.$$.fragment,t),u=!1},d(t){t&&s(c),t&&s(f),y(n,t)}}}function ine(k){let c,g,f,n,u;return n=new P({props:{code:"ds3 = concatenate_datasets([ds1, ds2])",highlighted:'<span class="hljs-meta">&gt;&gt;&gt; </span>ds3 = concatenate_datasets([ds1, ds2])'}}),{c(){c=r("p"),g=i("Example:"),f=m(),_(n.$$.fragment)},l(t){c=o(t,"P",{});var d=l(c);g=p(d,"Example:"),d.forEach(s),f=h(t),b(n.$$.fragment,t)},m(t,d){D(t,c,d),e(c,g),D(t,f,d),$(n,t,d),u=!0},p:N,i(t){u||(x(n.$$.fragment,t),u=!0)},o(t){v(n.$$.fragment,t),u=!1},d(t){t&&s(c),t&&s(f),y(n,t)}}}function pne(k){let c,g,f,n,u;return n=new P({props:{code:`
+from datasets import Dataset, interleave_datasets
+d1 = Dataset.from_dict({"a": [0, 1, 2]})
+d2 = Dataset.from_dict({"a": [10, 11, 12]})
+d3 = Dataset.from_dict({"a": [20, 21, 22]})
+dataset = interleave_datasets([d1, d2, d3])
+dataset["a"]
+dataset = interleave_datasets([d1, d2, d3], probabilities=[0.7, 0.2, 0.1], seed=42)
+dataset["a"]
 
->>> from datasets import Dataset, interleave_datasets
->>> d1 = Dataset.from_dict({"a": [0, 1, 2]})
->>> d2 = Dataset.from_dict({"a": [10, 11, 12]})
->>> d3 = Dataset.from_dict({"a": [20, 21, 22]})
->>> dataset = interleave_datasets([d1, d2, d3])
->>> dataset["a"]
-[0, 10, 20, 1, 11, 21, 2, 12, 22]
->>> dataset = interleave_datasets([d1, d2, d3], probabilities=[0.7, 0.2, 0.1], seed=42)
->>> dataset["a"]
-[10, 0, 11, 1, 2, 20, 12]
 
-For datasets in streaming mode (iterable):
-
->>> from datasets import load_dataset, interleave_datasets
->>> d1 = load_dataset("oscar", "unshuffled_deduplicated_en", split="train", streaming=True)
->>> d2 = load_dataset("oscar", "unshuffled_deduplicated_fr", split="train", streaming=True)
->>> dataset = interleave_datasets([d1, d2])
->>> iterator = iter(dataset)
->>> next(iterator)
-{'text': 'Mtendere Village was inspired by the vision...
->>> next(iterator)
-{'text': "M\xE9dia de d\xE9bat d'id\xE9es, de culture...`,highlighted:`For regular datasets (<span class="hljs-built_in">map</span>-style):
+from datasets import load_dataset, interleave_datasets
+d1 = load_dataset("oscar", "unshuffled_deduplicated_en", split="train", streaming=True)
+d2 = load_dataset("oscar", "unshuffled_deduplicated_fr", split="train", streaming=True)
+dataset = interleave_datasets([d1, d2])
+iterator = iter(dataset)
+next(iterator)
+next(iterator)`,highlighted:`For regular datasets (<span class="hljs-built_in">map</span>-style):
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> Dataset, interleave_datasets
 <span class="hljs-meta">&gt;&gt;&gt; </span>d1 = Dataset.from_dict({<span class="hljs-string">&quot;a&quot;</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]})

@@ -17,17 +17,14 @@ ds = load_dataset('namespace/your_dataset_name', data_files=data_files)`,highlig
 
 <span class="hljs-comment"># Map data files to splits</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>data_files = {<span class="hljs-string">&#x27;train&#x27;</span>: <span class="hljs-string">&#x27;train.csv&#x27;</span>, <span class="hljs-string">&#x27;test&#x27;</span>: <span class="hljs-string">&#x27;test.csv&#x27;</span>}
-<span class="hljs-meta">&gt;&gt;&gt; </span>ds = load_dataset(<span class="hljs-string">&#x27;namespace/your_dataset_name&#x27;</span>, data_files=data_files)`}}),{c(){p=o("p"),y=d("Load a dataset from the Hugging Face Hub:"),u=i(),b(m.$$.fragment)},l(s){p=n(s,"P",{});var f=r(p);y=c(f,"Load a dataset from the Hugging Face Hub:"),f.forEach(a),u=l(s),$(m.$$.fragment,s)},m(s,f){h(s,p,f),t(p,y),h(s,u,f),w(m,s,f),v=!0},p:A,i(s){v||(x(m.$$.fragment,s),v=!0)},o(s){k(m.$$.fragment,s),v=!1},d(s){s&&a(p),s&&a(u),D(m,s)}}}function nl(C){let p,y,u,m,v;return m=new I({props:{code:`# Load a CSV file
->>> from datasets import load_dataset
->>> ds = load_dataset('csv', data_files='path/to/local/my_dataset.csv')
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds = load_dataset(<span class="hljs-string">&#x27;namespace/your_dataset_name&#x27;</span>, data_files=data_files)`}}),{c(){p=o("p"),y=d("Load a dataset from the Hugging Face Hub:"),u=i(),b(m.$$.fragment)},l(s){p=n(s,"P",{});var f=r(p);y=c(f,"Load a dataset from the Hugging Face Hub:"),f.forEach(a),u=l(s),$(m.$$.fragment,s)},m(s,f){h(s,p,f),t(p,y),h(s,u,f),w(m,s,f),v=!0},p:A,i(s){v||(x(m.$$.fragment,s),v=!0)},o(s){k(m.$$.fragment,s),v=!1},d(s){s&&a(p),s&&a(u),D(m,s)}}}function nl(C){let p,y,u,m,v;return m=new I({props:{code:`from datasets import load_dataset
+ds = load_dataset('csv', data_files='path/to/local/my_dataset.csv')
 
-# Load a JSON file
->>> from datasets import load_dataset
->>> ds = load_dataset('json', data_files='path/to/local/my_dataset.json')
+from datasets import load_dataset
+ds = load_dataset('json', data_files='path/to/local/my_dataset.json')
 
-# Load from a local loading script
->>> from datasets import load_dataset
->>> ds = load_dataset('path/to/local/loading_script/loading_script.py', split='train')`,highlighted:`<span class="hljs-comment"># Load a CSV file</span>
+from datasets import load_dataset
+ds = load_dataset('path/to/local/loading_script/loading_script.py', split='train')`,highlighted:`<span class="hljs-comment"># Load a CSV file</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
 <span class="hljs-meta">&gt;&gt;&gt; </span>ds = load_dataset(<span class="hljs-string">&#x27;csv&#x27;</span>, data_files=<span class="hljs-string">&#x27;path/to/local/my_dataset.csv&#x27;</span>)
 
