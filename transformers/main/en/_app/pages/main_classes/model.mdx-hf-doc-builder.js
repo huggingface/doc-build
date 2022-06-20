@@ -1,20 +1,8 @@
-import{S as sx,i as ix,s as lx,e as r,k as l,w as u,t as s,M as dx,c as a,d as t,m as d,a as n,x as g,h as i,b as m,G as e,g as w,y as _,q as b,o as v,B as y,v as cx,L as Ne}from"../../chunks/vendor-hf-doc-builder.js";import{T as dd}from"../../chunks/Tip-hf-doc-builder.js";import{D as M}from"../../chunks/Docstring-hf-doc-builder.js";import{C as U}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Ue}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Oe}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function mx(D){let p,T,$,f,k;return f=new U({props:{code:`from transformers import AutoModel
+import{S as sx,i as ix,s as lx,e as r,k as l,w as u,t as s,M as dx,c as a,d as t,m as d,a as n,x as g,h as i,b as m,G as e,g as w,y as _,q as b,o as v,B as y,v as cx,L as Ne}from"../../chunks/vendor-hf-doc-builder.js";import{T as dd}from"../../chunks/Tip-hf-doc-builder.js";import{D as M}from"../../chunks/Docstring-hf-doc-builder.js";import{C as U}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Ue}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Oe}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function mx(D){let p,T,$,f,k;return f=new U({props:{code:`
 
-model = AutoModel.from_pretrained("bert-base-cased")
 
-# Push the model to your namespace with the name "my-finetuned-bert" and have a local clone in the
-# *my-finetuned-bert* folder.
-model.push_to_hub("my-finetuned-bert")
 
-# Push the model to your namespace with the name "my-finetuned-bert" with no local clone.
-model.push_to_hub("my-finetuned-bert", use_temp_dir=True)
-
-# Push the model to an organization with the name "my-finetuned-bert" and have a local clone in the
-# *my-finetuned-bert* folder.
-model.push_to_hub("my-finetuned-bert", organization="huggingface")
-
-# Make a change to an existing repo that has been cloned locally in *my-finetuned-bert*.
-model.push_to_hub("my-finetuned-bert", repo_url="https://huggingface.co/sgugger/my-finetuned-bert")`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModel
+`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModel
 
 model = AutoModel.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>)
 
@@ -58,23 +46,11 @@ model = BertModel.from_pretrained("bert-base-uncased", from_flax=True)`,highligh
 <span class="hljs-meta">&gt;&gt;&gt; </span>config = BertConfig.from_json_file(<span class="hljs-string">&quot;./tf_model/my_tf_model_config.json&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = BertModel.from_pretrained(<span class="hljs-string">&quot;./tf_model/my_tf_checkpoint.ckpt.index&quot;</span>, from_tf=<span class="hljs-literal">True</span>, config=config)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Loading from a Flax checkpoint file instead of a PyTorch model (slower)</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = BertModel.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>, from_flax=<span class="hljs-literal">True</span>)`}}),{c(){p=r("p"),T=s("Examples:"),$=l(),u(f.$$.fragment)},l(c){p=a(c,"P",{});var x=n(p);T=i(x,"Examples:"),x.forEach(t),$=d(c),g(f.$$.fragment,c)},m(c,x){w(c,p,x),e(p,T),w(c,$,x),_(f,c,x),k=!0},p:Ne,i(c){k||(b(f.$$.fragment,c),k=!0)},o(c){v(f.$$.fragment,c),k=!1},d(c){c&&t(p),c&&t($),y(f,c)}}}function ux(D){let p,T;return{c(){p=r("p"),T=s("This API is experimental and may have some slight breaking changes in the next releases.")},l($){p=a($,"P",{});var f=n(p);T=i(f,"This API is experimental and may have some slight breaking changes in the next releases."),f.forEach(t)},m($,f){w($,p,f),e(p,T)},d($){$&&t(p)}}}function gx(D){let p,T,$,f,k;return f=new U({props:{code:`from transformers import TFAutoModel
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = BertModel.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>, from_flax=<span class="hljs-literal">True</span>)`}}),{c(){p=r("p"),T=s("Examples:"),$=l(),u(f.$$.fragment)},l(c){p=a(c,"P",{});var x=n(p);T=i(x,"Examples:"),x.forEach(t),$=d(c),g(f.$$.fragment,c)},m(c,x){w(c,p,x),e(p,T),w(c,$,x),_(f,c,x),k=!0},p:Ne,i(c){k||(b(f.$$.fragment,c),k=!0)},o(c){v(f.$$.fragment,c),k=!1},d(c){c&&t(p),c&&t($),y(f,c)}}}function ux(D){let p,T;return{c(){p=r("p"),T=s("This API is experimental and may have some slight breaking changes in the next releases.")},l($){p=a($,"P",{});var f=n(p);T=i(f,"This API is experimental and may have some slight breaking changes in the next releases."),f.forEach(t)},m($,f){w($,p,f),e(p,T)},d($){$&&t(p)}}}function gx(D){let p,T,$,f,k;return f=new U({props:{code:`
 
-model = TFAutoModel.from_pretrained("bert-base-cased")
 
-# Push the model to your namespace with the name "my-finetuned-bert" and have a local clone in the
-# *my-finetuned-bert* folder.
-model.push_to_hub("my-finetuned-bert")
 
-# Push the model to your namespace with the name "my-finetuned-bert" with no local clone.
-model.push_to_hub("my-finetuned-bert", use_temp_dir=True)
-
-# Push the model to an organization with the name "my-finetuned-bert" and have a local clone in the
-# *my-finetuned-bert* folder.
-model.push_to_hub("my-finetuned-bert", organization="huggingface")
-
-# Make a change to an existing repo that has been cloned locally in *my-finetuned-bert*.
-model.push_to_hub("my-finetuned-bert", repo_url="https://huggingface.co/sgugger/my-finetuned-bert")`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TFAutoModel
+`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TFAutoModel
 
 model = TFAutoModel.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>)
 
@@ -112,23 +88,11 @@ model = TFBertModel.from_pretrained("./pt_model/my_pytorch_model.bin", from_pt=T
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">assert</span> model.config.output_attentions == <span class="hljs-literal">True</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Loading from a Pytorch model file instead of a TensorFlow checkpoint (slower, for example purposes, not runnable).</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>config = BertConfig.from_json_file(<span class="hljs-string">&quot;./pt_model/my_pt_model_config.json&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = TFBertModel.from_pretrained(<span class="hljs-string">&quot;./pt_model/my_pytorch_model.bin&quot;</span>, from_pt=<span class="hljs-literal">True</span>, config=config)`}}),{c(){p=r("p"),T=s("Examples:"),$=l(),u(f.$$.fragment)},l(c){p=a(c,"P",{});var x=n(p);T=i(x,"Examples:"),x.forEach(t),$=d(c),g(f.$$.fragment,c)},m(c,x){w(c,p,x),e(p,T),w(c,$,x),_(f,c,x),k=!0},p:Ne,i(c){k||(b(f.$$.fragment,c),k=!0)},o(c){v(f.$$.fragment,c),k=!1},d(c){c&&t(p),c&&t($),y(f,c)}}}function vx(D){let p,T,$,f,k;return f=new U({props:{code:`from transformers import FlaxAutoModel
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = TFBertModel.from_pretrained(<span class="hljs-string">&quot;./pt_model/my_pytorch_model.bin&quot;</span>, from_pt=<span class="hljs-literal">True</span>, config=config)`}}),{c(){p=r("p"),T=s("Examples:"),$=l(),u(f.$$.fragment)},l(c){p=a(c,"P",{});var x=n(p);T=i(x,"Examples:"),x.forEach(t),$=d(c),g(f.$$.fragment,c)},m(c,x){w(c,p,x),e(p,T),w(c,$,x),_(f,c,x),k=!0},p:Ne,i(c){k||(b(f.$$.fragment,c),k=!0)},o(c){v(f.$$.fragment,c),k=!1},d(c){c&&t(p),c&&t($),y(f,c)}}}function vx(D){let p,T,$,f,k;return f=new U({props:{code:`
 
-model = FlaxAutoModel.from_pretrained("bert-base-cased")
 
-# Push the model to your namespace with the name "my-finetuned-bert" and have a local clone in the
-# *my-finetuned-bert* folder.
-model.push_to_hub("my-finetuned-bert")
 
-# Push the model to your namespace with the name "my-finetuned-bert" with no local clone.
-model.push_to_hub("my-finetuned-bert", use_temp_dir=True)
-
-# Push the model to an organization with the name "my-finetuned-bert" and have a local clone in the
-# *my-finetuned-bert* folder.
-model.push_to_hub("my-finetuned-bert", organization="huggingface")
-
-# Make a change to an existing repo that has been cloned locally in *my-finetuned-bert*.
-model.push_to_hub("my-finetuned-bert", repo_url="https://huggingface.co/sgugger/my-finetuned-bert")`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> FlaxAutoModel
+`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> FlaxAutoModel
 
 model = FlaxAutoModel.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>)
 
@@ -244,23 +208,11 @@ model.params = model.to_fp32(model.params)`,highlighted:`<span class="hljs-meta"
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># we&#x27;ll first cast to fp16 and back to fp32</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model.params = model.to_f16(model.params)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># now cast back to fp32</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>model.params = model.to_fp32(model.params)`}}),{c(){p=r("p"),T=s("Examples:"),$=l(),u(f.$$.fragment)},l(c){p=a(c,"P",{});var x=n(p);T=i(x,"Examples:"),x.forEach(t),$=d(c),g(f.$$.fragment,c)},m(c,x){w(c,p,x),e(p,T),w(c,$,x),_(f,c,x),k=!0},p:Ne,i(c){k||(b(f.$$.fragment,c),k=!0)},o(c){v(f.$$.fragment,c),k=!1},d(c){c&&t(p),c&&t($),y(f,c)}}}function kx(D){let p,T,$,f,k;return f=new U({props:{code:`from transformers import {object_class}
+<span class="hljs-meta">&gt;&gt;&gt; </span>model.params = model.to_fp32(model.params)`}}),{c(){p=r("p"),T=s("Examples:"),$=l(),u(f.$$.fragment)},l(c){p=a(c,"P",{});var x=n(p);T=i(x,"Examples:"),x.forEach(t),$=d(c),g(f.$$.fragment,c)},m(c,x){w(c,p,x),e(p,T),w(c,$,x),_(f,c,x),k=!0},p:Ne,i(c){k||(b(f.$$.fragment,c),k=!0)},o(c){v(f.$$.fragment,c),k=!1},d(c){c&&t(p),c&&t($),y(f,c)}}}function kx(D){let p,T,$,f,k;return f=new U({props:{code:`
 
-{object} = {object_class}.from_pretrained("bert-base-cased")
 
-# Push the {object} to your namespace with the name "my-finetuned-bert" and have a local clone in the
-# *my-finetuned-bert* folder.
-{object}.push_to_hub("my-finetuned-bert")
 
-# Push the {object} to your namespace with the name "my-finetuned-bert" with no local clone.
-{object}.push_to_hub("my-finetuned-bert", use_temp_dir=True)
-
-# Push the {object} to an organization with the name "my-finetuned-bert" and have a local clone in the
-# *my-finetuned-bert* folder.
-{object}.push_to_hub("my-finetuned-bert", organization="huggingface")
-
-# Make a change to an existing repo that has been cloned locally in *my-finetuned-bert*.
-{object}.push_to_hub("my-finetuned-bert", repo_url="https://huggingface.co/sgugger/my-finetuned-bert")`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> {object_class}
+`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> {object_class}
 
 {<span class="hljs-built_in">object</span>} = {object_class}.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>)
 
@@ -441,7 +393,7 @@ returns a pointer to the input tokens <code>torch.nn.Embedding</code> module of 
 <p>Pointer to the input tokens Embeddings Module of the model.</p>
 `,returnType:`
 <p><code>torch.nn.Embedding</code></p>
-`}}),Ro=new M({props:{name:"save_pretrained",anchor:"transformers.PreTrainedModel.save_pretrained",parameters:[{name:"save_directory",val:": typing.Union[str, os.PathLike]"},{name:"is_main_process",val:": bool = True"},{name:"state_dict",val:": typing.Optional[dict] = None"},{name:"save_function",val:": typing.Callable = <function save at 0x7f1a64e7c790>"},{name:"push_to_hub",val:": bool = False"},{name:"max_shard_size",val:": typing.Union[int, str] = '10GB'"},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.PreTrainedModel.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
+`}}),Ro=new M({props:{name:"save_pretrained",anchor:"transformers.PreTrainedModel.save_pretrained",parameters:[{name:"save_directory",val:": typing.Union[str, os.PathLike]"},{name:"is_main_process",val:": bool = True"},{name:"state_dict",val:": typing.Optional[dict] = None"},{name:"save_function",val:": typing.Callable = <function save at 0x7f55e79ad790>"},{name:"push_to_hub",val:": bool = False"},{name:"max_shard_size",val:": typing.Union[int, str] = '10GB'"},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.PreTrainedModel.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
 Directory to which to save. Will be created if it doesn&#x2019;t exist.`,name:"save_directory"},{anchor:"transformers.PreTrainedModel.save_pretrained.is_main_process",description:`<strong>is_main_process</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether the process calling this is the main process or not. Useful when in distributed training like
 TPUs and need to call this function on all processes. In this case, set <code>is_main_process=True</code> only on
@@ -468,13 +420,9 @@ which will be bigger than <code>max_shard_size</code>.</p>
 
 					</div>
 <p>kwargs &#x2014;
-Additional key word arguments passed along to the <a href="/docs/transformers/main/en/main_classes/model#transformers.utils.PushToHubMixin.push_to_hub">push_to_hub()</a> method.`,name:"max_shard_size"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L1535"}}),Yo=new M({props:{name:"set_input_embeddings",anchor:"transformers.PreTrainedModel.set_input_embeddings",parameters:[{name:"value",val:": Module"}],parametersDescription:[{anchor:"transformers.PreTrainedModel.set_input_embeddings.value",description:"<strong>value</strong> (<code>nn.Module</code>) &#x2014; A module mapping vocabulary to hidden states.",name:"value"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L1118"}}),Ko=new M({props:{name:"tie_weights",anchor:"transformers.PreTrainedModel.tie_weights",parameters:[],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L1146"}}),Zo=new Ue({}),er=new U({props:{code:`from transformers import AutoModelForSeq2SeqLM
+Additional key word arguments passed along to the <a href="/docs/transformers/main/en/main_classes/model#transformers.utils.PushToHubMixin.push_to_hub">push_to_hub()</a> method.`,name:"max_shard_size"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L1535"}}),Yo=new M({props:{name:"set_input_embeddings",anchor:"transformers.PreTrainedModel.set_input_embeddings",parameters:[{name:"value",val:": Module"}],parametersDescription:[{anchor:"transformers.PreTrainedModel.set_input_embeddings.value",description:"<strong>value</strong> (<code>nn.Module</code>) &#x2014; A module mapping vocabulary to hidden states.",name:"value"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L1118"}}),Ko=new M({props:{name:"tie_weights",anchor:"transformers.PreTrainedModel.tie_weights",parameters:[],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L1146"}}),Zo=new Ue({}),er=new U({props:{code:"",highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForSeq2SeqLM
 
-t0pp = AutoModelForSeq2SeqLM.from_pretrained("bigscience/T0pp", low_cpu_mem_usage=True)`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForSeq2SeqLM
-
-t0pp = AutoModelForSeq2SeqLM.from_pretrained(<span class="hljs-string">&quot;bigscience/T0pp&quot;</span>, low_cpu_mem_usage=<span class="hljs-literal">True</span>)`}}),tr=new U({props:{code:`from transformers import AutoModelForSeq2SeqLM
-
-t0pp = AutoModelForSeq2SeqLM.from_pretrained("bigscience/T0pp", device_map="auto")`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForSeq2SeqLM
+t0pp = AutoModelForSeq2SeqLM.from_pretrained(<span class="hljs-string">&quot;bigscience/T0pp&quot;</span>, low_cpu_mem_usage=<span class="hljs-literal">True</span>)`}}),tr=new U({props:{code:"",highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForSeq2SeqLM
 
 t0pp = AutoModelForSeq2SeqLM.from_pretrained(<span class="hljs-string">&quot;bigscience/T0pp&quot;</span>, device_map=<span class="hljs-string">&quot;auto&quot;</span>)`}}),or=new U({props:{code:"t0pp.hf_device_map",highlighted:"t0pp.hf_device_map"}}),rr=new U({props:{code:`{'shared': 0,
  'decoder.embed_tokens': 0,
@@ -547,7 +495,7 @@ Whether or not to count embedding and softmax operations.`,name:"exclude_embeddi
 <p>The number of floating-point operations.</p>
 `,returnType:`
 <p><code>int</code></p>
-`}}),gr=new M({props:{name:"get_extended_attention_mask",anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask",parameters:[{name:"attention_mask",val:": Tensor"},{name:"input_shape",val:": typing.Tuple[int]"},{name:"device",val:": <property object at 0x7f1a0598f040> = None"},{name:"dtype",val:": torch.float32 = None"}],parametersDescription:[{anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.Tensor</code>) &#x2014;
+`}}),gr=new M({props:{name:"get_extended_attention_mask",anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask",parameters:[{name:"attention_mask",val:": Tensor"},{name:"input_shape",val:": typing.Tuple[int]"},{name:"device",val:": <property object at 0x7f55884b6040> = None"},{name:"dtype",val:": torch.float32 = None"}],parametersDescription:[{anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.Tensor</code>) &#x2014;
 Mask with ones indicating tokens to attend to, zeros for tokens to ignore.`,name:"attention_mask"},{anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask.input_shape",description:`<strong>input_shape</strong> (<code>Tuple[int]</code>) &#x2014;
 The shape of the input to the model.`,name:"input_shape"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L786",returnDescription:`
 <p><code>torch.Tensor</code> The extended attention mask, with a the same dtype as <code>attention_mask.dtype</code>.</p>
