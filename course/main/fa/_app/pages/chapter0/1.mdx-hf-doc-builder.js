@@ -2,11 +2,7 @@ import{S as Za,i as en,s as tn,e as a,k as h,t as l,w as f,M as rn,c as n,d as s
 cd ~/transformers-course`,highlighted:`<span class="hljs-built_in">mkdir</span> ~/transformers-course
 <span class="hljs-built_in">cd</span> ~/transformers-course`}}),K=new y({props:{code:"python -m venv .env",highlighted:'<span class="hljs-keyword">python</span> -m venv .<span class="hljs-keyword">env</span>'}}),W=new y({props:{code:`ls -a
 .      ..    .env`,highlighted:`<span class="hljs-keyword">ls</span> -a
-.      <span class="hljs-string">..</span>    <span class="hljs-string">.env</span>`}}),X=new y({props:{code:`\\# Activate the virtual environment
-source .env/bin/activate
-
-\\# Deactivate the virtual environment
-source .env/bin/deactivate`,highlighted:`\\<span class="hljs-comment"># Activate the virtual environment</span>
+.      <span class="hljs-string">..</span>    <span class="hljs-string">.env</span>`}}),X=new y({props:{code:"",highlighted:`\\<span class="hljs-comment"># Activate the virtual environment</span>
 <span class="hljs-built_in">source</span> .<span class="hljs-built_in">env</span>/bin/activate
 
 \\<span class="hljs-comment"># Deactivate the virtual environment</span>
