@@ -2,7 +2,7 @@ import{S as mn,i as gn,s as vn,e as i,k as f,w as m,t as l,N as yn,c as a,d as o
 huggingface-cli login`,highlighted:`python -m pip install huggingface_hub
 huggingface-cli login`}}),Ce=new C({}),Te=new C({}),Ne=new C({}),He=new C({}),Me=new C({}),Oe=new C({}),De=new Io({props:{code:`git clone https://huggingface.co/<your-username>/<your-model-name>
 cd <your-model-id>`,highlighted:`git <span class="hljs-built_in">clone</span> https://huggingface.co/&lt;your-username&gt;/&lt;your-model-name&gt;
-<span class="hljs-built_in">cd</span> &lt;your-model-id&gt;`}}),qe=new C({}),Le=new Io({props:{code:"git lfs install",highlighted:"git lfs install"}}),Fe=new Io({props:{code:"huggingface-cli lfs-enable-largefiles",highlighted:"huggingface-cli lfs-enable-largefiles"}}),Re=new C({}),Ye=new Io({props:{code:`# Create any files you like! Then...
+<span class="hljs-built_in">cd</span> &lt;your-model-id&gt;`}}),qe=new C({}),Le=new Io({props:{code:"git lfs install",highlighted:"git lfs install"}}),Fe=new Io({props:{code:"huggingface-cli lfs-enable-largefiles .",highlighted:"huggingface-cli lfs-enable-largefiles ."}}),Re=new C({}),Ye=new Io({props:{code:`# Create any files you like! Then...
 git add .
 git commit -m "First model version"  # You can choose any descriptive message
 git push`,highlighted:`<span class="hljs-comment"># Create any files you like! Then...</span>
