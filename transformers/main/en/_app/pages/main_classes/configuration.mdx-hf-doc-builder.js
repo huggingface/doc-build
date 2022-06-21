@@ -281,7 +281,7 @@ folder. Pass along <code>temp_dir=True</code> to use a temporary directory inste
 
 					</div>
 <p>kwargs &#x2014;
-Additional key word arguments passed along to the <a href="/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.push_to_hub">push_to_hub()</a> method.`,name:"push_to_hub"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/configuration_utils.py#L406"}}),Ie=new T({props:{name:"to_dict",anchor:"transformers.PretrainedConfig.to_dict",parameters:[],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/configuration_utils.py#L774",returnDescription:`
+Additional key word arguments passed along to the <a href="/docs/transformers/main/en/main_classes/model#transformers.utils.PushToHubMixin.push_to_hub">push_to_hub()</a> method.`,name:"push_to_hub"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/configuration_utils.py#L406"}}),Ie=new T({props:{name:"to_dict",anchor:"transformers.PretrainedConfig.to_dict",parameters:[],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/configuration_utils.py#L774",returnDescription:`
 <p>Dictionary of all the attributes that make up this configuration instance.</p>
 `,returnType:`
 <p><code>Dict[str, Any]</code></p>
