@@ -207,7 +207,7 @@ Whether or not to return the attentions tensors of all attention layers. See <co
 tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.ViTMAEForPreTraining.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
 more detail.`,name:"output_hidden_states"},{anchor:"transformers.ViTMAEForPreTraining.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
-Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/vit_mae/modeling_vit_mae.py#L913",returnDescription:`
+Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/vit_mae/modeling_vit_mae.py#L962",returnDescription:`
 <p>A <code>transformers.models.vit_mae.modeling_vit_mae.ViTMAEForPreTrainingOutput</code> or a tuple of
 <code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
 elements depending on the configuration (<a
@@ -215,7 +215,7 @@ elements depending on the configuration (<a
 >ViTMAEConfig</a>) and inputs.</p>
 <ul>
 <li><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>) \u2014 Pixel reconstruction loss.</li>
-<li><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, patch_size ** 2 * num_channels)</code>) \u2014 Pixel reconstruction logits.</li>
+<li><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, patch_size ** 2 * num_channels)</code>) \u2014 Pixel reconstruction logits.</li>
 <li><strong>mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>) \u2014 Tensor indicating which patches are masked (1) and which are not (0).</li>
 <li><strong>ids_restore</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) \u2014 Tensor containing the original index of the (shuffled) masked patches.</li>
 <li><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings + one for the output of each layer) of
@@ -282,7 +282,7 @@ used instead.`,name:"output_hidden_states"},{anchor:"transformers.TFViTMAEForPre
 Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple. This argument can be used
 in eager mode, in graph mode the value will always be set to True.`,name:"return_dict"},{anchor:"transformers.TFViTMAEForPreTraining.call.training",description:`<strong>training</strong> (<code>bool</code>, <em>optional</em>, defaults to \`False&#x201C;) &#x2014;
 Whether or not to use the model in training mode (some modules like dropout modules have different
-behaviors between training and evaluation).`,name:"training"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/vit_mae/modeling_tf_vit_mae.py#L1020",returnDescription:`
+behaviors between training and evaluation).`,name:"training"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/vit_mae/modeling_tf_vit_mae.py#L1080",returnDescription:`
 <p>A <code>transformers.models.vit_mae.modeling_tf_vit_mae.TFViTMAEForPreTrainingOutput</code> or a tuple of <code>tf.Tensor</code> (if
 <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various elements depending on the
 configuration (<a
@@ -290,7 +290,7 @@ configuration (<a
 >ViTMAEConfig</a>) and inputs.</p>
 <ul>
 <li><strong>loss</strong> (<code>tf.Tensor</code> of shape <code>(1,)</code>) \u2014 Pixel reconstruction loss.</li>
-<li><strong>logits</strong> (<code>tf.Tensor</code> of shape <code>(batch_size, patch_size ** 2 * num_channels)</code>) \u2014 Pixel reconstruction logits.</li>
+<li><strong>logits</strong> (<code>tf.Tensor</code> of shape <code>(batch_size, sequence_length, patch_size ** 2 * num_channels)</code>) \u2014 Pixel reconstruction logits.</li>
 <li><strong>mask</strong> (<code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>) \u2014 Tensor indicating which patches are masked (1) and which are not (0).</li>
 <li><strong>ids_restore</strong> (<code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>) \u2014 Tensor containing the original index of the (shuffled) masked patches.</li>
 <li><strong>hidden_states</strong> (<code>tuple(tf.Tensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>tf.Tensor</code> (one for the output of the embeddings + one for the output of each layer) of shape
