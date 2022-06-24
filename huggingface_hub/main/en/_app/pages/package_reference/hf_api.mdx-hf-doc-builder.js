@@ -253,7 +253,7 @@ upload_file(
 if the HuggingFace API returned an error`),y=g(),A=a("li"),k=a("a"),E=a("code"),I=c("ValueError"),P=c(`
 if some parameter value is invalid`),this.h()},l(O){l=n(O,"P",{});var _=s(l);b=p(_,"Raises the following errors:"),_.forEach(t),f=h(O),i=n(O,"UL",{});var L=s(i);d=n(L,"LI",{});var S=s(d);r=n(S,"A",{href:!0,rel:!0});var M=s(r);m=n(M,"CODE",{});var V=s(m);N=p(V,"HTTPError"),V.forEach(t),M.forEach(t),u=p(S,`
 if the HuggingFace API returned an error`),S.forEach(t),y=h(L),A=n(L,"LI",{});var G=s(A);k=n(G,"A",{href:!0,rel:!0});var C=s(k);E=n(C,"CODE",{});var W=s(E);I=p(W,"ValueError"),W.forEach(t),C.forEach(t),P=p(G,`
-if some parameter value is invalid`),G.forEach(t),L.forEach(t),this.h()},h(){w(r,"href","https://2.python-requests.org/en/master/api/#requests.HTTPError"),w(r,"rel","nofollow"),w(k,"href","https://docs.python.org/3/library/exceptions.html#ValueError"),w(k,"rel","nofollow")},m(O,_){v(O,l,_),e(l,b),v(O,f,_),v(O,i,_),e(i,d),e(d,r),e(r,m),e(m,N),e(d,u),e(i,y),e(i,A),e(A,k),e(k,E),e(E,I),e(A,P)},d(O){O&&t(l),O&&t(f),O&&t(i)}}}function Oi(U){let l,b,f,i,d;return i=new fe({props:{code:`upload_file(
+if some parameter value is invalid`),G.forEach(t),L.forEach(t),this.h()},h(){w(r,"href","https://2.python-requests.org/en/master/api/#requests.HTTPError"),w(r,"rel","nofollow"),w(k,"href","https://docs.python.org/3/library/exceptions.html#ValueError"),w(k,"rel","nofollow")},m(O,_){v(O,l,_),e(l,b),v(O,f,_),v(O,i,_),e(i,d),e(d,r),e(r,m),e(m,N),e(d,u),e(i,y),e(i,A),e(A,k),e(k,E),e(E,I),e(A,P)},d(O){O&&t(l),O&&t(f),O&&t(i)}}}function Oi(U){let l,b,f,i,d;return i=new fe({props:{code:`upload_folder(
     folder_path="local/checkpoints",
     path_in_repo="remote/experiment/checkpoints",
     repo_id="username/my-dataset",
@@ -261,7 +261,7 @@ if some parameter value is invalid`),G.forEach(t),L.forEach(t),this.h()},h(){w(r
     token="my_token",
 )
 
-upload_file(
+upload_folder(
     folder_path="local/checkpoints",
     path_in_repo="remote/experiment/checkpoints",
     repo_id="username/my-dataset",
@@ -269,7 +269,7 @@ upload_file(
     token="my_token",
     create_pr=True,
 )
-`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>upload_file(
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>upload_folder(
 <span class="hljs-meta">... </span>    folder_path=<span class="hljs-string">&quot;local/checkpoints&quot;</span>,
 <span class="hljs-meta">... </span>    path_in_repo=<span class="hljs-string">&quot;remote/experiment/checkpoints&quot;</span>,
 <span class="hljs-meta">... </span>    repo_id=<span class="hljs-string">&quot;username/my-dataset&quot;</span>,
@@ -278,7 +278,7 @@ upload_file(
 <span class="hljs-meta">... </span>)
 <span class="hljs-comment"># &quot;https://huggingface.co/datasets/username/my-dataset/tree/main/remote/experiment/checkpoints&quot;</span>
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>upload_file(
+<span class="hljs-meta">&gt;&gt;&gt; </span>upload_folder(
 <span class="hljs-meta">... </span>    folder_path=<span class="hljs-string">&quot;local/checkpoints&quot;</span>,
 <span class="hljs-meta">... </span>    path_in_repo=<span class="hljs-string">&quot;remote/experiment/checkpoints&quot;</span>,
 <span class="hljs-meta">... </span>    repo_id=<span class="hljs-string">&quot;username/my-dataset&quot;</span>,
