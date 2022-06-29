@@ -322,59 +322,33 @@ Whether or not to disable fast initialization.</p>
 <p>One should only disable <em>_fast_init</em> to ensure backwards compatibility with <code>transformers.__version__ &lt; 4.6.0</code> for seeded model initialization. This argument will be removed at the next major version. See
 <a href="https://github.com/huggingface/transformers/pull/11471" rel="nofollow">pull request 11471</a> for more information.</p>
 
-					</div>`,name:"_fast_init(bool,"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L1567",parameterGroups:[{title:"Parameters for big model inference",parametersDescription:`
-<ul>
-<li>
-<p><strong>low_cpu_mem_usage(<code>bool</code>,</strong> <em>optional</em>) \u2014
+					</div>`,name:"_fast_init(bool,"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L1567",parameterGroups:[{title:"Parameters for big model inference",parametersDescription:[{anchor:"transformers.PreTrainedModel.from_pretrained.low_cpu_mem_usage(bool,",description:`<strong>low_cpu_mem_usage(<code>bool</code>,</strong> <em>optional</em>) &#x2014;
 Tries to not use more than 1x model size in CPU memory (including peak memory) while loading the model.
-This is an experimental feature and a subject to change at any moment.</p>
-</li>
-<li>
-<p><strong>torch_dtype</strong> (<code>str</code> or <code>torch.dtype</code>, <em>optional</em>) \u2014
-Override the default <code>torch.dtype</code> and load the model under this dtype. If <code>"auto"</code> is passed the dtype
-will be automatically derived from the model\u2019s weights.</p>
-</li>
-<li>
-<p><strong>device_map</strong> (<code>str</code> or <code>Dict[str, Union[int, str, torch.device]]</code>, <em>optional</em>) \u2014
-A map that specifies where each submodule should go. It doesn\u2019t need to be refined to each
+This is an experimental feature and a subject to change at any moment.`,name:"low_cpu_mem_usage(bool,"},{anchor:"transformers.PreTrainedModel.from_pretrained.torch_dtype",description:`<strong>torch_dtype</strong> (<code>str</code> or <code>torch.dtype</code>, <em>optional</em>) &#x2014;
+Override the default <code>torch.dtype</code> and load the model under this dtype. If <code>&quot;auto&quot;</code> is passed the dtype
+will be automatically derived from the model&#x2019;s weights.`,name:"torch_dtype"},{anchor:"transformers.PreTrainedModel.from_pretrained.device_map",description:`<strong>device_map</strong> (<code>str</code> or <code>Dict[str, Union[int, str, torch.device]]</code>, <em>optional</em>) &#x2014;
+A map that specifies where each submodule should go. It doesn&#x2019;t need to be refined to each
 parameter/buffer name, once a given module name is inside, every submodule of it will be sent to the
 same device.</p>
-<p>To have Accelerate compute the most optimized <code>device_map</code> automatically, set <code>device_map="auto"</code>.</p>
-</li>
-<li>
-<p><strong>max_memory</strong> (<code>Dict</code>, <em>optional</em>) \u2014
+<p>To have Accelerate compute the most optimized <code>device_map</code> automatically, set <code>device_map=&quot;auto&quot;</code>.`,name:"device_map"},{anchor:"transformers.PreTrainedModel.from_pretrained.max_memory",description:`<strong>max_memory</strong> (<code>Dict</code>, <em>optional</em>) &#x2014;
 A dictionary device identifier to maximum memory. Will default to the maximum memory available for each
-GPU and the available CPU RAM if unset.</p>
-</li>
-<li>
-<p><strong>offload_folder</strong> (<code>str</code> or <code>os.PathLike</code>, <em>optional</em>) \u2014
-If the <code>device_map</code> contains any value <code>"disk"</code>, the folder where we will offload weights.</p>
-</li>
-<li>
-<p><strong>offload_state_dict</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) \u2014
+GPU and the available CPU RAM if unset.`,name:"max_memory"},{anchor:"transformers.PreTrainedModel.from_pretrained.offload_folder",description:`<strong>offload_folder</strong> (<code>str</code> or <code>os.PathLike</code>, <em>optional</em>) &#x2014;
+If the <code>device_map</code> contains any value <code>&quot;disk&quot;</code>, the folder where we will offload weights.`,name:"offload_folder"},{anchor:"transformers.PreTrainedModel.from_pretrained.offload_state_dict",description:`<strong>offload_state_dict</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 If <code>True</code>, will temporarily offload the CPU state dict to the hard drive to avoid getting out of CPU
-RAM if the weight of the CPU state dict + the biggest shard of the checkpoint does not fit.</p>
-</li>
-<li>
-<p><strong>kwargs</strong> (remaining dictionary of keyword arguments, <em>optional</em>) \u2014
+RAM if the weight of the CPU state dict + the biggest shard of the checkpoint does not fit.`,name:"offload_state_dict"},{anchor:"transformers.PreTrainedModel.from_pretrained.kwargs",description:`<strong>kwargs</strong> (remaining dictionary of keyword arguments, <em>optional</em>) &#x2014;
 Can be used to update the configuration object (after it being loaded) and initiate the model (e.g.,
 <code>output_attentions=True</code>). Behaves differently depending on whether a <code>config</code> is provided or
 automatically loaded:</p>
 <ul>
 <li>If a configuration is provided with <code>config</code>, <code>**kwargs</code> will be directly passed to the
-underlying model\u2019s <code>__init__</code> method (we assume all relevant updates to the configuration have
+underlying model&#x2019;s <code>__init__</code> method (we assume all relevant updates to the configuration have
 already been done)</li>
 <li>If a configuration is not provided, <code>kwargs</code> will be first passed to the configuration class
-initialization function (<a
-  href="/docs/transformers/main/en/main_classes/configuration#transformers.PretrainedConfig.from_pretrained"
->from_pretrained()</a>). Each key of <code>kwargs</code> that
+initialization function (<a href="/docs/transformers/main/en/main_classes/configuration#transformers.PretrainedConfig.from_pretrained">from_pretrained()</a>). Each key of <code>kwargs</code> that
 corresponds to a configuration attribute will be used to override said attribute with the
 supplied <code>kwargs</code> value. Remaining keys that do not correspond to any configuration attribute
-will be passed to the underlying model\u2019s <code>__init__</code> function.</li>
-</ul>
-</li>
-</ul>
-`}]}}),ht=new ud({props:{$$slots:{default:[Ex]},$$scope:{ctx:D}}}),ft=new ud({props:{$$slots:{default:[jx]},$$scope:{ctx:D}}}),ut=new Ne({props:{anchor:"transformers.PreTrainedModel.from_pretrained.example",$$slots:{default:[Fx]},$$scope:{ctx:D}}}),Lo=new P({props:{name:"get_input_embeddings",anchor:"transformers.PreTrainedModel.get_input_embeddings",parameters:[],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L1000",returnDescription:`
+will be passed to the underlying model&#x2019;s <code>__init__</code> function.</li>
+</ul>`,name:"kwargs"}]}]}}),ht=new ud({props:{$$slots:{default:[Ex]},$$scope:{ctx:D}}}),ft=new ud({props:{$$slots:{default:[jx]},$$scope:{ctx:D}}}),ut=new Ne({props:{anchor:"transformers.PreTrainedModel.from_pretrained.example",$$slots:{default:[Fx]},$$scope:{ctx:D}}}),Lo=new P({props:{name:"get_input_embeddings",anchor:"transformers.PreTrainedModel.get_input_embeddings",parameters:[],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L1000",returnDescription:`
 <p>A torch module mapping vocabulary to hidden states.</p>
 `,returnType:`
 <p><code>nn.Module</code></p>
@@ -393,7 +367,7 @@ returns a pointer to the input tokens <code>torch.nn.Embedding</code> module of 
 <p>Pointer to the input tokens Embeddings Module of the model.</p>
 `,returnType:`
 <p><code>torch.nn.Embedding</code></p>
-`}}),Ro=new P({props:{name:"save_pretrained",anchor:"transformers.PreTrainedModel.save_pretrained",parameters:[{name:"save_directory",val:": typing.Union[str, os.PathLike]"},{name:"is_main_process",val:": bool = True"},{name:"state_dict",val:": typing.Optional[dict] = None"},{name:"save_function",val:": typing.Callable = <function save at 0x7f626a18ef70>"},{name:"push_to_hub",val:": bool = False"},{name:"max_shard_size",val:": typing.Union[int, str] = '10GB'"},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.PreTrainedModel.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
+`}}),Ro=new P({props:{name:"save_pretrained",anchor:"transformers.PreTrainedModel.save_pretrained",parameters:[{name:"save_directory",val:": typing.Union[str, os.PathLike]"},{name:"is_main_process",val:": bool = True"},{name:"state_dict",val:": typing.Optional[dict] = None"},{name:"save_function",val:": typing.Callable = <function save at 0x7ffad263df70>"},{name:"push_to_hub",val:": bool = False"},{name:"max_shard_size",val:": typing.Union[int, str] = '10GB'"},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.PreTrainedModel.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
 Directory to which to save. Will be created if it doesn&#x2019;t exist.`,name:"save_directory"},{anchor:"transformers.PreTrainedModel.save_pretrained.is_main_process",description:`<strong>is_main_process</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether the process calling this is the main process or not. Useful when in distributed training like
 TPUs and need to call this function on all processes. In this case, set <code>is_main_process=True</code> only on
@@ -495,7 +469,7 @@ Whether or not to count embedding and softmax operations.`,name:"exclude_embeddi
 <p>The number of floating-point operations.</p>
 `,returnType:`
 <p><code>int</code></p>
-`}}),_r=new P({props:{name:"get_extended_attention_mask",anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask",parameters:[{name:"attention_mask",val:": Tensor"},{name:"input_shape",val:": typing.Tuple[int]"},{name:"device",val:": <property object at 0x7f6268b091d0> = None"},{name:"dtype",val:": torch.float32 = None"}],parametersDescription:[{anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.Tensor</code>) &#x2014;
+`}}),_r=new P({props:{name:"get_extended_attention_mask",anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask",parameters:[{name:"attention_mask",val:": Tensor"},{name:"input_shape",val:": typing.Tuple[int]"},{name:"device",val:": <property object at 0x7ffad0f92090> = None"},{name:"dtype",val:": torch.float32 = None"}],parametersDescription:[{anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.Tensor</code>) &#x2014;
 Mask with ones indicating tokens to attend to, zeros for tokens to ignore.`,name:"attention_mask"},{anchor:"transformers.modeling_utils.ModuleUtilsMixin.get_extended_attention_mask.input_shape",description:`<strong>input_shape</strong> (<code>Tuple[int]</code>) &#x2014;
 The shape of the input to the model.`,name:"input_shape"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_utils.py#L681",returnDescription:`
 <p><code>torch.Tensor</code> The extended attention mask, with a the same dtype as <code>attention_mask.dtype</code>.</p>
