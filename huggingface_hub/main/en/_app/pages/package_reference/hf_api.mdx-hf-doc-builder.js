@@ -305,7 +305,7 @@ new_filter = DatasetFilter(language_creator="crowdsourced")
 new_filter = DatasetFilter(language="en")
 
 # Using multilinguality
-new_filter = DatasetFilter(multilinguality="yes")
+new_filter = DatasetFilter(multilinguality="multilingual")
 
 # Using size_categories
 new_filter = DatasetFilter(size_categories="100K<n<1M")
@@ -332,7 +332,7 @@ new_filter = DatasetFilter(task_ids="paraphrase")`,highlighted:`<span class="hlj
 <span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(language=<span class="hljs-string">&quot;en&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using multilinguality</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(multilinguality=<span class="hljs-string">&quot;yes&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(multilinguality=<span class="hljs-string">&quot;multilingual&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using size_categories</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>new_filter = DatasetFilter(size_categories=<span class="hljs-string">&quot;100K&lt;n&lt;1M&quot;</span>)
