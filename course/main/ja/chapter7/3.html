@@ -1,0 +1,825 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;マスク言語モデリング用の事前学習済みモデルの選択&quot;},{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;データセット&quot;},{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;データの前処理&quot;},{&quot;local&quot;:&quot;distilberttrainerapi&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;言語モデルのパープレキシティ&quot;}],&quot;title&quot;:&quot;DistilBERTを`Trainer`APIで微調整する&quot;},{&quot;local&quot;:&quot;distilbert-accelerate&quot;,&quot;title&quot;:&quot;DistilBERTを🤗 Accelerateを使って微調整する&quot;},{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;微調整したモデルを使う&quot;}],&quot;title&quot;:&quot;マスク言語モデルの微調整&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/course/main/ja/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/course/main/ja/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/ja/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/ja/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/ja/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/ja/_app/pages/chapter7/3.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/ja/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/ja/_app/chunks/Youtube-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/ja/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/ja/_app/chunks/CodeBlock-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/ja/_app/chunks/DocNotebookDropdown-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/ja/_app/chunks/FrameworkSwitchCourse-hf-doc-builder.js"> 
+
+
+
+
+
+<div class="bg-white leading-none border border-gray-100 rounded-lg flex p-0.5 w-56 text-sm mb-4"><a class="flex justify-center flex-1 py-1.5 px-2.5 focus:outline-none !no-underline rounded-l bg-red-50 dark:bg-transparent text-red-600" href="?fw=pt"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><defs><clipPath id="a"><rect x="3.05" y="0.5" width="25.73" height="31" fill="none"></rect></clipPath></defs><g clip-path="url(#a)"><path d="M24.94,9.51a12.81,12.81,0,0,1,0,18.16,12.68,12.68,0,0,1-18,0,12.81,12.81,0,0,1,0-18.16l9-9V5l-.84.83-6,6a9.58,9.58,0,1,0,13.55,0ZM20.44,9a1.68,1.68,0,1,1,1.67-1.67A1.68,1.68,0,0,1,20.44,9Z" fill="#ee4c2c"></path></g></svg>
+			Pytorch
+		</a><a class="flex justify-center flex-1 py-1.5 px-2.5 focus:outline-none !no-underline rounded-r text-gray-500 filter grayscale" href="?fw=tf"><svg class="mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="0.94em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 274"><path d="M145.726 42.065v42.07l72.861 42.07v-42.07l-72.86-42.07zM0 84.135v42.07l36.43 21.03V105.17L0 84.135zm109.291 21.035l-36.43 21.034v126.2l36.43 21.035v-84.135l36.435 21.035v-42.07l-36.435-21.034V105.17z" fill="#E55B2D"></path><path d="M145.726 42.065L36.43 105.17v42.065l72.861-42.065v42.065l36.435-21.03v-84.14zM255.022 63.1l-36.435 21.035v42.07l36.435-21.035V63.1zm-72.865 84.135l-36.43 21.035v42.07l36.43-21.036v-42.07zm-36.43 63.104l-36.436-21.035v84.135l36.435-21.035V210.34z" fill="#ED8E24"></path><path d="M145.726 0L0 84.135l36.43 21.035l109.296-63.105l72.861 42.07L255.022 63.1L145.726 0zm0 126.204l-36.435 21.03l36.435 21.036l36.43-21.035l-36.43-21.03z" fill="#F8BF3C"></path></svg>
+			TensorFlow
+		</a></div>
+<h1 id="">マスク言語モデルの微調整</h1>
+
+
+<div class="flex space-x-1 absolute z-10 right-0 top-0"><a href="https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter7/section3_pt.ipynb" target="_blank"><img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
+	<a href="https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter7/section3_pt.ipynb" target="_blank"><img alt="Open In Studio Lab" class="!m-0" src="https://studiolab.sagemaker.aws/studiolab.svg"></a></div>
+<p>Transformerモデルを含む多くのNLPアプリケーションでは、ハギング フェイス ハブから事前学習済みのモデルを取り出し、自分が実行したいタスク用のデータを直接使って微調整を行うだけでよいのです。事前学習に使われたコーパスと微調整に使うコーパスがあまり違わない限り、転移学習は通常良い結果を生み出します。</p>
+<p>しかし、モデルのヘッド部だけを対象にタスクに特化したトレーニング行う前に、まずデータを使って言語モデルを微調整したいケースもいくつかあります。例えば、データセットに法的契約や科学論文が含まれている場合、BERTのような素のTransformerモデルは通常、コーパス内のドメイン特有の単語を稀なトークンとして扱うため、結果として満足のいく性能が得られない可能性があります。ドメイン内データで言語モデルを微調整することで、多くの下流タスクのパフォーマンスを向上させることができ、このステップは通常一度だけ行えばよいことになります。</p>
+<p>このように、事前に学習した言語モデルをドメイン内データで微調整するプロセスは、通常<em>ドメイン適応</em>と呼ばれます。これは2018年に<a href="https://arxiv.org/abs/1801.06146" rel="nofollow">ULMFiT</a>によって普及しました。転移学習をNLPで本当に使えるようにした最初のニューラルアーキテクチャ（LSTMがベース）の1つです。ULMFiTによるドメイン適応の例を下の画像に示します。このセクションでは、LSTMの代わりにTransformerを使って、同様のことを行います！</p>
+<div class="flex justify-center"><img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter7/ulmfit.svg" alt="ULMFiT.">
+<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter7/ulmfit-dark.svg" alt="ULMFiT."></div>
+<p>このセクションの終わりには、以下のような文章を自動補完できる<a href="https://huggingface.co/huggingface-course/distilbert-base-uncased-finetuned-imdb?text=This+is+a+great+%5BMASK%5D." rel="nofollow">マスク言語モデル</a>がHub上にできていることでしょう。</p>
+<iframe src="https://hf.space/gradioiframe/course-demos/distilbert-base-uncased-finetuned-imdb/+" frameborder="0" height="300" title="Gradio app" class="block dark:hidden container p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<p>それでは始めましょう！</p>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/mqElG5QJWUg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>🙋 「マスク言語モデリング」や「事前学習済みモデル」という言葉に聞き覚えがない方は、<a href="/course/ja/chapter1">第1章</a>でこれらの主要な概念をすべて動画付きで説明していますので、ぜひご覧になってください。</p></div>
+<h2 id="">マスク言語モデリング用の事前学習済みモデルの選択</h2>
+<p>まず、マスク言語モデリングに適した事前学習済みモデルを選びましょう。以下のスクリーンショットのように、<a href="https://huggingface.co/models?pipeline_tag=fill-mask&sort=downloads" rel="nofollow">ハギング フェイス ハブ</a>の “Fill-Mask “フィルタを適用すると、候補のリストが表示されます。</p>
+<div class="flex justify-center"><img src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter7/mlm-models.png" alt="Hub models." width="80%"></div>
+<p>BERT と RoBERTa モデルのファミリーが最もダウンロードされていますが、ここでは <a href="https://huggingface.co/distilbert-base-uncased" rel="nofollow">DistilBERT</a> と呼ばれるモデルを使用することにします。このモデルは、下流タスクの性能をほとんど損なうことなく、より高速に学習させることができます。</p>
+<p>このモデルは、<a href="https://en.wikipedia.org/wiki/Knowledge_distillation" rel="nofollow"><em>知識蒸留</em></a>と呼ばれる特別な技術を使用して訓練されました。この手法は、BERTのような大きな「教師モデル」が、それよりはるかに少ないパラメータを持つ「生徒モデル」の訓練を導くために使用されています。</p>
+<p>知識蒸溜の詳細を説明すると、この章の内容から離れすぎてしまいますが、もし興味があれば、<a href="https://learning.oreilly.com/library/view/natural-language-processing/9781098103231/ch05.html" rel="nofollow"><em>Natural Language Processing with Transformers</em></a> （通称Transformers教科書）でそれについてすべて読むことができます。</p>
+<p>それでは、<code>AutoModelForMaskedLM</code>クラスを使ってDistilBERTをダウンロードしてみましょう。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForMaskedLM
+
+model_checkpoint = <span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>
+model = AutoModelForMaskedLM.from_pretrained(model_checkpoint)<!-- HTML_TAG_END --></pre></div>
+<p>このモデルがいくつのパラメータを持っているかは、<code>num_parameters()</code> メソッドを呼び出すことで確認することができます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->distilbert_num_parameters = model.num_parameters() / <span class="hljs-number">1_000_000</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;&#x27;&gt;&gt;&gt; DistilBERT number of parameters: <span class="hljs-subst">{<span class="hljs-built_in">round</span>(distilbert_num_parameters)}</span>M&#x27;&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;&#x27;&gt;&gt;&gt; BERT number of parameters: 110M&#x27;&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;&gt;&gt;&gt; DistilBERT number of parameters: 67M&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; BERT number of parameters: 110M&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>約6,700万パラメータを持つDistilBERTは、BERTの基本モデルよりも約2倍小さく、これは、学習時に約2倍のスピードアップに相当します（素晴らしい！）。それでは、このモデルが予測する、小さなテキストサンプルの最も可能性の高い完成形はどのような種類のトークンであるかを見てみましょう。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->text = <span class="hljs-string">&quot;This is a great [MASK].&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>人間なら <code>[MASK]</code> トークンに対して、“day”, “ride”, “painting” などの多くの可能性を想像することができます。事前学習済みモデルの場合、予測値はモデルが学習したコーパスに依存します。なぜなら、モデルはデータに存在する統計的パターンを選択するように学習するからです。BERTと同様に、DistilBERTは<a href="https://huggingface.co/datasets/wikipedia" rel="nofollow">English Wikipedia</a> と <a href="https://huggingface.co/datasets/bookcorpus" rel="nofollow">BookCorpus</a> のデータセットで事前学習されているので、<code>[MASK]</code>の予測はこれらのドメインを反映すると予想されます。マスクを予測するためには、モデルの入力生成用にDistilBERTのtokenizerが必要なので、これもHubからダウンロードしましょう。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)<!-- HTML_TAG_END --></pre></div>
+<p>tokenizerモデルがあれば、テキストサンプルをモデルに渡し、ロジットを抽出し、上位5つの候補を出力することができます。</p>
+<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> torch
+
+inputs = tokenizer(text, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+token_logits = model(**inputs).logits
+<span class="hljs-comment"># Find the location of [MASK] and extract its logits</span>
+mask_token_index = torch.where(inputs[<span class="hljs-string">&quot;input_ids&quot;</span>] == tokenizer.mask_token_id)[<span class="hljs-number">1</span>]
+mask_token_logits = token_logits[<span class="hljs-number">0</span>, mask_token_index, :]
+<span class="hljs-comment"># Pick the [MASK] candidates with the highest logits</span>
+top_5_tokens = torch.topk(mask_token_logits, <span class="hljs-number">5</span>, dim=<span class="hljs-number">1</span>).indices[<span class="hljs-number">0</span>].tolist()
+
+<span class="hljs-keyword">for</span> token <span class="hljs-keyword">in</span> top_5_tokens:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;&#x27;&gt;&gt;&gt; <span class="hljs-subst">{text.replace(tokenizer.mask_token, tokenizer.decode([token]))}</span>&#x27;&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;&gt;&gt;&gt; This is a great deal.&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; This is a great success.&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; This is a great adventure.&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; This is a great idea.&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; This is a great feat.&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>出力から、モデルの予測は日常的な用語に言及していることがわかりますが、これは英語版ウィキペディアが基盤となっている事を考えれば驚くことではありません。では、この領域をもう少しニッチなもの、つまり、分裂している映画評価データセットに変えてみましょう。</p>
+<h2 id="">データセット</h2>
+<p>ドメイン適応の例を示すために、私たちは有名な<a href="https://huggingface.co/datasets/imdb" rel="nofollow">Large Movie Review Dataset</a> (略してIMDb)を使用します。これは、感情分析モデルのベンチマークによく使われる、映画のレビューのコーパスです。このコーパスでDistilBERTを微調整することで、言語モデルが事前学習したWikipediaの事実に基づくデータから、映画レビューのより主観的な要素に語彙を適応させることが期待されます。ハギング フェイス ハブのデータは、🤗 Datasetsの <code>load_dataset()</code> 関数で取得することができます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+
+imdb_dataset = load_dataset(<span class="hljs-string">&quot;imdb&quot;</span>)
+imdb_dataset<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->DatasetDict({
+    train: Dataset({
+        features: [<span class="hljs-string">&#x27;text&#x27;</span>, <span class="hljs-string">&#x27;label&#x27;</span>],
+        num_rows: <span class="hljs-number">25000</span>
+    })
+    test: Dataset({
+        features: [<span class="hljs-string">&#x27;text&#x27;</span>, <span class="hljs-string">&#x27;label&#x27;</span>],
+        num_rows: <span class="hljs-number">25000</span>
+    })
+    unsupervised: Dataset({
+        features: [<span class="hljs-string">&#x27;text&#x27;</span>, <span class="hljs-string">&#x27;label&#x27;</span>],
+        num_rows: <span class="hljs-number">50000</span>
+    })
+})<!-- HTML_TAG_END --></pre></div>
+<p><code>train</code> と <code>test</code> 用のデータ分割にはそれぞれ25,000件のレビューから構成され、ラベル付けされていない <code>unsupervised</code> という分割には50,000件のレビューが含まれていることがわかります。どのようなテキストを扱っているか知るために、いくつかのサンプルを見てみましょう。このコースの前の章で行ったように、 <code>Dataset.shuffle()</code> と <code>Dataset.select()</code> 関数を連鎖させて、ランダムなサンプルを作成しましょう。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->sample = imdb_dataset[<span class="hljs-string">&quot;train&quot;</span>].shuffle(seed=<span class="hljs-number">42</span>).select(<span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>))
+
+<span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> sample:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n&#x27;&gt;&gt;&gt; Review: <span class="hljs-subst">{row[<span class="hljs-string">&#x27;text&#x27;</span>]}</span>&#x27;&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;&#x27;&gt;&gt;&gt; Label: <span class="hljs-subst">{row[<span class="hljs-string">&#x27;label&#x27;</span>]}</span>&#x27;&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Review: This is your typical Priyadarshan movie--a bunch of loony characters out on some silly mission. His signature climax has the entire cast of the film coming together and fighting each other in some crazy moshpit over hidden money. Whether it is a winning lottery ticket in Malamaal Weekly, black money in Hera Pheri, &quot;kodokoo&quot; in Phir Hera Pheri, etc., etc., the director is becoming ridiculously predictable. Don\&#x27;t get me wrong; as clichéd and preposterous his movies may be, I usually end up enjoying the comedy. However, in most his previous movies there has actually been some good humor, (Hungama and Hera Pheri being noteworthy ones). Now, the hilarity of his films is fading as he is using the same formula over and over again.&lt;br /&gt;&lt;br /&gt;Songs are good. Tanushree Datta looks awesome. Rajpal Yadav is irritating, and Tusshar is not a whole lot better. Kunal Khemu is OK, and Sharman Joshi is the best.&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Label: 0&#x27;</span>
+
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Review: Okay, the story makes no sense, the characters lack any dimensionally, the best dialogue is ad-libs about the low quality of movie, the cinematography is dismal, and only editing saves a bit of the muddle, but Sam&quot; Peckinpah directed the film. Somehow, his direction is not enough. For those who appreciate Peckinpah and his great work, this movie is a disappointment. Even a great cast cannot redeem the time the viewer wastes with this minimal effort.&lt;br /&gt;&lt;br /&gt;The proper response to the movie is the contempt that the director San Peckinpah, James Caan, Robert Duvall, Burt Young, Bo Hopkins, Arthur Hill, and even Gig Young bring to their work. Watch the great Peckinpah films. Skip this mess.&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Label: 0&#x27;</span>
+
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Review: I saw this movie at the theaters when I was about 6 or 7 years old. I loved it then, and have recently come to own a VHS version. &lt;br /&gt;&lt;br /&gt;My 4 and 6 year old children love this movie and have been asking again and again to watch it. &lt;br /&gt;&lt;br /&gt;I have enjoyed watching it again too. Though I have to admit it is not as good on a little TV.&lt;br /&gt;&lt;br /&gt;I do not have older children so I do not know what they would think of it. &lt;br /&gt;&lt;br /&gt;The songs are very cute. My daughter keeps singing them over and over.&lt;br /&gt;&lt;br /&gt;Hope this helps.&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Label: 1&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>そう、これらは確かに映画のレビューです。もしあなたが十分に年を取っているなら、最後のレビューにあるVHS版を所有しているというコメントさえ理解できるかもしれません😜! 言語モデリングにはラベルは必要ありませんが、<code>0</code>は否定的なレビュー、<code>1</code>は肯定的なレビューに対応することがもうわかりました。</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>✏️ <strong>挑戦してみましょう！</strong> <code>unsupervised</code> のラベルがついた分割データのランダムサンプルを作成し、ラベルが <code>0</code> や <code>1</code> でないことを確認してみましょう。また、<code>train</code> と <code>test</code> 用の分割データのラベルが本当に <code>0</code> か <code>1</code> のみかを確認することもできます。これはすべての自然言語処理の実践者が新しいプロジェクトの開始時に実行すべき、有用なサニティチェックです!</p></div>
+<p>さて、データをざっと見たところで、マスク言語モデリングのための準備に取りかかりましょう。<a href="/course/ja/chapter3">第3章</a>で見たシーケンス分類のタスクと比較すると、いくつかの追加ステップが必要であることがわかるでしょう。さあ、始めましょう！</p>
+<h2 id="">データの前処理</h2>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/8PmhEIXhBvI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>自己回帰言語モデリングでもマスク言語モデリングでも、共通の前処理として、すべての用例を連結し、コーパス全体を同じ大きさの断片に分割することが行われます。これは、個々のサンプルを単純にトークン化するという、私達の通常のアプローチとは全く異なるものです。なぜすべてを連結するのでしょうか？それは、個々の例文が長すぎると切り捨てられる可能性があり、言語モデリングタスクに役立つかもしれない情報が失われてしまうからです！</p>
+<p>そこで、まずいつものようにコーパスをトークン化します。ただし、トークン化する際に <code>truncation=True</code> オプションをtokenizerに<em>設定しない</em>ようにします。また、単語IDがあればそれを取得します（<a href="/course/ja/chapter6/3">6章</a>で説明した高速tokenizerを使用している場合はそうなります）。後で単語全体をマスキングするために必要になるからです。これをシンプルな関数にまとめ、ついでに <code>text</code> と <code>label</code> カラムも不要になったので削除してしまいましょう。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">tokenize_function</span>(<span class="hljs-params">examples</span>):
+    result = tokenizer(examples[<span class="hljs-string">&quot;text&quot;</span>])
+    <span class="hljs-keyword">if</span> tokenizer.is_fast:
+        result[<span class="hljs-string">&quot;word_ids&quot;</span>] = [result.word_ids(i) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(result[<span class="hljs-string">&quot;input_ids&quot;</span>]))]
+    <span class="hljs-keyword">return</span> result
+
+
+<span class="hljs-comment"># Use batched=True to activate fast multithreading!</span>
+tokenized_datasets = imdb_dataset.<span class="hljs-built_in">map</span>(
+    tokenize_function, batched=<span class="hljs-literal">True</span>, remove_columns=[<span class="hljs-string">&quot;text&quot;</span>, <span class="hljs-string">&quot;label&quot;</span>]
+)
+tokenized_datasets<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->DatasetDict({
+    train: Dataset({
+        features: [<span class="hljs-string">&#x27;attention_mask&#x27;</span>, <span class="hljs-string">&#x27;input_ids&#x27;</span>, <span class="hljs-string">&#x27;word_ids&#x27;</span>],
+        num_rows: <span class="hljs-number">25000</span>
+    })
+    test: Dataset({
+        features: [<span class="hljs-string">&#x27;attention_mask&#x27;</span>, <span class="hljs-string">&#x27;input_ids&#x27;</span>, <span class="hljs-string">&#x27;word_ids&#x27;</span>],
+        num_rows: <span class="hljs-number">25000</span>
+    })
+    unsupervised: Dataset({
+        features: [<span class="hljs-string">&#x27;attention_mask&#x27;</span>, <span class="hljs-string">&#x27;input_ids&#x27;</span>, <span class="hljs-string">&#x27;word_ids&#x27;</span>],
+        num_rows: <span class="hljs-number">50000</span>
+    })
+})<!-- HTML_TAG_END --></pre></div>
+<p>DistilBERTはBERTに似たモデルなので、エンコードされたテキストは、他の章で見た <code>input_ids</code> と <code>attention_mask</code> に加え、私達が追加した <code>word_ids</code> で構成されていることがわかります。</p>
+<p>さて、映画のレビューをトークン化したので、次のステップはそれらをすべてグループ化して、結果を断片に分割することです。しかし、この断片の大きさはどの程度にすべきでしょうか？これは最終的には利用可能な GPU メモリの量によって決まりますが、良い出発点はモデルの最大コンテキストサイズが何であるかを見ることです。これはtokenizerの <code>model_max_length</code> 属性を調べることで推測することができます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tokenizer.model_max_length<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-number">512</span><!-- HTML_TAG_END --></pre></div>
+<p>この値は、チェックポイントに関連付けられた <em>tokenizer_config.json</em> ファイルから取得します。この場合、BERT と同様に、コンテキストサイズが 512 トークンであることが分かります。</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>✏️ <strong>あなたの番です！ </strong> <a href="https://huggingface.co/google/bigbird-roberta-base" rel="nofollow">BigBird</a> や <a href="hf.co/allenai/longformer-base-4096">Longformer</a> などのいくつかの Transformer モデルは、BERT や他の初期の Transformer モデルよりずっと長いコンテキスト長を持っています。これらのチェックポイントのトークナイザーをインスタンス化して、<code>model_max_length</code> がそのモデルカード内に記載されているものと一致することを検証してください。</p></div>
+<p>され、Google Colab内で利用可能なGPUで実験を行うために、メモリに収まるような少し小さめのものを選ぶことにします。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->chunk_size = <span class="hljs-number">128</span><!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>なお、小さな断片サイズを使用すると、実際のシナリオでは不利になることがあるので、モデルを適用するユースケースに対応したサイズを使用する必要があります。</p></div>
+<p>さて、ここからが楽しいところです。連結がどのように機能するかを示すために、トークン化されたトレーニングセットからいくつかのレビューを取り出し、レビュー毎のトークン数を出力してみましょう。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># Slicing produces a list of lists for each feature</span>
+tokenized_samples = tokenized_datasets[<span class="hljs-string">&quot;train&quot;</span>][:<span class="hljs-number">3</span>]
+
+<span class="hljs-keyword">for</span> idx, sample <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(tokenized_samples[<span class="hljs-string">&quot;input_ids&quot;</span>]):
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;&#x27;&gt;&gt;&gt; Review <span class="hljs-subst">{idx}</span> length: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(sample)}</span>&#x27;&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;&gt;&gt;&gt; Review 0 length: 200&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Review 1 length: 559&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Review 2 length: 192&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>そして、これらの例をすべてをシンプルな辞書内包表記を使って連結すると、次のようになります。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->concatenated_examples = {
+    k: <span class="hljs-built_in">sum</span>(tokenized_samples[k], []) <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> tokenized_samples.keys()
+}
+total_length = <span class="hljs-built_in">len</span>(concatenated_examples[<span class="hljs-string">&quot;input_ids&quot;</span>])
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;&#x27;&gt;&gt;&gt; Concatenated reviews length: <span class="hljs-subst">{total_length}</span>&#x27;&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;&gt;&gt;&gt; Concatenated reviews length: 951&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>素晴らしい！全体の長さの裏付けがとれました。</p>
+<p>では、連結されたレビューを <code>block_size</code> で指定されたサイズの断片に分割してみましょう。そのために、 <code>concatenated_examples</code> を繰り返し処理し、リスト内包表記を使用して各特徴のスライスを作成します。その結果、断片の辞書ができあがります。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->chunks = {
+    k: [t[i : i + chunk_size] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, total_length, chunk_size)]
+    <span class="hljs-keyword">for</span> k, t <span class="hljs-keyword">in</span> concatenated_examples.items()
+}
+
+<span class="hljs-keyword">for</span> chunk <span class="hljs-keyword">in</span> chunks[<span class="hljs-string">&quot;input_ids&quot;</span>]:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;&#x27;&gt;&gt;&gt; Chunk length: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(chunk)}</span>&#x27;&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;&gt;&gt;&gt; Chunk length: 128&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Chunk length: 128&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Chunk length: 128&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Chunk length: 128&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Chunk length: 128&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Chunk length: 128&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Chunk length: 128&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; Chunk length: 55&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>この例でわかるように、一般的に最後の断片は最大断片サイズより小さくなります。これを扱うには、主に 2 つの方法があります。</p>
+<ul><li>最後の断片が <code>chunk_size</code> よりも小さければ削除する</li>
+<li>最後の断片の長さが <code>chunk_size</code> と等しくなるまで、最後の断片にダミーデータを詰め込む</li></ul>
+<p>ここでは、最初のアプローチをとります。上記のロジックをすべてひとつの関数にまとめ、トークン化されたデータセットに適用してみましょう。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">group_texts</span>(<span class="hljs-params">examples</span>):
+    <span class="hljs-comment"># Concatenate all texts</span>
+    concatenated_examples = {k: <span class="hljs-built_in">sum</span>(examples[k], []) <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> examples.keys()}
+    <span class="hljs-comment"># Compute length of concatenated texts</span>
+    total_length = <span class="hljs-built_in">len</span>(concatenated_examples[<span class="hljs-built_in">list</span>(examples.keys())[<span class="hljs-number">0</span>]])
+    <span class="hljs-comment"># We drop the last chunk if it&#x27;s smaller than chunk_size</span>
+    total_length = (total_length // chunk_size) * chunk_size
+    <span class="hljs-comment"># Split by chunks of max_len</span>
+    result = {
+        k: [t[i : i + chunk_size] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, total_length, chunk_size)]
+        <span class="hljs-keyword">for</span> k, t <span class="hljs-keyword">in</span> concatenated_examples.items()
+    }
+    <span class="hljs-comment"># Create a new labels column</span>
+    result[<span class="hljs-string">&quot;labels&quot;</span>] = result[<span class="hljs-string">&quot;input_ids&quot;</span>].copy()
+    <span class="hljs-keyword">return</span> result<!-- HTML_TAG_END --></pre></div>
+<p><code>group_texts()</code> の最後のステップでは、 <code>input_ids</code> 列のコピーである新しい <code>labels</code> 列を作成していることに注意してください。これから説明するように、マスク言語モデリングでは、入力部に含まれるランダムなマスクトークンを予測することが目的です。 <code>labels</code> 列は、言語モデルが学習の際に参考する真実の値を提供するために使用します。</p>
+<p>それでは、信頼できる <code>Dataset.map()</code> 関数を使って、トークン化されたデータセットに <code>group_texts()</code> を適用してみましょう。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->lm_datasets = tokenized_datasets.<span class="hljs-built_in">map</span>(group_texts, batched=<span class="hljs-literal">True</span>)
+lm_datasets<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->DatasetDict({
+    train: Dataset({
+        features: [<span class="hljs-string">&#x27;attention_mask&#x27;</span>, <span class="hljs-string">&#x27;input_ids&#x27;</span>, <span class="hljs-string">&#x27;labels&#x27;</span>, <span class="hljs-string">&#x27;word_ids&#x27;</span>],
+        num_rows: <span class="hljs-number">61289</span>
+    })
+    test: Dataset({
+        features: [<span class="hljs-string">&#x27;attention_mask&#x27;</span>, <span class="hljs-string">&#x27;input_ids&#x27;</span>, <span class="hljs-string">&#x27;labels&#x27;</span>, <span class="hljs-string">&#x27;word_ids&#x27;</span>],
+        num_rows: <span class="hljs-number">59905</span>
+    })
+    unsupervised: Dataset({
+        features: [<span class="hljs-string">&#x27;attention_mask&#x27;</span>, <span class="hljs-string">&#x27;input_ids&#x27;</span>, <span class="hljs-string">&#x27;labels&#x27;</span>, <span class="hljs-string">&#x27;word_ids&#x27;</span>],
+        num_rows: <span class="hljs-number">122963</span>
+    })
+})<!-- HTML_TAG_END --></pre></div>
+<p>テキストをグループ化し、断片に分けたことで<code>train</code>と<code>test</code>のデータセットで25,000よりも多くのサンプルが生成されていることがわかります。これは、元のコーパスに複数のレビューを含むものがあるため <em>連続トークン</em> を含むサンプルができたからです。このことは、断片の1つにある特別な <code>[SEP]</code> と <code>[CLS]</code> トークンを探すことで明確にわかります。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tokenizer.decode(lm_datasets[<span class="hljs-string">&quot;train&quot;</span>][<span class="hljs-number">1</span>][<span class="hljs-string">&quot;input_ids&quot;</span>])<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&quot;.... at.......... high. a classic line : inspector : i&#x27;m here to sack one of your teachers. student : welcome to bromwell high. i expect that many adults of my age think that bromwell high is far fetched. what a pity that it isn&#x27;t! [SEP] [CLS] homelessness ( or houselessness as george carlin stated ) has been an issue for years but never a plan to help those on the street that were once considered human who did everything from going to school, work, or vote for the matter. most people think of the homeless&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>上の例では、高校に関する映画とホームレスに関する映画のレビューが2つ重複しているのがわかります。また、マスク言語モデリングのラベルがどのように見えるか確認してみましょう。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tokenizer.decode(lm_datasets[<span class="hljs-string">&quot;train&quot;</span>][<span class="hljs-number">1</span>][<span class="hljs-string">&quot;labels&quot;</span>])<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&quot;.... at.......... high. a classic line : inspector : i&#x27;m here to sack one of your teachers. student : welcome to bromwell high. i expect that many adults of my age think that bromwell high is far fetched. what a pity that it isn&#x27;t! [SEP] [CLS] homelessness ( or houselessness as george carlin stated ) has been an issue for years but never a plan to help those on the street that were once considered human who did everything from going to school, work, or vote for the matter. most people think of the homeless&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>上の <code>group_texts()</code> 関数から予想されるように、これはデコードされた <code>input_ids</code> と同じに見えます。しかし、それではこのモデルはどうやって何かを学習するのでしょうか？入力のランダムな位置に <code>[MASK]</code> トークンを挿入する、という重要なステップが抜けているのです。それでは、特別なデータコレーターを使って、微調整の際にどのようにこれを行うか見てみましょう。</p>
+<h2 class="relative group"><a id="distilberttrainerapi" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#distilberttrainerapi"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>DistilBERTを<code>Trainer</code>APIで微調整する
+	</span></h2>
+
+<p>マスク言語モデルの微調整は、<a href="/course/ja/chapter3">第3章</a>で行ったようなシーケンス分類モデルの微調整とほぼ同じです。唯一の違いは、各バッチのテキストに含まれるいくつかのトークンをランダムにマスクすることができる特別なデータコレーターが必要であることです。幸いなことに、🤗 Transformersにはこのタスクのために専用の <code>DataCollatorForLanguageModeling</code> が用意されています。私たちはtokenizerと、マスクするトークンの割合を指定する <code>mlm_probability</code> 引数を渡すだけでよいのです。ここでは、BERTで使用され、文献上でも一般的な選択である15％を選びます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DataCollatorForLanguageModeling
+
+data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm_probability=<span class="hljs-number">0.15</span>)<!-- HTML_TAG_END --></pre></div>
+<p>ランダムマスクがどのように機能するかを見るために、いくつかの例を data_collator に与えてみましょう。コレーターは辞書型 のリストを想定しており、各 辞書は連続したテキストの塊を表すので、まずデータセットを繰り返し処理してからコレーターにバッチを渡します。このデータコレーターは <code>&quot;word_ids&quot;</code> キーを必要としないので、これを削除します。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->samples = [lm_datasets[<span class="hljs-string">&quot;train&quot;</span>][i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>)]
+<span class="hljs-keyword">for</span> sample <span class="hljs-keyword">in</span> samples:
+    _ = sample.pop(<span class="hljs-string">&quot;word_ids&quot;</span>)
+
+<span class="hljs-keyword">for</span> chunk <span class="hljs-keyword">in</span> data_collator(samples)[<span class="hljs-string">&quot;input_ids&quot;</span>]:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n&#x27;&gt;&gt;&gt; <span class="hljs-subst">{tokenizer.decode(chunk)}</span>&#x27;&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;&gt;&gt;&gt; [CLS] bromwell [MASK] is a cartoon comedy. it ran at the same [MASK] as some other [MASK] about school life, [MASK] as &quot; teachers &quot;. [MASK] [MASK] [MASK] in the teaching [MASK] lead [MASK] to believe that bromwell high\&#x27;[MASK] satire is much closer to reality than is &quot; teachers &quot;. the scramble [MASK] [MASK] financially, the [MASK]ful students whogn [MASK] right through [MASK] pathetic teachers\&#x27;pomp, the pettiness of the whole situation, distinction remind me of the schools i knew and their students. when i saw [MASK] episode in [MASK] a student repeatedly tried to burn down the school, [MASK] immediately recalled. [MASK]...&#x27;</span>
+
+<span class="hljs-string">&#x27;&gt;&gt;&gt; .... at.. [MASK]... [MASK]... high. a classic line plucked inspector : i\&#x27;[MASK] here to [MASK] one of your [MASK]. student : welcome to bromwell [MASK]. i expect that many adults of my age think that [MASK]mwell [MASK] is [MASK] fetched. what a pity that it isn\&#x27;t! [SEP] [CLS] [MASK]ness ( or [MASK]lessness as george 宇in stated )公 been an issue for years but never [MASK] plan to help those on the street that were once considered human [MASK] did everything from going to school, [MASK], [MASK] vote for the matter. most people think [MASK] the homeless&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>いいですね、うまくいきました！
+<code>[MASK]</code>トークンがテキストの様々な場所にランダムに挿入されていることがわかります。</p>
+<p>これらが学習中にモデルが予測しなければならないトークンになります。そしてデータコレーターの素晴らしいところは、バッチごとに<code>[MASK]</code>の挿入をランダムにすることです! </p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>✏️ <strong>あなたの番です！ </strong> 上のコードを何度か実行して、ランダムなマスキングがあなたの目の前で起こるのを見ましょう! また、<code>tokenizer.decode()</code> メソッドを <code>tokenizer.convert_ids_to_tokens()</code> に置き換えると、与えた単語内から一つのトークンが選択されてマスクされ、他の単語がマスクされないことを見ることができます。</p></div>
+<p>ランダムマスキングの副作用として、<code>Trainer</code>を使用する場合、評価指標が確定的でなくなることが挙げられます。
+これはトレーニングセットとテストセットに同じデータコレーターを使用するためです。後ほど、🤗 Accelerateで微調整を行う際に、カスタム評価ループの柔軟性を利用してランダム性をなくす方法について説明します。</p>
+<p>マスク言語モデルをトレーニングする場合、個々のトークンではなく、単語全体をマスキングする手法があります。この手法は <em>whole word masking</em> と呼ばれます。単語全体をマスキングする場合、データコレーターを自作する必要があります。データコレーターとは、サンプルのリストを受け取り、それをバッチ変換する関数のことです。</p>
+<p>今からやってみましょう！</p>
+<p>先ほど計算した単語IDを使って、単語のインデックスと対応するトークンのマップを作る事にします。どの単語をマスクするかをランダムに決めて、そのマスクを入力に適用します。なお、ラベルはマスクする単語を除いて全て<code>-100</code>です。</p>
+<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> collections
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> default_data_collator
+
+wwm_probability = <span class="hljs-number">0.2</span>
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">whole_word_masking_data_collator</span>(<span class="hljs-params">features</span>):
+    <span class="hljs-keyword">for</span> feature <span class="hljs-keyword">in</span> features:
+        word_ids = feature.pop(<span class="hljs-string">&quot;word_ids&quot;</span>)
+
+        <span class="hljs-comment"># Create a map between words and corresponding token indices</span>
+        mapping = collections.defaultdict(<span class="hljs-built_in">list</span>)
+        current_word_index = -<span class="hljs-number">1</span>
+        current_word = <span class="hljs-literal">None</span>
+        <span class="hljs-keyword">for</span> idx, word_id <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(word_ids):
+            <span class="hljs-keyword">if</span> word_id <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+                <span class="hljs-keyword">if</span> word_id != current_word:
+                    current_word = word_id
+                    current_word_index += <span class="hljs-number">1</span>
+                mapping[current_word_index].append(idx)
+
+        <span class="hljs-comment"># Randomly mask words</span>
+        mask = np.random.binomial(<span class="hljs-number">1</span>, wwm_probability, (<span class="hljs-built_in">len</span>(mapping),))
+        input_ids = feature[<span class="hljs-string">&quot;input_ids&quot;</span>]
+        labels = feature[<span class="hljs-string">&quot;labels&quot;</span>]
+        new_labels = [-<span class="hljs-number">100</span>] * <span class="hljs-built_in">len</span>(labels)
+        <span class="hljs-keyword">for</span> word_id <span class="hljs-keyword">in</span> np.where(mask)[<span class="hljs-number">0</span>]:
+            word_id = word_id.item()
+            <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> mapping[word_id]:
+                new_labels[idx] = labels[idx]
+                input_ids[idx] = tokenizer.mask_token_id
+
+    <span class="hljs-keyword">return</span> default_data_collator(features)<!-- HTML_TAG_END --></pre></div>
+<p>次に、先ほどと同じサンプルで試してみます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->samples = [lm_datasets[<span class="hljs-string">&quot;train&quot;</span>][i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>)]
+batch = whole_word_masking_data_collator(samples)
+
+<span class="hljs-keyword">for</span> chunk <span class="hljs-keyword">in</span> batch[<span class="hljs-string">&quot;input_ids&quot;</span>]:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n&#x27;&gt;&gt;&gt; <span class="hljs-subst">{tokenizer.decode(chunk)}</span>&#x27;&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;&gt;&gt;&gt; [CLS] bromwell high is a cartoon comedy [MASK] it ran at the same time as some other programs about school life, such as &quot; teachers &quot;. my 35 years in the teaching profession lead me to believe that bromwell high\&#x27;s satire is much closer to reality than is &quot; teachers &quot;. the scramble to survive financially, the insightful students who can see right through their pathetic teachers\&#x27;pomp, the pettiness of the whole situation, all remind me of the schools i knew and their students. when i saw the episode in which a student repeatedly tried to burn down the school, i immediately recalled.....&#x27;</span>
+
+<span class="hljs-string">&#x27;&gt;&gt;&gt; .... [MASK] [MASK] [MASK] [MASK]....... high. a classic line : inspector : i\&#x27;m here to sack one of your teachers. student : welcome to bromwell high. i expect that many adults of my age think that bromwell high is far fetched. what a pity that it isn\&#x27;t! [SEP] [CLS] homelessness ( or houselessness as george carlin stated ) has been an issue for years but never a plan to help those on the street that were once considered human who did everything from going to school, work, or vote for the matter. most people think of the homeless&#x27;</span><!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>✏️ <strong>あなたの番です！ </strong> 上のコードを何度か実行して、ランダムなマスキングがあなたの目の前で起こるのを見ましょう! また、<code>tokenizer.decode()</code> メソッドを <code>tokenizer.convert_ids_to_tokens()</code> に置き換えると、与えられた単語からのトークンが常に一緒にマスクされることを確認できます。</p></div>
+<p>これで2つのデータコレーターが揃いましたので、残りの微調整ステップは標準的なものです。Google Colabで、神話に出てくるP100 GPUを運良く割り当てられなかった場合、学習に時間がかかることがあります😭そこで、まず学習セットのサイズを数千事例までダウンサンプルします。心配しないでください、それでもかなりまともな言語モデルができますよ。🤗 Datasets 内のデータセットは<a href="/course/ja/chapter5">第5章</a>で紹介した <code>Dataset.train_test_split()</code> 関数で簡単にダウンサンプリングすることができます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->train_size = <span class="hljs-number">10_000</span>
+test_size = <span class="hljs-built_in">int</span>(<span class="hljs-number">0.1</span> * train_size)
+
+downsampled_dataset = lm_datasets[<span class="hljs-string">&quot;train&quot;</span>].train_test_split(
+    train_size=train_size, test_size=test_size, seed=<span class="hljs-number">42</span>
+)
+downsampled_dataset<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->DatasetDict({
+    train: Dataset({
+        features: [<span class="hljs-string">&#x27;attention_mask&#x27;</span>, <span class="hljs-string">&#x27;input_ids&#x27;</span>, <span class="hljs-string">&#x27;labels&#x27;</span>, <span class="hljs-string">&#x27;word_ids&#x27;</span>],
+        num_rows: <span class="hljs-number">10000</span>
+    })
+    test: Dataset({
+        features: [<span class="hljs-string">&#x27;attention_mask&#x27;</span>, <span class="hljs-string">&#x27;input_ids&#x27;</span>, <span class="hljs-string">&#x27;labels&#x27;</span>, <span class="hljs-string">&#x27;word_ids&#x27;</span>],
+        num_rows: <span class="hljs-number">1000</span>
+    })
+})<!-- HTML_TAG_END --></pre></div>
+<p>これは自動的に新しい <code>train</code> と <code>test</code> にデータを分割し、トレーニングセットのサイズを 10,000 事例に、検証セットをその 10%に設定しました。もし強力なGPUをお持ちなら、この値を自由に増やしてください！</p>
+<p>次に必要なことは、ハギング フェイス ハブにログインすることです。このコードをnotebookで実行する場合は、次のユーティリティ関数で実行できます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> notebook_login
+
+notebook_login()<!-- HTML_TAG_END --></pre></div>
+<p>上記を実行すると、入力ウィジェットが表示され、認証情報を入力することができます。また実行することもできます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->huggingface-<span class="hljs-keyword">cli</span> login<!-- HTML_TAG_END --></pre></div>
+<p>好みに応じて、ターミナルを起動し、そこからログインしてください。</p>
+<p>一度ログインしたら、<code>Trainer</code> の引数を指定できます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TrainingArguments
+
+batch_size = <span class="hljs-number">64</span>
+<span class="hljs-comment"># Show the training loss with every epoch</span>
+logging_steps = <span class="hljs-built_in">len</span>(downsampled_dataset[<span class="hljs-string">&quot;train&quot;</span>]) // batch_size
+model_name = model_checkpoint.split(<span class="hljs-string">&quot;/&quot;</span>)[-<span class="hljs-number">1</span>]
+
+training_args = TrainingArguments(
+    output_dir=<span class="hljs-string">f&quot;<span class="hljs-subst">{model_name}</span>-finetuned-imdb&quot;</span>,
+    overwrite_output_dir=<span class="hljs-literal">True</span>,
+    evaluation_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+    learning_rate=<span class="hljs-number">2e-5</span>,
+    weight_decay=<span class="hljs-number">0.01</span>,
+    per_device_train_batch_size=batch_size,
+    per_device_eval_batch_size=batch_size,
+    push_to_hub=<span class="hljs-literal">True</span>,
+    fp16=<span class="hljs-literal">True</span>,
+    logging_steps=logging_steps,
+)<!-- HTML_TAG_END --></pre></div>
+<p>ここでは、各エポックでの学習損失を確実に追跡するために <code>logging_steps</code> を含むデフォルトのオプションを少し調整しました。また、 <code>fp16=True</code> を使用して、混合精度の学習を有効にし、さらに高速化しました。デフォルトでは、 <code>Trainer</code> はモデルの <code>forward()</code> メソッドに含まれない列をすべて削除します。つまり、全単語マスク用のデータコレーターを使用している場合は、 <code>remove_unused_columns=False</code> を設定して、学習時に <code>word_ids</code> カラムが失われないようにする必要があります。</p>
+<p>なお、 <code>hub_model_id</code> 引数でプッシュ先のリポジトリ名を指定することができます (特に、組織にプッシュする場合はこの引数を使用する必要があります)。例えば、モデルを <a href="https://huggingface.co/huggingface-course" rel="nofollow"><code>huggingface-course</code> organization</a> にプッシュする場合、 <code>TrainingArguments</code> に <code>hub_model_id=&quot;huggingface-course/distilbert-finetuned-imdb&quot;</code> を追加しています。デフォルトでは、使用するリポジトリはあなたの名前空間内にあり、設定した出力ディレクトリにちなんだ名前になるので、私たちの場合は <code>&quot;lewtun/distilbert-finetuned-imdb&quot;</code> となります。</p>
+<p>これで <code>Trainer</code> のインスタンスを作成するための材料が揃いました。ここでは、標準的な <code>data_collator</code> を使用しますが、練習として全単語マスキングのデータコレーターを試して、結果を比較することができます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Trainer
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=downsampled_dataset[<span class="hljs-string">&quot;train&quot;</span>],
+    eval_dataset=downsampled_dataset[<span class="hljs-string">&quot;test&quot;</span>],
+    data_collator=data_collator,
+)<!-- HTML_TAG_END --></pre></div>
+<p>これで <code>trainer.train()</code> を実行する準備ができました。しかしその前に、言語モデルの性能を評価する一般的な指標である <em>パープレキシティ</em> について簡単に見ておきましょう。</p>
+<h3 id="">言語モデルのパープレキシティ</h3>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/NURcDHhYe98" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>テキストの分類や質問応答のように、ラベル付けされたコーパスを用いて学習する他のタスクとは異なり、言語モデリングでは明示的なラベルを一切持ちません。では、何が良い言語モデルなのか、どのように判断すればよいのでしょうか？</p>
+<p>携帯電話の自動補正機能のように、文法的に正しい文には高い確率で、無意味な文には低い確率で割り当てることができるものが良い言語モデルです。自動補正の失敗例として、携帯電話に搭載された自動補正モデルが、おかしな（そして往々にして不適切な）文章を生成している例がネット上に多数紹介されています。</p>
+<p>テストセットのほとんどが文法的に正しい文であると仮定すると、言語モデルの品質を測る一つの方法は、テストセットのすべての文において、次に出現する単語を正しく割り当てる確率を計算することです。確率が高いということは、モデルが未知の例文に「驚き」や「当惑」を感じていないことを示し、その言語の文法の基本パターンを学習していることを示唆しています。パープレキシティには様々な数学的定義がありますが、私達が使うのはクロスエントロピー損失の指数として定義するものです。したがって、<code>Trainer.evaluate()</code>関数を使ってテスト集合のクロスエントロピー損失を計算し、その結果の指数を取ることで事前学習済みモデルのパープレキシティを計算することができるのです。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> math
+
+eval_results = trainer.evaluate()
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;&gt;&gt;&gt; Perplexity: <span class="hljs-subst">{math.exp(eval_results[<span class="hljs-string">&#x27;eval_loss&#x27;</span>]):<span class="hljs-number">.2</span>f}</span>&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>Perplexity: <span class="hljs-number">21.75</span><!-- HTML_TAG_END --></pre></div>
+<p>パープレキシティスコアが低いほど、良い言語モデルということになります。
+私達の開始時のモデルの値はやや大きいことがわかります。
+では、微調整によってこの値を下げられるか見てみましょう。そのために、まず学習ループを実行します。</p>
+<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->trainer.train()<!-- HTML_TAG_END --></pre></div>
+<p>それから計算を実行し、その結果得られたテストセットに対するパープレキシティを先ほどと同様に計算します。</p>
+<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->eval_results = trainer.evaluate()
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;&gt;&gt;&gt; Perplexity: <span class="hljs-subst">{math.exp(eval_results[<span class="hljs-string">&#x27;eval_loss&#x27;</span>]):<span class="hljs-number">.2</span>f}</span>&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>Perplexity: <span class="hljs-number">11.32</span><!-- HTML_TAG_END --></pre></div>
+<p>素敵！かなりパープレキシティを減らすことができました。
+これは、モデルが映画レビューの領域について何かを学んだことを示しています。</p>
+<p>一度、トレーニングが終了したら、トレーニング情報が入ったモデルカードをHubにプッシュする事ができます。（チェックポイントはトレーニングの最中に保存されます）。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->trainer.push_to_hub()<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>✏️ <strong>あなたの番です！ </strong> データコレーターを全単語マスキングコレーターに変えて、上記のトレーニングを実行してみましょう。より良い結果が得られましたか？</p></div>
+<p>今回の使用例では、トレーニングループに特別なことをする必要はありませんでしたが、場合によってはカスタムロジックを実装する必要があるかもしれません。そのようなアプリケーションでは、🤗 Accelerateを使用することができます。
+見てみましょう!</p>
+<h2 class="relative group"><a id="distilbert-accelerate" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#distilbert-accelerate"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>DistilBERTを🤗 Accelerateを使って微調整する
+	</span></h2>
+
+<p><code>Trainer</code>で見たように、マスクされた言語モデルの微調整は<a href="/course/ja/chapter3">第3章</a>のテキスト分類の例と非常によく似ています。実際、唯一のわずかな違いは特別なデータコレーターを使うことで、それはこのセクションの前半ですでに取り上げました! </p>
+<p>しかし、<code>DataCollatorForLanguageModeling</code>は評価ごとにランダムなマスキングを行うので、学習実行ごとにパープレキシティスコアに多少の変動が見られることがわかりました。このランダム性を排除する一つの方法は、テストセット全体に <em>一度だけ</em> マスキングを適用し、その後🤗 Transformersのデフォルトのデータコレーターを使用して、評価中にバッチを収集することです。これがどのように機能するかを見るために、<code>DataCollatorForLanguageModeling</code> を最初に使った時と同様に、バッチにマスキングを適用する簡単な関数を実装してみましょう。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">insert_random_mask</span>(<span class="hljs-params">batch</span>):
+    features = [<span class="hljs-built_in">dict</span>(<span class="hljs-built_in">zip</span>(batch, t)) <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(*batch.values())]
+    masked_inputs = data_collator(features)
+    <span class="hljs-comment"># Create a new &quot;masked&quot; column for each column in the dataset</span>
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">&quot;masked_&quot;</span> + k: v.numpy() <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> masked_inputs.items()}<!-- HTML_TAG_END --></pre></div>
+<p>次に、この関数をテストセットに適用して、マスクされていないカラムを削除し、マスクされたカラムに置き換えることができるようにします。上の <code>data_collator</code> を適切なものに置き換えることで、全単語単位でのマスキングを行うことができます。
+その場合は、以下の最初の行を削除してください。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->downsampled_dataset = downsampled_dataset.remove_columns([<span class="hljs-string">&quot;word_ids&quot;</span>])
+eval_dataset = downsampled_dataset[<span class="hljs-string">&quot;test&quot;</span>].<span class="hljs-built_in">map</span>(
+    insert_random_mask,
+    batched=<span class="hljs-literal">True</span>,
+    remove_columns=downsampled_dataset[<span class="hljs-string">&quot;test&quot;</span>].column_names,
+)
+eval_dataset = eval_dataset.rename_columns(
+    {
+        <span class="hljs-string">&quot;masked_input_ids&quot;</span>: <span class="hljs-string">&quot;input_ids&quot;</span>,
+        <span class="hljs-string">&quot;masked_attention_mask&quot;</span>: <span class="hljs-string">&quot;attention_mask&quot;</span>,
+        <span class="hljs-string">&quot;masked_labels&quot;</span>: <span class="hljs-string">&quot;labels&quot;</span>,
+    }
+)<!-- HTML_TAG_END --></pre></div>
+<p>あとは通常通りデータローダーをセットアップしますが、ここでは評価セットに 🤗 Transformers の <code>default_data_collator</code> を使用します。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> DataLoader
+<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> default_data_collator
+
+batch_size = <span class="hljs-number">64</span>
+train_dataloader = DataLoader(
+    downsampled_dataset[<span class="hljs-string">&quot;train&quot;</span>],
+    shuffle=<span class="hljs-literal">True</span>,
+    batch_size=batch_size,
+    collate_fn=data_collator,
+)
+eval_dataloader = DataLoader(
+    eval_dataset, batch_size=batch_size, collate_fn=default_data_collator
+)<!-- HTML_TAG_END --></pre></div>
+<p>ここでは、🤗 Accelerateを使った標準的なステップに従います。最初にやる事は、事前学習したモデルの新しいバージョンをロードすることです。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->model = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">AutoModelForMaskedLM</span>.</span></span>from<span class="hljs-constructor">_pretrained(<span class="hljs-params">model_checkpoint</span>)</span><!-- HTML_TAG_END --></pre></div>
+<p>次に、オプティマイザを指定します。ここでは、標準的な <code>AdamW</code> を使用します。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> torch.optim <span class="hljs-keyword">import</span> AdamW
+
+optimizer = AdamW(model.parameters(), lr=<span class="hljs-number">5e-5</span>)<!-- HTML_TAG_END --></pre></div>
+<p>これらのオブジェクトがあれば、あとは <code>Accelerator</code> オブジェクトを使ってトレーニングのためのすべてを準備することができます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> Accelerator
+
+accelerator = Accelerator()
+model, optimizer, train_dataloader, eval_dataloader = accelerator.prepare(
+    model, optimizer, train_dataloader, eval_dataloader
+)<!-- HTML_TAG_END --></pre></div>
+<p>モデル、オプティマイザー、データローダーが設定されたので、学習率スケジューラーを以下のように指定することができます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> get_scheduler
+
+num_train_epochs = <span class="hljs-number">3</span>
+num_update_steps_per_epoch = <span class="hljs-built_in">len</span>(train_dataloader)
+num_training_steps = num_train_epochs * num_update_steps_per_epoch
+
+lr_scheduler = get_scheduler(
+    <span class="hljs-string">&quot;linear&quot;</span>,
+    optimizer=optimizer,
+    num_warmup_steps=<span class="hljs-number">0</span>,
+    num_training_steps=num_training_steps,
+)<!-- HTML_TAG_END --></pre></div>
+<p>トレーニングの前に最後にすることがあります。ハギング フェイス ハブにモデルリポジトリを作成することです。🤗 Hub ライブラリを使って、まずレポジトリのフルネームを生成します。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> get_full_repo_name
+
+model_name = <span class="hljs-string">&quot;distilbert-base-uncased-finetuned-imdb-accelerate&quot;</span>
+repo_name = get_full_repo_name(model_name)
+repo_name<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;lewtun/distilbert-base-uncased-finetuned-imdb-accelerate&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>それから、🤗 Hub の <code>Repository</code> クラスを使用してリポジトリを作成し、クローンします。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> Repository
+
+output_dir = model_name
+repo = Repository(output_dir, clone_from=repo_name)<!-- HTML_TAG_END --></pre></div>
+<p>これができれば、あとはトレーニングと評価のループをすべて書き出すだけです。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> tqdm.auto <span class="hljs-keyword">import</span> tqdm
+<span class="hljs-keyword">import</span> torch
+<span class="hljs-keyword">import</span> math
+
+progress_bar = tqdm(<span class="hljs-built_in">range</span>(num_training_steps))
+
+<span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_train_epochs):
+    <span class="hljs-comment"># Training</span>
+    model.train()
+    <span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> train_dataloader:
+        outputs = model(**batch)
+        loss = outputs.loss
+        accelerator.backward(loss)
+
+        optimizer.step()
+        lr_scheduler.step()
+        optimizer.zero_grad()
+        progress_bar.update(<span class="hljs-number">1</span>)
+
+    <span class="hljs-comment"># Evaluation</span>
+    model.<span class="hljs-built_in">eval</span>()
+    losses = []
+    <span class="hljs-keyword">for</span> step, batch <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(eval_dataloader):
+        <span class="hljs-keyword">with</span> torch.no_grad():
+            outputs = model(**batch)
+
+        loss = outputs.loss
+        losses.append(accelerator.gather(loss.repeat(batch_size)))
+
+    losses = torch.cat(losses)
+    losses = losses[: <span class="hljs-built_in">len</span>(eval_dataset)]
+    <span class="hljs-keyword">try</span>:
+        perplexity = math.exp(torch.mean(losses))
+    <span class="hljs-keyword">except</span> OverflowError:
+        perplexity = <span class="hljs-built_in">float</span>(<span class="hljs-string">&quot;inf&quot;</span>)
+
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;&gt;&gt;&gt; Epoch <span class="hljs-subst">{epoch}</span>: Perplexity: <span class="hljs-subst">{perplexity}</span>&quot;</span>)
+
+    <span class="hljs-comment"># Save and upload</span>
+    accelerator.wait_for_everyone()
+    unwrapped_model = accelerator.unwrap_model(model)
+    unwrapped_model.save_pretrained(output_dir, save_function=accelerator.save)
+    <span class="hljs-keyword">if</span> accelerator.is_main_process:
+        tokenizer.save_pretrained(output_dir)
+        repo.push_to_hub(
+            commit_message=<span class="hljs-string">f&quot;Training in progress epoch <span class="hljs-subst">{epoch}</span>&quot;</span>, blocking=<span class="hljs-literal">False</span>
+        )<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>Epoch <span class="hljs-number">0</span>: Perplexity: <span class="hljs-number">11.397545307900472</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>Epoch <span class="hljs-number">1</span>: Perplexity: <span class="hljs-number">10.904909330983092</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>Epoch <span class="hljs-number">2</span>: Perplexity: <span class="hljs-number">10.729503505340409</span><!-- HTML_TAG_END --></pre></div>
+<p>イケてる！
+エポックごとにパープレキシティを評価し、複数回のトレーニングを実行した際の再現性を確保することができました</p>
+<h2 id="">微調整したモデルを使う</h2>
+<p>微調整したモデルは、Hub上のウィジェットを使うか、🤗 Transformersの <code>pipeline</code> を使ってローカル環境で操作することができます。それでは後者に挑戦してみましょう。<code>fill-mask</code>パイプラインを使用してモデルをダウンロードします。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline
+
+mask_filler = pipeline(
+    <span class="hljs-string">&quot;fill-mask&quot;</span>, model=<span class="hljs-string">&quot;huggingface-course/distilbert-base-uncased-finetuned-imdb&quot;</span>
+)<!-- HTML_TAG_END --></pre></div>
+<p>そして「これは素晴らしい[MASK]です」というサンプルテキストをパイプラインに送り、上位5つの予測を確認することができます。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->preds = mask_filler(text)
+
+<span class="hljs-keyword">for</span> pred <span class="hljs-keyword">in</span> preds:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;&gt;&gt;&gt; <span class="hljs-subst">{pred[<span class="hljs-string">&#x27;sequence&#x27;</span>]}</span>&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;&gt;&gt;&gt; this is a great movie.&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; this is a great film.&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; this is a great story.&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; this is a great movies.&#x27;</span>
+<span class="hljs-string">&#x27;&gt;&gt;&gt; this is a great character.&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>すっきりしました。
+このモデルは、映画と関連する単語をより強く予測するように、明らかに重みを適応させていますね！</p>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/0Oxphw4Q9fo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>これで、言語モデルを学習するための最初の実験を終えました。<a href="/course/ja/chapter7/section6">セクション6</a>では、GPT-2のような自己回帰モデルをゼロから学習する方法を学びます。もし、あなた自身のTransformerモデルをどうやって事前学習するか見たいなら、そちらに向かってください</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>✏️ <strong>あなたの番です！ </strong> ドメイン適応の利点を定量化するために、IMDbラベルの分類器を、訓練前と微調整したDistilBERTチェックポイントの両方で微調整してください。テキスト分類について復習が必要な場合は、<a href="/course/ja/chapter3">第3章</a>をチェックしてみてください。</p></div>
+
+
+		<script type="module" data-hydrate="xo7tit">
+		import { start } from "/docs/course/main/ja/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="xo7tit"]').parentNode,
+			paths: {"base":"/docs/course/main/ja","assets":"/docs/course/main/ja"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/course/main/ja/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/course/main/ja/_app/pages/chapter7/3.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
