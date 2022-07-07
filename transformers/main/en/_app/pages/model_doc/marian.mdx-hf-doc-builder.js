@@ -267,7 +267,13 @@ translated = model.generate(**tokenizer(src_text, return_tensors="pt", padding=T
 <span class="hljs-meta">&gt;&gt;&gt; </span>[tokenizer.decode(t, skip_special_tokens=<span class="hljs-literal">True</span>) <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> translated]
 [<span class="hljs-string">&quot;c&#x27;est une phrase en anglais que nous voulons traduire en fran\xE7ais&quot;</span>,
  <span class="hljs-string">&#x27;Isto deve ir para o portugu\xEAs.&#x27;</span>,
- <span class="hljs-string">&#x27;Y esto al espa\xF1ol&#x27;</span>]`}}),Dn=new ye({props:{code:"",highlighted:`<span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> list_models
+ <span class="hljs-string">&#x27;Y esto al espa\xF1ol&#x27;</span>]`}}),Dn=new ye({props:{code:`from huggingface_hub import list_models
+
+model_list = list_models()
+org = "Helsinki-NLP"
+model_ids = [x.modelId for x in model_list if x.modelId.startswith(org)]
+suffix = [x.split("/")[1] for x in model_ids]
+old_style_multi_models = [f"{org}/{s}" for s in suffix if s != s.lower()]`,highlighted:`<span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> list_models
 
 model_list = list_models()
 org = <span class="hljs-string">&quot;Helsinki-NLP&quot;</span>
