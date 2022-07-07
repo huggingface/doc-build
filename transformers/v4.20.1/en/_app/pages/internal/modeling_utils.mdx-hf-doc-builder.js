@@ -2,8 +2,15 @@ import{S as Qi,i as Bi,s as Gi,e as r,k as l,w as h,t as a,M as Ri,c as s,d as o
 `),S=r("code"),G=a("start_states"),L=a(".")},l(E){p=s(E,"P",{});var T=n(p);k=i(T,"One of "),u=s(T,"CODE",{});var I=n(u);y=i(I,"start_states"),I.forEach(o),q=i(T," or "),w=s(T,"CODE",{});var me=n(w);D=i(me,"start_positions"),me.forEach(o),O=i(T," should be not "),C=s(T,"CODE",{});var R=n(C);Q=i(R,"None"),R.forEach(o),F=i(T,". If both are set, "),z=s(T,"CODE",{});var fe=n(z);B=i(fe,"start_positions"),fe.forEach(o),A=i(T,` overrides
 `),S=s(T,"CODE",{});var ie=n(S);G=i(ie,"start_states"),ie.forEach(o),L=i(T,"."),T.forEach(o)},m(E,T){m(E,p,T),t(p,k),t(p,u),t(u,y),t(p,q),t(p,w),t(w,D),t(p,O),t(p,C),t(C,Q),t(p,F),t(p,z),t(z,B),t(p,A),t(p,S),t(S,G),t(p,L)},d(E){E&&o(p)}}}function Yi(P){let p,k,u,y,q,w,D,O,C,Q,F,z,B,A,S,G,L;return{c(){p=r("p"),k=a("One of "),u=r("code"),y=a("start_states"),q=a(" or "),w=r("code"),D=a("start_positions"),O=a(" should be not "),C=r("code"),Q=a("None"),F=a(". If both are set, "),z=r("code"),B=a("start_positions"),A=a(` overrides
 `),S=r("code"),G=a("start_states"),L=a(".")},l(E){p=s(E,"P",{});var T=n(p);k=i(T,"One of "),u=s(T,"CODE",{});var I=n(u);y=i(I,"start_states"),I.forEach(o),q=i(T," or "),w=s(T,"CODE",{});var me=n(w);D=i(me,"start_positions"),me.forEach(o),O=i(T," should be not "),C=s(T,"CODE",{});var R=n(C);Q=i(R,"None"),R.forEach(o),F=i(T,". If both are set, "),z=s(T,"CODE",{});var fe=n(z);B=i(fe,"start_positions"),fe.forEach(o),A=i(T,` overrides
-`),S=s(T,"CODE",{});var ie=n(S);G=i(ie,"start_states"),ie.forEach(o),L=i(T,"."),T.forEach(o)},m(E,T){m(E,p,T),t(p,k),t(p,u),t(u,y),t(p,q),t(p,w),t(w,D),t(p,O),t(p,C),t(C,Q),t(p,F),t(p,z),t(z,B),t(p,A),t(p,S),t(S,G),t(p,L)},d(E){E&&o(p)}}}function Zi(P){let p,k,u,y,q;return y=new Wi({props:{code:`
-`,highlighted:`<span class="hljs-comment"># rename the usual forward() fn to forward_chunk()</span>
+`),S=s(T,"CODE",{});var ie=n(S);G=i(ie,"start_states"),ie.forEach(o),L=i(T,"."),T.forEach(o)},m(E,T){m(E,p,T),t(p,k),t(p,u),t(u,y),t(p,q),t(p,w),t(w,D),t(p,O),t(p,C),t(C,Q),t(p,F),t(p,z),t(z,B),t(p,A),t(p,S),t(S,G),t(p,L)},d(E){E&&o(p)}}}function Zi(P){let p,k,u,y,q;return y=new Wi({props:{code:`# rename the usual forward() fn to forward_chunk()
+def forward_chunk(self, hidden_states):
+    hidden_states = self.decoder(hidden_states)
+    return hidden_states
+
+
+# implement a chunked forward function
+def forward(self, hidden_states):
+    return apply_chunking_to_forward(self.forward_chunk, self.chunk_size_lm_head, self.seq_len_dim, hidden_states)`,highlighted:`<span class="hljs-comment"># rename the usual forward() fn to forward_chunk()</span>
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward_chunk</span>(<span class="hljs-params">self, hidden_states</span>):
     hidden_states = self.decoder(hidden_states)
     <span class="hljs-keyword">return</span> hidden_states
