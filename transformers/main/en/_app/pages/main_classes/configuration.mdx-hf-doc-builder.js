@@ -1,10 +1,22 @@
 import{S as xs,i as Es,s as Ts,e as n,k as d,w as v,t as o,M as Ds,c as a,d as t,m as c,a as s,x as w,h as r,b as u,G as e,g as E,y as $,q as P,o as C,B as k,v as js,L as Cs}from"../../chunks/vendor-hf-doc-builder.js";import{T as $a}from"../../chunks/Tip-hf-doc-builder.js";import{D as T}from"../../chunks/Docstring-hf-doc-builder.js";import{C as ks}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as $s}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ps}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function zs(z){let f,b,p,g,x;return{c(){f=n("p"),b=o(`A configuration file can be loaded and saved to disk. Loading the configuration file and using this file to
 initialize a model does `),p=n("strong"),g=o("not"),x=o(" load the model weights. It only affects the model\u2019s configuration.")},l(l){f=a(l,"P",{});var _=s(f);b=r(_,`A configuration file can be loaded and saved to disk. Loading the configuration file and using this file to
-initialize a model does `),p=a(_,"STRONG",{});var O=s(p);g=r(O,"not"),O.forEach(t),x=r(_," load the model weights. It only affects the model\u2019s configuration."),_.forEach(t)},m(l,_){E(l,f,_),e(f,b),e(f,p),e(p,g),e(f,x)},d(l){l&&t(f)}}}function qs(z){let f,b,p,g,x;return g=new ks({props:{code:`
+initialize a model does `),p=a(_,"STRONG",{});var O=s(p);g=r(O,"not"),O.forEach(t),x=r(_," load the model weights. It only affects the model\u2019s configuration."),_.forEach(t)},m(l,_){E(l,f,_),e(f,b),e(f,p),e(p,g),e(f,x)},d(l){l&&t(f)}}}function qs(z){let f,b,p,g,x;return g=new ks({props:{code:`from transformers import AutoConfig
 
+config = AutoConfig.from_pretrained("bert-base-cased")
 
+# Push the config to your namespace with the name "my-finetuned-bert" and have a local clone in the
+# *my-finetuned-bert* folder.
+config.push_to_hub("my-finetuned-bert")
 
-`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoConfig
+# Push the config to your namespace with the name "my-finetuned-bert" with no local clone.
+config.push_to_hub("my-finetuned-bert", use_temp_dir=True)
+
+# Push the config to an organization with the name "my-finetuned-bert" and have a local clone in the
+# *my-finetuned-bert* folder.
+config.push_to_hub("my-finetuned-bert", organization="huggingface")
+
+# Make a change to an existing repo that has been cloned locally in *my-finetuned-bert*.
+config.push_to_hub("my-finetuned-bert", repo_url="https://huggingface.co/sgugger/my-finetuned-bert")`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoConfig
 
 config = AutoConfig.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>)
 
