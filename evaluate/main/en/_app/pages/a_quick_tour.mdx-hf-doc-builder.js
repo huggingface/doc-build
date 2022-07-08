@@ -92,7 +92,14 @@ evaluate.save(<span class="hljs-string">&quot;./results/&quot;</span>experiment=
   dataset_split=<span class="hljs-string">&quot;test&quot;</span>,                   <span class="hljs-comment"># dataset split used</span>
   task_type=<span class="hljs-string">&quot;text-generation&quot;</span>,            <span class="hljs-comment"># task id, see https://github.com/huggingface/datasets/blob/master/src/datasets/utils/resources/tasks.json</span>
   task_name=<span class="hljs-string">&quot;Text Generation&quot;</span>             <span class="hljs-comment"># pretty name for task</span>
-)`}}),Et=new I({}),$t=new w({props:{code:"",highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline
+)`}}),Et=new I({}),$t=new w({props:{code:`from transformers import pipeline
+from datasets import load_dataset
+from evaluate import evaluator
+import evaluate
+
+pipe = pipeline("text-classification", model="lvwerra/distilbert-imdb", device=0)
+data = load_dataset("imdb", split="test").shuffle().select(range(1000))
+metric = evaluate.load("accuracy")`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline
 <span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
 <span class="hljs-keyword">from</span> evaluate <span class="hljs-keyword">import</span> evaluator
 <span class="hljs-keyword">import</span> evaluate
