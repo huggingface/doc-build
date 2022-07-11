@@ -25,7 +25,7 @@ configuration_pre = model_pre.config`,highlighted:`<span class="hljs-meta">&gt;&
 # Initializing a FlavaTextModel with  style configuration
 configuration = FlavaTextConfig()
 
-# Initializing a FlavaTextConfig from the  style configuration
+# Initializing a FlavaTextConfig from the style configuration
 model = FlavaTextModel(configuration)
 
 # Accessing the model configuration
@@ -34,7 +34,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a FlavaTextModel with  style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = FlavaTextConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a FlavaTextConfig from the  style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a FlavaTextConfig from the style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = FlavaTextModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
@@ -43,7 +43,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 # Initializing a FlavaImageModel with  style configuration
 configuration = FlavaImageConfig()
 
-# Initializing a FlavaImageModel model from the  style configuration
+# Initializing a FlavaImageModel model from the style configuration
 model = FlavaImageModel(configuration)
 
 # Accessing the model configuration
@@ -52,7 +52,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a FlavaImageModel with  style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = FlavaImageConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a FlavaImageModel model from the  style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a FlavaImageModel model from the style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = FlavaImageModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
@@ -61,7 +61,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 # Initializing a FlavaMultimodalModel with  style configuration
 configuration = FlavaMultimodalConfig()
 
-# Initializing a FlavaMultimodalModel model from the  style configuration
+# Initializing a FlavaMultimodalModel model from the style configuration
 model = FlavaMultimodalModel(configuration)
 
 # Accessing the model configuration
@@ -70,7 +70,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a FlavaMultimodalModel with  style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = FlavaMultimodalConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a FlavaMultimodalModel model from the  style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a FlavaMultimodalModel model from the style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = FlavaMultimodalModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
