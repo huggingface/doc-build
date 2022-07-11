@@ -55,7 +55,7 @@ The name of the repository to keep in sync with the local <code>output_dir</code
 which case the model will be pushed in your namespace. Otherwise it should be the whole repository name,
 for instance <code>&quot;user_name/model&quot;</code>, which allows you to push to an organization you are a member of with
 <code>&quot;organization_name/model&quot;</code>.</p>
-<p>Will default to to the name of <code>output_dir</code>.`,name:"hub_model_id"},{anchor:"transformers.PushToHubCallback.hub_token",description:`<strong>hub_token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+<p>Will default to the name of <code>output_dir</code>.`,name:"hub_model_id"},{anchor:"transformers.PushToHubCallback.hub_token",description:`<strong>hub_token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
 The token to use to push the model to the Hub. Will default to the token in the cache folder obtained with
 <code>huggingface-cli login</code>.`,name:"hub_token"},{anchor:"transformers.PushToHubCallback.checkpoint",description:`<strong>checkpoint</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether to save full training checkpoints (including epoch and optimizer state) to allow training to be

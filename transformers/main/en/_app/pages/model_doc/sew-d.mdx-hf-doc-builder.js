@@ -193,9 +193,9 @@ The dropout probability for output of the feature encoder.`,name:"feat_proj_drop
 A tuple of integers defining the number of input and output channels of each 1D convolutional layer in the
 feature encoder. The length of <em>conv_dim</em> defines the number of 1D convolutional layers.`,name:"conv_dim"},{anchor:"transformers.SEWDConfig.conv_stride",description:`<strong>conv_stride</strong> (<code>Tuple[int]</code> or <code>List[int]</code>, <em>optional</em>, defaults to <code>(5, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1)</code>) &#x2014;
 A tuple of integers defining the stride of each 1D convolutional layer in the feature encoder. The length
-of <em>conv_stride</em> defines the number of convolutional layers and has to match the the length of <em>conv_dim</em>.`,name:"conv_stride"},{anchor:"transformers.SEWDConfig.conv_kernel",description:`<strong>conv_kernel</strong> (<code>Tuple[int]</code> or <code>List[int]</code>, <em>optional</em>, defaults to <code>(10, 3, 1, 3, 1, 3, 1, 3, 1, 2, 1, 2, 1)</code>) &#x2014;
+of <em>conv_stride</em> defines the number of convolutional layers and has to match the length of <em>conv_dim</em>.`,name:"conv_stride"},{anchor:"transformers.SEWDConfig.conv_kernel",description:`<strong>conv_kernel</strong> (<code>Tuple[int]</code> or <code>List[int]</code>, <em>optional</em>, defaults to <code>(10, 3, 1, 3, 1, 3, 1, 3, 1, 2, 1, 2, 1)</code>) &#x2014;
 A tuple of integers defining the kernel size of each 1D convolutional layer in the feature encoder. The
-length of <em>conv_kernel</em> defines the number of convolutional layers and has to match the the length of
+length of <em>conv_kernel</em> defines the number of convolutional layers and has to match the length of
 <em>conv_dim</em>.`,name:"conv_kernel"},{anchor:"transformers.SEWDConfig.conv_bias",description:`<strong>conv_bias</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether the 1D convolutional layers have a bias.`,name:"conv_bias"},{anchor:"transformers.SEWDConfig.num_conv_pos_embeddings",description:`<strong>num_conv_pos_embeddings</strong> (<code>int</code>, <em>optional</em>, defaults to 128) &#x2014;
 Number of convolutional positional embeddings. Defines the kernel size of 1D convolutional positional

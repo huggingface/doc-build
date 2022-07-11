@@ -441,8 +441,8 @@ Whether you want to pin memory in data loaders or not. Will default to <code>Tru
 Whether to skip adding of memory profiler reports to metrics. This is skipped by default because it slows
 down the training and evaluation speed.`,name:"skip_memory_metrics"},{anchor:"transformers.TrainingArguments.push_to_hub",description:`<strong>push_to_hub</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether or not to push the model to the Hub every time the model is saved. If this is activated,
-<code>output_dir</code> will begin a git directory synced with the the repo (determined by <code>hub_model_id</code>) and the
-content will be pushed each time a save is triggered (depending on your <code>save_strategy</code>). Calling
+<code>output_dir</code> will begin a git directory synced with the repo (determined by <code>hub_model_id</code>) and the content
+will be pushed each time a save is triggered (depending on your <code>save_strategy</code>). Calling
 <a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer.save_model">save_model()</a> will also trigger a push.</p>
 <div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400">
 						
@@ -458,7 +458,7 @@ which case the model will be pushed in your namespace. Otherwise it should be th
 for instance <code>&quot;user_name/model&quot;</code>, which allows you to push to an organization you are a member of with
 <code>&quot;organization_name/model&quot;</code>. Will default to <code>user_name/output_dir_name</code> with <em>output_dir_name</em> being the
 name of <code>output_dir</code>.</p>
-<p>Will default to to the name of <code>output_dir</code>.`,name:"hub_model_id"},{anchor:"transformers.TrainingArguments.hub_strategy",description:`<strong>hub_strategy</strong> (<code>str</code> or <code>HubStrategy</code>, <em>optional</em>, defaults to <code>&quot;every_save&quot;</code>) &#x2014;
+<p>Will default to the name of <code>output_dir</code>.`,name:"hub_model_id"},{anchor:"transformers.TrainingArguments.hub_strategy",description:`<strong>hub_strategy</strong> (<code>str</code> or <code>HubStrategy</code>, <em>optional</em>, defaults to <code>&quot;every_save&quot;</code>) &#x2014;
 Defines the scope of what is pushed to the Hub and when. Possible values are:</p>
 <ul>
 <li><code>&quot;end&quot;</code>: push the model, its configuration, the tokenizer (if passed along to the <a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer">Trainer</a>) and a
@@ -704,8 +704,8 @@ Whether you want to pin memory in data loaders or not. Will default to <code>Tru
 Whether to skip adding of memory profiler reports to metrics. This is skipped by default because it slows
 down the training and evaluation speed.`,name:"skip_memory_metrics"},{anchor:"transformers.Seq2SeqTrainingArguments.push_to_hub",description:`<strong>push_to_hub</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether or not to push the model to the Hub every time the model is saved. If this is activated,
-<code>output_dir</code> will begin a git directory synced with the the repo (determined by <code>hub_model_id</code>) and the
-content will be pushed each time a save is triggered (depending on your <code>save_strategy</code>). Calling
+<code>output_dir</code> will begin a git directory synced with the repo (determined by <code>hub_model_id</code>) and the content
+will be pushed each time a save is triggered (depending on your <code>save_strategy</code>). Calling
 <a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer.save_model">save_model()</a> will also trigger a push.</p>
 <div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400">
 						
@@ -721,7 +721,7 @@ which case the model will be pushed in your namespace. Otherwise it should be th
 for instance <code>&quot;user_name/model&quot;</code>, which allows you to push to an organization you are a member of with
 <code>&quot;organization_name/model&quot;</code>. Will default to <code>user_name/output_dir_name</code> with <em>output_dir_name</em> being the
 name of <code>output_dir</code>.</p>
-<p>Will default to to the name of <code>output_dir</code>.`,name:"hub_model_id"},{anchor:"transformers.Seq2SeqTrainingArguments.hub_strategy",description:`<strong>hub_strategy</strong> (<code>str</code> or <code>HubStrategy</code>, <em>optional</em>, defaults to <code>&quot;every_save&quot;</code>) &#x2014;
+<p>Will default to the name of <code>output_dir</code>.`,name:"hub_model_id"},{anchor:"transformers.Seq2SeqTrainingArguments.hub_strategy",description:`<strong>hub_strategy</strong> (<code>str</code> or <code>HubStrategy</code>, <em>optional</em>, defaults to <code>&quot;every_save&quot;</code>) &#x2014;
 Defines the scope of what is pushed to the Hub and when. Possible values are:</p>
 <ul>
 <li><code>&quot;end&quot;</code>: push the model, its configuration, the tokenizer (if passed along to the <a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer">Trainer</a>) and a
