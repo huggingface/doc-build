@@ -495,7 +495,7 @@ Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://g
 <p><a
   href="/docs/datasets/main/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),Jr=new f({props:{name:"replace_schema_metadata",anchor:"datasets.table.ConcatenationTable.replace_schema_metadata",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.replace_schema_metadata.metadata",description:"<strong>metadata</strong> (<code>dict</code>, defaults to <code>None</code>) &#x2014;",name:"metadata"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1495",returnDescription:`
+`}}),Jr=new f({props:{name:"replace_schema_metadata",anchor:"datasets.table.ConcatenationTable.replace_schema_metadata",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.replace_schema_metadata.metadata",description:"<strong>metadata</strong> (<code>dict</code>, defaults to <code>None</code>) &#x2014;",name:"metadata"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1499",returnDescription:`
 <p>shallow_copy</p>
 `,returnType:`
 <p><a
@@ -505,7 +505,7 @@ Check for overflows or other unsafe conversions`,name:"safe"}],source:"https://g
 Index to place the column at.`,name:"i"},{anchor:"datasets.table.ConcatenationTable.add_column.field_",description:`<strong>field_</strong> (<code>Union[str, pyarrow.Field]</code>) &#x2014;
 If a string is passed then the type is deduced from the column
 data.`,name:"field_"},{anchor:"datasets.table.ConcatenationTable.add_column.column",description:`<strong>column</strong> (<code>Union[pyarrow.Array, List[pyarrow.Array]]</code>) &#x2014;
-Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1513",returnDescription:`
+Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1517",returnDescription:`
 <p>New table with the passed column added.</p>
 `,returnType:`
 <p><a
@@ -514,14 +514,14 @@ Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/bl
 `}}),Qr=new f({props:{name:"append_column",anchor:"datasets.table.ConcatenationTable.append_column",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.append_column.field_",description:`<strong>field_</strong> (<code>Union[str, pyarrow.Field]</code>) &#x2014;
 If a string is passed then the type is deduced from the column
 data.`,name:"field_"},{anchor:"datasets.table.ConcatenationTable.append_column.column",description:`<strong>column</strong> (<code>Union[pyarrow.Array, List[pyarrow.Array]]</code>) &#x2014;
-Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1534",returnDescription:`
+Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1538",returnDescription:`
 <p>New table with the passed column added.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/main/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
 `}}),Zr=new f({props:{name:"remove_column",anchor:"datasets.table.ConcatenationTable.remove_column",parameters:[{name:"i",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.remove_column.i",description:`<strong>i</strong> (<code>int</code>) &#x2014;
-Index of column to remove.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1551",returnDescription:`
+Index of column to remove.`,name:"i"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1555",returnDescription:`
 <p>New table without the column.</p>
 `,returnType:`
 <p><a
@@ -531,14 +531,14 @@ Index of column to remove.`,name:"i"}],source:"https://github.com/huggingface/da
 Index to place the column at.`,name:"i"},{anchor:"datasets.table.ConcatenationTable.set_column.field_",description:`<strong>field_</strong> (<code>Union[str, pyarrow.Field]</code>) &#x2014;
 If a string is passed then the type is deduced from the column
 data.`,name:"field_"},{anchor:"datasets.table.ConcatenationTable.set_column.column",description:`<strong>column</strong> (<code>Union[pyarrow.Array, List[pyarrow.Array]]</code>) &#x2014;
-Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1575",returnDescription:`
+Column data.`,name:"column"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1579",returnDescription:`
 <p>New table with the passed column set.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/main/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),tn=new f({props:{name:"rename_columns",anchor:"datasets.table.ConcatenationTable.rename_columns",parameters:[{name:"names",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1594"}}),an=new f({props:{name:"drop",anchor:"datasets.table.ConcatenationTable.drop",parameters:[{name:"columns",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.drop.columns",description:`<strong>columns</strong> (<code>List[str]</code>) &#x2014;
-List of field names referencing existing columns.`,name:"columns"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1607",returnDescription:`
+`}}),tn=new f({props:{name:"rename_columns",anchor:"datasets.table.ConcatenationTable.rename_columns",parameters:[{name:"names",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1598"}}),an=new f({props:{name:"drop",anchor:"datasets.table.ConcatenationTable.drop",parameters:[{name:"columns",val:""},{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"datasets.table.ConcatenationTable.drop.columns",description:`<strong>columns</strong> (<code>List[str]</code>) &#x2014;
+List of field names referencing existing columns.`,name:"columns"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1611",returnDescription:`
 <p>New table without the columns.</p>
 `,returnType:`
 <p><a
@@ -549,14 +549,14 @@ axis &#x2014; (<code>{0, 1}</code>, defaults to <code>0</code>, meaning over row
 (horizontally). &#x2014;`,name:"Axis"},{anchor:"datasets.table.ConcatenationTable.from_tables.*New",description:"<strong>*New</strong> in version 1.6.0* &#x2014;",name:"*New"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1329"}}),on=new Nn({}),sn=new f({props:{name:"datasets.table.concat_tables",anchor:"datasets.table.concat_tables",parameters:[{name:"tables",val:": typing.List[datasets.table.Table]"},{name:"axis",val:": int = 0"}],parametersDescription:[{anchor:"datasets.table.concat_tables.tables",description:"<strong>tables</strong> (list of <code>Table</code>) &#x2014; List of tables to be concatenated.",name:"tables"},{anchor:"datasets.table.concat_tables.axis",description:`<strong>axis</strong> (<code>{0, 1}</code>, defaults to <code>0</code>, meaning over rows) &#x2014;
 Axis to concatenate over, where <code>0</code> means over rows (vertically) and <code>1</code> means over columns
 (horizontally).</p>
-<p><em>New in version 1.6.0</em>`,name:"axis"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1629",returnDescription:`
+<p><em>New in version 1.6.0</em>`,name:"axis"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1633",returnDescription:`
 <p>If the number of input tables is > 1, then the returned table is a <code>datasets.table.ConcatenationTable</code>.
 Otherwise if there\u2019s only one table, it is returned as is.</p>
 `,returnType:`
 <p><a
   href="/docs/datasets/main/en/package_reference/table_classes#datasets.table.Table"
 >datasets.table.Table</a></p>
-`}}),ln=new f({props:{name:"datasets.table.list_table_cache_files",anchor:"datasets.table.list_table_cache_files",parameters:[{name:"table",val:": Table"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1652",returnDescription:`
+`}}),ln=new f({props:{name:"datasets.table.list_table_cache_files",anchor:"datasets.table.list_table_cache_files",parameters:[{name:"table",val:": Table"}],source:"https://github.com/huggingface/datasets/blob/main/src/datasets/table.py#L1656",returnDescription:`
 <p>a list of paths to the cache files loaded by the table</p>
 `,returnType:`
 <p><code>List[str]</code></p>
