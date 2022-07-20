@@ -173,7 +173,7 @@ the name of the column cointaing the identification field of the question and an
 dataset specified by <code>data</code>.`,name:"id_column"},{anchor:"evaluate.QuestionAnsweringEvaluator.compute.label_column",description:`<strong>label_column</strong> (<code>str</code>, defaults to <code>&quot;answers&quot;</code>) &#x2014;
 the name of the column containing the answers in the dataset specified by <code>data</code>.`,name:"label_column"},{anchor:"evaluate.QuestionAnsweringEvaluator.compute.squad_v2_format",description:`<strong>squad_v2_format</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>None</code>) &#x2014;
 whether the dataset follows the format of squad_v2 dataset where a question may have no answer in the context. If this parameter is not provided,
-the format will be automatically infered.`,name:"squad_v2_format"}],source:"https://github.com/huggingface/evaluate/blob/main/src/evaluate/evaluator/question_answering.py#L117",returnDescription:`
+the format will be automatically inferred.`,name:"squad_v2_format"}],source:"https://github.com/huggingface/evaluate/blob/main/src/evaluate/evaluator/question_answering.py#L117",returnDescription:`
 <p>A <code>Dict</code>. The keys represent metric keys calculated for the <code>metric</code> spefied in function arguments. For the
 <code>"simple"</code> strategy, the value is the metric score. For the <code>"bootstrap"</code> strategy, the value is a <code>Dict</code>
 containing the score, the confidence interval and the standard error calculated for each metric key.</p>
