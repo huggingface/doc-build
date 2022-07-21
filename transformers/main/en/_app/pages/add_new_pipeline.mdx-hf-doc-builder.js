@@ -64,7 +64,7 @@ def _sanitize_parameters(self, **kwargs):
 
     postprocess_kwargs = {}
     if "top_k" in kwargs:
-        preprocess_kwargs["top_k"] = kwargs["top_k"]
+        postprocess_kwargs["top_k"] = kwargs["top_k"]
     return preprocess_kwargs, {}, postprocess_kwargs`,highlighted:`<span class="hljs-keyword">def</span> <span class="hljs-title function_">postprocess</span>(<span class="hljs-params">self, model_outputs, top_k=<span class="hljs-number">5</span></span>):
     best_class = model_outputs[<span class="hljs-string">&quot;logits&quot;</span>].softmax(-<span class="hljs-number">1</span>)
     <span class="hljs-comment"># Add logic to handle top_k</span>
@@ -78,7 +78,7 @@ def _sanitize_parameters(self, **kwargs):
 
     postprocess_kwargs = {}
     <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;top_k&quot;</span> <span class="hljs-keyword">in</span> kwargs:
-        preprocess_kwargs[<span class="hljs-string">&quot;top_k&quot;</span>] = kwargs[<span class="hljs-string">&quot;top_k&quot;</span>]
+        postprocess_kwargs[<span class="hljs-string">&quot;top_k&quot;</span>] = kwargs[<span class="hljs-string">&quot;top_k&quot;</span>]
     <span class="hljs-keyword">return</span> preprocess_kwargs, {}, postprocess_kwargs`}}),fe=new Kt({}),me=new R({props:{code:`from transformers.pipelines import PIPELINE_REGISTRY
 
 PIPELINE_REGISTRY.register_pipeline(
