@@ -103,7 +103,7 @@ method:</p>
 	<pre><!-- HTML_TAG_START -->validation_dataloader = accelerator.prepare(validation_dataloader)<!-- HTML_TAG_END --></pre></div>
 <p>As for your training dataloader, it will mean that (should you run your script on multiple devices) each device will
 only see part of the evaluation data. This means you will need to group your predictions together. This is very easy to
-do with the <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.gather">gather()</a> method.</p>
+do with the <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.gather_for_metrics">gather_for_metrics()</a> method.</p>
 
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
@@ -111,8 +111,7 @@ do with the <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator
 	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">for</span> inputs, targets <span class="hljs-keyword">in</span> validation_dataloader:
     predictions = model(inputs)
     <span class="hljs-comment"># Gather all predictions and targets</span>
-    all_predictions = accelerator.gather(predictions)
-    all_targets = accelerator.gather(targets)
+    all_predictions, all_targets = accelerator.gather_for_metrics((predictions, targets))
     <span class="hljs-comment"># Example of use with a *Datasets.Metric*</span>
     metric.add_batch(all_predictions, all_targets)<!-- HTML_TAG_END --></pre></div>
 
@@ -121,10 +120,14 @@ do with the <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator
 <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.prepare">prepare()</a> may change it: if you run on X GPUs, it will have its length divided by X
 (since your actual batch size will be multiplied by X), unless you set <code>split_batches=True</code>.</p>
 <p>Any instruction using your training dataloader length (for instance if you need the number of total training steps
-to create a learning rate scheduler) should go after the call to <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.prepare">prepare()</a>.</p></div>
+to create a learning rate scheduler) should go after the call to <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.prepare">prepare()</a>.</p>
+<p>As some data at the end of the dataset may be duplicated so the batch can divide equally to all workers, metrics should be
+calculated through the <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.gather_for_metrics">gather_for_metrics()</a> method to automatically remove the duplicated data.</p>
+<p>If for some reason you don’t wish to have this automatically done, <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.gather">gather()</a> can be used instead to gather
+the data across all processes and this can manually be done instead.</p></div>
 
 
-<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>The <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.gather">gather()</a> method requires the tensors to be all the same size on each process. If
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>The <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.gather">gather()</a> and <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.gather_for_metrics">gather_for_metrics()</a> methods require the tensors to be all the same size on each process. If
 you have tensors of different sizes on each process (for instance when dynamically padding to the maximum length in
 a batch), you should use the <a href="/docs/accelerate/main/en/accelerator#accelerate.Accelerator.pad_across_processes">pad_across_processes()</a> method to pad you tensor to the
 biggest size across processes.</p></div>
@@ -410,10 +413,10 @@ controlled by torch).</p></div>
 <p>For more details about the internals, see the <a href="internal">Internals page</a>.</p>
 
 
-		<script type="module" data-hydrate="12vqaus">
+		<script type="module" data-hydrate="b46vrg">
 		import { start } from "/docs/accelerate/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="12vqaus"]').parentNode,
+			target: document.querySelector('[data-hydrate="b46vrg"]').parentNode,
 			paths: {"base":"/docs/accelerate/main/en","assets":"/docs/accelerate/main/en"},
 			session: {},
 			route: false,
