@@ -1173,7 +1173,7 @@ yield {
 <span class="hljs-meta">... </span>        <span class="hljs-string">&#x27;fr&#x27;</span>: <span class="hljs-string">&#x27;le chat&#x27;</span>,
 <span class="hljs-meta">... </span>        <span class="hljs-string">&#x27;de&#x27;</span>: <span class="hljs-string">&#x27;die katze&#x27;</span>
 <span class="hljs-meta">... </span>}`}}),{c(){c=r("p"),g=i("Example:"),f=m(),_(n.$$.fragment)},l(t){c=o(t,"P",{});var d=l(c);g=p(d,"Example:"),d.forEach(a),f=h(t),b(n.$$.fragment,t)},m(t,d){D(t,c,d),e(c,g),D(t,f,d),$(n,t,d),u=!0},p:N,i(t){u||(x(n.$$.fragment,t),u=!0)},o(t){v(n.$$.fragment,t),u=!1},d(t){t&&a(c),t&&a(f),y(n,t)}}}function gre(k){let c,g,f,n,u;return n=new P({props:{code:`# At construction time:
-datasets.features.Translation(languages=['en', 'fr', 'de'])
+datasets.features.TranslationVariableLanguages(languages=['en', 'fr', 'de'])
 # During data generation:
 yield {
         'en': 'the cat',
@@ -1185,7 +1185,7 @@ yield {
         'language': ['en', 'de', 'fr', 'fr'],
         'translation': ['the cat', 'die katze', 'la chatte', 'le chat'],
 }`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># At construction time:</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>datasets.features.Translation(languages=[<span class="hljs-string">&#x27;en&#x27;</span>, <span class="hljs-string">&#x27;fr&#x27;</span>, <span class="hljs-string">&#x27;de&#x27;</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>datasets.features.TranslationVariableLanguages(languages=[<span class="hljs-string">&#x27;en&#x27;</span>, <span class="hljs-string">&#x27;fr&#x27;</span>, <span class="hljs-string">&#x27;de&#x27;</span>])
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># During data generation:</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">yield</span> {
 <span class="hljs-meta">... </span>        <span class="hljs-string">&#x27;en&#x27;</span>: <span class="hljs-string">&#x27;the cat&#x27;</span>,
