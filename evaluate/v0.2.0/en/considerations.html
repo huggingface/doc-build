@@ -1,0 +1,107 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;considerations-for-model-evaluation&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;properly-splitting-your-data&quot;,&quot;title&quot;:&quot;Properly splitting your data&quot;},{&quot;local&quot;:&quot;the-impact-of-class-imbalance&quot;,&quot;title&quot;:&quot;The impact of class imbalance&quot;},{&quot;local&quot;:&quot;offline-vs-online-model-evaluation&quot;,&quot;title&quot;:&quot;Offline vs. online model evaluation&quot;},{&quot;local&quot;:&quot;tradeoffs-in-model-evaluation&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;interpretability&quot;,&quot;title&quot;:&quot;Interpretability&quot;},{&quot;local&quot;:&quot;inference-speed-and-memory-footprint&quot;,&quot;title&quot;:&quot;Inference speed and memory footprint&quot;}],&quot;title&quot;:&quot;Trade-offs in model evaluation&quot;},{&quot;local&quot;:&quot;limitations-and-bias&quot;,&quot;title&quot;:&quot;Limitations and bias&quot;}],&quot;title&quot;:&quot;Considerations for model evaluation&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/evaluate/v0.2.0/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/evaluate/v0.2.0/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/evaluate/v0.2.0/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/evaluate/v0.2.0/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/evaluate/v0.2.0/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/evaluate/v0.2.0/en/_app/pages/considerations.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/evaluate/v0.2.0/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/evaluate/v0.2.0/en/_app/chunks/IconCopyLink-hf-doc-builder.js"> 
+
+
+
+
+
+<h1 class="relative group"><a id="considerations-for-model-evaluation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#considerations-for-model-evaluation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Considerations for model evaluation
+	</span></h1>
+
+<p>Developing an ML model is rarely a one-shot deal: it often involves multiple stages of defining the model architecture and tuning hyper-parameters before converging on a final set. Responsible model evaluation is a key part of this process, and 🤗 Evaluate is here to help!</p>
+<p>Here are some things to keep in mind when evaluating your model using the 🤗 Evaluate library:</p>
+<h2 class="relative group"><a id="properly-splitting-your-data" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#properly-splitting-your-data"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Properly splitting your data
+	</span></h2>
+
+<p>Good evaluation generally requires three splits of your dataset:</p>
+<ul><li><strong>train</strong>: this is used for training your model.</li>
+<li><strong>validation</strong>: this is used for validating the model hyperparameters.</li>
+<li><strong>test</strong>: this is used for evaluating your model.</li></ul>
+<p>Many of the datasets on the 🤗 Hub are separated into 2 splits: <code>train</code> and <code>validation</code>; others are split into 3 splits (<code>train</code>, <code>validation</code> and <code>test</code>) — make sure to use the right split for the right purpose!</p>
+<p>Some datasets on the 🤗 Hub are already separated into these three splits. However, there are also many that only have a train/validation or only train split.</p>
+<p>If the dataset you’re using doesn’t have a predefined train-test split, it is up to you to define which part of the dataset you want to use for training your model and  which you want to use for hyperparameter tuning or final evaluation.</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400">Training and evaluating on the same split can misrepresent your results! If you overfit on your training data the evaluation results on that split will look great but the model will perform poorly on new data.
+</div>
+<p>Depending on the size of the dataset, you can keep anywhere from 10-30% for evaluation and the rest for training, while aiming to set up the test set to reflect the production data as close as possible. Check out <a href="https://discuss.huggingface.co/t/how-to-split-main-dataset-into-train-dev-test-as-datasetdict/1090" rel="nofollow">this thread</a> for a more in-depth discussion of dataset splitting!</p>
+<h2 class="relative group"><a id="the-impact-of-class-imbalance" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#the-impact-of-class-imbalance"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>The impact of class imbalance
+	</span></h2>
+
+<p>While many academic datasets, such as the <a href="https://huggingface.co/datasets/imdb" rel="nofollow">IMDb dataset</a> of movie reviews, are perfectly balanced, most real-world datasets are not. In machine learning a <em>balanced dataset</em> corresponds to a datasets where all labels are represented equally. In the case of the IMDb dataset this means that there are as many positive as negative reviews in the dataset. In an imbalanced dataset this is not the case: in fraud detection for example there are usually many more non-fraud cases than fraud cases in the dataset.</p>
+<p>Having an imbalanced dataset can skew the results of your metrics. Imagine a dataset with 99 “non-fraud” cases and 1 “fraud” case. A simple model that always predicts “non-fraud” cases would give yield a 99% accuracy which might sound good at first until you realize that you will never catch a fraud case.</p>
+<p>Often, using more than one metric can help get a better idea of your model’s performance from different points of view. For instance, metrics like <strong><a href="https://huggingface.co/metrics/recall" rel="nofollow">recall</a></strong> and <strong><a href="https://huggingface.co/metrics/precision" rel="nofollow">precision</a></strong> can be used together, and the <strong><a href="https://huggingface.co/metrics/f1" rel="nofollow">f1 score</a></strong> is actually the harmonic mean of the two.</p>
+<p>In cases where a dataset is balanced, using <a href="https://huggingface.co/metrics/accuracy" rel="nofollow">accuracy</a> can reflect the overall model performance:</p>
+<p><img src="https://huggingface.co/datasets/evaluate/media/resolve/main/balanced-classes.png" alt="Balanced Labels"></p>
+<p>In cases where there is an imbalance, using <a href="https://huggingface.co/metrics/f1" rel="nofollow">F1 score</a> can be a better representation of performance, given that it encompasses both precision and recall.</p>
+<p><img src="https://huggingface.co/datasets/evaluate/media/resolve/main/imbalanced-classes.png" alt="Imbalanced Labels"></p>
+<p>Using accuracy in an imbalanced setting is less ideal, since it is not sensitive to minority classes and will not faithfully reflect model performance on them.</p>
+<h2 class="relative group"><a id="offline-vs-online-model-evaluation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#offline-vs-online-model-evaluation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Offline vs. online model evaluation
+	</span></h2>
+
+<p>There are multiple ways to evaluate models, and an important distinction is offline versus online evaluation:</p>
+<p><strong>Offline evaluation</strong> is done before deploying a model or using insights generated from a model, using static datasets and metrics.</p>
+<p><strong>Online evaluation</strong> means evaluating how a model is performing after deployment and during its use in production.</p>
+<p>These two types of evaluation can use different metrics and measure different aspects of model performance. For example, offline evaluation can compare a model to other models based on their performance on common benchmarks, whereas online evaluation will evaluate aspects such as latency and accuracy of the model based on production data (for example, the number of user queries that it was able to address).</p>
+<h2 class="relative group"><a id="tradeoffs-in-model-evaluation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#tradeoffs-in-model-evaluation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Trade-offs in model evaluation
+	</span></h2>
+
+<p>When evaluating models in practice, there are often trade-offs that have to be made between different aspects of model performance: for instance, choosing a model that is slightly less accurate but that has a faster inference time, compared to a high-accuracy that has a higher memory footprint and requires access to more GPUs.</p>
+<p>Here are other aspects of model performance to consider during evaluation:</p>
+<h3 class="relative group"><a id="interpretability" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#interpretability"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Interpretability
+	</span></h3>
+
+<p>When evaluating models, <strong>interpretability</strong> (i.e. the ability to <em>interpret</em> results)  can be very important, especially when deploying models in production.</p>
+<p>For instance, metrics such as <a href="https://huggingface.co/spaces/evaluate-metric/exact_match" rel="nofollow">exact match</a> have a set range (between 0 and 1, or 0% and 100%) and are easily understandable to users: for a pair of strings, the exact match score is 1 if the two strings are the exact same, and 0 otherwise.</p>
+<p>Other metrics, such as <a href="https://huggingface.co/spaces/evaluate-metric/exact_match" rel="nofollow">BLEU</a> are harder to interpret: while they also range between 0 and 1, they can vary greatly depending on which parameters are used to generate the scores, especially when different tokenization and normalization techniques are used (see the <a href="https://huggingface.co/spaces/evaluate-metric/bleu/blob/main/README.md" rel="nofollow">metric card</a> for more information about BLEU limitations). This means that it is difficult to interpret a BLEU score without having more information about the procedure used for obtaining it.</p>
+<p>Interpretability can be more or less important depending on the evaluation use case, but it is a useful aspect of model evaluation to keep in mind, since communicating and comparing model evaluations is an important part of responsible machine learning.</p>
+<h3 class="relative group"><a id="inference-speed-and-memory-footprint" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#inference-speed-and-memory-footprint"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Inference speed and memory footprint
+	</span></h3>
+
+<p>While recent years have seen increasingly large ML models achieve high performance on a large variety of tasks and benchmarks, deploying these multi-billion parameter models in practice can be a challenge in itself, and many organizations lack the resources for this. This is why considering the <strong>inference speed</strong> and <strong>memory footprint</strong> of models is important, especially when doing online model evaluation.</p>
+<p>Inference speed refers to the time that it takes for a model to make a prediction — this will vary depending on the hardware used and the way in which models are queried, e.g. in real time via an API or in batch jobs that run once a day.</p>
+<p>Memory footprint refers to the size of the model weights and how much hardware memory they occupy. If a model is too large to fit on a single GPU or CPU, then it has to be split over multiple ones, which can be more or less difficult depending on the model architecture and the deployment method.</p>
+<p>When doing online model evaluation, there is often a trade-off to be done between inference speed and accuracy or precision, whereas this is less the case for offline evaluation.</p>
+<h2 class="relative group"><a id="limitations-and-bias" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#limitations-and-bias"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Limitations and bias
+	</span></h2>
+
+<p>All models and all metrics have their limitations and biases, which depend on the way in which they were trained, the data that was used, and their intended uses. It is important to measure and communicate these limitations clearly to prevent misuse and unintended impacts, for instance via <a href="https://huggingface.co/course/chapter4/4?fw=pt" rel="nofollow">model cards</a> which document the training and evaluation process.</p>
+<p>Measuring biases can be done by evaluating models on datasets such as <a href="https://huggingface.co/datasets/wino_bias" rel="nofollow">Wino Bias</a> or <a href="https://huggingface.co/datasets/md_gender_bias" rel="nofollow">MD Gender Bias</a>, and by doing <a href="https://huggingface.co/spaces/nazneen/error-analysis" rel="nofollow">Interactive Error Analyis</a> to try to identify which subsets of the evaluation dataset a model performs poorly on.</p>
+<p>We are currently working on additional measurements that can be used to quantify different dimensions of bias in both models and datasets — stay tuned for more documentation on this topic!</p>
+
+
+		<script type="module" data-hydrate="12cej9m">
+		import { start } from "/docs/evaluate/v0.2.0/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="12cej9m"]').parentNode,
+			paths: {"base":"/docs/evaluate/v0.2.0/en","assets":"/docs/evaluate/v0.2.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/evaluate/v0.2.0/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/evaluate/v0.2.0/en/_app/pages/considerations.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
