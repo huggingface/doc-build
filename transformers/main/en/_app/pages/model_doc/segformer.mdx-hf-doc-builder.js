@@ -111,7 +111,7 @@ image = Image.open(requests.get(url, stream=True).raw)
 inputs = feature_extractor(images=image, return_tensors="pt")
 outputs = model(**inputs)
 logits = outputs.logits  # shape (batch_size, num_labels, height, width)
-logits.shape`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> SegformerFeatureExtractor, SegformerForSemanticSegmentation
+list(logits.shape)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> SegformerFeatureExtractor, SegformerForSemanticSegmentation
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> requests
 
@@ -124,8 +124,8 @@ logits.shape`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span cla
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = feature_extractor(images=image, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)
 <span class="hljs-meta">&gt;&gt;&gt; </span>logits = outputs.logits  <span class="hljs-comment"># shape (batch_size, num_labels, height, width)</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>logits.shape
-(<span class="hljs-number">1</span>, <span class="hljs-number">150</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>)`}}),{c(){f=o("p"),v=s("Examples:"),u=c(),w(p.$$.fragment)},l(d){f=a(d,"P",{});var g=n(f);v=i(g,"Examples:"),g.forEach(t),u=m(d),S(p.$$.fragment,d)},m(d,g){_(d,f,g),e(f,v),_(d,u,g),$(p,d,g),b=!0},p:Wr,i(d){b||(T(p.$$.fragment,d),b=!0)},o(d){F(p.$$.fragment,d),b=!1},d(d){d&&t(f),d&&t(u),y(p,d)}}}function Jg(E){let f,v,u,p,b;return{c(){f=o("p"),v=s("Although the recipe for forward pass needs to be defined within this function, one should call the "),u=o("code"),p=s("Module"),b=s(`
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>(logits.shape)
+[<span class="hljs-number">1</span>, <span class="hljs-number">150</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>]`}}),{c(){f=o("p"),v=s("Examples:"),u=c(),w(p.$$.fragment)},l(d){f=a(d,"P",{});var g=n(f);v=i(g,"Examples:"),g.forEach(t),u=m(d),S(p.$$.fragment,d)},m(d,g){_(d,f,g),e(f,v),_(d,u,g),$(p,d,g),b=!0},p:Wr,i(d){b||(T(p.$$.fragment,d),b=!0)},o(d){F(p.$$.fragment,d),b=!1},d(d){d&&t(f),d&&t(u),y(p,d)}}}function Jg(E){let f,v,u,p,b;return{c(){f=o("p"),v=s("Although the recipe for forward pass needs to be defined within this function, one should call the "),u=o("code"),p=s("Module"),b=s(`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
 the latter silently ignores them.`)},l(d){f=a(d,"P",{});var g=n(f);v=i(g,"Although the recipe for forward pass needs to be defined within this function, one should call the "),u=a(g,"CODE",{});var x=n(u);p=i(x,"Module"),x.forEach(t),b=i(g,`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
