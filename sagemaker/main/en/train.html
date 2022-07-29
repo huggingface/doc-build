@@ -1,0 +1,376 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;run-training-on-amazon-sagemaker&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;installation-and-setup&quot;,&quot;title&quot;:&quot;Installation and setup&quot;},{&quot;local&quot;:&quot;prepare-a-transformers-finetuning-script&quot;,&quot;title&quot;:&quot;Prepare a 🤗 Transformers fine-tuning script&quot;},{&quot;local&quot;:&quot;training-output-management&quot;,&quot;title&quot;:&quot;Training Output Management&quot;},{&quot;local&quot;:&quot;create-a-hugging-face-estimator&quot;,&quot;title&quot;:&quot;Create a Hugging Face Estimator&quot;},{&quot;local&quot;:&quot;execute-training&quot;,&quot;title&quot;:&quot;Execute training&quot;},{&quot;local&quot;:&quot;access-trained-model&quot;,&quot;title&quot;:&quot;Access trained model&quot;},{&quot;local&quot;:&quot;distributed-training&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;data-parallelism&quot;,&quot;title&quot;:&quot;Data parallelism&quot;},{&quot;local&quot;:&quot;model-parallelism&quot;,&quot;title&quot;:&quot;Model parallelism&quot;}],&quot;title&quot;:&quot;Distributed training&quot;},{&quot;local&quot;:&quot;spot-instances&quot;,&quot;title&quot;:&quot;Spot instances&quot;},{&quot;local&quot;:&quot;git-repository&quot;,&quot;title&quot;:&quot;Git repository&quot;},{&quot;local&quot;:&quot;sagemaker-metrics&quot;,&quot;title&quot;:&quot;SageMaker metrics&quot;}],&quot;title&quot;:&quot;Run training on Amazon SageMaker&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/sagemaker/main/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/sagemaker/main/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/sagemaker/main/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/sagemaker/main/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/sagemaker/main/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/sagemaker/main/en/_app/pages/train.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/sagemaker/main/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/sagemaker/main/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+<h1 class="relative group"><a id="run-training-on-amazon-sagemaker" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#run-training-on-amazon-sagemaker"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Run training on Amazon SageMaker
+	</span></h1>
+
+<iframe width="700" height="394" src="https://www.youtube.com/embed/ok3hetb42gU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>This guide will show you how to train a 🤗 Transformers model with the <code>HuggingFace</code> SageMaker Python SDK. Learn how to:</p>
+<ul><li><a href="#installation-and-setup">Install and setup your training environment</a>.</li>
+<li><a href="#prepare-a-transformers-fine-tuning-script">Prepare a training script</a>.</li>
+<li><a href="#create-a-hugging-face-estimator">Create a Hugging Face Estimator</a>.</li>
+<li><a href="#execute-training">Run training with the <code>fit</code> method</a>.</li>
+<li><a href="#access-trained-model">Access your trained model</a>.</li>
+<li><a href="#distributed-training">Perform distributed training</a>.</li>
+<li><a href="#spot-instances">Create a spot instance</a>.</li>
+<li><a href="#git-repository">Load a training script from a GitHub repository</a>.</li>
+<li><a href="#sagemaker-metrics">Collect training metrics</a>.</li></ul>
+<h2 class="relative group"><a id="installation-and-setup" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#installation-and-setup"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Installation and setup
+	</span></h2>
+
+<p>Before you can train a 🤗 Transformers model with SageMaker, you need to sign up for an AWS account. If you don’t have an AWS account yet, learn more <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/gs-set-up.html" rel="nofollow">here</a>.</p>
+<p>Once you have an AWS account, get started using one of the following:</p>
+<ul><li><a href="https://docs.aws.amazon.com/sagemaker/latest/dg/gs-studio-onboard.html" rel="nofollow">SageMaker Studio</a></li>
+<li><a href="https://docs.aws.amazon.com/sagemaker/latest/dg/gs-console.html" rel="nofollow">SageMaker notebook instance</a></li>
+<li>Local environment</li></ul>
+<p>To start training locally, you need to setup an appropriate <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html" rel="nofollow">IAM role</a>.</p>
+<p>Upgrade to the latest <code>sagemaker</code> version:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->pip install sagemaker --upgrade<!-- HTML_TAG_END --></pre></div>
+<p><strong>SageMaker environment</strong></p>
+<p>Setup your SageMaker environment as shown below:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> sagemaker
+sess = sagemaker.Session()
+role = sagemaker.get_execution_role()<!-- HTML_TAG_END --></pre></div>
+<p><em>Note: The execution role is only available when running a notebook within SageMaker. If you run <code>get_execution_role</code> in a notebook not on SageMaker, expect a <code>region</code> error.</em></p>
+<p><strong>Local environment</strong></p>
+<p>Setup your local environment as shown below:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> sagemaker
+<span class="hljs-keyword">import</span> boto3
+
+iam_client = boto3.client(<span class="hljs-string">&#x27;iam&#x27;</span>)
+role = iam_client.get_role(RoleName=<span class="hljs-string">&#x27;role-name-of-your-iam-role-with-right-permissions&#x27;</span>)[<span class="hljs-string">&#x27;Role&#x27;</span>][<span class="hljs-string">&#x27;Arn&#x27;</span>]
+sess = sagemaker.Session()<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="prepare-a-transformers-finetuning-script" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#prepare-a-transformers-finetuning-script"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Prepare a 🤗 Transformers fine-tuning script
+	</span></h2>
+
+<p>Our training script is very similar to a training script you might run outside of SageMaker. However, you can access useful properties about the training environment through various environment variables (see <a href="https://github.com/aws/sagemaker-training-toolkit/blob/master/ENVIRONMENT_VARIABLES.md" rel="nofollow">here</a> for a complete list), such as:</p>
+<ul><li><p><code>SM_MODEL_DIR</code>: A string representing the path to which the training job writes the model artifacts. After training, artifacts in this directory are uploaded to S3 for model hosting. <code>SM_MODEL_DIR</code> is always set to <code>/opt/ml/model</code>.</p></li>
+<li><p><code>SM_NUM_GPUS</code>: An integer representing the number of GPUs available to the host.</p></li>
+<li><p><code>SM_CHANNEL_XXXX:</code> A string representing the path to the directory that contains the input data for the specified channel. For example, when you specify <code>train</code> and <code>test</code> in the Hugging Face Estimator <code>fit</code> method, the environment variables are set to <code>SM_CHANNEL_TRAIN</code> and <code>SM_CHANNEL_TEST</code>.</p></li></ul>
+<p>The <code>hyperparameters</code> defined in the <a href="#create-an-huggingface-estimator">Hugging Face Estimator</a> are passed as named arguments and processed by <code>ArgumentParser()</code>.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> transformers
+<span class="hljs-keyword">import</span> datasets
+<span class="hljs-keyword">import</span> argparse
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+
+    parser = argparse.ArgumentParser()
+
+    <span class="hljs-comment"># hyperparameters sent by the client are passed as command-line arguments to the script</span>
+    parser.add_argument(<span class="hljs-string">&quot;--epochs&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>, default=<span class="hljs-number">3</span>)
+    parser.add_argument(<span class="hljs-string">&quot;--per_device_train_batch_size&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>, default=<span class="hljs-number">32</span>)
+    parser.add_argument(<span class="hljs-string">&quot;--model_name_or_path&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>)
+
+    <span class="hljs-comment"># data, model, and output directories</span>
+    parser.add_argument(<span class="hljs-string">&quot;--model-dir&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>, default=os.environ[<span class="hljs-string">&quot;SM_MODEL_DIR&quot;</span>])
+    parser.add_argument(<span class="hljs-string">&quot;--training_dir&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>, default=os.environ[<span class="hljs-string">&quot;SM_CHANNEL_TRAIN&quot;</span>])
+    parser.add_argument(<span class="hljs-string">&quot;--test_dir&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>, default=os.environ[<span class="hljs-string">&quot;SM_CHANNEL_TEST&quot;</span>])<!-- HTML_TAG_END --></pre></div>
+<p><em>Note that SageMaker doesn’t support argparse actions. For example, if you want to use a boolean hyperparameter, specify <code>type</code> as <code>bool</code> in your script and provide an explicit <code>True</code> or <code>False</code> value.</em></p>
+<p>Look <a href="https://github.com/huggingface/notebooks/blob/main/sagemaker/01_getting_started_pytorch/scripts/train.py" rel="nofollow">here</a> for a complete example of a 🤗 Transformers training script.</p>
+<h2 class="relative group"><a id="training-output-management" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#training-output-management"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Training Output Management
+	</span></h2>
+
+<p>If <code>output_dir</code> in the <code>TrainingArguments</code> is set to ‘/opt/ml/model’ the Trainer saves all training artifacts, including logs, checkpoints, and models. Amazon SageMaker archives the whole ‘/opt/ml/model’ directory as <code>model.tar.gz</code> and uploads it at the end of the training job to Amazon S3. Depending on your Hyperparameters and <code>TrainingArguments</code> this could lead to a large artifact (&gt; 5GB), which can slow down deployment for Amazon SageMaker Inference.
+You can control how checkpoints, logs, and artifacts are saved by customization the <a href="https://huggingface.co/docs/transformers/main/en/main_classes/trainer#transformers.TrainingArguments" rel="nofollow">TrainingArguments</a>. For example by providing <code>save_total_limit</code> as <code>TrainingArgument</code> you can control the limit of the total amount of checkpoints. Deletes the older checkpoints in <code>output_dir</code> if new ones are saved and the maximum limit is reached.</p>
+<p>In addition to the options already mentioned above, there is another option to save the training artifacts during the training session. Amazon SageMaker supports <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-checkpoints.html" rel="nofollow">Checkpointing</a>, which allows you to continuously save your artifacts during training to Amazon S3 rather than at the end of your training. To enable <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-checkpoints.html" rel="nofollow">Checkpointing</a> you need to provide the <code>checkpoint_s3_uri</code> parameter pointing to an Amazon S3 location in the <code>HuggingFace</code> estimator and set <code>output_dir</code> to <code>/opt/ml/checkpoints</code>.
+<em>Note: If you set <code>output_dir</code> to <code>/opt/ml/checkpoints</code> make sure to call <code>trainer.save_model(&quot;/opt/ml/model&quot;)</code> or model.save_pretrained(“/opt/ml/model”)/<code>tokenizer.save_pretrained(&quot;/opt/ml/model&quot;)</code> at the end of your training to be able to deploy your model seamlessly to Amazon SageMaker for Inference.</em></p>
+<h2 class="relative group"><a id="create-a-hugging-face-estimator" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#create-a-hugging-face-estimator"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Create a Hugging Face Estimator
+	</span></h2>
+
+<p>Run 🤗 Transformers training scripts on SageMaker by creating a <a href="https://sagemaker.readthedocs.io/en/stable/frameworks/huggingface/sagemaker.huggingface.html#huggingface-estimator" rel="nofollow">Hugging Face Estimator</a>. The Estimator handles end-to-end SageMaker training. There are several parameters you should define in the Estimator:</p>
+<ol><li><code>entry_point</code> specifies which fine-tuning script to use.</li>
+<li><code>instance_type</code> specifies an Amazon instance to launch. Refer <a href="https://aws.amazon.com/sagemaker/pricing/" rel="nofollow">here</a> for a complete list of instance types.</li>
+<li><code>hyperparameters</code> specifies training hyperparameters. View additional available hyperparameters <a href="https://github.com/huggingface/notebooks/blob/main/sagemaker/01_getting_started_pytorch/scripts/train.py" rel="nofollow">here</a>.</li></ol>
+<p>The following code sample shows how to train with a custom script <code>train.py</code> with three hyperparameters (<code>epochs</code>, <code>per_device_train_batch_size</code>, and <code>model_name_or_path</code>):</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> sagemaker.huggingface <span class="hljs-keyword">import</span> HuggingFace
+
+
+<span class="hljs-comment"># hyperparameters which are passed to the training job</span>
+hyperparameters={<span class="hljs-string">&#x27;epochs&#x27;</span>: <span class="hljs-number">1</span>,
+                 <span class="hljs-string">&#x27;per_device_train_batch_size&#x27;</span>: <span class="hljs-number">32</span>,
+                 <span class="hljs-string">&#x27;model_name_or_path&#x27;</span>: <span class="hljs-string">&#x27;distilbert-base-uncased&#x27;</span>
+                 }
+
+<span class="hljs-comment"># create the Estimator</span>
+huggingface_estimator = HuggingFace(
+        entry_point=<span class="hljs-string">&#x27;train.py&#x27;</span>,
+        source_dir=<span class="hljs-string">&#x27;./scripts&#x27;</span>,
+        instance_type=<span class="hljs-string">&#x27;ml.p3.2xlarge&#x27;</span>,
+        instance_count=<span class="hljs-number">1</span>,
+        role=role,
+        transformers_version=<span class="hljs-string">&#x27;4.4&#x27;</span>,
+        pytorch_version=<span class="hljs-string">&#x27;1.6&#x27;</span>,
+        py_version=<span class="hljs-string">&#x27;py36&#x27;</span>,
+        hyperparameters = hyperparameters
+)<!-- HTML_TAG_END --></pre></div>
+<p>If you are running a <code>TrainingJob</code> locally, define <code>instance_type=&#39;local&#39;</code> or <code>instance_type=&#39;local-gpu&#39;</code> for GPU usage. Note that this will not work with SageMaker Studio.</p>
+<h2 class="relative group"><a id="execute-training" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#execute-training"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Execute training
+	</span></h2>
+
+<p>Start your <code>TrainingJob</code> by calling <code>fit</code> on a Hugging Face Estimator. Specify your input training data in <code>fit</code>. The input training data can be a:</p>
+<ul><li>S3 URI such as <code>s3://my-bucket/my-training-data</code>.</li>
+<li><code>FileSystemInput</code> for Amazon Elastic File System or FSx for Lustre. See <a href="https://sagemaker.readthedocs.io/en/stable/overview.html?highlight=FileSystemInput#use-file-systems-as-training-inputs" rel="nofollow">here</a> for more details about using these file systems as input.</li></ul>
+<p>Call <code>fit</code> to begin training:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->huggingface_estimator.fit(
+  {<span class="hljs-string">&#x27;train&#x27;</span>: <span class="hljs-string">&#x27;s3://sagemaker-us-east-1-558105141721/samples/datasets/imdb/train&#x27;</span>,
+   <span class="hljs-string">&#x27;test&#x27;</span>: <span class="hljs-string">&#x27;s3://sagemaker-us-east-1-558105141721/samples/datasets/imdb/test&#x27;</span>}
+)<!-- HTML_TAG_END --></pre></div>
+<p>SageMaker starts and manages all the required EC2 instances and initiates the <code>TrainingJob</code> by running:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->/opt/conda/bin/python train.py --epochs 1 --model_name_or_path distilbert-base-uncased --per_device_train_batch_size 32<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="access-trained-model" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#access-trained-model"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Access trained model
+	</span></h2>
+
+<p>Once training is complete, you can access your model through the <a href="https://console.aws.amazon.com/console/home?nc2=h_ct&src=header-signin" rel="nofollow">AWS console</a> or download it directly from S3.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> sagemaker.s3 <span class="hljs-keyword">import</span> S3Downloader
+
+S3Downloader.download(
+    s3_uri=huggingface_estimator.model_data, <span class="hljs-comment"># S3 URI where the trained model is located</span>
+    local_path=<span class="hljs-string">&#x27;.&#x27;</span>,                          <span class="hljs-comment"># local path where *.targ.gz is saved</span>
+    sagemaker_session=sess                   <span class="hljs-comment"># SageMaker session used for training the model</span>
+)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="distributed-training" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#distributed-training"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Distributed training
+	</span></h2>
+
+<p>SageMaker provides two strategies for distributed training: data parallelism and model parallelism. Data parallelism splits a training set across several GPUs, while model parallelism splits a model across several GPUs.</p>
+<h3 class="relative group"><a id="data-parallelism" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#data-parallelism"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Data parallelism
+	</span></h3>
+
+<p>The Hugging Face <a href="https://huggingface.co/transformers/main_classes/trainer.html" rel="nofollow">Trainer</a> supports SageMaker’s data parallelism library. If your training script uses the Trainer API, you only need to define the distribution parameter in the Hugging Face Estimator:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># configuration for running training on smdistributed data parallel</span>
+distribution = {<span class="hljs-string">&#x27;smdistributed&#x27;</span>:{<span class="hljs-string">&#x27;dataparallel&#x27;</span>:{ <span class="hljs-string">&#x27;enabled&#x27;</span>: <span class="hljs-literal">True</span> }}}
+
+<span class="hljs-comment"># create the Estimator</span>
+huggingface_estimator = HuggingFace(
+        entry_point=<span class="hljs-string">&#x27;train.py&#x27;</span>,
+        source_dir=<span class="hljs-string">&#x27;./scripts&#x27;</span>,
+        instance_type=<span class="hljs-string">&#x27;ml.p3dn.24xlarge&#x27;</span>,
+        instance_count=<span class="hljs-number">2</span>,
+        role=role,
+        transformers_version=<span class="hljs-string">&#x27;4.4.2&#x27;</span>,
+        pytorch_version=<span class="hljs-string">&#x27;1.6.0&#x27;</span>,
+        py_version=<span class="hljs-string">&#x27;py36&#x27;</span>,
+        hyperparameters = hyperparameters
+        distribution = distribution
+)<!-- HTML_TAG_END --></pre></div>
+<p>📓 Open the <a href="https://github.com/huggingface/notebooks/blob/main/sagemaker/07_tensorflow_distributed_training_data_parallelism/sagemaker-notebook.ipynb" rel="nofollow">notebook</a> for an example of how to run the data parallelism library with TensorFlow.</p>
+<h3 class="relative group"><a id="model-parallelism" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#model-parallelism"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Model parallelism
+	</span></h3>
+
+<p>The Hugging Face [Trainer] also supports SageMaker’s model parallelism library. If your training script uses the Trainer API, you only need to define the distribution parameter in the Hugging Face Estimator (see <a href="https://sagemaker.readthedocs.io/en/stable/api/training/smd_model_parallel_general.html?highlight=modelparallel#required-sagemaker-python-sdk-parameters" rel="nofollow">here</a> for more detailed information about using model parallelism):</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># configuration for running training on smdistributed model parallel</span>
+mpi_options = {
+    <span class="hljs-string">&quot;enabled&quot;</span> : <span class="hljs-literal">True</span>,
+    <span class="hljs-string">&quot;processes_per_host&quot;</span> : <span class="hljs-number">8</span>
+}
+
+smp_options = {
+    <span class="hljs-string">&quot;enabled&quot;</span>:<span class="hljs-literal">True</span>,
+    <span class="hljs-string">&quot;parameters&quot;</span>: {
+        <span class="hljs-string">&quot;microbatches&quot;</span>: <span class="hljs-number">4</span>,
+        <span class="hljs-string">&quot;placement_strategy&quot;</span>: <span class="hljs-string">&quot;spread&quot;</span>,
+        <span class="hljs-string">&quot;pipeline&quot;</span>: <span class="hljs-string">&quot;interleaved&quot;</span>,
+        <span class="hljs-string">&quot;optimize&quot;</span>: <span class="hljs-string">&quot;speed&quot;</span>,
+        <span class="hljs-string">&quot;partitions&quot;</span>: <span class="hljs-number">4</span>,
+        <span class="hljs-string">&quot;ddp&quot;</span>: <span class="hljs-literal">True</span>,
+    }
+}
+
+distribution={
+    <span class="hljs-string">&quot;smdistributed&quot;</span>: {<span class="hljs-string">&quot;modelparallel&quot;</span>: smp_options},
+    <span class="hljs-string">&quot;mpi&quot;</span>: mpi_options
+}
+
+ <span class="hljs-comment"># create the Estimator</span>
+huggingface_estimator = HuggingFace(
+        entry_point=<span class="hljs-string">&#x27;train.py&#x27;</span>,
+        source_dir=<span class="hljs-string">&#x27;./scripts&#x27;</span>,
+        instance_type=<span class="hljs-string">&#x27;ml.p3dn.24xlarge&#x27;</span>,
+        instance_count=<span class="hljs-number">2</span>,
+        role=role,
+        transformers_version=<span class="hljs-string">&#x27;4.4.2&#x27;</span>,
+        pytorch_version=<span class="hljs-string">&#x27;1.6.0&#x27;</span>,
+        py_version=<span class="hljs-string">&#x27;py36&#x27;</span>,
+        hyperparameters = hyperparameters,
+        distribution = distribution
+)<!-- HTML_TAG_END --></pre></div>
+<p>📓 Open the <a href="https://github.com/huggingface/notebooks/blob/main/sagemaker/04_distributed_training_model_parallelism/sagemaker-notebook.ipynb" rel="nofollow">notebook</a> for an example of how to run the model parallelism library.</p>
+<h2 class="relative group"><a id="spot-instances" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#spot-instances"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Spot instances
+	</span></h2>
+
+<p>The Hugging Face extension for the SageMaker Python SDK means we can benefit from <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-managed-spot-training.html" rel="nofollow">fully-managed EC2 spot instances</a>. This can help you save up to 90% of training costs!</p>
+<p><em>Note: Unless your training job completes quickly, we recommend you use <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-checkpoints.html" rel="nofollow">checkpointing</a> with managed spot training. In this case, you need to define the <code>checkpoint_s3_uri</code>.</em></p>
+<p>Set <code>use_spot_instances=True</code> and define your <code>max_wait</code> and <code>max_run</code> time in the Estimator to use spot instances:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># hyperparameters which are passed to the training job</span>
+hyperparameters={<span class="hljs-string">&#x27;epochs&#x27;</span>: <span class="hljs-number">1</span>,
+                 <span class="hljs-string">&#x27;train_batch_size&#x27;</span>: <span class="hljs-number">32</span>,
+                 <span class="hljs-string">&#x27;model_name&#x27;</span>:<span class="hljs-string">&#x27;distilbert-base-uncased&#x27;</span>,
+                 <span class="hljs-string">&#x27;output_dir&#x27;</span>:<span class="hljs-string">&#x27;/opt/ml/checkpoints&#x27;</span>
+                 }
+
+<span class="hljs-comment"># create the Estimator</span>
+huggingface_estimator = HuggingFace(
+        entry_point=<span class="hljs-string">&#x27;train.py&#x27;</span>,
+        source_dir=<span class="hljs-string">&#x27;./scripts&#x27;</span>,
+        instance_type=<span class="hljs-string">&#x27;ml.p3.2xlarge&#x27;</span>,
+        instance_count=<span class="hljs-number">1</span>,
+	    checkpoint_s3_uri=<span class="hljs-string">f&#x27;s3://<span class="hljs-subst">{sess.default_bucket()}</span>/checkpoints&#x27;</span>
+        use_spot_instances=<span class="hljs-literal">True</span>,
+        <span class="hljs-comment"># max_wait should be equal to or greater than max_run in seconds</span>
+        max_wait=<span class="hljs-number">3600</span>,
+        max_run=<span class="hljs-number">1000</span>,
+        role=role,
+        transformers_version=<span class="hljs-string">&#x27;4.4&#x27;</span>,
+        pytorch_version=<span class="hljs-string">&#x27;1.6&#x27;</span>,
+        py_version=<span class="hljs-string">&#x27;py36&#x27;</span>,
+        hyperparameters = hyperparameters
+)
+
+<span class="hljs-comment"># Training seconds: 874</span>
+<span class="hljs-comment"># Billable seconds: 262</span>
+<span class="hljs-comment"># Managed Spot Training savings: 70.0%</span><!-- HTML_TAG_END --></pre></div>
+<p>📓 Open the <a href="https://github.com/huggingface/notebooks/blob/main/sagemaker/05_spot_instances/sagemaker-notebook.ipynb" rel="nofollow">notebook</a> for an example of how to use spot instances.</p>
+<h2 class="relative group"><a id="git-repository" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#git-repository"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Git repository
+	</span></h2>
+
+<p>The Hugging Face Estimator can load a training script <a href="https://sagemaker.readthedocs.io/en/stable/overview.html#use-scripts-stored-in-a-git-repository" rel="nofollow">stored in a GitHub repository</a>. Provide the relative path to the training script in <code>entry_point</code> and the relative path to the directory in <code>source_dir</code>.</p>
+<p>If you are using <code>git_config</code> to run the <a href="https://github.com/huggingface/transformers/tree/main/examples" rel="nofollow">🤗 Transformers example scripts</a>, you need to configure the correct <code>&#39;branch&#39;</code> in <code>transformers_version</code> (e.g. if you use <code>transformers_version=&#39;4.4.2</code> you have to use <code>&#39;branch&#39;:&#39;v4.4.2&#39;</code>). </p>
+<p><em>Tip: Save your model to S3 by setting <code>output_dir=/opt/ml/model</code> in the hyperparameter of your training script.</em></p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># configure git settings</span>
+git_config = {<span class="hljs-string">&#x27;repo&#x27;</span>: <span class="hljs-string">&#x27;https://github.com/huggingface/transformers.git&#x27;</span>,<span class="hljs-string">&#x27;branch&#x27;</span>: <span class="hljs-string">&#x27;v4.4.2&#x27;</span>} <span class="hljs-comment"># v4.4.2 refers to the transformers_version you use in the estimator</span>
+
+ <span class="hljs-comment"># create the Estimator</span>
+huggingface_estimator = HuggingFace(
+        entry_point=<span class="hljs-string">&#x27;run_glue.py&#x27;</span>,
+        source_dir=<span class="hljs-string">&#x27;./examples/pytorch/text-classification&#x27;</span>,
+        git_config=git_config,
+        instance_type=<span class="hljs-string">&#x27;ml.p3.2xlarge&#x27;</span>,
+        instance_count=<span class="hljs-number">1</span>,
+        role=role,
+        transformers_version=<span class="hljs-string">&#x27;4.4&#x27;</span>,
+        pytorch_version=<span class="hljs-string">&#x27;1.6&#x27;</span>,
+        py_version=<span class="hljs-string">&#x27;py36&#x27;</span>,
+        hyperparameters=hyperparameters
+)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="sagemaker-metrics" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#sagemaker-metrics"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>SageMaker metrics
+	</span></h2>
+
+<p><a href="https://docs.aws.amazon.com/sagemaker/latest/dg/training-metrics.html#define-train-metrics" rel="nofollow">SageMaker metrics</a> automatically parses training job logs for metrics and sends them to CloudWatch. If you want SageMaker to parse the logs, you must specify the metric’s name and a regular expression for SageMaker to use to find the metric.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># define metrics definitions</span>
+metric_definitions = [
+    {<span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;train_runtime&quot;</span>, <span class="hljs-string">&quot;Regex&quot;</span>: <span class="hljs-string">&quot;train_runtime.*=\D*(.*?)$&quot;</span>},
+    {<span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;eval_accuracy&quot;</span>, <span class="hljs-string">&quot;Regex&quot;</span>: <span class="hljs-string">&quot;eval_accuracy.*=\D*(.*?)$&quot;</span>},
+    {<span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;eval_loss&quot;</span>, <span class="hljs-string">&quot;Regex&quot;</span>: <span class="hljs-string">&quot;eval_loss.*=\D*(.*?)$&quot;</span>},
+]
+
+<span class="hljs-comment"># create the Estimator</span>
+huggingface_estimator = HuggingFace(
+        entry_point=<span class="hljs-string">&#x27;train.py&#x27;</span>,
+        source_dir=<span class="hljs-string">&#x27;./scripts&#x27;</span>,
+        instance_type=<span class="hljs-string">&#x27;ml.p3.2xlarge&#x27;</span>,
+        instance_count=<span class="hljs-number">1</span>,
+        role=role,
+        transformers_version=<span class="hljs-string">&#x27;4.4&#x27;</span>,
+        pytorch_version=<span class="hljs-string">&#x27;1.6&#x27;</span>,
+        py_version=<span class="hljs-string">&#x27;py36&#x27;</span>,
+        metric_definitions=metric_definitions,
+        hyperparameters = hyperparameters)<!-- HTML_TAG_END --></pre></div>
+<p>📓 Open the <a href="https://github.com/huggingface/notebooks/blob/main/sagemaker/06_sagemaker_metrics/sagemaker-notebook.ipynb" rel="nofollow">notebook</a> for an example of how to capture metrics in SageMaker.</p>
+
+
+		<script type="module" data-hydrate="3j3jm4">
+		import { start } from "/docs/sagemaker/main/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="3j3jm4"]').parentNode,
+			paths: {"base":"/docs/sagemaker/main/en","assets":"/docs/sagemaker/main/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/sagemaker/main/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/sagemaker/main/en/_app/pages/train.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
