@@ -64,8 +64,7 @@ decoded = processor.batch_decode(generated, skip_special_tokens=True)[0]
 decoded
 
 # Training: Train model on English transcription
-with processor.as_target_processor():
-    labels = processor(ds[0]["text"], return_tensors="pt").input_ids
+labels = processor(text=ds[0]["text"], return_tensors="pt").input_ids
 
 loss = model(input_values, labels=labels).loss
 loss.backward()`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> SpeechEncoderDecoderModel, Wav2Vec2Processor
@@ -85,8 +84,7 @@ loss.backward()`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span 
 <span class="hljs-string">&#x27;Mr. Quilter ist der Apostel der Mittelschicht und wir freuen uns, sein Evangelium willkommen hei\xDFen zu k\xF6nnen.&#x27;</span>
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Training: Train model on English transcription</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> processor.as_target_processor():
-<span class="hljs-meta">... </span>    labels = processor(ds[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;text&quot;</span>], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).input_ids
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = processor(text=ds[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;text&quot;</span>], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).input_ids
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(input_values, labels=labels).loss
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss.backward()`}}),{c(){m=a("p"),S=n("Examples:"),_=l(),b(f.$$.fragment)},l(c){m=s(c,"P",{});var g=d(m);S=r(g,"Examples:"),g.forEach(t),_=p(c),y(f.$$.fragment,c)},m(c,g){u(c,m,g),e(m,S),u(c,_,g),w(f,c,g),v=!0},p:sn,i(c){v||(E(f.$$.fragment,c),v=!0)},o(c){k(f.$$.fragment,c),v=!1},d(c){c&&t(m),c&&t(_),$(f,c)}}}function xi(P){let m,S,_,f,v;return f=new le({props:{code:`from transformers import SpeechEncoderDecoderModel
@@ -231,7 +229,7 @@ input_values = feature_extractor(ds[0]["audio"]["array"], return_tensors="pt").i
 labels = tokenizer(ds[0]["text"], return_tensors="pt").input_ids
 
 # the forward function automatically creates the correct decoder_input_ids
-loss = model(input_values, labels=labels).loss
+loss = model(**input_features).loss
 loss.backward()`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, AutoFeatureExtractor, SpeechEncoderDecoderModel
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
 
@@ -254,7 +252,7 @@ loss.backward()`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span 
 <span class="hljs-meta">&gt;&gt;&gt; </span>labels = tokenizer(ds[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;text&quot;</span>], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).input_ids
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># the forward function automatically creates the correct decoder_input_ids</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(input_values, labels=labels).loss
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**input_features).loss
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss.backward()`}}),Je=new Fe({}),Ye=new ie({props:{name:"class transformers.SpeechEncoderDecoderConfig",anchor:"transformers.SpeechEncoderDecoderConfig",parameters:[{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.SpeechEncoderDecoderConfig.kwargs",description:`<strong>kwargs</strong> (<em>optional</em>) &#x2014;
 Dictionary of keyword arguments. Notably:</p>
 <ul>

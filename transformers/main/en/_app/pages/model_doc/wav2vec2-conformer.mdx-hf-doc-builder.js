@@ -98,13 +98,11 @@ transcription[0]`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># transcribe speech</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>transcription = processor.batch_decode(predicted_ids)
 <span class="hljs-meta">&gt;&gt;&gt; </span>transcription[<span class="hljs-number">0</span>]
-<span class="hljs-string">&#x27;MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL&#x27;</span>`}}),{c(){c=n("p"),v=r("Example:"),m=f(),w(u.$$.fragment)},l(l){c=s(l,"P",{});var h=i(c);v=a(h,"Example:"),h.forEach(t),m=p(l),C(u.$$.fragment,l)},m(l,h){_(l,c,h),e(c,v),_(l,m,h),y(u,l,h),b=!0},p:ye,i(l){b||(k(u.$$.fragment,l),b=!0)},o(l){$(u.$$.fragment,l),b=!1},d(l){l&&t(c),l&&t(m),T(u,l)}}}function Bc(V){let c,v;return c=new ke({props:{code:`with processor.as_target_processor():
-    inputs["labels"] = processor(dataset[0]["text"], return_tensors="pt").input_ids
+<span class="hljs-string">&#x27;MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL&#x27;</span>`}}),{c(){c=n("p"),v=r("Example:"),m=f(),w(u.$$.fragment)},l(l){c=s(l,"P",{});var h=i(c);v=a(h,"Example:"),h.forEach(t),m=p(l),C(u.$$.fragment,l)},m(l,h){_(l,c,h),e(c,v),_(l,m,h),y(u,l,h),b=!0},p:ye,i(l){b||(k(u.$$.fragment,l),b=!0)},o(l){$(u.$$.fragment,l),b=!1},d(l){l&&t(c),l&&t(m),T(u,l)}}}function Bc(V){let c,v;return c=new ke({props:{code:`inputs["labels"] = processor(text=dataset[0]["text"], return_tensors="pt").input_ids
 
 # compute loss
 loss = model(**inputs).loss
-round(loss.item(), 2)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> processor.as_target_processor():
-<span class="hljs-meta">... </span>    inputs[<span class="hljs-string">&quot;labels&quot;</span>] = processor(dataset[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;text&quot;</span>], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).input_ids
+round(loss.item(), 2)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>inputs[<span class="hljs-string">&quot;labels&quot;</span>] = processor(text=dataset[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;text&quot;</span>], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).input_ids
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># compute loss</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs).loss
