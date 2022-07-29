@@ -115,11 +115,10 @@ DatasetDict({
 	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">prepare_dataset</span>(<span class="hljs-params">batch</span>):
 <span class="hljs-meta">... </span>    audio = batch[<span class="hljs-string">&quot;audio&quot;</span>]
 
-<span class="hljs-meta">... </span>    batch[<span class="hljs-string">&quot;input_values&quot;</span>] = processor(audio[<span class="hljs-string">&quot;array&quot;</span>], sampling_rate=audio[<span class="hljs-string">&quot;sampling_rate&quot;</span>]).input_values[<span class="hljs-number">0</span>]
+<span class="hljs-meta">... </span>    batch = processor(audio=audio[<span class="hljs-string">&quot;array&quot;</span>], sampling_rate=audio[<span class="hljs-string">&quot;sampling_rate&quot;</span>]).input_values[<span class="hljs-number">0</span>]
 <span class="hljs-meta">... </span>    batch[<span class="hljs-string">&quot;input_length&quot;</span>] = <span class="hljs-built_in">len</span>(batch[<span class="hljs-string">&quot;input_values&quot;</span>])
 
-<span class="hljs-meta">... </span>    <span class="hljs-keyword">with</span> processor.as_target_processor():
-<span class="hljs-meta">... </span>        batch[<span class="hljs-string">&quot;labels&quot;</span>] = processor(batch[<span class="hljs-string">&quot;transcription&quot;</span>]).input_ids
+<span class="hljs-meta">... </span>    batch[<span class="hljs-string">&quot;labels&quot;</span>] = processor(text=batch[<span class="hljs-string">&quot;transcription&quot;</span>]).input_ids
 <span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> batch<!-- HTML_TAG_END --></pre></div>
 <p>Use 🤗 Datasets <a href="https://huggingface.co/docs/datasets/main/en/package_reference/main_classes#datasets.Dataset.map" rel="nofollow">map</a> function to apply the preprocessing function over the entire dataset. You can speed up the map function by increasing the number of processes with <code>num_proc</code>. Remove the columns you don’t need:</p>
 
@@ -151,17 +150,9 @@ DatasetDict({
 <span class="hljs-meta">... </span>        input_features = [{<span class="hljs-string">&quot;input_values&quot;</span>: feature[<span class="hljs-string">&quot;input_values&quot;</span>]} <span class="hljs-keyword">for</span> feature <span class="hljs-keyword">in</span> features]
 <span class="hljs-meta">... </span>        label_features = [{<span class="hljs-string">&quot;input_ids&quot;</span>: feature[<span class="hljs-string">&quot;labels&quot;</span>]} <span class="hljs-keyword">for</span> feature <span class="hljs-keyword">in</span> features]
 
-<span class="hljs-meta">... </span>        batch = self.processor.pad(
-<span class="hljs-meta">... </span>            input_features,
-<span class="hljs-meta">... </span>            padding=self.padding,
-<span class="hljs-meta">... </span>            return_tensors=<span class="hljs-string">&quot;pt&quot;</span>,
-<span class="hljs-meta">... </span>        )
-<span class="hljs-meta">... </span>        <span class="hljs-keyword">with</span> self.processor.as_target_processor():
-<span class="hljs-meta">... </span>            labels_batch = self.processor.pad(
-<span class="hljs-meta">... </span>                label_features,
-<span class="hljs-meta">... </span>                padding=self.padding,
-<span class="hljs-meta">... </span>                return_tensors=<span class="hljs-string">&quot;pt&quot;</span>,
-<span class="hljs-meta">... </span>            )
+<span class="hljs-meta">... </span>        batch = self.processor.pad(input_features, padding=self.padding, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+
+<span class="hljs-meta">... </span>        labels_batch = self.processor.pad(labels=label_features, padding=self.padding, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 
 <span class="hljs-meta">... </span>        <span class="hljs-comment"># replace padding with -100 to ignore loss correctly</span>
 <span class="hljs-meta">... </span>        labels = labels_batch[<span class="hljs-string">&quot;input_ids&quot;</span>].masked_fill(labels_batch.attention_mask.ne(<span class="hljs-number">1</span>), -<span class="hljs-number">100</span>)
@@ -239,10 +230,10 @@ DatasetDict({
 <div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>For a more in-depth example of how to fine-tune a model for automatic speech recognition, take a look at this blog <a href="https://huggingface.co/blog/fine-tune-wav2vec2-english" rel="nofollow">post</a> for English ASR and this <a href="https://huggingface.co/blog/fine-tune-xlsr-wav2vec2" rel="nofollow">post</a> for multilingual ASR.</p></div>
 
 
-		<script type="module" data-hydrate="50teza">
+		<script type="module" data-hydrate="116r70j">
 		import { start } from "/docs/transformers/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="50teza"]').parentNode,
+			target: document.querySelector('[data-hydrate="116r70j"]').parentNode,
 			paths: {"base":"/docs/transformers/main/en","assets":"/docs/transformers/main/en"},
 			session: {},
 			route: false,
