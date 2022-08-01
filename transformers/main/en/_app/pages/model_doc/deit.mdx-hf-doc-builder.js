@@ -274,8 +274,8 @@ inputs = feature_extractor(images=image, return_tensors="tf")
 outputs = model(**inputs)
 logits = outputs.logits
 # model predicts one of the 1000 ImageNet classes
-predicted_class_idx = logits.argmax(-1).item()
-print("Predicted class:", model.config.id2label[predicted_class_idx])`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DeiTFeatureExtractor, TFDeiTForImageClassification
+predicted_class_idx = tf.math.argmax(logits, axis=-1)[0]
+print("Predicted class:", model.config.id2label[int(predicted_class_idx)])`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DeiTFeatureExtractor, TFDeiTForImageClassification
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> requests
@@ -293,9 +293,9 @@ print("Predicted class:", model.config.id2label[predicted_class_idx])`,highlight
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)
 <span class="hljs-meta">&gt;&gt;&gt; </span>logits = outputs.logits
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># model predicts one of the 1000 ImageNet classes</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_class_idx = logits.argmax(-<span class="hljs-number">1</span>).item()
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Predicted class:&quot;</span>, model.config.id2label[predicted_class_idx])
-Predicted <span class="hljs-keyword">class</span>: maillot`}}),{c(){d=s("p"),b=i("Examples:"),m=f(),w(h.$$.fragment)},l(a){d=n(a,"P",{});var c=r(d);b=l(c,"Examples:"),c.forEach(o),m=u(a),v(h.$$.fragment,a)},m(a,c){T(a,d,c),e(d,b),T(a,m,c),$(h,a,c),_=!0},p:je,i(a){_||(y(h.$$.fragment,a),_=!0)},o(a){D(h.$$.fragment,a),_=!1},d(a){a&&o(d),a&&o(m),F(h,a)}}}function oh(k){let d,b,m,h,_;return{c(){d=s("p"),b=i("Although the recipe for forward pass needs to be defined within this function, one should call the "),m=s("code"),h=i("Module"),_=i(`
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_class_idx = tf.math.argmax(logits, axis=-<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Predicted class:&quot;</span>, model.config.id2label[<span class="hljs-built_in">int</span>(predicted_class_idx)])
+Predicted <span class="hljs-keyword">class</span>: ptarmigan`}}),{c(){d=s("p"),b=i("Examples:"),m=f(),w(h.$$.fragment)},l(a){d=n(a,"P",{});var c=r(d);b=l(c,"Examples:"),c.forEach(o),m=u(a),v(h.$$.fragment,a)},m(a,c){T(a,d,c),e(d,b),T(a,m,c),$(h,a,c),_=!0},p:je,i(a){_||(y(h.$$.fragment,a),_=!0)},o(a){D(h.$$.fragment,a),_=!1},d(a){a&&o(d),a&&o(m),F(h,a)}}}function oh(k){let d,b,m,h,_;return{c(){d=s("p"),b=i("Although the recipe for forward pass needs to be defined within this function, one should call the "),m=s("code"),h=i("Module"),_=i(`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
 the latter silently ignores them.`)},l(a){d=n(a,"P",{});var c=r(d);b=l(c,"Although the recipe for forward pass needs to be defined within this function, one should call the "),m=n(c,"CODE",{});var x=r(m);h=l(x,"Module"),x.forEach(o),_=l(c,`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
