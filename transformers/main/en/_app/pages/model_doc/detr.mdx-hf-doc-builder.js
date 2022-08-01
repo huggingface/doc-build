@@ -89,7 +89,7 @@ for score, label, box in zip(results["scores"], results["labels"], results["boxe
     if score > 0.9:
         print(
             f"Detected {model.config.id2label[label.item()]} with confidence "
-            f"{round(score.item(), 3)} at location {box}."
+            f"{round(score.item(), 3)} at location {box}"
         )`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DetrFeatureExtractor, DetrForObjectDetection
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
@@ -114,7 +114,7 @@ for score, label, box in zip(results["scores"], results["labels"], results["boxe
 <span class="hljs-meta">... </span>    <span class="hljs-keyword">if</span> score &gt; <span class="hljs-number">0.9</span>:
 <span class="hljs-meta">... </span>        <span class="hljs-built_in">print</span>(
 <span class="hljs-meta">... </span>            <span class="hljs-string">f&quot;Detected <span class="hljs-subst">{model.config.id2label[label.item()]}</span> with confidence &quot;</span>
-<span class="hljs-meta">... </span>            <span class="hljs-string">f&quot;<span class="hljs-subst">{<span class="hljs-built_in">round</span>(score.item(), <span class="hljs-number">3</span>)}</span> at location <span class="hljs-subst">{box}</span>.&quot;</span>
+<span class="hljs-meta">... </span>            <span class="hljs-string">f&quot;<span class="hljs-subst">{<span class="hljs-built_in">round</span>(score.item(), <span class="hljs-number">3</span>)}</span> at location <span class="hljs-subst">{box}</span>&quot;</span>
 <span class="hljs-meta">... </span>        )
 Detected remote <span class="hljs-keyword">with</span> confidence <span class="hljs-number">0.998</span> at location [<span class="hljs-number">40.16</span>, <span class="hljs-number">70.81</span>, <span class="hljs-number">175.55</span>, <span class="hljs-number">117.98</span>]
 Detected remote <span class="hljs-keyword">with</span> confidence <span class="hljs-number">0.996</span> at location [<span class="hljs-number">333.24</span>, <span class="hljs-number">72.55</span>, <span class="hljs-number">368.33</span>, <span class="hljs-number">187.66</span>]
