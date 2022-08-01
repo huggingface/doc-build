@@ -1,113 +1,35 @@
-import{S as ba,i as Pa,s as ka,e as i,k as n,w as f,t as p,M as Ea,c as o,d as t,m as c,a as l,x as y,h as m,b as u,G as a,g as s,y as _,L as Aa,q as v,o as w,B as g,v as za}from"../chunks/vendor-hf-doc-builder.js";import{I as Pe}from"../chunks/IconCopyLink-hf-doc-builder.js";import{C as Z}from"../chunks/CodeBlock-hf-doc-builder.js";function ja(Mt){let $,ke,b,z,ee,N,tt,te,at,Ee,j,rt,ae,it,ot,Ae,P,U,re,C,lt,ie,st,ze,x,oe,le,nt,ct,se,ne,pt,je,k,S,ce,G,mt,pe,ut,Ue,B,dt,xe,q,Se,Y,ht,Le,F,Te,K,ft,Ie,Q,yt,Ne,M,Ce,E,L,me,H,_t,ue,vt,Ge,T,wt,de,gt,$t,qe,V,bt,Fe,J,Me,W,Pt,He,O,Je,X,kt,Oe,R,Re,A,I,he,D,Et,fe,At,De,d,ye,zt,jt,_e,Ut,xt,ve,St,Lt,we,Tt,It,ge,Nt,Ct,$e,Gt,qt,be,Ft,Be;return N=new Pe({}),C=new Pe({}),G=new Pe({}),q=new Z({props:{code:`my_model.to(device)
-
-for batch in my_training_dataloader:
-    my_optimizer.zero_grad()
-    inputs, targets = batch
-    inputs = inputs.to(device)
-    targets = targets.to(device)
-    outputs = my_model(inputs)
-    loss = my_loss_function(outputs, targets)
-    loss.backward()
-    my_optimizer.step()`,highlighted:`my_model.to(device)
-
-<span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> my_training_dataloader:
-    my_optimizer.zero_grad()
-    inputs, targets = batch
-    inputs = inputs.to(device)
-    targets = targets.to(device)
-    outputs = my_model(inputs)
-    loss = my_loss_function(outputs, targets)
-    loss.backward()
-    my_optimizer.step()`}}),F=new Z({props:{code:`+ from accelerate import Accelerator
-
+import{S as ot,i as lt,s as it,e as r,k as p,w as ie,t as i,M as ct,c as s,d as a,m as f,a as l,x as ce,h as c,b as o,G as t,g as m,y as ne,q as de,o as ue,B as pe,v as nt}from"../chunks/vendor-hf-doc-builder.js";import{T as dt}from"../chunks/Tip-hf-doc-builder.js";import{I as ut}from"../chunks/IconCopyLink-hf-doc-builder.js";import{C as st}from"../chunks/CodeBlock-hf-doc-builder.js";function pt(K){let d,k,u,v,w;return{c(){d=r("p"),k=i("To get a better idea of this process, make sure to check out the "),u=r("a"),v=i("Tutorials"),w=i("!"),this.h()},l(g){d=s(g,"P",{});var _=l(d);k=c(_,"To get a better idea of this process, make sure to check out the "),u=s(_,"A",{href:!0});var P=l(u);v=c(P,"Tutorials"),P.forEach(a),w=c(_,"!"),_.forEach(a),this.h()},h(){o(u,"href","basic_tutorials/overview")},m(g,_){m(g,d,_),t(d,k),t(d,u),t(u,v),t(d,w)},d(g){g&&a(d)}}}function ft(K){let d,k,u,v,w,g,_,P,fe,Q,j,he,W,C,X,h,me,U,ge,ve,F,be,_e,L,ye,we,V,$e,xe,Y,T,Z,H,Ae,ee,D,te,I,b,$,B,Ee,ke,R,Pe,Te,x,q,ze,Ce,M,De,Ie,A,N,Se,je,O,Le,Ve,E,G,He,Be,J,Re,ae;return g=new ut({}),C=new st({props:{code:`+ from accelerate import Accelerator
 + accelerator = Accelerator()
-  # Use the device given by the *accelerator* object.
-+ device = accelerator.device
-  my_model.to(device)
-  # Pass every important object (model, optimizer, dataloader) to *accelerator.prepare*
-+ my_model, my_optimizer, my_training_dataloader = accelerator.prepare(
-+     my_model, my_optimizer, my_training_dataloader
+
++ model, optimizer, training_dataloader, scheduler = accelerator.prepare(
++     model, optimizer, training_dataloader, scheduler
 + )
 
-  for batch in my_training_dataloader:
-      my_optimizer.zero_grad()
+  for batch in training_dataloader:
+      optimizer.zero_grad()
       inputs, targets = batch
       inputs = inputs.to(device)
       targets = targets.to(device)
-      outputs = my_model(inputs)
-      loss = my_loss_function(outputs, targets)
-      # Just a small change for the backward instruction
--     loss.backward()
+      outputs = model(inputs)
+      loss = loss_function(outputs, targets)
 +     accelerator.backward(loss)
-      my_optimizer.step()`,highlighted:`<span class="hljs-addition">+ from accelerate import Accelerator</span>
-
+      optimizer.step()
+      scheduler.step()`,highlighted:`<span class="hljs-addition">+ from accelerate import Accelerator</span>
 <span class="hljs-addition">+ accelerator = Accelerator()</span>
-  # Use the device given by the *accelerator* object.
-<span class="hljs-addition">+ device = accelerator.device</span>
-  my_model.to(device)
-  # Pass every important object (model, optimizer, dataloader) to *accelerator.prepare*
-<span class="hljs-addition">+ my_model, my_optimizer, my_training_dataloader = accelerator.prepare(</span>
-<span class="hljs-addition">+     my_model, my_optimizer, my_training_dataloader</span>
+
+<span class="hljs-addition">+ model, optimizer, training_dataloader, scheduler = accelerator.prepare(</span>
+<span class="hljs-addition">+     model, optimizer, training_dataloader, scheduler</span>
 <span class="hljs-addition">+ )</span>
 
-  for batch in my_training_dataloader:
-      my_optimizer.zero_grad()
+  for batch in training_dataloader:
+      optimizer.zero_grad()
       inputs, targets = batch
       inputs = inputs.to(device)
       targets = targets.to(device)
-      outputs = my_model(inputs)
-      loss = my_loss_function(outputs, targets)
-      # Just a small change for the backward instruction
-<span class="hljs-deletion">-     loss.backward()</span>
+      outputs = model(inputs)
+      loss = loss_function(outputs, targets)
 <span class="hljs-addition">+     accelerator.backward(loss)</span>
-      my_optimizer.step()`}}),M=new Z({props:{code:`+ from accelerate import Accelerator
-
-+ accelerator = Accelerator()
-- my_model.to(device)
-  # Pass every important object (model, optimizer, dataloader) to *accelerator.prepare*
-+ my_model, my_optimizer, my_training_dataloader = accelerate.prepare(
-+     my_model, my_optimizer, my_training_dataloader
-+ )
-
-  for batch in my_training_dataloader:
-      my_optimizer.zero_grad()
-      inputs, targets = batch
--     inputs = inputs.to(device)
--     targets = targets.to(device)
-      outputs = my_model(inputs)
-      loss = my_loss_function(outputs, targets)
-      # Just a small change for the backward instruction
--     loss.backward()
-+     accelerator.backward(loss)
-      my_optimizer.step()`,highlighted:`<span class="hljs-addition">+ from accelerate import Accelerator</span>
-
-<span class="hljs-addition">+ accelerator = Accelerator()</span>
-<span class="hljs-deletion">- my_model.to(device)</span>
-  # Pass every important object (model, optimizer, dataloader) to *accelerator.prepare*
-<span class="hljs-addition">+ my_model, my_optimizer, my_training_dataloader = accelerate.prepare(</span>
-<span class="hljs-addition">+     my_model, my_optimizer, my_training_dataloader</span>
-<span class="hljs-addition">+ )</span>
-
-  for batch in my_training_dataloader:
-      my_optimizer.zero_grad()
-      inputs, targets = batch
-<span class="hljs-deletion">-     inputs = inputs.to(device)</span>
-<span class="hljs-deletion">-     targets = targets.to(device)</span>
-      outputs = my_model(inputs)
-      loss = my_loss_function(outputs, targets)
-      # Just a small change for the backward instruction
-<span class="hljs-deletion">-     loss.backward()</span>
-<span class="hljs-addition">+     accelerator.backward(loss)</span>
-      my_optimizer.step()`}}),H=new Pe({}),J=new Z({props:{code:"accelerate config",highlighted:"accelerate config"}}),O=new Z({props:{code:"accelerate launch my_script.py --args_to_my_script",highlighted:"accelerate launch my_script.py --args_to_my_script"}}),R=new Z({props:{code:"accelerate launch examples/nlp_example.py",highlighted:"accelerate launch examples/nlp_example.py"}}),D=new Pe({}),{c(){$=i("meta"),ke=n(),b=i("h1"),z=i("a"),ee=i("span"),f(N.$$.fragment),tt=n(),te=i("span"),at=p("Accelerate"),Ee=n(),j=i("p"),rt=p("Run your "),ae=i("em"),it=p("raw"),ot=p(" PyTorch training script on any kind of device."),Ae=n(),P=i("h2"),U=i("a"),re=i("span"),f(C.$$.fragment),lt=n(),ie=i("span"),st=p("Features"),ze=n(),x=i("ul"),oe=i("li"),le=i("p"),nt=p(`\u{1F917} Accelerate provides an easy API to make your scripts run with mixed precision and in any kind of distributed
-setting (multi-GPUs, TPUs etc.) while still letting you write your own training loop. The same code can then run
-seamlessly on your local machine for debugging or your training environment.`),ct=n(),se=i("li"),ne=i("p"),pt=p(`\u{1F917} Accelerate also provides a CLI tool that allows you to quickly configure and test your training environment and
-then launch the scripts.`),je=n(),k=i("h2"),S=i("a"),ce=i("span"),f(G.$$.fragment),mt=n(),pe=i("span"),ut=p("Easy to integrate"),Ue=n(),B=i("p"),dt=p("A traditional training loop in PyTorch looks like this:"),xe=n(),f(q.$$.fragment),Se=n(),Y=i("p"),ht=p("Changing it to work with accelerate is really easy and only adds a few lines of code:"),Le=n(),f(F.$$.fragment),Te=n(),K=i("p"),ft=p("and with this, your script can now run in a distributed environment (multi-GPU, TPU)."),Ie=n(),Q=i("p"),yt=p(`You can even simplify your script a bit by letting \u{1F917} Accelerate handle the device placement for you (which is safer,
-especially for TPU training):`),Ne=n(),f(M.$$.fragment),Ce=n(),E=i("h2"),L=i("a"),me=i("span"),f(H.$$.fragment),_t=n(),ue=i("span"),vt=p("Script launcher"),Ge=n(),T=i("p"),wt=p("No need to remember how to use "),de=i("code"),gt=p("torch.distributed.launch"),$t=p(` or to write a specific launcher for TPU training! \u{1F917}
-Accelerate comes with a CLI tool that will make your life easier when launching distributed scripts.`),qe=n(),V=i("p"),bt=p("On your machine(s) just run:"),Fe=n(),f(J.$$.fragment),Me=n(),W=i("p"),Pt=p(`and answer the questions asked. This will generate a config file that will be used automatically to properly set the
-default options when doing`),He=n(),f(O.$$.fragment),Je=n(),X=i("p"),kt=p("For instance, here is how you would run the NLP example (from the root of the repo):"),Oe=n(),f(R.$$.fragment),Re=n(),A=i("h2"),I=i("a"),he=i("span"),f(D.$$.fragment),Et=n(),fe=i("span"),At=p("Supported integrations"),De=n(),d=i("ul"),ye=i("li"),zt=p("CPU only"),jt=n(),_e=i("li"),Ut=p("single GPU"),xt=n(),ve=i("li"),St=p("multi-GPU on one node (machine)"),Lt=n(),we=i("li"),Tt=p("multi-GPU on several nodes (machines)"),It=n(),ge=i("li"),Nt=p("TPU"),Ct=n(),$e=i("li"),Gt=p("FP16 with native AMP (apex on the roadmap)"),qt=n(),be=i("li"),Ft=p("DeepSpeed (experimental support)"),this.h()},l(e){const r=Ea('[data-svelte="svelte-1phssyn"]',document.head);$=o(r,"META",{name:!0,content:!0}),r.forEach(t),ke=c(e),b=o(e,"H1",{class:!0});var Ye=l(b);z=o(Ye,"A",{id:!0,class:!0,href:!0});var Ht=l(z);ee=o(Ht,"SPAN",{});var Jt=l(ee);y(N.$$.fragment,Jt),Jt.forEach(t),Ht.forEach(t),tt=c(Ye),te=o(Ye,"SPAN",{});var Ot=l(te);at=m(Ot,"Accelerate"),Ot.forEach(t),Ye.forEach(t),Ee=c(e),j=o(e,"P",{});var Ke=l(j);rt=m(Ke,"Run your "),ae=o(Ke,"EM",{});var Rt=l(ae);it=m(Rt,"raw"),Rt.forEach(t),ot=m(Ke," PyTorch training script on any kind of device."),Ke.forEach(t),Ae=c(e),P=o(e,"H2",{class:!0});var Qe=l(P);U=o(Qe,"A",{id:!0,class:!0,href:!0});var Dt=l(U);re=o(Dt,"SPAN",{});var Bt=l(re);y(C.$$.fragment,Bt),Bt.forEach(t),Dt.forEach(t),lt=c(Qe),ie=o(Qe,"SPAN",{});var Yt=l(ie);st=m(Yt,"Features"),Yt.forEach(t),Qe.forEach(t),ze=c(e),x=o(e,"UL",{});var Ve=l(x);oe=o(Ve,"LI",{});var Kt=l(oe);le=o(Kt,"P",{});var Qt=l(le);nt=m(Qt,`\u{1F917} Accelerate provides an easy API to make your scripts run with mixed precision and in any kind of distributed
-setting (multi-GPUs, TPUs etc.) while still letting you write your own training loop. The same code can then run
-seamlessly on your local machine for debugging or your training environment.`),Qt.forEach(t),Kt.forEach(t),ct=c(Ve),se=o(Ve,"LI",{});var Vt=l(se);ne=o(Vt,"P",{});var Wt=l(ne);pt=m(Wt,`\u{1F917} Accelerate also provides a CLI tool that allows you to quickly configure and test your training environment and
-then launch the scripts.`),Wt.forEach(t),Vt.forEach(t),Ve.forEach(t),je=c(e),k=o(e,"H2",{class:!0});var We=l(k);S=o(We,"A",{id:!0,class:!0,href:!0});var Xt=l(S);ce=o(Xt,"SPAN",{});var Zt=l(ce);y(G.$$.fragment,Zt),Zt.forEach(t),Xt.forEach(t),mt=c(We),pe=o(We,"SPAN",{});var ea=l(pe);ut=m(ea,"Easy to integrate"),ea.forEach(t),We.forEach(t),Ue=c(e),B=o(e,"P",{});var ta=l(B);dt=m(ta,"A traditional training loop in PyTorch looks like this:"),ta.forEach(t),xe=c(e),y(q.$$.fragment,e),Se=c(e),Y=o(e,"P",{});var aa=l(Y);ht=m(aa,"Changing it to work with accelerate is really easy and only adds a few lines of code:"),aa.forEach(t),Le=c(e),y(F.$$.fragment,e),Te=c(e),K=o(e,"P",{});var ra=l(K);ft=m(ra,"and with this, your script can now run in a distributed environment (multi-GPU, TPU)."),ra.forEach(t),Ie=c(e),Q=o(e,"P",{});var ia=l(Q);yt=m(ia,`You can even simplify your script a bit by letting \u{1F917} Accelerate handle the device placement for you (which is safer,
-especially for TPU training):`),ia.forEach(t),Ne=c(e),y(M.$$.fragment,e),Ce=c(e),E=o(e,"H2",{class:!0});var Xe=l(E);L=o(Xe,"A",{id:!0,class:!0,href:!0});var oa=l(L);me=o(oa,"SPAN",{});var la=l(me);y(H.$$.fragment,la),la.forEach(t),oa.forEach(t),_t=c(Xe),ue=o(Xe,"SPAN",{});var sa=l(ue);vt=m(sa,"Script launcher"),sa.forEach(t),Xe.forEach(t),Ge=c(e),T=o(e,"P",{});var Ze=l(T);wt=m(Ze,"No need to remember how to use "),de=o(Ze,"CODE",{});var na=l(de);gt=m(na,"torch.distributed.launch"),na.forEach(t),$t=m(Ze,` or to write a specific launcher for TPU training! \u{1F917}
-Accelerate comes with a CLI tool that will make your life easier when launching distributed scripts.`),Ze.forEach(t),qe=c(e),V=o(e,"P",{});var ca=l(V);bt=m(ca,"On your machine(s) just run:"),ca.forEach(t),Fe=c(e),y(J.$$.fragment,e),Me=c(e),W=o(e,"P",{});var pa=l(W);Pt=m(pa,`and answer the questions asked. This will generate a config file that will be used automatically to properly set the
-default options when doing`),pa.forEach(t),He=c(e),y(O.$$.fragment,e),Je=c(e),X=o(e,"P",{});var ma=l(X);kt=m(ma,"For instance, here is how you would run the NLP example (from the root of the repo):"),ma.forEach(t),Oe=c(e),y(R.$$.fragment,e),Re=c(e),A=o(e,"H2",{class:!0});var et=l(A);I=o(et,"A",{id:!0,class:!0,href:!0});var ua=l(I);he=o(ua,"SPAN",{});var da=l(he);y(D.$$.fragment,da),da.forEach(t),ua.forEach(t),Et=c(et),fe=o(et,"SPAN",{});var ha=l(fe);At=m(ha,"Supported integrations"),ha.forEach(t),et.forEach(t),De=c(e),d=o(e,"UL",{});var h=l(d);ye=o(h,"LI",{});var fa=l(ye);zt=m(fa,"CPU only"),fa.forEach(t),jt=c(h),_e=o(h,"LI",{});var ya=l(_e);Ut=m(ya,"single GPU"),ya.forEach(t),xt=c(h),ve=o(h,"LI",{});var _a=l(ve);St=m(_a,"multi-GPU on one node (machine)"),_a.forEach(t),Lt=c(h),we=o(h,"LI",{});var va=l(we);Tt=m(va,"multi-GPU on several nodes (machines)"),va.forEach(t),It=c(h),ge=o(h,"LI",{});var wa=l(ge);Nt=m(wa,"TPU"),wa.forEach(t),Ct=c(h),$e=o(h,"LI",{});var ga=l($e);Gt=m(ga,"FP16 with native AMP (apex on the roadmap)"),ga.forEach(t),qt=c(h),be=o(h,"LI",{});var $a=l(be);Ft=m($a,"DeepSpeed (experimental support)"),$a.forEach(t),h.forEach(t),this.h()},h(){u($,"name","hf:doc:metadata"),u($,"content",JSON.stringify(Ua)),u(z,"id","accelerate"),u(z,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(z,"href","#accelerate"),u(b,"class","relative group"),u(U,"id","features"),u(U,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(U,"href","#features"),u(P,"class","relative group"),u(S,"id","easy-to-integrate"),u(S,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(S,"href","#easy-to-integrate"),u(k,"class","relative group"),u(L,"id","script-launcher"),u(L,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(L,"href","#script-launcher"),u(E,"class","relative group"),u(I,"id","supported-integrations"),u(I,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(I,"href","#supported-integrations"),u(A,"class","relative group")},m(e,r){a(document.head,$),s(e,ke,r),s(e,b,r),a(b,z),a(z,ee),_(N,ee,null),a(b,tt),a(b,te),a(te,at),s(e,Ee,r),s(e,j,r),a(j,rt),a(j,ae),a(ae,it),a(j,ot),s(e,Ae,r),s(e,P,r),a(P,U),a(U,re),_(C,re,null),a(P,lt),a(P,ie),a(ie,st),s(e,ze,r),s(e,x,r),a(x,oe),a(oe,le),a(le,nt),a(x,ct),a(x,se),a(se,ne),a(ne,pt),s(e,je,r),s(e,k,r),a(k,S),a(S,ce),_(G,ce,null),a(k,mt),a(k,pe),a(pe,ut),s(e,Ue,r),s(e,B,r),a(B,dt),s(e,xe,r),_(q,e,r),s(e,Se,r),s(e,Y,r),a(Y,ht),s(e,Le,r),_(F,e,r),s(e,Te,r),s(e,K,r),a(K,ft),s(e,Ie,r),s(e,Q,r),a(Q,yt),s(e,Ne,r),_(M,e,r),s(e,Ce,r),s(e,E,r),a(E,L),a(L,me),_(H,me,null),a(E,_t),a(E,ue),a(ue,vt),s(e,Ge,r),s(e,T,r),a(T,wt),a(T,de),a(de,gt),a(T,$t),s(e,qe,r),s(e,V,r),a(V,bt),s(e,Fe,r),_(J,e,r),s(e,Me,r),s(e,W,r),a(W,Pt),s(e,He,r),_(O,e,r),s(e,Je,r),s(e,X,r),a(X,kt),s(e,Oe,r),_(R,e,r),s(e,Re,r),s(e,A,r),a(A,I),a(I,he),_(D,he,null),a(A,Et),a(A,fe),a(fe,At),s(e,De,r),s(e,d,r),a(d,ye),a(ye,zt),a(d,jt),a(d,_e),a(_e,Ut),a(d,xt),a(d,ve),a(ve,St),a(d,Lt),a(d,we),a(we,Tt),a(d,It),a(d,ge),a(ge,Nt),a(d,Ct),a(d,$e),a($e,Gt),a(d,qt),a(d,be),a(be,Ft),Be=!0},p:Aa,i(e){Be||(v(N.$$.fragment,e),v(C.$$.fragment,e),v(G.$$.fragment,e),v(q.$$.fragment,e),v(F.$$.fragment,e),v(M.$$.fragment,e),v(H.$$.fragment,e),v(J.$$.fragment,e),v(O.$$.fragment,e),v(R.$$.fragment,e),v(D.$$.fragment,e),Be=!0)},o(e){w(N.$$.fragment,e),w(C.$$.fragment,e),w(G.$$.fragment,e),w(q.$$.fragment,e),w(F.$$.fragment,e),w(M.$$.fragment,e),w(H.$$.fragment,e),w(J.$$.fragment,e),w(O.$$.fragment,e),w(R.$$.fragment,e),w(D.$$.fragment,e),Be=!1},d(e){t($),e&&t(ke),e&&t(b),g(N),e&&t(Ee),e&&t(j),e&&t(Ae),e&&t(P),g(C),e&&t(ze),e&&t(x),e&&t(je),e&&t(k),g(G),e&&t(Ue),e&&t(B),e&&t(xe),g(q,e),e&&t(Se),e&&t(Y),e&&t(Le),g(F,e),e&&t(Te),e&&t(K),e&&t(Ie),e&&t(Q),e&&t(Ne),g(M,e),e&&t(Ce),e&&t(E),g(H),e&&t(Ge),e&&t(T),e&&t(qe),e&&t(V),e&&t(Fe),g(J,e),e&&t(Me),e&&t(W),e&&t(He),g(O,e),e&&t(Je),e&&t(X),e&&t(Oe),g(R,e),e&&t(Re),e&&t(A),g(D),e&&t(De),e&&t(d)}}}const Ua={local:"accelerate",sections:[{local:"features",title:"Features"},{local:"easy-to-integrate",title:"Easy to integrate"},{local:"script-launcher",title:"Script launcher"},{local:"supported-integrations",title:"Supported integrations"}],title:"Accelerate"};function xa(Mt){return za(()=>{new URLSearchParams(window.location.search).get("fw")}),[]}class Ia extends ba{constructor($){super();Pa(this,$,xa,ja,ka,{})}}export{Ia as default,Ua as metadata};
+      optimizer.step()
+      scheduler.step()`}}),T=new dt({props:{$$slots:{default:[pt]},$$scope:{ctx:K}}}),D=new st({props:{code:"accelerate launch {my_script.py}",highlighted:"accelerate launch {my_script.py}"}}),{c(){d=r("meta"),k=p(),u=r("h1"),v=r("a"),w=r("span"),ie(g.$$.fragment),_=p(),P=r("span"),fe=i("Accelerate"),Q=p(),j=r("p"),he=i("\u{1F917} Accelerate is a library that enables the same PyTorch code to be run across any distributed configuration by adding just four lines of code! In short, training and inference at scale made simple, efficient and adaptable."),W=p(),ie(C.$$.fragment),X=p(),h=r("p"),me=i("Built on "),U=r("code"),ge=i("torch_xla"),ve=i(" and "),F=r("code"),be=i("torch.distributed"),_e=i(`, \u{1F917} Accelerate takes care of the heavy lifting, so you don\u2019t have to write any custom code to adapt to these platforms.
+Convert existing codebases to utilize `),L=r("a"),ye=i("DeepSpeed"),we=i(", perform "),V=r("a"),$e=i("fully sharded data parallelism"),xe=i(", and have automatic support for mixed-precision training!"),Y=p(),ie(T.$$.fragment),Z=p(),H=r("p"),Ae=i("This code can then be launched on any system through Accelerate\u2019s CLI interface:"),ee=p(),ie(D.$$.fragment),te=p(),I=r("div"),b=r("div"),$=r("a"),B=r("div"),Ee=i("Tutorials"),ke=p(),R=r("p"),Pe=i("Learn the basics and become familiar with using \u{1F917} Accelerate. Start here if you are using \u{1F917} Accelerate for the first time!"),Te=p(),x=r("a"),q=r("div"),ze=i("How-to guides"),Ce=p(),M=r("p"),De=i("Practical guides to help you achieve a specific goal. Take a look at these guides to learn how to use \u{1F917} Accelerate to solve real-world problems."),Ie=p(),A=r("a"),N=r("div"),Se=i("Conceptual guides"),je=p(),O=r("p"),Le=i("High-level explanations for building a better understanding of important topics such as avoiding subtle nuances and pitfalls in distributed training and DeepSpeed."),Ve=p(),E=r("a"),G=r("div"),He=i("Reference"),Be=p(),J=r("p"),Re=i("Technical descriptions of how \u{1F917} Accelerate classes and methods work."),this.h()},l(e){const n=ct('[data-svelte="svelte-1phssyn"]',document.head);d=s(n,"META",{name:!0,content:!0}),n.forEach(a),k=f(e),u=s(e,"H1",{class:!0});var S=l(u);v=s(S,"A",{id:!0,class:!0,href:!0});var qe=l(v);w=s(qe,"SPAN",{});var Me=l(w);ce(g.$$.fragment,Me),Me.forEach(a),qe.forEach(a),_=f(S),P=s(S,"SPAN",{});var Ne=l(P);fe=c(Ne,"Accelerate"),Ne.forEach(a),S.forEach(a),Q=f(e),j=s(e,"P",{});var Oe=l(j);he=c(Oe,"\u{1F917} Accelerate is a library that enables the same PyTorch code to be run across any distributed configuration by adding just four lines of code! In short, training and inference at scale made simple, efficient and adaptable."),Oe.forEach(a),W=f(e),ce(C.$$.fragment,e),X=f(e),h=s(e,"P",{});var y=l(h);me=c(y,"Built on "),U=s(y,"CODE",{});var Ge=l(U);ge=c(Ge,"torch_xla"),Ge.forEach(a),ve=c(y," and "),F=s(y,"CODE",{});var Je=l(F);be=c(Je,"torch.distributed"),Je.forEach(a),_e=c(y,`, \u{1F917} Accelerate takes care of the heavy lifting, so you don\u2019t have to write any custom code to adapt to these platforms.
+Convert existing codebases to utilize `),L=s(y,"A",{href:!0});var Ue=l(L);ye=c(Ue,"DeepSpeed"),Ue.forEach(a),we=c(y,", perform "),V=s(y,"A",{href:!0});var Fe=l(V);$e=c(Fe,"fully sharded data parallelism"),Fe.forEach(a),xe=c(y,", and have automatic support for mixed-precision training!"),y.forEach(a),Y=f(e),ce(T.$$.fragment,e),Z=f(e),H=s(e,"P",{});var Ke=l(H);Ae=c(Ke,"This code can then be launched on any system through Accelerate\u2019s CLI interface:"),Ke.forEach(a),ee=f(e),ce(D.$$.fragment,e),te=f(e),I=s(e,"DIV",{class:!0});var Qe=l(I);b=s(Qe,"DIV",{class:!0});var z=l(b);$=s(z,"A",{class:!0,href:!0});var re=l($);B=s(re,"DIV",{class:!0});var We=l(B);Ee=c(We,"Tutorials"),We.forEach(a),ke=f(re),R=s(re,"P",{class:!0});var Xe=l(R);Pe=c(Xe,"Learn the basics and become familiar with using \u{1F917} Accelerate. Start here if you are using \u{1F917} Accelerate for the first time!"),Xe.forEach(a),re.forEach(a),Te=f(z),x=s(z,"A",{class:!0,href:!0});var se=l(x);q=s(se,"DIV",{class:!0});var Ye=l(q);ze=c(Ye,"How-to guides"),Ye.forEach(a),Ce=f(se),M=s(se,"P",{class:!0});var Ze=l(M);De=c(Ze,"Practical guides to help you achieve a specific goal. Take a look at these guides to learn how to use \u{1F917} Accelerate to solve real-world problems."),Ze.forEach(a),se.forEach(a),Ie=f(z),A=s(z,"A",{class:!0,href:!0});var oe=l(A);N=s(oe,"DIV",{class:!0});var et=l(N);Se=c(et,"Conceptual guides"),et.forEach(a),je=f(oe),O=s(oe,"P",{class:!0});var tt=l(O);Le=c(tt,"High-level explanations for building a better understanding of important topics such as avoiding subtle nuances and pitfalls in distributed training and DeepSpeed."),tt.forEach(a),oe.forEach(a),Ve=f(z),E=s(z,"A",{class:!0,href:!0});var le=l(E);G=s(le,"DIV",{class:!0});var at=l(G);He=c(at,"Reference"),at.forEach(a),Be=f(le),J=s(le,"P",{class:!0});var rt=l(J);Re=c(rt,"Technical descriptions of how \u{1F917} Accelerate classes and methods work."),rt.forEach(a),le.forEach(a),z.forEach(a),Qe.forEach(a),this.h()},h(){o(d,"name","hf:doc:metadata"),o(d,"content",JSON.stringify(ht)),o(v,"id","accelerate"),o(v,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),o(v,"href","#accelerate"),o(u,"class","relative group"),o(L,"href","usage_guides/deepspeed"),o(V,"href","usage_guides/fsdp"),o(B,"class","w-full text-center bg-gradient-to-br from-blue-400 to-blue-500 rounded-lg py-1.5 font-semibold mb-5 text-white text-lg leading-relaxed"),o(R,"class","text-gray-700"),o($,"class","!no-underline border dark:border-gray-700 p-5 rounded-lg shadow hover:shadow-lg"),o($,"href","/docs/accelerate/basic_tutorials/overview"),o(q,"class","w-full text-center bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-lg py-1.5 font-semibold mb-5 text-white text-lg leading-relaxed"),o(M,"class","text-gray-700"),o(x,"class","!no-underline border dark:border-gray-700 p-5 rounded-lg shadow hover:shadow-lg"),o(x,"href","/docs/accelerate/utility_guides/gradient_accumulation"),o(N,"class","w-full text-center bg-gradient-to-br from-pink-400 to-pink-500 rounded-lg py-1.5 font-semibold mb-5 text-white text-lg leading-relaxed"),o(O,"class","text-gray-700"),o(A,"class","!no-underline border dark:border-gray-700 p-5 rounded-lg shadow hover:shadow-lg"),o(A,"href","/docs/accelerate/concept_guides/gradient_synchronization"),o(G,"class","w-full text-center bg-gradient-to-br from-purple-400 to-purple-500 rounded-lg py-1.5 font-semibold mb-5 text-white text-lg leading-relaxed"),o(J,"class","text-gray-700"),o(E,"class","!no-underline border dark:border-gray-700 p-5 rounded-lg shadow hover:shadow-lg"),o(E,"href","/docs/accelerate/package_reference/accelerator"),o(b,"class","w-full flex flex-col space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-y-4 md:gap-x-5"),o(I,"class","mt-10")},m(e,n){t(document.head,d),m(e,k,n),m(e,u,n),t(u,v),t(v,w),ne(g,w,null),t(u,_),t(u,P),t(P,fe),m(e,Q,n),m(e,j,n),t(j,he),m(e,W,n),ne(C,e,n),m(e,X,n),m(e,h,n),t(h,me),t(h,U),t(U,ge),t(h,ve),t(h,F),t(F,be),t(h,_e),t(h,L),t(L,ye),t(h,we),t(h,V),t(V,$e),t(h,xe),m(e,Y,n),ne(T,e,n),m(e,Z,n),m(e,H,n),t(H,Ae),m(e,ee,n),ne(D,e,n),m(e,te,n),m(e,I,n),t(I,b),t(b,$),t($,B),t(B,Ee),t($,ke),t($,R),t(R,Pe),t(b,Te),t(b,x),t(x,q),t(q,ze),t(x,Ce),t(x,M),t(M,De),t(b,Ie),t(b,A),t(A,N),t(N,Se),t(A,je),t(A,O),t(O,Le),t(b,Ve),t(b,E),t(E,G),t(G,He),t(E,Be),t(E,J),t(J,Re),ae=!0},p(e,[n]){const S={};n&2&&(S.$$scope={dirty:n,ctx:e}),T.$set(S)},i(e){ae||(de(g.$$.fragment,e),de(C.$$.fragment,e),de(T.$$.fragment,e),de(D.$$.fragment,e),ae=!0)},o(e){ue(g.$$.fragment,e),ue(C.$$.fragment,e),ue(T.$$.fragment,e),ue(D.$$.fragment,e),ae=!1},d(e){a(d),e&&a(k),e&&a(u),pe(g),e&&a(Q),e&&a(j),e&&a(W),pe(C,e),e&&a(X),e&&a(h),e&&a(Y),pe(T,e),e&&a(Z),e&&a(H),e&&a(ee),pe(D,e),e&&a(te),e&&a(I)}}}const ht={local:"accelerate",title:"Accelerate"};function mt(K){return nt(()=>{new URLSearchParams(window.location.search).get("fw")}),[]}class yt extends ot{constructor(d){super();lt(this,d,mt,ft,it,{})}}export{yt as default,ht as metadata};
