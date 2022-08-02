@@ -118,8 +118,8 @@ instance afterwards instead of this since the former takes care of running the p
 the latter silently ignores them.`),u.forEach(t)},m(d,u){f(d,l,u),e(l,k),e(l,h),e(h,p),e(l,b)},d(d){d&&t(l)}}}function LT(M){let l,k,h,p,b;return p=new Le({props:{code:`import torch
 from transformers import LongformerTokenizer, LongformerForSequenceClassification
 
-tokenizer = LongformerTokenizer.from_pretrained("jpelhaw/longformer-base-plagiarism-detection")
-model = LongformerForSequenceClassification.from_pretrained("jpelhaw/longformer-base-plagiarism-detection")
+tokenizer = LongformerTokenizer.from_pretrained("jpwahle/longformer-base-plagiarism-detection")
+model = LongformerForSequenceClassification.from_pretrained("jpwahle/longformer-base-plagiarism-detection")
 
 inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
 
@@ -130,8 +130,8 @@ predicted_class_id = logits.argmax().item()
 model.config.id2label[predicted_class_id]`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> LongformerTokenizer, LongformerForSequenceClassification
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = LongformerTokenizer.from_pretrained(<span class="hljs-string">&quot;jpelhaw/longformer-base-plagiarism-detection&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = LongformerForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;jpelhaw/longformer-base-plagiarism-detection&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = LongformerTokenizer.from_pretrained(<span class="hljs-string">&quot;jpwahle/longformer-base-plagiarism-detection&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = LongformerForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;jpwahle/longformer-base-plagiarism-detection&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 
@@ -140,9 +140,9 @@ model.config.id2label[predicted_class_id]`,highlighted:`<span class="hljs-meta">
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>predicted_class_id = logits.argmax().item()
 <span class="hljs-meta">&gt;&gt;&gt; </span>model.config.id2label[predicted_class_id]
-<span class="hljs-string">&#x27;ORIGINAL&#x27;</span>`}}),{c(){l=a("p"),k=n("Example of single-label classification:"),h=c(),v(p.$$.fragment)},l(d){l=r(d,"P",{});var u=i(l);k=s(u,"Example of single-label classification:"),u.forEach(t),h=m(d),T(p.$$.fragment,d)},m(d,u){f(d,l,u),e(l,k),f(d,h,u),y(p,d,u),b=!0},p:je,i(d){b||($(p.$$.fragment,d),b=!0)},o(d){L(p.$$.fragment,d),b=!1},d(d){d&&t(l),d&&t(h),x(p,d)}}}function xT(M){let l,k;return l=new Le({props:{code:'# To train a model on `num_labels` classes, you can pass `num_labels=num_labels` to `.from_pretrained(...)`\nnum_labels = len(model.config.id2label)\nmodel = LongformerForSequenceClassification.from_pretrained("jpelhaw/longformer-base-plagiarism-detection", num_labels=num_labels)\n\nlabels = torch.tensor(1)\nloss = model(**inputs, labels=labels).loss\nround(loss.item(), 2)',highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
+<span class="hljs-string">&#x27;ORIGINAL&#x27;</span>`}}),{c(){l=a("p"),k=n("Example of single-label classification:"),h=c(),v(p.$$.fragment)},l(d){l=r(d,"P",{});var u=i(l);k=s(u,"Example of single-label classification:"),u.forEach(t),h=m(d),T(p.$$.fragment,d)},m(d,u){f(d,l,u),e(l,k),f(d,h,u),y(p,d,u),b=!0},p:je,i(d){b||($(p.$$.fragment,d),b=!0)},o(d){L(p.$$.fragment,d),b=!1},d(d){d&&t(l),d&&t(h),x(p,d)}}}function xT(M){let l,k;return l=new Le({props:{code:'# To train a model on `num_labels` classes, you can pass `num_labels=num_labels` to `.from_pretrained(...)`\nnum_labels = len(model.config.id2label)\nmodel = LongformerForSequenceClassification.from_pretrained("jpwahle/longformer-base-plagiarism-detection", num_labels=num_labels)\n\nlabels = torch.tensor(1)\nloss = model(**inputs, labels=labels).loss\nround(loss.item(), 2)',highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = LongformerForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;jpelhaw/longformer-base-plagiarism-detection&quot;</span>, num_labels=num_labels)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = LongformerForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;jpwahle/longformer-base-plagiarism-detection&quot;</span>, num_labels=num_labels)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor(<span class="hljs-number">1</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
@@ -150,8 +150,8 @@ model.config.id2label[predicted_class_id]`,highlighted:`<span class="hljs-meta">
 <span class="hljs-number">5.44</span>`}}),{c(){v(l.$$.fragment)},l(h){T(l.$$.fragment,h)},m(h,p){y(l,h,p),k=!0},p:je,i(h){k||($(l.$$.fragment,h),k=!0)},o(h){L(l.$$.fragment,h),k=!1},d(h){x(l,h)}}}function FT(M){let l,k,h,p,b;return p=new Le({props:{code:`import torch
 from transformers import LongformerTokenizer, LongformerForSequenceClassification
 
-tokenizer = LongformerTokenizer.from_pretrained("jpelhaw/longformer-base-plagiarism-detection")
-model = LongformerForSequenceClassification.from_pretrained("jpelhaw/longformer-base-plagiarism-detection", problem_type="multi_label_classification")
+tokenizer = LongformerTokenizer.from_pretrained("jpwahle/longformer-base-plagiarism-detection")
+model = LongformerForSequenceClassification.from_pretrained("jpwahle/longformer-base-plagiarism-detection", problem_type="multi_label_classification")
 
 inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
 
@@ -162,8 +162,8 @@ predicted_class_id = logits.argmax().item()
 model.config.id2label[predicted_class_id]`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> LongformerTokenizer, LongformerForSequenceClassification
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = LongformerTokenizer.from_pretrained(<span class="hljs-string">&quot;jpelhaw/longformer-base-plagiarism-detection&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = LongformerForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;jpelhaw/longformer-base-plagiarism-detection&quot;</span>, problem_type=<span class="hljs-string">&quot;multi_label_classification&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = LongformerTokenizer.from_pretrained(<span class="hljs-string">&quot;jpwahle/longformer-base-plagiarism-detection&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = LongformerForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;jpwahle/longformer-base-plagiarism-detection&quot;</span>, problem_type=<span class="hljs-string">&quot;multi_label_classification&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 
@@ -175,7 +175,7 @@ model.config.id2label[predicted_class_id]`,highlighted:`<span class="hljs-meta">
 <span class="hljs-string">&#x27;ORIGINAL&#x27;</span>`}}),{c(){l=a("p"),k=n("Example of multi-label classification:"),h=c(),v(p.$$.fragment)},l(d){l=r(d,"P",{});var u=i(l);k=s(u,"Example of multi-label classification:"),u.forEach(t),h=m(d),T(p.$$.fragment,d)},m(d,u){f(d,l,u),e(l,k),f(d,h,u),y(p,d,u),b=!0},p:je,i(d){b||($(p.$$.fragment,d),b=!0)},o(d){L(p.$$.fragment,d),b=!1},d(d){d&&t(l),d&&t(h),x(p,d)}}}function MT(M){let l,k;return l=new Le({props:{code:`# To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`
 num_labels = len(model.config.id2label)
 model = LongformerForSequenceClassification.from_pretrained(
-    "jpelhaw/longformer-base-plagiarism-detection", num_labels=num_labels, problem_type="multi_label_classification"
+    "jpwahle/longformer-base-plagiarism-detection", num_labels=num_labels, problem_type="multi_label_classification"
 )
 
 labels = torch.nn.functional.one_hot(torch.tensor([predicted_class_id]), num_classes=num_labels).to(
@@ -185,7 +185,7 @@ loss = model(**inputs, labels=labels).loss
 loss.backward()`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = LongformerForSequenceClassification.from_pretrained(
-<span class="hljs-meta">... </span>    <span class="hljs-string">&quot;jpelhaw/longformer-base-plagiarism-detection&quot;</span>, num_labels=num_labels, problem_type=<span class="hljs-string">&quot;multi_label_classification&quot;</span>
+<span class="hljs-meta">... </span>    <span class="hljs-string">&quot;jpwahle/longformer-base-plagiarism-detection&quot;</span>, num_labels=num_labels, problem_type=<span class="hljs-string">&quot;multi_label_classification&quot;</span>
 <span class="hljs-meta">... </span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.nn.functional.one_hot(torch.tensor([predicted_class_id]), num_classes=num_labels).to(
