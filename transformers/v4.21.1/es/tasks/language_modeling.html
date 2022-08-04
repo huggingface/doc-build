@@ -1,0 +1,461 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;modelado-de-lenguaje&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;carga-el-dataset-eli5&quot;,&quot;title&quot;:&quot;Carga el dataset ELI5&quot;},{&quot;local&quot;:&quot;preprocesamiento&quot;,&quot;title&quot;:&quot;Preprocesamiento&quot;},{&quot;local&quot;:&quot;modelado-de-lenguaje-causal&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;entrenamiento&quot;,&quot;title&quot;:&quot;Entrenamiento&quot;}],&quot;title&quot;:&quot;Modelado de lenguaje causal&quot;},{&quot;local&quot;:&quot;modelado-de-lenguaje-por-enmascaramiento&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;entrenamiento&quot;,&quot;title&quot;:&quot;Entrenamiento&quot;}],&quot;title&quot;:&quot;Modelado de lenguaje por enmascaramiento&quot;}],&quot;title&quot;:&quot;Modelado de lenguaje&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/es/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/es/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/es/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/es/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/es/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/es/_app/pages/tasks/language_modeling.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/es/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/es/_app/chunks/Youtube-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/es/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/es/_app/chunks/CodeBlock-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/es/_app/chunks/Markdown-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/es/_app/chunks/IconTensorflow-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="modelado-de-lenguaje" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#modelado-de-lenguaje"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Modelado de lenguaje
+	</span></h1>
+
+<p>El modelado de lenguaje predice palabras en un enunciado. Hay dos formas de modelado de lenguaje.</p>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/Vpjb1lu0MDk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>El modelado de lenguaje causal predice el siguiente token en una secuencia de tokens, y el modelo solo puede considerar los tokens a la izquierda.</p>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/mqElG5QJWUg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>El modelado de lenguaje por enmascaramiento predice un token enmascarado en una secuencia, y el modelo puede considerar los tokens bidireccionalmente.</p>
+<p>Esta guía te mostrará cómo realizar fine-tuning <a href="https://huggingface.co/distilgpt2" rel="nofollow">DistilGPT2</a> para modelos de lenguaje causales y <a href="https://huggingface.co/distilroberta-base" rel="nofollow">DistilRoBERTa</a> para modelos de lenguaje por enmascaramiento en el <a href="https://www.reddit.com/r/askscience/" rel="nofollow">r/askscience</a> subdataset <a href="https://huggingface.co/datasets/eli5" rel="nofollow">ELI5</a>. </p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Puedes realizar fine-tuning a otras arquitecturas para modelos de lenguaje como <a href="https://huggingface.co/EleutherAI/gpt-neo-125M" rel="nofollow">GPT-Neo</a>, <a href="https://huggingface.co/EleutherAI/gpt-j-6B" rel="nofollow">GPT-J</a> y <a href="https://huggingface.co/bert-base-uncased" rel="nofollow">BERT</a> siguiendo los mismos pasos presentados en esta guía!</p>
+<p>Mira la <a href="https://huggingface.co/tasks/text-generation" rel="nofollow">página de tarea</a> para generación de texto y la <a href="https://huggingface.co/tasks/fill-mask" rel="nofollow">página de tarea</a> para modelos de lenguajes por enmascaramiento para obtener más información sobre los modelos, datasets, y métricas asociadas.</p></div>
+<h2 class="relative group"><a id="carga-el-dataset-eli5" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#carga-el-dataset-eli5"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Carga el dataset ELI5
+	</span></h2>
+
+<p>Carga solo los primeros 5000 registros desde la biblioteca 🤗 Datasets, dado que es bastante grande:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>eli5 = load_dataset(<span class="hljs-string">&quot;eli5&quot;</span>, split=<span class="hljs-string">&quot;train_asks[:5000]&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Divide este dataset en subdatasets para el entrenamiento y el test:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->eli5 = eli5.train_test_split(test_size=<span class="hljs-number">0.2</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Luego observa un ejemplo:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>eli5[<span class="hljs-string">&quot;train&quot;</span>][<span class="hljs-number">0</span>]
+{<span class="hljs-string">&#x27;answers&#x27;</span>: {<span class="hljs-string">&#x27;a_id&#x27;</span>: [<span class="hljs-string">&#x27;c3d1aib&#x27;</span>, <span class="hljs-string">&#x27;c3d4lya&#x27;</span>],
+  <span class="hljs-string">&#x27;score&#x27;</span>: [<span class="hljs-number">6</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-string">&#x27;text&#x27;</span>: [<span class="hljs-string">&quot;The velocity needed to remain in orbit is equal to the square root of Newton&#x27;s constant times the mass of earth divided by the distance from the center of the earth. I don&#x27;t know the altitude of that specific mission, but they&#x27;re usually around 300 km. That means he&#x27;s going 7-8 km/s.\n\nIn space there are no other forces acting on either the shuttle or the guy, so they stay in the same position relative to each other. If he were to become unable to return to the ship, he would presumably run out of oxygen, or slowly fall into the atmosphere and burn up.&quot;</span>,
+   <span class="hljs-string">&quot;Hope you don&#x27;t mind me asking another question, but why aren&#x27;t there any stars visible in this photo?&quot;</span>]},
+ <span class="hljs-string">&#x27;answers_urls&#x27;</span>: {<span class="hljs-string">&#x27;url&#x27;</span>: []},
+ <span class="hljs-string">&#x27;document&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+ <span class="hljs-string">&#x27;q_id&#x27;</span>: <span class="hljs-string">&#x27;nyxfp&#x27;</span>,
+ <span class="hljs-string">&#x27;selftext&#x27;</span>: <span class="hljs-string">&#x27;_URL_0_\n\nThis was on the front page earlier and I have a few questions about it. Is it possible to calculate how fast the astronaut would be orbiting the earth? Also how does he stay close to the shuttle so that he can return safely, i.e is he orbiting at the same speed and can therefore stay next to it? And finally if his propulsion system failed, would he eventually re-enter the atmosphere and presumably die?&#x27;</span>,
+ <span class="hljs-string">&#x27;selftext_urls&#x27;</span>: {<span class="hljs-string">&#x27;url&#x27;</span>: [<span class="hljs-string">&#x27;http://apod.nasa.gov/apod/image/1201/freeflyer_nasa_3000.jpg&#x27;</span>]},
+ <span class="hljs-string">&#x27;subreddit&#x27;</span>: <span class="hljs-string">&#x27;askscience&#x27;</span>,
+ <span class="hljs-string">&#x27;title&#x27;</span>: <span class="hljs-string">&#x27;Few questions about this space walk photograph.&#x27;</span>,
+ <span class="hljs-string">&#x27;title_urls&#x27;</span>: {<span class="hljs-string">&#x27;url&#x27;</span>: []}}<!-- HTML_TAG_END --></pre></div>
+<p>Observa que <code>text</code> es un subcampo anidado dentro del diccionario <code>answers</code>. Cuando preproceses el dataset, deberás extraer el subcampo <code>text</code> en una columna aparte.</p>
+<h2 class="relative group"><a id="preprocesamiento" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#preprocesamiento"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Preprocesamiento
+	</span></h2>
+
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/ma1TrR7gE7I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Para modelados de lenguaje causales carga el tokenizador DistilGPT2 para procesar el subcampo <code>text</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;distilgpt2&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/8PmhEIXhBvI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Para modelados de lenguaje por enmascaramiento carga el tokenizador DistilRoBERTa, en lugar de DistilGPT2:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;distilroberta-base&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Extrae el subcampo <code>text</code> desde su estructura anidado con el método <a href="https://huggingface.co/docs/datasets/process.html#flatten" rel="nofollow"><code>flatten</code></a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>eli5 = eli5.flatten()
+<span class="hljs-meta">&gt;&gt;&gt; </span>eli5[<span class="hljs-string">&quot;train&quot;</span>][<span class="hljs-number">0</span>]
+{<span class="hljs-string">&#x27;answers.a_id&#x27;</span>: [<span class="hljs-string">&#x27;c3d1aib&#x27;</span>, <span class="hljs-string">&#x27;c3d4lya&#x27;</span>],
+ <span class="hljs-string">&#x27;answers.score&#x27;</span>: [<span class="hljs-number">6</span>, <span class="hljs-number">3</span>],
+ <span class="hljs-string">&#x27;answers.text&#x27;</span>: [<span class="hljs-string">&quot;The velocity needed to remain in orbit is equal to the square root of Newton&#x27;s constant times the mass of earth divided by the distance from the center of the earth. I don&#x27;t know the altitude of that specific mission, but they&#x27;re usually around 300 km. That means he&#x27;s going 7-8 km/s.\n\nIn space there are no other forces acting on either the shuttle or the guy, so they stay in the same position relative to each other. If he were to become unable to return to the ship, he would presumably run out of oxygen, or slowly fall into the atmosphere and burn up.&quot;</span>,
+  <span class="hljs-string">&quot;Hope you don&#x27;t mind me asking another question, but why aren&#x27;t there any stars visible in this photo?&quot;</span>],
+ <span class="hljs-string">&#x27;answers_urls.url&#x27;</span>: [],
+ <span class="hljs-string">&#x27;document&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+ <span class="hljs-string">&#x27;q_id&#x27;</span>: <span class="hljs-string">&#x27;nyxfp&#x27;</span>,
+ <span class="hljs-string">&#x27;selftext&#x27;</span>: <span class="hljs-string">&#x27;_URL_0_\n\nThis was on the front page earlier and I have a few questions about it. Is it possible to calculate how fast the astronaut would be orbiting the earth? Also how does he stay close to the shuttle so that he can return safely, i.e is he orbiting at the same speed and can therefore stay next to it? And finally if his propulsion system failed, would he eventually re-enter the atmosphere and presumably die?&#x27;</span>,
+ <span class="hljs-string">&#x27;selftext_urls.url&#x27;</span>: [<span class="hljs-string">&#x27;http://apod.nasa.gov/apod/image/1201/freeflyer_nasa_3000.jpg&#x27;</span>],
+ <span class="hljs-string">&#x27;subreddit&#x27;</span>: <span class="hljs-string">&#x27;askscience&#x27;</span>,
+ <span class="hljs-string">&#x27;title&#x27;</span>: <span class="hljs-string">&#x27;Few questions about this space walk photograph.&#x27;</span>,
+ <span class="hljs-string">&#x27;title_urls.url&#x27;</span>: []}<!-- HTML_TAG_END --></pre></div>
+<p>Cada subcampo es ahora una columna separada, como lo indica el prefijo <code>answers</code>. Observa que <code>answers.text</code> es una lista. En lugar de tokenizar cada enunciado por separado, convierte la lista en un string para tokenizarlos conjuntamente.</p>
+<p>Así es como puedes crear una función de preprocesamiento para convertir la lista en una cadena y truncar las secuencias para que no superen la longitud máxima de input de DistilGPT2:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">preprocess_function</span>(<span class="hljs-params">examples</span>):
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> tokenizer([<span class="hljs-string">&quot; &quot;</span>.join(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> examples[<span class="hljs-string">&quot;answers.text&quot;</span>]], truncation=<span class="hljs-literal">True</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Usa de 🤗 Datasets la función <a href="https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.map" rel="nofollow"><code>map</code></a> para aplicar la función de preprocesamiento sobre el dataset en su totalidad. Puedes acelerar la función <code>map</code> configurando el argumento <code>batched=True</code> para procesar múltiples elementos del dataset a la vez y aumentar la cantidad de procesos con <code>num_proc</code>. Elimina las columnas que no necesitas:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>tokenized_eli5 = eli5.<span class="hljs-built_in">map</span>(
+<span class="hljs-meta">... </span>    preprocess_function,
+<span class="hljs-meta">... </span>    batched=<span class="hljs-literal">True</span>,
+<span class="hljs-meta">... </span>    num_proc=<span class="hljs-number">4</span>,
+<span class="hljs-meta">... </span>    remove_columns=eli5[<span class="hljs-string">&quot;train&quot;</span>].column_names,
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+<p>Ahora necesitas una segunda función de preprocesamiento para capturar el texto truncado de cualquier ejemplo demasiado largo para evitar cualquier pérdida de información. Esta función de preprocesamiento debería:</p>
+<ul><li>Concatenar todo el texto.</li>
+<li>Dividir el texto concatenado en trozos más pequeños definidos por un <code>block_size</code>.</li></ul>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>block_size = <span class="hljs-number">128</span>
+
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">group_texts</span>(<span class="hljs-params">examples</span>):
+<span class="hljs-meta">... </span>    concatenated_examples = {k: <span class="hljs-built_in">sum</span>(examples[k], []) <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> examples.keys()}
+<span class="hljs-meta">... </span>    total_length = <span class="hljs-built_in">len</span>(concatenated_examples[<span class="hljs-built_in">list</span>(examples.keys())[<span class="hljs-number">0</span>]])
+<span class="hljs-meta">... </span>    total_length = (total_length // block_size) * block_size
+<span class="hljs-meta">... </span>    result = {
+<span class="hljs-meta">... </span>        k: [t[i : i + block_size] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, total_length, block_size)]
+<span class="hljs-meta">... </span>        <span class="hljs-keyword">for</span> k, t <span class="hljs-keyword">in</span> concatenated_examples.items()
+<span class="hljs-meta">... </span>    }
+<span class="hljs-meta">... </span>    result[<span class="hljs-string">&quot;labels&quot;</span>] = result[<span class="hljs-string">&quot;input_ids&quot;</span>].copy()
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> result<!-- HTML_TAG_END --></pre></div>
+<p>Aplica la función <code>group_texts</code> sobre todo el dataset:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>lm_dataset = tokenized_eli5.<span class="hljs-built_in">map</span>(group_texts, batched=<span class="hljs-literal">True</span>, num_proc=<span class="hljs-number">4</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Para modelados de lenguaje causales, usa <code>DataCollatorForLanguageModeling</code> para crear un lote de ejemplos. Esto también <em>rellenará dinámicamente</em> tu texto a la dimensión del elemento más largo del lote para que de esta manera tengan largo uniforme. Si bien es posible rellenar tu texto en la función <code>tokenizer</code> mediante el argumento <code>padding=True</code>, el rellenado dinámico es más eficiente. </p>
+<div class="space-y-10 py-6 2xl:py-8 2xl:-mx-4">
+
+<div class="border border-gray-200 rounded-xl px-4 relative"><div class="flex h-[22px] mt-[-12.5px] justify-between leading-none"><div class="flex px-1 items-center space-x-1 bg-white dark:bg-gray-950"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><defs><clipPath id="a"><rect x="3.05" y="0.5" width="25.73" height="31" fill="none"></rect></clipPath></defs><g clip-path="url(#a)"><path d="M24.94,9.51a12.81,12.81,0,0,1,0,18.16,12.68,12.68,0,0,1-18,0,12.81,12.81,0,0,1,0-18.16l9-9V5l-.84.83-6,6a9.58,9.58,0,1,0,13.55,0ZM20.44,9a1.68,1.68,0,1,1,1.67-1.67A1.68,1.68,0,0,1,20.44,9Z" fill="#ee4c2c"></path></g></svg>
+			<span>Pytorch</span></div>
+		<div class="cursor-pointer flex items-center justify-center space-x-1 text-sm px-2 bg-white dark:bg-gray-950 hover:underline leading-none"><svg class="" width="0.9em" height="0.9em" viewBox="0 0 10 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M1.39125 1.9725L0.0883333 0.669997L0.677917 0.0804138L8.9275 8.33041L8.33792 8.91958L6.95875 7.54041C6.22592 8.00523 5.37572 8.25138 4.50792 8.25C2.26125 8.25 0.392083 6.63333 0 4.5C0.179179 3.52946 0.667345 2.64287 1.39167 1.9725H1.39125ZM5.65667 6.23833L5.04667 5.62833C4.81335 5.73996 4.55116 5.77647 4.29622 5.73282C4.04129 5.68918 3.80617 5.56752 3.62328 5.38463C3.44039 5.20175 3.31874 4.96663 3.27509 4.71169C3.23144 4.45676 3.26795 4.19456 3.37958 3.96125L2.76958 3.35125C2.50447 3.75187 2.38595 4.2318 2.4341 4.70978C2.48225 5.18777 2.6941 5.63442 3.0338 5.97411C3.37349 6.31381 3.82015 6.52567 4.29813 6.57382C4.77611 6.62197 5.25605 6.50345 5.65667 6.23833ZM2.83042 1.06666C3.35 0.862497 3.91625 0.749997 4.50792 0.749997C6.75458 0.749997 8.62375 2.36666 9.01583 4.5C8.88816 5.19404 8.60119 5.84899 8.1775 6.41333L6.56917 4.805C6.61694 4.48317 6.58868 4.15463 6.48664 3.84569C6.3846 3.53675 6.21162 3.256 5.98156 3.02594C5.7515 2.79588 5.47075 2.6229 5.16181 2.52086C4.85287 2.41882 4.52433 2.39056 4.2025 2.43833L2.83042 1.06708V1.06666Z" fill="currentColor"></path></svg>
+				<span>Hide Pytorch content</span></div></div>
+	<div class="framework-content">
+<p>Puedes usar el token de final de secuencia como el token de relleno y asignar <code>mlm=False</code>. Esto usará los inputs como etiquetas movidas un elemento hacia la derecha:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DataCollatorForLanguageModeling
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.pad_token = tokenizer.eos_token
+<span class="hljs-meta">&gt;&gt;&gt; </span>data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=<span class="hljs-literal">False</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Para modelados de lenguaje por enmascaramiento usa el mismo <code>DataCollatorForLanguageModeling</code> excepto que deberás especificar <code>mlm_probability</code> para enmascarar tokens aleatoriamente cada vez que iteras sobre los datos.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DataCollatorForLanguageModeling
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.pad_token = tokenizer.eos_token
+<span class="hljs-meta">&gt;&gt;&gt; </span>data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm_probability=<span class="hljs-number">0.15</span>)<!-- HTML_TAG_END --></pre></div></div></div>
+	
+
+<div class="border border-gray-200 rounded-xl px-4 relative"><div class="flex h-[22px] mt-[-12.5px] justify-between leading-none"><div class="flex px-1 items-center space-x-1 bg-white dark:bg-gray-950"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="0.94em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 274"><path d="M145.726 42.065v42.07l72.861 42.07v-42.07l-72.86-42.07zM0 84.135v42.07l36.43 21.03V105.17L0 84.135zm109.291 21.035l-36.43 21.034v126.2l36.43 21.035v-84.135l36.435 21.035v-42.07l-36.435-21.034V105.17z" fill="#E55B2D"></path><path d="M145.726 42.065L36.43 105.17v42.065l72.861-42.065v42.065l36.435-21.03v-84.14zM255.022 63.1l-36.435 21.035v42.07l36.435-21.035V63.1zm-72.865 84.135l-36.43 21.035v42.07l36.43-21.036v-42.07zm-36.43 63.104l-36.436-21.035v84.135l36.435-21.035V210.34z" fill="#ED8E24"></path><path d="M145.726 0L0 84.135l36.43 21.035l109.296-63.105l72.861 42.07L255.022 63.1L145.726 0zm0 126.204l-36.435 21.03l36.435 21.036l36.43-21.035l-36.43-21.03z" fill="#F8BF3C"></path></svg>
+			<span>TensorFlow</span></div>
+		<div class="cursor-pointer flex items-center justify-center space-x-1 text-sm px-2 bg-white dark:bg-gray-950 hover:underline leading-none"><svg class="" width="0.9em" height="0.9em" viewBox="0 0 10 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M1.39125 1.9725L0.0883333 0.669997L0.677917 0.0804138L8.9275 8.33041L8.33792 8.91958L6.95875 7.54041C6.22592 8.00523 5.37572 8.25138 4.50792 8.25C2.26125 8.25 0.392083 6.63333 0 4.5C0.179179 3.52946 0.667345 2.64287 1.39167 1.9725H1.39125ZM5.65667 6.23833L5.04667 5.62833C4.81335 5.73996 4.55116 5.77647 4.29622 5.73282C4.04129 5.68918 3.80617 5.56752 3.62328 5.38463C3.44039 5.20175 3.31874 4.96663 3.27509 4.71169C3.23144 4.45676 3.26795 4.19456 3.37958 3.96125L2.76958 3.35125C2.50447 3.75187 2.38595 4.2318 2.4341 4.70978C2.48225 5.18777 2.6941 5.63442 3.0338 5.97411C3.37349 6.31381 3.82015 6.52567 4.29813 6.57382C4.77611 6.62197 5.25605 6.50345 5.65667 6.23833ZM2.83042 1.06666C3.35 0.862497 3.91625 0.749997 4.50792 0.749997C6.75458 0.749997 8.62375 2.36666 9.01583 4.5C8.88816 5.19404 8.60119 5.84899 8.1775 6.41333L6.56917 4.805C6.61694 4.48317 6.58868 4.15463 6.48664 3.84569C6.3846 3.53675 6.21162 3.256 5.98156 3.02594C5.7515 2.79588 5.47075 2.6229 5.16181 2.52086C4.85287 2.41882 4.52433 2.39056 4.2025 2.43833L2.83042 1.06708V1.06666Z" fill="currentColor"></path></svg>
+				<span>Hide TensorFlow content</span></div></div>
+	<div class="framework-content">
+<p>Puedes usar el token de final de secuencia como el token de relleno y asignar <code>mlm=False</code>. Esto usará los inputs como etiquetas movidas un elemento hacia la derecha:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DataCollatorForLanguageModeling
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=<span class="hljs-literal">False</span>, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Para modelados de lenguajes por enmascaramiento usa el mismo <code>DataCollatorForLanguageModeling</code> excepto que deberás especificar <code>mlm_probability</code> para enmascarar tokens aleatoriamente cada vez que iteras sobre los datos.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DataCollatorForLanguageModeling
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=<span class="hljs-literal">False</span>, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+					</div></div>
+	</div>
+<h2 class="relative group"><a id="modelado-de-lenguaje-causal" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#modelado-de-lenguaje-causal"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Modelado de lenguaje causal
+	</span></h2>
+
+<p>El modelado de lenguaje causal es frecuentemente utilizado para generación de texto. Esta sección te muestra cómo realizar fine-tuning a <a href="https://huggingface.co/distilgpt2" rel="nofollow">DistilGPT2</a> para generar nuevo texto.</p>
+<h3 class="relative group"><a id="entrenamiento" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#entrenamiento"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Entrenamiento
+	</span></h3>
+
+<div class="space-y-10 py-6 2xl:py-8 2xl:-mx-4">
+
+<div class="border border-gray-200 rounded-xl px-4 relative"><div class="flex h-[22px] mt-[-12.5px] justify-between leading-none"><div class="flex px-1 items-center space-x-1 bg-white dark:bg-gray-950"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><defs><clipPath id="a"><rect x="3.05" y="0.5" width="25.73" height="31" fill="none"></rect></clipPath></defs><g clip-path="url(#a)"><path d="M24.94,9.51a12.81,12.81,0,0,1,0,18.16,12.68,12.68,0,0,1-18,0,12.81,12.81,0,0,1,0-18.16l9-9V5l-.84.83-6,6a9.58,9.58,0,1,0,13.55,0ZM20.44,9a1.68,1.68,0,1,1,1.67-1.67A1.68,1.68,0,0,1,20.44,9Z" fill="#ee4c2c"></path></g></svg>
+			<span>Pytorch</span></div>
+		<div class="cursor-pointer flex items-center justify-center space-x-1 text-sm px-2 bg-white dark:bg-gray-950 hover:underline leading-none"><svg class="" width="0.9em" height="0.9em" viewBox="0 0 10 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M1.39125 1.9725L0.0883333 0.669997L0.677917 0.0804138L8.9275 8.33041L8.33792 8.91958L6.95875 7.54041C6.22592 8.00523 5.37572 8.25138 4.50792 8.25C2.26125 8.25 0.392083 6.63333 0 4.5C0.179179 3.52946 0.667345 2.64287 1.39167 1.9725H1.39125ZM5.65667 6.23833L5.04667 5.62833C4.81335 5.73996 4.55116 5.77647 4.29622 5.73282C4.04129 5.68918 3.80617 5.56752 3.62328 5.38463C3.44039 5.20175 3.31874 4.96663 3.27509 4.71169C3.23144 4.45676 3.26795 4.19456 3.37958 3.96125L2.76958 3.35125C2.50447 3.75187 2.38595 4.2318 2.4341 4.70978C2.48225 5.18777 2.6941 5.63442 3.0338 5.97411C3.37349 6.31381 3.82015 6.52567 4.29813 6.57382C4.77611 6.62197 5.25605 6.50345 5.65667 6.23833ZM2.83042 1.06666C3.35 0.862497 3.91625 0.749997 4.50792 0.749997C6.75458 0.749997 8.62375 2.36666 9.01583 4.5C8.88816 5.19404 8.60119 5.84899 8.1775 6.41333L6.56917 4.805C6.61694 4.48317 6.58868 4.15463 6.48664 3.84569C6.3846 3.53675 6.21162 3.256 5.98156 3.02594C5.7515 2.79588 5.47075 2.6229 5.16181 2.52086C4.85287 2.41882 4.52433 2.39056 4.2025 2.43833L2.83042 1.06708V1.06666Z" fill="currentColor"></path></svg>
+				<span>Hide Pytorch content</span></div></div>
+	<div class="framework-content">
+<p>Carga DistilGPT2 con <code>AutoModelForCausalLM</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForCausalLM, TrainingArguments, Trainer
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = AutoModelForCausalLM.from_pretrained(<span class="hljs-string">&quot;distilgpt2&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Si no estás familiarizado con el proceso de realizar fine-tuning sobre un modelo con <code>Trainer</code>, considera el tutorial básico <a href="../training#finetune-with-trainer">aquí</a>!</p></div>
+<p>A este punto, solo faltan tres pasos:</p>
+<ol><li>Definir tus hiperparámetros de entrenamiento en <code>TrainingArguments</code>.</li>
+<li>Pasarle los argumentos de entrenamiento a <code>Trainer</code> junto con el modelo, dataset, y el data collator.</li>
+<li>Realiza la llamada <code>train()</code> para realizar el fine-tuning sobre tu modelo.</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>training_args = TrainingArguments(
+<span class="hljs-meta">... </span>    output_dir=<span class="hljs-string">&quot;./results&quot;</span>,
+<span class="hljs-meta">... </span>    evaluation_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+<span class="hljs-meta">... </span>    learning_rate=<span class="hljs-number">2e-5</span>,
+<span class="hljs-meta">... </span>    weight_decay=<span class="hljs-number">0.01</span>,
+<span class="hljs-meta">... </span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>trainer = Trainer(
+<span class="hljs-meta">... </span>    model=model,
+<span class="hljs-meta">... </span>    args=training_args,
+<span class="hljs-meta">... </span>    train_dataset=lm_dataset[<span class="hljs-string">&quot;train&quot;</span>],
+<span class="hljs-meta">... </span>    eval_dataset=lm_dataset[<span class="hljs-string">&quot;test&quot;</span>],
+<span class="hljs-meta">... </span>    data_collator=data_collator,
+<span class="hljs-meta">... </span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>trainer.train()<!-- HTML_TAG_END --></pre></div></div></div>
+	
+
+<div class="border border-gray-200 rounded-xl px-4 relative"><div class="flex h-[22px] mt-[-12.5px] justify-between leading-none"><div class="flex px-1 items-center space-x-1 bg-white dark:bg-gray-950"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="0.94em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 274"><path d="M145.726 42.065v42.07l72.861 42.07v-42.07l-72.86-42.07zM0 84.135v42.07l36.43 21.03V105.17L0 84.135zm109.291 21.035l-36.43 21.034v126.2l36.43 21.035v-84.135l36.435 21.035v-42.07l-36.435-21.034V105.17z" fill="#E55B2D"></path><path d="M145.726 42.065L36.43 105.17v42.065l72.861-42.065v42.065l36.435-21.03v-84.14zM255.022 63.1l-36.435 21.035v42.07l36.435-21.035V63.1zm-72.865 84.135l-36.43 21.035v42.07l36.43-21.036v-42.07zm-36.43 63.104l-36.436-21.035v84.135l36.435-21.035V210.34z" fill="#ED8E24"></path><path d="M145.726 0L0 84.135l36.43 21.035l109.296-63.105l72.861 42.07L255.022 63.1L145.726 0zm0 126.204l-36.435 21.03l36.435 21.036l36.43-21.035l-36.43-21.03z" fill="#F8BF3C"></path></svg>
+			<span>TensorFlow</span></div>
+		<div class="cursor-pointer flex items-center justify-center space-x-1 text-sm px-2 bg-white dark:bg-gray-950 hover:underline leading-none"><svg class="" width="0.9em" height="0.9em" viewBox="0 0 10 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M1.39125 1.9725L0.0883333 0.669997L0.677917 0.0804138L8.9275 8.33041L8.33792 8.91958L6.95875 7.54041C6.22592 8.00523 5.37572 8.25138 4.50792 8.25C2.26125 8.25 0.392083 6.63333 0 4.5C0.179179 3.52946 0.667345 2.64287 1.39167 1.9725H1.39125ZM5.65667 6.23833L5.04667 5.62833C4.81335 5.73996 4.55116 5.77647 4.29622 5.73282C4.04129 5.68918 3.80617 5.56752 3.62328 5.38463C3.44039 5.20175 3.31874 4.96663 3.27509 4.71169C3.23144 4.45676 3.26795 4.19456 3.37958 3.96125L2.76958 3.35125C2.50447 3.75187 2.38595 4.2318 2.4341 4.70978C2.48225 5.18777 2.6941 5.63442 3.0338 5.97411C3.37349 6.31381 3.82015 6.52567 4.29813 6.57382C4.77611 6.62197 5.25605 6.50345 5.65667 6.23833ZM2.83042 1.06666C3.35 0.862497 3.91625 0.749997 4.50792 0.749997C6.75458 0.749997 8.62375 2.36666 9.01583 4.5C8.88816 5.19404 8.60119 5.84899 8.1775 6.41333L6.56917 4.805C6.61694 4.48317 6.58868 4.15463 6.48664 3.84569C6.3846 3.53675 6.21162 3.256 5.98156 3.02594C5.7515 2.79588 5.47075 2.6229 5.16181 2.52086C4.85287 2.41882 4.52433 2.39056 4.2025 2.43833L2.83042 1.06708V1.06666Z" fill="currentColor"></path></svg>
+				<span>Hide TensorFlow content</span></div></div>
+	<div class="framework-content">
+<p>Para realizar el fine-tuning de un modelo en TensorFlow, comienza por convertir tus datasets al formato <code>tf.data.Dataset</code> con <a href="https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.to_tf_dataset" rel="nofollow"><code>to_tf_dataset</code></a>. Especifica los inputs y etiquetas en <code>columns</code>, ya sea para mezclar el dataset, tamaño de lote, y el data collator:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>tf_train_set = lm_dataset[<span class="hljs-string">&quot;train&quot;</span>].to_tf_dataset(
+<span class="hljs-meta">... </span>    columns=[<span class="hljs-string">&quot;attention_mask&quot;</span>, <span class="hljs-string">&quot;input_ids&quot;</span>, <span class="hljs-string">&quot;labels&quot;</span>],
+<span class="hljs-meta">... </span>    dummy_labels=<span class="hljs-literal">True</span>,
+<span class="hljs-meta">... </span>    shuffle=<span class="hljs-literal">True</span>,
+<span class="hljs-meta">... </span>    batch_size=<span class="hljs-number">16</span>,
+<span class="hljs-meta">... </span>    collate_fn=data_collator,
+<span class="hljs-meta">... </span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tf_test_set = lm_dataset[<span class="hljs-string">&quot;test&quot;</span>].to_tf_dataset(
+<span class="hljs-meta">... </span>    columns=[<span class="hljs-string">&quot;attention_mask&quot;</span>, <span class="hljs-string">&quot;input_ids&quot;</span>, <span class="hljs-string">&quot;labels&quot;</span>],
+<span class="hljs-meta">... </span>    dummy_labels=<span class="hljs-literal">True</span>,
+<span class="hljs-meta">... </span>    shuffle=<span class="hljs-literal">False</span>,
+<span class="hljs-meta">... </span>    batch_size=<span class="hljs-number">16</span>,
+<span class="hljs-meta">... </span>    collate_fn=data_collator,
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Si no estás familiarizado con realizar fine-tuning de tus modelos con Keras, considera el tutorial básico <a href="training#finetune-with-keras">aquí</a>!</p></div>
+<p>Crea la función optimizadora, la tasa de aprendizaje, y algunos hiperparámetros de entrenamiento:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> create_optimizer, AdamWeightDecay
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimizer = AdamWeightDecay(learning_rate=<span class="hljs-number">2e-5</span>, weight_decay_rate=<span class="hljs-number">0.01</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Carga DistilGPT2 con <code>TFAutoModelForCausalLM</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TFAutoModelForCausalLM
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = TFAutoModelForCausalLM.from_pretrained(<span class="hljs-string">&quot;distilgpt2&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Configura el modelo para entrenamiento con <a href="https://keras.io/api/models/model_training_apis/#compile-method" rel="nofollow"><code>compile</code></a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>model.<span class="hljs-built_in">compile</span>(optimizer=optimizer)<!-- HTML_TAG_END --></pre></div>
+<p>Llama a <a href="https://keras.io/api/models/model_training_apis/#fit-method" rel="nofollow"><code>fit</code></a> para realizar el fine-tuning del modelo:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>model.fit(x=tf_train_set, validation_data=tf_test_set, epochs=<span class="hljs-number">3</span>)<!-- HTML_TAG_END --></pre></div>
+					</div></div>
+	</div>
+<h2 class="relative group"><a id="modelado-de-lenguaje-por-enmascaramiento" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#modelado-de-lenguaje-por-enmascaramiento"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Modelado de lenguaje por enmascaramiento
+	</span></h2>
+
+<p>El modelado de lenguaje por enmascaramiento es también conocido como una tarea de rellenar la máscara, pues predice un token enmascarado dada una secuencia. Los modelos de lenguaje por enmascaramiento requieren una buena comprensión del contexto de una secuencia entera, en lugar de solo el contexto a la izquierda. Esta sección te enseña como realizar el fine-tuning de <a href="https://huggingface.co/distilroberta-base" rel="nofollow">DistilRoBERTa</a> para predecir una palabra enmascarada.</p>
+<h3 class="relative group"><a id="entrenamiento" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#entrenamiento"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Entrenamiento
+	</span></h3>
+
+<div class="space-y-10 py-6 2xl:py-8 2xl:-mx-4">
+
+<div class="border border-gray-200 rounded-xl px-4 relative"><div class="flex h-[22px] mt-[-12.5px] justify-between leading-none"><div class="flex px-1 items-center space-x-1 bg-white dark:bg-gray-950"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><defs><clipPath id="a"><rect x="3.05" y="0.5" width="25.73" height="31" fill="none"></rect></clipPath></defs><g clip-path="url(#a)"><path d="M24.94,9.51a12.81,12.81,0,0,1,0,18.16,12.68,12.68,0,0,1-18,0,12.81,12.81,0,0,1,0-18.16l9-9V5l-.84.83-6,6a9.58,9.58,0,1,0,13.55,0ZM20.44,9a1.68,1.68,0,1,1,1.67-1.67A1.68,1.68,0,0,1,20.44,9Z" fill="#ee4c2c"></path></g></svg>
+			<span>Pytorch</span></div>
+		<div class="cursor-pointer flex items-center justify-center space-x-1 text-sm px-2 bg-white dark:bg-gray-950 hover:underline leading-none"><svg class="" width="0.9em" height="0.9em" viewBox="0 0 10 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M1.39125 1.9725L0.0883333 0.669997L0.677917 0.0804138L8.9275 8.33041L8.33792 8.91958L6.95875 7.54041C6.22592 8.00523 5.37572 8.25138 4.50792 8.25C2.26125 8.25 0.392083 6.63333 0 4.5C0.179179 3.52946 0.667345 2.64287 1.39167 1.9725H1.39125ZM5.65667 6.23833L5.04667 5.62833C4.81335 5.73996 4.55116 5.77647 4.29622 5.73282C4.04129 5.68918 3.80617 5.56752 3.62328 5.38463C3.44039 5.20175 3.31874 4.96663 3.27509 4.71169C3.23144 4.45676 3.26795 4.19456 3.37958 3.96125L2.76958 3.35125C2.50447 3.75187 2.38595 4.2318 2.4341 4.70978C2.48225 5.18777 2.6941 5.63442 3.0338 5.97411C3.37349 6.31381 3.82015 6.52567 4.29813 6.57382C4.77611 6.62197 5.25605 6.50345 5.65667 6.23833ZM2.83042 1.06666C3.35 0.862497 3.91625 0.749997 4.50792 0.749997C6.75458 0.749997 8.62375 2.36666 9.01583 4.5C8.88816 5.19404 8.60119 5.84899 8.1775 6.41333L6.56917 4.805C6.61694 4.48317 6.58868 4.15463 6.48664 3.84569C6.3846 3.53675 6.21162 3.256 5.98156 3.02594C5.7515 2.79588 5.47075 2.6229 5.16181 2.52086C4.85287 2.41882 4.52433 2.39056 4.2025 2.43833L2.83042 1.06708V1.06666Z" fill="currentColor"></path></svg>
+				<span>Hide Pytorch content</span></div></div>
+	<div class="framework-content">
+<p>Carga DistilRoBERTa con <code>AutoModelForMaskedlM</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForMaskedLM
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = AutoModelForMaskedLM.from_pretrained(<span class="hljs-string">&quot;distilroberta-base&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Si no estás familiarizado con el proceso de realizar fine-tuning sobre un modelo con <code>Trainer</code>, considera el tutorial básico <a href="../training#finetune-with-trainer">aquí</a>!</p></div>
+<p>A este punto, solo faltan tres pasos:</p>
+<ol><li>Definir tus hiperparámetros de entrenamiento en <code>TrainingArguments</code>.</li>
+<li>Pasarle los argumentos de entrenamiento a <code>Trainer</code> junto con el modelo, dataset, y el data collator.</li>
+<li>Realiza la llamada <code>train()</code> para realizar el fine-tuning de tu modelo.</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>training_args = TrainingArguments(
+<span class="hljs-meta">... </span>    output_dir=<span class="hljs-string">&quot;./results&quot;</span>,
+<span class="hljs-meta">... </span>    evaluation_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+<span class="hljs-meta">... </span>    learning_rate=<span class="hljs-number">2e-5</span>,
+<span class="hljs-meta">... </span>    num_train_epochs=<span class="hljs-number">3</span>,
+<span class="hljs-meta">... </span>    weight_decay=<span class="hljs-number">0.01</span>,
+<span class="hljs-meta">... </span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>trainer = Trainer(
+<span class="hljs-meta">... </span>    model=model,
+<span class="hljs-meta">... </span>    args=training_args,
+<span class="hljs-meta">... </span>    train_dataset=lm_dataset[<span class="hljs-string">&quot;train&quot;</span>],
+<span class="hljs-meta">... </span>    eval_dataset=lm_dataset[<span class="hljs-string">&quot;test&quot;</span>],
+<span class="hljs-meta">... </span>    data_collator=data_collator,
+<span class="hljs-meta">... </span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>trainer.train()<!-- HTML_TAG_END --></pre></div></div></div>
+	
+
+<div class="border border-gray-200 rounded-xl px-4 relative"><div class="flex h-[22px] mt-[-12.5px] justify-between leading-none"><div class="flex px-1 items-center space-x-1 bg-white dark:bg-gray-950"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="0.94em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 274"><path d="M145.726 42.065v42.07l72.861 42.07v-42.07l-72.86-42.07zM0 84.135v42.07l36.43 21.03V105.17L0 84.135zm109.291 21.035l-36.43 21.034v126.2l36.43 21.035v-84.135l36.435 21.035v-42.07l-36.435-21.034V105.17z" fill="#E55B2D"></path><path d="M145.726 42.065L36.43 105.17v42.065l72.861-42.065v42.065l36.435-21.03v-84.14zM255.022 63.1l-36.435 21.035v42.07l36.435-21.035V63.1zm-72.865 84.135l-36.43 21.035v42.07l36.43-21.036v-42.07zm-36.43 63.104l-36.436-21.035v84.135l36.435-21.035V210.34z" fill="#ED8E24"></path><path d="M145.726 0L0 84.135l36.43 21.035l109.296-63.105l72.861 42.07L255.022 63.1L145.726 0zm0 126.204l-36.435 21.03l36.435 21.036l36.43-21.035l-36.43-21.03z" fill="#F8BF3C"></path></svg>
+			<span>TensorFlow</span></div>
+		<div class="cursor-pointer flex items-center justify-center space-x-1 text-sm px-2 bg-white dark:bg-gray-950 hover:underline leading-none"><svg class="" width="0.9em" height="0.9em" viewBox="0 0 10 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M1.39125 1.9725L0.0883333 0.669997L0.677917 0.0804138L8.9275 8.33041L8.33792 8.91958L6.95875 7.54041C6.22592 8.00523 5.37572 8.25138 4.50792 8.25C2.26125 8.25 0.392083 6.63333 0 4.5C0.179179 3.52946 0.667345 2.64287 1.39167 1.9725H1.39125ZM5.65667 6.23833L5.04667 5.62833C4.81335 5.73996 4.55116 5.77647 4.29622 5.73282C4.04129 5.68918 3.80617 5.56752 3.62328 5.38463C3.44039 5.20175 3.31874 4.96663 3.27509 4.71169C3.23144 4.45676 3.26795 4.19456 3.37958 3.96125L2.76958 3.35125C2.50447 3.75187 2.38595 4.2318 2.4341 4.70978C2.48225 5.18777 2.6941 5.63442 3.0338 5.97411C3.37349 6.31381 3.82015 6.52567 4.29813 6.57382C4.77611 6.62197 5.25605 6.50345 5.65667 6.23833ZM2.83042 1.06666C3.35 0.862497 3.91625 0.749997 4.50792 0.749997C6.75458 0.749997 8.62375 2.36666 9.01583 4.5C8.88816 5.19404 8.60119 5.84899 8.1775 6.41333L6.56917 4.805C6.61694 4.48317 6.58868 4.15463 6.48664 3.84569C6.3846 3.53675 6.21162 3.256 5.98156 3.02594C5.7515 2.79588 5.47075 2.6229 5.16181 2.52086C4.85287 2.41882 4.52433 2.39056 4.2025 2.43833L2.83042 1.06708V1.06666Z" fill="currentColor"></path></svg>
+				<span>Hide TensorFlow content</span></div></div>
+	<div class="framework-content">
+<p>Para realizar el fine-tuning de un modelo en TensorFlow, comienza por convertir tus datasets al formato <code>tf.data.Dataset</code> con <a href="https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.to_tf_dataset" rel="nofollow"><code>to_tf_dataset</code></a>. Especifica los inputs y etiquetas en <code>columns</code>, ya sea para mezclar el dataset, tamaño de lote, y el data collator:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>tf_train_set = lm_dataset[<span class="hljs-string">&quot;train&quot;</span>].to_tf_dataset(
+<span class="hljs-meta">... </span>    columns=[<span class="hljs-string">&quot;attention_mask&quot;</span>, <span class="hljs-string">&quot;input_ids&quot;</span>, <span class="hljs-string">&quot;labels&quot;</span>],
+<span class="hljs-meta">... </span>    dummy_labels=<span class="hljs-literal">True</span>,
+<span class="hljs-meta">... </span>    shuffle=<span class="hljs-literal">True</span>,
+<span class="hljs-meta">... </span>    batch_size=<span class="hljs-number">16</span>,
+<span class="hljs-meta">... </span>    collate_fn=data_collator,
+<span class="hljs-meta">... </span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tf_test_set = lm_dataset[<span class="hljs-string">&quot;test&quot;</span>].to_tf_dataset(
+<span class="hljs-meta">... </span>    columns=[<span class="hljs-string">&quot;attention_mask&quot;</span>, <span class="hljs-string">&quot;input_ids&quot;</span>, <span class="hljs-string">&quot;labels&quot;</span>],
+<span class="hljs-meta">... </span>    dummy_labels=<span class="hljs-literal">True</span>,
+<span class="hljs-meta">... </span>    shuffle=<span class="hljs-literal">False</span>,
+<span class="hljs-meta">... </span>    batch_size=<span class="hljs-number">16</span>,
+<span class="hljs-meta">... </span>    collate_fn=data_collator,
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Si no estás familiarizado con realizar fine-tuning de tus modelos con Keras, considera el tutorial básico <a href="training#finetune-with-keras">aquí</a>!</p></div>
+<p>Crea la función optimizadora, la tasa de aprendizaje, y algunos hiperparámetros de entrenamiento:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> create_optimizer, AdamWeightDecay
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimizer = AdamWeightDecay(learning_rate=<span class="hljs-number">2e-5</span>, weight_decay_rate=<span class="hljs-number">0.01</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Carga DistilRoBERTa con <code>TFAutoModelForMaskedLM</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TFAutoModelForMaskedLM
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = TFAutoModelForCausalLM.from_pretrained(<span class="hljs-string">&quot;distilroberta-base&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Configura el modelo para entrenamiento con <a href="https://keras.io/api/models/model_training_apis/#compile-method" rel="nofollow"><code>compile</code></a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>model.<span class="hljs-built_in">compile</span>(optimizer=optimizer)<!-- HTML_TAG_END --></pre></div>
+<p>Llama a <a href="https://keras.io/api/models/model_training_apis/#fit-method" rel="nofollow"><code>fit</code></a> para realizar el fine-tuning del modelo:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>model.fit(x=tf_train_set, validation_data=tf_test_set, epochs=<span class="hljs-number">3</span>)<!-- HTML_TAG_END --></pre></div>
+					</div></div>
+	</div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Para un ejemplo más profundo sobre cómo realizar el fine-tuning sobre un modelo de lenguaje causal, considera
+<a href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/language_modeling.ipynb" rel="nofollow">PyTorch notebook</a>
+o <a href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/language_modeling-tf.ipynb" rel="nofollow">TensorFlow notebook</a>.</p></div>
+
+
+		<script type="module" data-hydrate="1kz7k08">
+		import { start } from "/docs/transformers/v4.21.1/es/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="1kz7k08"]').parentNode,
+			paths: {"base":"/docs/transformers/v4.21.1/es","assets":"/docs/transformers/v4.21.1/es"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/transformers/v4.21.1/es/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/transformers/v4.21.1/es/_app/pages/tasks/language_modeling.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
