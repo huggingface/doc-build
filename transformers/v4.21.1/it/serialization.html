@@ -1,0 +1,690 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;esporta-modelli-transformers&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;onnx&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;esportazione-di-un-modello-in-onnx&quot;,&quot;title&quot;:&quot;Esportazione di un modello in ONNX&quot;},{&quot;local&quot;:&quot;selezione-delle-caratteristiche-per-diverse-topologie-di-modello&quot;,&quot;title&quot;:&quot;Selezione delle caratteristiche per diverse topologie di modello&quot;},{&quot;local&quot;:&quot;esportazione-di-un-modello-per-unarchitettura-non-supportata&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;implementazione-di-una-configurazione-onnx-personalizzata&quot;,&quot;title&quot;:&quot;Implementazione di una configurazione ONNX personalizzata&quot;},{&quot;local&quot;:&quot;esportazione-del-modello&quot;,&quot;title&quot;:&quot;Esportazione del modello&quot;},{&quot;local&quot;:&quot;convalida-degli-output-del-modello&quot;,&quot;title&quot;:&quot;Convalida degli output del modello&quot;}],&quot;title&quot;:&quot;Esportazione di un modello per un&#39;architettura non supportata&quot;},{&quot;local&quot;:&quot;contribuire-con-una-nuova-configurazione-a-transformers&quot;,&quot;title&quot;:&quot;Contribuire con una nuova configurazione a 🤗 Transformers&quot;}],&quot;title&quot;:&quot;ONNX&quot;},{&quot;local&quot;:&quot;torchscript&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;flag-torchscript-e-pesi-legati&quot;,&quot;title&quot;:&quot;Flag TorchScript e pesi legati&quot;},{&quot;local&quot;:&quot;input-fittizi-e-standard-lengths&quot;,&quot;title&quot;:&quot;Input fittizi e standard lengths&quot;},{&quot;local&quot;:&quot;usare-torchsscript-in-python&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;salvare-un-modello&quot;,&quot;title&quot;:&quot;Salvare un modello&quot;},{&quot;local&quot;:&quot;caricare-un-modello&quot;,&quot;title&quot;:&quot;Caricare un modello&quot;},{&quot;local&quot;:&quot;utilizzare-un-modello-tracciato-per-linferenza&quot;,&quot;title&quot;:&quot;Utilizzare un modello tracciato per l&#39;inferenza&quot;},{&quot;local&quot;:&quot;implicazioni&quot;,&quot;title&quot;:&quot;Implicazioni&quot;},{&quot;local&quot;:&quot;dipendenze&quot;,&quot;title&quot;:&quot;Dipendenze&quot;},{&quot;local&quot;:&quot;convertire-un-modello-per-aws-neuron&quot;,&quot;title&quot;:&quot;Convertire un modello per AWS Neuron&quot;}],&quot;title&quot;:&quot;Usare TorchSscript in Python&quot;}],&quot;title&quot;:&quot;TorchScript&quot;}],&quot;title&quot;:&quot;Esporta modelli 🤗 Transformers &quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/it/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/it/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/it/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/it/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/it/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/it/_app/pages/serialization.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/it/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/it/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/it/_app/chunks/CodeBlock-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/it/_app/chunks/Markdown-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.1/it/_app/chunks/IconTensorflow-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="esporta-modelli-transformers" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#esporta-modelli-transformers"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Esporta modelli 🤗 Transformers 
+	</span></h1>
+
+<p>Se devi implementare 🤗 modelli Transformers in ambienti di produzione, noi
+consigliamo di esportarli in un formato serializzato che può essere caricato ed eseguito
+su runtime e hardware specializzati. In questa guida ti mostreremo come farlo
+esporta 🤗 Modelli Transformers in due formati ampiamente utilizzati: ONNX e TorchScript.</p>
+<p>Una volta esportato, un modello può essere ottimizato per l’inferenza tramite tecniche come
+la quantizzazione e soppressione. Se sei interessato a ottimizzare i tuoi modelli per l’esecuzione
+con la massima efficienza, dai un’occhiata a <a href="https://github.com/huggingface/optimum" rel="nofollow">🤗 Optimum
+library</a>.</p>
+<h2 class="relative group"><a id="onnx" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#onnx"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>ONNX
+	</span></h2>
+
+<p>Il progetto <a href="http://onnx.ai" rel="nofollow">ONNX (Open Neural Network eXchange)</a> Il progetto onnx è un open
+standard che definisce un insieme comune di operatori e un formato di file comune a
+rappresentano modelli di deep learning in un’ampia varietà di framework, tra cui
+PyTorch e TensorFlow. Quando un modello viene esportato nel formato ONNX, questi
+operatori sono usati per costruire un grafico computazionale (often called an
+<em>intermediate representation</em>) che rappresenta il flusso di dati attraverso la
+rete neurale.</p>
+<p>Esponendo un grafico con operatori e tipi di dati standardizzati, ONNX rende
+più facile passare da un framework all’altro. Ad esempio, un modello allenato in PyTorch può
+essere esportato in formato ONNX e quindi importato in TensorFlow (e viceversa).</p>
+<p>🤗 Transformers fornisce un pacchetto <code>transformers.onnx</code> che ti consente di
+convertire i checkpoint del modello in un grafico ONNX sfruttando gli oggetti di configurazione.
+Questi oggetti di configurazione sono già pronti per una serie di architetture di modelli,
+e sono progettati per essere facilmente estensibili ad altre architetture.</p>
+<p>Le configurazioni pronte includono le seguenti architetture:</p>
+
+<ul><li>ALBERT</li>
+<li>BART</li>
+<li>BEiT</li>
+<li>BERT</li>
+<li>BigBird</li>
+<li>BigBird-Pegasus</li>
+<li>Blenderbot</li>
+<li>BlenderbotSmall</li>
+<li>CamemBERT</li>
+<li>ConvBERT</li>
+<li>Data2VecText</li>
+<li>Data2VecVision</li>
+<li>DeiT</li>
+<li>DistilBERT</li>
+<li>ELECTRA</li>
+<li>FlauBERT</li>
+<li>GPT Neo</li>
+<li>GPT-J</li>
+<li>I-BERT</li>
+<li>LayoutLM</li>
+<li>M2M100</li>
+<li>Marian</li>
+<li>mBART</li>
+<li>MobileBERT</li>
+<li>OpenAI GPT-2</li>
+<li>Perceiver</li>
+<li>PLBart</li>
+<li>RoBERTa</li>
+<li>RoFormer</li>
+<li>SqueezeBERT</li>
+<li>T5</li>
+<li>ViT</li>
+<li>XLM</li>
+<li>XLM-RoBERTa</li>
+<li>XLM-RoBERTa-XL</li></ul>
+<p>Nelle prossime due sezioni, ti mostreremo come:</p>
+<ul><li>Esporta un modello supportato usando il pacchetto <code>transformers.onnx</code>.</li>
+<li>Esporta un modello personalizzato per un’architettura non supportata.</li></ul>
+<h3 class="relative group"><a id="esportazione-di-un-modello-in-onnx" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#esportazione-di-un-modello-in-onnx"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Esportazione di un modello in ONNX
+	</span></h3>
+
+<p>Per esportare un modello 🤗 Transformers in ONNX, dovrai prima installarne alcune
+dipendenze extra:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->pip install transformers[onnx]<!-- HTML_TAG_END --></pre></div>
+<p>Il pacchetto <code>transformers.onnx</code> può essere usato come modulo Python:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m transformers.onnx --<span class="hljs-built_in">help</span>
+
+usage: Hugging Face Transformers ONNX exporter [-h] -m MODEL [--feature {causal-lm, ...}] [--opset OPSET] [--atol ATOL] output
+
+positional arguments:
+  output                Path indicating <span class="hljs-built_in">where</span> to store generated ONNX model.
+
+optional arguments:
+  -h, --<span class="hljs-built_in">help</span>            show this <span class="hljs-built_in">help</span> message and <span class="hljs-built_in">exit</span>
+  -m MODEL, --model MODEL
+                        Model ID on huggingface.co or path on disk to load model from.
+  --feature {causal-lm, ...}
+                        The <span class="hljs-built_in">type</span> of features to <span class="hljs-built_in">export</span> the model with.
+  --opset OPSET         ONNX opset version to <span class="hljs-built_in">export</span> the model with.
+  --atol ATOL           Absolute difference tolerence when validating the model.<!-- HTML_TAG_END --></pre></div>
+<p>L’esportazione di un checkpoint utilizzando una configurazione già pronta può essere eseguita come segue:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m transformers.onnx --model=distilbert-base-uncased onnx/<!-- HTML_TAG_END --></pre></div>
+<p>che dovrebbe mostrare i seguenti log:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->Validating ONNX model...
+        -[✓] ONNX model output names match reference model ({<span class="hljs-string">&#x27;last_hidden_state&#x27;</span>})
+        - Validating ONNX Model output <span class="hljs-string">&quot;last_hidden_state&quot;</span>:
+                -[✓] (2, 8, 768) matches (2, 8, 768)
+                -[✓] all values close (atol: 1e-05)
+All good, model saved at: onnx/model.onnx<!-- HTML_TAG_END --></pre></div>
+<p>Questo esporta un grafico ONNX del checkpoint definito dall’argomento <code>--model</code>.
+In questo esempio è <code>distilbert-base-uncased</code>, ma può essere qualsiasi checkpoint
+Hugging Face Hub o uno memorizzato localmente.</p>
+<p>Il file risultante <code>model.onnx</code> può quindi essere eseguito su uno dei <a href="https://onnx.ai/supported-tools.html#deployModel" rel="nofollow">tanti
+acceleratori</a> che supportano il
+lo standard ONNX. Ad esempio, possiamo caricare ed eseguire il modello con <a href="https://onnxruntime.ai/" rel="nofollow">ONNX
+Runtime</a> come segue:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> onnxruntime <span class="hljs-keyword">import</span> InferenceSession
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>session = InferenceSession(<span class="hljs-string">&quot;onnx/model.onnx&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># ONNX Runtime expects NumPy arrays as input</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Using DistilBERT with ONNX Runtime!&quot;</span>, return_tensors=<span class="hljs-string">&quot;np&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = session.run(output_names=[<span class="hljs-string">&quot;last_hidden_state&quot;</span>], input_feed=<span class="hljs-built_in">dict</span>(inputs))<!-- HTML_TAG_END --></pre></div>
+<p>I nomi di output richiesti (cioè <code>[&quot;last_hidden_state&quot;]</code>) possono essere ottenuti
+dando un’occhiata alla configurazione ONNX di ogni modello. Ad esempio, per
+DistilBERT abbiamo:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers.models.distilbert <span class="hljs-keyword">import</span> DistilBertConfig, DistilBertOnnxConfig
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>config = DistilBertConfig()
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_config = DistilBertOnnxConfig(config)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(onnx_config.outputs.keys()))
+[<span class="hljs-string">&quot;last_hidden_state&quot;</span>]<!-- HTML_TAG_END --></pre></div>
+<p>Il processo è identico per i checkpoint TensorFlow sull’hub. Ad esempio, noi
+possiamo esportare un checkpoint TensorFlow puro da <a href="https://huggingface.co/keras-io" rel="nofollow">Keras
+organizzazione</a> come segue:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m transformers.onnx --model=keras-io/transformers-qa onnx/<!-- HTML_TAG_END --></pre></div>
+<p>Per esportare un modello memorizzato localmente, devi disporre dei pesi del modello
+e file tokenizer memorizzati in una directory. Ad esempio, possiamo caricare e salvare un
+checkpoint come segue:</p>
+<div class="space-y-10 py-6 2xl:py-8 2xl:-mx-4">
+
+<div class="border border-gray-200 rounded-xl px-4 relative"><div class="flex h-[22px] mt-[-12.5px] justify-between leading-none"><div class="flex px-1 items-center space-x-1 bg-white dark:bg-gray-950"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><defs><clipPath id="a"><rect x="3.05" y="0.5" width="25.73" height="31" fill="none"></rect></clipPath></defs><g clip-path="url(#a)"><path d="M24.94,9.51a12.81,12.81,0,0,1,0,18.16,12.68,12.68,0,0,1-18,0,12.81,12.81,0,0,1,0-18.16l9-9V5l-.84.83-6,6a9.58,9.58,0,1,0,13.55,0ZM20.44,9a1.68,1.68,0,1,1,1.67-1.67A1.68,1.68,0,0,1,20.44,9Z" fill="#ee4c2c"></path></g></svg>
+			<span>Pytorch</span></div>
+		<div class="cursor-pointer flex items-center justify-center space-x-1 text-sm px-2 bg-white dark:bg-gray-950 hover:underline leading-none"><svg class="" width="0.9em" height="0.9em" viewBox="0 0 10 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M1.39125 1.9725L0.0883333 0.669997L0.677917 0.0804138L8.9275 8.33041L8.33792 8.91958L6.95875 7.54041C6.22592 8.00523 5.37572 8.25138 4.50792 8.25C2.26125 8.25 0.392083 6.63333 0 4.5C0.179179 3.52946 0.667345 2.64287 1.39167 1.9725H1.39125ZM5.65667 6.23833L5.04667 5.62833C4.81335 5.73996 4.55116 5.77647 4.29622 5.73282C4.04129 5.68918 3.80617 5.56752 3.62328 5.38463C3.44039 5.20175 3.31874 4.96663 3.27509 4.71169C3.23144 4.45676 3.26795 4.19456 3.37958 3.96125L2.76958 3.35125C2.50447 3.75187 2.38595 4.2318 2.4341 4.70978C2.48225 5.18777 2.6941 5.63442 3.0338 5.97411C3.37349 6.31381 3.82015 6.52567 4.29813 6.57382C4.77611 6.62197 5.25605 6.50345 5.65667 6.23833ZM2.83042 1.06666C3.35 0.862497 3.91625 0.749997 4.50792 0.749997C6.75458 0.749997 8.62375 2.36666 9.01583 4.5C8.88816 5.19404 8.60119 5.84899 8.1775 6.41333L6.56917 4.805C6.61694 4.48317 6.58868 4.15463 6.48664 3.84569C6.3846 3.53675 6.21162 3.256 5.98156 3.02594C5.7515 2.79588 5.47075 2.6229 5.16181 2.52086C4.85287 2.41882 4.52433 2.39056 4.2025 2.43833L2.83042 1.06708V1.06666Z" fill="currentColor"></path></svg>
+				<span>Hide Pytorch content</span></div></div>
+	<div class="framework-content">
+<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, AutoModelForSequenceClassification
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Load tokenizer and PyTorch weights form the Hub</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>pt_model = AutoModelForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Save to disk</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.save_pretrained(<span class="hljs-string">&quot;local-pt-checkpoint&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>pt_model.save_pretrained(<span class="hljs-string">&quot;local-pt-checkpoint&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Una volta salvato il checkpoint, possiamo esportarlo su ONNX puntando l’argomento <code>--model</code>
+del pacchetto <code>transformers.onnx</code> nella directory desiderata:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m transformers.onnx --model=local-pt-checkpoint onnx/<!-- HTML_TAG_END --></pre></div></div></div>
+	
+
+<div class="border border-gray-200 rounded-xl px-4 relative"><div class="flex h-[22px] mt-[-12.5px] justify-between leading-none"><div class="flex px-1 items-center space-x-1 bg-white dark:bg-gray-950"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="0.94em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 274"><path d="M145.726 42.065v42.07l72.861 42.07v-42.07l-72.86-42.07zM0 84.135v42.07l36.43 21.03V105.17L0 84.135zm109.291 21.035l-36.43 21.034v126.2l36.43 21.035v-84.135l36.435 21.035v-42.07l-36.435-21.034V105.17z" fill="#E55B2D"></path><path d="M145.726 42.065L36.43 105.17v42.065l72.861-42.065v42.065l36.435-21.03v-84.14zM255.022 63.1l-36.435 21.035v42.07l36.435-21.035V63.1zm-72.865 84.135l-36.43 21.035v42.07l36.43-21.036v-42.07zm-36.43 63.104l-36.436-21.035v84.135l36.435-21.035V210.34z" fill="#ED8E24"></path><path d="M145.726 0L0 84.135l36.43 21.035l109.296-63.105l72.861 42.07L255.022 63.1L145.726 0zm0 126.204l-36.435 21.03l36.435 21.036l36.43-21.035l-36.43-21.03z" fill="#F8BF3C"></path></svg>
+			<span>TensorFlow</span></div>
+		<div class="cursor-pointer flex items-center justify-center space-x-1 text-sm px-2 bg-white dark:bg-gray-950 hover:underline leading-none"><svg class="" width="0.9em" height="0.9em" viewBox="0 0 10 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M1.39125 1.9725L0.0883333 0.669997L0.677917 0.0804138L8.9275 8.33041L8.33792 8.91958L6.95875 7.54041C6.22592 8.00523 5.37572 8.25138 4.50792 8.25C2.26125 8.25 0.392083 6.63333 0 4.5C0.179179 3.52946 0.667345 2.64287 1.39167 1.9725H1.39125ZM5.65667 6.23833L5.04667 5.62833C4.81335 5.73996 4.55116 5.77647 4.29622 5.73282C4.04129 5.68918 3.80617 5.56752 3.62328 5.38463C3.44039 5.20175 3.31874 4.96663 3.27509 4.71169C3.23144 4.45676 3.26795 4.19456 3.37958 3.96125L2.76958 3.35125C2.50447 3.75187 2.38595 4.2318 2.4341 4.70978C2.48225 5.18777 2.6941 5.63442 3.0338 5.97411C3.37349 6.31381 3.82015 6.52567 4.29813 6.57382C4.77611 6.62197 5.25605 6.50345 5.65667 6.23833ZM2.83042 1.06666C3.35 0.862497 3.91625 0.749997 4.50792 0.749997C6.75458 0.749997 8.62375 2.36666 9.01583 4.5C8.88816 5.19404 8.60119 5.84899 8.1775 6.41333L6.56917 4.805C6.61694 4.48317 6.58868 4.15463 6.48664 3.84569C6.3846 3.53675 6.21162 3.256 5.98156 3.02594C5.7515 2.79588 5.47075 2.6229 5.16181 2.52086C4.85287 2.41882 4.52433 2.39056 4.2025 2.43833L2.83042 1.06708V1.06666Z" fill="currentColor"></path></svg>
+				<span>Hide TensorFlow content</span></div></div>
+	<div class="framework-content">
+<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, TFAutoModelForSequenceClassification
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Load tokenizer and TensorFlow weights from the Hub</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tf_model = TFAutoModelForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Save to disk</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.save_pretrained(<span class="hljs-string">&quot;local-tf-checkpoint&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tf_model.save_pretrained(<span class="hljs-string">&quot;local-tf-checkpoint&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Once the checkpoint is saved, we can export it to ONNX by pointing the <code>--model</code>
+argument of the <code>transformers.onnx</code> package to the desired directory:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m transformers.onnx --model=local-tf-checkpoint onnx/<!-- HTML_TAG_END --></pre></div>
+					</div></div>
+	</div>
+<h3 class="relative group"><a id="selezione-delle-caratteristiche-per-diverse-topologie-di-modello" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#selezione-delle-caratteristiche-per-diverse-topologie-di-modello"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Selezione delle caratteristiche per diverse topologie di modello
+	</span></h3>
+
+<p>Ogni configurazione già pronta viene fornita con una serie di <em>caratteristiche</em> che ti consentono di
+esportare modelli per diversi tipi di topologie o attività. Come mostrato nella tabella
+di seguito, ogni caratteristica è associata a una diversa Auto Class:</p>
+<table><thead><tr><th>Caratteristica</th>
+<th>Auto Class</th></tr></thead>
+<tbody><tr><td><code>causal-lm</code>, <code>causal-lm-with-past</code></td>
+<td><code>AutoModelForCausalLM</code></td></tr>
+<tr><td><code>default</code>, <code>default-with-past</code></td>
+<td><code>AutoModel</code></td></tr>
+<tr><td><code>masked-lm</code></td>
+<td><code>AutoModelForMaskedLM</code></td></tr>
+<tr><td><code>question-answering</code></td>
+<td><code>AutoModelForQuestionAnswering</code></td></tr>
+<tr><td><code>seq2seq-lm</code>, <code>seq2seq-lm-with-past</code></td>
+<td><code>AutoModelForSeq2SeqLM</code></td></tr>
+<tr><td><code>sequence-classification</code></td>
+<td><code>AutoModelForSequenceClassification</code></td></tr>
+<tr><td><code>token-classification</code></td>
+<td><code>AutoModelForTokenClassification</code></td></tr></tbody></table>
+<p>Per ciascuna configurazione, puoi trovare l’elenco delle funzionalità supportate tramite il
+<code>FeaturesManager</code>. Ad esempio, per DistilBERT abbiamo:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers.onnx.features <span class="hljs-keyword">import</span> FeaturesManager
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>distilbert_features = <span class="hljs-built_in">list</span>(FeaturesManager.get_supported_features_for_model_type(<span class="hljs-string">&quot;distilbert&quot;</span>).keys())
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(distilbert_features)
+[<span class="hljs-string">&quot;default&quot;</span>, <span class="hljs-string">&quot;masked-lm&quot;</span>, <span class="hljs-string">&quot;causal-lm&quot;</span>, <span class="hljs-string">&quot;sequence-classification&quot;</span>, <span class="hljs-string">&quot;token-classification&quot;</span>, <span class="hljs-string">&quot;question-answering&quot;</span>]<!-- HTML_TAG_END --></pre></div>
+<p>Puoi quindi passare una di queste funzionalità all’argomento <code>--feature</code> nel
+pacchetto <code>transformers.onnx</code>. Ad esempio, per esportare un modello di classificazione del testo
+possiamo scegliere un modello ottimizzato dall’Hub ed eseguire:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m transformers.onnx --model=distilbert-base-uncased-finetuned-sst-2-english \
+                            --feature=sequence-classification onnx/<!-- HTML_TAG_END --></pre></div>
+<p>che visualizzerà i seguenti registri:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->Validating ONNX model...
+        -[✓] ONNX model output names match reference model ({<span class="hljs-string">&#x27;logits&#x27;</span>})
+        - Validating ONNX Model output <span class="hljs-string">&quot;logits&quot;</span>:
+                -[✓] (2, 2) matches (2, 2)
+                -[✓] all values close (atol: 1e-05)
+All good, model saved at: onnx/model.onnx<!-- HTML_TAG_END --></pre></div>
+<p>Puoi notare che in questo caso, i nomi di output del modello ottimizzato sono
+<code>logits</code> invece di <code>last_hidden_state</code> che abbiamo visto con il
+checkpoint <code>distilbert-base-uncased</code> precedente. Questo è previsto dal
+modello ottimizato visto che ha una testa di e.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Le caratteristiche che hanno un suffisso <code>wtih-past</code> (ad es. <code>causal-lm-with-past</code>)
+corrispondono a topologie di modello con stati nascosti precalcolati (chiave e valori
+nei blocchi di attenzione) che possono essere utilizzati per la decodifica autoregressiva veloce.</p></div>
+<h3 class="relative group"><a id="esportazione-di-un-modello-per-unarchitettura-non-supportata" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#esportazione-di-un-modello-per-unarchitettura-non-supportata"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Esportazione di un modello per un&#39;architettura non supportata
+	</span></h3>
+
+<p>Se desideri esportare un modello la cui architettura non è nativamente supportata dalla
+libreria, ci sono tre passaggi principali da seguire:</p>
+<ol><li>Implementare una configurazione ONNX personalizzata.</li>
+<li>Esportare il modello in ONNX.</li>
+<li>Convalidare gli output di PyTorch e dei modelli esportati.</li></ol>
+<p>In questa sezione, vedremo come DistilBERT è stato implementato per mostrare cosa è
+coinvolto in ogni passaggio.</p>
+<h4 class="relative group"><a id="implementazione-di-una-configurazione-onnx-personalizzata" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#implementazione-di-una-configurazione-onnx-personalizzata"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Implementazione di una configurazione ONNX personalizzata
+	</span></h4>
+
+<p>Iniziamo con l’oggetto di configurazione ONNX. Forniamo tre classi
+astratte da cui ereditare, a seconda del tipo di archittettura
+del modello che desideri esportare:</p>
+<ul><li>I modelli basati su encoder ereditano da <code>OnnxConfig</code></li>
+<li>I modelli basati su decoder ereditano da <code>OnnxConfigWithPast</code></li>
+<li>I modelli encoder-decoder ereditano da<code>OnnxSeq2SeqConfigWithPast</code></li></ul>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Un buon modo per implementare una configurazione ONNX personalizzata è guardare l’implementazione
+esistente nel file <code>configuration_&lt;model_name&gt;.py</code> di un’architettura simile.</p></div>
+<p>Poiché DistilBERT è un modello basato su encoder, la sua configurazione eredita da
+<code>OnnxConfig</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> Mapping, OrderedDict
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers.onnx <span class="hljs-keyword">import</span> OnnxConfig
+
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">class</span> <span class="hljs-title class_">DistilBertOnnxConfig</span>(<span class="hljs-title class_ inherited__">OnnxConfig</span>):
+<span class="hljs-meta">... </span>    @<span class="hljs-built_in">property</span>
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inputs</span>(<span class="hljs-params">self</span>) -&gt; Mapping[<span class="hljs-built_in">str</span>, Mapping[<span class="hljs-built_in">int</span>, <span class="hljs-built_in">str</span>]]:
+<span class="hljs-meta">... </span>        <span class="hljs-keyword">return</span> OrderedDict(
+<span class="hljs-meta">... </span>            [
+<span class="hljs-meta">... </span>                (<span class="hljs-string">&quot;input_ids&quot;</span>, {<span class="hljs-number">0</span>: <span class="hljs-string">&quot;batch&quot;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&quot;sequence&quot;</span>}),
+<span class="hljs-meta">... </span>                (<span class="hljs-string">&quot;attention_mask&quot;</span>, {<span class="hljs-number">0</span>: <span class="hljs-string">&quot;batch&quot;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&quot;sequence&quot;</span>}),
+<span class="hljs-meta">... </span>            ]
+<span class="hljs-meta">... </span>        )<!-- HTML_TAG_END --></pre></div>
+<p>Ogni oggetto di configurazione deve implementare la proprietà <code>inputs</code> e restituire una
+mappatura, dove ogni chiave corrisponde a un input previsto e ogni valore
+indica l’asse di quell’input. Per DistilBERT, possiamo vedere che sono richiesti
+due input: <code>input_ids</code> e <code>attention_mask</code>. Questi inputs hanno la stessa forma di
+<code>(batch_size, sequence_length)</code> per questo motivo vediamo gli stessi assi usati nella
+configurazione.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Puoi notare che la proprietà <code>inputs</code> per <code>DistilBertOnnxConfig</code> restituisce un
+<code>OrdinatoDict</code>. Ciò garantisce che gli input corrispondano alla loro posizione
+relativa all’interno del metodo <code>PreTrainedModel.forward()</code> durante il tracciamento del grafico.
+Raccomandiamo di usare un <code>OrderedDict</code> per le proprietà <code>inputs</code> e <code>outputs</code>
+quando si implementano configurazioni ONNX personalizzate.</p></div>
+<p>Dopo aver implementato una configurazione ONNX, è possibile istanziarla
+fornendo alla configurazione del modello base come segue:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoConfig
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>config = AutoConfig.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_config = DistilBertOnnxConfig(config)<!-- HTML_TAG_END --></pre></div>
+<p>L’oggetto risultante ha diverse proprietà utili. Ad esempio è possibile visualizzare il
+Set operatore ONNX che verrà utilizzato durante l’esportazione:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(onnx_config.default_onnx_opset)
+<span class="hljs-number">11</span><!-- HTML_TAG_END --></pre></div>
+<p>È inoltre possibile visualizzare gli output associati al modello come segue:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(onnx_config.outputs)
+OrderedDict([(<span class="hljs-string">&quot;last_hidden_state&quot;</span>, {<span class="hljs-number">0</span>: <span class="hljs-string">&quot;batch&quot;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&quot;sequence&quot;</span>})])<!-- HTML_TAG_END --></pre></div>
+<p>Puoi notare che la proprietà degli output segue la stessa struttura degli input; esso
+restituisce un <code>OrderedDict</code> di output con nome e le loro forme. La struttura di output
+è legato alla scelta della funzione con cui viene inizializzata la configurazione.
+Per impostazione predefinita, la configurazione ONNX viene inizializzata con la funzione ‘predefinita’
+che corrisponde all’esportazione di un modello caricato con la classe <code>AutoModel</code>. Se tu
+desideri esportare una topologia di modello diversa, è sufficiente fornire una funzionalità diversa a
+l’argomento <code>task</code> quando inizializzi la configurazione ONNX. Ad esempio, se
+volevamo esportare DistilBERT con una testa di classificazione per sequenze, potremmo
+usare:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoConfig
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>config = AutoConfig.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_config_for_seq_clf = DistilBertOnnxConfig(config, task=<span class="hljs-string">&quot;sequence-classification&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(onnx_config_for_seq_clf.outputs)
+OrderedDict([(<span class="hljs-string">&#x27;logits&#x27;</span>, {<span class="hljs-number">0</span>: <span class="hljs-string">&#x27;batch&#x27;</span>})])<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Tutte le proprietà e i metodi di base associati a <code>OnnxConfig</code> e le
+altre classi di configurazione possono essere sovrascritte se necessario. Guarda
+<code>BartOnnxConfig</code> per un esempio avanzato.</p></div>
+<h4 class="relative group"><a id="esportazione-del-modello" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#esportazione-del-modello"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Esportazione del modello
+	</span></h4>
+
+<p>Una volta implementata la configurazione ONNX, il passaggio successivo consiste nell’esportare il
+modello. Qui possiamo usare la funzione <code>export()</code> fornita dal
+pacchetto <code>transformers.onnx</code>. Questa funzione prevede la configurazione ONNX, insieme
+con il modello base e il tokenizer e il percorso per salvare il file esportato:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers.onnx <span class="hljs-keyword">import</span> export
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, AutoModel
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_path = Path(<span class="hljs-string">&quot;model.onnx&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model_ckpt = <span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>base_model = AutoModel.from_pretrained(model_ckpt)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(model_ckpt)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_inputs, onnx_outputs = export(tokenizer, base_model, onnx_config, onnx_config.default_onnx_opset, onnx_path)<!-- HTML_TAG_END --></pre></div>
+<p>Gli <code>onnx_inputs</code> e <code>onnx_outputs</code> restituiti dalla funzione <code>export()</code> sono
+liste di chiavi definite nelle proprietà di <code>input</code> e <code>output</code> della
+configurazione. Una volta esportato il modello, puoi verificare che il modello sia ben
+formato come segue:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> onnx
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_model = onnx.load(<span class="hljs-string">&quot;model.onnx&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx.checker.check_model(onnx_model)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Se il tuo modello è più largo di 2 GB, vedrai che molti file aggiuntivi sono
+creati durante l’esportazione. Questo è <em>previsto</em> perché ONNX utilizza <a href="https://developers.google.com/protocol-buffers/" rel="nofollow">Protocol
+Buffer</a> per memorizzare il modello e
+questi hanno un limite di dimensione 2 GB. Vedi la <a href="https://github.com/onnx/onnx/blob/master/docs/ExternalData.md" rel="nofollow">Documentazione
+ONNX</a>
+per istruzioni su come caricare modelli con dati esterni.</p></div>
+<h4 class="relative group"><a id="convalida-degli-output-del-modello" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#convalida-degli-output-del-modello"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Convalida degli output del modello
+	</span></h4>
+
+<p>Il passaggio finale consiste nel convalidare gli output dal modello di base e quello esportato
+corrispondere entro una soglia di tolleranza assoluta. Qui possiamo usare la
+Funzione <code>validate_model_outputs()</code> fornita dal pacchetto <code>transformers.onnx</code>
+come segue:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers.onnx <span class="hljs-keyword">import</span> validate_model_outputs
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>validate_model_outputs(
+<span class="hljs-meta">... </span>    onnx_config, tokenizer, base_model, onnx_path, onnx_outputs, onnx_config.atol_for_validation
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+<p>Questa funzione usa il metodo <code>OnnxConfig.generate_dummy_inputs()</code> per generare
+input per il modello di base e quello esportato e la tolleranza assoluta può essere
+definita nella configurazione. Generalmente troviamo una corrispondenza numerica nell’intervallo da 1e-6
+a 1e-4, anche se è probabile che qualsiasi cosa inferiore a 1e-3 vada bene.</p>
+<h3 class="relative group"><a id="contribuire-con-una-nuova-configurazione-a-transformers" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#contribuire-con-una-nuova-configurazione-a-transformers"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Contribuire con una nuova configurazione a 🤗 Transformers
+	</span></h3>
+
+<p>Stiamo cercando di espandere l’insieme di configurazioni già pronte e di accettare
+contributi della community! Se vuoi contribuire con la tua aggiunta
+nella libreria, dovrai:</p>
+<ul><li>Implementare la configurazione ONNX nella corrispondente <code>configuration file _&lt;model_name&gt;.py</code></li>
+<li>Includere l’architettura del modello e le funzioni corrispondenti in <code>FeatureManager</code></li>
+<li>Aggiungere la tua architettura del modello ai test in <code>test_onnx_v2.py</code></li></ul>
+<p>Scopri come stato contribuito la configurazione per [IBERT]
+(<a href="https://github.com/huggingface/transformers/pull/14868/files" rel="nofollow">https://github.com/huggingface/transformers/pull/14868/files</a>) per
+avere un’idea di cosa è coinvolto.</p>
+<h2 class="relative group"><a id="torchscript" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#torchscript"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>TorchScript
+	</span></h2>
+
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Questo è l’inizio dei nostri esperimenti con TorchScript e stiamo ancora esplorando le sue capacità con
+modelli con variable-input-size. È una nostra priorità e approfondiremo le nostre analisi nelle prossime versioni,
+con più esempi di codici, un’implementazione più flessibile e benchmark che confrontano i codici basati su Python con quelli compilati con
+TorchScript.</p></div>
+<p>Secondo la documentazione di Pytorch: “TorchScript è un modo per creare modelli serializzabili e ottimizzabili da codice
+Pytorch”. I due moduli di Pytorch <a href="https://pytorch.org/docs/stable/jit.html" rel="nofollow">JIT e TRACE</a> consentono allo sviluppatore di esportare
+il loro modello da riutilizzare in altri programmi, come i programmi C++ orientati all’efficienza.</p>
+<p>Abbiamo fornito un’interfaccia che consente l’esportazione di modelli 🤗 Transformers in TorchScript in modo che possano essere riutilizzati
+in un ambiente diverso rispetto a un programma Python basato su Pytorch. Qui spieghiamo come esportare e utilizzare i nostri modelli utilizzando
+TorchScript.</p>
+<p>Esportare un modello richiede due cose:</p>
+<ul><li>Un passaggio in avanti con input fittizzi.</li>
+<li>Istanziazione del modello con flag <code>torchscript</code>.</li></ul>
+<p>Queste necessità implicano diverse cose a cui gli sviluppatori dovrebbero prestare attenzione. Questi dettagli mostrati sotto.</p>
+<h3 class="relative group"><a id="flag-torchscript-e-pesi-legati" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#flag-torchscript-e-pesi-legati"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Flag TorchScript e pesi legati
+	</span></h3>
+
+<p>Questo flag è necessario perché la maggior parte dei modelli linguistici in questo repository hanno pesi legati tra il loro
+strato “Embedding” e lo strato “Decoding”. TorchScript non consente l’esportazione di modelli che hanno pesi
+legati, quindi è necessario prima slegare e clonare i pesi.</p>
+<p>Ciò implica che i modelli istanziati con il flag <code>torchscript</code> hanno il loro strato <code>Embedding</code> e strato <code>Decoding</code>
+separato, il che significa che non dovrebbero essere addestrati in futuro. L’allenamento de-sincronizza i due
+strati, portando a risultati inaspettati.</p>
+<p>Questo non è il caso per i modelli che non hanno una testa del modello linguistico, poiché quelli non hanno pesi legati. Questi modelli
+può essere esportato in sicurezza senza il flag <code>torchscript</code>.</p>
+<h3 class="relative group"><a id="input-fittizi-e-standard-lengths" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#input-fittizi-e-standard-lengths"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Input fittizi e standard lengths
+	</span></h3>
+
+<p>Gli input fittizzi sono usati per fare un modello passaggio in avanti . Mentre i valori degli input si propagano attraverso i strati,
+Pytorch tiene traccia delle diverse operazioni eseguite su ciascun tensore. Queste operazioni registrate vengono quindi utilizzate per
+creare la “traccia” del modello.</p>
+<p>La traccia viene creata relativamente alle dimensioni degli input. È quindi vincolato dalle dimensioni dell’input
+fittizio e non funzionerà per altre lunghezze di sequenza o dimensioni batch. Quando si proverà con una dimensione diversa, ci sarà errore
+come:</p>
+<p><code>La dimensione espansa del tensore (3) deve corrispondere alla dimensione esistente (7) nella dimensione non singleton 2</code></p>
+<p>will be raised. Si consiglia pertanto di tracciare il modello con una dimensione di input fittizia grande almeno quanto il più grande
+input che verrà fornito al modello durante l’inferenza. È possibile eseguire il padding per riempire i valori mancanti. Il modello
+sarà tracciato con una grande dimensione di input, tuttavia, anche le dimensioni della diverse matrici saranno grandi,
+risultando in più calcoli.</p>
+<p>Si raccomanda di prestare attenzione al numero totale di operazioni eseguite su ciascun input e di seguire da vicino le prestazioni
+durante l’esportazione di modelli di sequenza-lunghezza variabili.</p>
+<h3 class="relative group"><a id="usare-torchsscript-in-python" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#usare-torchsscript-in-python"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Usare TorchSscript in Python
+	</span></h3>
+
+<p>Di seguito è riportato un esempio, che mostra come salvare, caricare modelli e come utilizzare la traccia per l’inferenza.</p>
+<h4 class="relative group"><a id="salvare-un-modello" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#salvare-un-modello"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Salvare un modello
+	</span></h4>
+
+<p>Questo frammento di codice mostra come usare TorchScript per esportare un <code>BertModel</code>. Qui il <code>BertModel</code> è istanziato secondo
+una classe <code>BertConfig</code> e quindi salvato su disco con il nome del file <code>traced_bert.pt</code></p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertModel, BertTokenizer, BertConfig
+<span class="hljs-keyword">import</span> torch
+
+enc = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+
+<span class="hljs-comment"># Tokenizing input text</span>
+text = <span class="hljs-string">&quot;[CLS] Who was Jim Henson ? [SEP] Jim Henson was a puppeteer [SEP]&quot;</span>
+tokenized_text = enc.tokenize(text)
+
+<span class="hljs-comment"># Masking one of the input tokens</span>
+masked_index = <span class="hljs-number">8</span>
+tokenized_text[masked_index] = <span class="hljs-string">&quot;[MASK]&quot;</span>
+indexed_tokens = enc.convert_tokens_to_ids(tokenized_text)
+segments_ids = [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]
+
+<span class="hljs-comment"># Creating a dummy input</span>
+tokens_tensor = torch.tensor([indexed_tokens])
+segments_tensors = torch.tensor([segments_ids])
+dummy_input = [tokens_tensor, segments_tensors]
+
+<span class="hljs-comment"># Initializing the model with the torchscript flag</span>
+<span class="hljs-comment"># Flag set to True even though it is not necessary as this model does not have an LM Head.</span>
+config = BertConfig(
+    vocab_size_or_config_json_file=<span class="hljs-number">32000</span>,
+    hidden_size=<span class="hljs-number">768</span>,
+    num_hidden_layers=<span class="hljs-number">12</span>,
+    num_attention_heads=<span class="hljs-number">12</span>,
+    intermediate_size=<span class="hljs-number">3072</span>,
+    torchscript=<span class="hljs-literal">True</span>,
+)
+
+<span class="hljs-comment"># Instantiating the model</span>
+model = BertModel(config)
+
+<span class="hljs-comment"># The model needs to be in evaluation mode</span>
+model.<span class="hljs-built_in">eval</span>()
+
+<span class="hljs-comment"># If you are instantiating the model with *from_pretrained* you can also easily set the TorchScript flag</span>
+model = BertModel.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>, torchscript=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># Creating the trace</span>
+traced_model = torch.jit.trace(model, [tokens_tensor, segments_tensors])
+torch.jit.save(traced_model, <span class="hljs-string">&quot;traced_bert.pt&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<h4 class="relative group"><a id="caricare-un-modello" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#caricare-un-modello"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Caricare un modello
+	</span></h4>
+
+<p>Questo frammento di codice mostra come caricare il <code>BertModel</code> che era stato precedentemente salvato su disco con il nome <code>traced_bert.pt</code>.
+Stiamo riutilizzando il <code>dummy_input</code> precedentemente inizializzato.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->loaded_model = torch.jit.load(<span class="hljs-string">&quot;traced_bert.pt&quot;</span>)
+loaded_model.<span class="hljs-built_in">eval</span>()
+
+all_encoder_layers, pooled_output = loaded_model(*dummy_input)<!-- HTML_TAG_END --></pre></div>
+<h4 class="relative group"><a id="utilizzare-un-modello-tracciato-per-linferenza" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#utilizzare-un-modello-tracciato-per-linferenza"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Utilizzare un modello tracciato per l&#39;inferenza
+	</span></h4>
+
+<p>Usare il modello tracciato per l’inferenza è semplice come usare il suo metodo dunder <code>__call__</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->traced_model(tokens_tensor, segments_tensors)<!-- HTML_TAG_END --></pre></div>
+<p>###Implementare modelli HuggingFace TorchScript su AWS utilizzando Neuron SDK</p>
+<p>AWS ha introdotto <a href="https://aws.amazon.com/ec2/instance-types/inf1/" rel="nofollow">Amazon EC2 Inf1</a>
+famiglia di istanze per l’inferenza di machine learning a basso costo e ad alte prestazioni nel cloud.
+Le istanze Inf1 sono alimentate dal chip AWS Inferentia, un acceleratore hardware personalizzato,
+specializzato in carichi di lavoro di inferenza di deep learning.
+<a href="https://awsdocs-neuron.readthedocs-hosted.com/en/latest/#" rel="nofollow">AWS Neuron</a>
+è l’SDK per Inferentia che supporta il tracciamento e l’ottimizzazione dei modelli transformers per
+distribuzione su Inf1. L’SDK Neuron fornisce:</p>
+<ol><li>API di facile utilizzo con una riga di modifica del codice per tracciare e ottimizzare un modello TorchScript per l’inferenza nel cloud.</li>
+<li>Ottimizzazioni delle prestazioni pronte all’uso per <a href="https://awsdocs-neuron.readthedocs-hosted.com/en/latest/neuron-guide/benchmark/%3E" rel="nofollow">miglioramento dei costi-prestazioni</a></li>
+<li>Supporto per i modelli di trasformatori HuggingFace costruiti con <a href="https://awsdocs-neuron.readthedocs-hosted.com/en/latest/src/examples/pytorch/bert_tutorial/tutorial_pretrained_bert.html" rel="nofollow">PyTorch</a>
+o <a href="https://awsdocs-neuron.readthedocs-hosted.com/en/latest/src/examples/tensorflow/huggingface_bert/huggingface_bert.html" rel="nofollow">TensorFlow</a>.</li></ol>
+<h4 class="relative group"><a id="implicazioni" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#implicazioni"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Implicazioni
+	</span></h4>
+
+<p>Modelli Transformers basati su architettura <a href="https://huggingface.co/docs/transformers/main/model_doc/bert" rel="nofollow">BERT (Bidirectional Encoder Representations from Transformers)</a>,
+o sue varianti come <a href="https://huggingface.co/docs/transformers/main/model_doc/distilbert" rel="nofollow">distilBERT</a>
+e <a href="https://huggingface.co/docs/transformers/main/model_doc/roberta" rel="nofollow">roBERTa</a>
+funzioneranno meglio su Inf1 per attività non generative come la question answering estrattive,
+Classificazione della sequenza, Classificazione dei token. In alternativa, generazione di testo
+le attività possono essere adattate per essere eseguite su Inf1, secondo questo <a href="https://awsdocs-neuron.readthedocs-hosted.com/en/latest/src/examples/pytorch/transformers-marianmt.html" rel="nofollow">tutorial AWS Neuron MarianMT</a>.
+Ulteriori informazioni sui modelli che possono essere convertiti fuori dagli schemi su Inferentia possono essere
+trovati nella <a href="https://awsdocs-neuron.readthedocs-hosted.com/en/latest/neuron-guide/models/models-inferentia.html#models-inferentia" rel="nofollow">sezione Model Architecture Fit della documentazione Neuron</a>.</p>
+<h4 class="relative group"><a id="dipendenze" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#dipendenze"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Dipendenze
+	</span></h4>
+
+<p>L’utilizzo di AWS Neuron per convertire i modelli richiede le seguenti dipendenze e l’ambiente:</p>
+<ul><li>A <a href="https://awsdocs-neuron.readthedocs-hosted.com/en/latest/neuron-guide/neuron-frameworks/pytorch-neuron/index.html#installation-guide" rel="nofollow">Neuron SDK environment</a>,
+which comes pre-configured on <a href="https://docs.aws.amazon.com/dlami/latest/devguide/tutorial-inferentia-launching.html" rel="nofollow">AWS Deep Learning AMI</a>.</li></ul>
+<h4 class="relative group"><a id="convertire-un-modello-per-aws-neuron" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#convertire-un-modello-per-aws-neuron"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Convertire un modello per AWS Neuron
+	</span></h4>
+
+<p>Usando lo stesso script come in <a href="https://huggingface.co/docs/transformers/main/en/serialization#using-torchscript-in-python" rel="nofollow">Usando TorchScipt in Python</a>
+per tracciare un “BertModel”, importi l’estensione del framework <code>torch.neuron</code> per accedere
+i componenti di Neuron SDK tramite un’API Python.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertModel, BertTokenizer, BertConfig
+<span class="hljs-keyword">import</span> torch
+<span class="hljs-keyword">import</span> torch.neuron<!-- HTML_TAG_END --></pre></div>
+<p>E modificare solo la riga di codice di traccia</p>
+<p>Da:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->torch.jit.trace(model, [tokens_tensor, segments_tensors])<!-- HTML_TAG_END --></pre></div>
+<p>A:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->torch.neuron.trace(model, [token_tensor, segments_tensors])<!-- HTML_TAG_END --></pre></div>
+<p>Questa modifica consente a Neuron SDK di tracciare il modello e ottimizzarlo per l’esecuzione nelle istanze Inf1.</p>
+<p>Per ulteriori informazioni sulle funzionalità, gli strumenti, i tutorial di esempi e gli ultimi aggiornamenti di AWS Neuron SDK,
+consultare la <a href="https://awsdocs-neuron.readthedocs-hosted.com/en/latest/index.html" rel="nofollow">documentazione AWS NeuronSDK</a>.</p>
+
+
+		<script type="module" data-hydrate="h8856w">
+		import { start } from "/docs/transformers/v4.21.1/it/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="h8856w"]').parentNode,
+			paths: {"base":"/docs/transformers/v4.21.1/it","assets":"/docs/transformers/v4.21.1/it"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/transformers/v4.21.1/it/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/transformers/v4.21.1/it/_app/pages/serialization.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
