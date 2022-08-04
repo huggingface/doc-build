@@ -1,0 +1,181 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;training-on-tpus-with-accelerate&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;training-in-a-notebook&quot;,&quot;title&quot;:&quot;Training in a Notebook&quot;},{&quot;local&quot;:&quot;mixed-precision-and-global-variables&quot;,&quot;title&quot;:&quot;Mixed Precision and Global Variables &quot;},{&quot;local&quot;:&quot;training-times-on-tpus&quot;,&quot;title&quot;:&quot;Training Times on TPUs&quot;}],&quot;title&quot;:&quot;Training on TPUs with 🤗 Accelerate&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/accelerate/v0.12.0/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/accelerate/v0.12.0/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.12.0/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.12.0/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.12.0/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.12.0/en/_app/pages/concept_guides/training_tpu.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.12.0/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.12.0/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.12.0/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="training-on-tpus-with-accelerate" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#training-on-tpus-with-accelerate"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Training on TPUs with 🤗 Accelerate
+	</span></h1>
+
+<p>Training on TPUs can be slightly different than training on multi-gpu, even with 🤗 Accelerate. This guide aims to show you
+where you should be careful and why, as well as the best practices in general.</p>
+<h2 class="relative group"><a id="training-in-a-notebook" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#training-in-a-notebook"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Training in a Notebook
+	</span></h2>
+
+<p>The main carepoint when training on TPUs comes from the <a href="/docs/accelerate/v0.12.0/en/package_reference/launchers#accelerate.notebook_launcher">notebook_launcher()</a>. As mentioned in the <a href="../usage_guides/notebook">notebook tutorial</a>, you need to
+restructure your training code into a function that can get passed to the <a href="/docs/accelerate/v0.12.0/en/package_reference/launchers#accelerate.notebook_launcher">notebook_launcher()</a> function and be careful about not declaring any tensors on the GPU.</p>
+<p>While on a TPU that last part is not as important, a critical part to understand is that when you launch code from a notebook you do so through a process called <strong>forking</strong>.
+When launching from the command-line, you perform <strong>spawning</strong>, where a python process is not currently running and you <em>spawn</em> a new process in. Since your Jupyter notebook is already
+utilizing a python process, you need to <em>fork</em> a new process from it to launch your code. </p>
+<p>Where this becomes important is in regards to declaring your model. On forked TPU processes, it is recommended that you instantiate your model <em>once</em> and pass this into your
+training function. This is different than training on GPUs where you create <code>n</code> models that have their gradients synced and back-propagated at certain moments. Instead one
+model instance is shared between all the nodes and it is passed back and forth. This is important especially when training on low-resource TPUs such as those provided in Kaggle kernels or
+on Google Colaboratory. </p>
+<p>Below is an example of a training function passed to the <a href="/docs/accelerate/v0.12.0/en/package_reference/launchers#accelerate.notebook_launcher">notebook_launcher()</a> if training on CPUs or GPUs:</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>This code snippet is based off the one from the <code>simple_nlp_example</code> notebook found <a href="https://github.com/huggingface/notebooks/blob/main/examples/accelerate/simple_nlp_example.ipynb" rel="nofollow">here</a> with slight
+modifications for the sake of simplicity</p></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">training_function</span>():
+    <span class="hljs-comment"># Initialize accelerator</span>
+    accelerator = Accelerator()
+    model = AutoModelForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>, num_labels=<span class="hljs-number">2</span>)
+    train_dataloader, eval_dataloader = create_dataloaders(
+        train_batch_size=hyperparameters[<span class="hljs-string">&quot;train_batch_size&quot;</span>], eval_batch_size=hyperparameters[<span class="hljs-string">&quot;eval_batch_size&quot;</span>]
+    )
+
+    <span class="hljs-comment"># Instantiate optimizer</span>
+    optimizer = AdamW(params=model.parameters(), lr=hyperparameters[<span class="hljs-string">&quot;learning_rate&quot;</span>])
+
+    <span class="hljs-comment"># Prepare everything</span>
+    <span class="hljs-comment"># There is no specific order to remember, we just need to unpack the objects in the same order we gave them to the</span>
+    <span class="hljs-comment"># prepare method.</span>
+    model, optimizer, train_dataloader, eval_dataloader = accelerator.prepare(
+        model, optimizer, train_dataloader, eval_dataloader
+    )
+
+    num_epochs = hyperparameters[<span class="hljs-string">&quot;num_epochs&quot;</span>]
+    <span class="hljs-comment"># Now we train the model</span>
+    <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_epochs):
+        model.train()
+        <span class="hljs-keyword">for</span> step, batch <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(train_dataloader):
+            outputs = model(**batch)
+            loss = outputs.loss
+            accelerator.backward(loss)
+
+            optimizer.step()
+            optimizer.zero_grad()<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> notebook_launcher
+
+notebook_launcher(training_function)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>The <code>notebook_launcher</code> will default to 8 processes if 🤗 Accelerate has been configured for a TPU</p></div>
+<p>If you use this example and declare the model <em>inside</em> the training loop, then on a low-resource system you will potentially see an error
+like:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-attribute">ProcessExitedException</span>: process <span class="hljs-number">0</span> terminated <span class="hljs-keyword">with</span> <span class="hljs-keyword">signal</span><span class="hljs-string"> SIGSEGV</span><!-- HTML_TAG_END --></pre></div>
+<p>This error is <em>extremely</em> cryptic but the basic explanation is you ran out of system RAM. You can avoid this entirely by reconfiguring the training function to
+accept a single <code>model</code> argument, and declare it in an outside cell:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># In another Jupyter cell</span>
+model = AutoModelForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>, num_labels=<span class="hljs-number">2</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-addition">+ def training_function(model):</span>
+      # Initialize accelerator
+      accelerator = Accelerator()
+<span class="hljs-deletion">-     model = AutoModelForSequenceClassification.from_pretrained(&quot;bert-base-cased&quot;, num_labels=2)</span>
+      train_dataloader, eval_dataloader = create_dataloaders(
+          train_batch_size=hyperparameters[&quot;train_batch_size&quot;], eval_batch_size=hyperparameters[&quot;eval_batch_size&quot;]
+      )
+  ...<!-- HTML_TAG_END --></pre></div>
+<p>And finally calling the training function with:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->  from accelerate import notebook_launcher
+<span class="hljs-deletion">- notebook_launcher(training_function)</span>
+<span class="hljs-addition">+ notebook_launcher(training_function, (model,))</span><!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>The above workaround is only needed when launching a TPU instance from a Jupyter Notebook on a low-resource server such as Google Colaboratory or Kaggle. If
+using a script or launching on a much beefier server declaring the model beforehand is not needed.</p></div>
+<h2 class="relative group"><a id="mixed-precision-and-global-variables" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#mixed-precision-and-global-variables"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Mixed Precision and Global Variables 
+	</span></h2>
+
+<p>As mentioned in the <a href="../usage_guides/mixed_precision">mixed precision tutorial</a>, 🤗 Accelerate supports fp16 and bf16, both of which can be used on TPUs.
+That being said, ideally <code>bf16</code> should be utilized as it is extremely efficient to use.</p>
+<p>There are two “layers” when using <code>bf16</code> and 🤗 Accelerate on TPUs, at the base level and at the operation level. </p>
+<p>At the base level, this is enabled when passing <code>mixed_precision=&quot;bf16&quot;</code> to <code>Accelerator</code>, such as:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerator = Accelerator(mixed_precision=<span class="hljs-string">&quot;bf16&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>By default this will cast <code>torch.float</code> and <code>torch.double</code> to <code>bfloat16</code> on TPUs.
+The specific configuration being set is an environmental variable of <code>XLA_USE_BF16</code> is set to <code>1</code>.</p>
+<p>There is a further configuration you can perform which is setting the <code>XLA_DOWNCAST_BF16</code> environmental variable. If set to <code>1</code>, then
+<code>torch.float</code> is <code>bfloat16</code> and <code>torch.double</code> is <code>float32</code>.</p>
+<p>This is performed in the <code>Accelerator</code> object when passing <code>downcast_bf16=True</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerator = Accelerator(mixed_precision=<span class="hljs-string">&quot;bf16&quot;</span>, downcast_bf16=<span class="hljs-literal">True</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Using downcasting instead of bf16 everywhere is good for when you are trying to calculate metrics, log values, and more where raw bf16 tensors would be unusable. </p>
+<h2 class="relative group"><a id="training-times-on-tpus" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#training-times-on-tpus"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Training Times on TPUs
+	</span></h2>
+
+<p>As you launch your script, you may notice that training seems exceptionally slow at first. This is because TPUs
+first run through a few batches of data to see how much memory to allocate before finally utilizing this configured
+memory allocation extremely efficiently. </p>
+<p>If you notice that your evaluation code to calculate the metrics of your model takes longer due to a larger batch size being used,
+it is recommended to keep the batch size the same as the training data if it is too slow. Otherwise the memory will reallocate to this
+new batch size after the first few iterations. </p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Just because the memory is allocated does not mean it will be used or that the batch size will increase when going back to your training dataloader.</p></div>
+
+
+		<script type="module" data-hydrate="b91vkh">
+		import { start } from "/docs/accelerate/v0.12.0/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="b91vkh"]').parentNode,
+			paths: {"base":"/docs/accelerate/v0.12.0/en","assets":"/docs/accelerate/v0.12.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/accelerate/v0.12.0/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/accelerate/v0.12.0/en/_app/pages/concept_guides/training_tpu.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
