@@ -76,8 +76,8 @@ Will default to <code>True</code> if there is no directory named like <code>repo
 Message to commit while pushing. Will default to <code>&quot;Upload processor&quot;</code>.`,name:"commit_message"},{anchor:"transformers.ProcessorMixin.push_to_hub.private",description:`<strong>private</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Whether or not the repository created should be private (requires a paying subscription).`,name:"private"},{anchor:"transformers.ProcessorMixin.push_to_hub.use_auth_token",description:`<strong>use_auth_token</strong> (<code>bool</code> or <code>str</code>, <em>optional</em>) &#x2014;
 The token to use as HTTP bearer authorization for remote files. If <code>True</code>, will use the token generated
-when running <code>transformers-cli login</code> (stored in <code>~/.huggingface</code>). Will default to <code>True</code> if
-<code>repo_url</code> is not specified.`,name:"use_auth_token"},{anchor:"transformers.ProcessorMixin.push_to_hub.max_shard_size",description:`<strong>max_shard_size</strong> (<code>int</code> or <code>str</code>, <em>optional</em>, defaults to <code>&quot;10GB&quot;</code>) &#x2014;
+when running <code>huggingface-cli login</code> (stored in <code>~/.huggingface</code>). Will default to <code>True</code> if <code>repo_url</code>
+is not specified.`,name:"use_auth_token"},{anchor:"transformers.ProcessorMixin.push_to_hub.max_shard_size",description:`<strong>max_shard_size</strong> (<code>int</code> or <code>str</code>, <em>optional</em>, defaults to <code>&quot;10GB&quot;</code>) &#x2014;
 Only applicable for models. The maximum size for a checkpoint before being sharded. Checkpoints shard
 will then be each of size lower than this size. If expressed as a string, needs to be digits followed
 by a unit (like <code>&quot;5MB&quot;</code>).`,name:"max_shard_size"},{anchor:"transformers.ProcessorMixin.push_to_hub.create_pr",description:`<strong>create_pr</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;

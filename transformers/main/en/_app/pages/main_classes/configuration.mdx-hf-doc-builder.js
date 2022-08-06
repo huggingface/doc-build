@@ -141,8 +141,8 @@ Will default to <code>True</code> if there is no directory named like <code>repo
 Message to commit while pushing. Will default to <code>&quot;Upload config&quot;</code>.`,name:"commit_message"},{anchor:"transformers.PretrainedConfig.push_to_hub.private",description:`<strong>private</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Whether or not the repository created should be private (requires a paying subscription).`,name:"private"},{anchor:"transformers.PretrainedConfig.push_to_hub.use_auth_token",description:`<strong>use_auth_token</strong> (<code>bool</code> or <code>str</code>, <em>optional</em>) &#x2014;
 The token to use as HTTP bearer authorization for remote files. If <code>True</code>, will use the token generated
-when running <code>transformers-cli login</code> (stored in <code>~/.huggingface</code>). Will default to <code>True</code> if
-<code>repo_url</code> is not specified.`,name:"use_auth_token"},{anchor:"transformers.PretrainedConfig.push_to_hub.max_shard_size",description:`<strong>max_shard_size</strong> (<code>int</code> or <code>str</code>, <em>optional</em>, defaults to <code>&quot;10GB&quot;</code>) &#x2014;
+when running <code>huggingface-cli login</code> (stored in <code>~/.huggingface</code>). Will default to <code>True</code> if <code>repo_url</code>
+is not specified.`,name:"use_auth_token"},{anchor:"transformers.PretrainedConfig.push_to_hub.max_shard_size",description:`<strong>max_shard_size</strong> (<code>int</code> or <code>str</code>, <em>optional</em>, defaults to <code>&quot;10GB&quot;</code>) &#x2014;
 Only applicable for models. The maximum size for a checkpoint before being sharded. Checkpoints shard
 will then be each of size lower than this size. If expressed as a string, needs to be digits followed
 by a unit (like <code>&quot;5MB&quot;</code>).`,name:"max_shard_size"},{anchor:"transformers.PretrainedConfig.push_to_hub.create_pr",description:`<strong>create_pr</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
@@ -180,7 +180,7 @@ Whether or not to delete incompletely received file. Attempts to resume the down
 exists.`,name:"resume_download"},{anchor:"transformers.PretrainedConfig.from_pretrained.proxies",description:`<strong>proxies</strong> (<code>Dict[str, str]</code>, <em>optional</em>) &#x2014;
 A dictionary of proxy servers to use by protocol or endpoint, e.g., <code>{&apos;http&apos;: &apos;foo.bar:3128&apos;, &apos;http://hostname&apos;: &apos;foo.bar:4012&apos;}.</code> The proxies are used on each request.`,name:"proxies"},{anchor:"transformers.PretrainedConfig.from_pretrained.use_auth_token",description:`<strong>use_auth_token</strong> (<code>str</code> or <em>bool</em>, <em>optional</em>) &#x2014;
 The token to use as HTTP bearer authorization for remote files. If <code>True</code>, will use the token generated
-when running <code>transformers-cli login</code> (stored in <code>~/.huggingface</code>).`,name:"use_auth_token"},{anchor:"transformers.PretrainedConfig.from_pretrained.revision",description:`<strong>revision</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;main&quot;</code>) &#x2014;
+when running <code>huggingface-cli login</code> (stored in <code>~/.huggingface</code>).`,name:"use_auth_token"},{anchor:"transformers.PretrainedConfig.from_pretrained.revision",description:`<strong>revision</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;main&quot;</code>) &#x2014;
 The specific model version to use. It can be a branch name, a tag name, or a commit id, since we use a
 git-based system for storing models and other artifacts on huggingface.co, so <code>revision</code> can be any
 identifier allowed by git.`,name:"revision"},{anchor:"transformers.PretrainedConfig.from_pretrained.return_unused_kwargs",description:`<strong>return_unused_kwargs</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
