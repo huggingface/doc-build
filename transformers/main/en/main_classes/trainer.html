@@ -3255,15 +3255,23 @@ as the model saving with FSDP activated is only available with recent fixes.</p>
 <ul><li>FULL_SHARD : Shards optimizer states + gradients + model parameters across data parallel workers/GPUs.
 For this, add <code>--fsdp full_shard</code> to the command line arguments. </li>
 <li>SHARD_GRAD_OP : Shards optimizer states + gradients across data parallel workers/GPUs.
-For this, add <code>--fsdp shard_grad_op</code> to the command line arguments.</li></ul></li>
+For this, add <code>--fsdp shard_grad_op</code> to the command line arguments.</li>
+<li>NO_SHARD : No sharding. For this, add <code>--fsdp no_shard</code> to the command line arguments.</li></ul></li>
 <li><p>To offload the parameters and gradients to the CPU,
 add <code>--fsdp &quot;full_shard offload&quot;</code> or <code>--fsdp &quot;shard_grad_op offload&quot;</code> to the command line arguments.</p></li>
 <li><p>To automatically recursively wrap layers with FSDP using <code>default_auto_wrap_policy</code>,
 add <code>--fsdp &quot;full_shard auto_wrap&quot;</code> or <code>--fsdp &quot;shard_grad_op auto_wrap&quot;</code> to the command line arguments.</p></li>
 <li><p>To enable both CPU offloading and auto wrapping,
 add <code>--fsdp &quot;full_shard offload auto_wrap&quot;</code> or <code>--fsdp &quot;shard_grad_op offload auto_wrap&quot;</code> to the command line arguments.</p></li>
-<li><p>If auto wrapping is enabled, please add <code>--fsdp_min_num_params &lt;number&gt;</code> to command line arguments.
-It specifies FSDP’s minimum number of parameters for Default Auto Wrapping.</p></li></ul>
+<li><p>If auto wrapping is enabled, you can either use transformer based auto wrap policy or size based auto wrap policy.</p>
+<ul><li>For transformer based auto wrap policy, please add <code>--fsdp_transformer_layer_cls_to_wrap &lt;value&gt;</code> to command line arguments.
+This specifies the transformer layer class name (case-sensitive) to wrap ,e.g, <code>BertLayer</code>, <code>GPTJBlock</code>, <code>T5Block</code> …
+This is important because submodules that share weights (e.g., embedding layer) should not end up in different FSDP wrapped units.
+Using this policy, wrapping happens for each block containing Multi-Head Attention followed by couple of MLP layers.
+Remaining layers including the shared embeddings are conviniently wrapped in same outermost FSDP unit.
+Therefore, use this for transformer based models.</li>
+<li>For size based auto wrap policy, please add <code>--fsdp_min_num_params &lt;number&gt;</code> to command line arguments.
+It specifies FSDP’s minimum number of parameters for auto wrapping.</li></ul></li></ul>
 <p><strong>Few caveats to be aware of</strong></p>
 <ul><li>Mixed precision is currently not supported with FSDP as we wait for PyTorch to fix support for it.
 More details in this <a href="https://github.com/pytorch/pytorch/issues/75676" rel="nofollow">issues</a>.</li>
@@ -3297,10 +3305,10 @@ More details mentioned in this <a href="https://github.com/pytorch/pytorch/issue
 ]</p>
 
 
-		<script type="module" data-hydrate="1675k6m">
+		<script type="module" data-hydrate="e1nfng">
 		import { start } from "/docs/transformers/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="1675k6m"]').parentNode,
+			target: document.querySelector('[data-hydrate="e1nfng"]').parentNode,
 			paths: {"base":"/docs/transformers/main/en","assets":"/docs/transformers/main/en"},
 			session: {},
 			route: false,
