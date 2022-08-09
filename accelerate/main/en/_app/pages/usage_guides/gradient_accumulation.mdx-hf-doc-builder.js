@@ -4,7 +4,6 @@ model.to(device)
 gradient_accumulation_steps = 2
 
 for index, batch in enumerate(training_dataloader):
-    optimizer.zero_grad()
     inputs, targets = batch
     inputs = inputs.to(device)
     targets = targets.to(device)
@@ -14,13 +13,13 @@ for index, batch in enumerate(training_dataloader):
     loss.backward()
     if (index + 1) % gradient_accumulation_steps == 0:
         optimizer.step()
-        scheduler.step()`,highlighted:`device = <span class="hljs-string">&quot;cuda&quot;</span>
+        scheduler.step()
+        optimizer.zero_grad()`,highlighted:`device = <span class="hljs-string">&quot;cuda&quot;</span>
 model.to(device)
 
 gradient_accumulation_steps = <span class="hljs-number">2</span>
 
 <span class="hljs-keyword">for</span> index, batch <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(training_dataloader):
-    optimizer.zero_grad()
     inputs, targets = batch
     inputs = inputs.to(device)
     targets = targets.to(device)
@@ -30,7 +29,8 @@ gradient_accumulation_steps = <span class="hljs-number">2</span>
     loss.backward()
     <span class="hljs-keyword">if</span> (index + <span class="hljs-number">1</span>) % gradient_accumulation_steps == <span class="hljs-number">0</span>:
         optimizer.step()
-        scheduler.step()`}}),G=new Ye({}),H=new ie({props:{code:`+ from accelerate import Accelerator
+        scheduler.step()
+        optimizer.zero_grad()`}}),G=new Ye({}),H=new ie({props:{code:`+ from accelerate import Accelerator
 + accelerator = Accelerator()
 
 + model, optimizer, training_dataloader, scheduler = accelerator.prepare(
@@ -38,7 +38,6 @@ gradient_accumulation_steps = <span class="hljs-number">2</span>
 + )
 
   for index, batch in enumerate(training_dataloader):
-      optimizer.zero_grad()
       inputs, targets = batch
 -     inputs = inputs.to(device)
 -     targets = targets.to(device)
@@ -48,7 +47,8 @@ gradient_accumulation_steps = <span class="hljs-number">2</span>
 +     accelerator.backward(loss)
       if (index+1) % gradient_accumulation_steps == 0:
           optimizer.step()
-          scheduler.step()`,highlighted:`<span class="hljs-addition">+ from accelerate import Accelerator</span>
+          scheduler.step()
+          optimizer.zero_grad()`,highlighted:`<span class="hljs-addition">+ from accelerate import Accelerator</span>
 <span class="hljs-addition">+ accelerator = Accelerator()</span>
 
 <span class="hljs-addition">+ model, optimizer, training_dataloader, scheduler = accelerator.prepare(</span>
@@ -56,7 +56,6 @@ gradient_accumulation_steps = <span class="hljs-number">2</span>
 <span class="hljs-addition">+ )</span>
 
   for index, batch in enumerate(training_dataloader):
-      optimizer.zero_grad()
       inputs, targets = batch
 <span class="hljs-deletion">-     inputs = inputs.to(device)</span>
 <span class="hljs-deletion">-     targets = targets.to(device)</span>
@@ -66,45 +65,46 @@ gradient_accumulation_steps = <span class="hljs-number">2</span>
 <span class="hljs-addition">+     accelerator.backward(loss)</span>
       if (index+1) % gradient_accumulation_steps == 0:
           optimizer.step()
-          scheduler.step()`}}),q=new Jt({props:{warning:!0,$$slots:{default:[Ut]},$$scope:{ctx:me}}}),Y=new Ye({}),M=new ie({props:{code:`  from accelerate import Accelerator
+          scheduler.step()
+          optimizer.zero_grad()`}}),q=new Jt({props:{warning:!0,$$slots:{default:[Ut]},$$scope:{ctx:me}}}),Y=new Ye({}),M=new ie({props:{code:`  from accelerate import Accelerator
 - accelerator = Accelerator()
 + accelerator = Accelerator(gradient_accumulation_steps=2)`,highlighted:`  from accelerate import Accelerator
 <span class="hljs-deletion">- accelerator = Accelerator()</span>
 <span class="hljs-addition">+ accelerator = Accelerator(gradient_accumulation_steps=2)</span>`}}),O=new ie({props:{code:`- for index, batch in enumerate(training_dataloader):
 + for batch in training_dataloader:
 +     with accelerator.accumulate(model):
-          optimizer.zero_grad()
           inputs, targets = batch
           outputs = model(inputs)`,highlighted:`<span class="hljs-deletion">- for index, batch in enumerate(training_dataloader):</span>
 <span class="hljs-addition">+ for batch in training_dataloader:</span>
 <span class="hljs-addition">+     with accelerator.accumulate(model):</span>
-          optimizer.zero_grad()
           inputs, targets = batch
           outputs = model(inputs)`}}),R=new ie({props:{code:`- loss = loss / gradient_accumulation_steps
   accelerator.backward(loss)
 - if (index+1) % gradient_accumulation_steps == 0:
   optimizer.step()
-  scheduler.step()`,highlighted:`<span class="hljs-deletion">- loss = loss / gradient_accumulation_steps</span>
+  scheduler.step()
+  optimizer.zero_grad()`,highlighted:`<span class="hljs-deletion">- loss = loss / gradient_accumulation_steps</span>
   accelerator.backward(loss)
 <span class="hljs-deletion">- if (index+1) % gradient_accumulation_steps == 0:</span>
   optimizer.step()
-  scheduler.step()`}}),D=new Ye({}),W=new ie({props:{code:`for batch in training_dataloader:
+  scheduler.step()
+  optimizer.zero_grad()`}}),D=new Ye({}),W=new ie({props:{code:`for batch in training_dataloader:
     with accelerator.accumulate(model):
-        optimizer.zero_grad()
         inputs, targets = batch
         outputs = model(inputs)
         loss = loss_function(outputs, targets)
         accelerator.backward(loss)
         optimizer.step()
-        scheduler.step()`,highlighted:`<span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> training_dataloader:
+        scheduler.step()
+        optimizer.zero_grad()`,highlighted:`<span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> training_dataloader:
     <span class="hljs-keyword">with</span> accelerator.accumulate(model):
-        optimizer.zero_grad()
         inputs, targets = batch
         outputs = model(inputs)
         loss = loss_function(outputs, targets)
         accelerator.backward(loss)
         optimizer.step()
-        scheduler.step()`}}),{c(){h=i("meta"),T=u(),m=i("h1"),_=i("a"),E=i("span"),w(g.$$.fragment),k=u(),S=i("span"),Me=n("Performing gradient accumulation with \u{1F917} Accelerate"),fe=u(),U=i("p"),Oe=n(`Gradient accumulation is a technique where you can train on bigger batch sizes than
+        scheduler.step()
+        optimizer.zero_grad()`}}),{c(){h=i("meta"),T=u(),m=i("h1"),_=i("a"),E=i("span"),w(g.$$.fragment),k=u(),S=i("span"),Me=n("Performing gradient accumulation with \u{1F917} Accelerate"),fe=u(),U=i("p"),Oe=n(`Gradient accumulation is a technique where you can train on bigger batch sizes than
 your machine would normally be able to fit into memory. This is done by accumulating gradients over
 several batches, and only stepping the optimizer after a certain number of batches have been performed.`),ge=u(),K=i("p"),Re=n(`While technically standard gradient accumulation code would work fine in a distributed setup, it is not the most efficient
 method for doing so and you may experience considerable slowdowns!`),_e=u(),Q=i("p"),De=n(`In this tutorial you will see how to quickly setup gradient accumulation and perform it with the utilities provided in \u{1F917} Accelerate,
