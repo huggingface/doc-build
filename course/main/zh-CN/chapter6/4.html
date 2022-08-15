@@ -1,0 +1,149 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;正常化&quot;},{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;预标记化&quot;},{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;句子&quot;},{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;算法概述&quot;}],&quot;title&quot;:&quot;标准化和预标记化&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/pages/chapter6/4.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/Youtube-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/CodeBlock-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/DocNotebookDropdown-hf-doc-builder.js"> 
+
+
+
+
+
+<h1 id="">标准化和预标记化</h1>
+
+
+<div class="flex space-x-1 absolute z-10 right-0 top-0"><a href="https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter6/section4.ipynb" target="_blank"><img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
+	<a href="https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter6/section4.ipynb" target="_blank"><img alt="Open In Studio Lab" class="!m-0" src="https://studiolab.sagemaker.aws/studiolab.svg"></a></div>
+<p>在我们更深入地研究与 Transformer 模型（字节对编码 [BPE]、WordPiece 和 Unigram）一起使用的三种最常见的子词标记化算法之前，我们将首先看一下每个标记器应用于文本的预处理。以下是标记化管道中步骤的高级概述：</p>
+<div class="flex justify-center"><img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/tokenization_pipeline.svg" alt="The tokenization pipeline.">
+<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/tokenization_pipeline-dark.svg" alt="The tokenization pipeline."></div>
+<p>在将文本拆分为子标记之前（根据其模型），分词器执行两个步骤： <em>normalization</em> 和 <em>pre-tokenization</em>.</p>
+<h2 id="">正常化</h2>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/4IIC2jI9CaU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>标准化步骤涉及一些常规清理，例如删除不必要的空格、小写和/或删除重音符号。如果你熟悉<a href="http://www.unicode.org/reports/tr15/" rel="nofollow">Unicode normalization</a>（例如 NFC 或 NFKC），这也是 tokenizer 可能应用的东西。</p>
+<p>🤗Transformers <strong>tokenizer</strong> 有一个属性叫做 <strong>backend_tokenizer</strong> 它提供了对 🤗 Tokenizers 库中底层标记器的访问：</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(tokenizer.backend_tokenizer))<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;tokenizers.Tokenizer&#x27;</span>&gt;<!-- HTML_TAG_END --></pre></div>
+<p><strong>normalizer</strong> 的属性 <strong>tokenizer</strong> 对象有一个 <strong>normalize_str()</strong> 我们可以用来查看标准化是如何执行的方法：</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-built_in">print</span>(tokenizer.backend_tokenizer.normalizer.normalize_str(<span class="hljs-string">&quot;Héllò hôw are ü?&quot;</span>))<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&#x27;hello how are u?&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>在这个例子中，因为我们选择了 <strong>bert-base-uncased</strong> 检查点，标准化应用小写并删除重音。</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>✏️ <strong>试试看!</strong> 从检查点加载标记器并将相同的示例传递给它。您可以看到分词器的带壳和无壳版本之间的主要区别是什么？</p></div>
+<h2 id="">预标记化</h2>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/grlLV8AIXug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>正如我们将在下一节中看到的，分词器不能单独在原始文本上进行训练。相反，我们首先需要将文本拆分为小实体，例如单词。这就是预标记化步骤的用武之地。 正如我们在<a href="/course/chapter2">Chapter 2</a>, 基于单词的标记器可以简单地将原始文本拆分为空白和标点符号的单词。这些词将是分词器在训练期间可以学习的子标记的边界。</p>
+<p>要查看快速分词器如何执行预分词，我们可以使用 <strong>pre_tokenize_str()</strong> 的方法 <strong>pre_tokenizer</strong> 的属性 <strong>tokenizer</strong> 目的：</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tokenizer.backend_tokenizer.pre_tokenizer.pre_tokenize_str(<span class="hljs-string">&quot;Hello, how are  you?&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->[(<span class="hljs-string">&#x27;Hello&#x27;</span>, (<span class="hljs-number">0</span>, <span class="hljs-number">5</span>)), (<span class="hljs-string">&#x27;,&#x27;</span>, (<span class="hljs-number">5</span>, <span class="hljs-number">6</span>)), (<span class="hljs-string">&#x27;how&#x27;</span>, (<span class="hljs-number">7</span>, <span class="hljs-number">10</span>)), (<span class="hljs-string">&#x27;are&#x27;</span>, (<span class="hljs-number">11</span>, <span class="hljs-number">14</span>)), (<span class="hljs-string">&#x27;you&#x27;</span>, (<span class="hljs-number">16</span>, <span class="hljs-number">19</span>)), (<span class="hljs-string">&#x27;?&#x27;</span>, (<span class="hljs-number">19</span>, <span class="hljs-number">20</span>))]<!-- HTML_TAG_END --></pre></div>
+<p>请注意分词器如何已经跟踪偏移量，这就是它如何为我们提供上一节中使用的偏移量映射。这里分词器忽略了这两个空格，只用一个替换它们，但偏移量在 <strong>are</strong> 和 <strong>you</strong> 考虑到这一点。</p>
+<p>由于我们使用的是 BERT 分词器，预分词涉及对空格和标点符号进行拆分。对于这一步，其他标记器可以有不同的规则。例如，如果我们使用 GPT-2 标记器：</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;gpt2&quot;</span>)
+tokenizer.backend_tokenizer.pre_tokenizer.pre_tokenize_str(<span class="hljs-string">&quot;Hello, how are  you?&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>它也会在空格和标点符号上拆分，但它会保留空格并将它们替换为 <strong>Ġ</strong> 符号，如果我们解码令牌，则使其能够恢复原始空格：</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->[(<span class="hljs-string">&#x27;Hello&#x27;</span>, (<span class="hljs-number">0</span>, <span class="hljs-number">5</span>)), (<span class="hljs-string">&#x27;,&#x27;</span>, (<span class="hljs-number">5</span>, <span class="hljs-number">6</span>)), (<span class="hljs-string">&#x27;Ġhow&#x27;</span>, (<span class="hljs-number">6</span>, <span class="hljs-number">10</span>)), (<span class="hljs-string">&#x27;Ġare&#x27;</span>, (<span class="hljs-number">10</span>, <span class="hljs-number">14</span>)), (<span class="hljs-string">&#x27;Ġ&#x27;</span>, (<span class="hljs-number">14</span>, <span class="hljs-number">15</span>)), (<span class="hljs-string">&#x27;Ġyou&#x27;</span>, (<span class="hljs-number">15</span>, <span class="hljs-number">19</span>)),
+ (<span class="hljs-string">&#x27;?&#x27;</span>, (<span class="hljs-number">19</span>, <span class="hljs-number">20</span>))]<!-- HTML_TAG_END --></pre></div>
+<p>另请注意，与 BERT 分词器不同，此分词器不会忽略双空格</p>
+<p>最后一个例子，让我们看一下基于 SentencePiece 算法的 T5 分词器：</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;t5-small&quot;</span>)
+tokenizer.backend_tokenizer.pre_tokenizer.pre_tokenize_str(<span class="hljs-string">&quot;Hello, how are  you?&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->[(<span class="hljs-string">&#x27;▁Hello,&#x27;</span>, (<span class="hljs-number">0</span>, <span class="hljs-number">6</span>)), (<span class="hljs-string">&#x27;▁how&#x27;</span>, (<span class="hljs-number">7</span>, <span class="hljs-number">10</span>)), (<span class="hljs-string">&#x27;▁are&#x27;</span>, (<span class="hljs-number">11</span>, <span class="hljs-number">14</span>)), (<span class="hljs-string">&#x27;▁you?&#x27;</span>, (<span class="hljs-number">16</span>, <span class="hljs-number">20</span>))]<!-- HTML_TAG_END --></pre></div>
+<p>与 GPT-2 标记器一样，这个标记器保留空格并用特定标记替换它们（ <strong>_</strong> )，但 T5 分词器只在空格上拆分，而不是标点符号。还要注意，它默认在句子的开头添加了一个空格（之前 <strong>Hello</strong> ) 并忽略了之间的双空格 <strong>are</strong> 和 <strong>you</strong> .</p>
+<p>现在我们已经了解了一些不同的标记器如何处理文本，我们可以开始探索底层算法本身。我们首先快速浏览一下广泛适用的 SentencePiece；然后，在接下来的三个部分中，我们将研究用于子词标记化的三种主要算法是如何工作的。</p>
+<h2 id="">句子</h2>
+<p><a href="https://github.com/google/sentencepiece" rel="nofollow">SentencePiece</a> 是一种用于文本预处理的标记化算法，您可以将其与我们将在接下来的三个部分中看到的任何模型一起使用。它将文本视为 Unicode 字符序列，并用特殊字符替换空格， <strong>▁</strong> .与 Unigram 算法结合使用（参见<a href="/course/chapter7/7">section 7</a>), 它甚至不需要预标记化步骤，这对于不使用空格字符的语言（如中文或日语）非常有用。</p>
+<p>SentencePiece 的另一个主要特点是可逆标记化：由于没有对空格进行特殊处理，因此只需通过将它们连接起来并替换 <strong>_</strong> s 带空格——这会导致标准化的文本。正如我们之前看到的，BERT 分词器删除了重复的空格，因此它的分词是不可逆的。</p>
+<h2 id="">算法概述</h2>
+<p>在下面的部分中，我们将深入研究三种主要的子词标记化算法：BPE（由 GPT-2 和其他人使用）、WordPiece（例如由 BERT 使用）和 Unigram（由 T5 和其他人使用）。在我们开始之前，这里是它们各自工作原理的快速概述。如果您还没有理解，请在阅读下一节后立即回到此表。</p>
+<table><thead><tr><th align="center">Model</th>
+<th align="center">BPE</th>
+<th align="center">WordPiece</th>
+<th align="center">Unigram</th></tr></thead>
+<tbody><tr><td align="center">Training</td>
+<td align="center">Starts from a small vocabulary and learns rules to merge tokens</td>
+<td align="center">Starts from a small vocabulary and learns rules to merge tokens</td>
+<td align="center">Starts from a large vocabulary and learns rules to remove tokens</td></tr>
+<tr><td align="center">Training step</td>
+<td align="center">Merges the tokens corresponding to the most common pair</td>
+<td align="center">Merges the tokens corresponding to the pair with the best score based on the frequency of the pair, privileging pairs where each individual token is less frequent</td>
+<td align="center">Removes all the tokens in the vocabulary that will minimize the loss computed on the whole corpus</td></tr>
+<tr><td align="center">Learns</td>
+<td align="center">Merge rules and a vocabulary</td>
+<td align="center">Just a vocabulary</td>
+<td align="center">A vocabulary with a score for each token</td></tr>
+<tr><td align="center">Encoding</td>
+<td align="center">Splits a word into characters and applies the merges learned during training</td>
+<td align="center">Finds the longest subword starting from the beginning that is in the vocabulary, then does the same for the rest of the word</td>
+<td align="center">Finds the most likely split into tokens, using the scores learned during training</td></tr></tbody></table>
+<p>现在让我们深入了解 BPE！</p>
+
+
+		<script type="module" data-hydrate="1sjl64m">
+		import { start } from "/docs/course/main/zh-CN/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="1sjl64m"]').parentNode,
+			paths: {"base":"/docs/course/main/zh-CN","assets":"/docs/course/main/zh-CN"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/course/main/zh-CN/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/course/main/zh-CN/_app/pages/chapter6/4.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
