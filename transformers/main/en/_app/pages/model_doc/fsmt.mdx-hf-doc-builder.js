@@ -76,11 +76,9 @@ Scale embeddings by diving by sqrt(d_model).`,name:"scale_embedding"},{anchor:"t
 Beginning of stream token id.`,name:"bos_token_id"},{anchor:"transformers.FSMTConfig.pad_token_id",description:`<strong>pad_token_id</strong> (<code>int</code>, <em>optional</em>, defaults to 1) &#x2014;
 Padding token id.`,name:"pad_token_id"},{anchor:"transformers.FSMTConfig.eos_token_id",description:`<strong>eos_token_id</strong> (<code>int</code>, <em>optional</em>, defaults to 2) &#x2014;
 End of stream token id.`,name:"eos_token_id"},{anchor:"transformers.FSMTConfig.decoder_start_token_id",description:`<strong>decoder_start_token_id</strong> (<code>int</code>, <em>optional</em>) &#x2014;
-This model starts decoding with <code>eos_token_id</code>
-encoder_layerdrop &#x2014; (<code>float</code>, <em>optional</em>, defaults to 0.0):
-Google &#x201C;layerdrop arxiv&#x201D;, as its not explainable in one line.
-decoder_layerdrop &#x2014; (<code>float</code>, <em>optional</em>, defaults to 0.0):
-Google &#x201C;layerdrop arxiv&#x201D;, as its not explainable in one line.`,name:"decoder_start_token_id"},{anchor:"transformers.FSMTConfig.is_encoder_decoder",description:`<strong>is_encoder_decoder</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
+This model starts decoding with <code>eos_token_id</code>`,name:"decoder_start_token_id"},{anchor:"transformers.FSMTConfig.encoder_layerdrop",description:`<strong>encoder_layerdrop</strong> (<code>float</code>, <em>optional</em>, defaults to 0.0) &#x2014;
+Google &#x201C;layerdrop arxiv&#x201D;, as its not explainable in one line.`,name:"encoder_layerdrop"},{anchor:"transformers.FSMTConfig.decoder_layerdrop",description:`<strong>decoder_layerdrop</strong> (<code>float</code>, <em>optional</em>, defaults to 0.0) &#x2014;
+Google &#x201C;layerdrop arxiv&#x201D;, as its not explainable in one line.`,name:"decoder_layerdrop"},{anchor:"transformers.FSMTConfig.is_encoder_decoder",description:`<strong>is_encoder_decoder</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether this is an encoder/decoder model.`,name:"is_encoder_decoder"},{anchor:"transformers.FSMTConfig.tie_word_embeddings",description:`<strong>tie_word_embeddings</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether to tie input and output embeddings.`,name:"tie_word_embeddings"},{anchor:"transformers.FSMTConfig.num_beams",description:`<strong>num_beams</strong> (<code>int</code>, <em>optional</em>, defaults to 5) &#x2014;
 Number of beams for beam search that will be used by default in the <code>generate</code> method of the model. 1 means

@@ -284,13 +284,11 @@ The dropout probability for all fully connected layers in the embeddings, encode
 The dropout ratio for the attention probabilities.`,name:"attention_dropout"},{anchor:"transformers.DetrConfig.activation_dropout",description:`<strong>activation_dropout</strong> (<code>float</code>, <em>optional</em>, defaults to 0.0) &#x2014;
 The dropout ratio for activations inside the fully connected layer.`,name:"activation_dropout"},{anchor:"transformers.DetrConfig.init_std",description:`<strong>init_std</strong> (<code>float</code>, <em>optional</em>, defaults to 0.02) &#x2014;
 The standard deviation of the truncated_normal_initializer for initializing all weight matrices.`,name:"init_std"},{anchor:"transformers.DetrConfig.init_xavier_std",description:`<strong>init_xavier_std</strong> (<code>float</code>, <em>optional</em>, defaults to 1) &#x2014;
-The scaling factor used for the Xavier initialization gain in the HM Attention map module.
-encoder_layerdrop &#x2014; (<code>float</code>, <em>optional</em>, defaults to 0.0):
+The scaling factor used for the Xavier initialization gain in the HM Attention map module.`,name:"init_xavier_std"},{anchor:"transformers.DetrConfig.encoder_layerdrop",description:`<strong>encoder_layerdrop</strong> (<code>float</code>, <em>optional</em>, defaults to 0.0) &#x2014;
 The LayerDrop probability for the encoder. See the [LayerDrop paper](see <a href="https://arxiv.org/abs/1909.11556" rel="nofollow">https://arxiv.org/abs/1909.11556</a>)
-for more details.
-decoder_layerdrop &#x2014; (<code>float</code>, <em>optional</em>, defaults to 0.0):
+for more details.`,name:"encoder_layerdrop"},{anchor:"transformers.DetrConfig.decoder_layerdrop",description:`<strong>decoder_layerdrop</strong> (<code>float</code>, <em>optional</em>, defaults to 0.0) &#x2014;
 The LayerDrop probability for the decoder. See the [LayerDrop paper](see <a href="https://arxiv.org/abs/1909.11556" rel="nofollow">https://arxiv.org/abs/1909.11556</a>)
-for more details.`,name:"init_xavier_std"},{anchor:"transformers.DetrConfig.auxiliary_loss",description:`<strong>auxiliary_loss</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+for more details.`,name:"decoder_layerdrop"},{anchor:"transformers.DetrConfig.auxiliary_loss",description:`<strong>auxiliary_loss</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether auxiliary decoding losses (loss at each decoder layer) are to be used.`,name:"auxiliary_loss"},{anchor:"transformers.DetrConfig.position_embedding_type",description:`<strong>position_embedding_type</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;sine&quot;</code>) &#x2014;
 Type of position embeddings to be used on top of the image features. One of <code>&quot;sine&quot;</code> or <code>&quot;learned&quot;</code>.`,name:"position_embedding_type"},{anchor:"transformers.DetrConfig.backbone",description:`<strong>backbone</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;resnet50&quot;</code>) &#x2014;
 Name of convolutional backbone to use. Supports any convolutional backbone from the timm package. For a
