@@ -200,7 +200,7 @@ Device ordinal for CPU/GPU support of the pipeline. Setting this to -1 will leve
 integer will run the model on the associated CUDA device ID. If<code>None</code> is provided it will be inferred and
 CUDA:0 used if available, CPU otherwise.`,name:"device"},{anchor:"evaluate.ImageClassificationEvaluator.compute.random_state",description:`<strong>random_state</strong> (<code>int</code>, <em>optional</em>, defaults to <code>None</code>) &#x2014;
 The <code>random_state</code> value passed to <code>bootstrap</code> if <code>&quot;bootstrap&quot;</code> strategy is chosen. Useful for
-debugging.`,name:"random_state"}],source:"https://github.com/huggingface/evaluate/blob/main/src/evaluate/evaluator/image_classification.py#L62",returnDescription:`
+debugging.`,name:"random_state"}],source:"https://github.com/huggingface/evaluate/blob/main/src/evaluate/evaluator/image_classification.py#L64",returnDescription:`
 <p>A <code>Dict</code>. The keys represent metric keys calculated for the <code>metric</code> spefied in function arguments. For the
 <code>"simple"</code> strategy, the value is the metric score. For the <code>"bootstrap"</code> strategy, the value is a <code>Dict</code>
 containing the score, the confidence interval and the standard error calculated for each metric key.</p>
