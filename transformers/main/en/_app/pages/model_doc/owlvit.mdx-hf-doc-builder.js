@@ -337,7 +337,7 @@ If set, will return tensors of a particular framework. Acceptable values are:</p
 <li><code>&apos;pt&apos;</code>: Return PyTorch <code>torch.Tensor</code> objects.</li>
 <li><code>&apos;np&apos;</code>: Return NumPy <code>np.ndarray</code> objects.</li>
 <li><code>&apos;jax&apos;</code>: Return JAX <code>jnp.ndarray</code> objects.</li>
-</ul>`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/owlvit/feature_extraction_owlvit.py#L143",returnDescription:`
+</ul>`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/owlvit/feature_extraction_owlvit.py#L136",returnDescription:`
 <p>A <a
   href="/docs/transformers/main/en/main_classes/feature_extractor#transformers.BatchFeature"
 >BatchFeature</a> with the following fields:</p>
