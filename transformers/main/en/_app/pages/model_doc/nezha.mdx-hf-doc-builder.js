@@ -172,14 +172,14 @@ model.config.id2label[predicted_class_id]
 num_labels = len(model.config.id2label)
 model = NezhaForSequenceClassification.from_pretrained("sijunhe/nezha-cn-base", num_labels=num_labels)
 
-labels = torch.tensor([1])
+labels = torch.tensor(1)
 loss = model(**inputs, labels=labels).loss
 round(loss.item(), 2)
 `,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = NezhaForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;sijunhe/nezha-cn-base&quot;</span>, num_labels=num_labels)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor([<span class="hljs-number">1</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor(<span class="hljs-number">1</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
 `}}),{c(){k(s.$$.fragment)},l(c){$(s.$$.fragment,c)},m(c,h){v(s,c,h),g=!0},p:D,i(c){g||(w(s.$$.fragment,c),g=!0)},o(c){T(s.$$.fragment,c),g=!1},d(c){y(s,c)}}}function gh(N){let s,g,c,h,b;return h=new B({props:{code:`import torch
