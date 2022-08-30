@@ -154,14 +154,14 @@ model.config.id2label[predicted_class_id]
 num_labels = len(model.config.id2label)
 model = LEDForSequenceClassification.from_pretrained("allenai/led-base-16384", num_labels=num_labels)
 
-labels = torch.tensor([1])
+labels = torch.tensor(1)
 loss = model(**inputs, labels=labels).loss
 round(loss.item(), 2)
 `,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = LEDForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;allenai/led-base-16384&quot;</span>, num_labels=num_labels)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor([<span class="hljs-number">1</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor(<span class="hljs-number">1</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
 `}}),{c(){v(l.$$.fragment)},l(p){k(l.$$.fragment,p)},m(p,u){w(l,p,u),b=!0},p:je,i(p){b||(y(l.$$.fragment,p),b=!0)},o(p){E(l.$$.fragment,p),b=!1},d(p){L(l,p)}}}function nm($){let l,b,p,u,T;return u=new Ae({props:{code:`import torch
