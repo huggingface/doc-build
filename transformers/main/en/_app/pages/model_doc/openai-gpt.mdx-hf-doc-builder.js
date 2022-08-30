@@ -130,14 +130,14 @@ model.config.id2label[predicted_class_id]
 num_labels = len(model.config.id2label)
 model = OpenAIGPTForSequenceClassification.from_pretrained("openai-gpt", num_labels=num_labels)
 
-labels = torch.tensor(1)
+labels = torch.tensor([1])
 loss = model(**inputs, labels=labels).loss
 round(loss.item(), 2)
 `,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = OpenAIGPTForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;openai-gpt&quot;</span>, num_labels=num_labels)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor(<span class="hljs-number">1</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor([<span class="hljs-number">1</span>])
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
 `}}),{c(){y(d.$$.fragment)},l(h){k(d.$$.fragment,h)},m(h,m){w(d,h,m),v=!0},p:Je,i(h){v||($(d.$$.fragment,h),v=!0)},o(h){P(d.$$.fragment,h),v=!1},d(h){O(d,h)}}}function Df(M){let d,v,h,m,b;return m=new Ue({props:{code:`import torch
