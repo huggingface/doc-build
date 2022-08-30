@@ -142,14 +142,14 @@ model.config.id2label[predicted_class_id]
 num_labels = len(model.config.id2label)
 model = XLMRobertaXLForSequenceClassification.from_pretrained("xlm-roberta-xlarge", num_labels=num_labels)
 
-labels = torch.tensor(1)
+labels = torch.tensor([1])
 loss = model(**inputs, labels=labels).loss
 round(loss.item(), 2)
 `,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = XLMRobertaXLForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;xlm-roberta-xlarge&quot;</span>, num_labels=num_labels)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor(<span class="hljs-number">1</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor([<span class="hljs-number">1</span>])
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
 `}}),{c(){k(s.$$.fragment)},l(c){M(s.$$.fragment,c)},m(c,h){w(s,c,h),f=!0},p:A,i(c){f||(v(s.$$.fragment,c),f=!0)},o(c){X(s.$$.fragment,c),f=!1},d(c){$(s,c)}}}function Qd(T){let s,f,c,h,b;return h=new S({props:{code:`import torch
