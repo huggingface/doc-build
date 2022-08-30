@@ -74,14 +74,14 @@ model.config.id2label[predicted_class_id]
 num_labels = len(model.config.id2label)
 model = CanineForSequenceClassification.from_pretrained("google/canine-s", num_labels=num_labels)
 
-labels = torch.tensor(1)
+labels = torch.tensor([1])
 loss = model(**inputs, labels=labels).loss
 round(loss.item(), 2)
 `,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = CanineForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;google/canine-s&quot;</span>, num_labels=num_labels)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor(<span class="hljs-number">1</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor([<span class="hljs-number">1</span>])
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
 `}}),{c(){w(c.$$.fragment)},l(d){$(c.$$.fragment,d)},m(d,m){C(c,d,m),b=!0},p:J,i(d){b||(v(c.$$.fragment,d),b=!0)},o(d){y(c.$$.fragment,d),b=!1},d(d){T(c,d)}}}function id(q){let c,b,d,m,k;return m=new O({props:{code:`import torch
