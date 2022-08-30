@@ -1032,7 +1032,7 @@ elements depending on the configuration (<a
 >LukeConfig</a>) and inputs.</p>
 <ul>
 <li><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Classification loss.</li>
-<li><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, config.num_labels)</code>) \u2014 Classification scores (before SoftMax).</li>
+<li><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, entity_length, config.num_labels)</code>) \u2014 Classification scores (before SoftMax).</li>
 <li><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings + one for the output of each layer) of
 shape <code>(batch_size, sequence_length, hidden_size)</code>. Hidden-states of the model at the output of each layer
 plus the initial embedding outputs.</li>
