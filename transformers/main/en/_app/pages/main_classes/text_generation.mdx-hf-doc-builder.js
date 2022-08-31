@@ -56,7 +56,7 @@ model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-en-de")
 sentence = "Paris is one of the densest populated areas in Europe."
 input_ids = tokenizer(sentence, return_tensors="pt").input_ids
 
-outputs = model.generate(input_ids)
+outputs = model.generate(input_ids, num_beams=5)
 tokenizer.batch_decode(outputs, skip_special_tokens=True)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, AutoModelForSeq2SeqLM
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;Helsinki-NLP/opus-mt-en-de&quot;</span>)
@@ -65,7 +65,7 @@ tokenizer.batch_decode(outputs, skip_special_tokens=True)`,highlighted:`<span cl
 <span class="hljs-meta">&gt;&gt;&gt; </span>sentence = <span class="hljs-string">&quot;Paris is one of the densest populated areas in Europe.&quot;</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = tokenizer(sentence, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).input_ids
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model.generate(input_ids)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model.generate(input_ids, num_beams=<span class="hljs-number">5</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.batch_decode(outputs, skip_special_tokens=<span class="hljs-literal">True</span>)
 [<span class="hljs-string">&#x27;Paris ist eines der dichtesten besiedelten Gebiete Europas.&#x27;</span>]`}}),{c(){d=a("p"),f=t("Beam-search decoding:"),u=m(),k(c.$$.fragment)},l(s){d=r(s,"P",{});var p=i(d);f=n(p,"Beam-search decoding:"),p.forEach(o),u=g(s),v(c.$$.fragment,s)},m(s,p){x(s,d,p),e(d,f),x(s,u,p),y(c,s,p),_=!0},p:ue,i(s){_||(j(c.$$.fragment,s),_=!0)},o(s){M(c.$$.fragment,s),_=!1},d(s){s&&o(d),s&&o(u),w(c,s)}}}function im(L){let d,f,u,c,_;return c=new _e({props:{code:`from transformers import (
     AutoTokenizer,
@@ -79,7 +79,7 @@ tokenizer.batch_decode(outputs, skip_special_tokens=True)`,highlighted:`<span cl
 tokenizer = AutoTokenizer.from_pretrained("gpt2")
 model = AutoModelForCausalLM.from_pretrained("gpt2")
 
-# set pad_token_id to eos_token_id because GPT2 does not have a EOS token
+# set pad_token_id to eos_token_id because GPT2 does not have a PAD token
 model.config.pad_token_id = model.config.eos_token_id
 
 input_prompt = "It might be possible to"
@@ -109,7 +109,7 @@ tokenizer.batch_decode(outputs, skip_special_tokens=True)`,highlighted:`<span cl
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;gpt2&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = AutoModelForCausalLM.from_pretrained(<span class="hljs-string">&quot;gpt2&quot;</span>)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># set pad_token_id to eos_token_id because GPT2 does not have a EOS token</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># set pad_token_id to eos_token_id because GPT2 does not have a PAD token</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model.config.pad_token_id = model.config.eos_token_id
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_prompt = <span class="hljs-string">&quot;It might be possible to&quot;</span>
