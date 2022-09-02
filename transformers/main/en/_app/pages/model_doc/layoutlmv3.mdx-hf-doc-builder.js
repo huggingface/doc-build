@@ -19,7 +19,8 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = model.config`}}),{c(){c=a("p"),y=n("Example:"),f=u(),L(p.$$.fragment)},l(l){c=r(l,"P",{});var h=i(c);y=s(h,"Example:"),h.forEach(t),f=m(l),k(p.$$.fragment,l)},m(l,h){_(l,c,h),e(c,y),_(l,f,h),w(p,l,h),v=!0},p:Be,i(l){v||(T(p.$$.fragment,l),v=!0)},o(l){x(p.$$.fragment,l),v=!1},d(l){l&&t(c),l&&t(f),M(p,l)}}}function W_(F){let c,y,f,p,v;return p=new Ue({props:{code:`from transformers import LayoutLMv3FeatureExtractor
 from PIL import Image
 
-image = Image.open("name_of_your_document - can be a png file, pdf, etc.").convert("RGB")
+# Document can be a png, jpg, etc. PDFs must be converted to images.
+image = Image.open(name_of_your_document).convert("RGB")
 
 # option 1: with apply_ocr=True (default)
 feature_extractor = LayoutLMv3FeatureExtractor()
@@ -34,7 +35,8 @@ print(encoding.keys())
 # dict_keys(['pixel_values'])`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> LayoutLMv3FeatureExtractor
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>image = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;name_of_your_document - can be a png file, pdf, etc.&quot;</span>).convert(<span class="hljs-string">&quot;RGB&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Document can be a png, jpg, etc. PDFs must be converted to images.</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>image = Image.<span class="hljs-built_in">open</span>(name_of_your_document).convert(<span class="hljs-string">&quot;RGB&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># option 1: with apply_ocr=True (default)</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = LayoutLMv3FeatureExtractor()
