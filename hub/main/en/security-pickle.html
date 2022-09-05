@@ -1,0 +1,268 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;pickle-scanning&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;tldr&quot;,&quot;title&quot;:&quot;TL;DR&quot;},{&quot;local&quot;:&quot;what-is-a-pickle&quot;,&quot;title&quot;:&quot;What is a pickle?&quot;},{&quot;local&quot;:&quot;why-is-it-dangerous&quot;,&quot;title&quot;:&quot;Why is it dangerous?&quot;},{&quot;local&quot;:&quot;mitigation-strategies&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;load-files-from-users-and-organizations-you-trust&quot;,&quot;title&quot;:&quot;Load files from users and organizations you trust&quot;},{&quot;local&quot;:&quot;load-model-weights-from-tf-or-flax&quot;,&quot;title&quot;:&quot;Load model weights from TF or Flax&quot;},{&quot;local&quot;:&quot;hubs-security-scanner&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;what-we-have-now&quot;,&quot;title&quot;:&quot;What we have now&quot;},{&quot;local&quot;:&quot;potential-solutions&quot;,&quot;title&quot;:&quot;Potential solutions&quot;}],&quot;title&quot;:&quot;Hub’s Security Scanner&quot;}],&quot;title&quot;:&quot;Mitigation Strategies&quot;},{&quot;local&quot;:&quot;further-reading&quot;,&quot;title&quot;:&quot;Further Reading&quot;}],&quot;title&quot;:&quot;Pickle Scanning&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/hub/main/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/hub/main/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/hub/main/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/hub/main/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/hub/main/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/hub/main/en/_app/pages/security-pickle.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/hub/main/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/hub/main/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+<h1 class="relative group"><a id="pickle-scanning" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#pickle-scanning"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Pickle Scanning
+	</span></h1>
+
+<ul><li><a href="#tldr">TL;DR</a></li>
+<li><a href="#what-is-a-pickle">What is a pickle?</a></li>
+<li><a href="#why-is-it-dangerous">Why is it dangerous?</a></li>
+<li><a href="#mitigation-strategies">Mitigation Strategies</a><ul><li><a href="#load-files-from-users-and-organizations-you-trust">Load files from users and organizations you trust</a></li>
+<li><a href="#load-model-weights-from-tf-or-flax">Load model weights from TF or Flax</a></li>
+<li><a href="#hubs-security-scanner">Hub’s Security Scanner</a><ul><li><a href="#what-we-have-now">What we have now</a></li>
+<li><a href="#potential-solutions">Potential solutions</a></li></ul></li></ul></li>
+<li><a href="#further-reading">Further Reading</a></li></ul>
+<h2 class="relative group"><a id="tldr" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#tldr"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>TL;DR
+	</span></h2>
+
+<p>Pickle is a widely used serialization format in ML. Most notably, it is the default format for PyTorch model weights.</p>
+<p>There are dangerous arbitrary code execution attacks that can be perpetrated when you load a pickle file. We suggest loading models from users and organizations you trust, relying on signed commits, and/or loading models from TF or Jax formats with the <code>from_tf=True</code> auto-conversion mechanism. We will also alleviate this issue shortly by displaying/“vetting” the list of imports in any pickled file, directly on the Hub. </p>
+<h2 class="relative group"><a id="what-is-a-pickle" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#what-is-a-pickle"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>What is a pickle?
+	</span></h2>
+
+<p>From the <a href="https://docs.python.org/3/library/pickle.html" rel="nofollow">official docs</a> :</p>
+<blockquote><p>The <code>pickle</code> module implements binary protocols for serializing and de-serializing a Python object structure.</p></blockquote>
+<p>What this means is that pickle is a serializing protocol, something you use to efficiently share data amongst parties.</p>
+<p>We call a pickle the binary file that was generated while pickling.</p>
+<p>At its core, the pickle is basically a stack of instructions or opcodes. As you probably have guessed, it’s not human readable. The opcodes are generated when pickling and read sequentially at unpickling. Based on the opcode, a given action is executed.</p>
+<p>Here’s a small example:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> pickle
+<span class="hljs-keyword">import</span> pickletools
+
+var = <span class="hljs-string">&quot;data I want to share with a friend&quot;</span>
+
+<span class="hljs-comment"># store the pickle data in a file named &#x27;payload.pkl&#x27;</span>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;payload.pkl&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:
+    pickle.dump(var, f)
+
+<span class="hljs-comment"># disassemble the pickle</span>
+<span class="hljs-comment"># and print the instructions to the command line</span>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;payload.pkl&#x27;</span>, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:
+    pickletools.dis(f)<!-- HTML_TAG_END --></pre></div>
+<p>When you run this, it will create a pickle file and print the following instructions in your terminal:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->    <span class="hljs-number">0</span>: \x80 PROTO      <span class="hljs-number">4</span>
+    <span class="hljs-number">2</span>: \x95 FRAME      <span class="hljs-number">48</span>
+   <span class="hljs-number">11</span>: \x8c SHORT_BINUNICODE <span class="hljs-string">&#x27;data I want to share with a friend&#x27;</span>
+   <span class="hljs-number">57</span>: \x94 MEMOIZE    (<span class="hljs-keyword">as</span> <span class="hljs-number">0</span>)
+   <span class="hljs-number">58</span>: .    STOP
+highest protocol among opcodes = <span class="hljs-number">4</span><!-- HTML_TAG_END --></pre></div>
+<p>Don’t worry too much about the instructions for now, just know that the <a href="https://docs.python.org/3/library/pickletools.html" rel="nofollow">pickletools</a> module is very useful for analyzing pickles. It allows you to read the instructions in the file <strong><em>without</em></strong> executing any code.</p>
+<p>Pickle is not simply a serialization protocol, it allows more flexibility by giving the ability to users to run python code at de-serialization time. Doesn’t sound good, does it?</p>
+<h2 class="relative group"><a id="why-is-it-dangerous" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#why-is-it-dangerous"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Why is it dangerous?
+	</span></h2>
+
+<p>As we’ve stated above, de-serializing pickle means that code can be executed. But this comes with certain limitations: you can only reference functions and classes from the top level module; you cannot embed them in the pickle file itself.</p>
+<p>Back to the drawing board:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> pickle
+<span class="hljs-keyword">import</span> pickletools
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Data</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, important_stuff: <span class="hljs-built_in">str</span></span>):
+        self.important_stuff = important_stuff
+
+d = Data(<span class="hljs-string">&quot;42&quot;</span>)
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;payload.pkl&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:
+    pickle.dump(d, f)<!-- HTML_TAG_END --></pre></div>
+<p>When we run this script we get the <code>payload.pkl</code> again. When we check the file’s contents:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->
+<span class="hljs-comment"># cat payload.pkl</span>
+__main__Data)}important_stuff42sb.%
+
+<span class="hljs-comment"># hexyl payload.pkl</span>
+┌────────┬─────────────────────────┬─────────────────────────┬────────┬────────┐
+│00000000│ 80 04 95 33 00 00 00 00 ┊ 00 00 00 8c 08 5f 5f 6d │×•×30000┊000×•__m│
+│00000010│ 61 69 6e 5f 5f 94 8c 04 ┊ 44 61 74 61 94 93 94 29 │ain__××•┊Data×××)│
+│00000020│ 81 94 7d 94 8c 0f 69 6d ┊ 70 6f 72 74 61 6e 74 5f │××}××•im┊portant_│
+│00000030│ 73 74 75 66 66 94 8c 02 ┊ 34 32 94 73 62 2e       │stuff××•┊42×sb.  │
+└────────┴─────────────────────────┴─────────────────────────┴────────┴────────┘<!-- HTML_TAG_END --></pre></div>
+<p>We can see that there isn’t much in there, a few opcodes and the associated data. You might be thinking, so what’s the problem with pickle?</p>
+<p>Let’s try something else:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> fickling.pickle <span class="hljs-keyword">import</span> Pickled
+<span class="hljs-keyword">import</span> pickle
+
+<span class="hljs-comment"># Create a malicious pickle</span>
+data = <span class="hljs-string">&quot;my friend needs to know this&quot;</span>
+
+pickle_bin = pickle.dumps(data)
+
+p = Pickled.load(pickle_bin)
+
+p.insert_python_exec(<span class="hljs-string">&#x27;print(&quot;you\&#x27;ve been pwned !&quot;)&#x27;</span>)
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;payload.pkl&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:
+    p.dump(f)
+
+<span class="hljs-comment"># innocently unpickle and get your friend&#x27;s data</span>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;payload.pkl&#x27;</span>, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:
+    data = pickle.load(f)
+    <span class="hljs-built_in">print</span>(data)<!-- HTML_TAG_END --></pre></div>
+<p>Here we’re using the <a href="https://github.com/trailofbits/fickling" rel="nofollow">fickling</a> library for simplicity. It allows us to add pickle instructions to execute code contained in a string via the <code>exec</code> function. This is how you circumvent the fact that you cannot define functions or classes in your pickles: you run exec on python code saved as a string.</p>
+<p>When you run this, it creates a <code>payload.pkl</code> and prints the following:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->you<span class="hljs-comment">&#x27;ve been pwned !</span>
+my <span class="hljs-keyword">friend</span> needs <span class="hljs-keyword">to</span> know this<!-- HTML_TAG_END --></pre></div>
+<p>If we check the contents of the pickle file, we get:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># cat payload.pkl</span>
+c__builtin__
+<span class="hljs-built_in">exec</span>
+(Vprint(<span class="hljs-string">&quot;you&#x27;ve been pwned !&quot;</span>)
+tR my friend needs to know this.%
+
+<span class="hljs-comment"># hexyl payload.pkl</span>
+┌────────┬─────────────────────────┬─────────────────────────┬────────┬────────┐
+│00000000│ 63 5f 5f 62 75 69 6c 74 ┊ 69 6e 5f 5f 0a 65 78 65 │c__built┊in___exe│
+│00000010│ 63 0a 28 56 70 72 69 6e ┊ 74 28 22 79 6f 75 27 76 │c_(Vprin┊t(<span class="hljs-string">&quot;you&#x27;v│
+│00000020│ 65 20 62 65 65 6e 20 70 ┊ 77 6e 65 64 20 21 22 29 │e been p┊wned !&quot;</span>)│
+│00000030│ 0a 74 52 80 04 95 20 00 ┊ 00 00 00 00 00 00 8c 1c │_tR×•× 0┊000000×•│
+│00000040│ 6d 79 20 66 72 69 65 6e ┊ 64 20 6e 65 65 64 73 20 │my frien┊d needs │
+│00000050│ 74 6f 20 6b 6e 6f 77 20 ┊ 74 68 69 73 94 2e       │to know ┊this×.  │
+└────────┴─────────────────────────┴─────────────────────────┴────────┴────────┘<!-- HTML_TAG_END --></pre></div>
+<p>Basically, this is what’s happening when you unpickle:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># ...</span>
+opcodes_stack = [exec_func, <span class="hljs-string">&quot;malicious argument&quot;</span>, <span class="hljs-string">&quot;REDUCE&quot;</span>]
+opcode = stack.pop()
+<span class="hljs-keyword">if</span> opcode == <span class="hljs-string">&quot;REDUCE&quot;</span>:
+    arg = opcodes_stack.pop()
+    <span class="hljs-built_in">callable</span> = opcodes_stack.pop()
+    opcodes_stack.append(<span class="hljs-built_in">callable</span>(arg))
+<span class="hljs-comment"># ...</span><!-- HTML_TAG_END --></pre></div>
+<p>The instructions that pose a threat are <code>STACK_GLOBAL</code>, <code>GLOBAL</code> and <code>REDUCE</code>.</p>
+<p><code>REDUCE</code> is what tells the unpickler to execute the function with the provided arguments and <code>*GLOBAL</code> instructions are telling the unpickler to <code>import</code> stuff.</p>
+<p>To sum up, pickle is dangerous because:</p>
+<ul><li>when importing a python module, arbitrary code can be executed</li>
+<li>you can import builtin functions like <code>eval</code> or <code>exec</code>, which can be used to execute arbitrary code</li>
+<li>when instantiating an object, the constructor may be called</li></ul>
+<p>This is why it is stated in most docs using pickle, do not unpickle data from untrusted sources.</p>
+<h2 class="relative group"><a id="mitigation-strategies" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#mitigation-strategies"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Mitigation Strategies
+	</span></h2>
+
+<p><strong><em>Don’t use pickle</em></strong></p>
+<p>Sound advice Luc, but pickle is used profusely and isn’t going anywhere soon: finding a new format everyone is happy with and initiating the change will take some time.</p>
+<p>So what can we do for now?</p>
+<h3 class="relative group"><a id="load-files-from-users-and-organizations-you-trust" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#load-files-from-users-and-organizations-you-trust"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Load files from users and organizations you trust
+	</span></h3>
+
+<p>On the Hub, you have the ability to <a href="./security-gpg">sign your commits with a GPG key</a>. This does <strong>not</strong> guarantee that your file is safe, but it does guarantee the origin of the file.</p>
+<p>If you know and trust user A and the commit that includes the file on the Hub is signed by user A’s GPG key, it’s pretty safe to assume that you can trust the file.</p>
+<h3 class="relative group"><a id="load-model-weights-from-tf-or-flax" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#load-model-weights-from-tf-or-flax"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Load model weights from TF or Flax
+	</span></h3>
+
+<p>TensorFlow and Flax checkpoints are not affected, and can be loaded within PyTorch architectures using the <code>from_tf</code> and <code>from_flax</code> kwargs for the <code>from_pretrained</code> method to circumvent this issue.</p>
+<p>E.g.:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModel
+
+model = AutoModel.from_pretrained(<span class="hljs-string">&quot;bert-base-cased&quot;</span>, from_flax=<span class="hljs-literal">True</span>)<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="hubs-security-scanner" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#hubs-security-scanner"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Hub’s Security Scanner
+	</span></h3>
+
+<h4 class="relative group"><a id="what-we-have-now" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#what-we-have-now"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>What we have now
+	</span></h4>
+
+<p>We have created a security scanner that scans every file pushed to the Hub and runs security checks. At the time of writing, it runs two types of scans:</p>
+<ul><li>ClamAV scans</li>
+<li>Pickle Import scans</li></ul>
+<p>For ClamAV scans, files are run through the open-source antivirus <a href="https://www.clamav.net" rel="nofollow">ClamAV</a>. While this covers a good amount of dangerous files, it doesn’t cover pickle exploits.</p>
+<p>We have implemented a Pickle Import scan, which extracts the list of imports referenced in a pickle file. Every time you upload a <code>pytorch_model.bin</code>, this scan is run.</p>
+<p>We get this data thanks to <code>[pickletools.genops](https://docs.python.org/3/library/pickletools.html#pickletools.genops)</code> which allows us to read the file without executing potentially dangerous code.</p>
+<p>Note that this is what allows to know if, when unpickling a file, it will <code>REDUCE</code> on a potentially dangerous function that was imported by <code>*GLOBAL</code>.</p>
+<h4 class="relative group"><a id="potential-solutions" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#potential-solutions"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Potential solutions
+	</span></h4>
+
+<p>One could think of creating a custom <a href="https://docs.python.org/3/library/pickle.html#pickle.Unpickler" rel="nofollow">Unpickler</a> in the likes of <a href="https://github.com/facebookresearch/CrypTen/blob/main/crypten/common/serial.py" rel="nofollow">this one</a>. But as we can see in this <a href="https://ctftime.org/writeup/16723" rel="nofollow">sophisticated exploit</a>, this won’t work.</p>
+<p>Thankfully, there is always a trace of the <code>eval</code> import, so reading the opcodes directly should allow to catch malicious usage.</p>
+<p>The current solution I propose is creating a file resembling a <code>.gitignore</code> but for imports.</p>
+<p>This file would be a whitelist of imports that would make a <code>pytorch_model.bin</code> file flagged as dangerous if there are imports not included in the whitelist.</p>
+<p>One could imagine having a regex-ish format where you could allow all numpy submodules for instance via a simple line like: <code>numpy.*</code>.</p>
+<h2 class="relative group"><a id="further-reading" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#further-reading"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Further Reading
+	</span></h2>
+
+<p><a href="https://github.com/pytorch/pytorch/issues/52181" rel="nofollow">Safe way of loading only weights from *.pt file by default</a></p>
+<p><a href="https://docs.python.org/3/library/pickle.html#what-can-be-pickled-and-unpickled" rel="nofollow">pickle - Python object serialization - Python 3.10.6 documentation</a></p>
+<p><a href="https://intoli.com/blog/dangerous-pickles/" rel="nofollow">Dangerous Pickles - Malicious Python Serialization</a></p>
+<p><a href="https://github.com/trailofbits/fickling" rel="nofollow">GitHub - trailofbits/fickling: A Python pickling decompiler and static analyzer</a></p>
+<p><a href="https://davidhamann.de/2020/04/05/exploiting-python-pickle/" rel="nofollow">Exploiting Python pickles</a></p>
+<p><a href="https://github.com/python/cpython/blob/3.10/Lib/pickletools.py" rel="nofollow">cpython/pickletools.py at 3.10 · python/cpython</a></p>
+<p><a href="https://github.com/python/cpython/blob/3.10/Lib/pickle.py" rel="nofollow">cpython/pickle.py at 3.10 · python/cpython</a></p>
+<p><a href="https://github.com/facebookresearch/CrypTen/blob/main/crypten/common/serial.py" rel="nofollow">CrypTen/serial.py at main · facebookresearch/CrypTen</a></p>
+<p><a href="https://ctftime.org/writeup/16723" rel="nofollow">CTFtime.org / Balsn CTF 2019 / pyshv1 / Writeup</a></p>
+<p><a href="https://github.com/moreati/pickle-fuzz" rel="nofollow">https://github.com/moreati/pickle-fuzz</a></p>
+
+
+		<script type="module" data-hydrate="wkgj2f">
+		import { start } from "/docs/hub/main/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="wkgj2f"]').parentNode,
+			paths: {"base":"/docs/hub/main/en","assets":"/docs/hub/main/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/hub/main/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/hub/main/en/_app/pages/security-pickle.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
