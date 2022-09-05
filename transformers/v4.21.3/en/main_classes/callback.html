@@ -1,0 +1,976 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;callbacks&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;transformers.integrations.CometCallback&quot;,&quot;title&quot;:&quot;Available Callbacks&quot;},{&quot;local&quot;:&quot;transformers.TrainerCallback&quot;,&quot;title&quot;:&quot;TrainerCallback&quot;},{&quot;local&quot;:&quot;transformers.TrainerState&quot;,&quot;title&quot;:&quot;TrainerState&quot;},{&quot;local&quot;:&quot;transformers.TrainerControl&quot;,&quot;title&quot;:&quot;TrainerControl&quot;}],&quot;title&quot;:&quot;Callbacks&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.3/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.3/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.3/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.3/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.3/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.3/en/_app/pages/main_classes/callback.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.3/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.3/en/_app/chunks/Docstring-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.3/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.3/en/_app/chunks/CodeBlock-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.21.3/en/_app/chunks/ExampleCodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="callbacks" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#callbacks"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Callbacks
+	</span></h1>
+
+<p>Callbacks are objects that can customize the behavior of the training loop in the PyTorch
+<a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.Trainer">Trainer</a> (this feature is not yet implemented in TensorFlow) that can inspect the training loop
+state (for progress reporting, logging on TensorBoard or other ML platforms…) and take decisions (like early
+stopping).</p>
+<p>Callbacks are “read only” pieces of code, apart from the <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerControl">TrainerControl</a> object they return, they
+cannot change anything in the training loop. For customizations that require changes in the training loop, you should
+subclass <a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.Trainer">Trainer</a> and override the methods you need (see <a href="trainer">trainer</a> for examples).</p>
+<p>By default a <a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.Trainer">Trainer</a> will use the following callbacks:</p>
+<ul><li><a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.DefaultFlowCallback">DefaultFlowCallback</a> which handles the default behavior for logging, saving and evaluation.</li>
+<li><a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.PrinterCallback">PrinterCallback</a> or <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.ProgressCallback">ProgressCallback</a> to display progress and print the
+logs (the first one is used if you deactivate tqdm through the <a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.TrainingArguments">TrainingArguments</a>, otherwise
+it’s the second one).</li>
+<li><a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.integrations.TensorBoardCallback">TensorBoardCallback</a> if tensorboard is accessible (either through PyTorch &gt;= 1.4
+or tensorboardX).</li>
+<li><a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.integrations.WandbCallback">WandbCallback</a> if <a href="https://www.wandb.com/" rel="nofollow">wandb</a> is installed.</li>
+<li><a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.integrations.CometCallback">CometCallback</a> if <a href="https://www.comet.ml/site/" rel="nofollow">comet_ml</a> is installed.</li>
+<li><a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.integrations.MLflowCallback">MLflowCallback</a> if <a href="https://www.mlflow.org/" rel="nofollow">mlflow</a> is installed.</li>
+<li><a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.integrations.AzureMLCallback">AzureMLCallback</a> if <a href="https://pypi.org/project/azureml-sdk/" rel="nofollow">azureml-sdk</a> is
+installed.</li>
+<li><a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.integrations.CodeCarbonCallback">CodeCarbonCallback</a> if <a href="https://pypi.org/project/codecarbon/" rel="nofollow">codecarbon</a> is
+installed.</li></ul>
+<p>The main class that implements callbacks is <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a>. It gets the
+<a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.TrainingArguments">TrainingArguments</a> used to instantiate the <a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.Trainer">Trainer</a>, can access that
+Trainer’s internal state via <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerState">TrainerState</a>, and can take some actions on the training loop via
+<a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerControl">TrainerControl</a>.</p>
+<h2 class="relative group"><a id="transformers.integrations.CometCallback" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.integrations.CometCallback"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Available Callbacks
+	</span></h2>
+
+<p>Here is the list of the available <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a> in the library:</p>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.integrations.CometCallback"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.integrations.</span><span class="font-semibold">CometCallback</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.integrations.CometCallback" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.integrations.CometCallback"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/integrations.py#L692" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>A <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a> that sends the logs to <a href="https://www.comet.ml/site/" rel="nofollow">Comet ML</a>.</p>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.integrations.CometCallback.setup"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>setup</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.integrations.CometCallback.setup" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.integrations.CometCallback.setup"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/integrations.py#L703" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60"></span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60"></span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">model<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Setup the optional Comet.ml integration.</p>
+<p>Environment:
+COMET_MODE (<code>str</code>, <em>optional</em>):
+Whether to create an online, offline experiment or disable Comet logging. Can be “OFFLINE”, “ONLINE”,
+or “DISABLED”. Defaults to “ONLINE”.
+COMET_PROJECT_NAME (<code>str</code>, <em>optional</em>):
+Comet project name for experiments
+COMET_OFFLINE_DIRECTORY (<code>str</code>, <em>optional</em>):
+Folder to use for saving offline experiments when <code>COMET_MODE</code> is “OFFLINE”
+COMET_LOG_ASSETS (<code>str</code>, <em>optional</em>):
+Whether or not to log training assets (tf event logs, checkpoints, etc), to Comet. Can be “TRUE”, or
+“FALSE”. Defaults to “TRUE”.</p>
+<p>For a number of configurable items in the environment, see
+<a href="https://www.comet.ml/docs/python-sdk/advanced/#comet-configuration-variables" rel="nofollow">here</a>.</p></div></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.DefaultFlowCallback"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.</span><span class="font-semibold">DefaultFlowCallback</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.DefaultFlowCallback" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.DefaultFlowCallback"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L415" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>A <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a> that handles the default flow of the training loop for logs, evaluation and checkpoints.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.PrinterCallback"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.</span><span class="font-semibold">PrinterCallback</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.PrinterCallback" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.PrinterCallback"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L513" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>A bare <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a> that just prints the logs.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.ProgressCallback"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.</span><span class="font-semibold">ProgressCallback</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.ProgressCallback" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.ProgressCallback"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L465" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>A <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a> that displays the progress of training or evaluation.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.EarlyStoppingCallback"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.</span><span class="font-semibold">EarlyStoppingCallback</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.EarlyStoppingCallback" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.EarlyStoppingCallback"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L524" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">early_stopping_patience<span class="opacity-60">: int = 1</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">early_stopping_threshold<span class="opacity-60">: typing.Optional[float] = 0.0</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		<p class="flex items-center font-semibold !mt-2 !mb-2 text-gray-800">Parameters <span class="flex-auto border-t-2 border-gray-100 dark:border-gray-700 ml-3"></span></p>
+			<ul class="px-2"><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.EarlyStoppingCallback.early_stopping_patience" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.EarlyStoppingCallback.early_stopping_patience"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>early_stopping_patience</strong> (<code>int</code>) &#x2014;
+Use with <code>metric_for_best_model</code> to stop training when the specified metric worsens for
+<code>early_stopping_patience</code> evaluation calls.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.EarlyStoppingCallback.early_stopping_threshold(float," class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.EarlyStoppingCallback.early_stopping_threshold(float,"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>early_stopping_threshold(<code>float</code>,</strong> <em>optional</em>) &#x2014;
+Use with TrainingArguments <code>metric_for_best_model</code> and <code>early_stopping_patience</code> to denote how much the
+specified metric must improve to satisfy early stopping conditions. `<!-- HTML_TAG_END -->
+							</span></span>
+					</li></ul>
+		
+		</div></div>
+<p>A <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a> that handles early stopping.</p>
+<p>This callback depends on <a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.TrainingArguments">TrainingArguments</a> argument <em>load_best_model_at_end</em> functionality to set best_metric
+in <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerState">TrainerState</a>.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.integrations.TensorBoardCallback"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.integrations.</span><span class="font-semibold">TensorBoardCallback</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.integrations.TensorBoardCallback" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.integrations.TensorBoardCallback"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/integrations.py#L477" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">tb_writer<span class="opacity-60"> = None</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		<p class="flex items-center font-semibold !mt-2 !mb-2 text-gray-800">Parameters <span class="flex-auto border-t-2 border-gray-100 dark:border-gray-700 ml-3"></span></p>
+			<ul class="px-2"><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.integrations.TensorBoardCallback.tb_writer" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.integrations.TensorBoardCallback.tb_writer"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>tb_writer</strong> (<code>SummaryWriter</code>, <em>optional</em>) &#x2014;
+The writer to use. Will instantiate one if not set.<!-- HTML_TAG_END -->
+							</span></span>
+					</li></ul>
+		
+		</div></div>
+<p>A <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a> that sends the logs to <a href="https://www.tensorflow.org/tensorboard" rel="nofollow">TensorBoard</a>.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.integrations.WandbCallback"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.integrations.</span><span class="font-semibold">WandbCallback</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.integrations.WandbCallback" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.integrations.WandbCallback"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/integrations.py#L566" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>A <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a> that sends the logs to <a href="https://www.wandb.com/" rel="nofollow">Weight and Biases</a>.</p>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.integrations.WandbCallback.setup"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>setup</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.integrations.WandbCallback.setup" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.integrations.WandbCallback.setup"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/integrations.py#L583" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60"></span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60"></span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">model<span class="opacity-60"></span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Setup the optional Weights &amp; Biases (<em>wandb</em>) integration.</p>
+<p>One can subclass and override this method to customize the setup if needed. Find more information
+<a href="https://docs.wandb.ai/integrations/huggingface" rel="nofollow">here</a>. You can also override the following environment
+variables:</p>
+<p>Environment:
+WANDB_LOG_MODEL (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>):
+Whether or not to log model as artifact at the end of training. Use along with
+<em>TrainingArguments.load_best_model_at_end</em> to upload best model.
+WANDB_WATCH (<code>str</code>, <em>optional</em> defaults to <code>&quot;gradients&quot;</code>):
+Can be <code>&quot;gradients&quot;</code>, <code>&quot;all&quot;</code> or <code>&quot;false&quot;</code>. Set to <code>&quot;false&quot;</code> to disable gradient logging or <code>&quot;all&quot;</code> to
+log gradients and parameters.
+WANDB_PROJECT (<code>str</code>, <em>optional</em>, defaults to <code>&quot;huggingface&quot;</code>):
+Set this to a custom string to store results in a different project.
+WANDB_DISABLED (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>):
+Whether or not to disable wandb entirely. Set <em>WANDB_DISABLED=true</em> to disable.</p></div></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.integrations.MLflowCallback"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.integrations.</span><span class="font-semibold">MLflowCallback</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.integrations.MLflowCallback" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.integrations.MLflowCallback"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/integrations.py#L792" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>A <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a> that sends the logs to <a href="https://www.mlflow.org/" rel="nofollow">MLflow</a>. Can be disabled by setting
+environment variable <code>DISABLE_MLFLOW_INTEGRATION = TRUE</code>.</p>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.integrations.MLflowCallback.setup"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>setup</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.integrations.MLflowCallback.setup" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.integrations.MLflowCallback.setup"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/integrations.py#L811" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60"></span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60"></span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">model<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Setup the optional MLflow integration.</p>
+<p>Environment:
+HF_MLFLOW_LOG_ARTIFACTS (<code>str</code>, <em>optional</em>):
+Whether to use MLflow .log_artifact() facility to log artifacts. This only makes sense if logging to a
+remote server, e.g. s3 or GCS. If set to <code>True</code> or <em>1</em>, will copy each saved checkpoint on each save in
+<a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.TrainingArguments">TrainingArguments</a>’s <code>output_dir</code> to the local or remote artifact storage. Using it without a remote
+storage will just copy the files to your artifact location.
+MLFLOW_EXPERIMENT_NAME (<code>str</code>, <em>optional</em>):
+Whether to use an MLflow experiment_name under which to launch the run. Default to “None” which will
+point to the “Default” experiment in MLflow. Otherwise, it is a case sensitive name of the experiment
+to be activated. If an experiment with this name does not exist, a new experiment with this name is
+created.
+MLFLOW_TAGS (<code>str</code>, <em>optional</em>):
+A string dump of a dictionary of key/value pair to be added to the MLflow run as tags. Example:
+os.environ[‘MLFLOW_TAGS’]=’{“release.candidate”: “RC1”, “release.version”: “2.2.0”}’
+MLFLOW_NESTED_RUN (<code>str</code>, <em>optional</em>):
+Whether to use MLflow nested runs. If set to <code>True</code> or <em>1</em>, will create a nested run inside the current
+run.
+MLFLOW_RUN_ID (<code>str</code>, <em>optional</em>):
+Allow to reattach to an existing run which can be usefull when resuming training from a checkpoint.
+When MLFLOW_RUN_ID environment variable is set, start_run attempts to resume a run with the specified
+run ID and other parameters are ignored.
+MLFLOW_FLATTEN_PARAMS (<code>str</code>, <em>optional</em>):
+Whether to flatten the parameters dictionary before logging. Default to <code>False</code>.</p></div></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.integrations.AzureMLCallback"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.integrations.</span><span class="font-semibold">AzureMLCallback</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.integrations.AzureMLCallback" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.integrations.AzureMLCallback"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/integrations.py#L769" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">azureml_run<span class="opacity-60"> = None</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>A <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a> that sends the logs to <a href="https://pypi.org/project/azureml-sdk/" rel="nofollow">AzureML</a>.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.integrations.CodeCarbonCallback"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.integrations.</span><span class="font-semibold">CodeCarbonCallback</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.integrations.CodeCarbonCallback" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.integrations.CodeCarbonCallback"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/integrations.py#L999" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>A <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a> that tracks the CO2 emission of training.</p></div>
+<h2 class="relative group"><a id="transformers.TrainerCallback" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>TrainerCallback
+	</span></h2>
+
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.</span><span class="font-semibold">TrainerCallback</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L159" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		<p class="flex items-center font-semibold !mt-2 !mb-2 text-gray-800">Parameters <span class="flex-auto border-t-2 border-gray-100 dark:border-gray-700 ml-3"></span></p>
+			<ul class="px-2"><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerCallback.args" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback.args"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>args</strong> (<a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.TrainingArguments">TrainingArguments</a>) &#x2014;
+The training arguments used to instantiate the <a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.Trainer">Trainer</a>.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerCallback.state" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback.state"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>state</strong> (<a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerState">TrainerState</a>) &#x2014;
+The current state of the <a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.Trainer">Trainer</a>.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerCallback.control" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback.control"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>control</strong> (<a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerControl">TrainerControl</a>) &#x2014;
+The object that is returned to the <a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.Trainer">Trainer</a> and can be used to make some decisions.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerCallback.model" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback.model"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>model</strong> (<a href="/docs/transformers/v4.21.3/en/main_classes/model#transformers.PreTrainedModel">PreTrainedModel</a> or <code>torch.nn.Module</code>) &#x2014;
+The model being trained.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerCallback.tokenizer" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback.tokenizer"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>tokenizer</strong> (<a href="/docs/transformers/v4.21.3/en/main_classes/tokenizer#transformers.PreTrainedTokenizer">PreTrainedTokenizer</a>) &#x2014;
+The tokenizer used for encoding the data.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerCallback.optimizer" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback.optimizer"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>optimizer</strong> (<code>torch.optim.Optimizer</code>) &#x2014;
+The optimizer used for the training steps.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerCallback.lr_scheduler" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback.lr_scheduler"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>lr_scheduler</strong> (<code>torch.optim.lr_scheduler.LambdaLR</code>) &#x2014;
+The scheduler used for setting the learning rate.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerCallback.train_dataloader" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback.train_dataloader"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>train_dataloader</strong> (<code>torch.utils.data.DataLoader</code>, <em>optional</em>) &#x2014;
+The current dataloader used for training.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerCallback.eval_dataloader" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback.eval_dataloader"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>eval_dataloader</strong> (<code>torch.utils.data.DataLoader</code>, <em>optional</em>) &#x2014;
+The current dataloader used for training.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerCallback.metrics" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback.metrics"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>metrics</strong> (<code>Dict[str, float]</code>) &#x2014;
+The metrics computed by the last evaluation phase.</p>
+<p>Those are only accessible in the event <code>on_evaluate</code>.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerCallback.logs" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback.logs"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>logs</strong>  (<code>Dict[str, float]</code>) &#x2014;
+The values to log.</p>
+<p>Those are only accessible in the event <code>on_log</code>.<!-- HTML_TAG_END -->
+							</span></span>
+					</li></ul>
+		
+		</div></div>
+<p>A class for objects that will inspect the state of the training loop at some events and take some decisions. At
+each of those events the following arguments are available:</p>
+<p>The <code>control</code> object is the only one that can be changed by the callback, in which case the event that changes it
+should return the modified version.</p>
+<p>The argument <code>args</code>, <code>state</code> and <code>control</code> are positionals for all events, all the others are grouped in <code>kwargs</code>.
+You can unpack the ones you need in the signature of the event using them. As an example, see the code of the
+simple <code>PrinterCallback</code>.</p>
+
+
+<div class="relative group rounded-md"><a id="transformers.TrainerCallback.example" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerCallback.example"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<p>Example:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">class</span> <span class="hljs-title class_">PrinterCallback</span>(<span class="hljs-title class_ inherited__">TrainerCallback</span>):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">on_log</span>(<span class="hljs-params">self, args, state, control, logs=<span class="hljs-literal">None</span>, **kwargs</span>):
+        _ = logs.pop(<span class="hljs-string">&quot;total_flos&quot;</span>, <span class="hljs-literal">None</span>)
+        <span class="hljs-keyword">if</span> state.is_local_process_zero:
+            <span class="hljs-built_in">print</span>(logs)<!-- HTML_TAG_END --></pre></div></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_epoch_begin"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_epoch_begin</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_epoch_begin" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_epoch_begin"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L227" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called at the beginning of an epoch.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_epoch_end"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_epoch_end</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_epoch_end" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_epoch_end"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L233" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called at the end of an epoch.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_evaluate"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_evaluate</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_evaluate" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_evaluate"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L259" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called after an evaluation phase.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_init_end"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_init_end</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_init_end" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_init_end"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L209" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called at the end of the initialization of the <a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.Trainer">Trainer</a>.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_log"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_log</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_log" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_log"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L277" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called after logging the last logs.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_predict"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_predict</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_predict" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_predict"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L265" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">metrics<span class="opacity-60"></span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called after a successful prediction.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_prediction_step"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_prediction_step</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_prediction_step" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_prediction_step"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L283" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called after a prediction step.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_save"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_save</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_save" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_save"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L271" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called after a checkpoint save.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_step_begin"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_step_begin</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_step_begin" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_step_begin"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L239" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called at the beginning of a training step. If using gradient accumulation, one training step might take
+several inputs.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_step_end"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_step_end</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_step_end" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_step_end"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L252" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called at the end of a training step. If using gradient accumulation, one training step might take
+several inputs.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_substep_end"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_substep_end</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_substep_end" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_substep_end"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L246" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called at the end of an substep during gradient accumulation.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_train_begin"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_train_begin</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_train_begin" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_train_begin"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L215" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called at the beginning of training.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerCallback.on_train_end"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>on_train_end</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerCallback.on_train_end" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerCallback.on_train_end"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L221" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">args<span class="opacity-60">: TrainingArguments</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">state<span class="opacity-60">: TrainerState</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">control<span class="opacity-60">: TrainerControl</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">**kwargs<span class="opacity-60"></span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Event called at the end of training.</p></div></div>
+<p>Here is an example of how to register a custom callback with the PyTorch <a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.Trainer">Trainer</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyCallback</span>(<span class="hljs-title class_ inherited__">TrainerCallback</span>):
+    <span class="hljs-string">&quot;A callback that prints a message at the beginning of training&quot;</span>
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">on_train_begin</span>(<span class="hljs-params">self, args, state, control, **kwargs</span>):
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Starting training&quot;</span>)
+
+
+trainer = Trainer(
+    model,
+    args,
+    train_dataset=train_dataset,
+    eval_dataset=eval_dataset,
+    callbacks=[MyCallback],  <span class="hljs-comment"># We can either pass the callback class this way or an instance of it (MyCallback())</span>
+)<!-- HTML_TAG_END --></pre></div>
+<p>Another way to register a callback is to call <code>trainer.add_callback()</code> as follows:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->trainer = Trainer(...)
+trainer.add_callback(MyCallback)
+<span class="hljs-comment"># Alternatively, we can pass an instance of the callback class</span>
+trainer.add_callback(MyCallback())<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="transformers.TrainerState" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerState"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>TrainerState
+	</span></h2>
+
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerState"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.</span><span class="font-semibold">TrainerState</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerState" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerState"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L35" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">epoch<span class="opacity-60">: typing.Optional[float] = None</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">global_step<span class="opacity-60">: int = 0</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">max_steps<span class="opacity-60">: int = 0</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">num_train_epochs<span class="opacity-60">: int = 0</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">total_flos<span class="opacity-60">: float = 0</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">log_history<span class="opacity-60">: typing.List[typing.Dict[str, float]] = None</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">best_metric<span class="opacity-60">: typing.Optional[float] = None</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">best_model_checkpoint<span class="opacity-60">: typing.Optional[str] = None</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">is_local_process_zero<span class="opacity-60">: bool = True</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">is_world_process_zero<span class="opacity-60">: bool = True</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">is_hyper_param_search<span class="opacity-60">: bool = False</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">trial_name<span class="opacity-60">: str = None</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">trial_params<span class="opacity-60">: typing.Dict[str, typing.Union[str, float, int, bool]] = None</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		<p class="flex items-center font-semibold !mt-2 !mb-2 text-gray-800">Parameters <span class="flex-auto border-t-2 border-gray-100 dark:border-gray-700 ml-3"></span></p>
+			<ul class="px-2"><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerState.epoch" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerState.epoch"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>epoch</strong> (<code>float</code>, <em>optional</em>) &#x2014;
+Only set during training, will represent the epoch the training is at (the decimal part being the
+percentage of the current epoch completed).<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerState.global_step" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerState.global_step"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>global_step</strong> (<code>int</code>, <em>optional</em>, defaults to 0) &#x2014;
+During training, represents the number of update steps completed.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerState.max_steps" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerState.max_steps"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>max_steps</strong> (<code>int</code>, <em>optional</em>, defaults to 0) &#x2014;
+The number of update steps to do during the current training.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerState.total_flos" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerState.total_flos"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>total_flos</strong> (<code>float</code>, <em>optional</em>, defaults to 0) &#x2014;
+The total number of floating operations done by the model since the beginning of training (stored as floats
+to avoid overflow).<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerState.log_history" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerState.log_history"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>log_history</strong> (<code>List[Dict[str, float]]</code>, <em>optional</em>) &#x2014;
+The list of logs done since the beginning of training.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerState.best_metric" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerState.best_metric"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>best_metric</strong> (<code>float</code>, <em>optional</em>) &#x2014;
+When tracking the best model, the value of the best metric encountered so far.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerState.best_model_checkpoint" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerState.best_model_checkpoint"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>best_model_checkpoint</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+When tracking the best model, the value of the name of the checkpoint for the best model encountered so
+far.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerState.is_local_process_zero" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerState.is_local_process_zero"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>is_local_process_zero</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
+Whether or not this process is the local (e.g., on one machine if training in a distributed fashion on
+several machines) main process.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerState.is_world_process_zero" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerState.is_world_process_zero"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>is_world_process_zero</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
+Whether or not this process is the global main process (when training in a distributed fashion on several
+machines, this is only going to be <code>True</code> for one process).<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerState.is_hyper_param_search" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerState.is_hyper_param_search"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>is_hyper_param_search</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether we are in the process of a hyper parameter search using Trainer.hyperparameter_search. This will
+impact the way data will be logged in TensorBoard.<!-- HTML_TAG_END -->
+							</span></span>
+					</li></ul>
+		
+		</div></div>
+<p>A class containing the <a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.Trainer">Trainer</a> inner state that will be saved along the model and optimizer when checkpointing
+and passed to the <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a>.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>In all this class, one step is to be understood as one update step. When using gradient accumulation, one update
+step may require several forward and backward passes: if you use <code>gradient_accumulation_steps=n</code>, then one update
+step requires going through <em>n</em> batches.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerState.load_from_json"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>load_from_json</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerState.load_from_json" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerState.load_from_json"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L101" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">json_path<span class="opacity-60">: str</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Create an instance from the content of <code>json_path</code>.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerState.save_to_json"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>save_to_json</span></h4><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerState.save_to_json" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerState.save_to_json"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L95" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">json_path<span class="opacity-60">: str</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		</div></div>
+<p>Save the content of this instance in JSON format inside <code>json_path</code>.</p></div></div>
+<h2 class="relative group"><a id="transformers.TrainerControl" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerControl"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>TrainerControl
+	</span></h2>
+
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="transformers.TrainerControl"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">transformers.</span><span class="font-semibold">TrainerControl</span></span></h3><!-- HTML_TAG_END -->
+		<a id="transformers.TrainerControl" class="header-link invisible with-hover:group-hover:visible pr-2" href="#transformers.TrainerControl"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/transformers/blob/v4.21.3/src/transformers/trainer_callback.py#L110" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">should_training_stop<span class="opacity-60">: bool = False</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">should_epoch_stop<span class="opacity-60">: bool = False</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">should_save<span class="opacity-60">: bool = False</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">should_evaluate<span class="opacity-60">: bool = False</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">should_log<span class="opacity-60">: bool = False</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		<p class="flex items-center font-semibold !mt-2 !mb-2 text-gray-800">Parameters <span class="flex-auto border-t-2 border-gray-100 dark:border-gray-700 ml-3"></span></p>
+			<ul class="px-2"><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerControl.should_training_stop" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerControl.should_training_stop"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>should_training_stop</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether or not the training should be interrupted.</p>
+<p>If <code>True</code>, this variable will not be set back to <code>False</code>. The training will just stop.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerControl.should_epoch_stop" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerControl.should_epoch_stop"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>should_epoch_stop</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether or not the current epoch should be interrupted.</p>
+<p>If <code>True</code>, this variable will be set back to <code>False</code> at the beginning of the next epoch.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerControl.should_save" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerControl.should_save"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>should_save</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether or not the model should be saved at this step.</p>
+<p>If <code>True</code>, this variable will be set back to <code>False</code> at the beginning of the next step.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerControl.should_evaluate" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerControl.should_evaluate"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>should_evaluate</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether or not the model should be evaluated at this step.</p>
+<p>If <code>True</code>, this variable will be set back to <code>False</code> at the beginning of the next step.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="transformers.TrainerControl.should_log" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers.TrainerControl.should_log"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>should_log</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether or not the logs should be reported at this step.</p>
+<p>If <code>True</code>, this variable will be set back to <code>False</code> at the beginning of the next step.<!-- HTML_TAG_END -->
+							</span></span>
+					</li></ul>
+		
+		</div></div>
+<p>A class that handles the <a href="/docs/transformers/v4.21.3/en/main_classes/trainer#transformers.Trainer">Trainer</a> control flow. This class is used by the <a href="/docs/transformers/v4.21.3/en/main_classes/callback#transformers.TrainerCallback">TrainerCallback</a> to activate some
+switches in the training loop.</p></div>
+
+
+		<script type="module" data-hydrate="1hkdwz2">
+		import { start } from "/docs/transformers/v4.21.3/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="1hkdwz2"]').parentNode,
+			paths: {"base":"/docs/transformers/v4.21.3/en","assets":"/docs/transformers/v4.21.3/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/transformers/v4.21.3/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/transformers/v4.21.3/en/_app/pages/main_classes/callback.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
