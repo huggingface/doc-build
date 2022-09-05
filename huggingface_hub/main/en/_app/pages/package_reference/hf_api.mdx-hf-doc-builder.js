@@ -648,6 +648,48 @@ if the repo is updated / committed to concurrently.`,name:"parent_commit"}],sour
 on the Hub. Otherwise returns <code>None</code>.</p>
 `,returnType:`
 <p><code>str</code> or <code>None</code></p>
+`,raiseDescription:`
+<ul>
+<li><ul>
+<li>\u2014 <a
+  href="https://docs.python.org/3/library/exceptions.html#ValueError"
+  rel="nofollow"
+><code>ValueError</code></a>
+If commit message is empty.</li>
+</ul></li>
+<li><ul>
+<li>\u2014 <a
+  href="https://docs.python.org/3/library/exceptions.html#ValueError"
+  rel="nofollow"
+><code>ValueError</code></a>
+If parent commit is not a valid commit OID.</li>
+</ul></li>
+<li><ul>
+<li>\u2014 <a
+  href="https://docs.python.org/3/library/exceptions.html#ValueError"
+  rel="nofollow"
+><code>ValueError</code></a>
+If the Hub API returns an HTTP 400 error (bad request)</li>
+</ul></li>
+<li><ul>
+<li>\u2014 <a
+  href="https://docs.python.org/3/library/exceptions.html#ValueError"
+  rel="nofollow"
+><code>ValueError</code></a>
+If <code>create_pr</code> is <code>True</code> and revision is neither <code>None</code> nor <code>"main"</code>.</li>
+</ul></li>
+<li><ul>
+<li>\u2014 <a
+  href="/docs/huggingface_hub/main/en/package_reference/utilities#huggingface_hub.utils.RepositoryNotFoundError"
+>RepositoryNotFoundError</a>:
+If repository is not found (error 404): wrong repo_id/repo_type, private
+but not authenticated or repo does not exist.</li>
+</ul></li>
+</ul>
+`,raiseType:`
+<ul>
+<li></li>
+</ul>
 `}}),At=new ne({props:{warning:!0,$$slots:{default:[Yu]},$$scope:{ctx:U}}}),Lo=new Q({props:{name:"create_discussion",anchor:"huggingface_hub.HfApi.create_discussion",parameters:[{name:"repo_id",val:": str"},{name:"title",val:": str"},{name:"token",val:": str"},{name:"description",val:": typing.Optional[str] = None"},{name:"repo_type",val:": typing.Optional[str] = None"},{name:"pull_request",val:": bool = False"}],parametersDescription:[{anchor:"huggingface_hub.HfApi.create_discussion.repo_id",description:`<strong>repo_id</strong> (<code>str</code>) &#x2014;
 A namespace (user or an organization) and a repo name separated
 by a <code>/</code>.`,name:"repo_id"},{anchor:"huggingface_hub.HfApi.create_discussion.title",description:`<strong>title</strong> (<code>str</code>) &#x2014;

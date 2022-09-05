@@ -81,7 +81,13 @@ The pattern with which to track files that are above 10MBs.`,name:"pattern"}],so
 size.</p>
 `,returnType:`
 <p><code>List[str]</code></p>
-`}}),Ft=new $({props:{name:"check_git_versions",anchor:"huggingface_hub.Repository.check_git_versions",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repository.py#L550"}}),Vt=new $({props:{name:"clone_from",anchor:"huggingface_hub.Repository.clone_from",parameters:[{name:"repo_url",val:": str"},{name:"use_auth_token",val:": typing.Union[bool, str, NoneType] = None"}],parametersDescription:[{anchor:"huggingface_hub.Repository.clone_from.repo_url",description:`<strong>repo_url</strong> (<code>str</code>) &#x2014;
+`}}),Ft=new $({props:{name:"check_git_versions",anchor:"huggingface_hub.Repository.check_git_versions",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repository.py#L550",raiseDescription:`
+<ul>
+<li><code>EnvironmentError</code> \u2014 if <code>git</code> or <code>git-lfs</code> are not installed.</li>
+</ul>
+`,raiseType:`
+<p><code>EnvironmentError</code></p>
+`}}),Vt=new $({props:{name:"clone_from",anchor:"huggingface_hub.Repository.clone_from",parameters:[{name:"repo_url",val:": str"},{name:"use_auth_token",val:": typing.Union[bool, str, NoneType] = None"}],parametersDescription:[{anchor:"huggingface_hub.Repository.clone_from.repo_url",description:`<strong>repo_url</strong> (<code>str</code>) &#x2014;
 The URL from which to clone the repository`,name:"repo_url"},{anchor:"huggingface_hub.Repository.clone_from.use_auth_token",description:`<strong>use_auth_token</strong> (<code>Union[str, bool]</code>, <em>optional</em>) &#x2014;
 Whether to use the authentication token. It can be:<ul>
 <li>a string which is the token itself</li>
