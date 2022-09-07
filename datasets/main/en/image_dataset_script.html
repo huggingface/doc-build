@@ -1,0 +1,372 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;create-an-image-dataset&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;imagefolder&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;image-captioning&quot;,&quot;title&quot;:&quot;Image captioning&quot;},{&quot;local&quot;:&quot;object-detection&quot;,&quot;title&quot;:&quot;Object detection&quot;}],&quot;title&quot;:&quot;ImageFolder&quot;},{&quot;local&quot;:&quot;loading-script&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;create-a-dataset-builder-class&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;multiple-configurations&quot;,&quot;title&quot;:&quot;Multiple configurations&quot;}],&quot;title&quot;:&quot;Create a dataset builder class&quot;},{&quot;local&quot;:&quot;add-dataset-metadata&quot;,&quot;title&quot;:&quot;Add dataset metadata&quot;},{&quot;local&quot;:&quot;download-and-define-the-dataset-splits&quot;,&quot;title&quot;:&quot;Download and define the dataset splits&quot;},{&quot;local&quot;:&quot;generate-the-dataset&quot;,&quot;title&quot;:&quot;Generate the dataset&quot;},{&quot;local&quot;:&quot;generate-the-dataset-metadata-optional&quot;,&quot;title&quot;:&quot;Generate the dataset metadata (optional)&quot;},{&quot;local&quot;:&quot;upload-the-dataset-to-the-hub&quot;,&quot;title&quot;:&quot;Upload the dataset to the Hub&quot;}],&quot;title&quot;:&quot;Loading script&quot;}],&quot;title&quot;:&quot;Create an image dataset&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/datasets/main/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/datasets/main/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/main/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/main/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/main/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/main/en/_app/pages/image_dataset_script.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/main/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/main/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/main/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+<h1 class="relative group"><a id="create-an-image-dataset" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#create-an-image-dataset"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Create an image dataset
+	</span></h1>
+
+<p>There are two methods for creating and sharing an image dataset. This guide will show you how to:</p>
+<ul><li>Create an image dataset with <code>ImageFolder</code> and some metadata. This is a no-code solution for quickly creating an image dataset. </li>
+<li>Create an image dataset by writing a loading script. This method is a bit more involved, but you have greater flexibility over how a dataset is defined, downloaded, and generated.</li></ul>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>You can control access to your dataset by requiring users to share their contact information first. Check out the <a href="https://huggingface.co/docs/hub/datasets-gated" rel="nofollow">Gated datasets</a> guide for more information about how to enable this feature on the Hub.</p></div>
+<h2 class="relative group"><a id="imagefolder" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#imagefolder"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>ImageFolder
+	</span></h2>
+
+<p>The <code>ImageFolder</code> is a dataset builder designed to quickly load an image dataset without requiring you to write any code. <code>ImageFolder</code> automatically infers the class labels of your dataset based on the directory name. Just store your dataset in a directory structure like:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->folder<span class="hljs-regexp">/train/</span>dog/golden_retriever.png
+folder<span class="hljs-regexp">/train/</span>dog/german_shepherd.png
+folder<span class="hljs-regexp">/train/</span>dog/chihuahua.png
+
+folder<span class="hljs-regexp">/train/</span>cat/maine_coon.png
+folder<span class="hljs-regexp">/train/</span>cat/bengal.png
+folder<span class="hljs-regexp">/train/</span>cat/birman.png<!-- HTML_TAG_END --></pre></div>
+<p>Then users can load your dataset by specifying <code>imagefolder</code> in <a href="/docs/datasets/main/en/package_reference/loading_methods#datasets.load_dataset">load_dataset()</a> and the directory in <code>data_dir</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>dataset = load_dataset(<span class="hljs-string">&quot;imagefolder&quot;</span>, data_dir=<span class="hljs-string">&quot;/path/to/folder&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>If there is additional information you’d like to include about your dataset, like text captions or bounding boxes, add it as a <code>metadata.jsonl</code> file in your folder. This lets you quickly create datasets for different computer vision tasks like text captioning or object detection.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->folder<span class="hljs-regexp">/train/m</span>etadata.jsonl
+folder<span class="hljs-regexp">/train/</span><span class="hljs-number">0001</span>.png
+folder<span class="hljs-regexp">/train/</span><span class="hljs-number">0002</span>.png
+folder<span class="hljs-regexp">/train/</span><span class="hljs-number">0003</span>.png<!-- HTML_TAG_END --></pre></div>
+<p>Your <code>metadata.jsonl</code> file must have a <code>file_name</code> column which links image files with their metadata:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-comment">&quot;file_name&quot;</span>: <span class="hljs-comment">&quot;0001.png&quot;</span>, <span class="hljs-comment">&quot;additional_feature&quot;</span>: <span class="hljs-comment">&quot;This is a first value of a text feature you added to your images&quot;</span>}
+{<span class="hljs-comment">&quot;file_name&quot;</span>: <span class="hljs-comment">&quot;0002.png&quot;</span>, <span class="hljs-comment">&quot;additional_feature&quot;</span>: <span class="hljs-comment">&quot;This is a second value of a text feature you added to your images&quot;</span>}
+{<span class="hljs-comment">&quot;file_name&quot;</span>: <span class="hljs-comment">&quot;0003.png&quot;</span>, <span class="hljs-comment">&quot;additional_feature&quot;</span>: <span class="hljs-comment">&quot;This is a third value of a text feature you added to your images&quot;</span>}<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>If metadata files are present, the inferred labels based on the directory name are dropped by default. To include those labels, set <code>drop_labels=False</code> in <code>load_dataset</code>.</p></div>
+<h3 class="relative group"><a id="image-captioning" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#image-captioning"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Image captioning
+	</span></h3>
+
+<p>Image captioning datasets have text describing an image. An example <code>metadata.jsonl</code> may look like:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-comment">&quot;file_name&quot;</span>: <span class="hljs-comment">&quot;0001.png&quot;</span>, <span class="hljs-comment">&quot;text&quot;</span>: <span class="hljs-comment">&quot;This is a golden retriever playing with a ball&quot;</span>}
+{<span class="hljs-comment">&quot;file_name&quot;</span>: <span class="hljs-comment">&quot;0002.png&quot;</span>, <span class="hljs-comment">&quot;text&quot;</span>: <span class="hljs-comment">&quot;A german shepherd&quot;</span>}
+{<span class="hljs-comment">&quot;file_name&quot;</span>: <span class="hljs-comment">&quot;0003.png&quot;</span>, <span class="hljs-comment">&quot;text&quot;</span>: <span class="hljs-comment">&quot;One chihuahua&quot;</span>}<!-- HTML_TAG_END --></pre></div>
+<p>Load the dataset with <code>ImageFolder</code>, and it will create a <code>text</code> column for the image captions:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>dataset = load_dataset(<span class="hljs-string">&quot;imagefolder&quot;</span>, data_dir=<span class="hljs-string">&quot;/path/to/folder&quot;</span>, split=<span class="hljs-string">&quot;train&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>dataset[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;text&quot;</span>]
+<span class="hljs-string">&quot;This is a golden retriever playing with a ball&quot;</span><!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="object-detection" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#object-detection"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Object detection
+	</span></h3>
+
+<p>Object detection datasets have bounding boxes and categories identifying objects in an image. An example <code>metadata.jsonl</code> may look like:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-string">&quot;file_name&quot;</span>: <span class="hljs-string">&quot;0001.png&quot;</span>, <span class="hljs-string">&quot;objects&quot;</span>: {<span class="hljs-string">&quot;bbox&quot;</span>: <span class="hljs-string">[[302.0, 109.0, 73.0, 52.0]]</span>, <span class="hljs-string">&quot;categories&quot;</span>: [<span class="hljs-number">0</span>]}}
+{<span class="hljs-string">&quot;file_name&quot;</span>: <span class="hljs-string">&quot;0002.png&quot;</span>, <span class="hljs-string">&quot;objects&quot;</span>: {<span class="hljs-string">&quot;bbox&quot;</span>: <span class="hljs-string">[[810.0, 100.0, 57.0, 28.0]]</span>, <span class="hljs-string">&quot;categories&quot;</span>: [<span class="hljs-number">1</span>]}}
+{<span class="hljs-string">&quot;file_name&quot;</span>: <span class="hljs-string">&quot;0003.png&quot;</span>, <span class="hljs-string">&quot;objects&quot;</span>: {<span class="hljs-string">&quot;bbox&quot;</span>: <span class="hljs-string">[[160.0, 31.0, 248.0, 616.0], [741.0, 68.0, 202.0, 401.0]]</span>, <span class="hljs-string">&quot;categories&quot;</span>: [<span class="hljs-number">2</span>, <span class="hljs-number">2</span>]}}<!-- HTML_TAG_END --></pre></div>
+<p>Load the dataset with <code>ImageFolder</code>, and it will create a <code>objects</code> column with the bounding boxes and the categories:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>dataset = load_dataset(<span class="hljs-string">&quot;imagefolder&quot;</span>, data_dir=<span class="hljs-string">&quot;/path/to/folder&quot;</span>, split=<span class="hljs-string">&quot;train&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>dataset[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;objects&quot;</span>]
+{<span class="hljs-string">&quot;bbox&quot;</span>: [[<span class="hljs-number">302.0</span>, <span class="hljs-number">109.0</span>, <span class="hljs-number">73.0</span>, <span class="hljs-number">52.0</span>]], <span class="hljs-string">&quot;categories&quot;</span>: [<span class="hljs-number">0</span>]}<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="loading-script" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#loading-script"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Loading script
+	</span></h2>
+
+<p>Write a dataset loading script to share a dataset. It defines a dataset’s splits and configurations, and handles downloading and generating a dataset. The script is located in the same folder or repository as the dataset. </p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->my_dataset/
+├── README.md
+├── my_dataset.py
+└── <span class="hljs-title">data</span>/  <span class="hljs-comment"># optional, may contain your images or TAR archives</span><!-- HTML_TAG_END --></pre></div>
+<p>This structure allows your dataset to be loaded in one line:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+<span class="hljs-meta">&gt;&gt;&gt; </span>dataset = load_dataset(<span class="hljs-string">&quot;path/to/my_dataset&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>This guide will show you how to create a dataset loading script for image datasets, which is a bit different from <a class="underline decoration-green-400 decoration-2 font-semibold" href="./dataset_script">creating a loading script for text datasets</a>. You’ll learn how to:</p>
+<ul><li>Create a dataset builder class.</li>
+<li>Create dataset configurations.</li>
+<li>Add dataset metadata.</li>
+<li>Download and define the dataset splits.</li>
+<li>Generate the dataset.</li>
+<li>Generate the dataset metadata (optional).</li>
+<li>Upload the dataset to the Hub.</li></ul>
+<p>The best way to learn is to open up an existing image dataset loading script, like <a href="https://huggingface.co/datasets/food101/blob/main/food101.py" rel="nofollow">Food-101</a>, and follow along!</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>To help you get started, we created a loading script <a href="https://github.com/huggingface/datasets/blob/main/templates/new_dataset_script.py" rel="nofollow">template</a> you can copy and use as a starting point!</p></div>
+<h3 class="relative group"><a id="create-a-dataset-builder-class" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#create-a-dataset-builder-class"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Create a dataset builder class
+	</span></h3>
+
+<p><a href="/docs/datasets/main/en/package_reference/builder_classes#datasets.GeneratorBasedBuilder">GeneratorBasedBuilder</a> is the base class for datasets generated from a dictionary generator. Within this class, there are three methods to help create your dataset:</p>
+<ul><li><code>info</code> stores information about your dataset like its description, license, and features.</li>
+<li><code>split_generators</code> downloads the dataset and defines its splits.</li>
+<li><code>generate_examples</code> generates the images and labels for each split.</li></ul>
+<p>Start by creating your dataset class as a subclass of <a href="/docs/datasets/main/en/package_reference/builder_classes#datasets.GeneratorBasedBuilder">GeneratorBasedBuilder</a> and add the three methods. Don’t worry about filling in each of these methods yet, you’ll develop those over the next few sections:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">class</span> <span class="hljs-title class_">Food101</span>(datasets.GeneratorBasedBuilder):
+    <span class="hljs-string">&quot;&quot;&quot;Food-101 Images dataset&quot;&quot;&quot;</span>
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_info</span>(<span class="hljs-params">self</span>):
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_split_generators</span>(<span class="hljs-params">self, dl_manager</span>):
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_generate_examples</span>(<span class="hljs-params">self, images, metadata_path</span>):<!-- HTML_TAG_END --></pre></div>
+<h4 class="relative group"><a id="multiple-configurations" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#multiple-configurations"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Multiple configurations
+	</span></h4>
+
+<p>In some cases, a dataset may have more than one configuration. For example, if you check out the <a href="https://huggingface.co/datasets/frgfm/imagenette" rel="nofollow">Imagenette dataset</a>, you’ll notice there are three subsets. </p>
+<p>To create different configurations, use the <a href="/docs/datasets/main/en/package_reference/builder_classes#datasets.BuilderConfig">BuilderConfig</a> class to create a subclass for your dataset. Provide the links to download the images and labels in <code>data_url</code> and <code>metadata_urls</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">class</span> <span class="hljs-title class_">Food101Config</span>(datasets.BuilderConfig):
+    <span class="hljs-string">&quot;&quot;&quot;Builder Config for Food-101&quot;&quot;&quot;</span>
+ 
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, data_url, metadata_urls, **kwargs</span>):
+        <span class="hljs-string">&quot;&quot;&quot;BuilderConfig for Food-101.
+        Args:
+          data_url: `string`, url to download the zip file from.
+          metadata_urls: dictionary with keys &#x27;train&#x27; and &#x27;validation&#x27; containing the archive metadata URLs
+          **kwargs: keyword arguments forwarded to super.
+        &quot;&quot;&quot;</span>
+        <span class="hljs-built_in">super</span>(Food101Config, self).__init__(version=datasets.Version(<span class="hljs-string">&quot;1.0.0&quot;</span>), **kwargs)
+        self.data_url = data_url
+        self.metadata_urls = metadata_urls<!-- HTML_TAG_END --></pre></div>
+<p>Now you can define your subsets at the top of <a href="/docs/datasets/main/en/package_reference/builder_classes#datasets.GeneratorBasedBuilder">GeneratorBasedBuilder</a>. Imagine you want to create two subsets in the Food-101 dataset based on whether it is a breakfast or dinner food.</p>
+<ol><li>Define your subsets with <code>Food101Config</code> in a list in <code>BUILDER_CONFIGS</code>.</li>
+<li>For each configuration, provide a name, description, and where to download the images and labels from.</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">class</span> <span class="hljs-title class_">Food101</span>(datasets.GeneratorBasedBuilder):
+    <span class="hljs-string">&quot;&quot;&quot;Food-101 Images dataset&quot;&quot;&quot;</span>
+ 
+    BUILDER_CONFIGS = [
+        Food101Config(
+            name=<span class="hljs-string">&quot;breakfast&quot;</span>,
+            description=<span class="hljs-string">&quot;Food types commonly eaten during breakfast.&quot;</span>,
+            data_url=<span class="hljs-string">&quot;https://link-to-breakfast-foods.zip&quot;</span>,
+            metadata_urls={
+                <span class="hljs-string">&quot;train&quot;</span>: <span class="hljs-string">&quot;https://link-to-breakfast-foods-train.txt&quot;</span>, 
+                <span class="hljs-string">&quot;validation&quot;</span>: <span class="hljs-string">&quot;https://link-to-breakfast-foods-validation.txt&quot;</span>
+            },
+        ,
+        Food101Config(
+            name=<span class="hljs-string">&quot;dinner&quot;</span>,
+            description=<span class="hljs-string">&quot;Food types commonly eaten during dinner.&quot;</span>,
+            data_url=<span class="hljs-string">&quot;https://link-to-dinner-foods.zip&quot;</span>,
+            metadata_urls={
+                <span class="hljs-string">&quot;train&quot;</span>: <span class="hljs-string">&quot;https://link-to-dinner-foods-train.txt&quot;</span>, 
+                <span class="hljs-string">&quot;validation&quot;</span>: <span class="hljs-string">&quot;https://link-to-dinner-foods-validation.txt&quot;</span>
+            },
+        )...
+    ]<!-- HTML_TAG_END --></pre></div>
+<p>Now if users want to load the <code>breakfast</code> configuration, they can use the configuration name:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds = load_dataset(<span class="hljs-string">&quot;food101&quot;</span>, <span class="hljs-string">&quot;breakfast&quot;</span>, split=<span class="hljs-string">&quot;train&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="add-dataset-metadata" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#add-dataset-metadata"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Add dataset metadata
+	</span></h3>
+
+<p>Adding information about your dataset is useful for users to learn more about it. This information is stored in the <a href="/docs/datasets/main/en/package_reference/main_classes#datasets.DatasetInfo">DatasetInfo</a> class which is returned by the <code>info</code> method. Users can access this information by:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset_builder
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds_builder = load_dataset_builder(<span class="hljs-string">&quot;food101&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds_builder.info<!-- HTML_TAG_END --></pre></div>
+<p>There is a lot of information you can specify about your dataset, but some important ones to include are:</p>
+<ol><li><code>description</code> provides a concise description of the dataset.</li>
+<li><code>features</code> specify the dataset column types. Since you’re creating an image loading script, you’ll need to include the <a href="/docs/datasets/main/en/package_reference/main_classes#datasets.Image">Image</a> feature.</li>
+<li><code>supervised_keys</code> specify the input feature and label.</li>
+<li><code>homepage</code> provides a link to the dataset homepage.</li>
+<li><code>citation</code> is a BibTeX citation of the dataset.</li>
+<li><code>license</code> states the dataset’s license.</li></ol>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>You’ll notice a lot of the dataset information is defined earlier in the loading script which makes it easier to read. There are also other <code>Features</code> you can input, so be sure to check out the full list for more details.</p></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">_info</span>(<span class="hljs-params">self</span>):
+    <span class="hljs-keyword">return</span> datasets.DatasetInfo(
+        description=_DESCRIPTION,
+        features=datasets.Features(
+            {
+                <span class="hljs-string">&quot;image&quot;</span>: datasets.Image(),
+                <span class="hljs-string">&quot;label&quot;</span>: datasets.ClassLabel(names=_NAMES),
+            }
+        ),
+        supervised_keys=(<span class="hljs-string">&quot;image&quot;</span>, <span class="hljs-string">&quot;label&quot;</span>),
+        homepage=_HOMEPAGE,
+        citation=_CITATION,
+        license=_LICENSE,
+        task_templates=[ImageClassification(image_column=<span class="hljs-string">&quot;image&quot;</span>, label_column=<span class="hljs-string">&quot;label&quot;</span>)],
+    )<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="download-and-define-the-dataset-splits" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#download-and-define-the-dataset-splits"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Download and define the dataset splits
+	</span></h3>
+
+<p>Now that you’ve added some information about your dataset, the next step is to download the dataset and generate the splits.</p>
+<ol><li><p>Use the <a href="/docs/datasets/main/en/package_reference/builder_classes#datasets.DownloadManager.download">DownloadManager.download()</a> method to download the dataset and any other metadata you’d like to associate with it. This method accepts:</p>
+<ul><li>a name to a file inside a Hub dataset repository (in other words, the <code>data/</code> folder)</li>
+<li>a URL to a file hosted somewhere else</li>
+<li>a list or dictionary of file names or URLs</li></ul>
+<p>In the Food-101 loading script, you’ll notice again the URLs are defined earlier in the script.</p></li>
+<li><p>After you’ve downloaded the dataset, use the <a href="/docs/datasets/main/en/package_reference/builder_classes#datasets.SplitGenerator">SplitGenerator</a> to organize the images and labels in each split. Name each split with a standard name like: <code>Split.TRAIN</code>, <code>Split.TEST</code>, and <code>SPLIT.Validation</code>. </p>
+<p>In the <code>gen_kwargs</code> parameter, specify the file paths to the <code>images</code> to iterate over and load. If necessary, you can use <a href="/docs/datasets/main/en/package_reference/builder_classes#datasets.DownloadManager.iter_archive">DownloadManager.iter_archive()</a> to iterate over images in TAR archives. You can also specify the associated labels in the <code>metadata_path</code>. The <code>images</code> and <code>metadata_path</code> are actually passed onto the next step where you’ll actually generate the dataset.</p></li></ol>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>To stream a TAR archive file, you need to use <a href="/docs/datasets/main/en/package_reference/builder_classes#datasets.DownloadManager.iter_archive">DownloadManager.iter_archive()</a>! The <a href="/docs/datasets/main/en/package_reference/builder_classes#datasets.DownloadManager.download_and_extract">DownloadManager.download_and_extract()</a> function does not support TAR archives in streaming mode.</p></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">_split_generators</span>(<span class="hljs-params">self, dl_manager</span>):
+    archive_path = dl_manager.download(_BASE_URL)
+    split_metadata_paths = dl_manager.download(_METADATA_URLS)
+    <span class="hljs-keyword">return</span> [
+        datasets.SplitGenerator(
+            name=datasets.Split.TRAIN,
+            gen_kwargs={
+                <span class="hljs-string">&quot;images&quot;</span>: dl_manager.iter_archive(archive_path),
+                <span class="hljs-string">&quot;metadata_path&quot;</span>: split_metadata_paths[<span class="hljs-string">&quot;train&quot;</span>],
+            },
+        ),
+        datasets.SplitGenerator(
+            name=datasets.Split.VALIDATION,
+            gen_kwargs={
+                <span class="hljs-string">&quot;images&quot;</span>: dl_manager.iter_archive(archive_path),
+                <span class="hljs-string">&quot;metadata_path&quot;</span>: split_metadata_paths[<span class="hljs-string">&quot;test&quot;</span>],
+            },
+        ),
+    ]<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="generate-the-dataset" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#generate-the-dataset"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Generate the dataset
+	</span></h3>
+
+<p>The last method in the <a href="/docs/datasets/main/en/package_reference/builder_classes#datasets.GeneratorBasedBuilder">GeneratorBasedBuilder</a> class actually generates the images and labels in the dataset. It yields a dataset according to the stucture specified in <code>features</code> from the <code>info</code> method. As you can see, <code>generate_examples</code> accepts the <code>images</code> and <code>metadata_path</code> from the previous method as arguments.</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>To stream a TAR archive file, the <code>metadata_path</code> needs to be opened and read first. TAR files are accessed and yielded sequentially. This means you need to have the metadata information in hand first so you can yield it with its corresponding image.</p></div>
+<p>Now you can write a function for opening and loading examples from the dataset:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">_generate_examples</span>(<span class="hljs-params">self, images, metadata_path</span>):
+    <span class="hljs-string">&quot;&quot;&quot;Generate images and labels for splits.&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(metadata_path, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> f:
+        files_to_keep = <span class="hljs-built_in">set</span>(f.read().split(<span class="hljs-string">&quot;\n&quot;</span>))
+    <span class="hljs-keyword">for</span> file_path, file_obj <span class="hljs-keyword">in</span> images:
+        <span class="hljs-keyword">if</span> file_path.startswith(_IMAGES_DIR):
+            <span class="hljs-keyword">if</span> file_path[<span class="hljs-built_in">len</span>(_IMAGES_DIR) : -<span class="hljs-built_in">len</span>(<span class="hljs-string">&quot;.jpg&quot;</span>)] <span class="hljs-keyword">in</span> files_to_keep:
+                label = file_path.split(<span class="hljs-string">&quot;/&quot;</span>)[<span class="hljs-number">2</span>]
+                <span class="hljs-keyword">yield</span> file_path, {
+                    <span class="hljs-string">&quot;image&quot;</span>: {<span class="hljs-string">&quot;path&quot;</span>: file_path, <span class="hljs-string">&quot;bytes&quot;</span>: file_obj.read()},
+                    <span class="hljs-string">&quot;label&quot;</span>: label,
+                }<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="generate-the-dataset-metadata-optional" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#generate-the-dataset-metadata-optional"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Generate the dataset metadata (optional)
+	</span></h3>
+
+<p>The dataset metadata you added earlier now needs to be generated and stored in a file called <code>datasets_infos.json</code>. In addition to information about a datasets features and description, this file also contains data file checksums to ensure integrity.</p>
+<p>Run the following command to generate your dataset metadata in <code>dataset_infos.json</code> and make sure your new loading script works correctly:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->datasets-cli <span class="hljs-built_in">test</span> path/to/&lt;your-dataset-loading-script&gt; --save_infos --all_configs<!-- HTML_TAG_END --></pre></div>
+<p>If your loading script passed the test, you should now have a <code>dataset_infos.json</code> file in your dataset folder.</p>
+<h3 class="relative group"><a id="upload-the-dataset-to-the-hub" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#upload-the-dataset-to-the-hub"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Upload the dataset to the Hub
+	</span></h3>
+
+<p>Once your script is ready, <a href="./dataset_card">create a dataset card</a> and <a href="./share">upload it to the Hub</a>.</p>
+<p>Congratulations, you can now load your dataset from the Hub! 🥳</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+<span class="hljs-meta">&gt;&gt;&gt; </span>load_dataset(<span class="hljs-string">&quot;&lt;username&gt;/my_dataset&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+
+		<script type="module" data-hydrate="npgidm">
+		import { start } from "/docs/datasets/main/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="npgidm"]').parentNode,
+			paths: {"base":"/docs/datasets/main/en","assets":"/docs/datasets/main/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/datasets/main/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/datasets/main/en/_app/pages/image_dataset_script.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
