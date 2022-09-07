@@ -32,7 +32,7 @@ accelerate launch textual_inversion.py \\
 from diffusers import StableDiffusionPipeline
 
 model_id = "path-to-your-trained-model"
-pipe = pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16).to("cuda")
+pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16).to("cuda")
 
 prompt = "A <cat-toy> backpack"
 
@@ -43,7 +43,7 @@ image.save("cat-backpack.png")`,highlighted:`<span class="hljs-keyword">from</sp
 <span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> StableDiffusionPipeline
 
 model_id = <span class="hljs-string">&quot;path-to-your-trained-model&quot;</span>
-pipe = pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16).to(<span class="hljs-string">&quot;cuda&quot;</span>)
+pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16).to(<span class="hljs-string">&quot;cuda&quot;</span>)
 
 prompt = <span class="hljs-string">&quot;A &lt;cat-toy&gt; backpack&quot;</span>
 
