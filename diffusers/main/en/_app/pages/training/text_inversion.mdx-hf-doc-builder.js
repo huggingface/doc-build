@@ -28,24 +28,22 @@ accelerate launch textual_inversion.py \\
   --learning_rate=5.0e-04 --scale_lr \\
   --lr_scheduler=<span class="hljs-string">&quot;constant&quot;</span> \\
   --lr_warmup_steps=0 \\
-  --output_dir=<span class="hljs-string">&quot;textual_inversion_cat&quot;</span>`}}),we=new $e({}),ye=new at({props:{code:`
-from torch import autocast
+  --output_dir=<span class="hljs-string">&quot;textual_inversion_cat&quot;</span>`}}),we=new $e({}),ye=new at({props:{code:`from torch import autocast
 from diffusers import StableDiffusionPipeline
 
 model_id = "path-to-your-trained-model"
-pipe = pipe = StableDiffusionPipeline.from_pretrained(model_id,torch_dtype=torch.float16).to("cuda")
+pipe = pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16).to("cuda")
 
 prompt = "A <cat-toy> backpack"
 
 with autocast("cuda"):
     image = pipe(prompt, num_inference_steps=50, guidance_scale=7.5).images[0]
 
-image.save("cat-backpack.png")`,highlighted:`
-<span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> autocast
+image.save("cat-backpack.png")`,highlighted:`<span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> autocast
 <span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> StableDiffusionPipeline
 
 model_id = <span class="hljs-string">&quot;path-to-your-trained-model&quot;</span>
-pipe = pipe = StableDiffusionPipeline.from_pretrained(model_id,torch_dtype=torch.float16).to(<span class="hljs-string">&quot;cuda&quot;</span>)
+pipe = pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16).to(<span class="hljs-string">&quot;cuda&quot;</span>)
 
 prompt = <span class="hljs-string">&quot;A &lt;cat-toy&gt; backpack&quot;</span>
 
