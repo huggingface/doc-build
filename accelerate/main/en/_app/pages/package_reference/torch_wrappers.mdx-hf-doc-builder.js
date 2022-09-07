@@ -25,7 +25,7 @@ dataloader) or of the iterable dataset (if it exists) if the underlying dataset 
 </ul>`,name:"rng_types"},{anchor:"accelerate.data_loader.prepare_data_loader.dispatch_batches",description:`<strong>dispatch_batches</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 If set to <code>True</code>, the datalaoder prepared is only iterated through on the main process and then the batches
 are split and broadcast to each process. Will default to <code>True</code> when the underlying dataset is an
-<code>IterableDataset</code>, <code>False</code> otherwise.`,name:"dispatch_batches"}],source:"https://github.com/huggingface/accelerate/blob/main/src/accelerate/data_loader.py#L541",returnDescription:`
+<code>IterableDataset</code>, <code>False</code> otherwise.`,name:"dispatch_batches"}],source:"https://github.com/huggingface/accelerate/blob/main/src/accelerate/data_loader.py#L537",returnDescription:`
 <p>A new data loader that will yield the portion of the batches</p>
 `,returnType:`
 <p><code>torch.utils.data.dataloader.DataLoader</code></p>
