@@ -1,0 +1,125 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;accelerating-training&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;lazy-mode&quot;,&quot;title&quot;:&quot;Lazy Mode&quot;},{&quot;local&quot;:&quot;mixedprecision-training&quot;,&quot;title&quot;:&quot;Mixed-Precision Training&quot;},{&quot;local&quot;:&quot;custom-operators&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;fused-adam&quot;,&quot;title&quot;:&quot;Fused ADAM&quot;},{&quot;local&quot;:&quot;fused-gradient-norm-clipping&quot;,&quot;title&quot;:&quot;Fused Gradient Norm Clipping&quot;}],&quot;title&quot;:&quot;Custom Operators&quot;}],&quot;title&quot;:&quot;Accelerating Training&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/pages/accelerate_training.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="accelerating-training" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#accelerating-training"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Accelerating Training
+	</span></h1>
+
+<p>Gaudi offers several possibilities to make training faster.
+They are all compatible with each other and can be coupled with <a href="distributed">distributed training</a>.</p>
+<h2 class="relative group"><a id="lazy-mode" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#lazy-mode"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Lazy Mode
+	</span></h2>
+
+<p>Two execution modes are proposed:</p>
+<ul><li><em>Lazy mode</em>, where the Habana bridge internally accumulates operations in a graph. The execution of the operations in the accumulated graph is triggered in a lazy manner. This allows the bridge to construct a graph with multiple operations, which provides the graph compiler the opportunity to optimize the device execution for these operations.</li>
+<li><em>Eager mode</em>, where one operation at a time is executed.</li></ul>
+<p>In lazy mode, the graph compiler generates optimized binary code that implements the given model topology on Gaudi. It performs operator fusion, data layout management, parallelization, pipelining and memory management, as well as graph-level optimizations.</p>
+<p>To execute your training in lazy mode, you must provide the following training arguments:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->args = GaudiTrainingArguments(
+    <span class="hljs-comment"># same arguments as in Transformers,</span>
+    use_habana=<span class="hljs-literal">True</span>,
+    use_lazy_mode=<span class="hljs-literal">True</span>,
+    gaudi_config_name=path_to_my_gaudi_config
+)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>In lazy mode, the first couple of training iterations may be slower due to graph compilations.
+In order to not take them into account in the computation of the throughput at the end of the training, you can add the following training argument: <code>throughput_warmup_steps=2</code>.</p></div>
+<h2 class="relative group"><a id="mixedprecision-training" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#mixedprecision-training"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Mixed-Precision Training
+	</span></h2>
+
+<p>Mixed-precision training enables to compute some operations using lighter data types to accelerate training.
+Habana Mixed Preicision (HMP) proposes to mix <em>fp32</em> and <em>bf16</em> operations.</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>Please refer to the <a href="https://docs.habana.ai/en/latest/PyTorch/Pytorch_Operators/Pytorch_Operators.html" rel="nofollow">list of supported PyTorch operators</a> beforehand to make sure the ones you are interested in are compatible with <em>bf16</em>.</p></div>
+<p>In order to apply HMP, you must set <code>&quot;use_habana_mixed_precision&quot;</code> to <code>true</code> and <code>&quot;hmp_opt_level&quot;</code> to <code>&quot;O1&quot;</code> in the Gaudi configuration file.
+Then, you can specify which operators to compute in <em>bf16</em> with <code>&quot;hmp_bf16_ops&quot;</code> and which operators to compute in <em>fp32</em> with <code>&quot;hmp_fp32_ops&quot;</code>.
+If these operators are not specified, their default values are set to be the ones written in the <a href="https://huggingface.co/Habana/bert-large-uncased-whole-word-masking/blob/main/gaudi_config.json" rel="nofollow">Gaudi configuration file of BERT</a>, which is a good starting point for applying HMP:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&quot;hmp_bf16_ops&quot;</span>: [
+    <span class="hljs-string">&quot;add&quot;</span>,
+    <span class="hljs-string">&quot;addmm&quot;</span>,
+    <span class="hljs-string">&quot;bmm&quot;</span>,
+    <span class="hljs-string">&quot;div&quot;</span>,
+    <span class="hljs-string">&quot;dropout&quot;</span>,
+    <span class="hljs-string">&quot;gelu&quot;</span>,
+    <span class="hljs-string">&quot;iadd&quot;</span>,
+    <span class="hljs-string">&quot;linear&quot;</span>,
+    <span class="hljs-string">&quot;layer_norm&quot;</span>,
+    <span class="hljs-string">&quot;matmul&quot;</span>,
+    <span class="hljs-string">&quot;mm&quot;</span>,
+    <span class="hljs-string">&quot;rsub&quot;</span>,
+    <span class="hljs-string">&quot;softmax&quot;</span>,
+    <span class="hljs-string">&quot;truediv&quot;</span>
+],
+<span class="hljs-string">&quot;hmp_fp32_ops&quot;</span>: [
+    <span class="hljs-string">&quot;embedding&quot;</span>,
+    <span class="hljs-string">&quot;nll_loss&quot;</span>,
+    <span class="hljs-string">&quot;log_softmax&quot;</span>
+]<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="custom-operators" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#custom-operators"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Custom Operators
+	</span></h2>
+
+<p>Habana probides a few custom operators that achieve better performance than their PyTorch counterparts on Gaudi.
+You can also define your own custom operator for Gaudi as described <a href="https://docs.habana.ai/en/latest/PyTorch/PyTorch_CustomOp_API/page_index.html" rel="nofollow">here</a>.</p>
+<h3 class="relative group"><a id="fused-adam" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#fused-adam"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Fused ADAM
+	</span></h3>
+
+<p>Habana provides a <a href="https://docs.habana.ai/en/latest/PyTorch/Model_Optimization_PyTorch/Custom_Ops_PyTorch.html#custom-optimizers" rel="nofollow">custom fused ADAM implementation</a>.
+It can be used by specifying <code>&quot;use_fused_adam&quot;: true</code> in the Gaudi configuration file.</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>The default value of <em>epsilon</em> is <code>1e-6</code> for the Habana fused ADAM optimizer, while it is <code>1e-8</code> for <code>torch.optim.AdamW</code>.</p></div>
+<h3 class="relative group"><a id="fused-gradient-norm-clipping" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#fused-gradient-norm-clipping"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Fused Gradient Norm Clipping
+	</span></h3>
+
+<p>Habana provides a <a href="https://docs.habana.ai/en/latest/PyTorch/Model_Optimization_PyTorch/Custom_Ops_PyTorch.html#other-custom-ops" rel="nofollow">custom gradient norm clipping implementation</a>.
+It can be used by specifying <code>&quot;use_fused_clip_norm&quot;: true</code> in the Gaudi configuration file.</p>
+
+
+		<script type="module" data-hydrate="tp8rfd">
+		import { start } from "/docs/optimum.habana/v1.4.0/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="tp8rfd"]').parentNode,
+			paths: {"base":"/docs/optimum.habana/v1.4.0/en","assets":"/docs/optimum.habana/v1.4.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/optimum.habana/v1.4.0/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/optimum.habana/v1.4.0/en/_app/pages/accelerate_training.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>

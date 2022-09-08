@@ -1,0 +1,320 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;optimization&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;creating-an-ortoptimizer&quot;,&quot;title&quot;:&quot;Creating an `ORTOptimizer`&quot;},{&quot;local&quot;:&quot;optimization-examples&quot;,&quot;title&quot;:&quot;Optimization examples&quot;},{&quot;local&quot;:&quot;optimum.onnxruntime.ORTOptimizer&quot;,&quot;title&quot;:&quot;ORTOptimizer&quot;}],&quot;title&quot;:&quot;Optimization&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/optimum/v1.4.0/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/optimum/v1.4.0/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/v1.4.0/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/v1.4.0/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/v1.4.0/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/v1.4.0/en/_app/pages/onnxruntime/optimization.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/v1.4.0/en/_app/chunks/Docstring-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/v1.4.0/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/v1.4.0/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="optimization" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimization"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Optimization
+	</span></h1>
+
+<p>🤗 Optimum provides an <code>optimum.onnxruntime</code> package that enables you to apply graph optimization on many model hosted on the 🤗 hub using the <a href="https://github.com/microsoft/onnxruntime/tree/master/onnxruntime/python/tools/transformers" rel="nofollow">ONNX Runtime</a> model optimization tool.</p>
+<h2 class="relative group"><a id="creating-an-ortoptimizer" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#creating-an-ortoptimizer"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Creating an <code>ORTOptimizer</code></span></h2>
+
+<p>The <code>ORTOptimizer</code> class is used to optimize your ONNX model. The class can be initialized using the <code>from_pretrained()</code> method, which supports different checkpoint formats.</p>
+<ol><li>Using an already initialized <code>ORTModelForXXX</code> class.</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTOptimizer, ORTModelForSequenceClassification
+
+<span class="hljs-comment"># Loading ONNX Model from the Hub</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = ORTModelForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;optimum/distilbert-base-uncased-finetuned-sst-2-english&quot;</span>)
+
+<span class="hljs-comment"># Create an optimizer from an ORTModelForXXX</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimizer = ORTOptimizer.from_pretrained(model)<!-- HTML_TAG_END --></pre></div>
+<ol start="2"><li>Using a local ONNX model from a directory.</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTOptimizer
+
+<span class="hljs-comment"># This assumes a model.onnx exists in path/to/model</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimizer = ORTOptimizer.from_pretrained(<span class="hljs-string">&quot;path/to/model&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="optimization-examples" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimization-examples"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Optimization examples
+	</span></h2>
+
+<p>Below you will find an easy end-to-end example on how to optimize <a href="https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english" rel="nofollow">distilbert-base-uncased-finetuned-sst-2-english</a>.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTOptimizer, ORTModelForSequenceClassification
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime.configuration <span class="hljs-keyword">import</span> OptimizationConfig
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>model_id = <span class="hljs-string">&quot;distilbert-base-uncased-finetuned-sst-2-english&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>save_dir = <span class="hljs-string">&quot;/tmp/outputs&quot;</span>
+
+<span class="hljs-comment"># Load a PyTorch model and export it to the ONNX format</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = ORTModelForSequenceClassification.from_pretrained(model_id, from_transformers=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># Create the optimizer</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimizer = ORTOptimizer.from_pretrained(model)
+
+<span class="hljs-comment"># Define the optimization strategy by creating the appropriate configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimization_config = OptimizationConfig(
+    optimization_level=<span class="hljs-number">2</span>,
+    optimize_with_onnxruntime_only=<span class="hljs-literal">False</span>,
+    optimize_for_gpu=<span class="hljs-literal">False</span>,
+)
+
+<span class="hljs-comment"># Optimize the model</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimizer.optimize(save_dir=save_dir, optimization_config=optimization_config)<!-- HTML_TAG_END --></pre></div>
+<p>Below you will find an easy end-to-end example on how to optimize a Seq2Seq model <a href="https://huggingface.co/sshleifer/distilbart-cnn-12-6" rel="nofollow">sshleifer/distilbart-cnn-12-6”</a>.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTOptimizer, ORTModelForSeq2SeqLM
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime.configuration <span class="hljs-keyword">import</span> OptimizationConfig
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>model_id = <span class="hljs-string">&quot;sshleifer/distilbart-cnn-12-6&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>save_dir = <span class="hljs-string">&quot;/tmp/outputs&quot;</span>
+
+<span class="hljs-comment"># Load a PyTorch model and export it to the ONNX format</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = ORTModelForSeq2SeqLM.from_pretrained(model_id, from_transformers=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># Create the optimizer</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimizer = ORTOptimizer.from_pretrained(model)
+
+<span class="hljs-comment"># Define the optimization strategy by creating the appropriate configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimization_config = OptimizationConfig(
+    optimization_level=<span class="hljs-number">2</span>,
+    optimize_with_onnxruntime_only=<span class="hljs-literal">False</span>,
+    optimize_for_gpu=<span class="hljs-literal">False</span>,
+)
+
+<span class="hljs-comment"># Optimize the model</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimizer.optimize(save_dir=save_dir, optimization_config=optimization_config)
+
+<span class="hljs-comment"># Load the resulting optimized model</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimized_model = ORTModelForSeq2SeqLM.from_pretrained(
+    save_dir,
+    encoder_file_name=<span class="hljs-string">&quot;encoder_model_optimized.onnx&quot;</span>,
+    decoder_file_name=<span class="hljs-string">&quot;decoder_model_optimized.onnx&quot;</span>,
+    decoder_file_with_past_name=<span class="hljs-string">&quot;decoder_with_past_model_optimized.onnx&quot;</span>,
+)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(model_id)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokens = tokenizer(<span class="hljs-string">&quot;This is a sample input&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = optimized_model.generate(**tokens)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="optimum.onnxruntime.ORTOptimizer" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimum.onnxruntime.ORTOptimizer"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>ORTOptimizer
+	</span></h2>
+
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="optimum.onnxruntime.ORTOptimizer"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">optimum.onnxruntime.</span><span class="font-semibold">ORTOptimizer</span></span></h3><!-- HTML_TAG_END -->
+		<a id="optimum.onnxruntime.ORTOptimizer" class="header-link invisible with-hover:group-hover:visible pr-2" href="#optimum.onnxruntime.ORTOptimizer"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/optimum/blob/v1.4.0/src/optimum/onnxruntime/optimization.py#L37" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">onnx_model_path<span class="opacity-60">: typing.List[os.PathLike]</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">config<span class="opacity-60">: PretrainedConfig</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		
+		
+		
+		</div></div>
+<p>Handles the ONNX Runtime optimization process for models shared on huggingface.co/models.</p>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="optimum.onnxruntime.ORTOptimizer.from_pretrained"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>from_pretrained</span></h4><!-- HTML_TAG_END -->
+		<a id="optimum.onnxruntime.ORTOptimizer.from_pretrained" class="header-link invisible with-hover:group-hover:visible pr-2" href="#optimum.onnxruntime.ORTOptimizer.from_pretrained"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/optimum/blob/v1.4.0/src/optimum/onnxruntime/optimization.py#L54" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">model_or_path<span class="opacity-60">: typing.Union[str, os.PathLike, optimum.onnxruntime.modeling_ort.ORTModel]</span></span>
+				</span><span class="comma cursor-default"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">file_names<span class="opacity-60">: typing.Optional[typing.List[str]] = None</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		<p class="flex items-center font-semibold !mt-2 !mb-2 text-gray-800">Parameters <span class="flex-auto border-t-2 border-gray-100 dark:border-gray-700 ml-3"></span></p>
+			<ul class="px-2"><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="optimum.onnxruntime.ORTOptimizer.from_pretrained.model_or_path" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimum.onnxruntime.ORTOptimizer.from_pretrained.model_or_path"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>model_or_path</strong> (<code>Union[str, os.PathLike, ORTModel]</code>) &#x2014;
+The path to a local directory hosting the model to optimize or an instance of an <code>ORTModel</code> to quantize.
+Can be either:<ul>
+<li>A path to a local <em>directory</em> containing the model to optimize.</li>
+<li>An instance of ORTModel.</li>
+</ul><!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="optimum.onnxruntime.ORTOptimizer.from_pretrained.file_names(List[str]," class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimum.onnxruntime.ORTOptimizer.from_pretrained.file_names(List[str],"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>file_names(<code>List[str]</code>,</strong> <em>optional</em>) &#x2014;
+The list of file names of the models to optimize.<!-- HTML_TAG_END -->
+							</span></span>
+					</li></ul>
+		
+		
+		</div></div></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="optimum.onnxruntime.ORTOptimizer.get_fused_operators"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>get_fused_operators</span></h4><!-- HTML_TAG_END -->
+		<a id="optimum.onnxruntime.ORTOptimizer.get_fused_operators" class="header-link invisible with-hover:group-hover:visible pr-2" href="#optimum.onnxruntime.ORTOptimizer.get_fused_operators"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/optimum/blob/v1.4.0/src/optimum/onnxruntime/optimization.py#L155" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">onnx_model_path<span class="opacity-60">: typing.Union[str, os.PathLike]</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		<p class="flex items-center font-semibold !mt-2 !mb-2 text-gray-800">Parameters <span class="flex-auto border-t-2 border-gray-100 dark:border-gray-700 ml-3"></span></p>
+			<ul class="px-2"><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="optimum.onnxruntime.ORTOptimizer.get_fused_operators.onnx_model_path" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimum.onnxruntime.ORTOptimizer.get_fused_operators.onnx_model_path"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>onnx_model_path</strong> (<code>Union[str, os.PathLike]</code>) &#x2014;
+Path of the ONNX model.<!-- HTML_TAG_END -->
+							</span></span>
+					</li></ul>
+		
+		
+		</div></div>
+<p>Compute the dictionary mapping the name of the fused operators to their number of apparition in the model.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="optimum.onnxruntime.ORTOptimizer.get_nodes_number_difference"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>get_nodes_number_difference</span></h4><!-- HTML_TAG_END -->
+		<a id="optimum.onnxruntime.ORTOptimizer.get_nodes_number_difference" class="header-link invisible with-hover:group-hover:visible pr-2" href="#optimum.onnxruntime.ORTOptimizer.get_nodes_number_difference"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/optimum/blob/v1.4.0/src/optimum/onnxruntime/optimization.py#L174" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">onnx_model_path<span class="opacity-60">: typing.Union[str, os.PathLike]</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">onnx_optimized_model_path<span class="opacity-60">: typing.Union[str, os.PathLike]</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		<p class="flex items-center font-semibold !mt-2 !mb-2 text-gray-800">Parameters <span class="flex-auto border-t-2 border-gray-100 dark:border-gray-700 ml-3"></span></p>
+			<ul class="px-2"><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="optimum.onnxruntime.ORTOptimizer.get_nodes_number_difference.onnx_model_path" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimum.onnxruntime.ORTOptimizer.get_nodes_number_difference.onnx_model_path"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>onnx_model_path</strong> (<code>Union[str, os.PathLike]</code>) &#x2014;
+Path of the ONNX model.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="optimum.onnxruntime.ORTOptimizer.get_nodes_number_difference.onnx_optimized_model_path" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimum.onnxruntime.ORTOptimizer.get_nodes_number_difference.onnx_optimized_model_path"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>onnx_optimized_model_path</strong> (<code>Union[str, os.PathLike]</code>) &#x2014;
+Path of the optimized ONNX model.<!-- HTML_TAG_END -->
+							</span></span>
+					</li></ul>
+		
+		
+		</div></div>
+<p>Compute the difference in the number of nodes between the original and the optimized model.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="optimum.onnxruntime.ORTOptimizer.get_operators_difference"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>get_operators_difference</span></h4><!-- HTML_TAG_END -->
+		<a id="optimum.onnxruntime.ORTOptimizer.get_operators_difference" class="header-link invisible with-hover:group-hover:visible pr-2" href="#optimum.onnxruntime.ORTOptimizer.get_operators_difference"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/optimum/blob/v1.4.0/src/optimum/onnxruntime/optimization.py#L203" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">onnx_model_path<span class="opacity-60">: typing.Union[str, os.PathLike]</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">onnx_optimized_model_path<span class="opacity-60">: typing.Union[str, os.PathLike]</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		<p class="flex items-center font-semibold !mt-2 !mb-2 text-gray-800">Parameters <span class="flex-auto border-t-2 border-gray-100 dark:border-gray-700 ml-3"></span></p>
+			<ul class="px-2"><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="optimum.onnxruntime.ORTOptimizer.get_operators_difference.onnx_model_path" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimum.onnxruntime.ORTOptimizer.get_operators_difference.onnx_model_path"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>onnx_model_path</strong> (<code>Union[str, os.PathLike]</code>) &#x2014;
+Path of the ONNX model.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="optimum.onnxruntime.ORTOptimizer.get_operators_difference.onnx_optimized_model_path" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimum.onnxruntime.ORTOptimizer.get_operators_difference.onnx_optimized_model_path"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>onnx_optimized_model_path</strong> (<code>Union[str, os.PathLike]</code>) &#x2014;
+Path of the optimized ONNX model.<!-- HTML_TAG_END -->
+							</span></span>
+					</li></ul>
+		
+		
+		</div></div>
+<p>Compute the dictionary mapping the operators name to the difference in the number of corresponding nodes between
+the original and the optimized model.</p></div>
+<div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
+
+<div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="optimum.onnxruntime.ORTOptimizer.optimize"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>optimize</span></h4><!-- HTML_TAG_END -->
+		<a id="optimum.onnxruntime.ORTOptimizer.optimize" class="header-link invisible with-hover:group-hover:visible pr-2" href="#optimum.onnxruntime.ORTOptimizer.optimize"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></a>
+		<a class="!ml-auto !text-gray-400 !no-underline text-sm flex items-center" href="https://github.com/huggingface/optimum/blob/v1.4.0/src/optimum/onnxruntime/optimization.py#L92" target="_blank"><span>&lt;</span>
+				<span class="hidden md:block mx-0.5 hover:!underline">source</span>
+				<span>&gt;</span></a></span>
+	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
+			<span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">optimization_config<span class="opacity-60">: OptimizationConfig</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">save_dir<span class="opacity-60">: typing.Union[str, os.PathLike]</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">file_suffix<span class="opacity-60">: typing.Optional[str] = &#39;optimized&#39;</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">use_external_data_format<span class="opacity-60">: bool = False</span></span>
+				</span>
+			<span>)</span>
+			</p>
+
+	
+	<div class="!mb-10 relative docstring-details ">
+		<p class="flex items-center font-semibold !mt-2 !mb-2 text-gray-800">Parameters <span class="flex-auto border-t-2 border-gray-100 dark:border-gray-700 ml-3"></span></p>
+			<ul class="px-2"><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="optimum.onnxruntime.ORTOptimizer.optimize.optimization_config" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimum.onnxruntime.ORTOptimizer.optimize.optimization_config"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>optimization_config</strong> (<code>OptimizationConfig</code>) &#x2014;
+The configuration containing the parameters related to optimization.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="optimum.onnxruntime.ORTOptimizer.optimize.save_dir" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimum.onnxruntime.ORTOptimizer.optimize.save_dir"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>save_dir</strong> (<code>Union[str, os.PathLike]</code>) &#x2014;
+The path used to save the optimized model.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="optimum.onnxruntime.ORTOptimizer.optimize.file_suffix" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimum.onnxruntime.ORTOptimizer.optimize.file_suffix"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>file_suffix</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;optimized&quot;</code>) &#x2014;
+The file suffix used to save the optimized model.<!-- HTML_TAG_END -->
+							</span></span>
+					</li><li class="text-base !pl-4 my-3 rounded "><span class="group flex space-x-1.5 items-start"><a id="optimum.onnxruntime.ORTOptimizer.optimize.use_external_data_format" class="header-link block pr-0.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#optimum.onnxruntime.ORTOptimizer.optimize.use_external_data_format"><span><svg class="text-smd" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+							<span><!-- HTML_TAG_START --><strong>use_external_data_format</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether to use external data format to store model of size &gt;= 2Gb.<!-- HTML_TAG_END -->
+							</span></span>
+					</li></ul>
+		
+		
+		</div></div>
+<p>Optimize a model given the optimization specifications defined in <code>optimization_config</code>.</p></div></div>
+
+
+		<script type="module" data-hydrate="1rgdg0i">
+		import { start } from "/docs/optimum/v1.4.0/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="1rgdg0i"]').parentNode,
+			paths: {"base":"/docs/optimum/v1.4.0/en","assets":"/docs/optimum/v1.4.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/optimum/v1.4.0/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/optimum/v1.4.0/en/_app/pages/onnxruntime/optimization.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>

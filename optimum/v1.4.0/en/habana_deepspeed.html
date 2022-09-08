@@ -1,0 +1,158 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;using-deepspeed-with-optimum-habana&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;deepspeed-configuration&quot;,&quot;title&quot;:&quot;DeepSpeed configuration&quot;},{&quot;local&quot;:&quot;the-deepspeed-training-argument&quot;,&quot;title&quot;:&quot;The `deepspeed` training argument&quot;},{&quot;local&quot;:&quot;launching-your-script&quot;,&quot;title&quot;:&quot;Launching your script&quot;}],&quot;title&quot;:&quot;Using DeepSpeed with Optimum Habana&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/pages/deepspeed.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum.habana/v1.4.0/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="deepspeed-for-hpus" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#deepspeed-for-hpus"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>DeepSpeed for HPUs
+	</span></h1>
+
+<p><a href="https://www.deepspeed.ai/" rel="nofollow">DeepSpeed</a> enables you to fit and train larger models on HPUs thanks to various optimizations.
+In particular, you can use the two following ZeRO configurations that have been validated to be fully functioning with Gaudi:</p>
+<ul><li>ZeRO-1, which partitions the optimizer states across processes.</li>
+<li>ZeRO-2, which additionnally partitions the gradients across processes so that each process retains only the gradients corresponding to its portion of the optimizer states.</li></ul>
+<p>These configurations are fully compatible with Habana Mixed Precision and can thus be used to train your model in <em>bf16</em> precision.</p>
+<p>You can find more information about DeepSpeed Gaudi integration <a href="https://docs.habana.ai/en/latest/PyTorch/DeepSpeed/DeepSpeed_User_Guide.html" rel="nofollow">here</a>.</p>
+<h1 class="relative group"><a id="setup" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#setup"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Setup
+	</span></h1>
+
+<p>In order to use DeepSpeed on Gaudi, you need to install the package with:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->pip <span class="hljs-keyword">install</span> optimum[habana-deepspeed]<!-- HTML_TAG_END --></pre></div>
+<h1 class="relative group"><a id="using-deepspeed-with-optimum-habana" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#using-deepspeed-with-optimum-habana"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Using DeepSpeed with Optimum Habana
+	</span></h1>
+
+<p>The <a href="/docs/optimum.habana/v1.4.0/en/trainer#optimum.habana.GaudiTrainer">GaudiTrainer</a> allows to use DeepSpeed as easily as the <a href="https://huggingface.co/docs/transformers/main_classes/trainer" rel="nofollow">Transformers Trainer</a>.
+This can be done in 3 steps:</p>
+<ol><li>A DeepSpeed configuration has to be defined.</li>
+<li>The <code>deepspeed</code> training argument enables to specify the path to the DeepSpeed configuration.</li>
+<li>The <code>deepspeed</code> launcher must be used to run your script.</li></ol>
+<p>These steps are detailed below.
+A comprehensive guide about how to use DeepSpeed with the Transformers Trainer is also available <a href="https://huggingface.co/docs/transformers/main_classes/deepspeed" rel="nofollow">here</a>.</p>
+<h2 class="relative group"><a id="deepspeed-configuration" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#deepspeed-configuration"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>DeepSpeed configuration
+	</span></h2>
+
+<p>The DeepSpeed configuration to use is passed through a JSON file and enables you to choose the optimizations to apply.
+Here is an example for applying ZeRO-2 optimizations and <em>bf16</em> precision:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;steps_per_print&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">64</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;train_batch_size&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;auto&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;train_micro_batch_size_per_gpu&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;auto&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;gradient_accumulation_steps&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;auto&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;bf16&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;gradient_clipping&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1.0</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;zero_optimization&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;stage&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;overlap_comm&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;reduce_scatter&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;contiguous_gradients&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span><!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>The special value <code>&quot;auto&quot;</code> enables to automatically get the correct or most efficient value.
+You can also specify the values yourself but, if you do so, you should be careful to not have conficting values with your training arguments.
+It is strongly advised to read <a href="https://huggingface.co/docs/transformers/main_classes/deepspeed#shared-configuration" rel="nofollow">this section</a> in the Transformers documentation to completely understand how this works.</p></div>
+<p>Other examples of configurations for HPUs are proposed <a href="https://github.com/HabanaAI/Model-References/tree/1.6.0/PyTorch/nlp/pretraining/deepspeed-bert" rel="nofollow">here</a> by Habana.</p>
+<p>The <a href="https://huggingface.co/docs/transformers/main_classes/deepspeed#configuration" rel="nofollow">Transformers documentation</a> explains how to write a configuration from scratch very well.
+A more complete description of all configuration possibilities is available <a href="https://www.deepspeed.ai/docs/config-json/" rel="nofollow">here</a>.</p>
+<h2 class="relative group"><a id="the-deepspeed-training-argument" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#the-deepspeed-training-argument"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>The <code>deepspeed</code> training argument
+	</span></h2>
+
+<p>In order to use DeepSpeed, you must specify <code>deespeed=path_to_my_deepspeed_configuration</code> in your <code>GaudiTrainingArguments</code> instance:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->training_args = GaudiTrainingArguments(
+    <span class="hljs-comment"># my training arguments</span>
+    use_habana=<span class="hljs-literal">True</span>,
+    use_lazy_mode=<span class="hljs-literal">True</span>,
+    gaudi_config_name=path_to_my_gaudi_config,
+    deepspeed=path_to_my_deepspeed_config,
+)<!-- HTML_TAG_END --></pre></div>
+<p>This argument both indicates that DeepSpeed should be used and points to your DeepSpeed configuration.</p>
+<h2 class="relative group"><a id="launching-your-script" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#launching-your-script"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Launching your script
+	</span></h2>
+
+<p>Finally, there are two possible ways to launch your script:</p>
+<ol><li>Using the <a href="https://github.com/huggingface/optimum-habana/blob/main/examples/gaudi_spawn.py" rel="nofollow">gaudi_spawn.py</a> script:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python gaudi_spawn.py \
+    --world_size number_of_hpu_you_have --use_deepspeed \
+    path_to_script.py --args1 --args2 ... --argsN \
+    --deepspeed path_to_deepspeed_config<!-- HTML_TAG_END --></pre></div>
+<p>where <code>--argX</code> is an argument of the script to run with DeepSpeed.</p>
+<ol start="2"><li>Using the <a href="/docs/optimum.habana/v1.4.0/en/distributed#optimum.habana.distributed.DistributedRunner">DistributedRunner</a> directly in code:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> optimum.habana.distributed <span class="hljs-keyword">import</span> DistributedRunner
+<span class="hljs-keyword">from</span> optimum.utils <span class="hljs-keyword">import</span> logging
+
+world_size=<span class="hljs-number">8</span> <span class="hljs-comment"># Number of HPUs to use (1 or 8)</span>
+
+<span class="hljs-comment"># define distributed runner</span>
+distributed_runner = DistributedRunner(
+    command_list=[<span class="hljs-string">&quot;scripts/train.py --args1 --args2 ... --argsN --deepspeed path_to_deepspeed_config&quot;</span>],
+    world_size=world_size,
+    use_deepspeed=<span class="hljs-literal">True</span>,
+    multi_hls=<span class="hljs-literal">False</span>,
+)
+
+<span class="hljs-comment"># start job</span>
+ret_code = distributed_runner.run()<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>You should set <code>&quot;use_fused_adam&quot;: false</code> in your Gaudi configuration because it is not compatible with DeepSpeed yet.</p></div>
+
+
+		<script type="module" data-hydrate="d2n489">
+		import { start } from "/docs/optimum.habana/v1.4.0/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="d2n489"]').parentNode,
+			paths: {"base":"/docs/optimum.habana/v1.4.0/en","assets":"/docs/optimum.habana/v1.4.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/optimum.habana/v1.4.0/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/optimum.habana/v1.4.0/en/_app/pages/deepspeed.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
