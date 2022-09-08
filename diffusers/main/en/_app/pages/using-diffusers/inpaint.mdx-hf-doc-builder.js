@@ -1,3 +1,59 @@
-import{S as Be,i as je,s as Ge,e as s,k as h,w as D,t as E,M as Je,c as r,d as t,m as f,a as l,x as H,h as P,b as i,G as a,g as o,y as C,L as Oe,q as I,o as L,B as Q,v as Re}from"../../chunks/vendor-hf-doc-builder.js";import{I as K}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{C as Ue}from"../../chunks/CodeBlock-hf-doc-builder.js";function ze(ye){let p,V,c,$,T,S,he,B,fe,W,_,pe,M,ce,ue,X,A,Y,u,w,j,b,de,G,ve,Z,d,k,J,x,me,O,$e,ee,v,g,R,N,_e,U,we,te,m,y,z,q,ke,F,ge,ae;return S=new K({}),A=new Ue({props:{code:"pip install diffusers",highlighted:'pip <span class="hljs-keyword">install</span> diffusers'}}),b=new K({}),x=new K({}),N=new K({}),q=new K({}),{c(){p=s("meta"),V=h(),c=s("h1"),$=s("a"),T=s("span"),D(S.$$.fragment),he=h(),B=s("span"),fe=E("Quicktour"),W=h(),_=s("p"),pe=E(`Start using Diffusers\u{1F9E8} quickly!
-To start, use the `),M=s("a"),ce=E("DiffusionPipeline"),ue=E(" for quick inference and sample generations!"),X=h(),D(A.$$.fragment),Y=h(),u=s("h2"),w=s("a"),j=s("span"),D(b.$$.fragment),de=h(),G=s("span"),ve=E("Main classes"),Z=h(),d=s("h3"),k=s("a"),J=s("span"),D(x.$$.fragment),me=h(),O=s("span"),$e=E("Models"),ee=h(),v=s("h3"),g=s("a"),R=s("span"),D(N.$$.fragment),_e=h(),U=s("span"),we=E("Schedulers"),te=h(),m=s("h3"),y=s("a"),z=s("span"),D(q.$$.fragment),ke=h(),F=s("span"),ge=E("Pipeliens"),this.h()},l(e){const n=Je('[data-svelte="svelte-1phssyn"]',document.head);p=r(n,"META",{name:!0,content:!0}),n.forEach(t),V=f(e),c=r(e,"H1",{class:!0});var se=l(c);$=r(se,"A",{id:!0,class:!0,href:!0});var Ee=l($);T=r(Ee,"SPAN",{});var Pe=l(T);H(S.$$.fragment,Pe),Pe.forEach(t),Ee.forEach(t),he=f(se),B=r(se,"SPAN",{});var Se=l(B);fe=P(Se,"Quicktour"),Se.forEach(t),se.forEach(t),W=f(e),_=r(e,"P",{});var re=l(_);pe=P(re,`Start using Diffusers\u{1F9E8} quickly!
-To start, use the `),M=r(re,"A",{href:!0});var Ae=l(M);ce=P(Ae,"DiffusionPipeline"),Ae.forEach(t),ue=P(re," for quick inference and sample generations!"),re.forEach(t),X=f(e),H(A.$$.fragment,e),Y=f(e),u=r(e,"H2",{class:!0});var ie=l(u);w=r(ie,"A",{id:!0,class:!0,href:!0});var be=l(w);j=r(be,"SPAN",{});var xe=l(j);H(b.$$.fragment,xe),xe.forEach(t),be.forEach(t),de=f(ie),G=r(ie,"SPAN",{});var Ne=l(G);ve=P(Ne,"Main classes"),Ne.forEach(t),ie.forEach(t),Z=f(e),d=r(e,"H3",{class:!0});var le=l(d);k=r(le,"A",{id:!0,class:!0,href:!0});var qe=l(k);J=r(qe,"SPAN",{});var Me=l(J);H(x.$$.fragment,Me),Me.forEach(t),qe.forEach(t),me=f(le),O=r(le,"SPAN",{});var De=l(O);$e=P(De,"Models"),De.forEach(t),le.forEach(t),ee=f(e),v=r(e,"H3",{class:!0});var ne=l(v);g=r(ne,"A",{id:!0,class:!0,href:!0});var He=l(g);R=r(He,"SPAN",{});var Ce=l(R);H(N.$$.fragment,Ce),Ce.forEach(t),He.forEach(t),_e=f(ne),U=r(ne,"SPAN",{});var Ie=l(U);we=P(Ie,"Schedulers"),Ie.forEach(t),ne.forEach(t),te=f(e),m=r(e,"H3",{class:!0});var oe=l(m);y=r(oe,"A",{id:!0,class:!0,href:!0});var Le=l(y);z=r(Le,"SPAN",{});var Qe=l(z);H(q.$$.fragment,Qe),Qe.forEach(t),Le.forEach(t),ke=f(oe),F=r(oe,"SPAN",{});var Te=l(F);ge=P(Te,"Pipeliens"),Te.forEach(t),oe.forEach(t),this.h()},h(){i(p,"name","hf:doc:metadata"),i(p,"content",JSON.stringify(Fe)),i($,"id","quicktour"),i($,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),i($,"href","#quicktour"),i(c,"class","relative group"),i(M,"href","/docs/diffusers/main/en/api/diffusion_pipeline#diffusers.DiffusionPipeline"),i(w,"id","main-classes"),i(w,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),i(w,"href","#main-classes"),i(u,"class","relative group"),i(k,"id","models"),i(k,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),i(k,"href","#models"),i(d,"class","relative group"),i(g,"id","schedulers"),i(g,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),i(g,"href","#schedulers"),i(v,"class","relative group"),i(y,"id","pipeliens"),i(y,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),i(y,"href","#pipeliens"),i(m,"class","relative group")},m(e,n){a(document.head,p),o(e,V,n),o(e,c,n),a(c,$),a($,T),C(S,T,null),a(c,he),a(c,B),a(B,fe),o(e,W,n),o(e,_,n),a(_,pe),a(_,M),a(M,ce),a(_,ue),o(e,X,n),C(A,e,n),o(e,Y,n),o(e,u,n),a(u,w),a(w,j),C(b,j,null),a(u,de),a(u,G),a(G,ve),o(e,Z,n),o(e,d,n),a(d,k),a(k,J),C(x,J,null),a(d,me),a(d,O),a(O,$e),o(e,ee,n),o(e,v,n),a(v,g),a(g,R),C(N,R,null),a(v,_e),a(v,U),a(U,we),o(e,te,n),o(e,m,n),a(m,y),a(y,z),C(q,z,null),a(m,ke),a(m,F),a(F,ge),ae=!0},p:Oe,i(e){ae||(I(S.$$.fragment,e),I(A.$$.fragment,e),I(b.$$.fragment,e),I(x.$$.fragment,e),I(N.$$.fragment,e),I(q.$$.fragment,e),ae=!0)},o(e){L(S.$$.fragment,e),L(A.$$.fragment,e),L(b.$$.fragment,e),L(x.$$.fragment,e),L(N.$$.fragment,e),L(q.$$.fragment,e),ae=!1},d(e){t(p),e&&t(V),e&&t(c),Q(S),e&&t(W),e&&t(_),e&&t(X),Q(A,e),e&&t(Y),e&&t(u),Q(b),e&&t(Z),e&&t(d),Q(x),e&&t(ee),e&&t(v),Q(N),e&&t(te),e&&t(m),Q(q)}}}const Fe={local:"quicktour",sections:[{local:"main-classes",sections:[{local:"models",title:"Models"},{local:"schedulers",title:"Schedulers"},{local:"pipeliens",title:"Pipeliens"}],title:"Main classes"}],title:"Quicktour"};function Ke(ye){return Re(()=>{new URLSearchParams(window.location.search).get("fw")}),[]}class Ye extends Be{constructor(p){super();je(this,p,Ke,ze,Ge,{})}}export{Ye as default,Fe as metadata};
+import{S as X,i as Z,s as ss,e as i,k as I,w as H,t as k,M as as,c as o,d as a,m as y,a as u,x as J,h as j,b as n,N as es,G as e,g,y as U,L as ts,q as F,o as K,B as W,v as ns}from"../../chunks/vendor-hf-doc-builder.js";import{I as is}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{C as os}from"../../chunks/CodeBlock-hf-doc-builder.js";function rs(V){let r,q,p,l,v,c,B,w,T,x,m,D,_,G,L,P,f,$,h,A,d,b,Y,S;return c=new is({}),f=new os({props:{code:`from io import BytesIO
+
+from torch import autocast
+import requests
+import PIL
+
+from diffusers import StableDiffusionInpaintPipeline
+
+
+def download_image(url):
+    response = requests.get(url)
+    return PIL.Image.open(BytesIO(response.content)).convert("RGB")
+
+
+img_url = "https://raw.githubusercontent.com/CompVis/latent-diffusion/main/data/inpainting_examples/overture-creations-5sI6fQgYIuo.png"
+mask_url = "https://raw.githubusercontent.com/CompVis/latent-diffusion/main/data/inpainting_examples/overture-creations-5sI6fQgYIuo_mask.png"
+
+init_image = download_image(img_url).resize((512, 512))
+mask_image = download_image(mask_url).resize((512, 512))
+
+device = "cuda"
+pipe = StableDiffusionInpaintPipeline.from_pretrained(
+    "CompVis/stable-diffusion-v1-4", revision="fp16", torch_dtype=torch.float16, use_auth_token=True
+).to(device)
+
+prompt = "a cat sitting on a bench"
+with autocast("cuda"):
+    images = pipe(prompt=prompt, init_image=init_image, mask_image=mask_image, strength=0.75).images
+
+images[0].save("cat_on_bench.png")`,highlighted:`<span class="hljs-keyword">from</span> io <span class="hljs-keyword">import</span> BytesIO
+
+<span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> autocast
+<span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">import</span> PIL
+
+<span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> StableDiffusionInpaintPipeline
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">download_image</span>(<span class="hljs-params">url</span>):
+    response = requests.get(url)
+    <span class="hljs-keyword">return</span> PIL.Image.<span class="hljs-built_in">open</span>(BytesIO(response.content)).convert(<span class="hljs-string">&quot;RGB&quot;</span>)
+
+
+img_url = <span class="hljs-string">&quot;https://raw.githubusercontent.com/CompVis/latent-diffusion/main/data/inpainting_examples/overture-creations-5sI6fQgYIuo.png&quot;</span>
+mask_url = <span class="hljs-string">&quot;https://raw.githubusercontent.com/CompVis/latent-diffusion/main/data/inpainting_examples/overture-creations-5sI6fQgYIuo_mask.png&quot;</span>
+
+init_image = download_image(img_url).resize((<span class="hljs-number">512</span>, <span class="hljs-number">512</span>))
+mask_image = download_image(mask_url).resize((<span class="hljs-number">512</span>, <span class="hljs-number">512</span>))
+
+device = <span class="hljs-string">&quot;cuda&quot;</span>
+pipe = StableDiffusionInpaintPipeline.from_pretrained(
+    <span class="hljs-string">&quot;CompVis/stable-diffusion-v1-4&quot;</span>, revision=<span class="hljs-string">&quot;fp16&quot;</span>, torch_dtype=torch.float16, use_auth_token=<span class="hljs-literal">True</span>
+).to(device)
+
+prompt = <span class="hljs-string">&quot;a cat sitting on a bench&quot;</span>
+<span class="hljs-keyword">with</span> autocast(<span class="hljs-string">&quot;cuda&quot;</span>):
+    images = pipe(prompt=prompt, init_image=init_image, mask_image=mask_image, strength=<span class="hljs-number">0.75</span>).images
+
+images[<span class="hljs-number">0</span>].save(<span class="hljs-string">&quot;cat_on_bench.png&quot;</span>)`}}),{c(){r=i("meta"),q=I(),p=i("h1"),l=i("a"),v=i("span"),H(c.$$.fragment),B=I(),w=i("span"),T=k("Text-Guided Image-Inpainting"),x=I(),m=i("p"),D=k("The "),_=i("a"),G=k("StableDiffusionInpaintPipeline"),L=k(" lets you edit specific parts of an image by providing a mask and text prompt."),P=I(),H(f.$$.fragment),$=I(),h=i("p"),A=k("You can also run this example on colab "),d=i("a"),b=i("img"),this.h()},l(s){const t=as('[data-svelte="svelte-1phssyn"]',document.head);r=o(t,"META",{name:!0,content:!0}),t.forEach(a),q=y(s),p=o(s,"H1",{class:!0});var C=u(p);l=o(C,"A",{id:!0,class:!0,href:!0});var N=u(l);v=o(N,"SPAN",{});var z=u(v);J(c.$$.fragment,z),z.forEach(a),N.forEach(a),B=y(C),w=o(C,"SPAN",{});var M=u(w);T=j(M,"Text-Guided Image-Inpainting"),M.forEach(a),C.forEach(a),x=y(s),m=o(s,"P",{});var E=u(m);D=j(E,"The "),_=o(E,"A",{href:!0});var Q=u(_);G=j(Q,"StableDiffusionInpaintPipeline"),Q.forEach(a),L=j(E," lets you edit specific parts of an image by providing a mask and text prompt."),E.forEach(a),P=y(s),J(f.$$.fragment,s),$=y(s),h=o(s,"P",{});var O=u(h);A=j(O,"You can also run this example on colab "),d=o(O,"A",{href:!0,rel:!0});var R=u(d);b=o(R,"IMG",{src:!0,alt:!0}),R.forEach(a),O.forEach(a),this.h()},h(){n(r,"name","hf:doc:metadata"),n(r,"content",JSON.stringify(ps)),n(l,"id","textguided-imageinpainting"),n(l,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),n(l,"href","#textguided-imageinpainting"),n(p,"class","relative group"),n(_,"href","/docs/diffusers/main/en/api/pipelines/stable_diffusion#diffusers.StableDiffusionInpaintPipeline"),es(b.src,Y="https://colab.research.google.com/assets/colab-badge.svg")||n(b,"src",Y),n(b,"alt","Open In Colab"),n(d,"href","https://colab.research.google.com/github/patil-suraj/Notebooks/blob/master/in_painting_with_stable_diffusion_using_diffusers.ipynb"),n(d,"rel","nofollow")},m(s,t){e(document.head,r),g(s,q,t),g(s,p,t),e(p,l),e(l,v),U(c,v,null),e(p,B),e(p,w),e(w,T),g(s,x,t),g(s,m,t),e(m,D),e(m,_),e(_,G),e(m,L),g(s,P,t),U(f,s,t),g(s,$,t),g(s,h,t),e(h,A),e(h,d),e(d,b),S=!0},p:ts,i(s){S||(F(c.$$.fragment,s),F(f.$$.fragment,s),S=!0)},o(s){K(c.$$.fragment,s),K(f.$$.fragment,s),S=!1},d(s){a(r),s&&a(q),s&&a(p),W(c),s&&a(x),s&&a(m),s&&a(P),W(f,s),s&&a($),s&&a(h)}}}const ps={local:"textguided-imageinpainting",title:"Text-Guided Image-Inpainting"};function ls(V){return ns(()=>{new URLSearchParams(window.location.search).get("fw")}),[]}class fs extends X{constructor(r){super();Z(this,r,ls,rs,ss,{})}}export{fs as default,ps as metadata};
