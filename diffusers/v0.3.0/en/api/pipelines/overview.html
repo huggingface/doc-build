@@ -1,0 +1,252 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;pipelines&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;diffusers-summary&quot;,&quot;title&quot;:&quot;🧨 Diffusers Summary&quot;},{&quot;local&quot;:&quot;pipelines-api&quot;,&quot;title&quot;:&quot;Pipelines API&quot;},{&quot;local&quot;:&quot;contribution&quot;,&quot;title&quot;:&quot;Contribution&quot;},{&quot;local&quot;:&quot;examples&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;texttoimage-generation-with-stable-diffusion&quot;,&quot;title&quot;:&quot;Text-to-Image generation with Stable Diffusion&quot;},{&quot;local&quot;:&quot;imagetoimage-textguided-generation-with-stable-diffusion&quot;,&quot;title&quot;:&quot;Image-to-Image text-guided generation with Stable Diffusion&quot;},{&quot;local&quot;:&quot;tweak-prompts-reusing-seeds-and-latents&quot;,&quot;title&quot;:&quot;Tweak prompts reusing seeds and latents&quot;},{&quot;local&quot;:&quot;inpainting-using-stable-diffusion&quot;,&quot;title&quot;:&quot;In-painting using Stable Diffusion&quot;}],&quot;title&quot;:&quot;Examples&quot;}],&quot;title&quot;:&quot;Pipelines&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/diffusers/v0.3.0/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/diffusers/v0.3.0/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/diffusers/v0.3.0/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/diffusers/v0.3.0/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/diffusers/v0.3.0/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/diffusers/v0.3.0/en/_app/pages/api/pipelines/overview.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/diffusers/v0.3.0/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/diffusers/v0.3.0/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="pipelines" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#pipelines"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Pipelines
+	</span></h1>
+
+<p>Pipelines provide a simple way to run state-of-the-art diffusion models in inference.
+Most diffusion systems consist of multiple independently-trained models and highly adaptable scheduler
+components - all of which are needed to have a functioning end-to-end diffusion system.</p>
+<p>As an example, <a href="https://huggingface.co/blog/stable_diffusion" rel="nofollow">Stable Diffusion</a> has three independently trained models:</p>
+<ul><li><a href="./api/models#vae">Autoencoder</a></li>
+<li><a href="./api/models#UNet2DConditionModel">Conditional Unet</a></li>
+<li><a href="https://huggingface.co/docs/transformers/v4.21.2/en/model_doc/clip#transformers.CLIPTextModel" rel="nofollow">CLIP text encoder</a></li>
+<li>a scheduler component, <a href="./api/scheduler#pndm">scheduler</a>, </li>
+<li>a <a href="https://huggingface.co/docs/transformers/v4.21.2/en/model_doc/clip#transformers.CLIPFeatureExtractor" rel="nofollow">CLIPFeatureExtractor</a>,</li>
+<li>as well as a <a href="./stable_diffusion#safety_checker">safety checker</a>.
+All of these components are necessary to run stable diffusion in inference even though they were trained
+or created independently from each other.</li></ul>
+<p>To that end, we strive to offer all open-sourced, state-of-the-art diffusion system under a unified API.
+More specifically, we strive to provide pipelines that</p>
+<ul><li><ol><li>can load the officially published weights and yield 1-to-1 the same outputs as the original implementation according to the corresponding paper (<em>e.g.</em> <a href="https://github.com/huggingface/diffusers/tree/main/src/diffusers/pipelines/latent_diffusion" rel="nofollow">LatentDiffusionPipeline</a>, uses the officially released weights of <a href="https://arxiv.org/abs/2112.10752" rel="nofollow">High-Resolution Image Synthesis with Latent Diffusion Models</a>),</li></ol></li>
+<li><ol start="2"><li>have a simple user interface to run the model in inference (see the <a href="#pipelines-api">Pipelines API</a> section), </li></ol></li>
+<li><ol start="3"><li>are easy to understand with code that is self-explanatory and can be read along-side the official paper (see <a href="#pipelines-summary">Pipelines summary</a>),</li></ol></li>
+<li><ol start="4"><li>can easily be contributed by the community (see the <a href="#contribution">Contribution</a> section).</li></ol></li></ul>
+<p><strong>Note</strong> that pipelines do not (and should not) offer any training functionality.
+If you are looking for <em>official</em> training examples, please have a look at <a href="https://github.com/huggingface/diffusers/tree/main/examples" rel="nofollow">examples</a>.</p>
+<h2 class="relative group"><a id="diffusers-summary" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#diffusers-summary"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>🧨 Diffusers Summary
+	</span></h2>
+
+<p>The following table summarizes all officially supported pipelines, their corresponding paper, and if
+available a colab notebook to directly try them out.</p>
+<table><thead><tr><th>Pipeline</th>
+<th>Paper</th>
+<th align="center">Tasks</th>
+<th align="center">Colab</th></tr></thead>
+<tbody><tr><td><a href="./ddpm">ddpm</a></td>
+<td><a href="https://arxiv.org/abs/2006.11239" rel="nofollow"><strong>Denoising Diffusion Probabilistic Models</strong></a></td>
+<td align="center">Unconditional Image Generation</td>
+<td align="center"></td></tr>
+<tr><td><a href="./ddim">ddim</a></td>
+<td><a href="https://arxiv.org/abs/2010.02502" rel="nofollow"><strong>Denoising Diffusion Implicit Models</strong></a></td>
+<td align="center">Unconditional Image Generation</td>
+<td align="center"><a href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/training_example.ipynb" rel="nofollow"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></td></tr>
+<tr><td><a href="./latent_diffusion">latent_diffusion</a></td>
+<td><a href="https://arxiv.org/abs/2112.10752" rel="nofollow"><strong>High-Resolution Image Synthesis with Latent Diffusion Models</strong></a></td>
+<td align="center">Text-to-Image Generation</td>
+<td align="center"></td></tr>
+<tr><td><a href="./latent_diffusion_uncond">latent_diffusion_uncond</a></td>
+<td><a href="https://arxiv.org/abs/2112.10752" rel="nofollow"><strong>High-Resolution Image Synthesis with Latent Diffusion Models</strong></a></td>
+<td align="center">Unconditional Image Generation</td>
+<td align="center"></td></tr>
+<tr><td><a href="./pndm">pndm</a></td>
+<td><a href="https://arxiv.org/abs/2202.09778" rel="nofollow"><strong>Pseudo Numerical Methods for Diffusion Models on Manifolds</strong></a></td>
+<td align="center">Unconditional Image Generation</td>
+<td align="center"></td></tr>
+<tr><td><a href="./score_sde_ve">score_sde_ve</a></td>
+<td><a href="https://openreview.net/forum?id=PxTIG12RRHS" rel="nofollow"><strong>Score-Based Generative Modeling through Stochastic Differential Equations</strong></a></td>
+<td align="center">Unconditional Image Generation</td>
+<td align="center"></td></tr>
+<tr><td><a href="./score_sde_vp">score_sde_vp</a></td>
+<td><a href="https://openreview.net/forum?id=PxTIG12RRHS" rel="nofollow"><strong>Score-Based Generative Modeling through Stochastic Differential Equations</strong></a></td>
+<td align="center">Unconditional Image Generation</td>
+<td align="center"></td></tr>
+<tr><td><a href="./stable_diffusion">stable_diffusion</a></td>
+<td><a href="https://stability.ai/blog/stable-diffusion-public-release" rel="nofollow"><strong>Stable Diffusion</strong></a></td>
+<td align="center">Text-to-Image Generation</td>
+<td align="center"><a href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/training_example.ipynb" rel="nofollow"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></td></tr>
+<tr><td><a href="./stable_diffusion">stable_diffusion</a></td>
+<td><a href="https://stability.ai/blog/stable-diffusion-public-release" rel="nofollow"><strong>Stable Diffusion</strong></a></td>
+<td align="center">Image-to-Image Text-Guided Generation</td>
+<td align="center"><a href="https://colab.research.google.com/github/patil-suraj/Notebooks/blob/master/image_2_image_using_diffusers.ipynb" rel="nofollow"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></td></tr>
+<tr><td><a href="./stable_diffusion">stable_diffusion</a></td>
+<td><a href="https://stability.ai/blog/stable-diffusion-public-release" rel="nofollow"><strong>Stable Diffusion</strong></a></td>
+<td align="center">Text-Guided Image Inpainting</td>
+<td align="center"><a href="https://colab.research.google.com/github/patil-suraj/Notebooks/blob/master/in_painting_with_stable_diffusion_using_diffusers.ipynb" rel="nofollow"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></td></tr>
+<tr><td><a href="./stochatic_karras_ve">stochatic_karras_ve</a></td>
+<td><a href="https://arxiv.org/abs/2206.00364" rel="nofollow"><strong>Elucidating the Design Space of Diffusion-Based Generative Models</strong></a></td>
+<td align="center">Unconditional Image Generation</td>
+<td align="center"></td></tr></tbody></table>
+<p><strong>Note</strong>: Pipelines are simple examples of how to play around with the diffusion systems as described in the corresponding papers. </p>
+<p>However, most of them can be adapted to use different scheduler components or even different model components. Some pipeline examples are shown in the <a href="#examples">Examples</a> below.</p>
+<h2 class="relative group"><a id="pipelines-api" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#pipelines-api"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Pipelines API
+	</span></h2>
+
+<p>Diffusion models often consist of multiple independently-trained models or other previously existing components. </p>
+<p>Each model has been trained independently on a different task and the scheduler can easily be swapped out and replaced with a different one.
+During inference, we however want to be able to easily load all components and use them in inference - even if one component, <em>e.g.</em> CLIP’s text encoder, originates from a different library, such as <a href="https://github.com/huggingface/transformers" rel="nofollow">Transformers</a>. To that end, all pipelines provide the following functionality:</p>
+<ul><li><a href="../diffusion_pipeline"><code>from_pretrained</code> method</a> that accepts a Hugging Face Hub repository id, <em>e.g.</em> <a href="https://huggingface.co/CompVis/stable-diffusion-v1-4" rel="nofollow">CompVis/stable-diffusion-v1-4</a> or a path to a local directory, <em>e.g.</em>
+”./stable-diffusion”. To correctly retrieve which models and components should be loaded, one has to provide a <code>model_index.json</code> file, <em>e.g.</em> <a href="https://huggingface.co/CompVis/stable-diffusion-v1-4/blob/main/model_index.json" rel="nofollow">CompVis/stable-diffusion-v1-4/model_index.json</a>, which defines all components that should be
+loaded into the pipelines. More specifically, for each model/component one needs to define the format <code>&lt;name&gt;: [&quot;&lt;library&gt;&quot;, &quot;&lt;class name&gt;&quot;]</code>. <code>&lt;name&gt;</code> is the attribute name given to the loaded instance of <code>&lt;class name&gt;</code> which can be found in the library or pipeline folder called <code>&quot;&lt;library&gt;&quot;</code>.</li>
+<li><a href="../diffusion_pipeline"><code>save_pretrained</code></a> that accepts a local path, <em>e.g.</em> <code>./stable-diffusion</code> under which all models/components of the pipeline will be saved. For each component/model a folder is created inside the local path that is named after the given attribute name, <em>e.g.</em> <code>./stable_diffusion/unet</code>.
+In addition, a <code>model_index.json</code> file is created at the root of the local path, <em>e.g.</em> <code>./stable_diffusion/model_index.json</code> so that the complete pipeline can again be instantiated
+from the local path.</li>
+<li><a href="../diffusion_pipeline"><code>to</code></a> which accepts a <code>string</code> or <code>torch.device</code> to move all models that are of type <code>torch.nn.Module</code> to the passed device. The behavior is fully analogous to <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.to" rel="nofollow">PyTorch’s <code>to</code> method</a>.</li>
+<li><code>__call__</code> method to use the pipeline in inference. <code>__call__</code> defines inference logic of the pipeline and should ideally encompass all aspects of it, from pre-processing to forwarding tensors to the different models and schedulers, as well as post-processing. The API of the <code>__call__</code> method can strongly vary from pipeline to pipeline. <em>E.g.</em> a text-to-image pipeline, such as <a href="./stable_diffusion"><code>StableDiffusionPipeline</code></a> should accept among other things the text prompt to generate the image. A pure image generation pipeline, such as <a href="https://github.com/huggingface/diffusers/tree/main/src/diffusers/pipelines/ddpm" rel="nofollow">DDPMPipeline</a> on the other hand can be run without providing any inputs. To better understand what inputs can be adapted for
+each pipeline, one should look directly into the respective pipeline.</li></ul>
+<p><strong>Note</strong>: All pipelines have PyTorch’s autograd disabled by decorating the <code>__call__</code> method with a <a href="https://pytorch.org/docs/stable/generated/torch.no_grad.html" rel="nofollow"><code>torch.no_grad</code></a> decorator because pipelines should
+not be used for training. If you want to store the gradients during the forward pass, we recommend writing your own pipeline, see also our <a href="https://github.com/huggingface/diffusers/tree/main/examples/community" rel="nofollow">community-examples</a></p>
+<h2 class="relative group"><a id="contribution" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#contribution"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Contribution
+	</span></h2>
+
+<p>We are more than happy about any contribution to the officially supported pipelines 🤗. We aspire
+all of our pipelines to be  <strong>self-contained</strong>, <strong>easy-to-tweak</strong>, <strong>beginner-friendly</strong> and for <strong>one-purpose-only</strong>.</p>
+<ul><li><strong>Self-contained</strong>: A pipeline shall be as self-contained as possible. More specifically, this means that all functionality should be either directly defined in the pipeline file iteslf, should be inherited from (and only from) the <a href=".../diffusion_pipeline"><code>DiffusionPipeline</code> class</a> or be directly attached to the model and scheduler components of the pipeline. </li>
+<li><strong>Easy-to-use</strong>: Pipelines should be extremely easy to use - one should be able to load the pipeline and
+use it for its designated task, <em>e.g.</em> text-to-image generation, in just a couple of lines of code. Most
+logic including pre-processing, an unrolled diffusion loop, and post-processing should all happen inside the <code>__call__</code> method.</li>
+<li><strong>Easy-to-tweak</strong>: Certain pipelines will not be able to handle all use cases and tasks that you might like them to. If you want to use a certain pipeline for a specific use case that is not yet supported, you might have to copy the pipeline file and tweak the code to your needs. We try to make the pipeline code as readable as possible so that each part –from pre-processing to diffusing to post-processing– can easily be adapted. If you would like the community to benefit from your customized pipeline, we would love to see a contribution to our <a href="https://github.com/huggingface/diffusers/tree/main/examples/community" rel="nofollow">community-examples</a>. If you feel that an important pipeline should be part of the official pipelines but isn’t, a contribution to the <a href="./overview">official pipelines</a> would be even better.</li>
+<li><strong>One-purpose-only</strong>: Pipelines should be used for one task and one task only. Even if two tasks are very similar from a modeling point of view, <em>e.g.</em> image2image translation and in-painting, pipelines shall be used for one task only to keep them <em>easy-to-tweak</em> and <em>readable</em>.</li></ul>
+<h2 class="relative group"><a id="examples" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#examples"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Examples
+	</span></h2>
+
+<h3 class="relative group"><a id="texttoimage-generation-with-stable-diffusion" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#texttoimage-generation-with-stable-diffusion"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Text-to-Image generation with Stable Diffusion
+	</span></h3>
+
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># make sure you&#x27;re logged in with `huggingface-cli login`</span>
+<span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> autocast
+<span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> StableDiffusionPipeline, LMSDiscreteScheduler
+
+pipe = StableDiffusionPipeline.from_pretrained(<span class="hljs-string">&quot;CompVis/stable-diffusion-v1-4&quot;</span>, use_auth_token=<span class="hljs-literal">True</span>)
+pipe = pipe.to(<span class="hljs-string">&quot;cuda&quot;</span>)
+
+prompt = <span class="hljs-string">&quot;a photo of an astronaut riding a horse on mars&quot;</span>
+<span class="hljs-keyword">with</span> autocast(<span class="hljs-string">&quot;cuda&quot;</span>):
+    image = pipe(prompt).images[<span class="hljs-number">0</span>]
+
+image.save(<span class="hljs-string">&quot;astronaut_rides_horse.png&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="imagetoimage-textguided-generation-with-stable-diffusion" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#imagetoimage-textguided-generation-with-stable-diffusion"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Image-to-Image text-guided generation with Stable Diffusion
+	</span></h3>
+
+<p>The <code>StableDiffusionImg2ImgPipeline</code> lets you pass a text prompt and an initial image to condition the generation of new images.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> autocast
+<span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
+<span class="hljs-keyword">from</span> io <span class="hljs-keyword">import</span> BytesIO
+
+<span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> StableDiffusionImg2ImgPipeline
+
+<span class="hljs-comment"># load the pipeline</span>
+device = <span class="hljs-string">&quot;cuda&quot;</span>
+pipe = StableDiffusionImg2ImgPipeline.from_pretrained(
+    <span class="hljs-string">&quot;CompVis/stable-diffusion-v1-4&quot;</span>, revision=<span class="hljs-string">&quot;fp16&quot;</span>, torch_dtype=torch.float16, use_auth_token=<span class="hljs-literal">True</span>
+).to(device)
+
+<span class="hljs-comment"># let&#x27;s download an initial image</span>
+url = <span class="hljs-string">&quot;https://raw.githubusercontent.com/CompVis/stable-diffusion/main/assets/stable-samples/img2img/sketch-mountains-input.jpg&quot;</span>
+
+response = requests.get(url)
+init_image = Image.<span class="hljs-built_in">open</span>(BytesIO(response.content)).convert(<span class="hljs-string">&quot;RGB&quot;</span>)
+init_image = init_image.resize((<span class="hljs-number">768</span>, <span class="hljs-number">512</span>))
+
+prompt = <span class="hljs-string">&quot;A fantasy landscape, trending on artstation&quot;</span>
+
+<span class="hljs-keyword">with</span> autocast(<span class="hljs-string">&quot;cuda&quot;</span>):
+    images = pipe(prompt=prompt, init_image=init_image, strength=<span class="hljs-number">0.75</span>, guidance_scale=<span class="hljs-number">7.5</span>).images
+
+images[<span class="hljs-number">0</span>].save(<span class="hljs-string">&quot;fantasy_landscape.png&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>You can also run this example on colab <a href="https://colab.research.google.com/github/patil-suraj/Notebooks/blob/master/image_2_image_using_diffusers.ipynb" rel="nofollow"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+<h3 class="relative group"><a id="tweak-prompts-reusing-seeds-and-latents" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#tweak-prompts-reusing-seeds-and-latents"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Tweak prompts reusing seeds and latents
+	</span></h3>
+
+<p>You can generate your own latents to reproduce results, or tweak your prompt on a specific result you liked. <a href="https://github.com/pcuenca/diffusers-examples/blob/main/notebooks/stable-diffusion-seeds.ipynb" rel="nofollow">This notebook</a> shows how to do it step by step. You can also run it in Google Colab <a href="https://colab.research.google.com/github/pcuenca/diffusers-examples/blob/main/notebooks/stable-diffusion-seeds.ipynb" rel="nofollow"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>.</p>
+<h3 class="relative group"><a id="inpainting-using-stable-diffusion" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#inpainting-using-stable-diffusion"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>In-painting using Stable Diffusion
+	</span></h3>
+
+<p>The <code>StableDiffusionInpaintPipeline</code> lets you edit specific parts of an image by providing a mask and text prompt.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> io <span class="hljs-keyword">import</span> BytesIO
+
+<span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> autocast
+<span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">import</span> PIL
+
+<span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> StableDiffusionInpaintPipeline
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">download_image</span>(<span class="hljs-params">url</span>):
+    response = requests.get(url)
+    <span class="hljs-keyword">return</span> PIL.Image.<span class="hljs-built_in">open</span>(BytesIO(response.content)).convert(<span class="hljs-string">&quot;RGB&quot;</span>)
+
+
+img_url = <span class="hljs-string">&quot;https://raw.githubusercontent.com/CompVis/latent-diffusion/main/data/inpainting_examples/overture-creations-5sI6fQgYIuo.png&quot;</span>
+mask_url = <span class="hljs-string">&quot;https://raw.githubusercontent.com/CompVis/latent-diffusion/main/data/inpainting_examples/overture-creations-5sI6fQgYIuo_mask.png&quot;</span>
+
+init_image = download_image(img_url).resize((<span class="hljs-number">512</span>, <span class="hljs-number">512</span>))
+mask_image = download_image(mask_url).resize((<span class="hljs-number">512</span>, <span class="hljs-number">512</span>))
+
+device = <span class="hljs-string">&quot;cuda&quot;</span>
+pipe = StableDiffusionInpaintPipeline.from_pretrained(
+    <span class="hljs-string">&quot;CompVis/stable-diffusion-v1-4&quot;</span>, revision=<span class="hljs-string">&quot;fp16&quot;</span>, torch_dtype=torch.float16, use_auth_token=<span class="hljs-literal">True</span>
+).to(device)
+
+prompt = <span class="hljs-string">&quot;a cat sitting on a bench&quot;</span>
+<span class="hljs-keyword">with</span> autocast(<span class="hljs-string">&quot;cuda&quot;</span>):
+    images = pipe(prompt=prompt, init_image=init_image, mask_image=mask_image, strength=<span class="hljs-number">0.75</span>).images
+
+images[<span class="hljs-number">0</span>].save(<span class="hljs-string">&quot;cat_on_bench.png&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>You can also run this example on colab <a href="https://colab.research.google.com/github/patil-suraj/Notebooks/blob/master/in_painting_with_stable_diffusion_using_diffusers.ipynb" rel="nofollow"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+
+
+		<script type="module" data-hydrate="z2zog3">
+		import { start } from "/docs/diffusers/v0.3.0/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="z2zog3"]').parentNode,
+			paths: {"base":"/docs/diffusers/v0.3.0/en","assets":"/docs/diffusers/v0.3.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/diffusers/v0.3.0/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/diffusers/v0.3.0/en/_app/pages/api/pipelines/overview.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
