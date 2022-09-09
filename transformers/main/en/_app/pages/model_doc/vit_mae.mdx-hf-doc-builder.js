@@ -282,7 +282,7 @@ used instead.`,name:"output_hidden_states"},{anchor:"transformers.TFViTMAEForPre
 Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple. This argument can be used
 in eager mode, in graph mode the value will always be set to True.`,name:"return_dict"},{anchor:"transformers.TFViTMAEForPreTraining.call.training",description:`<strong>training</strong> (<code>bool</code>, <em>optional</em>, defaults to \`False&#x201C;) &#x2014;
 Whether or not to use the model in training mode (some modules like dropout modules have different
-behaviors between training and evaluation).`,name:"training"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/vit_mae/modeling_tf_vit_mae.py#L1090",returnDescription:`
+behaviors between training and evaluation).`,name:"training"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/vit_mae/modeling_tf_vit_mae.py#L1091",returnDescription:`
 <p>A <code>transformers.models.vit_mae.modeling_tf_vit_mae.TFViTMAEForPreTrainingOutput</code> or a tuple of <code>tf.Tensor</code> (if
 <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various elements depending on the
 configuration (<a
