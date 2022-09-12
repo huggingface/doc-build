@@ -25,7 +25,7 @@ dataloader) or of the iterable dataset (if it exists) if the underlying dataset 
 </ul>`,name:"rng_types"},{anchor:"accelerate.data_loader.prepare_data_loader.dispatch_batches",description:`<strong>dispatch_batches</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 If set to <code>True</code>, the datalaoder prepared is only iterated through on the main process and then the batches
 are split and broadcast to each process. Will default to <code>True</code> when the underlying dataset is an
-<code>IterableDataset</code>, <code>False</code> otherwise.`,name:"dispatch_batches"}],source:"https://github.com/huggingface/accelerate/blob/main/src/accelerate/data_loader.py#L537",returnDescription:`
+<code>IterableDataset</code>, <code>False</code> otherwise.`,name:"dispatch_batches"}],source:"https://github.com/huggingface/accelerate/blob/main/src/accelerate/data_loader.py#L538",returnDescription:`
 <p>A new data loader that will yield the portion of the batches</p>
 `,returnType:`
 <p><code>torch.utils.data.dataloader.DataLoader</code></p>
@@ -87,7 +87,7 @@ number of processes</p>
 <li>
 <p><strong>total_dataset_length</strong> (<code>int</code>) &#x2014; Total length of the inner dataset across all processes.</p>
 </li>
-</ul>`,name:"*Available"}],source:"https://github.com/huggingface/accelerate/blob/main/src/accelerate/data_loader.py#L381"}}),le=new $t({}),ie=new ue({props:{name:"class accelerate.optimizer.AcceleratedOptimizer",anchor:"accelerate.optimizer.AcceleratedOptimizer",parameters:[{name:"optimizer",val:""},{name:"device_placement",val:" = True"},{name:"scaler",val:" = None"}],parametersDescription:[{anchor:"accelerate.optimizer.AcceleratedOptimizer.optimizer",description:`<strong>optimizer</strong> (<code>torch.optim.optimizer.Optimizer</code>) &#x2014;
+</ul>`,name:"*Available"}],source:"https://github.com/huggingface/accelerate/blob/main/src/accelerate/data_loader.py#L382"}}),le=new $t({}),ie=new ue({props:{name:"class accelerate.optimizer.AcceleratedOptimizer",anchor:"accelerate.optimizer.AcceleratedOptimizer",parameters:[{name:"optimizer",val:""},{name:"device_placement",val:" = True"},{name:"scaler",val:" = None"}],parametersDescription:[{anchor:"accelerate.optimizer.AcceleratedOptimizer.optimizer",description:`<strong>optimizer</strong> (<code>torch.optim.optimizer.Optimizer</code>) &#x2014;
 The optimizer to wrap.`,name:"optimizer"},{anchor:"accelerate.optimizer.AcceleratedOptimizer.device_placement",description:`<strong>device_placement</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not the optimizer should handle device placement. If so, it will place the state dictionary of
 <code>optimizer</code> on the right device.`,name:"device_placement"},{anchor:"accelerate.optimizer.AcceleratedOptimizer.scaler",description:`<strong>scaler</strong> (<code>torch.cuda.amp.grad_scaler.GradScaler</code>, <em>optional</em>) &#x2014;
