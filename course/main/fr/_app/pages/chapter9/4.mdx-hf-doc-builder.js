@@ -1,6 +1,5 @@
-import{S as ln,i as un,s as cn,e as r,k as p,w as x,t as a,M as pn,c as n,d as s,m as d,a as l,x as $,h as o,b as c,N as _s,G as t,g as u,y as z,L as dn,q as j,o as M,B as P,v as mn}from"../../chunks/vendor-hf-doc-builder.js";import{Y as fn}from"../../chunks/Youtube-hf-doc-builder.js";import{I as At}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{C as Es}from"../../chunks/CodeBlock-hf-doc-builder.js";import{C as hn}from"../../chunks/CourseFloatingBanner-hf-doc-builder.js";function vn(Fo){let D,Dt,O,F,Pe,ae,ys,Le,ks,Ot,oe,It,E,ws,Se,xs,$s,Re,Ce,zs,js,Ae,De,Ms,Ps,Gt,be,Ls,Tt,I,B,Oe,re,Ss,_e,Rs,Ie,Cs,Ht,G,ne,Bo,As,le,Uo,Nt,U,Ds,Ge,Os,Is,Ft,v,X,Te,Gs,Ts,He,Hs,Ns,Fs,Ee,Ne,Bs,Us,Xs,Q,Fe,Qs,Ws,Be,Vs,Js,Ys,m,Ue,Ks,Zs,Xe,ea,ta,Qe,sa,aa,We,oa,ra,Ve,na,la,Je,ia,ua,Ye,ca,pa,Ke,da,ma,fa,W,Ze,ha,va,et,ga,qa,ba,V,tt,_a,Ea,st,ya,ka,Bt,ie,Ut,ye,wa,Xt,b,Xo,Qt,T,J,at,ue,xa,ot,$a,Wt,ce,Vt,y,za,rt,ja,Ma,nt,Pa,La,lt,Sa,Ra,Jt,Y,Ca,it,Aa,Da,Yt,H,K,ut,pe,Oa,ke,Ia,ct,Ga,Kt,we,Ta,Zt,f,pt,Ha,Na,dt,Fa,Ba,mt,Ua,Xa,ft,Qa,Wa,ht,Va,Ja,vt,Ya,Ka,de,Za,eo,es,me,ts,N,Z,gt,fe,to,qt,so,ss,L,ao,xe,oo,ro,bt,no,lo,as,q,io,he,uo,co,ve,po,mo,_t,fo,ho,Et,vo,go,os,ge,rs,S,qo,yt,bo,_o,kt,Eo,yo,ns,qe,ls,_,Qo,is,R,ko,wt,wo,xo,xt,$o,zo,us,k,jo,$t,Mo,Po,zt,Lo,So,jt,Ro,Co,cs,C,Ao,Mt,Do,Oo,Pt,Io,Go,ps;return ae=new At({}),oe=new hn({props:{chapter:9,classNames:"absolute z-10 right-0 top-0",notebooks:[{label:"Google Colab",value:"https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter9/section4.ipynb"},{label:"Aws Studio",value:"https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter9/section4.ipynb"}]}}),re=new At({}),ie=new Es({props:{code:`title = "Ask Rick a Question" # "Posez une question \xE0 Rick"
-description = 
-"""
+import{S as ln,i as un,s as cn,e as r,k as p,w as x,t as a,M as pn,c as n,d as s,m as d,a as l,x as $,h as o,b as c,N as _s,G as t,g as u,y as z,L as dn,q as j,o as M,B as P,v as mn}from"../../chunks/vendor-hf-doc-builder.js";import{Y as fn}from"../../chunks/Youtube-hf-doc-builder.js";import{I as At}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{C as Es}from"../../chunks/CodeBlock-hf-doc-builder.js";import{C as hn}from"../../chunks/CourseFloatingBanner-hf-doc-builder.js";function vn(Fo){let D,Dt,O,F,Pe,ae,ys,Le,ks,Ot,oe,It,E,ws,Se,xs,$s,Re,Ce,zs,js,Ae,De,Ms,Ps,Gt,be,Ls,Tt,I,B,Oe,re,Ss,_e,Rs,Ie,Cs,Ht,G,ne,Bo,As,le,Uo,Nt,U,Ds,Ge,Os,Is,Ft,v,X,Te,Gs,Ts,He,Hs,Ns,Fs,Ee,Ne,Bs,Us,Xs,Q,Fe,Qs,Ws,Be,Vs,Js,Ys,m,Ue,Ks,Zs,Xe,ea,ta,Qe,sa,aa,We,oa,ra,Ve,na,la,Je,ia,ua,Ye,ca,pa,Ke,da,ma,fa,W,Ze,ha,va,et,ga,qa,ba,V,tt,_a,Ea,st,ya,ka,Bt,ie,Ut,ye,wa,Xt,b,Xo,Qt,T,J,at,ue,xa,ot,$a,Wt,ce,Vt,y,za,rt,ja,Ma,nt,Pa,La,lt,Sa,Ra,Jt,Y,Ca,it,Aa,Da,Yt,H,K,ut,pe,Oa,ke,Ia,ct,Ga,Kt,we,Ta,Zt,f,pt,Ha,Na,dt,Fa,Ba,mt,Ua,Xa,ft,Qa,Wa,ht,Va,Ja,vt,Ya,Ka,de,Za,eo,es,me,ts,N,Z,gt,fe,to,qt,so,ss,L,ao,xe,oo,ro,bt,no,lo,as,q,io,he,uo,co,ve,po,mo,_t,fo,ho,Et,vo,go,os,ge,rs,S,qo,yt,bo,_o,kt,Eo,yo,ns,qe,ls,_,Qo,is,R,ko,wt,wo,xo,xt,$o,zo,us,k,jo,$t,Mo,Po,zt,Lo,So,jt,Ro,Co,cs,C,Ao,Mt,Do,Oo,Pt,Io,Go,ps;return ae=new At({}),oe=new hn({props:{chapter:9,classNames:"absolute z-10 right-0 top-0",notebooks:[{label:"Google Colab",value:"https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/fr/chapter9/section4.ipynb"},{label:"Aws Studio",value:"https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/fr/chapter9/section4.ipynb"}]}}),re=new At({}),ie=new Es({props:{code:`title = "Ask Rick a Question"  # "Posez une question \xE0 Rick"
+description = """
 The bot was trained to answer questions based on Rick and Morty dialogues. Ask Rick anything!
 # Le robot a \xE9t\xE9 entra\xEEn\xE9 \xE0 r\xE9pondre \xE0 des questions bas\xE9es sur les dialogues de Rick et Morty.
 # Demandez \xE0 Rick ce que vous voulez !
@@ -11,17 +10,16 @@ article = "Check out [the original Rick and Morty Bot](https://huggingface.co/sp
 # Jetez un coup d'\u0153il au [bot original Rick et Morty](https://huggingface.co/spaces/kingabzpro/Rick_and_Morty_Bot) sur lequel cette d\xE9mo est bas\xE9e.
 
 gr.Interface(
-    fn=predict, 
-    inputs="textbox", 
+    fn=predict,
+    inputs="textbox",
     outputs="text",
-    title=title, 
-    description=description, 
+    title=title,
+    description=description,
     article=article,
-    examples=[["What are you doing?"], ["Where should we time travel to?"]] 
-	# ["Que faites-vous ?"], ["O\xF9 devrions-nous voyager dans le temps ?"]
-).launch() `,highlighted:`title = <span class="hljs-string">&quot;Ask Rick a Question&quot;</span> <span class="hljs-comment"># &quot;Posez une question \xE0 Rick&quot;</span>
-description = 
-<span class="hljs-string">&quot;&quot;&quot;
+    examples=[["What are you doing?"], ["Where should we time travel to?"]]
+    # ["Que faites-vous ?"], ["O\xF9 devrions-nous voyager dans le temps ?"]
+).launch()`,highlighted:`title = <span class="hljs-string">&quot;Ask Rick a Question&quot;</span>  <span class="hljs-comment"># &quot;Posez une question \xE0 Rick&quot;</span>
+description = <span class="hljs-string">&quot;&quot;&quot;
 The bot was trained to answer questions based on Rick and Morty dialogues. Ask Rick anything!
 # Le robot a \xE9t\xE9 entra\xEEn\xE9 \xE0 r\xE9pondre \xE0 des questions bas\xE9es sur les dialogues de Rick et Morty.
 # Demandez \xE0 Rick ce que vous voulez !
@@ -32,15 +30,15 @@ article = <span class="hljs-string">&quot;Check out [the original Rick and Morty
 <span class="hljs-comment"># Jetez un coup d&#x27;\u0153il au [bot original Rick et Morty](https://huggingface.co/spaces/kingabzpro/Rick_and_Morty_Bot) sur lequel cette d\xE9mo est bas\xE9e.</span>
 
 gr.Interface(
-    fn=predict, 
-    inputs=<span class="hljs-string">&quot;textbox&quot;</span>, 
+    fn=predict,
+    inputs=<span class="hljs-string">&quot;textbox&quot;</span>,
     outputs=<span class="hljs-string">&quot;text&quot;</span>,
-    title=title, 
-    description=description, 
+    title=title,
+    description=description,
     article=article,
-    examples=[[<span class="hljs-string">&quot;What are you doing?&quot;</span>], [<span class="hljs-string">&quot;Where should we time travel to?&quot;</span>]] 
-	<span class="hljs-comment"># [&quot;Que faites-vous ?&quot;], [&quot;O\xF9 devrions-nous voyager dans le temps ?&quot;]</span>
-).launch() `}}),ue=new At({}),ce=new Es({props:{code:'gr.Interface(classify_image, "image", "label").launch(share=True)',highlighted:'gr.Interface(classify_image, <span class="hljs-string">&quot;image&quot;</span>, <span class="hljs-string">&quot;label&quot;</span>).launch(share=<span class="hljs-literal">True</span>)'}}),pe=new At({}),me=new fn({props:{id:"LS9Y2wDVI0k"}}),fe=new At({}),ge=new Es({props:{code:`from pathlib import Path
+    examples=[[<span class="hljs-string">&quot;What are you doing?&quot;</span>], [<span class="hljs-string">&quot;Where should we time travel to?&quot;</span>]]
+    <span class="hljs-comment"># [&quot;Que faites-vous ?&quot;], [&quot;O\xF9 devrions-nous voyager dans le temps ?&quot;]</span>
+).launch()`}}),ue=new At({}),ce=new Es({props:{code:'gr.Interface(classify_image, "image", "label").launch(share=True)',highlighted:'gr.Interface(classify_image, <span class="hljs-string">&quot;image&quot;</span>, <span class="hljs-string">&quot;label&quot;</span>).launch(share=<span class="hljs-literal">True</span>)'}}),pe=new At({}),me=new fn({props:{id:"LS9Y2wDVI0k"}}),fe=new At({}),ge=new Es({props:{code:`from pathlib import Path
 import torch
 import gradio as gr
 from torch import nn
