@@ -777,9 +777,10 @@ paper</a> for more details.`,name:"repetition_penalty"},{anchor:"transformers.ge
 The id of the <em>padding</em> token.`,name:"pad_token_id"},{anchor:"transformers.generation_utils.GenerationMixin.generate.bos_token_id",description:`<strong>bos_token_id</strong> (<code>int</code>, <em>optional</em>, defaults to <code>model.config.bos_token_id</code>) &#x2014;
 The id of the <em>beginning-of-sequence</em> token.`,name:"bos_token_id"},{anchor:"transformers.generation_utils.GenerationMixin.generate.eos_token_id",description:`<strong>eos_token_id</strong> (<code>int</code>, <em>optional</em>, defaults to <code>model.config.eos_token_id</code>) &#x2014;
 The id of the <em>end-of-sequence</em> token.`,name:"eos_token_id"},{anchor:"transformers.generation_utils.GenerationMixin.generate.length_penalty",description:`<strong>length_penalty</strong> (<code>float</code>, <em>optional</em>, defaults to <code>model.config.length_penalty</code> or 1.0 if the config does not set any value) &#x2014;
-Exponential penalty to the length. 1.0 means that the beam score is penalized by the sequence length.
-0.0 means no penalty. Set to values &lt; 0.0 in order to encourage the model to generate longer
-sequences, to a value &gt; 0.0 in order to encourage the model to produce shorter sequences.`,name:"length_penalty"},{anchor:"transformers.generation_utils.GenerationMixin.generate.no_repeat_ngram_size",description:`<strong>no_repeat_ngram_size</strong> (<code>int</code>, <em>optional</em>, defaults to <code>model.config.no_repeat_ngram_size</code> or 0 if the config does not set any value) &#x2014;
+Exponential penalty to the length that is used with beam-based generation. It is applied as an exponent
+to the sequence length, which in turn is used to divide the score of the sequence. Since the score is
+the log likelihood of the sequence (i.e. negative), <code>length_penalty</code> &gt; 0.0 promotes longer sequences,
+while <code>length_penalty</code> &lt; 0.0 encourages shorter sequences.`,name:"length_penalty"},{anchor:"transformers.generation_utils.GenerationMixin.generate.no_repeat_ngram_size",description:`<strong>no_repeat_ngram_size</strong> (<code>int</code>, <em>optional</em>, defaults to <code>model.config.no_repeat_ngram_size</code> or 0 if the config does not set any value) &#x2014;
 If set to int &gt; 0, all ngrams of that size can only occur once.`,name:"no_repeat_ngram_size"},{anchor:"transformers.generation_utils.GenerationMixin.generate.encoder_no_repeat_ngram_size",description:`<strong>encoder_no_repeat_ngram_size</strong> (<code>int</code>, <em>optional</em>, defaults to <code>model.config.encoder_no_repeat_ngram_size</code> or 0 if the config does not set any value) &#x2014;
 If set to int &gt; 0, all ngrams of that size that occur in the <code>encoder_input_ids</code> cannot occur in the
 <code>decoder_input_ids</code>.`,name:"encoder_no_repeat_ngram_size"},{anchor:"transformers.generation_utils.GenerationMixin.generate.bad_words_ids(List[List[int]],",description:`<strong>bad_words_ids(<code>List[List[int]]</code>,</strong> <em>optional</em>, defaults to <code>model.config.bad_words_ids</code>) &#x2014;
@@ -905,7 +906,7 @@ Whether or not to return a <a href="/docs/transformers/main/en/main_classes/outp
 Whether to continue running the while loop until max_length (needed for ZeRO stage 3)
 model_kwargs &#x2014;
 Additional model specific keyword arguments will be forwarded to the <code>forward</code> function of the model.
-If model is an encoder-decoder model the kwargs should include <code>encoder_outputs</code>.`,name:"synced_gpus"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_utils.py#L1591",returnDescription:`
+If model is an encoder-decoder model the kwargs should include <code>encoder_outputs</code>.`,name:"synced_gpus"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_utils.py#L1592",returnDescription:`
 <p><a
   href="/docs/transformers/main/en/internal/generation_utils#transformers.generation_utils.GreedySearchDecoderOnlyOutput"
 >GreedySearchDecoderOnlyOutput</a>, <a
@@ -941,7 +942,7 @@ Whether or not to return a <a href="/docs/transformers/main/en/main_classes/outp
 Whether to continue running the while loop until max_length (needed for ZeRO stage 3)
 model_kwargs &#x2014;
 Additional model specific kwargs will be forwarded to the <code>forward</code> function of the model. If model is
-an encoder-decoder model the kwargs should include <code>encoder_outputs</code>.`,name:"synced_gpus"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_utils.py#L1823",returnDescription:`
+an encoder-decoder model the kwargs should include <code>encoder_outputs</code>.`,name:"synced_gpus"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_utils.py#L1824",returnDescription:`
 <p><a
   href="/docs/transformers/main/en/internal/generation_utils#transformers.generation_utils.SampleDecoderOnlyOutput"
 >SampleDecoderOnlyOutput</a>, <a
@@ -976,7 +977,7 @@ Whether or not to return a <a href="/docs/transformers/main/en/main_classes/outp
 Whether to continue running the while loop until max_length (needed for ZeRO stage 3)
 model_kwargs &#x2014;
 Additional model specific kwargs will be forwarded to the <code>forward</code> function of the model. If model is
-an encoder-decoder model the kwargs should include <code>encoder_outputs</code>.`,name:"synced_gpus"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_utils.py#L2079",returnDescription:`
+an encoder-decoder model the kwargs should include <code>encoder_outputs</code>.`,name:"synced_gpus"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_utils.py#L2080",returnDescription:`
 <p><code>generation_utilsBeamSearchDecoderOnlyOutput</code>, <a
   href="/docs/transformers/main/en/internal/generation_utils#transformers.generation_utils.BeamSearchEncoderDecoderOutput"
 >BeamSearchEncoderDecoderOutput</a> or
@@ -1012,7 +1013,7 @@ Whether or not to return a <a href="/docs/transformers/main/en/main_classes/outp
 Whether to continue running the while loop until max_length (needed for ZeRO stage 3)
 model_kwargs &#x2014;
 Additional model specific kwargs will be forwarded to the <code>forward</code> function of the model. If model is
-an encoder-decoder model the kwargs should include <code>encoder_outputs</code>.`,name:"synced_gpus"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_utils.py#L2386",returnDescription:`
+an encoder-decoder model the kwargs should include <code>encoder_outputs</code>.`,name:"synced_gpus"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_utils.py#L2387",returnDescription:`
 <p><a
   href="/docs/transformers/main/en/internal/generation_utils#transformers.generation_utils.BeamSampleDecoderOnlyOutput"
 >BeamSampleDecoderOnlyOutput</a>, <a
@@ -1047,7 +1048,7 @@ Whether or not to return a <a href="/docs/transformers/main/en/main_classes/outp
 Whether to continue running the while loop until max_length (needed for ZeRO stage 3)</p>
 <p>model_kwargs &#x2014;
 Additional model specific kwargs that will be forwarded to the <code>forward</code> function of the model. If
-model is an encoder-decoder model the kwargs should include <code>encoder_outputs</code>.`,name:"synced_gpus"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_utils.py#L2703",returnDescription:`
+model is an encoder-decoder model the kwargs should include <code>encoder_outputs</code>.`,name:"synced_gpus"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_utils.py#L2704",returnDescription:`
 <p><a
   href="/docs/transformers/main/en/internal/generation_utils#transformers.generation_utils.BeamSearchDecoderOnlyOutput"
 >BeamSearchDecoderOnlyOutput</a>, <a
@@ -1088,7 +1089,7 @@ Whether or not to return a <a href="/docs/transformers/main/en/main_classes/outp
 Whether to continue running the while loop until max_length (needed for ZeRO stage 3)
 model_kwargs &#x2014;
 Additional model specific kwargs will be forwarded to the <code>forward</code> function of the model. If model is
-an encoder-decoder model the kwargs should include <code>encoder_outputs</code>.`,name:"synced_gpus"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_utils.py#L3065",returnDescription:`
+an encoder-decoder model the kwargs should include <code>encoder_outputs</code>.`,name:"synced_gpus"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_utils.py#L3066",returnDescription:`
 <p><code>generation_utilsBeamSearchDecoderOnlyOutput</code>, <a
   href="/docs/transformers/main/en/internal/generation_utils#transformers.generation_utils.BeamSearchEncoderDecoderOutput"
 >BeamSearchEncoderDecoderOutput</a> or
@@ -1122,9 +1123,10 @@ paper</a> for more details.`,name:"repetition_penalty"},{anchor:"transformers.ge
 The id of the <em>padding</em> token.`,name:"pad_token_id"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.bos_token_id",description:`<strong>bos_token_id</strong> (<code>int</code>, <em>optional</em>) &#x2014;
 The id of the <em>beginning-of-sequence</em> token.`,name:"bos_token_id"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.eos_token_id",description:`<strong>eos_token_id</strong> (<code>int</code>, <em>optional</em>) &#x2014;
 The id of the <em>end-of-sequence</em> token.`,name:"eos_token_id"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.length_penalty",description:`<strong>length_penalty</strong> (<code>float</code>, <em>optional</em>, defaults to 1.0) &#x2014;
-Exponential penalty to the length. 1.0 means no penalty.</p>
-<p>Set to values &lt; 1.0 in order to encourage the model to generate shorter sequences, to a value &gt; 1.0 in
-order to encourage the model to produce longer sequences.`,name:"length_penalty"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.no_repeat_ngram_size",description:`<strong>no_repeat_ngram_size</strong> (<code>int</code>, <em>optional</em>, defaults to 0) &#x2014;
+Exponential penalty to the length that is used with beam-based generation. It is applied as an exponent
+to the sequence length, which in turn is used to divide the score of the sequence. Since the score is
+the log likelihood of the sequence (i.e. negative), <code>length_penalty</code> &gt; 0.0 promotes longer sequences,
+while <code>length_penalty</code> &lt; 0.0 encourages shorter sequences.`,name:"length_penalty"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.no_repeat_ngram_size",description:`<strong>no_repeat_ngram_size</strong> (<code>int</code>, <em>optional</em>, defaults to 0) &#x2014;
 If set to int &gt; 0, all ngrams of that size can only occur once.`,name:"no_repeat_ngram_size"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.bad_words_ids(List[int],",description:`<strong>bad_words_ids(<code>List[int]</code>,</strong> <em>optional</em>) &#x2014;
 List of token ids that are not allowed to be generated. In order to get the tokens of the words that
 should not appear in the generated text, use <code>tokenizer.encode(bad_word, add_prefix_space=True)</code>.`,name:"bad_words_ids(List[int],"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.num_return_sequences(int,",description:`<strong>num_return_sequences(<code>int</code>,</strong> <em>optional</em>, defaults to 1) &#x2014;
