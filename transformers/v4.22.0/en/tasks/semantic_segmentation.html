@@ -1,0 +1,325 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;semantic-segmentation&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;load-sceneparse150-dataset&quot;,&quot;title&quot;:&quot;Load SceneParse150 dataset&quot;},{&quot;local&quot;:&quot;preprocess&quot;,&quot;title&quot;:&quot;Preprocess&quot;},{&quot;local&quot;:&quot;train&quot;,&quot;title&quot;:&quot;Train&quot;},{&quot;local&quot;:&quot;inference&quot;,&quot;title&quot;:&quot;Inference&quot;}],&quot;title&quot;:&quot;Semantic segmentation&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.0/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.0/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.0/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.0/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.0/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.0/en/_app/pages/tasks/semantic_segmentation.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.0/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.0/en/_app/chunks/Youtube-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.0/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.0/en/_app/chunks/CodeBlock-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.0/en/_app/chunks/DocNotebookDropdown-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="semantic-segmentation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#semantic-segmentation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Semantic segmentation
+	</span></h1>
+
+
+
+<div class="flex space-x-1 absolute z-10 right-0 top-0">
+	<div class="relative colab-dropdown ">
+	<button class="  " type="button">
+		
+				<img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg">
+			</button>
+	
+	
+	
+	</div>
+	<div class="relative colab-dropdown ">
+	<button class="  " type="button">
+		
+				<img alt="Open In Studio Lab" class="!m-0" src="https://studiolab.sagemaker.aws/studiolab.svg">
+			</button>
+	
+	
+	
+	</div></div>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/dKE8SIt9C-w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Semantic segmentation assigns a label or class to each individual pixel of an image. There are several types of segmentation, and in the case of semantic segmentation, no distinction is made between unique instances of the same object. Both objects are given the same label (for example, “car” instead of “car-1” and “car-2”). Common real-world applications of semantic segmentation include training self-driving cars to identify pedestrians and important traffic information, identifying cells and abnormalities in medical imagery, and monitoring environmental changes from satellite imagery.</p>
+<p>This guide will show you how to finetune <a href="https://huggingface.co/docs/transformers/main/en/model_doc/segformer#segformer" rel="nofollow">SegFormer</a> on the <a href="https://huggingface.co/datasets/scene_parse_150" rel="nofollow">SceneParse150</a> dataset.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>See the image segmentation <a href="https://huggingface.co/tasks/image-segmentation" rel="nofollow">task page</a> for more information about its associated models, datasets, and metrics.</p></div>
+<p>Before you begin, make sure you have all the necessary libraries installed:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->pip install -q datasets transformers evaluate<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="load-sceneparse150-dataset" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#load-sceneparse150-dataset"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Load SceneParse150 dataset
+	</span></h2>
+
+<p>Load the first 50 examples of the SceneParse150 dataset from the 🤗 Datasets library so you can quickly train and test a model:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds = load_dataset(<span class="hljs-string">&quot;scene_parse_150&quot;</span>, split=<span class="hljs-string">&quot;train[:50]&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Split this dataset into a train and test set:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>ds = ds.train_test_split(test_size=<span class="hljs-number">0.2</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>train_ds = ds[<span class="hljs-string">&quot;train&quot;</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>test_ds = ds[<span class="hljs-string">&quot;test&quot;</span>]<!-- HTML_TAG_END --></pre></div>
+<p>Then take a look at an example:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>train_ds[<span class="hljs-number">0</span>]
+{<span class="hljs-string">&#x27;image&#x27;</span>: &lt;PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=512x683 at <span class="hljs-number">0x7F9B0C201F90</span>&gt;,
+ <span class="hljs-string">&#x27;annotation&#x27;</span>: &lt;PIL.PngImagePlugin.PngImageFile image mode=L size=512x683 at <span class="hljs-number">0x7F9B0C201DD0</span>&gt;,
+ <span class="hljs-string">&#x27;scene_category&#x27;</span>: <span class="hljs-number">368</span>}<!-- HTML_TAG_END --></pre></div>
+<p>There is an <code>image</code>, an <code>annotation</code> (this is the segmentation map or label), and a <code>scene_category</code> field that describes the image scene, like “kitchen” or “office”. In this guide, you’ll only need <code>image</code> and <code>annotation</code>, both of which are PIL images.</p>
+<p>You’ll also want to create a dictionary that maps a label id to a label class which will be useful when you set up the model later. Download the mappings from the Hub and create the <code>id2label</code> and <code>label2id</code> dictionaries:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> json
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> cached_download, hf_hub_url
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>repo_id = <span class="hljs-string">&quot;datasets/huggingface/label-files&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>filename = <span class="hljs-string">&quot;ade20k-hf-doc-builder.json&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>id2label = json.load(<span class="hljs-built_in">open</span>(cached_download(hf_hub_url(repo_id, filename)), <span class="hljs-string">&quot;r&quot;</span>))
+<span class="hljs-meta">&gt;&gt;&gt; </span>id2label = {<span class="hljs-built_in">int</span>(k): v <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> id2label.items()}
+<span class="hljs-meta">&gt;&gt;&gt; </span>label2id = {v: k <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> id2label.items()}
+<span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(id2label)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="preprocess" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#preprocess"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Preprocess
+	</span></h2>
+
+<p>Next, load a SegFormer feature extractor to prepare the images and annotations for the model. Some datasets, like this one, use the zero-index as the background class. However, the background class isn’t included in the 150 classes, so you’ll need to set <code>reduce_labels=True</code> to subtract one from all the labels. The zero-index is replaced by <code>255</code> so it’s ignored by SegFormer’s loss function:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoFeatureExtractor
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = AutoFeatureExtractor.from_pretrained(<span class="hljs-string">&quot;nvidia/mit-b0&quot;</span>, reduce_labels=<span class="hljs-literal">True</span>)<!-- HTML_TAG_END --></pre></div>
+<p>It is common to apply some data augmentations to an image dataset to make a model more robust against overfitting. In this guide, you’ll use the <a href="https://pytorch.org/vision/stable/generated/torchvision.transforms.ColorJitter.html" rel="nofollow"><code>ColorJitter</code></a> function from <a href="https://pytorch.org/vision/stable/index.html" rel="nofollow">torchvision</a> to randomly change the color properties of an image:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> torchvision.transforms <span class="hljs-keyword">import</span> ColorJitter
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>jitter = ColorJitter(brightness=<span class="hljs-number">0.25</span>, contrast=<span class="hljs-number">0.25</span>, saturation=<span class="hljs-number">0.25</span>, hue=<span class="hljs-number">0.1</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Now create two preprocessing functions to prepare the images and annotations for the model. These functions convert the images into <code>pixel_values</code> and annotations to <code>labels</code>. For the training set, <code>jitter</code> is applied before providing the images to the feature extractor. For the test set, the feature extractor crops and normalizes the <code>images</code>, and only crops the <code>labels</code> because no data augmentation is applied during testing.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">train_transforms</span>(<span class="hljs-params">example_batch</span>):
+<span class="hljs-meta">... </span>    images = [jitter(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> example_batch[<span class="hljs-string">&quot;image&quot;</span>]]
+<span class="hljs-meta">... </span>    labels = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> example_batch[<span class="hljs-string">&quot;annotation&quot;</span>]]
+<span class="hljs-meta">... </span>    inputs = feature_extractor(images, labels)
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> inputs
+
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">val_transforms</span>(<span class="hljs-params">example_batch</span>):
+<span class="hljs-meta">... </span>    images = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> example_batch[<span class="hljs-string">&quot;image&quot;</span>]]
+<span class="hljs-meta">... </span>    labels = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> example_batch[<span class="hljs-string">&quot;annotation&quot;</span>]]
+<span class="hljs-meta">... </span>    inputs = feature_extractor(images, labels)
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> inputs<!-- HTML_TAG_END --></pre></div>
+<p>To apply the <code>jitter</code> over the entire dataset, use the 🤗 Datasets <a href="https://huggingface.co/docs/datasets/v2.4.0/en/package_reference/main_classes#datasets.Dataset.set_transform" rel="nofollow">set_transform</a> function. The transform is applied on the fly which is faster and consumes less disk space:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>train_ds.set_transform(train_transforms)
+<span class="hljs-meta">&gt;&gt;&gt; </span>test_ds.set_transform(val_transforms)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="train" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#train"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Train
+	</span></h2>
+
+<p>Load SegFormer with <a href="/docs/transformers/v4.22.0/en/model_doc/auto#transformers.AutoModelForSemanticSegmentation">AutoModelForSemanticSegmentation</a>, and pass the model the mapping between label ids and label classes:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForSemanticSegmentation
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>pretrained_model_name = <span class="hljs-string">&quot;nvidia/mit-b0&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = AutoModelForSemanticSegmentation.from_pretrained(
+<span class="hljs-meta">... </span>    pretrained_model_name, id2label=id2label, label2id=label2id
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>If you aren’t familiar with finetuning a model with the <a href="/docs/transformers/v4.22.0/en/main_classes/trainer#transformers.Trainer">Trainer</a>, take a look at the basic tutorial <a href="../training#finetune-with-trainer">here</a>!</p></div>
+<p>Define your training hyperparameters in <a href="/docs/transformers/v4.22.0/en/main_classes/trainer#transformers.TrainingArguments">TrainingArguments</a>. It is important not to remove unused columns because this will drop the <code>image</code> column. Without the <code>image</code> column, you can’t create <code>pixel_values</code>. Set <code>remove_unused_columns=False</code> to prevent this behavior!</p>
+<p>To save and push a model under your namespace to the Hub, set <code>push_to_hub=True</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TrainingArguments
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>training_args = TrainingArguments(
+<span class="hljs-meta">... </span>    output_dir=<span class="hljs-string">&quot;segformer-b0-scene-parse-150&quot;</span>,
+<span class="hljs-meta">... </span>    learning_rate=<span class="hljs-number">6e-5</span>,
+<span class="hljs-meta">... </span>    num_train_epochs=<span class="hljs-number">50</span>,
+<span class="hljs-meta">... </span>    per_device_train_batch_size=<span class="hljs-number">2</span>,
+<span class="hljs-meta">... </span>    per_device_eval_batch_size=<span class="hljs-number">2</span>,
+<span class="hljs-meta">... </span>    save_total_limit=<span class="hljs-number">3</span>,
+<span class="hljs-meta">... </span>    evaluation_strategy=<span class="hljs-string">&quot;steps&quot;</span>,
+<span class="hljs-meta">... </span>    save_strategy=<span class="hljs-string">&quot;steps&quot;</span>,
+<span class="hljs-meta">... </span>    save_steps=<span class="hljs-number">20</span>,
+<span class="hljs-meta">... </span>    eval_steps=<span class="hljs-number">20</span>,
+<span class="hljs-meta">... </span>    logging_steps=<span class="hljs-number">1</span>,
+<span class="hljs-meta">... </span>    eval_accumulation_steps=<span class="hljs-number">5</span>,
+<span class="hljs-meta">... </span>    remove_unused_columns=<span class="hljs-literal">False</span>,
+<span class="hljs-meta">... </span>    push_to_hub=<span class="hljs-literal">True</span>,
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+<p>To evaluate model performance during training, you’ll need to create a function to compute and report metrics. For semantic segmentation, you’ll typically compute the <a href="https://huggingface.co/spaces/evaluate-metric/mean_iou" rel="nofollow">mean Intersection over Union</a> (IoU). The mean IoU measures the overlapping area between the predicted and ground truth segmentation maps. </p>
+<p>Load the mean IoU from the 🤗 Evaluate library:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> evaluate
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>metric = evaluate.load(<span class="hljs-string">&quot;mean_iou&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Then create a function to <a href="https://huggingface.co/docs/evaluate/v0.2.2/en/package_reference/main_classes#evaluate.EvaluationModule.compute" rel="nofollow">compute</a> the metrics. Your predictions need to be converted to logits first, and then reshaped to match the size of the labels before you can call <a href="https://huggingface.co/docs/evaluate/v0.2.2/en/package_reference/main_classes#evaluate.EvaluationModule.compute" rel="nofollow">compute</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_metrics</span>(<span class="hljs-params">eval_pred</span>):
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>        logits, labels = eval_pred
+<span class="hljs-meta">... </span>        logits_tensor = torch.from_numpy(logits)
+<span class="hljs-meta">... </span>        logits_tensor = nn.functional.interpolate(
+<span class="hljs-meta">... </span>            logits_tensor,
+<span class="hljs-meta">... </span>            size=labels.shape[-<span class="hljs-number">2</span>:],
+<span class="hljs-meta">... </span>            mode=<span class="hljs-string">&quot;bilinear&quot;</span>,
+<span class="hljs-meta">... </span>            align_corners=<span class="hljs-literal">False</span>,
+<span class="hljs-meta">... </span>        ).argmax(dim=<span class="hljs-number">1</span>)
+
+<span class="hljs-meta">... </span>        pred_labels = logits_tensor.detach().cpu().numpy()
+<span class="hljs-meta">... </span>        metrics = metric.compute(
+<span class="hljs-meta">... </span>            predictions=pred_labels,
+<span class="hljs-meta">... </span>            references=labels,
+<span class="hljs-meta">... </span>            num_labels=num_labels,
+<span class="hljs-meta">... </span>            ignore_index=<span class="hljs-number">255</span>,
+<span class="hljs-meta">... </span>            reduce_labels=<span class="hljs-literal">False</span>,
+<span class="hljs-meta">... </span>        )
+<span class="hljs-meta">... </span>        <span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> metrics.items():
+<span class="hljs-meta">... </span>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(value) <span class="hljs-keyword">is</span> np.ndarray:
+<span class="hljs-meta">... </span>                metrics[key] = value.tolist()
+<span class="hljs-meta">... </span>        <span class="hljs-keyword">return</span> metrics<!-- HTML_TAG_END --></pre></div>
+<p>Pass your model, training arguments, datasets, and metrics function to the <a href="/docs/transformers/v4.22.0/en/main_classes/trainer#transformers.Trainer">Trainer</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Trainer
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>trainer = Trainer(
+<span class="hljs-meta">... </span>    model=model,
+<span class="hljs-meta">... </span>    args=training_args,
+<span class="hljs-meta">... </span>    train_dataset=train_ds,
+<span class="hljs-meta">... </span>    eval_dataset=test_ds,
+<span class="hljs-meta">... </span>    compute_metrics=compute_metrics,
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+<p>Lastly, call <a href="/docs/transformers/v4.22.0/en/main_classes/trainer#transformers.Trainer.train">train()</a> to finetune your model:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>trainer.train()<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="inference" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#inference"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Inference
+	</span></h2>
+
+<p>Great, now that you’ve finetuned a model, you can use it for inference!</p>
+<p>Load an image for inference:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>image = ds[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;image&quot;</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>image<!-- HTML_TAG_END --></pre></div>
+<div class="flex justify-center"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/semantic-seg-image.png" alt="Image of bedroom"></div>
+<p>Process the image with a feature extractor and place the <code>pixel_values</code> on a GPU:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>device = torch.device(<span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>)  <span class="hljs-comment"># use GPU if available, otherwise use a CPU</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>encoding = feature_extractor(image, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>pixel_values = encoding.pixel_values.to(device)<!-- HTML_TAG_END --></pre></div>
+<p>Pass your input to the model and return the <code>logits</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(pixel_values=pixel_values)
+<span class="hljs-meta">&gt;&gt;&gt; </span>logits = outputs.logits.cpu()<!-- HTML_TAG_END --></pre></div>
+<p>Next, rescale the logits to the original image size:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>upsampled_logits = nn.functional.interpolate(
+<span class="hljs-meta">... </span>    logits,
+<span class="hljs-meta">... </span>    size=image.size[::-<span class="hljs-number">1</span>],
+<span class="hljs-meta">... </span>    mode=<span class="hljs-string">&quot;bilinear&quot;</span>,
+<span class="hljs-meta">... </span>    align_corners=<span class="hljs-literal">False</span>,
+<span class="hljs-meta">... </span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>pred_seg = upsampled_logits.argmax(dim=<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]<!-- HTML_TAG_END --></pre></div>
+<p>To visualize the results, load the <a href="https://github.com/tensorflow/models/blob/3f1ca33afe3c1631b733ea7e40c294273b9e406d/research/deeplab/utils/get_dataset_colormap.py#L51" rel="nofollow">dataset color palette</a> that maps each class to their RGB values. Then you can combine and plot your image and the predicted segmentation map:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>color_seg = np.zeros((pred_seg.shape[<span class="hljs-number">0</span>], pred_seg.shape[<span class="hljs-number">1</span>], <span class="hljs-number">3</span>), dtype=np.uint8)
+<span class="hljs-meta">&gt;&gt;&gt; </span>palette = np.array(ade_palette())
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> label, color <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(palette):
+<span class="hljs-meta">... </span>    color_seg[pred_seg == label, :] = color
+<span class="hljs-meta">&gt;&gt;&gt; </span>color_seg = color_seg[..., ::-<span class="hljs-number">1</span>]  <span class="hljs-comment"># convert to BGR</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>img = np.array(image) * <span class="hljs-number">0.5</span> + color_seg * <span class="hljs-number">0.5</span>  <span class="hljs-comment"># plot the image with the segmentation map</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>img = img.astype(np.uint8)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>plt.figure(figsize=(<span class="hljs-number">15</span>, <span class="hljs-number">10</span>))
+<span class="hljs-meta">&gt;&gt;&gt; </span>plt.imshow(img)
+<span class="hljs-meta">&gt;&gt;&gt; </span>plt.show()<!-- HTML_TAG_END --></pre></div>
+<div class="flex justify-center"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/semantic-seg-preds.png" alt="Image of bedroom overlayed with segmentation map"></div>
+
+
+		<script type="module" data-hydrate="1pqid9m">
+		import { start } from "/docs/transformers/v4.22.0/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="1pqid9m"]').parentNode,
+			paths: {"base":"/docs/transformers/v4.22.0/en","assets":"/docs/transformers/v4.22.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/transformers/v4.22.0/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/transformers/v4.22.0/en/_app/pages/tasks/semantic_segmentation.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
