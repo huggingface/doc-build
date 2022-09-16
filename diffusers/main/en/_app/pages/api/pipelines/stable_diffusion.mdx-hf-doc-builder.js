@@ -103,8 +103,9 @@ The prompt or prompts to guide the image generation.`,name:"prompt"},{anchor:"di
 <code>Image</code>, or tensor representing an image batch, that will be used as the starting point for the
 process. This is the image whose masked region will be inpainted.`,name:"init_image"},{anchor:"diffusers.StableDiffusionInpaintPipeline.__call__.mask_image",description:`<strong>mask_image</strong> (<code>torch.FloatTensor</code> or <code>PIL.Image.Image</code>) &#x2014;
 <code>Image</code>, or tensor representing an image batch, to mask <code>init_image</code>. White pixels in the mask will be
-replaced by noise and therefore repainted, while black pixels will be preserved. The mask image will be
-converted to a single channel (luminance) before use.`,name:"mask_image"},{anchor:"diffusers.StableDiffusionInpaintPipeline.__call__.strength",description:`<strong>strength</strong> (<code>float</code>, <em>optional</em>, defaults to 0.8) &#x2014;
+replaced by noise and therefore repainted, while black pixels will be preserved. If <code>mask_image</code> is a
+PIL image, it will be converted to a single channel (luminance) before use. If it&#x2019;s a tensor, it should
+contain one color channel (L) instead of 3, so the expected shape would be <code>(B, H, W, 1)</code>.`,name:"mask_image"},{anchor:"diffusers.StableDiffusionInpaintPipeline.__call__.strength",description:`<strong>strength</strong> (<code>float</code>, <em>optional</em>, defaults to 0.8) &#x2014;
 Conceptually, indicates how much to inpaint the masked area. Must be between 0 and 1. When <code>strength</code>
 is 1, the denoising process will be run on the masked area for the full number of iterations specified
 in <code>num_inference_steps</code>. <code>init_image</code> will be used as a reference for the masked area, adding more
