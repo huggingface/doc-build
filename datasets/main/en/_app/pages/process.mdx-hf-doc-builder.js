@@ -127,10 +127,10 @@ Dataset({
     features: [<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;title&#x27;</span>, <span class="hljs-string">&#x27;context&#x27;</span>, <span class="hljs-string">&#x27;question&#x27;</span>, <span class="hljs-string">&#x27;answers.text&#x27;</span>, <span class="hljs-string">&#x27;answers.answer_start&#x27;</span>],
  num_rows: <span class="hljs-number">87599</span>
 })`}}),ga=new E({}),_a=new w({props:{code:`def add_prefix(example):
-    example["sentence1"] = 'My sentence: '' + example["sentence1"]
+    example["sentence1"] = 'My sentence: ' + example["sentence1"]
     return example`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">add_prefix</span>(<span class="hljs-params">example</span>):
-<span class="hljs-meta">... </span>    example[<span class="hljs-string">&quot;sentence1&quot;</span>] = <span class="hljs-string">&#x27;My sentence: &#x27;</span><span class="hljs-string">&#x27; + example[&quot;sentence1&quot;]
-...     return example</span>`}}),ja=new w({props:{code:`updated_dataset = small_dataset.map(add_prefix)
+<span class="hljs-meta">... </span>    example[<span class="hljs-string">&quot;sentence1&quot;</span>] = <span class="hljs-string">&#x27;My sentence: &#x27;</span> + example[<span class="hljs-string">&quot;sentence1&quot;</span>]
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> example`}}),ja=new w({props:{code:`updated_dataset = small_dataset.map(add_prefix)
 updated_dataset["sentence1"][:5]`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>updated_dataset = small_dataset.<span class="hljs-built_in">map</span>(add_prefix)
 <span class="hljs-meta">&gt;&gt;&gt; </span>updated_dataset[<span class="hljs-string">&quot;sentence1&quot;</span>][:<span class="hljs-number">5</span>]
 [<span class="hljs-string">&#x27;My sentence: Amrozi accused his brother , whom he called &quot; the witness &quot; , of deliberately distorting his evidence .&#x27;</span>,
