@@ -34,7 +34,7 @@ Whether or not to return only the number of non-embeddings parameters`,name:"exc
 <p>The number of parameters.</p>
 `,returnType:`
 <p><code>int</code></p>
-`}}),Me=new k({props:{name:"save_pretrained",anchor:"diffusers.ModelMixin.save_pretrained",parameters:[{name:"save_directory",val:": typing.Union[str, os.PathLike]"},{name:"is_main_process",val:": bool = True"},{name:"save_function",val:": typing.Callable = <function save at 0x7f1a0a6b1820>"}],parametersDescription:[{anchor:"diffusers.ModelMixin.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
+`}}),Me=new k({props:{name:"save_pretrained",anchor:"diffusers.ModelMixin.save_pretrained",parameters:[{name:"save_directory",val:": typing.Union[str, os.PathLike]"},{name:"is_main_process",val:": bool = True"},{name:"save_function",val:": typing.Callable = <function save at 0x7f107ba10820>"}],parametersDescription:[{anchor:"diffusers.ModelMixin.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
 Directory to which to save. Will be created if it doesn&#x2019;t exist.`,name:"save_directory"},{anchor:"diffusers.ModelMixin.save_pretrained.is_main_process",description:`<strong>is_main_process</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether the process calling this is the main process or not. Useful when in distributed training like
 TPUs and need to call this function on all processes. In this case, set <code>is_main_process=True</code> only on
