@@ -1,0 +1,1590 @@
+import{S as a2,i as r2,s as i2,e as a,k as p,w,t as n,M as l2,c as r,d as t,m as h,a as i,x as T,h as s,b as u,G as e,g as _,y,q as $,o as D,B as E,v as d2,L as Pe}from"../../chunks/vendor-hf-doc-builder.js";import{T as nt}from"../../chunks/Tip-hf-doc-builder.js";import{D as Q}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Re}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Ye}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ce}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function c2(V){let l,g,c,f,k;return f=new Re({props:{code:`0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1
+| first sequence    | second sequence |`,highlighted:`0<span class="hljs-number"> 0 </span>0<span class="hljs-number"> 0 </span>0<span class="hljs-number"> 0 </span>0<span class="hljs-number"> 0 </span>0<span class="hljs-number"> 0 </span>0<span class="hljs-number"> 1 </span>1<span class="hljs-number"> 1 </span>1<span class="hljs-number"> 1 </span>1<span class="hljs-number"> 1 </span>1 1
+| first sequence    | second sequence |`}}),{c(){l=a("p"),g=n("sequence pair mask has the following format:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"sequence pair mask has the following format:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function p2(V){let l,g,c,f,k;return f=new Re({props:{code:`0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1
+| first sequence    | second sequence |`,highlighted:`0<span class="hljs-number"> 0 </span>0<span class="hljs-number"> 0 </span>0<span class="hljs-number"> 0 </span>0<span class="hljs-number"> 0 </span>0<span class="hljs-number"> 0 </span>0<span class="hljs-number"> 1 </span>1<span class="hljs-number"> 1 </span>1<span class="hljs-number"> 1 </span>1<span class="hljs-number"> 1 </span>1 1
+| first sequence    | second sequence |`}}),{c(){l=a("p"),g=n("sequence pair mask has the following format:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"sequence pair mask has the following format:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function h2(V){let l,g,c,f,k;return{c(){l=a("p"),g=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),c=a("code"),f=n("Module"),k=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),c=r(m,"CODE",{});var q=i(c);f=s(q,"Module"),q.forEach(t),k=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(t)},m(d,m){_(d,l,m),e(l,g),e(l,c),e(c,f),e(l,k)},d(d){d&&t(l)}}}function m2(V){let l,g,c,f,k;return f=new Re({props:{code:`from transformers import DebertaV2Tokenizer, DebertaV2Model
+import torch
+
+tokenizer = DebertaV2Tokenizer.from_pretrained("microsoft/deberta-v2-xlarge")
+model = DebertaV2Model.from_pretrained("microsoft/deberta-v2-xlarge")
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
+outputs = model(**inputs)
+
+last_hidden_states = outputs.last_hidden_state`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaV2Tokenizer, DebertaV2Model
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaV2Tokenizer.from_pretrained(<span class="hljs-string">&quot;microsoft/deberta-v2-xlarge&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = DebertaV2Model.from_pretrained(<span class="hljs-string">&quot;microsoft/deberta-v2-xlarge&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>last_hidden_states = outputs.last_hidden_state`}}),{c(){l=a("p"),g=n("Example:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Example:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function f2(V){let l,g,c,f,k;return{c(){l=a("p"),g=n(`Although the recipe for forward pass needs to be defined within
+this function, one should call the `),c=a("code"),f=n("Module"),k=n(` instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.`)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,`Although the recipe for forward pass needs to be defined within
+this function, one should call the `),c=r(m,"CODE",{});var q=i(c);f=s(q,"Module"),q.forEach(t),k=s(m,` instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.`),m.forEach(t)},m(d,m){_(d,l,m),e(l,g),e(l,c),e(c,f),e(l,k)},d(d){d&&t(l)}}}function u2(V){let l,g,c,f,k;return{c(){l=a("p"),g=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),c=a("code"),f=n("Module"),k=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),c=r(m,"CODE",{});var q=i(c);f=s(q,"Module"),q.forEach(t),k=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(t)},m(d,m){_(d,l,m),e(l,g),e(l,c),e(c,f),e(l,k)},d(d){d&&t(l)}}}function g2(V){let l,g,c,f,k;return f=new Re({props:{code:`from transformers import DebertaV2Tokenizer, DebertaV2ForMaskedLM
+import torch
+
+tokenizer = DebertaV2Tokenizer.from_pretrained("hf-internal-testing/tiny-random-deberta-v2")
+model = DebertaV2ForMaskedLM.from_pretrained("hf-internal-testing/tiny-random-deberta-v2")
+
+inputs = tokenizer("The capital of France is [MASK].", return_tensors="pt")
+
+with torch.no_grad():
+    logits = model(**inputs).logits
+
+# retrieve index of [MASK]
+mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
+
+predicted_token_id = logits[0, mask_token_index].argmax(axis=-1)
+tokenizer.decode(predicted_token_id)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaV2Tokenizer, DebertaV2ForMaskedLM
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaV2Tokenizer.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-deberta-v2&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = DebertaV2ForMaskedLM.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-deberta-v2&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;The capital of France is [MASK].&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>    logits = model(**inputs).logits
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># retrieve index of [MASK]</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[<span class="hljs-number">0</span>].nonzero(as_tuple=<span class="hljs-literal">True</span>)[<span class="hljs-number">0</span>]
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_token_id = logits[<span class="hljs-number">0</span>, mask_token_index].argmax(axis=-<span class="hljs-number">1</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predicted_token_id)
+<span class="hljs-string">&#x27;enberry&#x27;</span>`}}),{c(){l=a("p"),g=n("Example:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Example:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function _2(V){let l,g;return l=new Re({props:{code:`labels = tokenizer("The capital of France is Paris.", return_tensors="pt")["input_ids"]
+# mask labels of non-[MASK] tokens
+labels = torch.where(inputs.input_ids == tokenizer.mask_token_id, labels, -100)
+
+outputs = model(**inputs, labels=labels)
+round(outputs.loss.item(), 2)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>labels = tokenizer(<span class="hljs-string">&quot;The capital of France is Paris.&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)[<span class="hljs-string">&quot;input_ids&quot;</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># mask labels of non-[MASK] tokens</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.where(inputs.input_ids == tokenizer.mask_token_id, labels, -<span class="hljs-number">100</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, labels=labels)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(outputs.loss.item(), <span class="hljs-number">2</span>)
+<span class="hljs-number">11.85</span>`}}),{c(){w(l.$$.fragment)},l(c){T(l.$$.fragment,c)},m(c,f){y(l,c,f),g=!0},p:Pe,i(c){g||($(l.$$.fragment,c),g=!0)},o(c){D(l.$$.fragment,c),g=!1},d(c){E(l,c)}}}function b2(V){let l,g,c,f,k;return{c(){l=a("p"),g=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),c=a("code"),f=n("Module"),k=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),c=r(m,"CODE",{});var q=i(c);f=s(q,"Module"),q.forEach(t),k=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(t)},m(d,m){_(d,l,m),e(l,g),e(l,c),e(c,f),e(l,k)},d(d){d&&t(l)}}}function v2(V){let l,g,c,f,k;return f=new Re({props:{code:`import torch
+from transformers import DebertaV2Tokenizer, DebertaV2ForSequenceClassification
+
+tokenizer = DebertaV2Tokenizer.from_pretrained("hf-internal-testing/tiny-random-deberta-v2")
+model = DebertaV2ForSequenceClassification.from_pretrained("hf-internal-testing/tiny-random-deberta-v2")
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
+
+with torch.no_grad():
+    logits = model(**inputs).logits
+
+predicted_class_id = logits.argmax().item()
+model.config.id2label[predicted_class_id]`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaV2Tokenizer, DebertaV2ForSequenceClassification
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaV2Tokenizer.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-deberta-v2&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = DebertaV2ForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-deberta-v2&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>    logits = model(**inputs).logits
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_class_id = logits.argmax().item()
+<span class="hljs-meta">&gt;&gt;&gt; </span>model.config.id2label[predicted_class_id]
+<span class="hljs-string">&#x27;LABEL_1&#x27;</span>`}}),{c(){l=a("p"),g=n("Example of single-label classification:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Example of single-label classification:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function k2(V){let l,g;return l=new Re({props:{code:'# To train a model on `num_labels` classes, you can pass `num_labels=num_labels` to `.from_pretrained(...)`\nnum_labels = len(model.config.id2label)\nmodel = DebertaV2ForSequenceClassification.from_pretrained("hf-internal-testing/tiny-random-deberta-v2", num_labels=num_labels)\n\nlabels = torch.tensor([1])\nloss = model(**inputs, labels=labels).loss\nround(loss.item(), 2)',highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = DebertaV2ForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-deberta-v2&quot;</span>, num_labels=num_labels)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor([<span class="hljs-number">1</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
+<span class="hljs-number">0.69</span>`}}),{c(){w(l.$$.fragment)},l(c){T(l.$$.fragment,c)},m(c,f){y(l,c,f),g=!0},p:Pe,i(c){g||($(l.$$.fragment,c),g=!0)},o(c){D(l.$$.fragment,c),g=!1},d(c){E(l,c)}}}function w2(V){let l,g,c,f,k;return f=new Re({props:{code:`import torch
+from transformers import DebertaV2Tokenizer, DebertaV2ForSequenceClassification
+
+tokenizer = DebertaV2Tokenizer.from_pretrained("hf-internal-testing/tiny-random-deberta-v2")
+model = DebertaV2ForSequenceClassification.from_pretrained("hf-internal-testing/tiny-random-deberta-v2", problem_type="multi_label_classification")
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
+
+with torch.no_grad():
+    logits = model(**inputs).logits
+
+predicted_class_id = logits.argmax().item()
+model.config.id2label[predicted_class_id]`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaV2Tokenizer, DebertaV2ForSequenceClassification
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaV2Tokenizer.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-deberta-v2&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = DebertaV2ForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-deberta-v2&quot;</span>, problem_type=<span class="hljs-string">&quot;multi_label_classification&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>    logits = model(**inputs).logits
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_class_id = logits.argmax().item()
+<span class="hljs-meta">&gt;&gt;&gt; </span>model.config.id2label[predicted_class_id]
+<span class="hljs-string">&#x27;LABEL_1&#x27;</span>`}}),{c(){l=a("p"),g=n("Example of multi-label classification:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Example of multi-label classification:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function T2(V){let l,g;return l=new Re({props:{code:`# To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`
+num_labels = len(model.config.id2label)
+model = DebertaV2ForSequenceClassification.from_pretrained(
+    "hf-internal-testing/tiny-random-deberta-v2", num_labels=num_labels, problem_type="multi_label_classification"
+)
+
+labels = torch.nn.functional.one_hot(torch.tensor([predicted_class_id]), num_classes=num_labels).to(
+    torch.float
+)
+loss = model(**inputs, labels=labels).loss
+loss.backward()`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = DebertaV2ForSequenceClassification.from_pretrained(
+<span class="hljs-meta">... </span>    <span class="hljs-string">&quot;hf-internal-testing/tiny-random-deberta-v2&quot;</span>, num_labels=num_labels, problem_type=<span class="hljs-string">&quot;multi_label_classification&quot;</span>
+<span class="hljs-meta">... </span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.nn.functional.one_hot(torch.tensor([predicted_class_id]), num_classes=num_labels).to(
+<span class="hljs-meta">... </span>    torch.<span class="hljs-built_in">float</span>
+<span class="hljs-meta">... </span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss.backward()`}}),{c(){w(l.$$.fragment)},l(c){T(l.$$.fragment,c)},m(c,f){y(l,c,f),g=!0},p:Pe,i(c){g||($(l.$$.fragment,c),g=!0)},o(c){D(l.$$.fragment,c),g=!1},d(c){E(l,c)}}}function y2(V){let l,g,c,f,k;return{c(){l=a("p"),g=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),c=a("code"),f=n("Module"),k=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),c=r(m,"CODE",{});var q=i(c);f=s(q,"Module"),q.forEach(t),k=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(t)},m(d,m){_(d,l,m),e(l,g),e(l,c),e(c,f),e(l,k)},d(d){d&&t(l)}}}function $2(V){let l,g,c,f,k;return f=new Re({props:{code:`from transformers import DebertaV2Tokenizer, DebertaV2ForTokenClassification
+import torch
+
+tokenizer = DebertaV2Tokenizer.from_pretrained("hf-internal-testing/tiny-random-deberta-v2")
+model = DebertaV2ForTokenClassification.from_pretrained("hf-internal-testing/tiny-random-deberta-v2")
+
+inputs = tokenizer(
+    "HuggingFace is a company based in Paris and New York", add_special_tokens=False, return_tensors="pt"
+)
+
+with torch.no_grad():
+    logits = model(**inputs).logits
+
+predicted_token_class_ids = logits.argmax(-1)
+
+# Note that tokens are classified rather then input words which means that
+# there might be more predicted token classes than words.
+# Multiple token classes might account for the same word
+predicted_tokens_classes = [model.config.id2label[t.item()] for t in predicted_token_class_ids[0]]
+predicted_tokens_classes`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaV2Tokenizer, DebertaV2ForTokenClassification
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaV2Tokenizer.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-deberta-v2&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = DebertaV2ForTokenClassification.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-deberta-v2&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(
+<span class="hljs-meta">... </span>    <span class="hljs-string">&quot;HuggingFace is a company based in Paris and New York&quot;</span>, add_special_tokens=<span class="hljs-literal">False</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>
+<span class="hljs-meta">... </span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>    logits = model(**inputs).logits
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_token_class_ids = logits.argmax(-<span class="hljs-number">1</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Note that tokens are classified rather then input words which means that</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># there might be more predicted token classes than words.</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Multiple token classes might account for the same word</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_tokens_classes = [model.config.id2label[t.item()] <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> predicted_token_class_ids[<span class="hljs-number">0</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_tokens_classes
+[<span class="hljs-string">&#x27;LABEL_0&#x27;</span>, <span class="hljs-string">&#x27;LABEL_0&#x27;</span>, <span class="hljs-string">&#x27;LABEL_1&#x27;</span>, <span class="hljs-string">&#x27;LABEL_0&#x27;</span>, <span class="hljs-string">&#x27;LABEL_0&#x27;</span>, <span class="hljs-string">&#x27;LABEL_1&#x27;</span>, <span class="hljs-string">&#x27;LABEL_0&#x27;</span>, <span class="hljs-string">&#x27;LABEL_0&#x27;</span>, <span class="hljs-string">&#x27;LABEL_0&#x27;</span>, <span class="hljs-string">&#x27;LABEL_0&#x27;</span>, <span class="hljs-string">&#x27;LABEL_0&#x27;</span>, <span class="hljs-string">&#x27;LABEL_0&#x27;</span>]`}}),{c(){l=a("p"),g=n("Example:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Example:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function D2(V){let l,g;return l=new Re({props:{code:`labels = predicted_token_class_ids
+loss = model(**inputs, labels=labels).loss
+round(loss.item(), 2)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>labels = predicted_token_class_ids
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
+<span class="hljs-number">0.61</span>`}}),{c(){w(l.$$.fragment)},l(c){T(l.$$.fragment,c)},m(c,f){y(l,c,f),g=!0},p:Pe,i(c){g||($(l.$$.fragment,c),g=!0)},o(c){D(l.$$.fragment,c),g=!1},d(c){E(l,c)}}}function E2(V){let l,g,c,f,k;return{c(){l=a("p"),g=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),c=a("code"),f=n("Module"),k=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),c=r(m,"CODE",{});var q=i(c);f=s(q,"Module"),q.forEach(t),k=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(t)},m(d,m){_(d,l,m),e(l,g),e(l,c),e(c,f),e(l,k)},d(d){d&&t(l)}}}function F2(V){let l,g,c,f,k;return f=new Re({props:{code:`from transformers import DebertaV2Tokenizer, DebertaV2ForQuestionAnswering
+import torch
+
+tokenizer = DebertaV2Tokenizer.from_pretrained("hf-internal-testing/tiny-random-deberta-v2")
+model = DebertaV2ForQuestionAnswering.from_pretrained("hf-internal-testing/tiny-random-deberta-v2")
+
+question, text = "Who was Jim Henson?", "Jim Henson was a nice puppet"
+
+inputs = tokenizer(question, text, return_tensors="pt")
+with torch.no_grad():
+    outputs = model(**inputs)
+
+answer_start_index = outputs.start_logits.argmax()
+answer_end_index = outputs.end_logits.argmax()
+
+predict_answer_tokens = inputs.input_ids[0, answer_start_index : answer_end_index + 1]
+tokenizer.decode(predict_answer_tokens)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaV2Tokenizer, DebertaV2ForQuestionAnswering
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaV2Tokenizer.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-deberta-v2&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = DebertaV2ForQuestionAnswering.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-deberta-v2&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>question, text = <span class="hljs-string">&quot;Who was Jim Henson?&quot;</span>, <span class="hljs-string">&quot;Jim Henson was a nice puppet&quot;</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(question, text, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> torch.no_grad():
+<span class="hljs-meta">... </span>    outputs = model(**inputs)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>answer_start_index = outputs.start_logits.argmax()
+<span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = outputs.end_logits.argmax()
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+<span class="hljs-string">&#x27;was Jim Henson? Jim Henson was&#x27;</span>`}}),{c(){l=a("p"),g=n("Example:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Example:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function V2(V){let l,g;return l=new Re({props:{code:`# target is "nice puppet"
+target_start_index = torch.tensor([2])
+target_end_index = torch.tensor([9])
+
+outputs = model(**inputs, start_positions=target_start_index, end_positions=target_end_index)
+loss = outputs.loss
+round(loss.item(), 2)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># target is &quot;nice puppet&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>target_start_index = torch.tensor([<span class="hljs-number">2</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>target_end_index = torch.tensor([<span class="hljs-number">9</span>])
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, start_positions=target_start_index, end_positions=target_end_index)
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = outputs.loss
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(loss.item(), <span class="hljs-number">2</span>)
+<span class="hljs-number">2.47</span>`}}),{c(){w(l.$$.fragment)},l(c){T(l.$$.fragment,c)},m(c,f){y(l,c,f),g=!0},p:Pe,i(c){g||($(l.$$.fragment,c),g=!0)},o(c){D(l.$$.fragment,c),g=!1},d(c){E(l,c)}}}function x2(V){let l,g,c,f,k;return{c(){l=a("p"),g=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),c=a("code"),f=n("Module"),k=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),c=r(m,"CODE",{});var q=i(c);f=s(q,"Module"),q.forEach(t),k=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(t)},m(d,m){_(d,l,m),e(l,g),e(l,c),e(c,f),e(l,k)},d(d){d&&t(l)}}}function q2(V){let l,g,c,f,k;return f=new Re({props:{code:`from transformers import DebertaV2Tokenizer, DebertaV2ForMultipleChoice
+import torch
+
+tokenizer = DebertaV2Tokenizer.from_pretrained("microsoft/deberta-v2-xlarge")
+model = DebertaV2ForMultipleChoice.from_pretrained("microsoft/deberta-v2-xlarge")
+
+prompt = "In Italy, pizza served in formal settings, such as at a restaurant, is presented unsliced."
+choice0 = "It is eaten with a fork and a knife."
+choice1 = "It is eaten while held in the hand."
+labels = torch.tensor(0).unsqueeze(0)  # choice0 is correct (according to Wikipedia ;)), batch size 1
+
+encoding = tokenizer([prompt, prompt], [choice0, choice1], return_tensors="pt", padding=True)
+outputs = model(**{k: v.unsqueeze(0) for k, v in encoding.items()}, labels=labels)  # batch size is 1
+
+# the linear classifier still needs to be trained
+loss = outputs.loss
+logits = outputs.logits`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaV2Tokenizer, DebertaV2ForMultipleChoice
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaV2Tokenizer.from_pretrained(<span class="hljs-string">&quot;microsoft/deberta-v2-xlarge&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = DebertaV2ForMultipleChoice.from_pretrained(<span class="hljs-string">&quot;microsoft/deberta-v2-xlarge&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>prompt = <span class="hljs-string">&quot;In Italy, pizza served in formal settings, such as at a restaurant, is presented unsliced.&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>choice0 = <span class="hljs-string">&quot;It is eaten with a fork and a knife.&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>choice1 = <span class="hljs-string">&quot;It is eaten while held in the hand.&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = torch.tensor(<span class="hljs-number">0</span>).unsqueeze(<span class="hljs-number">0</span>)  <span class="hljs-comment"># choice0 is correct (according to Wikipedia ;)), batch size 1</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>encoding = tokenizer([prompt, prompt], [choice0, choice1], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>, padding=<span class="hljs-literal">True</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**{k: v.unsqueeze(<span class="hljs-number">0</span>) <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> encoding.items()}, labels=labels)  <span class="hljs-comment"># batch size is 1</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># the linear classifier still needs to be trained</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = outputs.loss
+<span class="hljs-meta">&gt;&gt;&gt; </span>logits = outputs.logits`}}),{c(){l=a("p"),g=n("Example:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Example:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function z2(V){let l,g,c,f,k,d,m,q,ve,pe,B,ne,oe,F,ke,U,we,he,I,Te,ie,G,ye,me,N,$e,fe,W,De,ue,te,j,P,le,J,Ee,ge,L,Fe,de,R,Ve,O,xe,_e,H,qe,be,C,se,K,ze,ae,M,je,A,Me,ce;return{c(){l=a("p"),g=n("TensorFlow models and layers in "),c=a("code"),f=n("transformers"),k=n(" accept two formats as input:"),d=p(),m=a("ul"),q=a("li"),ve=n("having all inputs as keyword arguments (like PyTorch models), or"),pe=p(),B=a("li"),ne=n("having all inputs as a list, tuple or dict in the first positional argument."),oe=p(),F=a("p"),ke=n(`The reason the second format is supported is that Keras methods prefer this format when passing inputs to models
+and layers. Because of this support, when using methods like `),U=a("code"),we=n("model.fit()"),he=n(` things should \u201Cjust work\u201D for you - just
+pass your inputs and labels in any format that `),I=a("code"),Te=n("model.fit()"),ie=n(` supports! If, however, you want to use the second
+format outside of Keras methods like `),G=a("code"),ye=n("fit()"),me=n(" and "),N=a("code"),$e=n("predict()"),fe=n(`, such as when creating your own layers or models with
+the Keras `),W=a("code"),De=n("Functional"),ue=n(` API, there are three possibilities you can use to gather all the input Tensors in the first
+positional argument:`),te=p(),j=a("ul"),P=a("li"),le=n("a single Tensor with "),J=a("code"),Ee=n("input_ids"),ge=n(" only and nothing else: "),L=a("code"),Fe=n("model(input_ids)"),de=p(),R=a("li"),Ve=n(`a list of varying length with one or several input Tensors IN THE ORDER given in the docstring:
+`),O=a("code"),xe=n("model([input_ids, attention_mask])"),_e=n(" or "),H=a("code"),qe=n("model([input_ids, attention_mask, token_type_ids])"),be=p(),C=a("li"),se=n(`a dictionary with one or several input Tensors associated to the input names given in the docstring:
+`),K=a("code"),ze=n('model({"input_ids": input_ids, "token_type_ids": token_type_ids})'),ae=p(),M=a("p"),je=n(`Note that when creating models and layers with
+`),A=a("a"),Me=n("subclassing"),ce=n(` then you don\u2019t need to worry
+about any of this, as you can just pass inputs like you would to any other Python function!`),this.h()},l(v){l=r(v,"P",{});var x=i(l);g=s(x,"TensorFlow models and layers in "),c=r(x,"CODE",{});var We=i(c);f=s(We,"transformers"),We.forEach(t),k=s(x," accept two formats as input:"),x.forEach(t),d=h(v),m=r(v,"UL",{});var re=i(m);q=r(re,"LI",{});var Ae=i(q);ve=s(Ae,"having all inputs as keyword arguments (like PyTorch models), or"),Ae.forEach(t),pe=h(re),B=r(re,"LI",{});var Ie=i(B);ne=s(Ie,"having all inputs as a list, tuple or dict in the first positional argument."),Ie.forEach(t),re.forEach(t),oe=h(v),F=r(v,"P",{});var z=i(F);ke=s(z,`The reason the second format is supported is that Keras methods prefer this format when passing inputs to models
+and layers. Because of this support, when using methods like `),U=r(z,"CODE",{});var He=i(U);we=s(He,"model.fit()"),He.forEach(t),he=s(z,` things should \u201Cjust work\u201D for you - just
+pass your inputs and labels in any format that `),I=r(z,"CODE",{});var Ue=i(I);Te=s(Ue,"model.fit()"),Ue.forEach(t),ie=s(z,` supports! If, however, you want to use the second
+format outside of Keras methods like `),G=r(z,"CODE",{});var Be=i(G);ye=s(Be,"fit()"),Be.forEach(t),me=s(z," and "),N=r(z,"CODE",{});var Se=i(N);$e=s(Se,"predict()"),Se.forEach(t),fe=s(z,`, such as when creating your own layers or models with
+the Keras `),W=r(z,"CODE",{});var Ke=i(W);De=s(Ke,"Functional"),Ke.forEach(t),ue=s(z,` API, there are three possibilities you can use to gather all the input Tensors in the first
+positional argument:`),z.forEach(t),te=h(v),j=r(v,"UL",{});var S=i(j);P=r(S,"LI",{});var X=i(P);le=s(X,"a single Tensor with "),J=r(X,"CODE",{});var Le=i(J);Ee=s(Le,"input_ids"),Le.forEach(t),ge=s(X," only and nothing else: "),L=r(X,"CODE",{});var Oe=i(L);Fe=s(Oe,"model(input_ids)"),Oe.forEach(t),X.forEach(t),de=h(S),R=r(S,"LI",{});var Y=i(R);Ve=s(Y,`a list of varying length with one or several input Tensors IN THE ORDER given in the docstring:
+`),O=r(Y,"CODE",{});var Qe=i(O);xe=s(Qe,"model([input_ids, attention_mask])"),Qe.forEach(t),_e=s(Y," or "),H=r(Y,"CODE",{});var Ne=i(H);qe=s(Ne,"model([input_ids, attention_mask, token_type_ids])"),Ne.forEach(t),Y.forEach(t),be=h(S),C=r(S,"LI",{});var Z=i(C);se=s(Z,`a dictionary with one or several input Tensors associated to the input names given in the docstring:
+`),K=r(Z,"CODE",{});var Ge=i(K);ze=s(Ge,'model({"input_ids": input_ids, "token_type_ids": token_type_ids})'),Ge.forEach(t),Z.forEach(t),S.forEach(t),ae=h(v),M=r(v,"P",{});var ee=i(M);je=s(ee,`Note that when creating models and layers with
+`),A=r(ee,"A",{href:!0,rel:!0});var Je=i(A);Me=s(Je,"subclassing"),Je.forEach(t),ce=s(ee,` then you don\u2019t need to worry
+about any of this, as you can just pass inputs like you would to any other Python function!`),ee.forEach(t),this.h()},h(){u(A,"href","https://keras.io/guides/making_new_layers_and_models_via_subclassing/"),u(A,"rel","nofollow")},m(v,x){_(v,l,x),e(l,g),e(l,c),e(c,f),e(l,k),_(v,d,x),_(v,m,x),e(m,q),e(q,ve),e(m,pe),e(m,B),e(B,ne),_(v,oe,x),_(v,F,x),e(F,ke),e(F,U),e(U,we),e(F,he),e(F,I),e(I,Te),e(F,ie),e(F,G),e(G,ye),e(F,me),e(F,N),e(N,$e),e(F,fe),e(F,W),e(W,De),e(F,ue),_(v,te,x),_(v,j,x),e(j,P),e(P,le),e(P,J),e(J,Ee),e(P,ge),e(P,L),e(L,Fe),e(j,de),e(j,R),e(R,Ve),e(R,O),e(O,xe),e(R,_e),e(R,H),e(H,qe),e(j,be),e(j,C),e(C,se),e(C,K),e(K,ze),_(v,ae,x),_(v,M,x),e(M,je),e(M,A),e(A,Me),e(M,ce)},d(v){v&&t(l),v&&t(d),v&&t(m),v&&t(oe),v&&t(F),v&&t(te),v&&t(j),v&&t(ae),v&&t(M)}}}function j2(V){let l,g,c,f,k;return{c(){l=a("p"),g=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),c=a("code"),f=n("Module"),k=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),c=r(m,"CODE",{});var q=i(c);f=s(q,"Module"),q.forEach(t),k=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(t)},m(d,m){_(d,l,m),e(l,g),e(l,c),e(c,f),e(l,k)},d(d){d&&t(l)}}}function M2(V){let l,g,c,f,k;return f=new Re({props:{code:`from transformers import DebertaV2Tokenizer, TFDebertaV2Model
+import tensorflow as tf
+
+tokenizer = DebertaV2Tokenizer.from_pretrained("kamalkraj/deberta-v2-xlarge")
+model = TFDebertaV2Model.from_pretrained("kamalkraj/deberta-v2-xlarge")
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="tf")
+outputs = model(inputs)
+
+last_hidden_states = outputs.last_hidden_state`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaV2Tokenizer, TFDebertaV2Model
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaV2Tokenizer.from_pretrained(<span class="hljs-string">&quot;kamalkraj/deberta-v2-xlarge&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = TFDebertaV2Model.from_pretrained(<span class="hljs-string">&quot;kamalkraj/deberta-v2-xlarge&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(inputs)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>last_hidden_states = outputs.last_hidden_state`}}),{c(){l=a("p"),g=n("Example:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Example:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function C2(V){let l,g,c,f,k,d,m,q,ve,pe,B,ne,oe,F,ke,U,we,he,I,Te,ie,G,ye,me,N,$e,fe,W,De,ue,te,j,P,le,J,Ee,ge,L,Fe,de,R,Ve,O,xe,_e,H,qe,be,C,se,K,ze,ae,M,je,A,Me,ce;return{c(){l=a("p"),g=n("TensorFlow models and layers in "),c=a("code"),f=n("transformers"),k=n(" accept two formats as input:"),d=p(),m=a("ul"),q=a("li"),ve=n("having all inputs as keyword arguments (like PyTorch models), or"),pe=p(),B=a("li"),ne=n("having all inputs as a list, tuple or dict in the first positional argument."),oe=p(),F=a("p"),ke=n(`The reason the second format is supported is that Keras methods prefer this format when passing inputs to models
+and layers. Because of this support, when using methods like `),U=a("code"),we=n("model.fit()"),he=n(` things should \u201Cjust work\u201D for you - just
+pass your inputs and labels in any format that `),I=a("code"),Te=n("model.fit()"),ie=n(` supports! If, however, you want to use the second
+format outside of Keras methods like `),G=a("code"),ye=n("fit()"),me=n(" and "),N=a("code"),$e=n("predict()"),fe=n(`, such as when creating your own layers or models with
+the Keras `),W=a("code"),De=n("Functional"),ue=n(` API, there are three possibilities you can use to gather all the input Tensors in the first
+positional argument:`),te=p(),j=a("ul"),P=a("li"),le=n("a single Tensor with "),J=a("code"),Ee=n("input_ids"),ge=n(" only and nothing else: "),L=a("code"),Fe=n("model(input_ids)"),de=p(),R=a("li"),Ve=n(`a list of varying length with one or several input Tensors IN THE ORDER given in the docstring:
+`),O=a("code"),xe=n("model([input_ids, attention_mask])"),_e=n(" or "),H=a("code"),qe=n("model([input_ids, attention_mask, token_type_ids])"),be=p(),C=a("li"),se=n(`a dictionary with one or several input Tensors associated to the input names given in the docstring:
+`),K=a("code"),ze=n('model({"input_ids": input_ids, "token_type_ids": token_type_ids})'),ae=p(),M=a("p"),je=n(`Note that when creating models and layers with
+`),A=a("a"),Me=n("subclassing"),ce=n(` then you don\u2019t need to worry
+about any of this, as you can just pass inputs like you would to any other Python function!`),this.h()},l(v){l=r(v,"P",{});var x=i(l);g=s(x,"TensorFlow models and layers in "),c=r(x,"CODE",{});var We=i(c);f=s(We,"transformers"),We.forEach(t),k=s(x," accept two formats as input:"),x.forEach(t),d=h(v),m=r(v,"UL",{});var re=i(m);q=r(re,"LI",{});var Ae=i(q);ve=s(Ae,"having all inputs as keyword arguments (like PyTorch models), or"),Ae.forEach(t),pe=h(re),B=r(re,"LI",{});var Ie=i(B);ne=s(Ie,"having all inputs as a list, tuple or dict in the first positional argument."),Ie.forEach(t),re.forEach(t),oe=h(v),F=r(v,"P",{});var z=i(F);ke=s(z,`The reason the second format is supported is that Keras methods prefer this format when passing inputs to models
+and layers. Because of this support, when using methods like `),U=r(z,"CODE",{});var He=i(U);we=s(He,"model.fit()"),He.forEach(t),he=s(z,` things should \u201Cjust work\u201D for you - just
+pass your inputs and labels in any format that `),I=r(z,"CODE",{});var Ue=i(I);Te=s(Ue,"model.fit()"),Ue.forEach(t),ie=s(z,` supports! If, however, you want to use the second
+format outside of Keras methods like `),G=r(z,"CODE",{});var Be=i(G);ye=s(Be,"fit()"),Be.forEach(t),me=s(z," and "),N=r(z,"CODE",{});var Se=i(N);$e=s(Se,"predict()"),Se.forEach(t),fe=s(z,`, such as when creating your own layers or models with
+the Keras `),W=r(z,"CODE",{});var Ke=i(W);De=s(Ke,"Functional"),Ke.forEach(t),ue=s(z,` API, there are three possibilities you can use to gather all the input Tensors in the first
+positional argument:`),z.forEach(t),te=h(v),j=r(v,"UL",{});var S=i(j);P=r(S,"LI",{});var X=i(P);le=s(X,"a single Tensor with "),J=r(X,"CODE",{});var Le=i(J);Ee=s(Le,"input_ids"),Le.forEach(t),ge=s(X," only and nothing else: "),L=r(X,"CODE",{});var Oe=i(L);Fe=s(Oe,"model(input_ids)"),Oe.forEach(t),X.forEach(t),de=h(S),R=r(S,"LI",{});var Y=i(R);Ve=s(Y,`a list of varying length with one or several input Tensors IN THE ORDER given in the docstring:
+`),O=r(Y,"CODE",{});var Qe=i(O);xe=s(Qe,"model([input_ids, attention_mask])"),Qe.forEach(t),_e=s(Y," or "),H=r(Y,"CODE",{});var Ne=i(H);qe=s(Ne,"model([input_ids, attention_mask, token_type_ids])"),Ne.forEach(t),Y.forEach(t),be=h(S),C=r(S,"LI",{});var Z=i(C);se=s(Z,`a dictionary with one or several input Tensors associated to the input names given in the docstring:
+`),K=r(Z,"CODE",{});var Ge=i(K);ze=s(Ge,'model({"input_ids": input_ids, "token_type_ids": token_type_ids})'),Ge.forEach(t),Z.forEach(t),S.forEach(t),ae=h(v),M=r(v,"P",{});var ee=i(M);je=s(ee,`Note that when creating models and layers with
+`),A=r(ee,"A",{href:!0,rel:!0});var Je=i(A);Me=s(Je,"subclassing"),Je.forEach(t),ce=s(ee,` then you don\u2019t need to worry
+about any of this, as you can just pass inputs like you would to any other Python function!`),ee.forEach(t),this.h()},h(){u(A,"href","https://keras.io/guides/making_new_layers_and_models_via_subclassing/"),u(A,"rel","nofollow")},m(v,x){_(v,l,x),e(l,g),e(l,c),e(c,f),e(l,k),_(v,d,x),_(v,m,x),e(m,q),e(q,ve),e(m,pe),e(m,B),e(B,ne),_(v,oe,x),_(v,F,x),e(F,ke),e(F,U),e(U,we),e(F,he),e(F,I),e(I,Te),e(F,ie),e(F,G),e(G,ye),e(F,me),e(F,N),e(N,$e),e(F,fe),e(F,W),e(W,De),e(F,ue),_(v,te,x),_(v,j,x),e(j,P),e(P,le),e(P,J),e(J,Ee),e(P,ge),e(P,L),e(L,Fe),e(j,de),e(j,R),e(R,Ve),e(R,O),e(O,xe),e(R,_e),e(R,H),e(H,qe),e(j,be),e(j,C),e(C,se),e(C,K),e(K,ze),_(v,ae,x),_(v,M,x),e(M,je),e(M,A),e(A,Me),e(M,ce)},d(v){v&&t(l),v&&t(d),v&&t(m),v&&t(oe),v&&t(F),v&&t(te),v&&t(j),v&&t(ae),v&&t(M)}}}function P2(V){let l,g,c,f,k;return{c(){l=a("p"),g=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),c=a("code"),f=n("Module"),k=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),c=r(m,"CODE",{});var q=i(c);f=s(q,"Module"),q.forEach(t),k=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(t)},m(d,m){_(d,l,m),e(l,g),e(l,c),e(c,f),e(l,k)},d(d){d&&t(l)}}}function R2(V){let l,g,c,f,k;return f=new Re({props:{code:`from transformers import DebertaV2Tokenizer, TFDebertaV2ForMaskedLM
+import tensorflow as tf
+
+tokenizer = DebertaV2Tokenizer.from_pretrained("kamalkraj/deberta-v2-xlarge")
+model = TFDebertaV2ForMaskedLM.from_pretrained("kamalkraj/deberta-v2-xlarge")
+
+inputs = tokenizer("The capital of France is [MASK].", return_tensors="tf")
+logits = model(**inputs).logits
+
+# retrieve index of [MASK]
+mask_token_index = tf.where((inputs.input_ids == tokenizer.mask_token_id)[0])
+selected_logits = tf.gather_nd(logits[0], indices=mask_token_index)
+
+predicted_token_id = tf.math.argmax(selected_logits, axis=-1)
+tokenizer.decode(predicted_token_id)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaV2Tokenizer, TFDebertaV2ForMaskedLM
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaV2Tokenizer.from_pretrained(<span class="hljs-string">&quot;kamalkraj/deberta-v2-xlarge&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = TFDebertaV2ForMaskedLM.from_pretrained(<span class="hljs-string">&quot;kamalkraj/deberta-v2-xlarge&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;The capital of France is [MASK].&quot;</span>, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>logits = model(**inputs).logits
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># retrieve index of [MASK]</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>mask_token_index = tf.where((inputs.input_ids == tokenizer.mask_token_id)[<span class="hljs-number">0</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>selected_logits = tf.gather_nd(logits[<span class="hljs-number">0</span>], indices=mask_token_index)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_token_id = tf.math.argmax(selected_logits, axis=-<span class="hljs-number">1</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predicted_token_id)
+`}}),{c(){l=a("p"),g=n("Example:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Example:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function A2(V){let l,g;return l=new Re({props:{code:`labels = tokenizer("The capital of France is Paris.", return_tensors="tf")["input_ids"]
+# mask labels of non-[MASK] tokens
+labels = tf.where(inputs.input_ids == tokenizer.mask_token_id, labels, -100)
+
+outputs = model(**inputs, labels=labels)
+round(float(outputs.loss), 2)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>labels = tokenizer(<span class="hljs-string">&quot;The capital of France is Paris.&quot;</span>, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)[<span class="hljs-string">&quot;input_ids&quot;</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># mask labels of non-[MASK] tokens</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = tf.where(inputs.input_ids == tokenizer.mask_token_id, labels, -<span class="hljs-number">100</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, labels=labels)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(<span class="hljs-built_in">float</span>(outputs.loss), <span class="hljs-number">2</span>)
+`}}),{c(){w(l.$$.fragment)},l(c){T(l.$$.fragment,c)},m(c,f){y(l,c,f),g=!0},p:Pe,i(c){g||($(l.$$.fragment,c),g=!0)},o(c){D(l.$$.fragment,c),g=!1},d(c){E(l,c)}}}function B2(V){let l,g,c,f,k,d,m,q,ve,pe,B,ne,oe,F,ke,U,we,he,I,Te,ie,G,ye,me,N,$e,fe,W,De,ue,te,j,P,le,J,Ee,ge,L,Fe,de,R,Ve,O,xe,_e,H,qe,be,C,se,K,ze,ae,M,je,A,Me,ce;return{c(){l=a("p"),g=n("TensorFlow models and layers in "),c=a("code"),f=n("transformers"),k=n(" accept two formats as input:"),d=p(),m=a("ul"),q=a("li"),ve=n("having all inputs as keyword arguments (like PyTorch models), or"),pe=p(),B=a("li"),ne=n("having all inputs as a list, tuple or dict in the first positional argument."),oe=p(),F=a("p"),ke=n(`The reason the second format is supported is that Keras methods prefer this format when passing inputs to models
+and layers. Because of this support, when using methods like `),U=a("code"),we=n("model.fit()"),he=n(` things should \u201Cjust work\u201D for you - just
+pass your inputs and labels in any format that `),I=a("code"),Te=n("model.fit()"),ie=n(` supports! If, however, you want to use the second
+format outside of Keras methods like `),G=a("code"),ye=n("fit()"),me=n(" and "),N=a("code"),$e=n("predict()"),fe=n(`, such as when creating your own layers or models with
+the Keras `),W=a("code"),De=n("Functional"),ue=n(` API, there are three possibilities you can use to gather all the input Tensors in the first
+positional argument:`),te=p(),j=a("ul"),P=a("li"),le=n("a single Tensor with "),J=a("code"),Ee=n("input_ids"),ge=n(" only and nothing else: "),L=a("code"),Fe=n("model(input_ids)"),de=p(),R=a("li"),Ve=n(`a list of varying length with one or several input Tensors IN THE ORDER given in the docstring:
+`),O=a("code"),xe=n("model([input_ids, attention_mask])"),_e=n(" or "),H=a("code"),qe=n("model([input_ids, attention_mask, token_type_ids])"),be=p(),C=a("li"),se=n(`a dictionary with one or several input Tensors associated to the input names given in the docstring:
+`),K=a("code"),ze=n('model({"input_ids": input_ids, "token_type_ids": token_type_ids})'),ae=p(),M=a("p"),je=n(`Note that when creating models and layers with
+`),A=a("a"),Me=n("subclassing"),ce=n(` then you don\u2019t need to worry
+about any of this, as you can just pass inputs like you would to any other Python function!`),this.h()},l(v){l=r(v,"P",{});var x=i(l);g=s(x,"TensorFlow models and layers in "),c=r(x,"CODE",{});var We=i(c);f=s(We,"transformers"),We.forEach(t),k=s(x," accept two formats as input:"),x.forEach(t),d=h(v),m=r(v,"UL",{});var re=i(m);q=r(re,"LI",{});var Ae=i(q);ve=s(Ae,"having all inputs as keyword arguments (like PyTorch models), or"),Ae.forEach(t),pe=h(re),B=r(re,"LI",{});var Ie=i(B);ne=s(Ie,"having all inputs as a list, tuple or dict in the first positional argument."),Ie.forEach(t),re.forEach(t),oe=h(v),F=r(v,"P",{});var z=i(F);ke=s(z,`The reason the second format is supported is that Keras methods prefer this format when passing inputs to models
+and layers. Because of this support, when using methods like `),U=r(z,"CODE",{});var He=i(U);we=s(He,"model.fit()"),He.forEach(t),he=s(z,` things should \u201Cjust work\u201D for you - just
+pass your inputs and labels in any format that `),I=r(z,"CODE",{});var Ue=i(I);Te=s(Ue,"model.fit()"),Ue.forEach(t),ie=s(z,` supports! If, however, you want to use the second
+format outside of Keras methods like `),G=r(z,"CODE",{});var Be=i(G);ye=s(Be,"fit()"),Be.forEach(t),me=s(z," and "),N=r(z,"CODE",{});var Se=i(N);$e=s(Se,"predict()"),Se.forEach(t),fe=s(z,`, such as when creating your own layers or models with
+the Keras `),W=r(z,"CODE",{});var Ke=i(W);De=s(Ke,"Functional"),Ke.forEach(t),ue=s(z,` API, there are three possibilities you can use to gather all the input Tensors in the first
+positional argument:`),z.forEach(t),te=h(v),j=r(v,"UL",{});var S=i(j);P=r(S,"LI",{});var X=i(P);le=s(X,"a single Tensor with "),J=r(X,"CODE",{});var Le=i(J);Ee=s(Le,"input_ids"),Le.forEach(t),ge=s(X," only and nothing else: "),L=r(X,"CODE",{});var Oe=i(L);Fe=s(Oe,"model(input_ids)"),Oe.forEach(t),X.forEach(t),de=h(S),R=r(S,"LI",{});var Y=i(R);Ve=s(Y,`a list of varying length with one or several input Tensors IN THE ORDER given in the docstring:
+`),O=r(Y,"CODE",{});var Qe=i(O);xe=s(Qe,"model([input_ids, attention_mask])"),Qe.forEach(t),_e=s(Y," or "),H=r(Y,"CODE",{});var Ne=i(H);qe=s(Ne,"model([input_ids, attention_mask, token_type_ids])"),Ne.forEach(t),Y.forEach(t),be=h(S),C=r(S,"LI",{});var Z=i(C);se=s(Z,`a dictionary with one or several input Tensors associated to the input names given in the docstring:
+`),K=r(Z,"CODE",{});var Ge=i(K);ze=s(Ge,'model({"input_ids": input_ids, "token_type_ids": token_type_ids})'),Ge.forEach(t),Z.forEach(t),S.forEach(t),ae=h(v),M=r(v,"P",{});var ee=i(M);je=s(ee,`Note that when creating models and layers with
+`),A=r(ee,"A",{href:!0,rel:!0});var Je=i(A);Me=s(Je,"subclassing"),Je.forEach(t),ce=s(ee,` then you don\u2019t need to worry
+about any of this, as you can just pass inputs like you would to any other Python function!`),ee.forEach(t),this.h()},h(){u(A,"href","https://keras.io/guides/making_new_layers_and_models_via_subclassing/"),u(A,"rel","nofollow")},m(v,x){_(v,l,x),e(l,g),e(l,c),e(c,f),e(l,k),_(v,d,x),_(v,m,x),e(m,q),e(q,ve),e(m,pe),e(m,B),e(B,ne),_(v,oe,x),_(v,F,x),e(F,ke),e(F,U),e(U,we),e(F,he),e(F,I),e(I,Te),e(F,ie),e(F,G),e(G,ye),e(F,me),e(F,N),e(N,$e),e(F,fe),e(F,W),e(W,De),e(F,ue),_(v,te,x),_(v,j,x),e(j,P),e(P,le),e(P,J),e(J,Ee),e(P,ge),e(P,L),e(L,Fe),e(j,de),e(j,R),e(R,Ve),e(R,O),e(O,xe),e(R,_e),e(R,H),e(H,qe),e(j,be),e(j,C),e(C,se),e(C,K),e(K,ze),_(v,ae,x),_(v,M,x),e(M,je),e(M,A),e(A,Me),e(M,ce)},d(v){v&&t(l),v&&t(d),v&&t(m),v&&t(oe),v&&t(F),v&&t(te),v&&t(j),v&&t(ae),v&&t(M)}}}function L2(V){let l,g,c,f,k;return{c(){l=a("p"),g=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),c=a("code"),f=n("Module"),k=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),c=r(m,"CODE",{});var q=i(c);f=s(q,"Module"),q.forEach(t),k=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(t)},m(d,m){_(d,l,m),e(l,g),e(l,c),e(c,f),e(l,k)},d(d){d&&t(l)}}}function I2(V){let l,g,c,f,k;return f=new Re({props:{code:`from transformers import DebertaV2Tokenizer, TFDebertaV2ForSequenceClassification
+import tensorflow as tf
+
+tokenizer = DebertaV2Tokenizer.from_pretrained("kamalkraj/deberta-v2-xlarge")
+model = TFDebertaV2ForSequenceClassification.from_pretrained("kamalkraj/deberta-v2-xlarge")
+
+inputs = tokenizer("Hello, my dog is cute", return_tensors="tf")
+
+logits = model(**inputs).logits
+
+predicted_class_id = int(tf.math.argmax(logits, axis=-1)[0])
+model.config.id2label[predicted_class_id]
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaV2Tokenizer, TFDebertaV2ForSequenceClassification
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaV2Tokenizer.from_pretrained(<span class="hljs-string">&quot;kamalkraj/deberta-v2-xlarge&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = TFDebertaV2ForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;kamalkraj/deberta-v2-xlarge&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Hello, my dog is cute&quot;</span>, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>logits = model(**inputs).logits
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_class_id = <span class="hljs-built_in">int</span>(tf.math.argmax(logits, axis=-<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>model.config.id2label[predicted_class_id]
+`}}),{c(){l=a("p"),g=n("Example:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Example:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function S2(V){let l,g;return l=new Re({props:{code:`# To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`
+num_labels = len(model.config.id2label)
+model = TFDebertaV2ForSequenceClassification.from_pretrained("kamalkraj/deberta-v2-xlarge", num_labels=num_labels)
+
+labels = tf.constant(1)
+loss = model(**inputs, labels=labels).loss
+round(float(loss), 2)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># To train a model on \`num_labels\` classes, you can pass \`num_labels=num_labels\` to \`.from_pretrained(...)\`</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>num_labels = <span class="hljs-built_in">len</span>(model.config.id2label)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = TFDebertaV2ForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;kamalkraj/deberta-v2-xlarge&quot;</span>, num_labels=num_labels)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = tf.constant(<span class="hljs-number">1</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = model(**inputs, labels=labels).loss
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(<span class="hljs-built_in">float</span>(loss), <span class="hljs-number">2</span>)
+`}}),{c(){w(l.$$.fragment)},l(c){T(l.$$.fragment,c)},m(c,f){y(l,c,f),g=!0},p:Pe,i(c){g||($(l.$$.fragment,c),g=!0)},o(c){D(l.$$.fragment,c),g=!1},d(c){E(l,c)}}}function O2(V){let l,g,c,f,k,d,m,q,ve,pe,B,ne,oe,F,ke,U,we,he,I,Te,ie,G,ye,me,N,$e,fe,W,De,ue,te,j,P,le,J,Ee,ge,L,Fe,de,R,Ve,O,xe,_e,H,qe,be,C,se,K,ze,ae,M,je,A,Me,ce;return{c(){l=a("p"),g=n("TensorFlow models and layers in "),c=a("code"),f=n("transformers"),k=n(" accept two formats as input:"),d=p(),m=a("ul"),q=a("li"),ve=n("having all inputs as keyword arguments (like PyTorch models), or"),pe=p(),B=a("li"),ne=n("having all inputs as a list, tuple or dict in the first positional argument."),oe=p(),F=a("p"),ke=n(`The reason the second format is supported is that Keras methods prefer this format when passing inputs to models
+and layers. Because of this support, when using methods like `),U=a("code"),we=n("model.fit()"),he=n(` things should \u201Cjust work\u201D for you - just
+pass your inputs and labels in any format that `),I=a("code"),Te=n("model.fit()"),ie=n(` supports! If, however, you want to use the second
+format outside of Keras methods like `),G=a("code"),ye=n("fit()"),me=n(" and "),N=a("code"),$e=n("predict()"),fe=n(`, such as when creating your own layers or models with
+the Keras `),W=a("code"),De=n("Functional"),ue=n(` API, there are three possibilities you can use to gather all the input Tensors in the first
+positional argument:`),te=p(),j=a("ul"),P=a("li"),le=n("a single Tensor with "),J=a("code"),Ee=n("input_ids"),ge=n(" only and nothing else: "),L=a("code"),Fe=n("model(input_ids)"),de=p(),R=a("li"),Ve=n(`a list of varying length with one or several input Tensors IN THE ORDER given in the docstring:
+`),O=a("code"),xe=n("model([input_ids, attention_mask])"),_e=n(" or "),H=a("code"),qe=n("model([input_ids, attention_mask, token_type_ids])"),be=p(),C=a("li"),se=n(`a dictionary with one or several input Tensors associated to the input names given in the docstring:
+`),K=a("code"),ze=n('model({"input_ids": input_ids, "token_type_ids": token_type_ids})'),ae=p(),M=a("p"),je=n(`Note that when creating models and layers with
+`),A=a("a"),Me=n("subclassing"),ce=n(` then you don\u2019t need to worry
+about any of this, as you can just pass inputs like you would to any other Python function!`),this.h()},l(v){l=r(v,"P",{});var x=i(l);g=s(x,"TensorFlow models and layers in "),c=r(x,"CODE",{});var We=i(c);f=s(We,"transformers"),We.forEach(t),k=s(x," accept two formats as input:"),x.forEach(t),d=h(v),m=r(v,"UL",{});var re=i(m);q=r(re,"LI",{});var Ae=i(q);ve=s(Ae,"having all inputs as keyword arguments (like PyTorch models), or"),Ae.forEach(t),pe=h(re),B=r(re,"LI",{});var Ie=i(B);ne=s(Ie,"having all inputs as a list, tuple or dict in the first positional argument."),Ie.forEach(t),re.forEach(t),oe=h(v),F=r(v,"P",{});var z=i(F);ke=s(z,`The reason the second format is supported is that Keras methods prefer this format when passing inputs to models
+and layers. Because of this support, when using methods like `),U=r(z,"CODE",{});var He=i(U);we=s(He,"model.fit()"),He.forEach(t),he=s(z,` things should \u201Cjust work\u201D for you - just
+pass your inputs and labels in any format that `),I=r(z,"CODE",{});var Ue=i(I);Te=s(Ue,"model.fit()"),Ue.forEach(t),ie=s(z,` supports! If, however, you want to use the second
+format outside of Keras methods like `),G=r(z,"CODE",{});var Be=i(G);ye=s(Be,"fit()"),Be.forEach(t),me=s(z," and "),N=r(z,"CODE",{});var Se=i(N);$e=s(Se,"predict()"),Se.forEach(t),fe=s(z,`, such as when creating your own layers or models with
+the Keras `),W=r(z,"CODE",{});var Ke=i(W);De=s(Ke,"Functional"),Ke.forEach(t),ue=s(z,` API, there are three possibilities you can use to gather all the input Tensors in the first
+positional argument:`),z.forEach(t),te=h(v),j=r(v,"UL",{});var S=i(j);P=r(S,"LI",{});var X=i(P);le=s(X,"a single Tensor with "),J=r(X,"CODE",{});var Le=i(J);Ee=s(Le,"input_ids"),Le.forEach(t),ge=s(X," only and nothing else: "),L=r(X,"CODE",{});var Oe=i(L);Fe=s(Oe,"model(input_ids)"),Oe.forEach(t),X.forEach(t),de=h(S),R=r(S,"LI",{});var Y=i(R);Ve=s(Y,`a list of varying length with one or several input Tensors IN THE ORDER given in the docstring:
+`),O=r(Y,"CODE",{});var Qe=i(O);xe=s(Qe,"model([input_ids, attention_mask])"),Qe.forEach(t),_e=s(Y," or "),H=r(Y,"CODE",{});var Ne=i(H);qe=s(Ne,"model([input_ids, attention_mask, token_type_ids])"),Ne.forEach(t),Y.forEach(t),be=h(S),C=r(S,"LI",{});var Z=i(C);se=s(Z,`a dictionary with one or several input Tensors associated to the input names given in the docstring:
+`),K=r(Z,"CODE",{});var Ge=i(K);ze=s(Ge,'model({"input_ids": input_ids, "token_type_ids": token_type_ids})'),Ge.forEach(t),Z.forEach(t),S.forEach(t),ae=h(v),M=r(v,"P",{});var ee=i(M);je=s(ee,`Note that when creating models and layers with
+`),A=r(ee,"A",{href:!0,rel:!0});var Je=i(A);Me=s(Je,"subclassing"),Je.forEach(t),ce=s(ee,` then you don\u2019t need to worry
+about any of this, as you can just pass inputs like you would to any other Python function!`),ee.forEach(t),this.h()},h(){u(A,"href","https://keras.io/guides/making_new_layers_and_models_via_subclassing/"),u(A,"rel","nofollow")},m(v,x){_(v,l,x),e(l,g),e(l,c),e(c,f),e(l,k),_(v,d,x),_(v,m,x),e(m,q),e(q,ve),e(m,pe),e(m,B),e(B,ne),_(v,oe,x),_(v,F,x),e(F,ke),e(F,U),e(U,we),e(F,he),e(F,I),e(I,Te),e(F,ie),e(F,G),e(G,ye),e(F,me),e(F,N),e(N,$e),e(F,fe),e(F,W),e(W,De),e(F,ue),_(v,te,x),_(v,j,x),e(j,P),e(P,le),e(P,J),e(J,Ee),e(P,ge),e(P,L),e(L,Fe),e(j,de),e(j,R),e(R,Ve),e(R,O),e(O,xe),e(R,_e),e(R,H),e(H,qe),e(j,be),e(j,C),e(C,se),e(C,K),e(K,ze),_(v,ae,x),_(v,M,x),e(M,je),e(M,A),e(A,Me),e(M,ce)},d(v){v&&t(l),v&&t(d),v&&t(m),v&&t(oe),v&&t(F),v&&t(te),v&&t(j),v&&t(ae),v&&t(M)}}}function N2(V){let l,g,c,f,k;return{c(){l=a("p"),g=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),c=a("code"),f=n("Module"),k=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),c=r(m,"CODE",{});var q=i(c);f=s(q,"Module"),q.forEach(t),k=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(t)},m(d,m){_(d,l,m),e(l,g),e(l,c),e(c,f),e(l,k)},d(d){d&&t(l)}}}function W2(V){let l,g,c,f,k;return f=new Re({props:{code:`from transformers import DebertaV2Tokenizer, TFDebertaV2ForTokenClassification
+import tensorflow as tf
+
+tokenizer = DebertaV2Tokenizer.from_pretrained("kamalkraj/deberta-v2-xlarge")
+model = TFDebertaV2ForTokenClassification.from_pretrained("kamalkraj/deberta-v2-xlarge")
+
+inputs = tokenizer(
+    "HuggingFace is a company based in Paris and New York", add_special_tokens=False, return_tensors="tf"
+)
+
+logits = model(**inputs).logits
+predicted_token_class_ids = tf.math.argmax(logits, axis=-1)
+
+# Note that tokens are classified rather then input words which means that
+# there might be more predicted token classes than words.
+# Multiple token classes might account for the same word
+predicted_tokens_classes = [model.config.id2label[t] for t in predicted_token_class_ids[0].numpy().tolist()]
+predicted_tokens_classes
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaV2Tokenizer, TFDebertaV2ForTokenClassification
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaV2Tokenizer.from_pretrained(<span class="hljs-string">&quot;kamalkraj/deberta-v2-xlarge&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = TFDebertaV2ForTokenClassification.from_pretrained(<span class="hljs-string">&quot;kamalkraj/deberta-v2-xlarge&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(
+<span class="hljs-meta">... </span>    <span class="hljs-string">&quot;HuggingFace is a company based in Paris and New York&quot;</span>, add_special_tokens=<span class="hljs-literal">False</span>, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>
+<span class="hljs-meta">... </span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>logits = model(**inputs).logits
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_token_class_ids = tf.math.argmax(logits, axis=-<span class="hljs-number">1</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Note that tokens are classified rather then input words which means that</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># there might be more predicted token classes than words.</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Multiple token classes might account for the same word</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_tokens_classes = [model.config.id2label[t] <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> predicted_token_class_ids[<span class="hljs-number">0</span>].numpy().tolist()]
+<span class="hljs-meta">&gt;&gt;&gt; </span>predicted_tokens_classes
+`}}),{c(){l=a("p"),g=n("Example:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Example:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function H2(V){let l,g;return l=new Re({props:{code:`labels = predicted_token_class_ids
+loss = tf.math.reduce_mean(model(**inputs, labels=labels).loss)
+round(float(loss), 2)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>labels = predicted_token_class_ids
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = tf.math.reduce_mean(model(**inputs, labels=labels).loss)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(<span class="hljs-built_in">float</span>(loss), <span class="hljs-number">2</span>)
+`}}),{c(){w(l.$$.fragment)},l(c){T(l.$$.fragment,c)},m(c,f){y(l,c,f),g=!0},p:Pe,i(c){g||($(l.$$.fragment,c),g=!0)},o(c){D(l.$$.fragment,c),g=!1},d(c){E(l,c)}}}function U2(V){let l,g,c,f,k,d,m,q,ve,pe,B,ne,oe,F,ke,U,we,he,I,Te,ie,G,ye,me,N,$e,fe,W,De,ue,te,j,P,le,J,Ee,ge,L,Fe,de,R,Ve,O,xe,_e,H,qe,be,C,se,K,ze,ae,M,je,A,Me,ce;return{c(){l=a("p"),g=n("TensorFlow models and layers in "),c=a("code"),f=n("transformers"),k=n(" accept two formats as input:"),d=p(),m=a("ul"),q=a("li"),ve=n("having all inputs as keyword arguments (like PyTorch models), or"),pe=p(),B=a("li"),ne=n("having all inputs as a list, tuple or dict in the first positional argument."),oe=p(),F=a("p"),ke=n(`The reason the second format is supported is that Keras methods prefer this format when passing inputs to models
+and layers. Because of this support, when using methods like `),U=a("code"),we=n("model.fit()"),he=n(` things should \u201Cjust work\u201D for you - just
+pass your inputs and labels in any format that `),I=a("code"),Te=n("model.fit()"),ie=n(` supports! If, however, you want to use the second
+format outside of Keras methods like `),G=a("code"),ye=n("fit()"),me=n(" and "),N=a("code"),$e=n("predict()"),fe=n(`, such as when creating your own layers or models with
+the Keras `),W=a("code"),De=n("Functional"),ue=n(` API, there are three possibilities you can use to gather all the input Tensors in the first
+positional argument:`),te=p(),j=a("ul"),P=a("li"),le=n("a single Tensor with "),J=a("code"),Ee=n("input_ids"),ge=n(" only and nothing else: "),L=a("code"),Fe=n("model(input_ids)"),de=p(),R=a("li"),Ve=n(`a list of varying length with one or several input Tensors IN THE ORDER given in the docstring:
+`),O=a("code"),xe=n("model([input_ids, attention_mask])"),_e=n(" or "),H=a("code"),qe=n("model([input_ids, attention_mask, token_type_ids])"),be=p(),C=a("li"),se=n(`a dictionary with one or several input Tensors associated to the input names given in the docstring:
+`),K=a("code"),ze=n('model({"input_ids": input_ids, "token_type_ids": token_type_ids})'),ae=p(),M=a("p"),je=n(`Note that when creating models and layers with
+`),A=a("a"),Me=n("subclassing"),ce=n(` then you don\u2019t need to worry
+about any of this, as you can just pass inputs like you would to any other Python function!`),this.h()},l(v){l=r(v,"P",{});var x=i(l);g=s(x,"TensorFlow models and layers in "),c=r(x,"CODE",{});var We=i(c);f=s(We,"transformers"),We.forEach(t),k=s(x," accept two formats as input:"),x.forEach(t),d=h(v),m=r(v,"UL",{});var re=i(m);q=r(re,"LI",{});var Ae=i(q);ve=s(Ae,"having all inputs as keyword arguments (like PyTorch models), or"),Ae.forEach(t),pe=h(re),B=r(re,"LI",{});var Ie=i(B);ne=s(Ie,"having all inputs as a list, tuple or dict in the first positional argument."),Ie.forEach(t),re.forEach(t),oe=h(v),F=r(v,"P",{});var z=i(F);ke=s(z,`The reason the second format is supported is that Keras methods prefer this format when passing inputs to models
+and layers. Because of this support, when using methods like `),U=r(z,"CODE",{});var He=i(U);we=s(He,"model.fit()"),He.forEach(t),he=s(z,` things should \u201Cjust work\u201D for you - just
+pass your inputs and labels in any format that `),I=r(z,"CODE",{});var Ue=i(I);Te=s(Ue,"model.fit()"),Ue.forEach(t),ie=s(z,` supports! If, however, you want to use the second
+format outside of Keras methods like `),G=r(z,"CODE",{});var Be=i(G);ye=s(Be,"fit()"),Be.forEach(t),me=s(z," and "),N=r(z,"CODE",{});var Se=i(N);$e=s(Se,"predict()"),Se.forEach(t),fe=s(z,`, such as when creating your own layers or models with
+the Keras `),W=r(z,"CODE",{});var Ke=i(W);De=s(Ke,"Functional"),Ke.forEach(t),ue=s(z,` API, there are three possibilities you can use to gather all the input Tensors in the first
+positional argument:`),z.forEach(t),te=h(v),j=r(v,"UL",{});var S=i(j);P=r(S,"LI",{});var X=i(P);le=s(X,"a single Tensor with "),J=r(X,"CODE",{});var Le=i(J);Ee=s(Le,"input_ids"),Le.forEach(t),ge=s(X," only and nothing else: "),L=r(X,"CODE",{});var Oe=i(L);Fe=s(Oe,"model(input_ids)"),Oe.forEach(t),X.forEach(t),de=h(S),R=r(S,"LI",{});var Y=i(R);Ve=s(Y,`a list of varying length with one or several input Tensors IN THE ORDER given in the docstring:
+`),O=r(Y,"CODE",{});var Qe=i(O);xe=s(Qe,"model([input_ids, attention_mask])"),Qe.forEach(t),_e=s(Y," or "),H=r(Y,"CODE",{});var Ne=i(H);qe=s(Ne,"model([input_ids, attention_mask, token_type_ids])"),Ne.forEach(t),Y.forEach(t),be=h(S),C=r(S,"LI",{});var Z=i(C);se=s(Z,`a dictionary with one or several input Tensors associated to the input names given in the docstring:
+`),K=r(Z,"CODE",{});var Ge=i(K);ze=s(Ge,'model({"input_ids": input_ids, "token_type_ids": token_type_ids})'),Ge.forEach(t),Z.forEach(t),S.forEach(t),ae=h(v),M=r(v,"P",{});var ee=i(M);je=s(ee,`Note that when creating models and layers with
+`),A=r(ee,"A",{href:!0,rel:!0});var Je=i(A);Me=s(Je,"subclassing"),Je.forEach(t),ce=s(ee,` then you don\u2019t need to worry
+about any of this, as you can just pass inputs like you would to any other Python function!`),ee.forEach(t),this.h()},h(){u(A,"href","https://keras.io/guides/making_new_layers_and_models_via_subclassing/"),u(A,"rel","nofollow")},m(v,x){_(v,l,x),e(l,g),e(l,c),e(c,f),e(l,k),_(v,d,x),_(v,m,x),e(m,q),e(q,ve),e(m,pe),e(m,B),e(B,ne),_(v,oe,x),_(v,F,x),e(F,ke),e(F,U),e(U,we),e(F,he),e(F,I),e(I,Te),e(F,ie),e(F,G),e(G,ye),e(F,me),e(F,N),e(N,$e),e(F,fe),e(F,W),e(W,De),e(F,ue),_(v,te,x),_(v,j,x),e(j,P),e(P,le),e(P,J),e(J,Ee),e(P,ge),e(P,L),e(L,Fe),e(j,de),e(j,R),e(R,Ve),e(R,O),e(O,xe),e(R,_e),e(R,H),e(H,qe),e(j,be),e(j,C),e(C,se),e(C,K),e(K,ze),_(v,ae,x),_(v,M,x),e(M,je),e(M,A),e(A,Me),e(M,ce)},d(v){v&&t(l),v&&t(d),v&&t(m),v&&t(oe),v&&t(F),v&&t(te),v&&t(j),v&&t(ae),v&&t(M)}}}function K2(V){let l,g,c,f,k;return{c(){l=a("p"),g=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),c=a("code"),f=n("Module"),k=n(`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Although the recipe for forward pass needs to be defined within this function, one should call the "),c=r(m,"CODE",{});var q=i(c);f=s(q,"Module"),q.forEach(t),k=s(m,`
+instance afterwards instead of this since the former takes care of running the pre and post processing steps while
+the latter silently ignores them.`),m.forEach(t)},m(d,m){_(d,l,m),e(l,g),e(l,c),e(c,f),e(l,k)},d(d){d&&t(l)}}}function Q2(V){let l,g,c,f,k;return f=new Re({props:{code:`from transformers import DebertaV2Tokenizer, TFDebertaV2ForQuestionAnswering
+import tensorflow as tf
+
+tokenizer = DebertaV2Tokenizer.from_pretrained("kamalkraj/deberta-v2-xlarge")
+model = TFDebertaV2ForQuestionAnswering.from_pretrained("kamalkraj/deberta-v2-xlarge")
+
+question, text = "Who was Jim Henson?", "Jim Henson was a nice puppet"
+
+inputs = tokenizer(question, text, return_tensors="tf")
+outputs = model(**inputs)
+
+answer_start_index = int(tf.math.argmax(outputs.start_logits, axis=-1)[0])
+answer_end_index = int(tf.math.argmax(outputs.end_logits, axis=-1)[0])
+
+predict_answer_tokens = inputs.input_ids[0, answer_start_index : answer_end_index + 1]
+tokenizer.decode(predict_answer_tokens)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaV2Tokenizer, TFDebertaV2ForQuestionAnswering
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaV2Tokenizer.from_pretrained(<span class="hljs-string">&quot;kamalkraj/deberta-v2-xlarge&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = TFDebertaV2ForQuestionAnswering.from_pretrained(<span class="hljs-string">&quot;kamalkraj/deberta-v2-xlarge&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>question, text = <span class="hljs-string">&quot;Who was Jim Henson?&quot;</span>, <span class="hljs-string">&quot;Jim Henson was a nice puppet&quot;</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(question, text, return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>answer_start_index = <span class="hljs-built_in">int</span>(tf.math.argmax(outputs.start_logits, axis=-<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = <span class="hljs-built_in">int</span>(tf.math.argmax(outputs.end_logits, axis=-<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>])
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+`}}),{c(){l=a("p"),g=n("Example:"),c=p(),w(f.$$.fragment)},l(d){l=r(d,"P",{});var m=i(l);g=s(m,"Example:"),m.forEach(t),c=h(d),T(f.$$.fragment,d)},m(d,m){_(d,l,m),e(l,g),_(d,c,m),y(f,d,m),k=!0},p:Pe,i(d){k||($(f.$$.fragment,d),k=!0)},o(d){D(f.$$.fragment,d),k=!1},d(d){d&&t(l),d&&t(c),E(f,d)}}}function G2(V){let l,g;return l=new Re({props:{code:`# target is "nice puppet"
+target_start_index = tf.constant([14])
+target_end_index = tf.constant([15])
+
+outputs = model(**inputs, start_positions=target_start_index, end_positions=target_end_index)
+loss = tf.math.reduce_mean(outputs.loss)
+round(float(loss), 2)
+`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># target is &quot;nice puppet&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>target_start_index = tf.constant([<span class="hljs-number">14</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>target_end_index = tf.constant([<span class="hljs-number">15</span>])
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs, start_positions=target_start_index, end_positions=target_end_index)
+<span class="hljs-meta">&gt;&gt;&gt; </span>loss = tf.math.reduce_mean(outputs.loss)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">round</span>(<span class="hljs-built_in">float</span>(loss), <span class="hljs-number">2</span>)
+`}}),{c(){w(l.$$.fragment)},l(c){T(l.$$.fragment,c)},m(c,f){y(l,c,f),g=!0},p:Pe,i(c){g||($(l.$$.fragment,c),g=!0)},o(c){D(l.$$.fragment,c),g=!1},d(c){E(l,c)}}}function J2(V){let l,g,c,f,k,d,m,q,ve,pe,B,ne,oe,F,ke,U,we,he,I,Te,ie,G,ye,me,N,$e,fe,W,De,ue,te,j,P,le,J,Ee,ge,L,Fe,de,R,Ve,O,xe,_e,H,qe,be,C,se,K,ze,ae,M,je,A,Me,ce,v,x,We,re,Ae,Ie,z,He,Ue,Be,Se,Ke,S,X,Le,Oe,Y,Qe,Ne,Z,Ge,ee,Je,ac,es,rc,ic,ts,lc,dc,Ll,eo,Bo,Nr,os,cc,Wr,pc,Il,Ct,ns,hc,to,mc,er,fc,uc,ss,gc,_c,bc,oo,vc,tr,kc,wc,or,Tc,yc,Sl,no,Lo,Hr,as,$c,Ur,Dc,Ol,Ze,rs,Ec,is,Fc,ls,Vc,xc,qc,Bt,ds,zc,Kr,jc,Mc,cs,Qr,Cc,Pc,Gr,Rc,Ac,Io,ps,Bc,so,Lc,Jr,Ic,Sc,Xr,Oc,Nc,Wc,yt,hs,Hc,Yr,Uc,Kc,So,Qc,ao,Gc,Zr,Jc,Xc,ei,Yc,Zc,ep,nr,ms,Nl,ro,Oo,ti,fs,tp,oi,op,Wl,bt,us,np,gs,sp,_s,ap,rp,ip,Lt,bs,lp,ni,dp,cp,vs,si,pp,hp,ai,mp,fp,$t,ks,up,ri,gp,_p,No,bp,io,vp,ii,kp,wp,li,Tp,yp,Hl,lo,Wo,di,ws,$p,ci,Dp,Ul,vt,Ts,Ep,ys,Fp,$s,Vp,xp,qp,Ds,zp,Es,jp,Mp,Cp,Dt,Fs,Pp,co,Rp,sr,Ap,Bp,pi,Lp,Ip,Sp,Ho,Op,Uo,Kl,po,Ko,hi,Vs,Np,mi,Wp,Ql,Pt,xs,Hp,fi,Up,Kp,Et,qs,Qp,ui,Gp,Jp,gi,Xp,Yp,Qo,Gl,ho,Go,_i,zs,Zp,bi,eh,Jl,kt,js,th,mo,oh,vi,nh,sh,Ms,ah,rh,ih,Cs,lh,Ps,dh,ch,ph,ct,Rs,hh,fo,mh,ar,fh,uh,ki,gh,_h,bh,Jo,vh,Xo,kh,Yo,Xl,uo,Zo,wi,As,wh,Ti,Th,Yl,st,Bs,yh,yi,$h,Dh,Ls,Eh,Is,Fh,Vh,xh,Ss,qh,Os,zh,jh,Mh,Xe,Ns,Ch,go,Ph,rr,Rh,Ah,$i,Bh,Lh,Ih,en,Sh,tn,Oh,on,Nh,nn,Wh,sn,Zl,_o,an,Di,Ws,Hh,Ei,Uh,ed,at,Hs,Kh,Fi,Qh,Gh,Us,Jh,Ks,Xh,Yh,Zh,Qs,em,Gs,tm,om,nm,pt,Js,sm,bo,am,ir,rm,im,Vi,lm,dm,cm,rn,pm,ln,hm,dn,td,vo,cn,xi,Xs,mm,qi,fm,od,rt,Ys,um,ko,gm,zi,_m,bm,ji,vm,km,wm,Zs,Tm,ea,ym,$m,Dm,ta,Em,oa,Fm,Vm,xm,ht,na,qm,wo,zm,lr,jm,Mm,Mi,Cm,Pm,Rm,pn,Am,hn,Bm,mn,nd,To,fn,Ci,sa,Lm,Pi,Im,sd,it,aa,Sm,Ri,Om,Nm,ra,Wm,ia,Hm,Um,Km,la,Qm,da,Gm,Jm,Xm,Ft,ca,Ym,yo,Zm,dr,ef,tf,Ai,of,nf,sf,un,af,gn,ad,$o,_n,Bi,pa,rf,Li,lf,rd,lt,ha,df,ma,cf,fa,pf,hf,mf,ua,ff,ga,uf,gf,_f,bn,bf,Vt,_a,vf,Do,kf,cr,wf,Tf,Ii,yf,$f,Df,vn,Ef,kn,id,Eo,wn,Si,ba,Ff,Oi,Vf,ld,Rt,va,xf,Ni,qf,zf,xt,ka,jf,Wi,Mf,Cf,wa,Pf,Hi,Rf,Af,Bf,wt,Lf,Ui,If,Sf,Ki,Of,Nf,Qi,Wf,Hf,Gi,Uf,Kf,dd,Fo,Tn,Ji,Ta,Qf,Xi,Gf,cd,dt,ya,Jf,Vo,Xf,Yi,Yf,Zf,$a,eu,tu,ou,Da,nu,Ea,su,au,ru,yn,iu,mt,Fa,lu,xo,du,pr,cu,pu,Zi,hu,mu,fu,$n,uu,Dn,gu,En,pd,qo,Fn,el,Va,_u,tl,bu,hd,et,xa,vu,ol,ku,wu,qa,Tu,za,yu,$u,Du,ja,Eu,Ma,Fu,Vu,xu,Vn,qu,ft,Ca,zu,zo,ju,hr,Mu,Cu,nl,Pu,Ru,Au,xn,Bu,qn,Lu,zn,md,jo,jn,sl,Pa,Iu,al,Su,fd,tt,Ra,Ou,rl,Nu,Wu,Aa,Hu,Ba,Uu,Ku,Qu,La,Gu,Ia,Ju,Xu,Yu,Mn,Zu,ut,Sa,eg,Mo,tg,mr,og,ng,il,sg,ag,rg,Cn,ig,Pn,lg,Rn,ud,Co,An,ll,Oa,dg,dl,cg,gd,ot,Na,pg,Po,hg,cl,mg,fg,pl,ug,gg,_g,Wa,bg,Ha,vg,kg,wg,Ua,Tg,Ka,yg,$g,Dg,Bn,Eg,gt,Qa,Fg,Ro,Vg,fr,xg,qg,hl,zg,jg,Mg,Ln,Cg,In,Pg,Sn,_d;return d=new Ye({}),F=new Ye({}),os=new Ye({}),ns=new Q({props:{name:"class transformers.DebertaV2Config",anchor:"transformers.DebertaV2Config",parameters:[{name:"vocab_size",val:" = 128100"},{name:"hidden_size",val:" = 1536"},{name:"num_hidden_layers",val:" = 24"},{name:"num_attention_heads",val:" = 24"},{name:"intermediate_size",val:" = 6144"},{name:"hidden_act",val:" = 'gelu'"},{name:"hidden_dropout_prob",val:" = 0.1"},{name:"attention_probs_dropout_prob",val:" = 0.1"},{name:"max_position_embeddings",val:" = 512"},{name:"type_vocab_size",val:" = 0"},{name:"initializer_range",val:" = 0.02"},{name:"layer_norm_eps",val:" = 1e-07"},{name:"relative_attention",val:" = False"},{name:"max_relative_positions",val:" = -1"},{name:"pad_token_id",val:" = 0"},{name:"position_biased_input",val:" = True"},{name:"pos_att_type",val:" = None"},{name:"pooler_dropout",val:" = 0"},{name:"pooler_hidden_act",val:" = 'gelu'"},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.DebertaV2Config.vocab_size",description:`<strong>vocab_size</strong> (<code>int</code>, <em>optional</em>, defaults to 128100) &#x2014;
+Vocabulary size of the DeBERTa-v2 model. Defines the number of different tokens that can be represented by
+the <code>inputs_ids</code> passed when calling <a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Model">DebertaV2Model</a>.`,name:"vocab_size"},{anchor:"transformers.DebertaV2Config.hidden_size",description:`<strong>hidden_size</strong> (<code>int</code>, <em>optional</em>, defaults to 1536) &#x2014;
+Dimensionality of the encoder layers and the pooler layer.`,name:"hidden_size"},{anchor:"transformers.DebertaV2Config.num_hidden_layers",description:`<strong>num_hidden_layers</strong> (<code>int</code>, <em>optional</em>, defaults to 24) &#x2014;
+Number of hidden layers in the Transformer encoder.`,name:"num_hidden_layers"},{anchor:"transformers.DebertaV2Config.num_attention_heads",description:`<strong>num_attention_heads</strong> (<code>int</code>, <em>optional</em>, defaults to 24) &#x2014;
+Number of attention heads for each attention layer in the Transformer encoder.`,name:"num_attention_heads"},{anchor:"transformers.DebertaV2Config.intermediate_size",description:`<strong>intermediate_size</strong> (<code>int</code>, <em>optional</em>, defaults to 6144) &#x2014;
+Dimensionality of the &#x201C;intermediate&#x201D; (often named feed-forward) layer in the Transformer encoder.`,name:"intermediate_size"},{anchor:"transformers.DebertaV2Config.hidden_act",description:`<strong>hidden_act</strong> (<code>str</code> or <code>Callable</code>, <em>optional</em>, defaults to <code>&quot;gelu&quot;</code>) &#x2014;
+The non-linear activation function (function or string) in the encoder and pooler. If string, <code>&quot;gelu&quot;</code>,
+<code>&quot;relu&quot;</code>, <code>&quot;silu&quot;</code>, <code>&quot;gelu&quot;</code>, <code>&quot;tanh&quot;</code>, <code>&quot;gelu_fast&quot;</code>, <code>&quot;mish&quot;</code>, <code>&quot;linear&quot;</code>, <code>&quot;sigmoid&quot;</code> and <code>&quot;gelu_new&quot;</code>
+are supported.`,name:"hidden_act"},{anchor:"transformers.DebertaV2Config.hidden_dropout_prob",description:`<strong>hidden_dropout_prob</strong> (<code>float</code>, <em>optional</em>, defaults to 0.1) &#x2014;
+The dropout probability for all fully connected layers in the embeddings, encoder, and pooler.`,name:"hidden_dropout_prob"},{anchor:"transformers.DebertaV2Config.attention_probs_dropout_prob",description:`<strong>attention_probs_dropout_prob</strong> (<code>float</code>, <em>optional</em>, defaults to 0.1) &#x2014;
+The dropout ratio for the attention probabilities.`,name:"attention_probs_dropout_prob"},{anchor:"transformers.DebertaV2Config.max_position_embeddings",description:`<strong>max_position_embeddings</strong> (<code>int</code>, <em>optional</em>, defaults to 512) &#x2014;
+The maximum sequence length that this model might ever be used with. Typically set this to something large
+just in case (e.g., 512 or 1024 or 2048).`,name:"max_position_embeddings"},{anchor:"transformers.DebertaV2Config.type_vocab_size",description:`<strong>type_vocab_size</strong> (<code>int</code>, <em>optional</em>, defaults to 0) &#x2014;
+The vocabulary size of the <code>token_type_ids</code> passed when calling <a href="/docs/transformers/v4.22.1/en/model_doc/deberta#transformers.DebertaModel">DebertaModel</a> or <a href="/docs/transformers/v4.22.1/en/model_doc/deberta#transformers.TFDebertaModel">TFDebertaModel</a>.`,name:"type_vocab_size"},{anchor:"transformers.DebertaV2Config.initializer_range",description:`<strong>initializer_range</strong> (<code>float</code>, <em>optional</em>, defaults to 0.02) &#x2014;
+The standard deviation of the truncated_normal_initializer for initializing all weight matrices.`,name:"initializer_range"},{anchor:"transformers.DebertaV2Config.layer_norm_eps",description:`<strong>layer_norm_eps</strong> (<code>float</code>, <em>optional</em>, defaults to 1e-7) &#x2014;
+The epsilon used by the layer normalization layers.`,name:"layer_norm_eps"},{anchor:"transformers.DebertaV2Config.relative_attention",description:`<strong>relative_attention</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
+Whether use relative position encoding.`,name:"relative_attention"},{anchor:"transformers.DebertaV2Config.max_relative_positions",description:`<strong>max_relative_positions</strong> (<code>int</code>, <em>optional</em>, defaults to -1) &#x2014;
+The range of relative positions <code>[-max_position_embeddings, max_position_embeddings]</code>. Use the same value
+as <code>max_position_embeddings</code>.`,name:"max_relative_positions"},{anchor:"transformers.DebertaV2Config.pad_token_id",description:`<strong>pad_token_id</strong> (<code>int</code>, <em>optional</em>, defaults to 0) &#x2014;
+The value used to pad input_ids.`,name:"pad_token_id"},{anchor:"transformers.DebertaV2Config.position_biased_input",description:`<strong>position_biased_input</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether add absolute position embedding to content embedding.`,name:"position_biased_input"},{anchor:"transformers.DebertaV2Config.pos_att_type",description:`<strong>pos_att_type</strong> (<code>List[str]</code>, <em>optional</em>) &#x2014;
+The type of relative position attention, it can be a combination of <code>[&quot;p2c&quot;, &quot;c2p&quot;]</code>, e.g. <code>[&quot;p2c&quot;]</code>,
+<code>[&quot;p2c&quot;, &quot;c2p&quot;]</code>, <code>[&quot;p2c&quot;, &quot;c2p&quot;]</code>.`,name:"pos_att_type"},{anchor:"transformers.DebertaV2Config.layer_norm_eps",description:`<strong>layer_norm_eps</strong> (<code>float</code>, optional, defaults to 1e-12) &#x2014;
+The epsilon used by the layer normalization layers.`,name:"layer_norm_eps"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/configuration_deberta_v2.py#L42"}}),as=new Ye({}),rs=new Q({props:{name:"class transformers.DebertaV2Tokenizer",anchor:"transformers.DebertaV2Tokenizer",parameters:[{name:"vocab_file",val:""},{name:"do_lower_case",val:" = False"},{name:"split_by_punct",val:" = False"},{name:"bos_token",val:" = '[CLS]'"},{name:"eos_token",val:" = '[SEP]'"},{name:"unk_token",val:" = '[UNK]'"},{name:"sep_token",val:" = '[SEP]'"},{name:"pad_token",val:" = '[PAD]'"},{name:"cls_token",val:" = '[CLS]'"},{name:"mask_token",val:" = '[MASK]'"},{name:"sp_model_kwargs",val:": typing.Union[typing.Dict[str, typing.Any], NoneType] = None"},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.DebertaV2Tokenizer.vocab_file",description:`<strong>vocab_file</strong> (<code>str</code>) &#x2014;
+<a href="https://github.com/google/sentencepiece" rel="nofollow">SentencePiece</a> file (generally has a <em>.spm</em> extension) that
+contains the vocabulary necessary to instantiate a tokenizer.`,name:"vocab_file"},{anchor:"transformers.DebertaV2Tokenizer.do_lower_case",description:`<strong>do_lower_case</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether or not to lowercase the input when tokenizing.`,name:"do_lower_case"},{anchor:"transformers.DebertaV2Tokenizer.bos_token",description:`<strong>bos_token</strong> (<code>string</code>, <em>optional</em>, defaults to <code>&quot;[CLS]&quot;</code>) &#x2014;
+The beginning of sequence token that was used during pre-training. Can be used a sequence classifier token.
+When building a sequence using special tokens, this is not the token that is used for the beginning of
+sequence. The token used is the <code>cls_token</code>.`,name:"bos_token"},{anchor:"transformers.DebertaV2Tokenizer.eos_token",description:`<strong>eos_token</strong> (<code>string</code>, <em>optional</em>, defaults to <code>&quot;[SEP]&quot;</code>) &#x2014;
+The end of sequence token. When building a sequence using special tokens, this is not the token that is
+used for the end of sequence. The token used is the <code>sep_token</code>.`,name:"eos_token"},{anchor:"transformers.DebertaV2Tokenizer.unk_token",description:`<strong>unk_token</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;[UNK]&quot;</code>) &#x2014;
+The unknown token. A token that is not in the vocabulary cannot be converted to an ID and is set to be this
+token instead.`,name:"unk_token"},{anchor:"transformers.DebertaV2Tokenizer.sep_token",description:`<strong>sep_token</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;[SEP]&quot;</code>) &#x2014;
+The separator token, which is used when building a sequence from multiple sequences, e.g. two sequences for
+sequence classification or for a text and a question for question answering. It is also used as the last
+token of a sequence built with special tokens.`,name:"sep_token"},{anchor:"transformers.DebertaV2Tokenizer.pad_token",description:`<strong>pad_token</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;[PAD]&quot;</code>) &#x2014;
+The token used for padding, for example when batching sequences of different lengths.`,name:"pad_token"},{anchor:"transformers.DebertaV2Tokenizer.cls_token",description:`<strong>cls_token</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;[CLS]&quot;</code>) &#x2014;
+The classifier token which is used when doing sequence classification (classification of the whole sequence
+instead of per-token classification). It is the first token of the sequence when built with special tokens.`,name:"cls_token"},{anchor:"transformers.DebertaV2Tokenizer.mask_token",description:`<strong>mask_token</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;[MASK]&quot;</code>) &#x2014;
+The token used for masking values. This is the token used when training this model with masked language
+modeling. This is the token which the model will try to predict.`,name:"mask_token"},{anchor:"transformers.DebertaV2Tokenizer.sp_model_kwargs",description:`<strong>sp_model_kwargs</strong> (<code>dict</code>, <em>optional</em>) &#x2014;
+Will be passed to the <code>SentencePieceProcessor.__init__()</code> method. The <a href="https://github.com/google/sentencepiece/tree/master/python" rel="nofollow">Python wrapper for
+SentencePiece</a> can be used, among other things,
+to set:</p>
+<ul>
+<li>
+<p><code>enable_sampling</code>: Enable subword regularization.</p>
+</li>
+<li>
+<p><code>nbest_size</code>: Sampling parameters for unigram. Invalid for BPE-Dropout.</p>
+<ul>
+<li><code>nbest_size = {0,1}</code>: No sampling is performed.</li>
+<li><code>nbest_size &gt; 1</code>: samples from the nbest_size results.</li>
+<li><code>nbest_size &lt; 0</code>: assuming that nbest_size is infinite and samples from the all hypothesis (lattice)
+using forward-filtering-and-backward-sampling algorithm.</li>
+</ul>
+</li>
+<li>
+<p><code>alpha</code>: Smoothing parameter for unigram sampling, and dropout probability of merge operations for
+BPE-dropout.</p>
+</li>
+</ul>`,name:"sp_model_kwargs"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/tokenization_deberta_v2.py#L56"}}),ds=new Q({props:{name:"build_inputs_with_special_tokens",anchor:"transformers.DebertaV2Tokenizer.build_inputs_with_special_tokens",parameters:[{name:"token_ids_0",val:""},{name:"token_ids_1",val:" = None"}],parametersDescription:[{anchor:"transformers.DebertaV2Tokenizer.build_inputs_with_special_tokens.token_ids_0",description:`<strong>token_ids_0</strong> (<code>List[int]</code>) &#x2014;
+List of IDs to which the special tokens will be added.`,name:"token_ids_0"},{anchor:"transformers.DebertaV2Tokenizer.build_inputs_with_special_tokens.token_ids_1",description:`<strong>token_ids_1</strong> (<code>List[int]</code>, <em>optional</em>) &#x2014;
+Optional second list of IDs for sequence pairs.`,name:"token_ids_1"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/tokenization_deberta_v2.py#L182",returnDescription:`
+<p>List of <a href="../glossary#input-ids">input IDs</a> with the appropriate special tokens.</p>
+`,returnType:`
+<p><code>List[int]</code></p>
+`}}),ps=new Q({props:{name:"get_special_tokens_mask",anchor:"transformers.DebertaV2Tokenizer.get_special_tokens_mask",parameters:[{name:"token_ids_0",val:""},{name:"token_ids_1",val:" = None"},{name:"already_has_special_tokens",val:" = False"}],parametersDescription:[{anchor:"transformers.DebertaV2Tokenizer.get_special_tokens_mask.token_ids_0",description:`<strong>token_ids_0</strong> (<code>List[int]</code>) &#x2014;
+List of IDs.`,name:"token_ids_0"},{anchor:"transformers.DebertaV2Tokenizer.get_special_tokens_mask.token_ids_1",description:`<strong>token_ids_1</strong> (<code>List[int]</code>, <em>optional</em>) &#x2014;
+Optional second list of IDs for sequence pairs.`,name:"token_ids_1"},{anchor:"transformers.DebertaV2Tokenizer.get_special_tokens_mask.already_has_special_tokens",description:`<strong>already_has_special_tokens</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether or not the token list is already formatted with special tokens for the model.`,name:"already_has_special_tokens"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/tokenization_deberta_v2.py#L206",returnDescription:`
+<p>A list of integers in the range [0, 1]: 1 for a special token, 0 for a sequence token.</p>
+`,returnType:`
+<p><code>List[int]</code></p>
+`}}),hs=new Q({props:{name:"create_token_type_ids_from_sequences",anchor:"transformers.DebertaV2Tokenizer.create_token_type_ids_from_sequences",parameters:[{name:"token_ids_0",val:""},{name:"token_ids_1",val:" = None"}],parametersDescription:[{anchor:"transformers.DebertaV2Tokenizer.create_token_type_ids_from_sequences.token_ids_0",description:`<strong>token_ids_0</strong> (<code>List[int]</code>) &#x2014;
+List of IDs.`,name:"token_ids_0"},{anchor:"transformers.DebertaV2Tokenizer.create_token_type_ids_from_sequences.token_ids_1",description:`<strong>token_ids_1</strong> (<code>List[int]</code>, <em>optional</em>) &#x2014;
+Optional second list of IDs for sequence pairs.`,name:"token_ids_1"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/tokenization_deberta_v2.py#L232",returnDescription:`
+<p>List of <a href="../glossary#token-type-ids">token type IDs</a> according to the given sequence(s).</p>
+`,returnType:`
+<p><code>List[int]</code></p>
+`}}),So=new Ce({props:{anchor:"transformers.DebertaV2Tokenizer.create_token_type_ids_from_sequences.example",$$slots:{default:[c2]},$$scope:{ctx:V}}}),ms=new Q({props:{name:"save_vocabulary",anchor:"transformers.DebertaV2Tokenizer.save_vocabulary",parameters:[{name:"save_directory",val:": str"},{name:"filename_prefix",val:": typing.Optional[str] = None"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/tokenization_deberta_v2.py#L265"}}),fs=new Ye({}),us=new Q({props:{name:"class transformers.DebertaV2TokenizerFast",anchor:"transformers.DebertaV2TokenizerFast",parameters:[{name:"vocab_file",val:" = None"},{name:"tokenizer_file",val:" = None"},{name:"do_lower_case",val:" = False"},{name:"split_by_punct",val:" = False"},{name:"bos_token",val:" = '[CLS]'"},{name:"eos_token",val:" = '[SEP]'"},{name:"unk_token",val:" = '[UNK]'"},{name:"sep_token",val:" = '[SEP]'"},{name:"pad_token",val:" = '[PAD]'"},{name:"cls_token",val:" = '[CLS]'"},{name:"mask_token",val:" = '[MASK]'"},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.DebertaV2TokenizerFast.vocab_file",description:`<strong>vocab_file</strong> (<code>str</code>) &#x2014;
+<a href="https://github.com/google/sentencepiece" rel="nofollow">SentencePiece</a> file (generally has a <em>.spm</em> extension) that
+contains the vocabulary necessary to instantiate a tokenizer.`,name:"vocab_file"},{anchor:"transformers.DebertaV2TokenizerFast.do_lower_case",description:`<strong>do_lower_case</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+Whether or not to lowercase the input when tokenizing.`,name:"do_lower_case"},{anchor:"transformers.DebertaV2TokenizerFast.bos_token",description:`<strong>bos_token</strong> (<code>string</code>, <em>optional</em>, defaults to <code>&quot;[CLS]&quot;</code>) &#x2014;
+The beginning of sequence token that was used during pre-training. Can be used a sequence classifier token.
+When building a sequence using special tokens, this is not the token that is used for the beginning of
+sequence. The token used is the <code>cls_token</code>.`,name:"bos_token"},{anchor:"transformers.DebertaV2TokenizerFast.eos_token",description:`<strong>eos_token</strong> (<code>string</code>, <em>optional</em>, defaults to <code>&quot;[SEP]&quot;</code>) &#x2014;
+The end of sequence token. When building a sequence using special tokens, this is not the token that is
+used for the end of sequence. The token used is the <code>sep_token</code>.`,name:"eos_token"},{anchor:"transformers.DebertaV2TokenizerFast.unk_token",description:`<strong>unk_token</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;[UNK]&quot;</code>) &#x2014;
+The unknown token. A token that is not in the vocabulary cannot be converted to an ID and is set to be this
+token instead.`,name:"unk_token"},{anchor:"transformers.DebertaV2TokenizerFast.sep_token",description:`<strong>sep_token</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;[SEP]&quot;</code>) &#x2014;
+The separator token, which is used when building a sequence from multiple sequences, e.g. two sequences for
+sequence classification or for a text and a question for question answering. It is also used as the last
+token of a sequence built with special tokens.`,name:"sep_token"},{anchor:"transformers.DebertaV2TokenizerFast.pad_token",description:`<strong>pad_token</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;[PAD]&quot;</code>) &#x2014;
+The token used for padding, for example when batching sequences of different lengths.`,name:"pad_token"},{anchor:"transformers.DebertaV2TokenizerFast.cls_token",description:`<strong>cls_token</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;[CLS]&quot;</code>) &#x2014;
+The classifier token which is used when doing sequence classification (classification of the whole sequence
+instead of per-token classification). It is the first token of the sequence when built with special tokens.`,name:"cls_token"},{anchor:"transformers.DebertaV2TokenizerFast.mask_token",description:`<strong>mask_token</strong> (<code>str</code>, <em>optional</em>, defaults to <code>&quot;[MASK]&quot;</code>) &#x2014;
+The token used for masking values. This is the token used when training this model with masked language
+modeling. This is the token which the model will try to predict.`,name:"mask_token"},{anchor:"transformers.DebertaV2TokenizerFast.sp_model_kwargs",description:`<strong>sp_model_kwargs</strong> (<code>dict</code>, <em>optional</em>) &#x2014;
+Will be passed to the <code>SentencePieceProcessor.__init__()</code> method. The <a href="https://github.com/google/sentencepiece/tree/master/python" rel="nofollow">Python wrapper for
+SentencePiece</a> can be used, among other things,
+to set:</p>
+<ul>
+<li>
+<p><code>enable_sampling</code>: Enable subword regularization.</p>
+</li>
+<li>
+<p><code>nbest_size</code>: Sampling parameters for unigram. Invalid for BPE-Dropout.</p>
+<ul>
+<li><code>nbest_size = {0,1}</code>: No sampling is performed.</li>
+<li><code>nbest_size &gt; 1</code>: samples from the nbest_size results.</li>
+<li><code>nbest_size &lt; 0</code>: assuming that nbest_size is infinite and samples from the all hypothesis (lattice)
+using forward-filtering-and-backward-sampling algorithm.</li>
+</ul>
+</li>
+<li>
+<p><code>alpha</code>: Smoothing parameter for unigram sampling, and dropout probability of merge operations for
+BPE-dropout.</p>
+</li>
+</ul>`,name:"sp_model_kwargs"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/tokenization_deberta_v2_fast.py#L63"}}),bs=new Q({props:{name:"build_inputs_with_special_tokens",anchor:"transformers.DebertaV2TokenizerFast.build_inputs_with_special_tokens",parameters:[{name:"token_ids_0",val:""},{name:"token_ids_1",val:" = None"}],parametersDescription:[{anchor:"transformers.DebertaV2TokenizerFast.build_inputs_with_special_tokens.token_ids_0",description:`<strong>token_ids_0</strong> (<code>List[int]</code>) &#x2014;
+List of IDs to which the special tokens will be added.`,name:"token_ids_0"},{anchor:"transformers.DebertaV2TokenizerFast.build_inputs_with_special_tokens.token_ids_1",description:`<strong>token_ids_1</strong> (<code>List[int]</code>, <em>optional</em>) &#x2014;
+Optional second list of IDs for sequence pairs.`,name:"token_ids_1"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/tokenization_deberta_v2_fast.py#L153",returnDescription:`
+<p>List of <a href="../glossary#input-ids">input IDs</a> with the appropriate special tokens.</p>
+`,returnType:`
+<p><code>List[int]</code></p>
+`}}),ks=new Q({props:{name:"create_token_type_ids_from_sequences",anchor:"transformers.DebertaV2TokenizerFast.create_token_type_ids_from_sequences",parameters:[{name:"token_ids_0",val:""},{name:"token_ids_1",val:" = None"}],parametersDescription:[{anchor:"transformers.DebertaV2TokenizerFast.create_token_type_ids_from_sequences.token_ids_0",description:`<strong>token_ids_0</strong> (<code>List[int]</code>) &#x2014;
+List of IDs.`,name:"token_ids_0"},{anchor:"transformers.DebertaV2TokenizerFast.create_token_type_ids_from_sequences.token_ids_1",description:`<strong>token_ids_1</strong> (<code>List[int]</code>, <em>optional</em>) &#x2014;
+Optional second list of IDs for sequence pairs.`,name:"token_ids_1"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/tokenization_deberta_v2_fast.py#L203",returnDescription:`
+<p>List of <a href="../glossary#token-type-ids">token type IDs</a> according to the given sequence(s).</p>
+`,returnType:`
+<p><code>List[int]</code></p>
+`}}),No=new Ce({props:{anchor:"transformers.DebertaV2TokenizerFast.create_token_type_ids_from_sequences.example",$$slots:{default:[p2]},$$scope:{ctx:V}}}),ws=new Ye({}),Ts=new Q({props:{name:"class transformers.DebertaV2Model",anchor:"transformers.DebertaV2Model",parameters:[{name:"config",val:""}],parametersDescription:[{anchor:"transformers.DebertaV2Model.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config">DebertaV2Config</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L1029"}}),Fs=new Q({props:{name:"forward",anchor:"transformers.DebertaV2Model.forward",parameters:[{name:"input_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"attention_mask",val:": typing.Optional[torch.Tensor] = None"},{name:"token_type_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"position_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"inputs_embeds",val:": typing.Optional[torch.Tensor] = None"},{name:"output_attentions",val:": typing.Optional[bool] = None"},{name:"output_hidden_states",val:": typing.Optional[bool] = None"},{name:"return_dict",val:": typing.Optional[bool] = None"}],parametersDescription:[{anchor:"transformers.DebertaV2Model.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Tokenizer">DebertaV2Tokenizer</a>. See <a href="/docs/transformers/v4.22.1/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.22.1/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.DebertaV2Model.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.DebertaV2Model.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.DebertaV2Model.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.DebertaV2Model.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.DebertaV2Model.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.DebertaV2Model.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.DebertaV2Model.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L1053",returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_outputs.BaseModelOutput"
+>transformers.modeling_outputs.BaseModelOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config"
+>DebertaV2Config</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>last_hidden_state</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>) \u2014 Sequence of hidden-states at the output of the last layer of the model.</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_outputs.BaseModelOutput"
+>transformers.modeling_outputs.BaseModelOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),Ho=new nt({props:{$$slots:{default:[h2]},$$scope:{ctx:V}}}),Uo=new Ce({props:{anchor:"transformers.DebertaV2Model.forward.example",$$slots:{default:[m2]},$$scope:{ctx:V}}}),Vs=new Ye({}),xs=new Q({props:{name:"class transformers.DebertaV2PreTrainedModel",anchor:"transformers.DebertaV2PreTrainedModel",parameters:[{name:"config",val:": PretrainedConfig"},{name:"*inputs",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L933"}}),qs=new Q({props:{name:"_forward_unimplemented",anchor:"transformers.DebertaV2PreTrainedModel.forward",parameters:[{name:"*input",val:": typing.Any"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/torch/nn/modules/module.py#L190"}}),Qo=new nt({props:{$$slots:{default:[f2]},$$scope:{ctx:V}}}),zs=new Ye({}),js=new Q({props:{name:"class transformers.DebertaV2ForMaskedLM",anchor:"transformers.DebertaV2ForMaskedLM",parameters:[{name:"config",val:""}],parametersDescription:[{anchor:"transformers.DebertaV2ForMaskedLM.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config">DebertaV2Config</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L1142"}}),Rs=new Q({props:{name:"forward",anchor:"transformers.DebertaV2ForMaskedLM.forward",parameters:[{name:"input_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"attention_mask",val:": typing.Optional[torch.Tensor] = None"},{name:"token_type_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"position_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"inputs_embeds",val:": typing.Optional[torch.Tensor] = None"},{name:"labels",val:": typing.Optional[torch.Tensor] = None"},{name:"output_attentions",val:": typing.Optional[bool] = None"},{name:"output_hidden_states",val:": typing.Optional[bool] = None"},{name:"return_dict",val:": typing.Optional[bool] = None"}],parametersDescription:[{anchor:"transformers.DebertaV2ForMaskedLM.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Tokenizer">DebertaV2Tokenizer</a>. See <a href="/docs/transformers/v4.22.1/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.22.1/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.DebertaV2ForMaskedLM.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.DebertaV2ForMaskedLM.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.DebertaV2ForMaskedLM.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.DebertaV2ForMaskedLM.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.DebertaV2ForMaskedLM.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.DebertaV2ForMaskedLM.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.DebertaV2ForMaskedLM.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.DebertaV2ForMaskedLM.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Labels for computing the masked language modeling loss. Indices should be in <code>[-100, 0, ..., config.vocab_size]</code> (see <code>input_ids</code> docstring) Tokens with indices set to <code>-100</code> are ignored (masked), the
+loss is only computed for the tokens with labels in <code>[0, ..., config.vocab_size]</code>`,name:"labels"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L1161",returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_outputs.MaskedLMOutput"
+>transformers.modeling_outputs.MaskedLMOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config"
+>DebertaV2Config</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Masked language modeling (MLM) loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, config.vocab_size)</code>) \u2014 Prediction scores of the language modeling head (scores for each vocabulary token before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_outputs.MaskedLMOutput"
+>transformers.modeling_outputs.MaskedLMOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),Jo=new nt({props:{$$slots:{default:[u2]},$$scope:{ctx:V}}}),Xo=new Ce({props:{anchor:"transformers.DebertaV2ForMaskedLM.forward.example",$$slots:{default:[g2]},$$scope:{ctx:V}}}),Yo=new Ce({props:{anchor:"transformers.DebertaV2ForMaskedLM.forward.example-2",$$slots:{default:[_2]},$$scope:{ctx:V}}}),As=new Ye({}),Bs=new Q({props:{name:"class transformers.DebertaV2ForSequenceClassification",anchor:"transformers.DebertaV2ForSequenceClassification",parameters:[{name:"config",val:""}],parametersDescription:[{anchor:"transformers.DebertaV2ForSequenceClassification.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config">DebertaV2Config</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L1281"}}),Ns=new Q({props:{name:"forward",anchor:"transformers.DebertaV2ForSequenceClassification.forward",parameters:[{name:"input_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"attention_mask",val:": typing.Optional[torch.Tensor] = None"},{name:"token_type_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"position_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"inputs_embeds",val:": typing.Optional[torch.Tensor] = None"},{name:"labels",val:": typing.Optional[torch.Tensor] = None"},{name:"output_attentions",val:": typing.Optional[bool] = None"},{name:"output_hidden_states",val:": typing.Optional[bool] = None"},{name:"return_dict",val:": typing.Optional[bool] = None"}],parametersDescription:[{anchor:"transformers.DebertaV2ForSequenceClassification.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Tokenizer">DebertaV2Tokenizer</a>. See <a href="/docs/transformers/v4.22.1/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.22.1/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.DebertaV2ForSequenceClassification.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.DebertaV2ForSequenceClassification.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.DebertaV2ForSequenceClassification.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.DebertaV2ForSequenceClassification.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.DebertaV2ForSequenceClassification.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.DebertaV2ForSequenceClassification.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.DebertaV2ForSequenceClassification.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.DebertaV2ForSequenceClassification.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for computing the sequence classification/regression loss. Indices should be in <code>[0, ..., config.num_labels - 1]</code>. If <code>config.num_labels == 1</code> a regression loss is computed (Mean-Square loss), If
+<code>config.num_labels &gt; 1</code> a classification loss is computed (Cross-Entropy).`,name:"labels"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L1306",returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_outputs.SequenceClassifierOutput"
+>transformers.modeling_outputs.SequenceClassifierOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config"
+>DebertaV2Config</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Classification (or regression if config.num_labels==1) loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, config.num_labels)</code>) \u2014 Classification (or regression if config.num_labels==1) scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_outputs.SequenceClassifierOutput"
+>transformers.modeling_outputs.SequenceClassifierOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),en=new nt({props:{$$slots:{default:[b2]},$$scope:{ctx:V}}}),tn=new Ce({props:{anchor:"transformers.DebertaV2ForSequenceClassification.forward.example",$$slots:{default:[v2]},$$scope:{ctx:V}}}),on=new Ce({props:{anchor:"transformers.DebertaV2ForSequenceClassification.forward.example-2",$$slots:{default:[k2]},$$scope:{ctx:V}}}),nn=new Ce({props:{anchor:"transformers.DebertaV2ForSequenceClassification.forward.example-3",$$slots:{default:[w2]},$$scope:{ctx:V}}}),sn=new Ce({props:{anchor:"transformers.DebertaV2ForSequenceClassification.forward.example-4",$$slots:{default:[T2]},$$scope:{ctx:V}}}),Ws=new Ye({}),Hs=new Q({props:{name:"class transformers.DebertaV2ForTokenClassification",anchor:"transformers.DebertaV2ForTokenClassification",parameters:[{name:"config",val:""}],parametersDescription:[{anchor:"transformers.DebertaV2ForTokenClassification.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config">DebertaV2Config</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L1403"}}),Js=new Q({props:{name:"forward",anchor:"transformers.DebertaV2ForTokenClassification.forward",parameters:[{name:"input_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"attention_mask",val:": typing.Optional[torch.Tensor] = None"},{name:"token_type_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"position_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"inputs_embeds",val:": typing.Optional[torch.Tensor] = None"},{name:"labels",val:": typing.Optional[torch.Tensor] = None"},{name:"output_attentions",val:": typing.Optional[bool] = None"},{name:"output_hidden_states",val:": typing.Optional[bool] = None"},{name:"return_dict",val:": typing.Optional[bool] = None"}],parametersDescription:[{anchor:"transformers.DebertaV2ForTokenClassification.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Tokenizer">DebertaV2Tokenizer</a>. See <a href="/docs/transformers/v4.22.1/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.22.1/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.DebertaV2ForTokenClassification.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.DebertaV2ForTokenClassification.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.DebertaV2ForTokenClassification.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.DebertaV2ForTokenClassification.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.DebertaV2ForTokenClassification.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.DebertaV2ForTokenClassification.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.DebertaV2ForTokenClassification.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.DebertaV2ForTokenClassification.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Labels for computing the token classification loss. Indices should be in <code>[0, ..., config.num_labels - 1]</code>.`,name:"labels"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L1417",returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_outputs.TokenClassifierOutput"
+>transformers.modeling_outputs.TokenClassifierOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config"
+>DebertaV2Config</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided)  \u2014 Classification loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, config.num_labels)</code>) \u2014 Classification scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_outputs.TokenClassifierOutput"
+>transformers.modeling_outputs.TokenClassifierOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),rn=new nt({props:{$$slots:{default:[y2]},$$scope:{ctx:V}}}),ln=new Ce({props:{anchor:"transformers.DebertaV2ForTokenClassification.forward.example",$$slots:{default:[$2]},$$scope:{ctx:V}}}),dn=new Ce({props:{anchor:"transformers.DebertaV2ForTokenClassification.forward.example-2",$$slots:{default:[D2]},$$scope:{ctx:V}}}),Xs=new Ye({}),Ys=new Q({props:{name:"class transformers.DebertaV2ForQuestionAnswering",anchor:"transformers.DebertaV2ForQuestionAnswering",parameters:[{name:"config",val:""}],parametersDescription:[{anchor:"transformers.DebertaV2ForQuestionAnswering.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config">DebertaV2Config</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L1482"}}),na=new Q({props:{name:"forward",anchor:"transformers.DebertaV2ForQuestionAnswering.forward",parameters:[{name:"input_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"attention_mask",val:": typing.Optional[torch.Tensor] = None"},{name:"token_type_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"position_ids",val:": typing.Optional[torch.Tensor] = None"},{name:"inputs_embeds",val:": typing.Optional[torch.Tensor] = None"},{name:"start_positions",val:": typing.Optional[torch.Tensor] = None"},{name:"end_positions",val:": typing.Optional[torch.Tensor] = None"},{name:"output_attentions",val:": typing.Optional[bool] = None"},{name:"output_hidden_states",val:": typing.Optional[bool] = None"},{name:"return_dict",val:": typing.Optional[bool] = None"}],parametersDescription:[{anchor:"transformers.DebertaV2ForQuestionAnswering.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Tokenizer">DebertaV2Tokenizer</a>. See <a href="/docs/transformers/v4.22.1/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.22.1/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.DebertaV2ForQuestionAnswering.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.DebertaV2ForQuestionAnswering.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.DebertaV2ForQuestionAnswering.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.DebertaV2ForQuestionAnswering.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.DebertaV2ForQuestionAnswering.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.DebertaV2ForQuestionAnswering.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.DebertaV2ForQuestionAnswering.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.DebertaV2ForQuestionAnswering.forward.start_positions",description:`<strong>start_positions</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for position (index) of the start of the labelled span for computing the token classification loss.
+Positions are clamped to the length of the sequence (<code>sequence_length</code>). Position outside of the sequence
+are not taken into account for computing the loss.`,name:"start_positions"},{anchor:"transformers.DebertaV2ForQuestionAnswering.forward.end_positions",description:`<strong>end_positions</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for position (index) of the end of the labelled span for computing the token classification loss.
+Positions are clamped to the length of the sequence (<code>sequence_length</code>). Position outside of the sequence
+are not taken into account for computing the loss.`,name:"end_positions"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L1495",returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_outputs.QuestionAnsweringModelOutput"
+>transformers.modeling_outputs.QuestionAnsweringModelOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config"
+>DebertaV2Config</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <code>(1,)</code>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Total span extraction loss is the sum of a Cross-Entropy for the start and end positions.</p>
+</li>
+<li>
+<p><strong>start_logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>) \u2014 Span-start scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>end_logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>) \u2014 Span-end scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_outputs.QuestionAnsweringModelOutput"
+>transformers.modeling_outputs.QuestionAnsweringModelOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),pn=new nt({props:{$$slots:{default:[E2]},$$scope:{ctx:V}}}),hn=new Ce({props:{anchor:"transformers.DebertaV2ForQuestionAnswering.forward.example",$$slots:{default:[F2]},$$scope:{ctx:V}}}),mn=new Ce({props:{anchor:"transformers.DebertaV2ForQuestionAnswering.forward.example-2",$$slots:{default:[V2]},$$scope:{ctx:V}}}),sa=new Ye({}),aa=new Q({props:{name:"class transformers.DebertaV2ForMultipleChoice",anchor:"transformers.DebertaV2ForMultipleChoice",parameters:[{name:"config",val:""}],parametersDescription:[{anchor:"transformers.DebertaV2ForMultipleChoice.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config">DebertaV2Config</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L1586"}}),ca=new Q({props:{name:"forward",anchor:"transformers.DebertaV2ForMultipleChoice.forward",parameters:[{name:"input_ids",val:" = None"},{name:"attention_mask",val:" = None"},{name:"token_type_ids",val:" = None"},{name:"position_ids",val:" = None"},{name:"inputs_embeds",val:" = None"},{name:"labels",val:" = None"},{name:"output_attentions",val:" = None"},{name:"output_hidden_states",val:" = None"},{name:"return_dict",val:" = None"}],parametersDescription:[{anchor:"transformers.DebertaV2ForMultipleChoice.forward.input_ids",description:`<strong>input_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Tokenizer">DebertaV2Tokenizer</a>. See <a href="/docs/transformers/v4.22.1/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.22.1/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.DebertaV2ForMultipleChoice.forward.attention_mask",description:`<strong>attention_mask</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.DebertaV2ForMultipleChoice.forward.token_type_ids",description:`<strong>token_type_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.DebertaV2ForMultipleChoice.forward.position_ids",description:`<strong>position_ids</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.DebertaV2ForMultipleChoice.forward.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.DebertaV2ForMultipleChoice.forward.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.DebertaV2ForMultipleChoice.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.DebertaV2ForMultipleChoice.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return a <a href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"},{anchor:"transformers.DebertaV2ForMultipleChoice.forward.labels",description:`<strong>labels</strong> (<code>torch.LongTensor</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for computing the multiple choice classification loss. Indices should be in <code>[0, ..., num_choices-1]</code> where <code>num_choices</code> is the size of the second dimension of the input tensors. (See
+<code>input_ids</code> above)`,name:"labels"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_deberta_v2.py#L1610",returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_outputs.MultipleChoiceModelOutput"
+>transformers.modeling_outputs.MultipleChoiceModelOutput</a> or a tuple of
+<code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
+elements depending on the configuration (<a
+  href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config"
+>DebertaV2Config</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>torch.FloatTensor</code> of shape <em>(1,)</em>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Classification loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, num_choices)</code>) \u2014 <em>num_choices</em> is the second dimension of the input tensors. (see <em>input_ids</em> above).</p>
+<p>Classification scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for the output of the embeddings, if the model has an embedding layer, +
+one for the output of each layer) of shape <code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the optional initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(torch.FloatTensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>torch.FloatTensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_outputs.MultipleChoiceModelOutput"
+>transformers.modeling_outputs.MultipleChoiceModelOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
+`}}),un=new nt({props:{$$slots:{default:[x2]},$$scope:{ctx:V}}}),gn=new Ce({props:{anchor:"transformers.DebertaV2ForMultipleChoice.forward.example",$$slots:{default:[q2]},$$scope:{ctx:V}}}),pa=new Ye({}),ha=new Q({props:{name:"class transformers.TFDebertaV2Model",anchor:"transformers.TFDebertaV2Model",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.TFDebertaV2Model.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config">DebertaV2Config</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_tf_deberta_v2.py#L1179"}}),bn=new nt({props:{$$slots:{default:[z2]},$$scope:{ctx:V}}}),_a=new Q({props:{name:"call",anchor:"transformers.TFDebertaV2Model.call",parameters:[{name:"input_ids",val:": typing.Union[typing.List[tensorflow.python.framework.ops.Tensor], typing.List[numpy.ndarray], typing.List[tensorflow.python.keras.engine.keras_tensor.KerasTensor], typing.Dict[str, tensorflow.python.framework.ops.Tensor], typing.Dict[str, numpy.ndarray], typing.Dict[str, tensorflow.python.keras.engine.keras_tensor.KerasTensor], tensorflow.python.framework.ops.Tensor, numpy.ndarray, tensorflow.python.keras.engine.keras_tensor.KerasTensor, NoneType] = None"},{name:"attention_mask",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"token_type_ids",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"position_ids",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"inputs_embeds",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"output_attentions",val:": typing.Optional[bool] = None"},{name:"output_hidden_states",val:": typing.Optional[bool] = None"},{name:"return_dict",val:": typing.Optional[bool] = None"},{name:"training",val:": typing.Optional[bool] = False"}],parametersDescription:[{anchor:"transformers.TFDebertaV2Model.call.input_ids",description:`<strong>input_ids</strong> (<code>np.ndarray</code>, <code>tf.Tensor</code>, <code>List[tf.Tensor]</code> \`<code>Dict[str, tf.Tensor]</code> or <code>Dict[str, np.ndarray]</code> and each example must have the shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Tokenizer">DebertaV2Tokenizer</a>. See <a href="/docs/transformers/v4.22.1/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.22.1/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.TFDebertaV2Model.call.attention_mask",description:`<strong>attention_mask</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.TFDebertaV2Model.call.token_type_ids",description:`<strong>token_type_ids</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.TFDebertaV2Model.call.position_ids",description:`<strong>position_ids</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.TFDebertaV2Model.call.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.TFDebertaV2Model.call.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.TFDebertaV2Model.call.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.TFDebertaV2Model.call.return_dict",description:"<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;\nWhether or not to return a [`~utils.ModelOutput&#x201C;] instead of a plain tuple.",name:"return_dict"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_tf_deberta_v2.py#L1185",returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_tf_outputs.TFBaseModelOutput"
+>transformers.modeling_tf_outputs.TFBaseModelOutput</a> or a tuple of <code>tf.Tensor</code> (if
+<code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various elements depending on the
+configuration (<a
+  href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config"
+>DebertaV2Config</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>last_hidden_state</strong> (<code>tf.Tensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>) \u2014 Sequence of hidden-states at the output of the last layer of the model.</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(tf.FloatTensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>tf.Tensor</code> (one for the output of the embeddings + one for the output of each layer) of shape
+<code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(tf.Tensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>tf.Tensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_tf_outputs.TFBaseModelOutput"
+>transformers.modeling_tf_outputs.TFBaseModelOutput</a> or <code>tuple(tf.Tensor)</code></p>
+`}}),vn=new nt({props:{$$slots:{default:[j2]},$$scope:{ctx:V}}}),kn=new Ce({props:{anchor:"transformers.TFDebertaV2Model.call.example",$$slots:{default:[M2]},$$scope:{ctx:V}}}),ba=new Ye({}),va=new Q({props:{name:"class transformers.TFDebertaV2PreTrainedModel",anchor:"transformers.TFDebertaV2PreTrainedModel",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_tf_deberta_v2.py#L1078"}}),ka=new Q({props:{name:"call",anchor:"transformers.TFDebertaV2PreTrainedModel.call",parameters:[{name:"inputs",val:""},{name:"training",val:" = None"},{name:"mask",val:" = None"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/keras/engine/training.py#L559",returnDescription:`
+<p>A tensor if there is a single output, or
+a list of tensors if there are more than one outputs.</p>
+`}}),Ta=new Ye({}),ya=new Q({props:{name:"class transformers.TFDebertaV2ForMaskedLM",anchor:"transformers.TFDebertaV2ForMaskedLM",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.TFDebertaV2ForMaskedLM.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config">DebertaV2Config</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_tf_deberta_v2.py#L1228"}}),yn=new nt({props:{$$slots:{default:[C2]},$$scope:{ctx:V}}}),Fa=new Q({props:{name:"call",anchor:"transformers.TFDebertaV2ForMaskedLM.call",parameters:[{name:"input_ids",val:": typing.Union[typing.List[tensorflow.python.framework.ops.Tensor], typing.List[numpy.ndarray], typing.List[tensorflow.python.keras.engine.keras_tensor.KerasTensor], typing.Dict[str, tensorflow.python.framework.ops.Tensor], typing.Dict[str, numpy.ndarray], typing.Dict[str, tensorflow.python.keras.engine.keras_tensor.KerasTensor], tensorflow.python.framework.ops.Tensor, numpy.ndarray, tensorflow.python.keras.engine.keras_tensor.KerasTensor, NoneType] = None"},{name:"attention_mask",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"token_type_ids",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"position_ids",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"inputs_embeds",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"output_attentions",val:": typing.Optional[bool] = None"},{name:"output_hidden_states",val:": typing.Optional[bool] = None"},{name:"return_dict",val:": typing.Optional[bool] = None"},{name:"labels",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"training",val:": typing.Optional[bool] = False"}],parametersDescription:[{anchor:"transformers.TFDebertaV2ForMaskedLM.call.input_ids",description:`<strong>input_ids</strong> (<code>np.ndarray</code>, <code>tf.Tensor</code>, <code>List[tf.Tensor]</code> \`<code>Dict[str, tf.Tensor]</code> or <code>Dict[str, np.ndarray]</code> and each example must have the shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Tokenizer">DebertaV2Tokenizer</a>. See <a href="/docs/transformers/v4.22.1/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.22.1/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.TFDebertaV2ForMaskedLM.call.attention_mask",description:`<strong>attention_mask</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.TFDebertaV2ForMaskedLM.call.token_type_ids",description:`<strong>token_type_ids</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.TFDebertaV2ForMaskedLM.call.position_ids",description:`<strong>position_ids</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.TFDebertaV2ForMaskedLM.call.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.TFDebertaV2ForMaskedLM.call.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.TFDebertaV2ForMaskedLM.call.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.TFDebertaV2ForMaskedLM.call.return_dict",description:"<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;\nWhether or not to return a [`~utils.ModelOutput&#x201C;] instead of a plain tuple.",name:"return_dict"},{anchor:"transformers.TFDebertaV2ForMaskedLM.call.labels",description:`<strong>labels</strong> (<code>tf.Tensor</code> or <code>np.ndarray</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Labels for computing the masked language modeling loss. Indices should be in <code>[-100, 0, ..., config.vocab_size]</code> (see <code>input_ids</code> docstring) Tokens with indices set to <code>-100</code> are ignored (masked), the
+loss is only computed for the tokens with labels in <code>[0, ..., config.vocab_size]</code>`,name:"labels"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_tf_deberta_v2.py#L1244",returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_tf_outputs.TFMaskedLMOutput"
+>transformers.modeling_tf_outputs.TFMaskedLMOutput</a> or a tuple of <code>tf.Tensor</code> (if
+<code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various elements depending on the
+configuration (<a
+  href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config"
+>DebertaV2Config</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>tf.Tensor</code> of shape <code>(n,)</code>, <em>optional</em>, where n is the number of non-masked labels, returned when <code>labels</code> is provided) \u2014 Masked language modeling (MLM) loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>tf.Tensor</code> of shape <code>(batch_size, sequence_length, config.vocab_size)</code>) \u2014 Prediction scores of the language modeling head (scores for each vocabulary token before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(tf.Tensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>tf.Tensor</code> (one for the output of the embeddings + one for the output of each layer) of shape
+<code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(tf.Tensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>tf.Tensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_tf_outputs.TFMaskedLMOutput"
+>transformers.modeling_tf_outputs.TFMaskedLMOutput</a> or <code>tuple(tf.Tensor)</code></p>
+`}}),$n=new nt({props:{$$slots:{default:[P2]},$$scope:{ctx:V}}}),Dn=new Ce({props:{anchor:"transformers.TFDebertaV2ForMaskedLM.call.example",$$slots:{default:[R2]},$$scope:{ctx:V}}}),En=new Ce({props:{anchor:"transformers.TFDebertaV2ForMaskedLM.call.example-2",$$slots:{default:[A2]},$$scope:{ctx:V}}}),Va=new Ye({}),xa=new Q({props:{name:"class transformers.TFDebertaV2ForSequenceClassification",anchor:"transformers.TFDebertaV2ForSequenceClassification",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.TFDebertaV2ForSequenceClassification.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config">DebertaV2Config</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_tf_deberta_v2.py#L1312"}}),Vn=new nt({props:{$$slots:{default:[B2]},$$scope:{ctx:V}}}),Ca=new Q({props:{name:"call",anchor:"transformers.TFDebertaV2ForSequenceClassification.call",parameters:[{name:"input_ids",val:": typing.Union[typing.List[tensorflow.python.framework.ops.Tensor], typing.List[numpy.ndarray], typing.List[tensorflow.python.keras.engine.keras_tensor.KerasTensor], typing.Dict[str, tensorflow.python.framework.ops.Tensor], typing.Dict[str, numpy.ndarray], typing.Dict[str, tensorflow.python.keras.engine.keras_tensor.KerasTensor], tensorflow.python.framework.ops.Tensor, numpy.ndarray, tensorflow.python.keras.engine.keras_tensor.KerasTensor, NoneType] = None"},{name:"attention_mask",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"token_type_ids",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"position_ids",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"inputs_embeds",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"output_attentions",val:": typing.Optional[bool] = None"},{name:"output_hidden_states",val:": typing.Optional[bool] = None"},{name:"return_dict",val:": typing.Optional[bool] = None"},{name:"labels",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"training",val:": typing.Optional[bool] = False"}],parametersDescription:[{anchor:"transformers.TFDebertaV2ForSequenceClassification.call.input_ids",description:`<strong>input_ids</strong> (<code>np.ndarray</code>, <code>tf.Tensor</code>, <code>List[tf.Tensor]</code> \`<code>Dict[str, tf.Tensor]</code> or <code>Dict[str, np.ndarray]</code> and each example must have the shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Tokenizer">DebertaV2Tokenizer</a>. See <a href="/docs/transformers/v4.22.1/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.22.1/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.TFDebertaV2ForSequenceClassification.call.attention_mask",description:`<strong>attention_mask</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.TFDebertaV2ForSequenceClassification.call.token_type_ids",description:`<strong>token_type_ids</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.TFDebertaV2ForSequenceClassification.call.position_ids",description:`<strong>position_ids</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.TFDebertaV2ForSequenceClassification.call.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.TFDebertaV2ForSequenceClassification.call.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.TFDebertaV2ForSequenceClassification.call.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.TFDebertaV2ForSequenceClassification.call.return_dict",description:"<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;\nWhether or not to return a [`~utils.ModelOutput&#x201C;] instead of a plain tuple.",name:"return_dict"},{anchor:"transformers.TFDebertaV2ForSequenceClassification.call.labels",description:`<strong>labels</strong> (<code>tf.Tensor</code> or <code>np.ndarray</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for computing the sequence classification/regression loss. Indices should be in <code>[0, ..., config.num_labels - 1]</code>. If <code>config.num_labels == 1</code> a regression loss is computed (Mean-Square loss), If
+<code>config.num_labels &gt; 1</code> a classification loss is computed (Cross-Entropy).`,name:"labels"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_tf_deberta_v2.py#L1330",returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_tf_outputs.TFSequenceClassifierOutput"
+>transformers.modeling_tf_outputs.TFSequenceClassifierOutput</a> or a tuple of <code>tf.Tensor</code> (if
+<code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various elements depending on the
+configuration (<a
+  href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config"
+>DebertaV2Config</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>tf.Tensor</code> of shape <code>(batch_size, )</code>, <em>optional</em>, returned when <code>labels</code> is provided) \u2014 Classification (or regression if config.num_labels==1) loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>tf.Tensor</code> of shape <code>(batch_size, config.num_labels)</code>) \u2014 Classification (or regression if config.num_labels==1) scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(tf.Tensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>tf.Tensor</code> (one for the output of the embeddings + one for the output of each layer) of shape
+<code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(tf.Tensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>tf.Tensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_tf_outputs.TFSequenceClassifierOutput"
+>transformers.modeling_tf_outputs.TFSequenceClassifierOutput</a> or <code>tuple(tf.Tensor)</code></p>
+`}}),xn=new nt({props:{$$slots:{default:[L2]},$$scope:{ctx:V}}}),qn=new Ce({props:{anchor:"transformers.TFDebertaV2ForSequenceClassification.call.example",$$slots:{default:[I2]},$$scope:{ctx:V}}}),zn=new Ce({props:{anchor:"transformers.TFDebertaV2ForSequenceClassification.call.example-2",$$slots:{default:[S2]},$$scope:{ctx:V}}}),Pa=new Ye({}),Ra=new Q({props:{name:"class transformers.TFDebertaV2ForTokenClassification",anchor:"transformers.TFDebertaV2ForTokenClassification",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.TFDebertaV2ForTokenClassification.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config">DebertaV2Config</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_tf_deberta_v2.py#L1401"}}),Mn=new nt({props:{$$slots:{default:[O2]},$$scope:{ctx:V}}}),Sa=new Q({props:{name:"call",anchor:"transformers.TFDebertaV2ForTokenClassification.call",parameters:[{name:"input_ids",val:": typing.Union[typing.List[tensorflow.python.framework.ops.Tensor], typing.List[numpy.ndarray], typing.List[tensorflow.python.keras.engine.keras_tensor.KerasTensor], typing.Dict[str, tensorflow.python.framework.ops.Tensor], typing.Dict[str, numpy.ndarray], typing.Dict[str, tensorflow.python.keras.engine.keras_tensor.KerasTensor], tensorflow.python.framework.ops.Tensor, numpy.ndarray, tensorflow.python.keras.engine.keras_tensor.KerasTensor, NoneType] = None"},{name:"attention_mask",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"token_type_ids",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"position_ids",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"inputs_embeds",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"output_attentions",val:": typing.Optional[bool] = None"},{name:"output_hidden_states",val:": typing.Optional[bool] = None"},{name:"return_dict",val:": typing.Optional[bool] = None"},{name:"labels",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"training",val:": typing.Optional[bool] = False"}],parametersDescription:[{anchor:"transformers.TFDebertaV2ForTokenClassification.call.input_ids",description:`<strong>input_ids</strong> (<code>np.ndarray</code>, <code>tf.Tensor</code>, <code>List[tf.Tensor]</code> \`<code>Dict[str, tf.Tensor]</code> or <code>Dict[str, np.ndarray]</code> and each example must have the shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Tokenizer">DebertaV2Tokenizer</a>. See <a href="/docs/transformers/v4.22.1/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.22.1/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.TFDebertaV2ForTokenClassification.call.attention_mask",description:`<strong>attention_mask</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.TFDebertaV2ForTokenClassification.call.token_type_ids",description:`<strong>token_type_ids</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.TFDebertaV2ForTokenClassification.call.position_ids",description:`<strong>position_ids</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.TFDebertaV2ForTokenClassification.call.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.TFDebertaV2ForTokenClassification.call.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.TFDebertaV2ForTokenClassification.call.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.TFDebertaV2ForTokenClassification.call.return_dict",description:"<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;\nWhether or not to return a [`~utils.ModelOutput&#x201C;] instead of a plain tuple.",name:"return_dict"},{anchor:"transformers.TFDebertaV2ForTokenClassification.call.labels",description:`<strong>labels</strong> (<code>tf.Tensor</code> or <code>np.ndarray</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Labels for computing the token classification loss. Indices should be in <code>[0, ..., config.num_labels - 1]</code>.`,name:"labels"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_tf_deberta_v2.py#L1413",returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_tf_outputs.TFTokenClassifierOutput"
+>transformers.modeling_tf_outputs.TFTokenClassifierOutput</a> or a tuple of <code>tf.Tensor</code> (if
+<code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various elements depending on the
+configuration (<a
+  href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config"
+>DebertaV2Config</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>tf.Tensor</code> of shape <code>(n,)</code>, <em>optional</em>, where n is the number of unmasked labels, returned when <code>labels</code> is provided)  \u2014 Classification loss.</p>
+</li>
+<li>
+<p><strong>logits</strong> (<code>tf.Tensor</code> of shape <code>(batch_size, sequence_length, config.num_labels)</code>) \u2014 Classification scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(tf.Tensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>tf.Tensor</code> (one for the output of the embeddings + one for the output of each layer) of shape
+<code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(tf.Tensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>tf.Tensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_tf_outputs.TFTokenClassifierOutput"
+>transformers.modeling_tf_outputs.TFTokenClassifierOutput</a> or <code>tuple(tf.Tensor)</code></p>
+`}}),Cn=new nt({props:{$$slots:{default:[N2]},$$scope:{ctx:V}}}),Pn=new Ce({props:{anchor:"transformers.TFDebertaV2ForTokenClassification.call.example",$$slots:{default:[W2]},$$scope:{ctx:V}}}),Rn=new Ce({props:{anchor:"transformers.TFDebertaV2ForTokenClassification.call.example-2",$$slots:{default:[H2]},$$scope:{ctx:V}}}),Oa=new Ye({}),Na=new Q({props:{name:"class transformers.TFDebertaV2ForQuestionAnswering",anchor:"transformers.TFDebertaV2ForQuestionAnswering",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.TFDebertaV2ForQuestionAnswering.config",description:`<strong>config</strong> (<a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config">DebertaV2Config</a>) &#x2014; Model configuration class with all the parameters of the model.
+Initializing with a config file does not load the weights associated with the model, only the
+configuration. Check out the <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> method to load the model weights.`,name:"config"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_tf_deberta_v2.py#L1480"}}),Bn=new nt({props:{$$slots:{default:[U2]},$$scope:{ctx:V}}}),Qa=new Q({props:{name:"call",anchor:"transformers.TFDebertaV2ForQuestionAnswering.call",parameters:[{name:"input_ids",val:": typing.Union[typing.List[tensorflow.python.framework.ops.Tensor], typing.List[numpy.ndarray], typing.List[tensorflow.python.keras.engine.keras_tensor.KerasTensor], typing.Dict[str, tensorflow.python.framework.ops.Tensor], typing.Dict[str, numpy.ndarray], typing.Dict[str, tensorflow.python.keras.engine.keras_tensor.KerasTensor], tensorflow.python.framework.ops.Tensor, numpy.ndarray, tensorflow.python.keras.engine.keras_tensor.KerasTensor, NoneType] = None"},{name:"attention_mask",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"token_type_ids",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"position_ids",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"inputs_embeds",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"output_attentions",val:": typing.Optional[bool] = None"},{name:"output_hidden_states",val:": typing.Optional[bool] = None"},{name:"return_dict",val:": typing.Optional[bool] = None"},{name:"start_positions",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"end_positions",val:": typing.Union[numpy.ndarray, tensorflow.python.framework.ops.Tensor, NoneType] = None"},{name:"training",val:": typing.Optional[bool] = False"}],parametersDescription:[{anchor:"transformers.TFDebertaV2ForQuestionAnswering.call.input_ids",description:`<strong>input_ids</strong> (<code>np.ndarray</code>, <code>tf.Tensor</code>, <code>List[tf.Tensor]</code> \`<code>Dict[str, tf.Tensor]</code> or <code>Dict[str, np.ndarray]</code> and each example must have the shape <code>(batch_size, sequence_length)</code>) &#x2014;
+Indices of input sequence tokens in the vocabulary.</p>
+<p>Indices can be obtained using <a href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Tokenizer">DebertaV2Tokenizer</a>. See <a href="/docs/transformers/v4.22.1/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast.encode">PreTrainedTokenizer.encode()</a> and
+<a href="/docs/transformers/v4.22.1/en/model_doc/wav2vec2_phoneme#transformers.Wav2Vec2PhonemeCTCTokenizer.__call__">PreTrainedTokenizer.<strong>call</strong>()</a> for details.</p>
+<p><a href="../glossary#input-ids">What are input IDs?</a>`,name:"input_ids"},{anchor:"transformers.TFDebertaV2ForQuestionAnswering.call.attention_mask",description:`<strong>attention_mask</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Mask to avoid performing attention on padding token indices. Mask values selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>1 for tokens that are <strong>not masked</strong>,</li>
+<li>0 for tokens that are <strong>masked</strong>.</li>
+</ul>
+<p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.TFDebertaV2ForQuestionAnswering.call.token_type_ids",description:`<strong>token_type_ids</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Segment token indices to indicate first and second portions of the inputs. Indices are selected in <code>[0, 1]</code>:</p>
+<ul>
+<li>0 corresponds to a <em>sentence A</em> token,</li>
+<li>1 corresponds to a <em>sentence B</em> token.</li>
+</ul>
+<p><a href="../glossary#token-type-ids">What are token type IDs?</a>`,name:"token_type_ids"},{anchor:"transformers.TFDebertaV2ForQuestionAnswering.call.position_ids",description:`<strong>position_ids</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>, <em>optional</em>) &#x2014;
+Indices of positions of each input sequence tokens in the position embeddings. Selected in the range <code>[0, config.max_position_embeddings - 1]</code>.</p>
+<p><a href="../glossary#position-ids">What are position IDs?</a>`,name:"position_ids"},{anchor:"transformers.TFDebertaV2ForQuestionAnswering.call.inputs_embeds",description:`<strong>inputs_embeds</strong> (<code>np.ndarray</code> or <code>tf.Tensor</code> of shape <code>(batch_size, sequence_length, hidden_size)</code>, <em>optional</em>) &#x2014;
+Optionally, instead of passing <code>input_ids</code> you can choose to directly pass an embedded representation. This
+is useful if you want more control over how to convert <em>input_ids</em> indices into associated vectors than the
+model&#x2019;s internal embedding lookup matrix.`,name:"inputs_embeds"},{anchor:"transformers.TFDebertaV2ForQuestionAnswering.call.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under returned
+tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.TFDebertaV2ForQuestionAnswering.call.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
+Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
+more detail.`,name:"output_hidden_states"},{anchor:"transformers.TFDebertaV2ForQuestionAnswering.call.return_dict",description:"<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;\nWhether or not to return a [`~utils.ModelOutput&#x201C;] instead of a plain tuple.",name:"return_dict"},{anchor:"transformers.TFDebertaV2ForQuestionAnswering.call.start_positions",description:`<strong>start_positions</strong> (<code>tf.Tensor</code> or <code>np.ndarray</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for position (index) of the start of the labelled span for computing the token classification loss.
+Positions are clamped to the length of the sequence (<code>sequence_length</code>). Position outside of the sequence
+are not taken into account for computing the loss.`,name:"start_positions"},{anchor:"transformers.TFDebertaV2ForQuestionAnswering.call.end_positions",description:`<strong>end_positions</strong> (<code>tf.Tensor</code> or <code>np.ndarray</code> of shape <code>(batch_size,)</code>, <em>optional</em>) &#x2014;
+Labels for position (index) of the end of the labelled span for computing the token classification loss.
+Positions are clamped to the length of the sequence (<code>sequence_length</code>). Position outside of the sequence
+are not taken into account for computing the loss.`,name:"end_positions"}],source:"https://github.com/huggingface/transformers/blob/v4.22.1/src/transformers/models/deberta_v2/modeling_tf_deberta_v2.py#L1491",returnDescription:`
+<p>A <a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_tf_outputs.TFQuestionAnsweringModelOutput"
+>transformers.modeling_tf_outputs.TFQuestionAnsweringModelOutput</a> or a tuple of <code>tf.Tensor</code> (if
+<code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various elements depending on the
+configuration (<a
+  href="/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Config"
+>DebertaV2Config</a>) and inputs.</p>
+<ul>
+<li>
+<p><strong>loss</strong> (<code>tf.Tensor</code> of shape <code>(batch_size, )</code>, <em>optional</em>, returned when <code>start_positions</code> and <code>end_positions</code> are provided) \u2014 Total span extraction loss is the sum of a Cross-Entropy for the start and end positions.</p>
+</li>
+<li>
+<p><strong>start_logits</strong> (<code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>) \u2014 Span-start scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>end_logits</strong> (<code>tf.Tensor</code> of shape <code>(batch_size, sequence_length)</code>) \u2014 Span-end scores (before SoftMax).</p>
+</li>
+<li>
+<p><strong>hidden_states</strong> (<code>tuple(tf.Tensor)</code>, <em>optional</em>, returned when <code>output_hidden_states=True</code> is passed or when <code>config.output_hidden_states=True</code>) \u2014 Tuple of <code>tf.Tensor</code> (one for the output of the embeddings + one for the output of each layer) of shape
+<code>(batch_size, sequence_length, hidden_size)</code>.</p>
+<p>Hidden-states of the model at the output of each layer plus the initial embedding outputs.</p>
+</li>
+<li>
+<p><strong>attentions</strong> (<code>tuple(tf.Tensor)</code>, <em>optional</em>, returned when <code>output_attentions=True</code> is passed or when <code>config.output_attentions=True</code>) \u2014 Tuple of <code>tf.Tensor</code> (one for each layer) of shape <code>(batch_size, num_heads, sequence_length, sequence_length)</code>.</p>
+<p>Attentions weights after the attention softmax, used to compute the weighted average in the self-attention
+heads.</p>
+</li>
+</ul>
+`,returnType:`
+<p><a
+  href="/docs/transformers/v4.22.1/en/main_classes/output#transformers.modeling_tf_outputs.TFQuestionAnsweringModelOutput"
+>transformers.modeling_tf_outputs.TFQuestionAnsweringModelOutput</a> or <code>tuple(tf.Tensor)</code></p>
+`}}),Ln=new nt({props:{$$slots:{default:[K2]},$$scope:{ctx:V}}}),In=new Ce({props:{anchor:"transformers.TFDebertaV2ForQuestionAnswering.call.example",$$slots:{default:[Q2]},$$scope:{ctx:V}}}),Sn=new Ce({props:{anchor:"transformers.TFDebertaV2ForQuestionAnswering.call.example-2",$$slots:{default:[G2]},$$scope:{ctx:V}}}),{c(){l=a("meta"),g=p(),c=a("h1"),f=a("a"),k=a("span"),w(d.$$.fragment),m=p(),q=a("span"),ve=n("DeBERTa-v2"),pe=p(),B=a("h2"),ne=a("a"),oe=a("span"),w(F.$$.fragment),ke=p(),U=a("span"),we=n("Overview"),he=p(),I=a("p"),Te=n("The DeBERTa model was proposed in "),ie=a("a"),G=n("DeBERTa: Decoding-enhanced BERT with Disentangled Attention"),ye=n(` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen It is based on Google\u2019s
+BERT model released in 2018 and Facebook\u2019s RoBERTa model released in 2019.`),me=p(),N=a("p"),$e=n(`It builds on RoBERTa with disentangled attention and enhanced mask decoder training with half of the data used in
+RoBERTa.`),fe=p(),W=a("p"),De=n("The abstract from the paper is the following:"),ue=p(),te=a("p"),j=a("em"),P=n(`Recent progress in pre-trained neural language models has significantly improved the performance of many natural
+language processing (NLP) tasks. In this paper we propose a new model architecture DeBERTa (Decoding-enhanced BERT with
+disentangled attention) that improves the BERT and RoBERTa models using two novel techniques. The first is the
+disentangled attention mechanism, where each word is represented using two vectors that encode its content and
+position, respectively, and the attention weights among words are computed using disentangled matrices on their
+contents and relative positions. Second, an enhanced mask decoder is used to replace the output softmax layer to
+predict the masked tokens for model pretraining. We show that these two techniques significantly improve the efficiency
+of model pretraining and performance of downstream tasks. Compared to RoBERTa-Large, a DeBERTa model trained on half of
+the training data performs consistently better on a wide range of NLP tasks, achieving improvements on MNLI by +0.9%
+(90.2% vs. 91.1%), on SQuAD v2.0 by +2.3% (88.4% vs. 90.7%) and RACE by +3.6% (83.2% vs. 86.8%). The DeBERTa code and
+pre-trained models will be made publicly available at `),le=a("a"),J=n("https://github.com/microsoft/DeBERTa"),Ee=n("."),ge=p(),L=a("p"),Fe=n("The following information is visible directly on the "),de=a("a"),R=n(`original implementation
+repository`),Ve=n(`. DeBERTa v2 is the second version of the DeBERTa model. It includes
+the 1.5B model used for the SuperGLUE single-model submission and achieving 89.9, versus human baseline 89.8. You can
+find more details about this submission in the authors\u2019
+`),O=a("a"),xe=n("blog"),_e=p(),H=a("p"),qe=n("New in v2:"),be=p(),C=a("ul"),se=a("li"),K=a("strong"),ze=n("Vocabulary"),ae=n(` In v2 the tokenizer is changed to use a new vocabulary of size 128K built from the training data.
+Instead of a GPT2-based tokenizer, the tokenizer is now
+`),M=a("a"),je=n("sentencepiece-based"),A=n(" tokenizer."),Me=p(),ce=a("li"),v=a("strong"),x=n("nGiE(nGram Induced Input Encoding)"),We=n(` The DeBERTa-v2 model uses an additional convolution layer aside with the first
+transformer layer to better learn the local dependency of input tokens.`),re=p(),Ae=a("li"),Ie=a("strong"),z=n("Sharing position projection matrix with content projection matrix in attention layer"),He=n(` Based on previous
+experiments, this can save parameters without affecting the performance.`),Ue=p(),Be=a("li"),Se=a("strong"),Ke=n("Apply bucket to encode relative positions"),S=n(` The DeBERTa-v2 model uses log bucket to encode relative positions
+similar to T5.`),X=p(),Le=a("li"),Oe=a("strong"),Y=n("900M model & 1.5B model"),Qe=n(` Two additional model sizes are available: 900M and 1.5B, which significantly improves the
+performance of downstream tasks.`),Ne=p(),Z=a("p"),Ge=n("This model was contributed by "),ee=a("a"),Je=n("DeBERTa"),ac=n(`. This model TF 2.0 implementation was
+contributed by `),es=a("a"),rc=n("kamalkraj"),ic=n(". The original code can be found "),ts=a("a"),lc=n("here"),dc=n("."),Ll=p(),eo=a("h2"),Bo=a("a"),Nr=a("span"),w(os.$$.fragment),cc=p(),Wr=a("span"),pc=n("DebertaV2Config"),Il=p(),Ct=a("div"),w(ns.$$.fragment),hc=p(),to=a("p"),mc=n("This is the configuration class to store the configuration of a "),er=a("a"),fc=n("DebertaV2Model"),uc=n(`. It is used to instantiate a
+DeBERTa-v2 model according to the specified arguments, defining the model architecture. Instantiating a
+configuration with the defaults will yield a similar configuration to that of the DeBERTa
+`),ss=a("a"),gc=n("microsoft/deberta-v2-xlarge"),_c=n(" architecture."),bc=p(),oo=a("p"),vc=n("Configuration objects inherit from "),tr=a("a"),kc=n("PretrainedConfig"),wc=n(` and can be used to control the model outputs. Read the
+documentation from `),or=a("a"),Tc=n("PretrainedConfig"),yc=n(" for more information."),Sl=p(),no=a("h2"),Lo=a("a"),Hr=a("span"),w(as.$$.fragment),$c=p(),Ur=a("span"),Dc=n("DebertaV2Tokenizer"),Ol=p(),Ze=a("div"),w(rs.$$.fragment),Ec=p(),is=a("p"),Fc=n("Constructs a DeBERTa-v2 tokenizer. Based on "),ls=a("a"),Vc=n("SentencePiece"),xc=n("."),qc=p(),Bt=a("div"),w(ds.$$.fragment),zc=p(),Kr=a("p"),jc=n(`Build model inputs from a sequence or a pair of sequence for sequence classification tasks by concatenating and
+adding special tokens. A DeBERTa sequence has the following format:`),Mc=p(),cs=a("ul"),Qr=a("li"),Cc=n("single sequence: [CLS] X [SEP]"),Pc=p(),Gr=a("li"),Rc=n("pair of sequences: [CLS] A [SEP] B [SEP]"),Ac=p(),Io=a("div"),w(ps.$$.fragment),Bc=p(),so=a("p"),Lc=n(`Retrieves sequence ids from a token list that has no special tokens added. This method is called when adding
+special tokens using the tokenizer `),Jr=a("code"),Ic=n("prepare_for_model"),Sc=n(" or "),Xr=a("code"),Oc=n("encode_plus"),Nc=n(" methods."),Wc=p(),yt=a("div"),w(hs.$$.fragment),Hc=p(),Yr=a("p"),Uc=n("Create a mask from the two sequences passed to be used in a sequence-pair classification task. A DeBERTa"),Kc=p(),w(So.$$.fragment),Qc=p(),ao=a("p"),Gc=n("If "),Zr=a("code"),Jc=n("token_ids_1"),Xc=n(" is "),ei=a("code"),Yc=n("None"),Zc=n(", this method only returns the first portion of the mask (0s)."),ep=p(),nr=a("div"),w(ms.$$.fragment),Nl=p(),ro=a("h2"),Oo=a("a"),ti=a("span"),w(fs.$$.fragment),tp=p(),oi=a("span"),op=n("DebertaV2TokenizerFast"),Wl=p(),bt=a("div"),w(us.$$.fragment),np=p(),gs=a("p"),sp=n("Constructs a DeBERTa-v2 fast tokenizer. Based on "),_s=a("a"),ap=n("SentencePiece"),rp=n("."),ip=p(),Lt=a("div"),w(bs.$$.fragment),lp=p(),ni=a("p"),dp=n(`Build model inputs from a sequence or a pair of sequence for sequence classification tasks by concatenating and
+adding special tokens. A DeBERTa sequence has the following format:`),cp=p(),vs=a("ul"),si=a("li"),pp=n("single sequence: [CLS] X [SEP]"),hp=p(),ai=a("li"),mp=n("pair of sequences: [CLS] A [SEP] B [SEP]"),fp=p(),$t=a("div"),w(ks.$$.fragment),up=p(),ri=a("p"),gp=n("Create a mask from the two sequences passed to be used in a sequence-pair classification task. A DeBERTa"),_p=p(),w(No.$$.fragment),bp=p(),io=a("p"),vp=n("If "),ii=a("code"),kp=n("token_ids_1"),wp=n(" is "),li=a("code"),Tp=n("None"),yp=n(", this method only returns the first portion of the mask (0s)."),Hl=p(),lo=a("h2"),Wo=a("a"),di=a("span"),w(ws.$$.fragment),$p=p(),ci=a("span"),Dp=n("DebertaV2Model"),Ul=p(),vt=a("div"),w(Ts.$$.fragment),Ep=p(),ys=a("p"),Fp=n(`The bare DeBERTa Model transformer outputting raw hidden-states without any specific head on top.
+The DeBERTa model was proposed in `),$s=a("a"),Vp=n(`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),xp=n(` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),qp=p(),Ds=a("p"),zp=n("This model is also a PyTorch "),Es=a("a"),jp=n("torch.nn.Module"),Mp=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Cp=p(),Dt=a("div"),w(Fs.$$.fragment),Pp=p(),co=a("p"),Rp=n("The "),sr=a("a"),Ap=n("DebertaV2Model"),Bp=n(" forward method, overrides the "),pi=a("code"),Lp=n("__call__"),Ip=n(" special method."),Sp=p(),w(Ho.$$.fragment),Op=p(),w(Uo.$$.fragment),Kl=p(),po=a("h2"),Ko=a("a"),hi=a("span"),w(Vs.$$.fragment),Np=p(),mi=a("span"),Wp=n("DebertaV2PreTrainedModel"),Ql=p(),Pt=a("div"),w(xs.$$.fragment),Hp=p(),fi=a("p"),Up=n(`An abstract class to handle weights initialization and a simple interface for downloading and loading pretrained
+models.`),Kp=p(),Et=a("div"),w(qs.$$.fragment),Qp=p(),ui=a("p"),Gp=n("Defines the computation performed at every call."),Jp=p(),gi=a("p"),Xp=n("Should be overridden by all subclasses."),Yp=p(),w(Qo.$$.fragment),Gl=p(),ho=a("h2"),Go=a("a"),_i=a("span"),w(zs.$$.fragment),Zp=p(),bi=a("span"),eh=n("DebertaV2ForMaskedLM"),Jl=p(),kt=a("div"),w(js.$$.fragment),th=p(),mo=a("p"),oh=n("DeBERTa Model with a "),vi=a("code"),nh=n("language modeling"),sh=n(` head on top.
+The DeBERTa model was proposed in `),Ms=a("a"),ah=n(`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),rh=n(` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),ih=p(),Cs=a("p"),lh=n("This model is also a PyTorch "),Ps=a("a"),dh=n("torch.nn.Module"),ch=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),ph=p(),ct=a("div"),w(Rs.$$.fragment),hh=p(),fo=a("p"),mh=n("The "),ar=a("a"),fh=n("DebertaV2ForMaskedLM"),uh=n(" forward method, overrides the "),ki=a("code"),gh=n("__call__"),_h=n(" special method."),bh=p(),w(Jo.$$.fragment),vh=p(),w(Xo.$$.fragment),kh=p(),w(Yo.$$.fragment),Xl=p(),uo=a("h2"),Zo=a("a"),wi=a("span"),w(As.$$.fragment),wh=p(),Ti=a("span"),Th=n("DebertaV2ForSequenceClassification"),Yl=p(),st=a("div"),w(Bs.$$.fragment),yh=p(),yi=a("p"),$h=n(`DeBERTa Model transformer with a sequence classification/regression head on top (a linear layer on top of the
+pooled output) e.g. for GLUE tasks.`),Dh=p(),Ls=a("p"),Eh=n("The DeBERTa model was proposed in "),Is=a("a"),Fh=n(`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),Vh=n(` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),xh=p(),Ss=a("p"),qh=n("This model is also a PyTorch "),Os=a("a"),zh=n("torch.nn.Module"),jh=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Mh=p(),Xe=a("div"),w(Ns.$$.fragment),Ch=p(),go=a("p"),Ph=n("The "),rr=a("a"),Rh=n("DebertaV2ForSequenceClassification"),Ah=n(" forward method, overrides the "),$i=a("code"),Bh=n("__call__"),Lh=n(" special method."),Ih=p(),w(en.$$.fragment),Sh=p(),w(tn.$$.fragment),Oh=p(),w(on.$$.fragment),Nh=p(),w(nn.$$.fragment),Wh=p(),w(sn.$$.fragment),Zl=p(),_o=a("h2"),an=a("a"),Di=a("span"),w(Ws.$$.fragment),Hh=p(),Ei=a("span"),Uh=n("DebertaV2ForTokenClassification"),ed=p(),at=a("div"),w(Hs.$$.fragment),Kh=p(),Fi=a("p"),Qh=n(`DeBERTa Model with a token classification head on top (a linear layer on top of the hidden-states output) e.g. for
+Named-Entity-Recognition (NER) tasks.`),Gh=p(),Us=a("p"),Jh=n("The DeBERTa model was proposed in "),Ks=a("a"),Xh=n(`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),Yh=n(` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Zh=p(),Qs=a("p"),em=n("This model is also a PyTorch "),Gs=a("a"),tm=n("torch.nn.Module"),om=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),nm=p(),pt=a("div"),w(Js.$$.fragment),sm=p(),bo=a("p"),am=n("The "),ir=a("a"),rm=n("DebertaV2ForTokenClassification"),im=n(" forward method, overrides the "),Vi=a("code"),lm=n("__call__"),dm=n(" special method."),cm=p(),w(rn.$$.fragment),pm=p(),w(ln.$$.fragment),hm=p(),w(dn.$$.fragment),td=p(),vo=a("h2"),cn=a("a"),xi=a("span"),w(Xs.$$.fragment),mm=p(),qi=a("span"),fm=n("DebertaV2ForQuestionAnswering"),od=p(),rt=a("div"),w(Ys.$$.fragment),um=p(),ko=a("p"),gm=n(`DeBERTa Model with a span classification head on top for extractive question-answering tasks like SQuAD (a linear
+layers on top of the hidden-states output to compute `),zi=a("code"),_m=n("span start logits"),bm=n(" and "),ji=a("code"),vm=n("span end logits"),km=n(")."),wm=p(),Zs=a("p"),Tm=n("The DeBERTa model was proposed in "),ea=a("a"),ym=n(`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),$m=n(` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Dm=p(),ta=a("p"),Em=n("This model is also a PyTorch "),oa=a("a"),Fm=n("torch.nn.Module"),Vm=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),xm=p(),ht=a("div"),w(na.$$.fragment),qm=p(),wo=a("p"),zm=n("The "),lr=a("a"),jm=n("DebertaV2ForQuestionAnswering"),Mm=n(" forward method, overrides the "),Mi=a("code"),Cm=n("__call__"),Pm=n(" special method."),Rm=p(),w(pn.$$.fragment),Am=p(),w(hn.$$.fragment),Bm=p(),w(mn.$$.fragment),nd=p(),To=a("h2"),fn=a("a"),Ci=a("span"),w(sa.$$.fragment),Lm=p(),Pi=a("span"),Im=n("DebertaV2ForMultipleChoice"),sd=p(),it=a("div"),w(aa.$$.fragment),Sm=p(),Ri=a("p"),Om=n(`DeBERTa Model with a multiple choice classification head on top (a linear layer on top of the pooled output and a
+softmax) e.g. for RocStories/SWAG tasks.`),Nm=p(),ra=a("p"),Wm=n("The DeBERTa model was proposed in "),ia=a("a"),Hm=n(`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),Um=n(` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Km=p(),la=a("p"),Qm=n("This model is also a PyTorch "),da=a("a"),Gm=n("torch.nn.Module"),Jm=n(` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Xm=p(),Ft=a("div"),w(ca.$$.fragment),Ym=p(),yo=a("p"),Zm=n("The "),dr=a("a"),ef=n("DebertaV2ForMultipleChoice"),tf=n(" forward method, overrides the "),Ai=a("code"),of=n("__call__"),nf=n(" special method."),sf=p(),w(un.$$.fragment),af=p(),w(gn.$$.fragment),ad=p(),$o=a("h2"),_n=a("a"),Bi=a("span"),w(pa.$$.fragment),rf=p(),Li=a("span"),lf=n("TFDebertaV2Model"),rd=p(),lt=a("div"),w(ha.$$.fragment),df=p(),ma=a("p"),cf=n(`The bare DeBERTa Model transformer outputting raw hidden-states without any specific head on top.
+The DeBERTa model was proposed in `),fa=a("a"),pf=n(`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),hf=n(` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),mf=p(),ua=a("p"),ff=n("This model is also a "),ga=a("a"),uf=n("tf.keras.Model"),gf=n(` subclass. Use it
+as a regular TF 2.0 Keras Model and refer to the TF 2.0 documentation for all matter related to general usage and
+behavior.`),_f=p(),w(bn.$$.fragment),bf=p(),Vt=a("div"),w(_a.$$.fragment),vf=p(),Do=a("p"),kf=n("The "),cr=a("a"),wf=n("TFDebertaV2Model"),Tf=n(" forward method, overrides the "),Ii=a("code"),yf=n("__call__"),$f=n(" special method."),Df=p(),w(vn.$$.fragment),Ef=p(),w(kn.$$.fragment),id=p(),Eo=a("h2"),wn=a("a"),Si=a("span"),w(ba.$$.fragment),Ff=p(),Oi=a("span"),Vf=n("TFDebertaV2PreTrainedModel"),ld=p(),Rt=a("div"),w(va.$$.fragment),xf=p(),Ni=a("p"),qf=n(`An abstract class to handle weights initialization and a simple interface for downloading and loading pretrained
+models.`),zf=p(),xt=a("div"),w(ka.$$.fragment),jf=p(),Wi=a("p"),Mf=n("Calls the model on new inputs and returns the outputs as tensors."),Cf=p(),wa=a("p"),Pf=n("In this case "),Hi=a("code"),Rf=n("call()"),Af=n(` just reapplies
+all ops in the graph to the new inputs
+(e.g. build a new computational graph from the provided inputs).`),Bf=p(),wt=a("p"),Lf=n(`Note: This method should not be called directly. It is only meant to be
+overridden when subclassing `),Ui=a("code"),If=n("tf.keras.Model"),Sf=n(`.
+To call a model on an input, always use the `),Ki=a("code"),Of=n("__call__()"),Nf=n(` method,
+i.e. `),Qi=a("code"),Wf=n("model(inputs)"),Hf=n(", which relies on the underlying "),Gi=a("code"),Uf=n("call()"),Kf=n(" method."),dd=p(),Fo=a("h2"),Tn=a("a"),Ji=a("span"),w(Ta.$$.fragment),Qf=p(),Xi=a("span"),Gf=n("TFDebertaV2ForMaskedLM"),cd=p(),dt=a("div"),w(ya.$$.fragment),Jf=p(),Vo=a("p"),Xf=n("DeBERTa Model with a "),Yi=a("code"),Yf=n("language modeling"),Zf=n(` head on top.
+The DeBERTa model was proposed in `),$a=a("a"),eu=n(`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),tu=n(` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),ou=p(),Da=a("p"),nu=n("This model is also a "),Ea=a("a"),su=n("tf.keras.Model"),au=n(` subclass. Use it
+as a regular TF 2.0 Keras Model and refer to the TF 2.0 documentation for all matter related to general usage and
+behavior.`),ru=p(),w(yn.$$.fragment),iu=p(),mt=a("div"),w(Fa.$$.fragment),lu=p(),xo=a("p"),du=n("The "),pr=a("a"),cu=n("TFDebertaV2ForMaskedLM"),pu=n(" forward method, overrides the "),Zi=a("code"),hu=n("__call__"),mu=n(" special method."),fu=p(),w($n.$$.fragment),uu=p(),w(Dn.$$.fragment),gu=p(),w(En.$$.fragment),pd=p(),qo=a("h2"),Fn=a("a"),el=a("span"),w(Va.$$.fragment),_u=p(),tl=a("span"),bu=n("TFDebertaV2ForSequenceClassification"),hd=p(),et=a("div"),w(xa.$$.fragment),vu=p(),ol=a("p"),ku=n(`DeBERTa Model transformer with a sequence classification/regression head on top (a linear layer on top of the
+pooled output) e.g. for GLUE tasks.`),wu=p(),qa=a("p"),Tu=n("The DeBERTa model was proposed in "),za=a("a"),yu=n(`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),$u=n(` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Du=p(),ja=a("p"),Eu=n("This model is also a "),Ma=a("a"),Fu=n("tf.keras.Model"),Vu=n(` subclass. Use it
+as a regular TF 2.0 Keras Model and refer to the TF 2.0 documentation for all matter related to general usage and
+behavior.`),xu=p(),w(Vn.$$.fragment),qu=p(),ft=a("div"),w(Ca.$$.fragment),zu=p(),zo=a("p"),ju=n("The "),hr=a("a"),Mu=n("TFDebertaV2ForSequenceClassification"),Cu=n(" forward method, overrides the "),nl=a("code"),Pu=n("__call__"),Ru=n(" special method."),Au=p(),w(xn.$$.fragment),Bu=p(),w(qn.$$.fragment),Lu=p(),w(zn.$$.fragment),md=p(),jo=a("h2"),jn=a("a"),sl=a("span"),w(Pa.$$.fragment),Iu=p(),al=a("span"),Su=n("TFDebertaV2ForTokenClassification"),fd=p(),tt=a("div"),w(Ra.$$.fragment),Ou=p(),rl=a("p"),Nu=n(`DeBERTa Model with a token classification head on top (a linear layer on top of the hidden-states output) e.g. for
+Named-Entity-Recognition (NER) tasks.`),Wu=p(),Aa=a("p"),Hu=n("The DeBERTa model was proposed in "),Ba=a("a"),Uu=n(`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),Ku=n(` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Qu=p(),La=a("p"),Gu=n("This model is also a "),Ia=a("a"),Ju=n("tf.keras.Model"),Xu=n(` subclass. Use it
+as a regular TF 2.0 Keras Model and refer to the TF 2.0 documentation for all matter related to general usage and
+behavior.`),Yu=p(),w(Mn.$$.fragment),Zu=p(),ut=a("div"),w(Sa.$$.fragment),eg=p(),Mo=a("p"),tg=n("The "),mr=a("a"),og=n("TFDebertaV2ForTokenClassification"),ng=n(" forward method, overrides the "),il=a("code"),sg=n("__call__"),ag=n(" special method."),rg=p(),w(Cn.$$.fragment),ig=p(),w(Pn.$$.fragment),lg=p(),w(Rn.$$.fragment),ud=p(),Co=a("h2"),An=a("a"),ll=a("span"),w(Oa.$$.fragment),dg=p(),dl=a("span"),cg=n("TFDebertaV2ForQuestionAnswering"),gd=p(),ot=a("div"),w(Na.$$.fragment),pg=p(),Po=a("p"),hg=n(`DeBERTa Model with a span classification head on top for extractive question-answering tasks like SQuAD (a linear
+layers on top of the hidden-states output to compute `),cl=a("code"),mg=n("span start logits"),fg=n(" and "),pl=a("code"),ug=n("span end logits"),gg=n(")."),_g=p(),Wa=a("p"),bg=n("The DeBERTa model was proposed in "),Ha=a("a"),vg=n(`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),kg=n(` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),wg=p(),Ua=a("p"),Tg=n("This model is also a "),Ka=a("a"),yg=n("tf.keras.Model"),$g=n(` subclass. Use it
+as a regular TF 2.0 Keras Model and refer to the TF 2.0 documentation for all matter related to general usage and
+behavior.`),Dg=p(),w(Bn.$$.fragment),Eg=p(),gt=a("div"),w(Qa.$$.fragment),Fg=p(),Ro=a("p"),Vg=n("The "),fr=a("a"),xg=n("TFDebertaV2ForQuestionAnswering"),qg=n(" forward method, overrides the "),hl=a("code"),zg=n("__call__"),jg=n(" special method."),Mg=p(),w(Ln.$$.fragment),Cg=p(),w(In.$$.fragment),Pg=p(),w(Sn.$$.fragment),this.h()},l(o){const b=l2('[data-svelte="svelte-1phssyn"]',document.head);l=r(b,"META",{name:!0,content:!0}),b.forEach(t),g=h(o),c=r(o,"H1",{class:!0});var Ga=i(c);f=r(Ga,"A",{id:!0,class:!0,href:!0});var ml=i(f);k=r(ml,"SPAN",{});var fl=i(k);T(d.$$.fragment,fl),fl.forEach(t),ml.forEach(t),m=h(Ga),q=r(Ga,"SPAN",{});var ul=i(q);ve=s(ul,"DeBERTa-v2"),ul.forEach(t),Ga.forEach(t),pe=h(o),B=r(o,"H2",{class:!0});var Ja=i(B);ne=r(Ja,"A",{id:!0,class:!0,href:!0});var gl=i(ne);oe=r(gl,"SPAN",{});var _l=i(oe);T(F.$$.fragment,_l),_l.forEach(t),gl.forEach(t),ke=h(Ja),U=r(Ja,"SPAN",{});var bl=i(U);we=s(bl,"Overview"),bl.forEach(t),Ja.forEach(t),he=h(o),I=r(o,"P",{});var Xa=i(I);Te=s(Xa,"The DeBERTa model was proposed in "),ie=r(Xa,"A",{href:!0,rel:!0});var vl=i(ie);G=s(vl,"DeBERTa: Decoding-enhanced BERT with Disentangled Attention"),vl.forEach(t),ye=s(Xa,` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen It is based on Google\u2019s
+BERT model released in 2018 and Facebook\u2019s RoBERTa model released in 2019.`),Xa.forEach(t),me=h(o),N=r(o,"P",{});var kl=i(N);$e=s(kl,`It builds on RoBERTa with disentangled attention and enhanced mask decoder training with half of the data used in
+RoBERTa.`),kl.forEach(t),fe=h(o),W=r(o,"P",{});var wl=i(W);De=s(wl,"The abstract from the paper is the following:"),wl.forEach(t),ue=h(o),te=r(o,"P",{});var Tl=i(te);j=r(Tl,"EM",{});var Ya=i(j);P=s(Ya,`Recent progress in pre-trained neural language models has significantly improved the performance of many natural
+language processing (NLP) tasks. In this paper we propose a new model architecture DeBERTa (Decoding-enhanced BERT with
+disentangled attention) that improves the BERT and RoBERTa models using two novel techniques. The first is the
+disentangled attention mechanism, where each word is represented using two vectors that encode its content and
+position, respectively, and the attention weights among words are computed using disentangled matrices on their
+contents and relative positions. Second, an enhanced mask decoder is used to replace the output softmax layer to
+predict the masked tokens for model pretraining. We show that these two techniques significantly improve the efficiency
+of model pretraining and performance of downstream tasks. Compared to RoBERTa-Large, a DeBERTa model trained on half of
+the training data performs consistently better on a wide range of NLP tasks, achieving improvements on MNLI by +0.9%
+(90.2% vs. 91.1%), on SQuAD v2.0 by +2.3% (88.4% vs. 90.7%) and RACE by +3.6% (83.2% vs. 86.8%). The DeBERTa code and
+pre-trained models will be made publicly available at `),le=r(Ya,"A",{href:!0,rel:!0});var yl=i(le);J=s(yl,"https://github.com/microsoft/DeBERTa"),yl.forEach(t),Ee=s(Ya,"."),Ya.forEach(t),Tl.forEach(t),ge=h(o),L=r(o,"P",{});var On=i(L);Fe=s(On,"The following information is visible directly on the "),de=r(On,"A",{href:!0,rel:!0});var $l=i(de);R=s($l,`original implementation
+repository`),$l.forEach(t),Ve=s(On,`. DeBERTa v2 is the second version of the DeBERTa model. It includes
+the 1.5B model used for the SuperGLUE single-model submission and achieving 89.9, versus human baseline 89.8. You can
+find more details about this submission in the authors\u2019
+`),O=r(On,"A",{href:!0,rel:!0});var Dl=i(O);xe=s(Dl,"blog"),Dl.forEach(t),On.forEach(t),_e=h(o),H=r(o,"P",{});var El=i(H);qe=s(El,"New in v2:"),El.forEach(t),be=h(o),C=r(o,"UL",{});var Tt=i(C);se=r(Tt,"LI",{});var Nn=i(se);K=r(Nn,"STRONG",{});var Fl=i(K);ze=s(Fl,"Vocabulary"),Fl.forEach(t),ae=s(Nn,` In v2 the tokenizer is changed to use a new vocabulary of size 128K built from the training data.
+Instead of a GPT2-based tokenizer, the tokenizer is now
+`),M=r(Nn,"A",{href:!0,rel:!0});var Vl=i(M);je=s(Vl,"sentencepiece-based"),Vl.forEach(t),A=s(Nn," tokenizer."),Nn.forEach(t),Me=h(Tt),ce=r(Tt,"LI",{});var ur=i(ce);v=r(ur,"STRONG",{});var xl=i(v);x=s(xl,"nGiE(nGram Induced Input Encoding)"),xl.forEach(t),We=s(ur,` The DeBERTa-v2 model uses an additional convolution layer aside with the first
+transformer layer to better learn the local dependency of input tokens.`),ur.forEach(t),re=h(Tt),Ae=r(Tt,"LI",{});var gr=i(Ae);Ie=r(gr,"STRONG",{});var ql=i(Ie);z=s(ql,"Sharing position projection matrix with content projection matrix in attention layer"),ql.forEach(t),He=s(gr,` Based on previous
+experiments, this can save parameters without affecting the performance.`),gr.forEach(t),Ue=h(Tt),Be=r(Tt,"LI",{});var _r=i(Be);Se=r(_r,"STRONG",{});var zl=i(Se);Ke=s(zl,"Apply bucket to encode relative positions"),zl.forEach(t),S=s(_r,` The DeBERTa-v2 model uses log bucket to encode relative positions
+similar to T5.`),_r.forEach(t),X=h(Tt),Le=r(Tt,"LI",{});var br=i(Le);Oe=r(br,"STRONG",{});var jl=i(Oe);Y=s(jl,"900M model & 1.5B model"),jl.forEach(t),Qe=s(br,` Two additional model sizes are available: 900M and 1.5B, which significantly improves the
+performance of downstream tasks.`),br.forEach(t),Tt.forEach(t),Ne=h(o),Z=r(o,"P",{});var At=i(Z);Ge=s(At,"This model was contributed by "),ee=r(At,"A",{href:!0,rel:!0});var Ml=i(ee);Je=s(Ml,"DeBERTa"),Ml.forEach(t),ac=s(At,`. This model TF 2.0 implementation was
+contributed by `),es=r(At,"A",{href:!0,rel:!0});var Cl=i(es);rc=s(Cl,"kamalkraj"),Cl.forEach(t),ic=s(At,". The original code can be found "),ts=r(At,"A",{href:!0,rel:!0});var Pl=i(ts);lc=s(Pl,"here"),Pl.forEach(t),dc=s(At,"."),At.forEach(t),Ll=h(o),eo=r(o,"H2",{class:!0});var Za=i(eo);Bo=r(Za,"A",{id:!0,class:!0,href:!0});var Rl=i(Bo);Nr=r(Rl,"SPAN",{});var Al=i(Nr);T(os.$$.fragment,Al),Al.forEach(t),Rl.forEach(t),cc=h(Za),Wr=r(Za,"SPAN",{});var Bl=i(Wr);pc=s(Bl,"DebertaV2Config"),Bl.forEach(t),Za.forEach(t),Il=h(o),Ct=r(o,"DIV",{class:!0});var Ao=i(Ct);T(ns.$$.fragment,Ao),hc=h(Ao),to=r(Ao,"P",{});var vr=i(to);mc=s(vr,"This is the configuration class to store the configuration of a "),er=r(vr,"A",{href:!0});var Rg=i(er);fc=s(Rg,"DebertaV2Model"),Rg.forEach(t),uc=s(vr,`. It is used to instantiate a
+DeBERTa-v2 model according to the specified arguments, defining the model architecture. Instantiating a
+configuration with the defaults will yield a similar configuration to that of the DeBERTa
+`),ss=r(vr,"A",{href:!0,rel:!0});var Ag=i(ss);gc=s(Ag,"microsoft/deberta-v2-xlarge"),Ag.forEach(t),_c=s(vr," architecture."),vr.forEach(t),bc=h(Ao),oo=r(Ao,"P",{});var kr=i(oo);vc=s(kr,"Configuration objects inherit from "),tr=r(kr,"A",{href:!0});var Bg=i(tr);kc=s(Bg,"PretrainedConfig"),Bg.forEach(t),wc=s(kr,` and can be used to control the model outputs. Read the
+documentation from `),or=r(kr,"A",{href:!0});var Lg=i(or);Tc=s(Lg,"PretrainedConfig"),Lg.forEach(t),yc=s(kr," for more information."),kr.forEach(t),Ao.forEach(t),Sl=h(o),no=r(o,"H2",{class:!0});var bd=i(no);Lo=r(bd,"A",{id:!0,class:!0,href:!0});var Ig=i(Lo);Hr=r(Ig,"SPAN",{});var Sg=i(Hr);T(as.$$.fragment,Sg),Sg.forEach(t),Ig.forEach(t),$c=h(bd),Ur=r(bd,"SPAN",{});var Og=i(Ur);Dc=s(Og,"DebertaV2Tokenizer"),Og.forEach(t),bd.forEach(t),Ol=h(o),Ze=r(o,"DIV",{class:!0});var qt=i(Ze);T(rs.$$.fragment,qt),Ec=h(qt),is=r(qt,"P",{});var vd=i(is);Fc=s(vd,"Constructs a DeBERTa-v2 tokenizer. Based on "),ls=r(vd,"A",{href:!0,rel:!0});var Ng=i(ls);Vc=s(Ng,"SentencePiece"),Ng.forEach(t),xc=s(vd,"."),vd.forEach(t),qc=h(qt),Bt=r(qt,"DIV",{class:!0});var wr=i(Bt);T(ds.$$.fragment,wr),zc=h(wr),Kr=r(wr,"P",{});var Wg=i(Kr);jc=s(Wg,`Build model inputs from a sequence or a pair of sequence for sequence classification tasks by concatenating and
+adding special tokens. A DeBERTa sequence has the following format:`),Wg.forEach(t),Mc=h(wr),cs=r(wr,"UL",{});var kd=i(cs);Qr=r(kd,"LI",{});var Hg=i(Qr);Cc=s(Hg,"single sequence: [CLS] X [SEP]"),Hg.forEach(t),Pc=h(kd),Gr=r(kd,"LI",{});var Ug=i(Gr);Rc=s(Ug,"pair of sequences: [CLS] A [SEP] B [SEP]"),Ug.forEach(t),kd.forEach(t),wr.forEach(t),Ac=h(qt),Io=r(qt,"DIV",{class:!0});var wd=i(Io);T(ps.$$.fragment,wd),Bc=h(wd),so=r(wd,"P",{});var Tr=i(so);Lc=s(Tr,`Retrieves sequence ids from a token list that has no special tokens added. This method is called when adding
+special tokens using the tokenizer `),Jr=r(Tr,"CODE",{});var Kg=i(Jr);Ic=s(Kg,"prepare_for_model"),Kg.forEach(t),Sc=s(Tr," or "),Xr=r(Tr,"CODE",{});var Qg=i(Xr);Oc=s(Qg,"encode_plus"),Qg.forEach(t),Nc=s(Tr," methods."),Tr.forEach(t),wd.forEach(t),Wc=h(qt),yt=r(qt,"DIV",{class:!0});var Wn=i(yt);T(hs.$$.fragment,Wn),Hc=h(Wn),Yr=r(Wn,"P",{});var Gg=i(Yr);Uc=s(Gg,"Create a mask from the two sequences passed to be used in a sequence-pair classification task. A DeBERTa"),Gg.forEach(t),Kc=h(Wn),T(So.$$.fragment,Wn),Qc=h(Wn),ao=r(Wn,"P",{});var yr=i(ao);Gc=s(yr,"If "),Zr=r(yr,"CODE",{});var Jg=i(Zr);Jc=s(Jg,"token_ids_1"),Jg.forEach(t),Xc=s(yr," is "),ei=r(yr,"CODE",{});var Xg=i(ei);Yc=s(Xg,"None"),Xg.forEach(t),Zc=s(yr,", this method only returns the first portion of the mask (0s)."),yr.forEach(t),Wn.forEach(t),ep=h(qt),nr=r(qt,"DIV",{class:!0});var Yg=i(nr);T(ms.$$.fragment,Yg),Yg.forEach(t),qt.forEach(t),Nl=h(o),ro=r(o,"H2",{class:!0});var Td=i(ro);Oo=r(Td,"A",{id:!0,class:!0,href:!0});var Zg=i(Oo);ti=r(Zg,"SPAN",{});var e_=i(ti);T(fs.$$.fragment,e_),e_.forEach(t),Zg.forEach(t),tp=h(Td),oi=r(Td,"SPAN",{});var t_=i(oi);op=s(t_,"DebertaV2TokenizerFast"),t_.forEach(t),Td.forEach(t),Wl=h(o),bt=r(o,"DIV",{class:!0});var Hn=i(bt);T(us.$$.fragment,Hn),np=h(Hn),gs=r(Hn,"P",{});var yd=i(gs);sp=s(yd,"Constructs a DeBERTa-v2 fast tokenizer. Based on "),_s=r(yd,"A",{href:!0,rel:!0});var o_=i(_s);ap=s(o_,"SentencePiece"),o_.forEach(t),rp=s(yd,"."),yd.forEach(t),ip=h(Hn),Lt=r(Hn,"DIV",{class:!0});var $r=i(Lt);T(bs.$$.fragment,$r),lp=h($r),ni=r($r,"P",{});var n_=i(ni);dp=s(n_,`Build model inputs from a sequence or a pair of sequence for sequence classification tasks by concatenating and
+adding special tokens. A DeBERTa sequence has the following format:`),n_.forEach(t),cp=h($r),vs=r($r,"UL",{});var $d=i(vs);si=r($d,"LI",{});var s_=i(si);pp=s(s_,"single sequence: [CLS] X [SEP]"),s_.forEach(t),hp=h($d),ai=r($d,"LI",{});var a_=i(ai);mp=s(a_,"pair of sequences: [CLS] A [SEP] B [SEP]"),a_.forEach(t),$d.forEach(t),$r.forEach(t),fp=h(Hn),$t=r(Hn,"DIV",{class:!0});var Un=i($t);T(ks.$$.fragment,Un),up=h(Un),ri=r(Un,"P",{});var r_=i(ri);gp=s(r_,"Create a mask from the two sequences passed to be used in a sequence-pair classification task. A DeBERTa"),r_.forEach(t),_p=h(Un),T(No.$$.fragment,Un),bp=h(Un),io=r(Un,"P",{});var Dr=i(io);vp=s(Dr,"If "),ii=r(Dr,"CODE",{});var i_=i(ii);kp=s(i_,"token_ids_1"),i_.forEach(t),wp=s(Dr," is "),li=r(Dr,"CODE",{});var l_=i(li);Tp=s(l_,"None"),l_.forEach(t),yp=s(Dr,", this method only returns the first portion of the mask (0s)."),Dr.forEach(t),Un.forEach(t),Hn.forEach(t),Hl=h(o),lo=r(o,"H2",{class:!0});var Dd=i(lo);Wo=r(Dd,"A",{id:!0,class:!0,href:!0});var d_=i(Wo);di=r(d_,"SPAN",{});var c_=i(di);T(ws.$$.fragment,c_),c_.forEach(t),d_.forEach(t),$p=h(Dd),ci=r(Dd,"SPAN",{});var p_=i(ci);Dp=s(p_,"DebertaV2Model"),p_.forEach(t),Dd.forEach(t),Ul=h(o),vt=r(o,"DIV",{class:!0});var Kn=i(vt);T(Ts.$$.fragment,Kn),Ep=h(Kn),ys=r(Kn,"P",{});var Ed=i(ys);Fp=s(Ed,`The bare DeBERTa Model transformer outputting raw hidden-states without any specific head on top.
+The DeBERTa model was proposed in `),$s=r(Ed,"A",{href:!0,rel:!0});var h_=i($s);Vp=s(h_,`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),h_.forEach(t),xp=s(Ed,` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Ed.forEach(t),qp=h(Kn),Ds=r(Kn,"P",{});var Fd=i(Ds);zp=s(Fd,"This model is also a PyTorch "),Es=r(Fd,"A",{href:!0,rel:!0});var m_=i(Es);jp=s(m_,"torch.nn.Module"),m_.forEach(t),Mp=s(Fd,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Fd.forEach(t),Cp=h(Kn),Dt=r(Kn,"DIV",{class:!0});var Qn=i(Dt);T(Fs.$$.fragment,Qn),Pp=h(Qn),co=r(Qn,"P",{});var Er=i(co);Rp=s(Er,"The "),sr=r(Er,"A",{href:!0});var f_=i(sr);Ap=s(f_,"DebertaV2Model"),f_.forEach(t),Bp=s(Er," forward method, overrides the "),pi=r(Er,"CODE",{});var u_=i(pi);Lp=s(u_,"__call__"),u_.forEach(t),Ip=s(Er," special method."),Er.forEach(t),Sp=h(Qn),T(Ho.$$.fragment,Qn),Op=h(Qn),T(Uo.$$.fragment,Qn),Qn.forEach(t),Kn.forEach(t),Kl=h(o),po=r(o,"H2",{class:!0});var Vd=i(po);Ko=r(Vd,"A",{id:!0,class:!0,href:!0});var g_=i(Ko);hi=r(g_,"SPAN",{});var __=i(hi);T(Vs.$$.fragment,__),__.forEach(t),g_.forEach(t),Np=h(Vd),mi=r(Vd,"SPAN",{});var b_=i(mi);Wp=s(b_,"DebertaV2PreTrainedModel"),b_.forEach(t),Vd.forEach(t),Ql=h(o),Pt=r(o,"DIV",{class:!0});var Fr=i(Pt);T(xs.$$.fragment,Fr),Hp=h(Fr),fi=r(Fr,"P",{});var v_=i(fi);Up=s(v_,`An abstract class to handle weights initialization and a simple interface for downloading and loading pretrained
+models.`),v_.forEach(t),Kp=h(Fr),Et=r(Fr,"DIV",{class:!0});var Gn=i(Et);T(qs.$$.fragment,Gn),Qp=h(Gn),ui=r(Gn,"P",{});var k_=i(ui);Gp=s(k_,"Defines the computation performed at every call."),k_.forEach(t),Jp=h(Gn),gi=r(Gn,"P",{});var w_=i(gi);Xp=s(w_,"Should be overridden by all subclasses."),w_.forEach(t),Yp=h(Gn),T(Qo.$$.fragment,Gn),Gn.forEach(t),Fr.forEach(t),Gl=h(o),ho=r(o,"H2",{class:!0});var xd=i(ho);Go=r(xd,"A",{id:!0,class:!0,href:!0});var T_=i(Go);_i=r(T_,"SPAN",{});var y_=i(_i);T(zs.$$.fragment,y_),y_.forEach(t),T_.forEach(t),Zp=h(xd),bi=r(xd,"SPAN",{});var $_=i(bi);eh=s($_,"DebertaV2ForMaskedLM"),$_.forEach(t),xd.forEach(t),Jl=h(o),kt=r(o,"DIV",{class:!0});var Jn=i(kt);T(js.$$.fragment,Jn),th=h(Jn),mo=r(Jn,"P",{});var Vr=i(mo);oh=s(Vr,"DeBERTa Model with a "),vi=r(Vr,"CODE",{});var D_=i(vi);nh=s(D_,"language modeling"),D_.forEach(t),sh=s(Vr,` head on top.
+The DeBERTa model was proposed in `),Ms=r(Vr,"A",{href:!0,rel:!0});var E_=i(Ms);ah=s(E_,`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),E_.forEach(t),rh=s(Vr,` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Vr.forEach(t),ih=h(Jn),Cs=r(Jn,"P",{});var qd=i(Cs);lh=s(qd,"This model is also a PyTorch "),Ps=r(qd,"A",{href:!0,rel:!0});var F_=i(Ps);dh=s(F_,"torch.nn.Module"),F_.forEach(t),ch=s(qd,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),qd.forEach(t),ph=h(Jn),ct=r(Jn,"DIV",{class:!0});var It=i(ct);T(Rs.$$.fragment,It),hh=h(It),fo=r(It,"P",{});var xr=i(fo);mh=s(xr,"The "),ar=r(xr,"A",{href:!0});var V_=i(ar);fh=s(V_,"DebertaV2ForMaskedLM"),V_.forEach(t),uh=s(xr," forward method, overrides the "),ki=r(xr,"CODE",{});var x_=i(ki);gh=s(x_,"__call__"),x_.forEach(t),_h=s(xr," special method."),xr.forEach(t),bh=h(It),T(Jo.$$.fragment,It),vh=h(It),T(Xo.$$.fragment,It),kh=h(It),T(Yo.$$.fragment,It),It.forEach(t),Jn.forEach(t),Xl=h(o),uo=r(o,"H2",{class:!0});var zd=i(uo);Zo=r(zd,"A",{id:!0,class:!0,href:!0});var q_=i(Zo);wi=r(q_,"SPAN",{});var z_=i(wi);T(As.$$.fragment,z_),z_.forEach(t),q_.forEach(t),wh=h(zd),Ti=r(zd,"SPAN",{});var j_=i(Ti);Th=s(j_,"DebertaV2ForSequenceClassification"),j_.forEach(t),zd.forEach(t),Yl=h(o),st=r(o,"DIV",{class:!0});var St=i(st);T(Bs.$$.fragment,St),yh=h(St),yi=r(St,"P",{});var M_=i(yi);$h=s(M_,`DeBERTa Model transformer with a sequence classification/regression head on top (a linear layer on top of the
+pooled output) e.g. for GLUE tasks.`),M_.forEach(t),Dh=h(St),Ls=r(St,"P",{});var jd=i(Ls);Eh=s(jd,"The DeBERTa model was proposed in "),Is=r(jd,"A",{href:!0,rel:!0});var C_=i(Is);Fh=s(C_,`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),C_.forEach(t),Vh=s(jd,` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),jd.forEach(t),xh=h(St),Ss=r(St,"P",{});var Md=i(Ss);qh=s(Md,"This model is also a PyTorch "),Os=r(Md,"A",{href:!0,rel:!0});var P_=i(Os);zh=s(P_,"torch.nn.Module"),P_.forEach(t),jh=s(Md,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Md.forEach(t),Mh=h(St),Xe=r(St,"DIV",{class:!0});var _t=i(Xe);T(Ns.$$.fragment,_t),Ch=h(_t),go=r(_t,"P",{});var qr=i(go);Ph=s(qr,"The "),rr=r(qr,"A",{href:!0});var R_=i(rr);Rh=s(R_,"DebertaV2ForSequenceClassification"),R_.forEach(t),Ah=s(qr," forward method, overrides the "),$i=r(qr,"CODE",{});var A_=i($i);Bh=s(A_,"__call__"),A_.forEach(t),Lh=s(qr," special method."),qr.forEach(t),Ih=h(_t),T(en.$$.fragment,_t),Sh=h(_t),T(tn.$$.fragment,_t),Oh=h(_t),T(on.$$.fragment,_t),Nh=h(_t),T(nn.$$.fragment,_t),Wh=h(_t),T(sn.$$.fragment,_t),_t.forEach(t),St.forEach(t),Zl=h(o),_o=r(o,"H2",{class:!0});var Cd=i(_o);an=r(Cd,"A",{id:!0,class:!0,href:!0});var B_=i(an);Di=r(B_,"SPAN",{});var L_=i(Di);T(Ws.$$.fragment,L_),L_.forEach(t),B_.forEach(t),Hh=h(Cd),Ei=r(Cd,"SPAN",{});var I_=i(Ei);Uh=s(I_,"DebertaV2ForTokenClassification"),I_.forEach(t),Cd.forEach(t),ed=h(o),at=r(o,"DIV",{class:!0});var Ot=i(at);T(Hs.$$.fragment,Ot),Kh=h(Ot),Fi=r(Ot,"P",{});var S_=i(Fi);Qh=s(S_,`DeBERTa Model with a token classification head on top (a linear layer on top of the hidden-states output) e.g. for
+Named-Entity-Recognition (NER) tasks.`),S_.forEach(t),Gh=h(Ot),Us=r(Ot,"P",{});var Pd=i(Us);Jh=s(Pd,"The DeBERTa model was proposed in "),Ks=r(Pd,"A",{href:!0,rel:!0});var O_=i(Ks);Xh=s(O_,`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),O_.forEach(t),Yh=s(Pd,` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Pd.forEach(t),Zh=h(Ot),Qs=r(Ot,"P",{});var Rd=i(Qs);em=s(Rd,"This model is also a PyTorch "),Gs=r(Rd,"A",{href:!0,rel:!0});var N_=i(Gs);tm=s(N_,"torch.nn.Module"),N_.forEach(t),om=s(Rd,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Rd.forEach(t),nm=h(Ot),pt=r(Ot,"DIV",{class:!0});var Nt=i(pt);T(Js.$$.fragment,Nt),sm=h(Nt),bo=r(Nt,"P",{});var zr=i(bo);am=s(zr,"The "),ir=r(zr,"A",{href:!0});var W_=i(ir);rm=s(W_,"DebertaV2ForTokenClassification"),W_.forEach(t),im=s(zr," forward method, overrides the "),Vi=r(zr,"CODE",{});var H_=i(Vi);lm=s(H_,"__call__"),H_.forEach(t),dm=s(zr," special method."),zr.forEach(t),cm=h(Nt),T(rn.$$.fragment,Nt),pm=h(Nt),T(ln.$$.fragment,Nt),hm=h(Nt),T(dn.$$.fragment,Nt),Nt.forEach(t),Ot.forEach(t),td=h(o),vo=r(o,"H2",{class:!0});var Ad=i(vo);cn=r(Ad,"A",{id:!0,class:!0,href:!0});var U_=i(cn);xi=r(U_,"SPAN",{});var K_=i(xi);T(Xs.$$.fragment,K_),K_.forEach(t),U_.forEach(t),mm=h(Ad),qi=r(Ad,"SPAN",{});var Q_=i(qi);fm=s(Q_,"DebertaV2ForQuestionAnswering"),Q_.forEach(t),Ad.forEach(t),od=h(o),rt=r(o,"DIV",{class:!0});var Wt=i(rt);T(Ys.$$.fragment,Wt),um=h(Wt),ko=r(Wt,"P",{});var jr=i(ko);gm=s(jr,`DeBERTa Model with a span classification head on top for extractive question-answering tasks like SQuAD (a linear
+layers on top of the hidden-states output to compute `),zi=r(jr,"CODE",{});var G_=i(zi);_m=s(G_,"span start logits"),G_.forEach(t),bm=s(jr," and "),ji=r(jr,"CODE",{});var J_=i(ji);vm=s(J_,"span end logits"),J_.forEach(t),km=s(jr,")."),jr.forEach(t),wm=h(Wt),Zs=r(Wt,"P",{});var Bd=i(Zs);Tm=s(Bd,"The DeBERTa model was proposed in "),ea=r(Bd,"A",{href:!0,rel:!0});var X_=i(ea);ym=s(X_,`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),X_.forEach(t),$m=s(Bd,` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Bd.forEach(t),Dm=h(Wt),ta=r(Wt,"P",{});var Ld=i(ta);Em=s(Ld,"This model is also a PyTorch "),oa=r(Ld,"A",{href:!0,rel:!0});var Y_=i(oa);Fm=s(Y_,"torch.nn.Module"),Y_.forEach(t),Vm=s(Ld,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Ld.forEach(t),xm=h(Wt),ht=r(Wt,"DIV",{class:!0});var Ht=i(ht);T(na.$$.fragment,Ht),qm=h(Ht),wo=r(Ht,"P",{});var Mr=i(wo);zm=s(Mr,"The "),lr=r(Mr,"A",{href:!0});var Z_=i(lr);jm=s(Z_,"DebertaV2ForQuestionAnswering"),Z_.forEach(t),Mm=s(Mr," forward method, overrides the "),Mi=r(Mr,"CODE",{});var eb=i(Mi);Cm=s(eb,"__call__"),eb.forEach(t),Pm=s(Mr," special method."),Mr.forEach(t),Rm=h(Ht),T(pn.$$.fragment,Ht),Am=h(Ht),T(hn.$$.fragment,Ht),Bm=h(Ht),T(mn.$$.fragment,Ht),Ht.forEach(t),Wt.forEach(t),nd=h(o),To=r(o,"H2",{class:!0});var Id=i(To);fn=r(Id,"A",{id:!0,class:!0,href:!0});var tb=i(fn);Ci=r(tb,"SPAN",{});var ob=i(Ci);T(sa.$$.fragment,ob),ob.forEach(t),tb.forEach(t),Lm=h(Id),Pi=r(Id,"SPAN",{});var nb=i(Pi);Im=s(nb,"DebertaV2ForMultipleChoice"),nb.forEach(t),Id.forEach(t),sd=h(o),it=r(o,"DIV",{class:!0});var Ut=i(it);T(aa.$$.fragment,Ut),Sm=h(Ut),Ri=r(Ut,"P",{});var sb=i(Ri);Om=s(sb,`DeBERTa Model with a multiple choice classification head on top (a linear layer on top of the pooled output and a
+softmax) e.g. for RocStories/SWAG tasks.`),sb.forEach(t),Nm=h(Ut),ra=r(Ut,"P",{});var Sd=i(ra);Wm=s(Sd,"The DeBERTa model was proposed in "),ia=r(Sd,"A",{href:!0,rel:!0});var ab=i(ia);Hm=s(ab,`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),ab.forEach(t),Um=s(Sd,` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Sd.forEach(t),Km=h(Ut),la=r(Ut,"P",{});var Od=i(la);Qm=s(Od,"This model is also a PyTorch "),da=r(Od,"A",{href:!0,rel:!0});var rb=i(da);Gm=s(rb,"torch.nn.Module"),rb.forEach(t),Jm=s(Od,` subclass.
+Use it as a regular PyTorch Module and refer to the PyTorch documentation for all matter related to general usage
+and behavior.`),Od.forEach(t),Xm=h(Ut),Ft=r(Ut,"DIV",{class:!0});var Xn=i(Ft);T(ca.$$.fragment,Xn),Ym=h(Xn),yo=r(Xn,"P",{});var Cr=i(yo);Zm=s(Cr,"The "),dr=r(Cr,"A",{href:!0});var ib=i(dr);ef=s(ib,"DebertaV2ForMultipleChoice"),ib.forEach(t),tf=s(Cr," forward method, overrides the "),Ai=r(Cr,"CODE",{});var lb=i(Ai);of=s(lb,"__call__"),lb.forEach(t),nf=s(Cr," special method."),Cr.forEach(t),sf=h(Xn),T(un.$$.fragment,Xn),af=h(Xn),T(gn.$$.fragment,Xn),Xn.forEach(t),Ut.forEach(t),ad=h(o),$o=r(o,"H2",{class:!0});var Nd=i($o);_n=r(Nd,"A",{id:!0,class:!0,href:!0});var db=i(_n);Bi=r(db,"SPAN",{});var cb=i(Bi);T(pa.$$.fragment,cb),cb.forEach(t),db.forEach(t),rf=h(Nd),Li=r(Nd,"SPAN",{});var pb=i(Li);lf=s(pb,"TFDebertaV2Model"),pb.forEach(t),Nd.forEach(t),rd=h(o),lt=r(o,"DIV",{class:!0});var Kt=i(lt);T(ha.$$.fragment,Kt),df=h(Kt),ma=r(Kt,"P",{});var Wd=i(ma);cf=s(Wd,`The bare DeBERTa Model transformer outputting raw hidden-states without any specific head on top.
+The DeBERTa model was proposed in `),fa=r(Wd,"A",{href:!0,rel:!0});var hb=i(fa);pf=s(hb,`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),hb.forEach(t),hf=s(Wd,` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Wd.forEach(t),mf=h(Kt),ua=r(Kt,"P",{});var Hd=i(ua);ff=s(Hd,"This model is also a "),ga=r(Hd,"A",{href:!0,rel:!0});var mb=i(ga);uf=s(mb,"tf.keras.Model"),mb.forEach(t),gf=s(Hd,` subclass. Use it
+as a regular TF 2.0 Keras Model and refer to the TF 2.0 documentation for all matter related to general usage and
+behavior.`),Hd.forEach(t),_f=h(Kt),T(bn.$$.fragment,Kt),bf=h(Kt),Vt=r(Kt,"DIV",{class:!0});var Yn=i(Vt);T(_a.$$.fragment,Yn),vf=h(Yn),Do=r(Yn,"P",{});var Pr=i(Do);kf=s(Pr,"The "),cr=r(Pr,"A",{href:!0});var fb=i(cr);wf=s(fb,"TFDebertaV2Model"),fb.forEach(t),Tf=s(Pr," forward method, overrides the "),Ii=r(Pr,"CODE",{});var ub=i(Ii);yf=s(ub,"__call__"),ub.forEach(t),$f=s(Pr," special method."),Pr.forEach(t),Df=h(Yn),T(vn.$$.fragment,Yn),Ef=h(Yn),T(kn.$$.fragment,Yn),Yn.forEach(t),Kt.forEach(t),id=h(o),Eo=r(o,"H2",{class:!0});var Ud=i(Eo);wn=r(Ud,"A",{id:!0,class:!0,href:!0});var gb=i(wn);Si=r(gb,"SPAN",{});var _b=i(Si);T(ba.$$.fragment,_b),_b.forEach(t),gb.forEach(t),Ff=h(Ud),Oi=r(Ud,"SPAN",{});var bb=i(Oi);Vf=s(bb,"TFDebertaV2PreTrainedModel"),bb.forEach(t),Ud.forEach(t),ld=h(o),Rt=r(o,"DIV",{class:!0});var Rr=i(Rt);T(va.$$.fragment,Rr),xf=h(Rr),Ni=r(Rr,"P",{});var vb=i(Ni);qf=s(vb,`An abstract class to handle weights initialization and a simple interface for downloading and loading pretrained
+models.`),vb.forEach(t),zf=h(Rr),xt=r(Rr,"DIV",{class:!0});var Zn=i(xt);T(ka.$$.fragment,Zn),jf=h(Zn),Wi=r(Zn,"P",{});var kb=i(Wi);Mf=s(kb,"Calls the model on new inputs and returns the outputs as tensors."),kb.forEach(t),Cf=h(Zn),wa=r(Zn,"P",{});var Kd=i(wa);Pf=s(Kd,"In this case "),Hi=r(Kd,"CODE",{});var wb=i(Hi);Rf=s(wb,"call()"),wb.forEach(t),Af=s(Kd,` just reapplies
+all ops in the graph to the new inputs
+(e.g. build a new computational graph from the provided inputs).`),Kd.forEach(t),Bf=h(Zn),wt=r(Zn,"P",{});var Qt=i(wt);Lf=s(Qt,`Note: This method should not be called directly. It is only meant to be
+overridden when subclassing `),Ui=r(Qt,"CODE",{});var Tb=i(Ui);If=s(Tb,"tf.keras.Model"),Tb.forEach(t),Sf=s(Qt,`.
+To call a model on an input, always use the `),Ki=r(Qt,"CODE",{});var yb=i(Ki);Of=s(yb,"__call__()"),yb.forEach(t),Nf=s(Qt,` method,
+i.e. `),Qi=r(Qt,"CODE",{});var $b=i(Qi);Wf=s($b,"model(inputs)"),$b.forEach(t),Hf=s(Qt,", which relies on the underlying "),Gi=r(Qt,"CODE",{});var Db=i(Gi);Uf=s(Db,"call()"),Db.forEach(t),Kf=s(Qt," method."),Qt.forEach(t),Zn.forEach(t),Rr.forEach(t),dd=h(o),Fo=r(o,"H2",{class:!0});var Qd=i(Fo);Tn=r(Qd,"A",{id:!0,class:!0,href:!0});var Eb=i(Tn);Ji=r(Eb,"SPAN",{});var Fb=i(Ji);T(Ta.$$.fragment,Fb),Fb.forEach(t),Eb.forEach(t),Qf=h(Qd),Xi=r(Qd,"SPAN",{});var Vb=i(Xi);Gf=s(Vb,"TFDebertaV2ForMaskedLM"),Vb.forEach(t),Qd.forEach(t),cd=h(o),dt=r(o,"DIV",{class:!0});var Gt=i(dt);T(ya.$$.fragment,Gt),Jf=h(Gt),Vo=r(Gt,"P",{});var Ar=i(Vo);Xf=s(Ar,"DeBERTa Model with a "),Yi=r(Ar,"CODE",{});var xb=i(Yi);Yf=s(xb,"language modeling"),xb.forEach(t),Zf=s(Ar,` head on top.
+The DeBERTa model was proposed in `),$a=r(Ar,"A",{href:!0,rel:!0});var qb=i($a);eu=s(qb,`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),qb.forEach(t),tu=s(Ar,` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Ar.forEach(t),ou=h(Gt),Da=r(Gt,"P",{});var Gd=i(Da);nu=s(Gd,"This model is also a "),Ea=r(Gd,"A",{href:!0,rel:!0});var zb=i(Ea);su=s(zb,"tf.keras.Model"),zb.forEach(t),au=s(Gd,` subclass. Use it
+as a regular TF 2.0 Keras Model and refer to the TF 2.0 documentation for all matter related to general usage and
+behavior.`),Gd.forEach(t),ru=h(Gt),T(yn.$$.fragment,Gt),iu=h(Gt),mt=r(Gt,"DIV",{class:!0});var Jt=i(mt);T(Fa.$$.fragment,Jt),lu=h(Jt),xo=r(Jt,"P",{});var Br=i(xo);du=s(Br,"The "),pr=r(Br,"A",{href:!0});var jb=i(pr);cu=s(jb,"TFDebertaV2ForMaskedLM"),jb.forEach(t),pu=s(Br," forward method, overrides the "),Zi=r(Br,"CODE",{});var Mb=i(Zi);hu=s(Mb,"__call__"),Mb.forEach(t),mu=s(Br," special method."),Br.forEach(t),fu=h(Jt),T($n.$$.fragment,Jt),uu=h(Jt),T(Dn.$$.fragment,Jt),gu=h(Jt),T(En.$$.fragment,Jt),Jt.forEach(t),Gt.forEach(t),pd=h(o),qo=r(o,"H2",{class:!0});var Jd=i(qo);Fn=r(Jd,"A",{id:!0,class:!0,href:!0});var Cb=i(Fn);el=r(Cb,"SPAN",{});var Pb=i(el);T(Va.$$.fragment,Pb),Pb.forEach(t),Cb.forEach(t),_u=h(Jd),tl=r(Jd,"SPAN",{});var Rb=i(tl);bu=s(Rb,"TFDebertaV2ForSequenceClassification"),Rb.forEach(t),Jd.forEach(t),hd=h(o),et=r(o,"DIV",{class:!0});var zt=i(et);T(xa.$$.fragment,zt),vu=h(zt),ol=r(zt,"P",{});var Ab=i(ol);ku=s(Ab,`DeBERTa Model transformer with a sequence classification/regression head on top (a linear layer on top of the
+pooled output) e.g. for GLUE tasks.`),Ab.forEach(t),wu=h(zt),qa=r(zt,"P",{});var Xd=i(qa);Tu=s(Xd,"The DeBERTa model was proposed in "),za=r(Xd,"A",{href:!0,rel:!0});var Bb=i(za);yu=s(Bb,`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),Bb.forEach(t),$u=s(Xd,` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),Xd.forEach(t),Du=h(zt),ja=r(zt,"P",{});var Yd=i(ja);Eu=s(Yd,"This model is also a "),Ma=r(Yd,"A",{href:!0,rel:!0});var Lb=i(Ma);Fu=s(Lb,"tf.keras.Model"),Lb.forEach(t),Vu=s(Yd,` subclass. Use it
+as a regular TF 2.0 Keras Model and refer to the TF 2.0 documentation for all matter related to general usage and
+behavior.`),Yd.forEach(t),xu=h(zt),T(Vn.$$.fragment,zt),qu=h(zt),ft=r(zt,"DIV",{class:!0});var Xt=i(ft);T(Ca.$$.fragment,Xt),zu=h(Xt),zo=r(Xt,"P",{});var Lr=i(zo);ju=s(Lr,"The "),hr=r(Lr,"A",{href:!0});var Ib=i(hr);Mu=s(Ib,"TFDebertaV2ForSequenceClassification"),Ib.forEach(t),Cu=s(Lr," forward method, overrides the "),nl=r(Lr,"CODE",{});var Sb=i(nl);Pu=s(Sb,"__call__"),Sb.forEach(t),Ru=s(Lr," special method."),Lr.forEach(t),Au=h(Xt),T(xn.$$.fragment,Xt),Bu=h(Xt),T(qn.$$.fragment,Xt),Lu=h(Xt),T(zn.$$.fragment,Xt),Xt.forEach(t),zt.forEach(t),md=h(o),jo=r(o,"H2",{class:!0});var Zd=i(jo);jn=r(Zd,"A",{id:!0,class:!0,href:!0});var Ob=i(jn);sl=r(Ob,"SPAN",{});var Nb=i(sl);T(Pa.$$.fragment,Nb),Nb.forEach(t),Ob.forEach(t),Iu=h(Zd),al=r(Zd,"SPAN",{});var Wb=i(al);Su=s(Wb,"TFDebertaV2ForTokenClassification"),Wb.forEach(t),Zd.forEach(t),fd=h(o),tt=r(o,"DIV",{class:!0});var jt=i(tt);T(Ra.$$.fragment,jt),Ou=h(jt),rl=r(jt,"P",{});var Hb=i(rl);Nu=s(Hb,`DeBERTa Model with a token classification head on top (a linear layer on top of the hidden-states output) e.g. for
+Named-Entity-Recognition (NER) tasks.`),Hb.forEach(t),Wu=h(jt),Aa=r(jt,"P",{});var ec=i(Aa);Hu=s(ec,"The DeBERTa model was proposed in "),Ba=r(ec,"A",{href:!0,rel:!0});var Ub=i(Ba);Uu=s(Ub,`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),Ub.forEach(t),Ku=s(ec,` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),ec.forEach(t),Qu=h(jt),La=r(jt,"P",{});var tc=i(La);Gu=s(tc,"This model is also a "),Ia=r(tc,"A",{href:!0,rel:!0});var Kb=i(Ia);Ju=s(Kb,"tf.keras.Model"),Kb.forEach(t),Xu=s(tc,` subclass. Use it
+as a regular TF 2.0 Keras Model and refer to the TF 2.0 documentation for all matter related to general usage and
+behavior.`),tc.forEach(t),Yu=h(jt),T(Mn.$$.fragment,jt),Zu=h(jt),ut=r(jt,"DIV",{class:!0});var Yt=i(ut);T(Sa.$$.fragment,Yt),eg=h(Yt),Mo=r(Yt,"P",{});var Ir=i(Mo);tg=s(Ir,"The "),mr=r(Ir,"A",{href:!0});var Qb=i(mr);og=s(Qb,"TFDebertaV2ForTokenClassification"),Qb.forEach(t),ng=s(Ir," forward method, overrides the "),il=r(Ir,"CODE",{});var Gb=i(il);sg=s(Gb,"__call__"),Gb.forEach(t),ag=s(Ir," special method."),Ir.forEach(t),rg=h(Yt),T(Cn.$$.fragment,Yt),ig=h(Yt),T(Pn.$$.fragment,Yt),lg=h(Yt),T(Rn.$$.fragment,Yt),Yt.forEach(t),jt.forEach(t),ud=h(o),Co=r(o,"H2",{class:!0});var oc=i(Co);An=r(oc,"A",{id:!0,class:!0,href:!0});var Jb=i(An);ll=r(Jb,"SPAN",{});var Xb=i(ll);T(Oa.$$.fragment,Xb),Xb.forEach(t),Jb.forEach(t),dg=h(oc),dl=r(oc,"SPAN",{});var Yb=i(dl);cg=s(Yb,"TFDebertaV2ForQuestionAnswering"),Yb.forEach(t),oc.forEach(t),gd=h(o),ot=r(o,"DIV",{class:!0});var Mt=i(ot);T(Na.$$.fragment,Mt),pg=h(Mt),Po=r(Mt,"P",{});var Sr=i(Po);hg=s(Sr,`DeBERTa Model with a span classification head on top for extractive question-answering tasks like SQuAD (a linear
+layers on top of the hidden-states output to compute `),cl=r(Sr,"CODE",{});var Zb=i(cl);mg=s(Zb,"span start logits"),Zb.forEach(t),fg=s(Sr," and "),pl=r(Sr,"CODE",{});var e2=i(pl);ug=s(e2,"span end logits"),e2.forEach(t),gg=s(Sr,")."),Sr.forEach(t),_g=h(Mt),Wa=r(Mt,"P",{});var nc=i(Wa);bg=s(nc,"The DeBERTa model was proposed in "),Ha=r(nc,"A",{href:!0,rel:!0});var t2=i(Ha);vg=s(t2,`DeBERTa: Decoding-enhanced BERT with Disentangled
+Attention`),t2.forEach(t),kg=s(nc,` by Pengcheng He, Xiaodong Liu, Jianfeng Gao, Weizhu Chen. It\u2019s build
+on top of BERT/RoBERTa with two improvements, i.e. disentangled attention and enhanced mask decoder. With those two
+improvements, it out perform BERT/RoBERTa on a majority of tasks with 80GB pretraining data.`),nc.forEach(t),wg=h(Mt),Ua=r(Mt,"P",{});var sc=i(Ua);Tg=s(sc,"This model is also a "),Ka=r(sc,"A",{href:!0,rel:!0});var o2=i(Ka);yg=s(o2,"tf.keras.Model"),o2.forEach(t),$g=s(sc,` subclass. Use it
+as a regular TF 2.0 Keras Model and refer to the TF 2.0 documentation for all matter related to general usage and
+behavior.`),sc.forEach(t),Dg=h(Mt),T(Bn.$$.fragment,Mt),Eg=h(Mt),gt=r(Mt,"DIV",{class:!0});var Zt=i(gt);T(Qa.$$.fragment,Zt),Fg=h(Zt),Ro=r(Zt,"P",{});var Or=i(Ro);Vg=s(Or,"The "),fr=r(Or,"A",{href:!0});var n2=i(fr);xg=s(n2,"TFDebertaV2ForQuestionAnswering"),n2.forEach(t),qg=s(Or," forward method, overrides the "),hl=r(Or,"CODE",{});var s2=i(hl);zg=s(s2,"__call__"),s2.forEach(t),jg=s(Or," special method."),Or.forEach(t),Mg=h(Zt),T(Ln.$$.fragment,Zt),Cg=h(Zt),T(In.$$.fragment,Zt),Pg=h(Zt),T(Sn.$$.fragment,Zt),Zt.forEach(t),Mt.forEach(t),this.h()},h(){u(l,"name","hf:doc:metadata"),u(l,"content",JSON.stringify(X2)),u(f,"id","debertav2"),u(f,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(f,"href","#debertav2"),u(c,"class","relative group"),u(ne,"id","overview"),u(ne,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(ne,"href","#overview"),u(B,"class","relative group"),u(ie,"href","https://arxiv.org/abs/2006.03654"),u(ie,"rel","nofollow"),u(le,"href","https://github.com/microsoft/DeBERTa"),u(le,"rel","nofollow"),u(de,"href","https://github.com/microsoft/DeBERTa"),u(de,"rel","nofollow"),u(O,"href","https://www.microsoft.com/en-us/research/blog/microsoft-deberta-surpasses-human-performance-on-the-superglue-benchmark/"),u(O,"rel","nofollow"),u(M,"href","https://github.com/google/sentencepiece"),u(M,"rel","nofollow"),u(ee,"href","https://huggingface.co/DeBERTa"),u(ee,"rel","nofollow"),u(es,"href","https://huggingface.co/kamalkraj"),u(es,"rel","nofollow"),u(ts,"href","https://github.com/microsoft/DeBERTa"),u(ts,"rel","nofollow"),u(Bo,"id","transformers.DebertaV2Config"),u(Bo,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(Bo,"href","#transformers.DebertaV2Config"),u(eo,"class","relative group"),u(er,"href","/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Model"),u(ss,"href","https://huggingface.co/microsoft/deberta-v2-xlarge"),u(ss,"rel","nofollow"),u(tr,"href","/docs/transformers/v4.22.1/en/main_classes/configuration#transformers.PretrainedConfig"),u(or,"href","/docs/transformers/v4.22.1/en/main_classes/configuration#transformers.PretrainedConfig"),u(Ct,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(Lo,"id","transformers.DebertaV2Tokenizer"),u(Lo,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(Lo,"href","#transformers.DebertaV2Tokenizer"),u(no,"class","relative group"),u(ls,"href","https://github.com/google/sentencepiece"),u(ls,"rel","nofollow"),u(Bt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(Io,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(yt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(nr,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(Ze,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(Oo,"id","transformers.DebertaV2TokenizerFast"),u(Oo,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(Oo,"href","#transformers.DebertaV2TokenizerFast"),u(ro,"class","relative group"),u(_s,"href","https://github.com/google/sentencepiece"),u(_s,"rel","nofollow"),u(Lt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u($t,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(bt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(Wo,"id","transformers.DebertaV2Model"),u(Wo,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(Wo,"href","#transformers.DebertaV2Model"),u(lo,"class","relative group"),u($s,"href","https://arxiv.org/abs/2006.03654"),u($s,"rel","nofollow"),u(Es,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),u(Es,"rel","nofollow"),u(sr,"href","/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2Model"),u(Dt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(vt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(Ko,"id","transformers.DebertaV2PreTrainedModel"),u(Ko,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(Ko,"href","#transformers.DebertaV2PreTrainedModel"),u(po,"class","relative group"),u(Et,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(Pt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(Go,"id","transformers.DebertaV2ForMaskedLM"),u(Go,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(Go,"href","#transformers.DebertaV2ForMaskedLM"),u(ho,"class","relative group"),u(Ms,"href","https://arxiv.org/abs/2006.03654"),u(Ms,"rel","nofollow"),u(Ps,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),u(Ps,"rel","nofollow"),u(ar,"href","/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2ForMaskedLM"),u(ct,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(kt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(Zo,"id","transformers.DebertaV2ForSequenceClassification"),u(Zo,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(Zo,"href","#transformers.DebertaV2ForSequenceClassification"),u(uo,"class","relative group"),u(Is,"href","https://arxiv.org/abs/2006.03654"),u(Is,"rel","nofollow"),u(Os,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),u(Os,"rel","nofollow"),u(rr,"href","/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2ForSequenceClassification"),u(Xe,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(st,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(an,"id","transformers.DebertaV2ForTokenClassification"),u(an,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(an,"href","#transformers.DebertaV2ForTokenClassification"),u(_o,"class","relative group"),u(Ks,"href","https://arxiv.org/abs/2006.03654"),u(Ks,"rel","nofollow"),u(Gs,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),u(Gs,"rel","nofollow"),u(ir,"href","/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2ForTokenClassification"),u(pt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(at,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(cn,"id","transformers.DebertaV2ForQuestionAnswering"),u(cn,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(cn,"href","#transformers.DebertaV2ForQuestionAnswering"),u(vo,"class","relative group"),u(ea,"href","https://arxiv.org/abs/2006.03654"),u(ea,"rel","nofollow"),u(oa,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),u(oa,"rel","nofollow"),u(lr,"href","/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2ForQuestionAnswering"),u(ht,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(rt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(fn,"id","transformers.DebertaV2ForMultipleChoice"),u(fn,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(fn,"href","#transformers.DebertaV2ForMultipleChoice"),u(To,"class","relative group"),u(ia,"href","https://arxiv.org/abs/2006.03654"),u(ia,"rel","nofollow"),u(da,"href","https://pytorch.org/docs/stable/nn.html#torch.nn.Module"),u(da,"rel","nofollow"),u(dr,"href","/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.DebertaV2ForMultipleChoice"),u(Ft,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(it,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(_n,"id","transformers.TFDebertaV2Model"),u(_n,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(_n,"href","#transformers.TFDebertaV2Model"),u($o,"class","relative group"),u(fa,"href","https://arxiv.org/abs/2006.03654"),u(fa,"rel","nofollow"),u(ga,"href","https://www.tensorflow.org/api_docs/python/tf/keras/Model"),u(ga,"rel","nofollow"),u(cr,"href","/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.TFDebertaV2Model"),u(Vt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(lt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(wn,"id","transformers.TFDebertaV2PreTrainedModel"),u(wn,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(wn,"href","#transformers.TFDebertaV2PreTrainedModel"),u(Eo,"class","relative group"),u(xt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(Rt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(Tn,"id","transformers.TFDebertaV2ForMaskedLM"),u(Tn,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(Tn,"href","#transformers.TFDebertaV2ForMaskedLM"),u(Fo,"class","relative group"),u($a,"href","https://arxiv.org/abs/2006.03654"),u($a,"rel","nofollow"),u(Ea,"href","https://www.tensorflow.org/api_docs/python/tf/keras/Model"),u(Ea,"rel","nofollow"),u(pr,"href","/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.TFDebertaV2ForMaskedLM"),u(mt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(dt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(Fn,"id","transformers.TFDebertaV2ForSequenceClassification"),u(Fn,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(Fn,"href","#transformers.TFDebertaV2ForSequenceClassification"),u(qo,"class","relative group"),u(za,"href","https://arxiv.org/abs/2006.03654"),u(za,"rel","nofollow"),u(Ma,"href","https://www.tensorflow.org/api_docs/python/tf/keras/Model"),u(Ma,"rel","nofollow"),u(hr,"href","/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.TFDebertaV2ForSequenceClassification"),u(ft,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(et,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(jn,"id","transformers.TFDebertaV2ForTokenClassification"),u(jn,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(jn,"href","#transformers.TFDebertaV2ForTokenClassification"),u(jo,"class","relative group"),u(Ba,"href","https://arxiv.org/abs/2006.03654"),u(Ba,"rel","nofollow"),u(Ia,"href","https://www.tensorflow.org/api_docs/python/tf/keras/Model"),u(Ia,"rel","nofollow"),u(mr,"href","/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.TFDebertaV2ForTokenClassification"),u(ut,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(tt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(An,"id","transformers.TFDebertaV2ForQuestionAnswering"),u(An,"class","header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full"),u(An,"href","#transformers.TFDebertaV2ForQuestionAnswering"),u(Co,"class","relative group"),u(Ha,"href","https://arxiv.org/abs/2006.03654"),u(Ha,"rel","nofollow"),u(Ka,"href","https://www.tensorflow.org/api_docs/python/tf/keras/Model"),u(Ka,"rel","nofollow"),u(fr,"href","/docs/transformers/v4.22.1/en/model_doc/deberta-v2#transformers.TFDebertaV2ForQuestionAnswering"),u(gt,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8"),u(ot,"class","docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8")},m(o,b){e(document.head,l),_(o,g,b),_(o,c,b),e(c,f),e(f,k),y(d,k,null),e(c,m),e(c,q),e(q,ve),_(o,pe,b),_(o,B,b),e(B,ne),e(ne,oe),y(F,oe,null),e(B,ke),e(B,U),e(U,we),_(o,he,b),_(o,I,b),e(I,Te),e(I,ie),e(ie,G),e(I,ye),_(o,me,b),_(o,N,b),e(N,$e),_(o,fe,b),_(o,W,b),e(W,De),_(o,ue,b),_(o,te,b),e(te,j),e(j,P),e(j,le),e(le,J),e(j,Ee),_(o,ge,b),_(o,L,b),e(L,Fe),e(L,de),e(de,R),e(L,Ve),e(L,O),e(O,xe),_(o,_e,b),_(o,H,b),e(H,qe),_(o,be,b),_(o,C,b),e(C,se),e(se,K),e(K,ze),e(se,ae),e(se,M),e(M,je),e(se,A),e(C,Me),e(C,ce),e(ce,v),e(v,x),e(ce,We),e(C,re),e(C,Ae),e(Ae,Ie),e(Ie,z),e(Ae,He),e(C,Ue),e(C,Be),e(Be,Se),e(Se,Ke),e(Be,S),e(C,X),e(C,Le),e(Le,Oe),e(Oe,Y),e(Le,Qe),_(o,Ne,b),_(o,Z,b),e(Z,Ge),e(Z,ee),e(ee,Je),e(Z,ac),e(Z,es),e(es,rc),e(Z,ic),e(Z,ts),e(ts,lc),e(Z,dc),_(o,Ll,b),_(o,eo,b),e(eo,Bo),e(Bo,Nr),y(os,Nr,null),e(eo,cc),e(eo,Wr),e(Wr,pc),_(o,Il,b),_(o,Ct,b),y(ns,Ct,null),e(Ct,hc),e(Ct,to),e(to,mc),e(to,er),e(er,fc),e(to,uc),e(to,ss),e(ss,gc),e(to,_c),e(Ct,bc),e(Ct,oo),e(oo,vc),e(oo,tr),e(tr,kc),e(oo,wc),e(oo,or),e(or,Tc),e(oo,yc),_(o,Sl,b),_(o,no,b),e(no,Lo),e(Lo,Hr),y(as,Hr,null),e(no,$c),e(no,Ur),e(Ur,Dc),_(o,Ol,b),_(o,Ze,b),y(rs,Ze,null),e(Ze,Ec),e(Ze,is),e(is,Fc),e(is,ls),e(ls,Vc),e(is,xc),e(Ze,qc),e(Ze,Bt),y(ds,Bt,null),e(Bt,zc),e(Bt,Kr),e(Kr,jc),e(Bt,Mc),e(Bt,cs),e(cs,Qr),e(Qr,Cc),e(cs,Pc),e(cs,Gr),e(Gr,Rc),e(Ze,Ac),e(Ze,Io),y(ps,Io,null),e(Io,Bc),e(Io,so),e(so,Lc),e(so,Jr),e(Jr,Ic),e(so,Sc),e(so,Xr),e(Xr,Oc),e(so,Nc),e(Ze,Wc),e(Ze,yt),y(hs,yt,null),e(yt,Hc),e(yt,Yr),e(Yr,Uc),e(yt,Kc),y(So,yt,null),e(yt,Qc),e(yt,ao),e(ao,Gc),e(ao,Zr),e(Zr,Jc),e(ao,Xc),e(ao,ei),e(ei,Yc),e(ao,Zc),e(Ze,ep),e(Ze,nr),y(ms,nr,null),_(o,Nl,b),_(o,ro,b),e(ro,Oo),e(Oo,ti),y(fs,ti,null),e(ro,tp),e(ro,oi),e(oi,op),_(o,Wl,b),_(o,bt,b),y(us,bt,null),e(bt,np),e(bt,gs),e(gs,sp),e(gs,_s),e(_s,ap),e(gs,rp),e(bt,ip),e(bt,Lt),y(bs,Lt,null),e(Lt,lp),e(Lt,ni),e(ni,dp),e(Lt,cp),e(Lt,vs),e(vs,si),e(si,pp),e(vs,hp),e(vs,ai),e(ai,mp),e(bt,fp),e(bt,$t),y(ks,$t,null),e($t,up),e($t,ri),e(ri,gp),e($t,_p),y(No,$t,null),e($t,bp),e($t,io),e(io,vp),e(io,ii),e(ii,kp),e(io,wp),e(io,li),e(li,Tp),e(io,yp),_(o,Hl,b),_(o,lo,b),e(lo,Wo),e(Wo,di),y(ws,di,null),e(lo,$p),e(lo,ci),e(ci,Dp),_(o,Ul,b),_(o,vt,b),y(Ts,vt,null),e(vt,Ep),e(vt,ys),e(ys,Fp),e(ys,$s),e($s,Vp),e(ys,xp),e(vt,qp),e(vt,Ds),e(Ds,zp),e(Ds,Es),e(Es,jp),e(Ds,Mp),e(vt,Cp),e(vt,Dt),y(Fs,Dt,null),e(Dt,Pp),e(Dt,co),e(co,Rp),e(co,sr),e(sr,Ap),e(co,Bp),e(co,pi),e(pi,Lp),e(co,Ip),e(Dt,Sp),y(Ho,Dt,null),e(Dt,Op),y(Uo,Dt,null),_(o,Kl,b),_(o,po,b),e(po,Ko),e(Ko,hi),y(Vs,hi,null),e(po,Np),e(po,mi),e(mi,Wp),_(o,Ql,b),_(o,Pt,b),y(xs,Pt,null),e(Pt,Hp),e(Pt,fi),e(fi,Up),e(Pt,Kp),e(Pt,Et),y(qs,Et,null),e(Et,Qp),e(Et,ui),e(ui,Gp),e(Et,Jp),e(Et,gi),e(gi,Xp),e(Et,Yp),y(Qo,Et,null),_(o,Gl,b),_(o,ho,b),e(ho,Go),e(Go,_i),y(zs,_i,null),e(ho,Zp),e(ho,bi),e(bi,eh),_(o,Jl,b),_(o,kt,b),y(js,kt,null),e(kt,th),e(kt,mo),e(mo,oh),e(mo,vi),e(vi,nh),e(mo,sh),e(mo,Ms),e(Ms,ah),e(mo,rh),e(kt,ih),e(kt,Cs),e(Cs,lh),e(Cs,Ps),e(Ps,dh),e(Cs,ch),e(kt,ph),e(kt,ct),y(Rs,ct,null),e(ct,hh),e(ct,fo),e(fo,mh),e(fo,ar),e(ar,fh),e(fo,uh),e(fo,ki),e(ki,gh),e(fo,_h),e(ct,bh),y(Jo,ct,null),e(ct,vh),y(Xo,ct,null),e(ct,kh),y(Yo,ct,null),_(o,Xl,b),_(o,uo,b),e(uo,Zo),e(Zo,wi),y(As,wi,null),e(uo,wh),e(uo,Ti),e(Ti,Th),_(o,Yl,b),_(o,st,b),y(Bs,st,null),e(st,yh),e(st,yi),e(yi,$h),e(st,Dh),e(st,Ls),e(Ls,Eh),e(Ls,Is),e(Is,Fh),e(Ls,Vh),e(st,xh),e(st,Ss),e(Ss,qh),e(Ss,Os),e(Os,zh),e(Ss,jh),e(st,Mh),e(st,Xe),y(Ns,Xe,null),e(Xe,Ch),e(Xe,go),e(go,Ph),e(go,rr),e(rr,Rh),e(go,Ah),e(go,$i),e($i,Bh),e(go,Lh),e(Xe,Ih),y(en,Xe,null),e(Xe,Sh),y(tn,Xe,null),e(Xe,Oh),y(on,Xe,null),e(Xe,Nh),y(nn,Xe,null),e(Xe,Wh),y(sn,Xe,null),_(o,Zl,b),_(o,_o,b),e(_o,an),e(an,Di),y(Ws,Di,null),e(_o,Hh),e(_o,Ei),e(Ei,Uh),_(o,ed,b),_(o,at,b),y(Hs,at,null),e(at,Kh),e(at,Fi),e(Fi,Qh),e(at,Gh),e(at,Us),e(Us,Jh),e(Us,Ks),e(Ks,Xh),e(Us,Yh),e(at,Zh),e(at,Qs),e(Qs,em),e(Qs,Gs),e(Gs,tm),e(Qs,om),e(at,nm),e(at,pt),y(Js,pt,null),e(pt,sm),e(pt,bo),e(bo,am),e(bo,ir),e(ir,rm),e(bo,im),e(bo,Vi),e(Vi,lm),e(bo,dm),e(pt,cm),y(rn,pt,null),e(pt,pm),y(ln,pt,null),e(pt,hm),y(dn,pt,null),_(o,td,b),_(o,vo,b),e(vo,cn),e(cn,xi),y(Xs,xi,null),e(vo,mm),e(vo,qi),e(qi,fm),_(o,od,b),_(o,rt,b),y(Ys,rt,null),e(rt,um),e(rt,ko),e(ko,gm),e(ko,zi),e(zi,_m),e(ko,bm),e(ko,ji),e(ji,vm),e(ko,km),e(rt,wm),e(rt,Zs),e(Zs,Tm),e(Zs,ea),e(ea,ym),e(Zs,$m),e(rt,Dm),e(rt,ta),e(ta,Em),e(ta,oa),e(oa,Fm),e(ta,Vm),e(rt,xm),e(rt,ht),y(na,ht,null),e(ht,qm),e(ht,wo),e(wo,zm),e(wo,lr),e(lr,jm),e(wo,Mm),e(wo,Mi),e(Mi,Cm),e(wo,Pm),e(ht,Rm),y(pn,ht,null),e(ht,Am),y(hn,ht,null),e(ht,Bm),y(mn,ht,null),_(o,nd,b),_(o,To,b),e(To,fn),e(fn,Ci),y(sa,Ci,null),e(To,Lm),e(To,Pi),e(Pi,Im),_(o,sd,b),_(o,it,b),y(aa,it,null),e(it,Sm),e(it,Ri),e(Ri,Om),e(it,Nm),e(it,ra),e(ra,Wm),e(ra,ia),e(ia,Hm),e(ra,Um),e(it,Km),e(it,la),e(la,Qm),e(la,da),e(da,Gm),e(la,Jm),e(it,Xm),e(it,Ft),y(ca,Ft,null),e(Ft,Ym),e(Ft,yo),e(yo,Zm),e(yo,dr),e(dr,ef),e(yo,tf),e(yo,Ai),e(Ai,of),e(yo,nf),e(Ft,sf),y(un,Ft,null),e(Ft,af),y(gn,Ft,null),_(o,ad,b),_(o,$o,b),e($o,_n),e(_n,Bi),y(pa,Bi,null),e($o,rf),e($o,Li),e(Li,lf),_(o,rd,b),_(o,lt,b),y(ha,lt,null),e(lt,df),e(lt,ma),e(ma,cf),e(ma,fa),e(fa,pf),e(ma,hf),e(lt,mf),e(lt,ua),e(ua,ff),e(ua,ga),e(ga,uf),e(ua,gf),e(lt,_f),y(bn,lt,null),e(lt,bf),e(lt,Vt),y(_a,Vt,null),e(Vt,vf),e(Vt,Do),e(Do,kf),e(Do,cr),e(cr,wf),e(Do,Tf),e(Do,Ii),e(Ii,yf),e(Do,$f),e(Vt,Df),y(vn,Vt,null),e(Vt,Ef),y(kn,Vt,null),_(o,id,b),_(o,Eo,b),e(Eo,wn),e(wn,Si),y(ba,Si,null),e(Eo,Ff),e(Eo,Oi),e(Oi,Vf),_(o,ld,b),_(o,Rt,b),y(va,Rt,null),e(Rt,xf),e(Rt,Ni),e(Ni,qf),e(Rt,zf),e(Rt,xt),y(ka,xt,null),e(xt,jf),e(xt,Wi),e(Wi,Mf),e(xt,Cf),e(xt,wa),e(wa,Pf),e(wa,Hi),e(Hi,Rf),e(wa,Af),e(xt,Bf),e(xt,wt),e(wt,Lf),e(wt,Ui),e(Ui,If),e(wt,Sf),e(wt,Ki),e(Ki,Of),e(wt,Nf),e(wt,Qi),e(Qi,Wf),e(wt,Hf),e(wt,Gi),e(Gi,Uf),e(wt,Kf),_(o,dd,b),_(o,Fo,b),e(Fo,Tn),e(Tn,Ji),y(Ta,Ji,null),e(Fo,Qf),e(Fo,Xi),e(Xi,Gf),_(o,cd,b),_(o,dt,b),y(ya,dt,null),e(dt,Jf),e(dt,Vo),e(Vo,Xf),e(Vo,Yi),e(Yi,Yf),e(Vo,Zf),e(Vo,$a),e($a,eu),e(Vo,tu),e(dt,ou),e(dt,Da),e(Da,nu),e(Da,Ea),e(Ea,su),e(Da,au),e(dt,ru),y(yn,dt,null),e(dt,iu),e(dt,mt),y(Fa,mt,null),e(mt,lu),e(mt,xo),e(xo,du),e(xo,pr),e(pr,cu),e(xo,pu),e(xo,Zi),e(Zi,hu),e(xo,mu),e(mt,fu),y($n,mt,null),e(mt,uu),y(Dn,mt,null),e(mt,gu),y(En,mt,null),_(o,pd,b),_(o,qo,b),e(qo,Fn),e(Fn,el),y(Va,el,null),e(qo,_u),e(qo,tl),e(tl,bu),_(o,hd,b),_(o,et,b),y(xa,et,null),e(et,vu),e(et,ol),e(ol,ku),e(et,wu),e(et,qa),e(qa,Tu),e(qa,za),e(za,yu),e(qa,$u),e(et,Du),e(et,ja),e(ja,Eu),e(ja,Ma),e(Ma,Fu),e(ja,Vu),e(et,xu),y(Vn,et,null),e(et,qu),e(et,ft),y(Ca,ft,null),e(ft,zu),e(ft,zo),e(zo,ju),e(zo,hr),e(hr,Mu),e(zo,Cu),e(zo,nl),e(nl,Pu),e(zo,Ru),e(ft,Au),y(xn,ft,null),e(ft,Bu),y(qn,ft,null),e(ft,Lu),y(zn,ft,null),_(o,md,b),_(o,jo,b),e(jo,jn),e(jn,sl),y(Pa,sl,null),e(jo,Iu),e(jo,al),e(al,Su),_(o,fd,b),_(o,tt,b),y(Ra,tt,null),e(tt,Ou),e(tt,rl),e(rl,Nu),e(tt,Wu),e(tt,Aa),e(Aa,Hu),e(Aa,Ba),e(Ba,Uu),e(Aa,Ku),e(tt,Qu),e(tt,La),e(La,Gu),e(La,Ia),e(Ia,Ju),e(La,Xu),e(tt,Yu),y(Mn,tt,null),e(tt,Zu),e(tt,ut),y(Sa,ut,null),e(ut,eg),e(ut,Mo),e(Mo,tg),e(Mo,mr),e(mr,og),e(Mo,ng),e(Mo,il),e(il,sg),e(Mo,ag),e(ut,rg),y(Cn,ut,null),e(ut,ig),y(Pn,ut,null),e(ut,lg),y(Rn,ut,null),_(o,ud,b),_(o,Co,b),e(Co,An),e(An,ll),y(Oa,ll,null),e(Co,dg),e(Co,dl),e(dl,cg),_(o,gd,b),_(o,ot,b),y(Na,ot,null),e(ot,pg),e(ot,Po),e(Po,hg),e(Po,cl),e(cl,mg),e(Po,fg),e(Po,pl),e(pl,ug),e(Po,gg),e(ot,_g),e(ot,Wa),e(Wa,bg),e(Wa,Ha),e(Ha,vg),e(Wa,kg),e(ot,wg),e(ot,Ua),e(Ua,Tg),e(Ua,Ka),e(Ka,yg),e(Ua,$g),e(ot,Dg),y(Bn,ot,null),e(ot,Eg),e(ot,gt),y(Qa,gt,null),e(gt,Fg),e(gt,Ro),e(Ro,Vg),e(Ro,fr),e(fr,xg),e(Ro,qg),e(Ro,hl),e(hl,zg),e(Ro,jg),e(gt,Mg),y(Ln,gt,null),e(gt,Cg),y(In,gt,null),e(gt,Pg),y(Sn,gt,null),_d=!0},p(o,[b]){const Ga={};b&2&&(Ga.$$scope={dirty:b,ctx:o}),So.$set(Ga);const ml={};b&2&&(ml.$$scope={dirty:b,ctx:o}),No.$set(ml);const fl={};b&2&&(fl.$$scope={dirty:b,ctx:o}),Ho.$set(fl);const ul={};b&2&&(ul.$$scope={dirty:b,ctx:o}),Uo.$set(ul);const Ja={};b&2&&(Ja.$$scope={dirty:b,ctx:o}),Qo.$set(Ja);const gl={};b&2&&(gl.$$scope={dirty:b,ctx:o}),Jo.$set(gl);const _l={};b&2&&(_l.$$scope={dirty:b,ctx:o}),Xo.$set(_l);const bl={};b&2&&(bl.$$scope={dirty:b,ctx:o}),Yo.$set(bl);const Xa={};b&2&&(Xa.$$scope={dirty:b,ctx:o}),en.$set(Xa);const vl={};b&2&&(vl.$$scope={dirty:b,ctx:o}),tn.$set(vl);const kl={};b&2&&(kl.$$scope={dirty:b,ctx:o}),on.$set(kl);const wl={};b&2&&(wl.$$scope={dirty:b,ctx:o}),nn.$set(wl);const Tl={};b&2&&(Tl.$$scope={dirty:b,ctx:o}),sn.$set(Tl);const Ya={};b&2&&(Ya.$$scope={dirty:b,ctx:o}),rn.$set(Ya);const yl={};b&2&&(yl.$$scope={dirty:b,ctx:o}),ln.$set(yl);const On={};b&2&&(On.$$scope={dirty:b,ctx:o}),dn.$set(On);const $l={};b&2&&($l.$$scope={dirty:b,ctx:o}),pn.$set($l);const Dl={};b&2&&(Dl.$$scope={dirty:b,ctx:o}),hn.$set(Dl);const El={};b&2&&(El.$$scope={dirty:b,ctx:o}),mn.$set(El);const Tt={};b&2&&(Tt.$$scope={dirty:b,ctx:o}),un.$set(Tt);const Nn={};b&2&&(Nn.$$scope={dirty:b,ctx:o}),gn.$set(Nn);const Fl={};b&2&&(Fl.$$scope={dirty:b,ctx:o}),bn.$set(Fl);const Vl={};b&2&&(Vl.$$scope={dirty:b,ctx:o}),vn.$set(Vl);const ur={};b&2&&(ur.$$scope={dirty:b,ctx:o}),kn.$set(ur);const xl={};b&2&&(xl.$$scope={dirty:b,ctx:o}),yn.$set(xl);const gr={};b&2&&(gr.$$scope={dirty:b,ctx:o}),$n.$set(gr);const ql={};b&2&&(ql.$$scope={dirty:b,ctx:o}),Dn.$set(ql);const _r={};b&2&&(_r.$$scope={dirty:b,ctx:o}),En.$set(_r);const zl={};b&2&&(zl.$$scope={dirty:b,ctx:o}),Vn.$set(zl);const br={};b&2&&(br.$$scope={dirty:b,ctx:o}),xn.$set(br);const jl={};b&2&&(jl.$$scope={dirty:b,ctx:o}),qn.$set(jl);const At={};b&2&&(At.$$scope={dirty:b,ctx:o}),zn.$set(At);const Ml={};b&2&&(Ml.$$scope={dirty:b,ctx:o}),Mn.$set(Ml);const Cl={};b&2&&(Cl.$$scope={dirty:b,ctx:o}),Cn.$set(Cl);const Pl={};b&2&&(Pl.$$scope={dirty:b,ctx:o}),Pn.$set(Pl);const Za={};b&2&&(Za.$$scope={dirty:b,ctx:o}),Rn.$set(Za);const Rl={};b&2&&(Rl.$$scope={dirty:b,ctx:o}),Bn.$set(Rl);const Al={};b&2&&(Al.$$scope={dirty:b,ctx:o}),Ln.$set(Al);const Bl={};b&2&&(Bl.$$scope={dirty:b,ctx:o}),In.$set(Bl);const Ao={};b&2&&(Ao.$$scope={dirty:b,ctx:o}),Sn.$set(Ao)},i(o){_d||($(d.$$.fragment,o),$(F.$$.fragment,o),$(os.$$.fragment,o),$(ns.$$.fragment,o),$(as.$$.fragment,o),$(rs.$$.fragment,o),$(ds.$$.fragment,o),$(ps.$$.fragment,o),$(hs.$$.fragment,o),$(So.$$.fragment,o),$(ms.$$.fragment,o),$(fs.$$.fragment,o),$(us.$$.fragment,o),$(bs.$$.fragment,o),$(ks.$$.fragment,o),$(No.$$.fragment,o),$(ws.$$.fragment,o),$(Ts.$$.fragment,o),$(Fs.$$.fragment,o),$(Ho.$$.fragment,o),$(Uo.$$.fragment,o),$(Vs.$$.fragment,o),$(xs.$$.fragment,o),$(qs.$$.fragment,o),$(Qo.$$.fragment,o),$(zs.$$.fragment,o),$(js.$$.fragment,o),$(Rs.$$.fragment,o),$(Jo.$$.fragment,o),$(Xo.$$.fragment,o),$(Yo.$$.fragment,o),$(As.$$.fragment,o),$(Bs.$$.fragment,o),$(Ns.$$.fragment,o),$(en.$$.fragment,o),$(tn.$$.fragment,o),$(on.$$.fragment,o),$(nn.$$.fragment,o),$(sn.$$.fragment,o),$(Ws.$$.fragment,o),$(Hs.$$.fragment,o),$(Js.$$.fragment,o),$(rn.$$.fragment,o),$(ln.$$.fragment,o),$(dn.$$.fragment,o),$(Xs.$$.fragment,o),$(Ys.$$.fragment,o),$(na.$$.fragment,o),$(pn.$$.fragment,o),$(hn.$$.fragment,o),$(mn.$$.fragment,o),$(sa.$$.fragment,o),$(aa.$$.fragment,o),$(ca.$$.fragment,o),$(un.$$.fragment,o),$(gn.$$.fragment,o),$(pa.$$.fragment,o),$(ha.$$.fragment,o),$(bn.$$.fragment,o),$(_a.$$.fragment,o),$(vn.$$.fragment,o),$(kn.$$.fragment,o),$(ba.$$.fragment,o),$(va.$$.fragment,o),$(ka.$$.fragment,o),$(Ta.$$.fragment,o),$(ya.$$.fragment,o),$(yn.$$.fragment,o),$(Fa.$$.fragment,o),$($n.$$.fragment,o),$(Dn.$$.fragment,o),$(En.$$.fragment,o),$(Va.$$.fragment,o),$(xa.$$.fragment,o),$(Vn.$$.fragment,o),$(Ca.$$.fragment,o),$(xn.$$.fragment,o),$(qn.$$.fragment,o),$(zn.$$.fragment,o),$(Pa.$$.fragment,o),$(Ra.$$.fragment,o),$(Mn.$$.fragment,o),$(Sa.$$.fragment,o),$(Cn.$$.fragment,o),$(Pn.$$.fragment,o),$(Rn.$$.fragment,o),$(Oa.$$.fragment,o),$(Na.$$.fragment,o),$(Bn.$$.fragment,o),$(Qa.$$.fragment,o),$(Ln.$$.fragment,o),$(In.$$.fragment,o),$(Sn.$$.fragment,o),_d=!0)},o(o){D(d.$$.fragment,o),D(F.$$.fragment,o),D(os.$$.fragment,o),D(ns.$$.fragment,o),D(as.$$.fragment,o),D(rs.$$.fragment,o),D(ds.$$.fragment,o),D(ps.$$.fragment,o),D(hs.$$.fragment,o),D(So.$$.fragment,o),D(ms.$$.fragment,o),D(fs.$$.fragment,o),D(us.$$.fragment,o),D(bs.$$.fragment,o),D(ks.$$.fragment,o),D(No.$$.fragment,o),D(ws.$$.fragment,o),D(Ts.$$.fragment,o),D(Fs.$$.fragment,o),D(Ho.$$.fragment,o),D(Uo.$$.fragment,o),D(Vs.$$.fragment,o),D(xs.$$.fragment,o),D(qs.$$.fragment,o),D(Qo.$$.fragment,o),D(zs.$$.fragment,o),D(js.$$.fragment,o),D(Rs.$$.fragment,o),D(Jo.$$.fragment,o),D(Xo.$$.fragment,o),D(Yo.$$.fragment,o),D(As.$$.fragment,o),D(Bs.$$.fragment,o),D(Ns.$$.fragment,o),D(en.$$.fragment,o),D(tn.$$.fragment,o),D(on.$$.fragment,o),D(nn.$$.fragment,o),D(sn.$$.fragment,o),D(Ws.$$.fragment,o),D(Hs.$$.fragment,o),D(Js.$$.fragment,o),D(rn.$$.fragment,o),D(ln.$$.fragment,o),D(dn.$$.fragment,o),D(Xs.$$.fragment,o),D(Ys.$$.fragment,o),D(na.$$.fragment,o),D(pn.$$.fragment,o),D(hn.$$.fragment,o),D(mn.$$.fragment,o),D(sa.$$.fragment,o),D(aa.$$.fragment,o),D(ca.$$.fragment,o),D(un.$$.fragment,o),D(gn.$$.fragment,o),D(pa.$$.fragment,o),D(ha.$$.fragment,o),D(bn.$$.fragment,o),D(_a.$$.fragment,o),D(vn.$$.fragment,o),D(kn.$$.fragment,o),D(ba.$$.fragment,o),D(va.$$.fragment,o),D(ka.$$.fragment,o),D(Ta.$$.fragment,o),D(ya.$$.fragment,o),D(yn.$$.fragment,o),D(Fa.$$.fragment,o),D($n.$$.fragment,o),D(Dn.$$.fragment,o),D(En.$$.fragment,o),D(Va.$$.fragment,o),D(xa.$$.fragment,o),D(Vn.$$.fragment,o),D(Ca.$$.fragment,o),D(xn.$$.fragment,o),D(qn.$$.fragment,o),D(zn.$$.fragment,o),D(Pa.$$.fragment,o),D(Ra.$$.fragment,o),D(Mn.$$.fragment,o),D(Sa.$$.fragment,o),D(Cn.$$.fragment,o),D(Pn.$$.fragment,o),D(Rn.$$.fragment,o),D(Oa.$$.fragment,o),D(Na.$$.fragment,o),D(Bn.$$.fragment,o),D(Qa.$$.fragment,o),D(Ln.$$.fragment,o),D(In.$$.fragment,o),D(Sn.$$.fragment,o),_d=!1},d(o){t(l),o&&t(g),o&&t(c),E(d),o&&t(pe),o&&t(B),E(F),o&&t(he),o&&t(I),o&&t(me),o&&t(N),o&&t(fe),o&&t(W),o&&t(ue),o&&t(te),o&&t(ge),o&&t(L),o&&t(_e),o&&t(H),o&&t(be),o&&t(C),o&&t(Ne),o&&t(Z),o&&t(Ll),o&&t(eo),E(os),o&&t(Il),o&&t(Ct),E(ns),o&&t(Sl),o&&t(no),E(as),o&&t(Ol),o&&t(Ze),E(rs),E(ds),E(ps),E(hs),E(So),E(ms),o&&t(Nl),o&&t(ro),E(fs),o&&t(Wl),o&&t(bt),E(us),E(bs),E(ks),E(No),o&&t(Hl),o&&t(lo),E(ws),o&&t(Ul),o&&t(vt),E(Ts),E(Fs),E(Ho),E(Uo),o&&t(Kl),o&&t(po),E(Vs),o&&t(Ql),o&&t(Pt),E(xs),E(qs),E(Qo),o&&t(Gl),o&&t(ho),E(zs),o&&t(Jl),o&&t(kt),E(js),E(Rs),E(Jo),E(Xo),E(Yo),o&&t(Xl),o&&t(uo),E(As),o&&t(Yl),o&&t(st),E(Bs),E(Ns),E(en),E(tn),E(on),E(nn),E(sn),o&&t(Zl),o&&t(_o),E(Ws),o&&t(ed),o&&t(at),E(Hs),E(Js),E(rn),E(ln),E(dn),o&&t(td),o&&t(vo),E(Xs),o&&t(od),o&&t(rt),E(Ys),E(na),E(pn),E(hn),E(mn),o&&t(nd),o&&t(To),E(sa),o&&t(sd),o&&t(it),E(aa),E(ca),E(un),E(gn),o&&t(ad),o&&t($o),E(pa),o&&t(rd),o&&t(lt),E(ha),E(bn),E(_a),E(vn),E(kn),o&&t(id),o&&t(Eo),E(ba),o&&t(ld),o&&t(Rt),E(va),E(ka),o&&t(dd),o&&t(Fo),E(Ta),o&&t(cd),o&&t(dt),E(ya),E(yn),E(Fa),E($n),E(Dn),E(En),o&&t(pd),o&&t(qo),E(Va),o&&t(hd),o&&t(et),E(xa),E(Vn),E(Ca),E(xn),E(qn),E(zn),o&&t(md),o&&t(jo),E(Pa),o&&t(fd),o&&t(tt),E(Ra),E(Mn),E(Sa),E(Cn),E(Pn),E(Rn),o&&t(ud),o&&t(Co),E(Oa),o&&t(gd),o&&t(ot),E(Na),E(Bn),E(Qa),E(Ln),E(In),E(Sn)}}}const X2={local:"debertav2",sections:[{local:"overview",title:"Overview"},{local:"transformers.DebertaV2Config",title:"DebertaV2Config"},{local:"transformers.DebertaV2Tokenizer",title:"DebertaV2Tokenizer"},{local:"transformers.DebertaV2TokenizerFast",title:"DebertaV2TokenizerFast"},{local:"transformers.DebertaV2Model",title:"DebertaV2Model"},{local:"transformers.DebertaV2PreTrainedModel",title:"DebertaV2PreTrainedModel"},{local:"transformers.DebertaV2ForMaskedLM",title:"DebertaV2ForMaskedLM"},{local:"transformers.DebertaV2ForSequenceClassification",title:"DebertaV2ForSequenceClassification"},{local:"transformers.DebertaV2ForTokenClassification",title:"DebertaV2ForTokenClassification"},{local:"transformers.DebertaV2ForQuestionAnswering",title:"DebertaV2ForQuestionAnswering"},{local:"transformers.DebertaV2ForMultipleChoice",title:"DebertaV2ForMultipleChoice"},{local:"transformers.TFDebertaV2Model",title:"TFDebertaV2Model"},{local:"transformers.TFDebertaV2PreTrainedModel",title:"TFDebertaV2PreTrainedModel"},{local:"transformers.TFDebertaV2ForMaskedLM",title:"TFDebertaV2ForMaskedLM"},{local:"transformers.TFDebertaV2ForSequenceClassification",title:"TFDebertaV2ForSequenceClassification"},{local:"transformers.TFDebertaV2ForTokenClassification",title:"TFDebertaV2ForTokenClassification"},{local:"transformers.TFDebertaV2ForQuestionAnswering",title:"TFDebertaV2ForQuestionAnswering"}],title:"DeBERTa-v2"};function Y2(V){return d2(()=>{new URLSearchParams(window.location.search).get("fw")}),[]}class av extends a2{constructor(l){super();r2(this,l,Y2,J2,i2,{})}}export{av as default,X2 as metadata};
