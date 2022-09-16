@@ -1,0 +1,778 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;how-to-add-a-model-to-transformers&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;general-overview-of-transformers&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;overview-of-models&quot;,&quot;title&quot;:&quot;Overview of models&quot;},{&quot;local&quot;:&quot;code-style&quot;,&quot;title&quot;:&quot;Code style&quot;},{&quot;local&quot;:&quot;overview-of-tokenizers&quot;,&quot;title&quot;:&quot;Overview of tokenizers&quot;}],&quot;title&quot;:&quot;General overview of 🤗 Transformers&quot;},{&quot;local&quot;:&quot;stepbystep-recipe-to-add-a-model-to-transformers&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;1-optional-theoretical-aspects-of-brandnewbert&quot;,&quot;title&quot;:&quot;1. (Optional) Theoretical aspects of BrandNewBert&quot;},{&quot;local&quot;:&quot;2-next-prepare-your-environment&quot;,&quot;title&quot;:&quot;2. Next prepare your environment&quot;},{&quot;local&quot;:&quot;34-run-a-pretrained-checkpoint-using-the-original-repository&quot;,&quot;title&quot;:&quot;3.-4. Run a pretrained checkpoint using the original repository&quot;},{&quot;local&quot;:&quot;514-port-brandnewbert-to-transformers&quot;,&quot;title&quot;:&quot;5.-14. Port BrandNewBert to 🤗 Transformers&quot;},{&quot;local&quot;:&quot;share-your-work&quot;,&quot;title&quot;:&quot;Share your work!!&quot;}],&quot;title&quot;:&quot;Step-by-step recipe to add a model to 🤗 Transformers&quot;}],&quot;title&quot;:&quot;How to add a model to 🤗 Transformers?&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.1/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.1/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.1/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.1/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.1/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.1/en/_app/pages/add_new_model.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.1/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.1/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.1/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="how-to-add-a-model-to-transformers" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#how-to-add-a-model-to-transformers"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>How to add a model to 🤗 Transformers?
+	</span></h1>
+
+<p>Adding a new model is often difficult and requires an in-depth knowledge of the 🤗 Transformers library and ideally also
+of the model’s original repository. At Hugging Face, we are trying to empower the community more and more to add models
+independently. Thus, for some new models that the community wants to be added to 🤗 Transformers, we create a customized
+<em>call-for-model-addition</em> that explains step-by-step how to add the requested model. With this
+<em>call-for-model-addition</em>, we want to teach a motivated and experienced contributor of the community how to port a
+model to 🤗 Transformers.</p>
+<p>If this sounds like something you would be interested in, feel free to check out the currently open
+“calls-for-model-addition” <a href="https://github.com/huggingface/transformers/tree/main/templates/adding_a_new_model/open_model_proposals/README.md" rel="nofollow">here</a>
+and to contact us.</p>
+<p>If selected, you will then work closely with one member of the Hugging Face team to integrate the model into 🤗
+Transformers. By doing so, you will both gain a theoretical and deep practical understanding of the proposed model. But
+more importantly, you will have made a major open-source contribution to 🤗 Transformers. Along the way, you will:</p>
+<ul><li>get insights into open-source best practices</li>
+<li>understand the design principles of one of the most popular NLP libraries</li>
+<li>learn how to do efficiently test large NLP models</li>
+<li>learn how to integrate Python utilities like <code>black</code>, <code>isort</code>, <code>make fix-copies</code> into a library to always
+ensure clean and readable code</li></ul>
+<p>We are also more than happy if you want to add a model that cannot be found in the “calls-for-model-addition” folder.
+The following sections explain in detail how to add a new model. It might also be very helpful to check out already
+added models to see if those resemble the model you would like to add <a href="https://github.com/huggingface/transformers/pulls?q=is%3Apr+label%3A%22PR+for+Model+Addition%22+is%3Aclosed" rel="nofollow">here</a>.</p>
+<p>To start, let’s try to get a general overview of the Transformers library.</p>
+<h2 class="relative group"><a id="general-overview-of-transformers" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#general-overview-of-transformers"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>General overview of 🤗 Transformers
+	</span></h2>
+
+<p>First, you should get a general overview of 🤗 Transformers. 🤗 Transformers is a very opinionated library, so there is a
+chance that you don’t agree with some of the library’s philosophies or design choices. From our experience, however, we
+found that the fundamental design choices and philosophies of the library are crucial to efficiently scale 🤗
+Transformers while keeping maintenance costs at a reasonable level.</p>
+<p>A good first starting point to better understand the library is to read the <a href="philosophy">documentation of our philosophy</a>. As a result of our way of working, there are some choices that we try to apply to all models:</p>
+<ul><li>Composition is generally favored over-abstraction</li>
+<li>Duplicating code is not always bad if it strongly improves the readability or accessibility of a model</li>
+<li>Model files are as self-contained as possible so that when you read the code of a specific model, you ideally only
+have to look into the respective <code>modeling_....py</code> file.</li></ul>
+<p>In our opinion, the library’s code is not just a means to provide a product, <em>e.g.</em> the ability to use BERT for
+inference, but also as the very product that we want to improve. Hence, when adding a model, the user is not only the
+person that will use your model, but also everybody that will read, try to understand, and possibly tweak your code.</p>
+<p>With this in mind, let’s go a bit deeper into the general library design.</p>
+<h3 class="relative group"><a id="overview-of-models" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#overview-of-models"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Overview of models
+	</span></h3>
+
+<p>To successfully add a model, it is important to understand the interaction between your model and its config,
+<a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel">PreTrainedModel</a>, and <a href="/docs/transformers/v4.22.1/en/main_classes/configuration#transformers.PretrainedConfig">PretrainedConfig</a>. For exemplary purposes, we will
+call the model to be added to 🤗 Transformers <code>BrandNewBert</code>.</p>
+<p>Let’s take a look:</p>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_overview.png">
+<p>As you can see, we do make use of inheritance in 🤗 Transformers, but we keep the level of abstraction to an absolute
+minimum. There are never more than two levels of abstraction for any model in the library. <code>BrandNewBertModel</code>
+inherits from <code>BrandNewBertPreTrainedModel</code> which in turn inherits from <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel">PreTrainedModel</a> and
+that’s it. As a general rule, we want to make sure that a new model only depends on
+<a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel">PreTrainedModel</a>. The important functionalities that are automatically provided to every new
+model are <a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a> and
+<a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.save_pretrained">save_pretrained()</a>, which are used for serialization and deserialization. All of the
+other important functionalities, such as <code>BrandNewBertModel.forward</code> should be completely defined in the new
+<code>modeling_brand_new_bert.py</code> script. Next, we want to make sure that a model with a specific head layer, such as
+<code>BrandNewBertForMaskedLM</code> does not inherit from <code>BrandNewBertModel</code>, but rather uses <code>BrandNewBertModel</code>
+as a component that can be called in its forward pass to keep the level of abstraction low. Every new model requires a
+configuration class, called <code>BrandNewBertConfig</code>. This configuration is always stored as an attribute in
+<a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel">PreTrainedModel</a>, and thus can be accessed via the <code>config</code> attribute for all classes
+inheriting from <code>BrandNewBertPreTrainedModel</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->model = BrandNewBertModel.from_pretrained(<span class="hljs-string">&quot;brandy/brand_new_bert&quot;</span>)
+model.config  <span class="hljs-comment"># model has access to its config</span><!-- HTML_TAG_END --></pre></div>
+<p>Similar to the model, the configuration inherits basic serialization and deserialization functionalities from
+<a href="/docs/transformers/v4.22.1/en/main_classes/configuration#transformers.PretrainedConfig">PretrainedConfig</a>. Note that the configuration and the model are always serialized into two
+different formats - the model to a <em>pytorch_model.bin</em> file and the configuration to a <em>config.json</em> file. Calling
+<a href="/docs/transformers/v4.22.1/en/main_classes/model#transformers.PreTrainedModel.save_pretrained">save_pretrained()</a> will automatically call
+<a href="/docs/transformers/v4.22.1/en/main_classes/configuration#transformers.PretrainedConfig.save_pretrained">save_pretrained()</a>, so that both model and configuration are saved.</p>
+<h3 class="relative group"><a id="code-style" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#code-style"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Code style
+	</span></h3>
+
+<p>When coding your new model, keep in mind that Transformers is an opinionated library and we have a few quirks of our
+own regarding how code should be written :-)</p>
+<ol><li>The forward pass of your model should be fully written in the modeling file while being fully independent of other
+models in the library. If you want to reuse a block from another model, copy the code and paste it with a
+<code># Copied from</code> comment on top (see <a href="https://github.com/huggingface/transformers/blob/v4.17.0/src/transformers/models/roberta/modeling_roberta.py#L160" rel="nofollow">here</a>
+for a good example).</li>
+<li>The code should be fully understandable, even by a non-native English speaker. This means you should pick
+descriptive variable names and avoid abbreviations. As an example, <code>activation</code> is preferred to <code>act</code>.
+One-letter variable names are strongly discouraged unless it’s an index in a for loop. </li>
+<li>More generally we prefer longer explicit code to short magical one.</li>
+<li>Avoid subclassing <code>nn.Sequential</code> in PyTorch but subclass <code>nn.Module</code> and write the forward pass, so that anyone
+using your code can quickly debug it by adding print statements or breaking points.</li>
+<li>Your function signature should be type-annotated. For the rest, good variable names are way more readable and
+understandable than type annotations.</li></ol>
+<h3 class="relative group"><a id="overview-of-tokenizers" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#overview-of-tokenizers"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Overview of tokenizers
+	</span></h3>
+
+<p>Not quite ready yet :-( This section will be added soon!</p>
+<h2 class="relative group"><a id="stepbystep-recipe-to-add-a-model-to-transformers" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#stepbystep-recipe-to-add-a-model-to-transformers"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Step-by-step recipe to add a model to 🤗 Transformers
+	</span></h2>
+
+<p>Everyone has different preferences of how to port a model so it can be very helpful for you to take a look at summaries
+of how other contributors ported models to Hugging Face. Here is a list of community blog posts on how to port a model:</p>
+<ol><li><a href="https://medium.com/huggingface/from-tensorflow-to-pytorch-265f40ef2a28" rel="nofollow">Porting GPT2 Model</a> by <a href="https://huggingface.co/thomwolf" rel="nofollow">Thomas</a></li>
+<li><a href="https://huggingface.co/blog/porting-fsmt" rel="nofollow">Porting WMT19 MT Model</a> by <a href="https://huggingface.co/stas" rel="nofollow">Stas</a></li></ol>
+<p>From experience, we can tell you that the most important things to keep in mind when adding a model are:</p>
+<ul><li>Don’t reinvent the wheel! Most parts of the code you will add for the new 🤗 Transformers model already exist
+somewhere in 🤗 Transformers. Take some time to find similar, already existing models and tokenizers you can copy
+from. <a href="https://www.gnu.org/software/grep/" rel="nofollow">grep</a> and <a href="https://github.com/BurntSushi/ripgrep" rel="nofollow">rg</a> are your
+friends. Note that it might very well happen that your model’s tokenizer is based on one model implementation, and
+your model’s modeling code on another one. <em>E.g.</em> FSMT’s modeling code is based on BART, while FSMT’s tokenizer code
+is based on XLM.</li>
+<li>It’s more of an engineering challenge than a scientific challenge. You should spend more time on creating an
+efficient debugging environment than trying to understand all theoretical aspects of the model in the paper.</li>
+<li>Ask for help, when you’re stuck! Models are the core component of 🤗 Transformers so that we at Hugging Face are more
+than happy to help you at every step to add your model. Don’t hesitate to ask if you notice you are not making
+progress.</li></ul>
+<p>In the following, we try to give you a general recipe that we found most useful when porting a model to 🤗 Transformers.</p>
+<p>The following list is a summary of everything that has to be done to add a model and can be used by you as a To-Do
+List:</p>
+<ul><li><ol><li>☐ (Optional) Understood theoretical aspects</li></ol></li>
+<li><ol start="2"><li>☐ Prepared transformers dev environment</li></ol></li>
+<li><ol start="3"><li>☐ Set up debugging environment of the original repository</li></ol></li>
+<li><ol start="4"><li>☐ Created script that successfully runs forward pass using original repository and checkpoint</li></ol></li>
+<li><ol start="5"><li>☐ Successfully added the model skeleton to Transformers</li></ol></li>
+<li><ol start="6"><li>☐ Successfully converted original checkpoint to Transformers checkpoint</li></ol></li>
+<li><ol start="7"><li>☐ Successfully ran forward pass in Transformers that gives identical output to original checkpoint</li></ol></li>
+<li><ol start="8"><li>☐ Finished model tests in Transformers</li></ol></li>
+<li><ol start="9"><li>☐ Successfully added Tokenizer in Transformers</li></ol></li>
+<li><ol start="10"><li>☐ Run end-to-end integration tests</li></ol></li>
+<li><ol start="11"><li>☐ Finished docs</li></ol></li>
+<li><ol start="12"><li>☐ Uploaded model weights to the hub</li></ol></li>
+<li><ol start="13"><li>☐ Submitted the pull request</li></ol></li>
+<li><ol start="14"><li>☐ (Optional) Added a demo notebook</li></ol></li></ul>
+<p>To begin with, we usually recommend to start by getting a good theoretical understanding of <code>BrandNewBert</code>. However,
+if you prefer to understand the theoretical aspects of the model <em>on-the-job</em>, then it is totally fine to directly dive
+into the <code>BrandNewBert</code>’s code-base. This option might suit you better, if your engineering skills are better than
+your theoretical skill, if you have trouble understanding <code>BrandNewBert</code>’s paper, or if you just enjoy programming
+much more than reading scientific papers.</p>
+<h3 class="relative group"><a id="1-optional-theoretical-aspects-of-brandnewbert" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#1-optional-theoretical-aspects-of-brandnewbert"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>1. (Optional) Theoretical aspects of BrandNewBert
+	</span></h3>
+
+<p>You should take some time to read <em>BrandNewBert’s</em> paper, if such descriptive work exists. There might be large
+sections of the paper that are difficult to understand. If this is the case, this is fine - don’t worry! The goal is
+not to get a deep theoretical understanding of the paper, but to extract the necessary information required to
+effectively re-implement the model in 🤗 Transformers. That being said, you don’t have to spend too much time on the
+theoretical aspects, but rather focus on the practical ones, namely:</p>
+<ul><li>What type of model is <em>brand_new_bert</em>? BERT-like encoder-only model? GPT2-like decoder-only model? BART-like
+encoder-decoder model? Look at the <a href="model_summary">model_summary</a> if you’re not familiar with the differences between those.</li>
+<li>What are the applications of <em>brand_new_bert</em>? Text classification? Text generation? Seq2Seq tasks, <em>e.g.,</em>
+summarization?</li>
+<li>What is the novel feature of the model making it different from BERT/GPT-2/BART?</li>
+<li>Which of the already existing <a href="https://huggingface.co/transformers/#contents" rel="nofollow">🤗 Transformers models</a> is most
+similar to <em>brand_new_bert</em>?</li>
+<li>What type of tokenizer is used? A sentencepiece tokenizer? Word piece tokenizer? Is it the same tokenizer as used
+for BERT or BART?</li></ul>
+<p>After you feel like you have gotten a good overview of the architecture of the model, you might want to write to the
+Hugging Face team with any questions you might have. This might include questions regarding the model’s architecture,
+its attention layer, etc. We will be more than happy to help you.</p>
+<h3 class="relative group"><a id="2-next-prepare-your-environment" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#2-next-prepare-your-environment"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>2. Next prepare your environment
+	</span></h3>
+
+<ol><li><p>Fork the <a href="https://github.com/huggingface/transformers" rel="nofollow">repository</a> by clicking on the ‘Fork’ button on the
+repository’s page. This creates a copy of the code under your GitHub user account.</p></li>
+<li><p>Clone your <code>transformers</code> fork to your local disk, and add the base repository as a remote:</p></li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git <span class="hljs-built_in">clone</span> https://github.com/[your Github handle]/transformers.git
+<span class="hljs-built_in">cd</span> transformers
+git remote add upstream https://github.com/huggingface/transformers.git<!-- HTML_TAG_END --></pre></div>
+<ol start="3"><li>Set up a development environment, for instance by running the following command:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m venv .<span class="hljs-built_in">env</span>
+<span class="hljs-built_in">source</span> .<span class="hljs-built_in">env</span>/bin/activate
+pip install -e <span class="hljs-string">&quot;.[dev]&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>and return to the parent directory</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-built_in">cd</span> ..<!-- HTML_TAG_END --></pre></div>
+<ol start="4"><li>We recommend adding the PyTorch version of <em>brand_new_bert</em> to Transformers. To install PyTorch, please follow the
+instructions on <a href="https://pytorch.org/get-started/locally/" rel="nofollow">https://pytorch.org/get-started/locally/</a>.</li></ol>
+<p><strong>Note:</strong> You don’t need to have CUDA installed. Making the new model work on CPU is sufficient.</p>
+<ol start="5"><li>To port <em>brand_new_bert</em>, you will also need access to its original repository:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git <span class="hljs-built_in">clone</span> https://github.com/org_that_created_brand_new_bert_org/brand_new_bert.git 
+<span class="hljs-built_in">cd</span> brand_new_bert
+pip install -e .<!-- HTML_TAG_END --></pre></div>
+<p>Now you have set up a development environment to port <em>brand_new_bert</em> to 🤗 Transformers.</p>
+<h3 class="relative group"><a id="34-run-a-pretrained-checkpoint-using-the-original-repository" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#34-run-a-pretrained-checkpoint-using-the-original-repository"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>3.-4. Run a pretrained checkpoint using the original repository
+	</span></h3>
+
+<p>At first, you will work on the original <em>brand_new_bert</em> repository. Often, the original implementation is very
+“researchy”. Meaning that documentation might be lacking and the code can be difficult to understand. But this should
+be exactly your motivation to reimplement <em>brand_new_bert</em>. At Hugging Face, one of our main goals is to <em>make people
+stand on the shoulders of giants</em> which translates here very well into taking a working model and rewriting it to make
+it as <strong>accessible, user-friendly, and beautiful</strong> as possible. This is the number-one motivation to re-implement
+models into 🤗 Transformers - trying to make complex new NLP technology accessible to <strong>everybody</strong>.</p>
+<p>You should start thereby by diving into the original repository.</p>
+<p>Successfully running the official pretrained model in the original repository is often <strong>the most difficult</strong> step.
+From our experience, it is very important to spend some time getting familiar with the original code-base. You need to
+figure out the following:</p>
+<ul><li>Where to find the pretrained weights?</li>
+<li>How to load the pretrained weights into the corresponding model?</li>
+<li>How to run the tokenizer independently from the model?</li>
+<li>Trace one forward pass so that you know which classes and functions are required for a simple forward pass. Usually,
+you only have to reimplement those functions.</li>
+<li>Be able to locate the important components of the model: Where is the model’s class? Are there model sub-classes,
+<em>e.g.</em> EncoderModel, DecoderModel? Where is the self-attention layer? Are there multiple different attention layers,
+<em>e.g.</em> <em>self-attention</em>, <em>cross-attention</em>…?</li>
+<li>How can you debug the model in the original environment of the repo? Do you have to add <em>print</em> statements, can you
+work with an interactive debugger like <em>ipdb</em>, or should you use an efficient IDE to debug the model, like PyCharm?</li></ul>
+<p>It is very important that before you start the porting process, that you can <strong>efficiently</strong> debug code in the original
+repository! Also, remember that you are working with an open-source library, so do not hesitate to open an issue, or
+even a pull request in the original repository. The maintainers of this repository are most likely very happy about
+someone looking into their code!</p>
+<p>At this point, it is really up to you which debugging environment and strategy you prefer to use to debug the original
+model. We strongly advise against setting up a costly GPU environment, but simply work on a CPU both when starting to
+dive into the original repository and also when starting to write the 🤗 Transformers implementation of the model. Only
+at the very end, when the model has already been successfully ported to 🤗 Transformers, one should verify that the
+model also works as expected on GPU.</p>
+<p>In general, there are two possible debugging environments for running the original model</p>
+<ul><li><a href="https://jupyter.org/" rel="nofollow">Jupyter notebooks</a> / <a href="https://colab.research.google.com/notebooks/intro.ipynb" rel="nofollow">google colab</a></li>
+<li>Local python scripts.</li></ul>
+<p>Jupyter notebooks have the advantage that they allow for cell-by-cell execution which can be helpful to better split
+logical components from one another and to have faster debugging cycles as intermediate results can be stored. Also,
+notebooks are often easier to share with other contributors, which might be very helpful if you want to ask the Hugging
+Face team for help. If you are familiar with Jupiter notebooks, we strongly recommend you to work with them.</p>
+<p>The obvious disadvantage of Jupyter notebooks is that if you are not used to working with them you will have to spend
+some time adjusting to the new programming environment and that you might not be able to use your known debugging tools
+anymore, like <code>ipdb</code>.</p>
+<p>For each code-base, a good first step is always to load a <strong>small</strong> pretrained checkpoint and to be able to reproduce a
+single forward pass using a dummy integer vector of input IDs as an input. Such a script could look like this (in
+pseudocode):</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->model = BrandNewBertModel.load_pretrained_checkpoint(<span class="hljs-string">&quot;/path/to/checkpoint/&quot;</span>)
+input_ids = [<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>]  <span class="hljs-comment"># vector of input ids</span>
+original_output = model.predict(input_ids)<!-- HTML_TAG_END --></pre></div>
+<p>Next, regarding the debugging strategy, there are generally a few from which to choose from:</p>
+<ul><li>Decompose the original model into many small testable components and run a forward pass on each of those for
+verification</li>
+<li>Decompose the original model only into the original <em>tokenizer</em> and the original <em>model</em>, run a forward pass on
+those, and use intermediate print statements or breakpoints for verification</li></ul>
+<p>Again, it is up to you which strategy to choose. Often, one or the other is advantageous depending on the original code
+base.</p>
+<p>If the original code-base allows you to decompose the model into smaller sub-components, <em>e.g.</em> if the original
+code-base can easily be run in eager mode, it is usually worth the effort to do so. There are some important advantages
+to taking the more difficult road in the beginning:</p>
+<ul><li>at a later stage when comparing the original model to the Hugging Face implementation, you can verify automatically
+for each component individually that the corresponding component of the 🤗 Transformers implementation matches instead
+of relying on visual comparison via print statements</li>
+<li>it can give you some rope to decompose the big problem of porting a model into smaller problems of just porting
+individual components and thus structure your work better</li>
+<li>separating the model into logical meaningful components will help you to get a better overview of the model’s design
+and thus to better understand the model</li>
+<li>at a later stage those component-by-component tests help you to ensure that no regression occurs as you continue
+changing your code</li></ul>
+<p><a href="https://gist.github.com/LysandreJik/db4c948f6b4483960de5cbac598ad4ed" rel="nofollow">Lysandre’s</a> integration checks for ELECTRA
+gives a nice example of how this can be done.</p>
+<p>However, if the original code-base is very complex or only allows intermediate components to be run in a compiled mode,
+it might be too time-consuming or even impossible to separate the model into smaller testable sub-components. A good
+example is <a href="https://github.com/tensorflow/mesh/tree/master/mesh_tensorflow" rel="nofollow">T5’s MeshTensorFlow</a> library which is
+very complex and does not offer a simple way to decompose the model into its sub-components. For such libraries, one
+often relies on verifying print statements.</p>
+<p>No matter which strategy you choose, the recommended procedure is often the same in that you should start to debug the
+starting layers first and the ending layers last.</p>
+<p>It is recommended that you retrieve the output, either by print statements or sub-component functions, of the following
+layers in the following order:</p>
+<ol><li>Retrieve the input IDs passed to the model</li>
+<li>Retrieve the word embeddings</li>
+<li>Retrieve the input of the first Transformer layer</li>
+<li>Retrieve the output of the first Transformer layer</li>
+<li>Retrieve the output of the following n - 1 Transformer layers</li>
+<li>Retrieve the output of the whole BrandNewBert Model</li></ol>
+<p>Input IDs should thereby consists of an array of integers, <em>e.g.</em> <code>input_ids = [0, 4, 4, 3, 2, 4, 1, 7, 19]</code></p>
+<p>The outputs of the following layers often consist of multi-dimensional float arrays and can look like this:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment">[<span class="hljs-comment">[
+ <span class="hljs-comment">[-0.1465, -0.6501,  0.1993,  ...,  0.1451,  0.3430,  0.6024]</span>,
+ <span class="hljs-comment">[-0.4417, -0.5920,  0.3450,  ..., -0.3062,  0.6182,  0.7132]</span>,
+ <span class="hljs-comment">[-0.5009, -0.7122,  0.4548,  ..., -0.3662,  0.6091,  0.7648]</span>,
+ ...,
+ <span class="hljs-comment">[-0.5613, -0.6332,  0.4324,  ..., -0.3792,  0.7372,  0.9288]</span>,
+ <span class="hljs-comment">[-0.5416, -0.6345,  0.4180,  ..., -0.3564,  0.6992,  0.9191]</span>,
+ <span class="hljs-comment">[-0.5334, -0.6403,  0.4271,  ..., -0.3339,  0.6533,  0.8694]</span>]</span>]</span>,<!-- HTML_TAG_END --></pre></div>
+<p>We expect that every model added to 🤗 Transformers passes a couple of integration tests, meaning that the original
+model and the reimplemented version in 🤗 Transformers have to give the exact same output up to a precision of 0.001!
+Since it is normal that the exact same model written in different libraries can give a slightly different output
+depending on the library framework, we accept an error tolerance of 1e-3 (0.001). It is not enough if the model gives
+nearly the same output, they have to be the almost identical. Therefore, you will certainly compare the intermediate
+outputs of the 🤗 Transformers version multiple times against the intermediate outputs of the original implementation of
+<em>brand_new_bert</em> in which case an <strong>efficient</strong> debugging environment of the original repository is absolutely
+important. Here is some advice is to make your debugging environment as efficient as possible.</p>
+<ul><li>Find the best way of debugging intermediate results. Is the original repository written in PyTorch? Then you should
+probably take the time to write a longer script that decomposes the original model into smaller sub-components to
+retrieve intermediate values. Is the original repository written in Tensorflow 1? Then you might have to rely on
+TensorFlow print operations like <a href="https://www.tensorflow.org/api_docs/python/tf/print" rel="nofollow">tf.print</a> to output
+intermediate values. Is the original repository written in Jax? Then make sure that the model is <strong>not jitted</strong> when
+running the forward pass, <em>e.g.</em> check-out <a href="https://github.com/google/jax/issues/196" rel="nofollow">this link</a>.</li>
+<li>Use the smallest pretrained checkpoint you can find. The smaller the checkpoint, the faster your debug cycle
+becomes. It is not efficient if your pretrained model is so big that your forward pass takes more than 10 seconds.
+In case only very large checkpoints are available, it might make more sense to create a dummy model in the new
+environment with randomly initialized weights and save those weights for comparison with the 🤗 Transformers version
+of your model</li>
+<li>Make sure you are using the easiest way of calling a forward pass in the original repository. Ideally, you want to
+find the function in the original repository that <strong>only</strong> calls a single forward pass, <em>i.e.</em> that is often called
+<code>predict</code>, <code>evaluate</code>, <code>forward</code> or <code>__call__</code>. You don’t want to debug a function that calls <code>forward</code>
+multiple times, <em>e.g.</em> to generate text, like <code>autoregressive_sample</code>, <code>generate</code>.</li>
+<li>Try to separate the tokenization from the model’s <em>forward</em> pass. If the original repository shows examples where
+you have to input a string, then try to find out where in the forward call the string input is changed to input ids
+and start from this point. This might mean that you have to possibly write a small script yourself or change the
+original code so that you can directly input the ids instead of an input string.</li>
+<li>Make sure that the model in your debugging setup is <strong>not</strong> in training mode, which often causes the model to yield
+random outputs due to multiple dropout layers in the model. Make sure that the forward pass in your debugging
+environment is <strong>deterministic</strong> so that the dropout layers are not used. Or use <em>transformers.utils.set_seed</em>
+if the old and new implementations are in the same framework.</li></ul>
+<p>The following section gives you more specific details/tips on how you can do this for <em>brand_new_bert</em>.</p>
+<h3 class="relative group"><a id="514-port-brandnewbert-to-transformers" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#514-port-brandnewbert-to-transformers"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>5.-14. Port BrandNewBert to 🤗 Transformers
+	</span></h3>
+
+<p>Next, you can finally start adding new code to 🤗 Transformers. Go into the clone of your 🤗 Transformers’ fork:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-built_in">cd</span> transformers<!-- HTML_TAG_END --></pre></div>
+<p>In the special case that you are adding a model whose architecture exactly matches the model architecture of an
+existing model you only have to add a conversion script as described in <a href="#write-a-conversion-script">this section</a>.
+In this case, you can just re-use the whole model architecture of the already existing model.</p>
+<p>Otherwise, let’s start generating a new model. You have two choices here:</p>
+<ul><li><code>transformers-cli add-new-model-like</code> to add a new model like an existing one</li>
+<li><code>transformers-cli add-new-model</code> to add a new model from our template (will look like BERT or Bart depending on the type of model you select)</li></ul>
+<p>In both cases, you will be prompted with a questionnaire to fill the basic information of your model. The second command requires to install <code>cookiecutter</code>, you can find more information on it <a href="https://github.com/huggingface/transformers/tree/main/templates/adding_a_new_model" rel="nofollow">here</a>.</p>
+<p><strong>Open a Pull Request on the main huggingface/transformers repo</strong></p>
+<p>Before starting to adapt the automatically generated code, now is the time to open a “Work in progress (WIP)” pull
+request, <em>e.g.</em> “[WIP] Add <em>brand_new_bert</em>”, in 🤗 Transformers so that you and the Hugging Face team can work
+side-by-side on integrating the model into 🤗 Transformers.</p>
+<p>You should do the following:</p>
+<ol><li>Create a branch with a descriptive name from your main branch</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git checkout -b add_brand_new_bert<!-- HTML_TAG_END --></pre></div>
+<ol start="2"><li>Commit the automatically generated code:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git add .
+git commit<!-- HTML_TAG_END --></pre></div>
+<ol start="3"><li>Fetch and rebase to current main</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git fetch upstream
+git rebase upstream/main<!-- HTML_TAG_END --></pre></div>
+<ol start="4"><li>Push the changes to your account using:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git push -u origin a-descriptive-name-for-my-changes<!-- HTML_TAG_END --></pre></div>
+<ol start="5"><li><p>Once you are satisfied, go to the webpage of your fork on GitHub. Click on “Pull request”. Make sure to add the
+GitHub handle of some members of the Hugging Face team as reviewers, so that the Hugging Face team gets notified for
+future changes.</p></li>
+<li><p>Change the PR into a draft by clicking on “Convert to draft” on the right of the GitHub pull request web page.</p></li></ol>
+<p>In the following, whenever you have done some progress, don’t forget to commit your work and push it to your account so
+that it shows in the pull request. Additionally, you should make sure to update your work with the current main from
+time to time by doing:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git fetch upstream
+git merge upstream/main<!-- HTML_TAG_END --></pre></div>
+<p>In general, all questions you might have regarding the model or your implementation should be asked in your PR and
+discussed/solved in the PR. This way, the Hugging Face team will always be notified when you are committing new code or
+if you have a question. It is often very helpful to point the Hugging Face team to your added code so that the Hugging
+Face team can efficiently understand your problem or question.</p>
+<p>To do so, you can go to the “Files changed” tab where you see all of your changes, go to a line regarding which you
+want to ask a question, and click on the “+” symbol to add a comment. Whenever a question or problem has been solved,
+you can click on the “Resolve” button of the created comment.</p>
+<p>In the same way, the Hugging Face team will open comments when reviewing your code. We recommend asking most questions
+on GitHub on your PR. For some very general questions that are not very useful for the public, feel free to ping the
+Hugging Face team by Slack or email.</p>
+<p><strong>5. Adapt the generated models code for brand_new_bert</strong></p>
+<p>At first, we will focus only on the model itself and not care about the tokenizer. All the relevant code should be
+found in the generated files <code>src/transformers/models/brand_new_bert/modeling_brand_new_bert.py</code> and
+<code>src/transformers/models/brand_new_bert/configuration_brand_new_bert.py</code>.</p>
+<p>Now you can finally start coding :). The generated code in
+<code>src/transformers/models/brand_new_bert/modeling_brand_new_bert.py</code> will either have the same architecture as BERT if
+it’s an encoder-only model or BART if it’s an encoder-decoder model. At this point, you should remind yourself what
+you’ve learned in the beginning about the theoretical aspects of the model: <em>How is the model different from BERT or
+BART?</em>”. Implement those changes which often means to change the <em>self-attention</em> layer, the order of the normalization
+layer, etc… Again, it is often useful to look at the similar architecture of already existing models in Transformers to
+get a better feeling of how your model should be implemented.</p>
+<p><strong>Note</strong> that at this point, you don’t have to be very sure that your code is fully correct or clean. Rather, it is
+advised to add a first <em>unclean</em>, copy-pasted version of the original code to
+<code>src/transformers/models/brand_new_bert/modeling_brand_new_bert.py</code> until you feel like all the necessary code is
+added. From our experience, it is much more efficient to quickly add a first version of the required code and
+improve/correct the code iteratively with the conversion script as described in the next section. The only thing that
+has to work at this point is that you can instantiate the 🤗 Transformers implementation of <em>brand_new_bert</em>, <em>i.e.</em> the
+following command should work:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BrandNewBertModel, BrandNewBertConfig
+
+model = BrandNewBertModel(BrandNewBertConfig())<!-- HTML_TAG_END --></pre></div>
+<p>The above command will create a model according to the default parameters as defined in <code>BrandNewBertConfig()</code> with
+random weights, thus making sure that the <code>init()</code> methods of all components works.</p>
+<p><strong>6. Write a conversion script</strong></p>
+<p>Next, you should write a conversion script that lets you convert the checkpoint you used to debug <em>brand_new_bert</em> in
+the original repository to a checkpoint compatible with your just created 🤗 Transformers implementation of
+<em>brand_new_bert</em>. It is not advised to write the conversion script from scratch, but rather to look through already
+existing conversion scripts in 🤗 Transformers for one that has been used to convert a similar model that was written in
+the same framework as <em>brand_new_bert</em>. Usually, it is enough to copy an already existing conversion script and
+slightly adapt it for your use case. Don’t hesitate to ask the Hugging Face team to point you to a similar already
+existing conversion script for your model.</p>
+<ul><li>If you are porting a model from TensorFlow to PyTorch, a good starting point might be BERT’s conversion script <a href="https://github.com/huggingface/transformers/blob/7acfa95afb8194f8f9c1f4d2c6028224dbed35a2/src/transformers/models/bert/modeling_bert.py#L91" rel="nofollow">here</a></li>
+<li>If you are porting a model from PyTorch to PyTorch, a good starting point might be BART’s conversion script <a href="https://github.com/huggingface/transformers/blob/main/src/transformers/models/bart/convert_bart_original_pytorch_checkpoint_to_pytorch.py" rel="nofollow">here</a></li></ul>
+<p>In the following, we’ll quickly explain how PyTorch models store layer weights and define layer names. In PyTorch, the
+name of a layer is defined by the name of the class attribute you give the layer. Let’s define a dummy model in
+PyTorch, called <code>SimpleModel</code> as follows:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn
+
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleModel</span>(nn.Module):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-built_in">super</span>().__init__()
+        self.dense = nn.Linear(<span class="hljs-number">10</span>, <span class="hljs-number">10</span>)
+        self.intermediate = nn.Linear(<span class="hljs-number">10</span>, <span class="hljs-number">10</span>)
+        self.layer_norm = nn.LayerNorm(<span class="hljs-number">10</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Now we can create an instance of this model definition which will fill all weights: <code>dense</code>, <code>intermediate</code>,
+<code>layer_norm</code> with random weights. We can print the model to see its architecture</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->model = SimpleModel()
+
+<span class="hljs-built_in">print</span>(model)<!-- HTML_TAG_END --></pre></div>
+<p>This will print out the following:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->SimpleModel(
+  (dense): Linear(<span class="hljs-attribute">in_features</span>=10, <span class="hljs-attribute">out_features</span>=10, <span class="hljs-attribute">bias</span>=<span class="hljs-literal">True</span>)
+  (intermediate): Linear(<span class="hljs-attribute">in_features</span>=10, <span class="hljs-attribute">out_features</span>=10, <span class="hljs-attribute">bias</span>=<span class="hljs-literal">True</span>)
+  (layer_norm): LayerNorm((10,), <span class="hljs-attribute">eps</span>=1e-05, <span class="hljs-attribute">elementwise_affine</span>=<span class="hljs-literal">True</span>)
+)<!-- HTML_TAG_END --></pre></div>
+<p>We can see that the layer names are defined by the name of the class attribute in PyTorch. You can print out the weight
+values of a specific layer:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-built_in">print</span>(model.dense.weight.data)<!-- HTML_TAG_END --></pre></div>
+<p>to see that the weights were randomly initialized</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tensor([[<span class="hljs-string">-0</span>.0818,  0.2207, <span class="hljs-string">-0</span>.0749, <span class="hljs-string">-0</span>.0030,  0.0045, <span class="hljs-string">-0</span>.1569, <span class="hljs-string">-0</span>.1598,  0.0212,
+         <span class="hljs-string">-0</span>.2077,  0.2157],
+        [ 0.1044,  0.0201,  0.0990,  0.2482,  0.3116,  0.2509,  0.2866, <span class="hljs-string">-0</span>.2190,
+          0.2166, <span class="hljs-string">-0</span>.0212],
+        [<span class="hljs-string">-0</span>.2000,  0.1107, <span class="hljs-string">-0</span>.1999, <span class="hljs-string">-0</span>.3119,  0.1559,  0.0993,  0.1776, <span class="hljs-string">-0</span>.1950,
+         <span class="hljs-string">-0</span>.1023, <span class="hljs-string">-0</span>.0447],
+        [<span class="hljs-string">-0</span>.0888, <span class="hljs-string">-0</span>.1092,  0.2281,  0.0336,  0.1817, <span class="hljs-string">-0</span>.0115,  0.2096,  0.1415,
+         <span class="hljs-string">-0</span>.1876, <span class="hljs-string">-0</span>.2467],
+        [ 0.2208, <span class="hljs-string">-0</span>.2352, <span class="hljs-string">-0</span>.1426, <span class="hljs-string">-0</span>.2636, <span class="hljs-string">-0</span>.2889, <span class="hljs-string">-0</span>.2061, <span class="hljs-string">-0</span>.2849, <span class="hljs-string">-0</span>.0465,
+          0.2577,  0.0402],
+        [ 0.1502,  0.2465,  0.2566,  0.0693,  0.2352, <span class="hljs-string">-0</span>.0530,  0.1859, <span class="hljs-string">-0</span>.0604,
+          0.2132,  0.1680],
+        [ 0.1733, <span class="hljs-string">-0</span>.2407, <span class="hljs-string">-0</span>.1721,  0.1484,  0.0358, <span class="hljs-string">-0</span>.0633, <span class="hljs-string">-0</span>.0721, <span class="hljs-string">-0</span>.0090,
+          0.2707, <span class="hljs-string">-0</span>.2509],
+        [<span class="hljs-string">-0</span>.1173,  0.1561,  0.2945,  0.0595, <span class="hljs-string">-0</span>.1996,  0.2988, <span class="hljs-string">-0</span>.0802,  0.0407,
+          0.1829, <span class="hljs-string">-0</span>.1568],
+        [<span class="hljs-string">-0</span>.1164, <span class="hljs-string">-0</span>.2228, <span class="hljs-string">-0</span>.0403,  0.0428,  0.1339,  0.0047,  0.1967,  0.2923,
+          0.0333, <span class="hljs-string">-0</span>.0536],
+        [<span class="hljs-string">-0</span>.1492, <span class="hljs-string">-0</span>.1616,  0.1057,  0.1950, <span class="hljs-string">-0</span>.2807, <span class="hljs-string">-0</span>.2710, <span class="hljs-string">-0</span>.1586,  0.0739,
+          0.2220,  0.2358]]).<!-- HTML_TAG_END --></pre></div>
+<p>In the conversion script, you should fill those randomly initialized weights with the exact weights of the
+corresponding layer in the checkpoint. <em>E.g.</em></p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># retrieve matching layer weights, e.g. by</span>
+<span class="hljs-comment"># recursive algorithm</span>
+layer_name = <span class="hljs-string">&quot;dense&quot;</span>
+pretrained_weight = array_of_dense_layer
+
+model_pointer = <span class="hljs-built_in">getattr</span>(model, <span class="hljs-string">&quot;dense&quot;</span>)
+
+model_pointer.weight.data = torch.from_numpy(pretrained_weight)<!-- HTML_TAG_END --></pre></div>
+<p>While doing so, you must verify that each randomly initialized weight of your PyTorch model and its corresponding
+pretrained checkpoint weight exactly match in both <strong>shape and name</strong>. To do so, it is <strong>necessary</strong> to add assert
+statements for the shape and print out the names of the checkpoints weights. E.g. you should add statements like:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">assert</span> (
+    model_pointer.weight.shape == pretrained_weight.shape
+), <span class="hljs-string">f&quot;Pointer shape of random weight <span class="hljs-subst">{model_pointer.shape}</span> and array shape of checkpoint weight <span class="hljs-subst">{pretrained_weight.shape}</span> mismatched&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>Besides, you should also print out the names of both weights to make sure they match, <em>e.g.</em></p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->logger.info(<span class="hljs-string">f&quot;Initialize PyTorch weight <span class="hljs-subst">{layer_name}</span> from <span class="hljs-subst">{pretrained_weight.name}</span>&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>If either the shape or the name doesn’t match, you probably assigned the wrong checkpoint weight to a randomly
+initialized layer of the 🤗 Transformers implementation.</p>
+<p>An incorrect shape is most likely due to an incorrect setting of the config parameters in <code>BrandNewBertConfig()</code> that
+do not exactly match those that were used for the checkpoint you want to convert. However, it could also be that
+PyTorch’s implementation of a layer requires the weight to be transposed beforehand.</p>
+<p>Finally, you should also check that <strong>all</strong> required weights are initialized and print out all checkpoint weights that
+were not used for initialization to make sure the model is correctly converted. It is completely normal, that the
+conversion trials fail with either a wrong shape statement or wrong name assignment. This is most likely because either
+you used incorrect parameters in <code>BrandNewBertConfig()</code>, have a wrong architecture in the 🤗 Transformers
+implementation, you have a bug in the <code>init()</code> functions of one of the components of the 🤗 Transformers
+implementation or you need to transpose one of the checkpoint weights.</p>
+<p>This step should be iterated with the previous step until all weights of the checkpoint are correctly loaded in the
+Transformers model. Having correctly loaded the checkpoint into the 🤗 Transformers implementation, you can then save
+the model under a folder of your choice <code>/path/to/converted/checkpoint/folder</code> that should then contain both a
+<code>pytorch_model.bin</code> file and a <code>config.json</code> file:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->model.save_pretrained(<span class="hljs-string">&quot;/path/to/converted/checkpoint/folder&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p><strong>7. Implement the forward pass</strong></p>
+<p>Having managed to correctly load the pretrained weights into the 🤗 Transformers implementation, you should now make
+sure that the forward pass is correctly implemented. In <a href="#run-a-pretrained-checkpoint-using-the-original-repository">Get familiar with the original repository</a>, you have already created a script that runs a forward
+pass of the model using the original repository. Now you should write an analogous script using the 🤗 Transformers
+implementation instead of the original one. It should look as follows:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->model = BrandNewBertModel.from_pretrained(<span class="hljs-string">&quot;/path/to/converted/checkpoint/folder&quot;</span>)
+input_ids = [<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">7</span>, <span class="hljs-number">19</span>]
+output = model(input_ids).last_hidden_states<!-- HTML_TAG_END --></pre></div>
+<p>It is very likely that the 🤗 Transformers implementation and the original model implementation don’t give the exact
+same output the very first time or that the forward pass throws an error. Don’t be disappointed - it’s expected! First,
+you should make sure that the forward pass doesn’t throw any errors. It often happens that the wrong dimensions are
+used leading to a <em>Dimensionality mismatch</em> error or that the wrong data type object is used, <em>e.g.</em> <code>torch.long</code>
+instead of <code>torch.float32</code>. Don’t hesitate to ask the Hugging Face team for help, if you don’t manage to solve
+certain errors.</p>
+<p>The final part to make sure the 🤗 Transformers implementation works correctly is to ensure that the outputs are
+equivalent to a precision of <code>1e-3</code>. First, you should ensure that the output shapes are identical, <em>i.e.</em>
+<code>outputs.shape</code> should yield the same value for the script of the 🤗 Transformers implementation and the original
+implementation. Next, you should make sure that the output values are identical as well. This one of the most difficult
+parts of adding a new model. Common mistakes why the outputs are not identical are:</p>
+<ul><li>Some layers were not added, <em>i.e.</em> an <em>activation</em> layer was not added, or the residual connection was forgotten</li>
+<li>The word embedding matrix was not tied</li>
+<li>The wrong positional embeddings are used because the original implementation uses on offset</li>
+<li>Dropout is applied during the forward pass. To fix this make sure <em>model.training is False</em> and that no dropout
+layer is falsely activated during the forward pass, <em>i.e.</em> pass <em>self.training</em> to <a href="https://pytorch.org/docs/stable/nn.functional.html?highlight=dropout#torch.nn.functional.dropout" rel="nofollow">PyTorch’s functional dropout</a></li></ul>
+<p>The best way to fix the problem is usually to look at the forward pass of the original implementation and the 🤗
+Transformers implementation side-by-side and check if there are any differences. Ideally, you should debug/print out
+intermediate outputs of both implementations of the forward pass to find the exact position in the network where the 🤗
+Transformers implementation shows a different output than the original implementation. First, make sure that the
+hard-coded <code>input_ids</code> in both scripts are identical. Next, verify that the outputs of the first transformation of
+the <code>input_ids</code> (usually the word embeddings) are identical. And then work your way up to the very last layer of the
+network. At some point, you will notice a difference between the two implementations, which should point you to the bug
+in the 🤗 Transformers implementation. From our experience, a simple and efficient way is to add many print statements
+in both the original implementation and 🤗 Transformers implementation, at the same positions in the network
+respectively, and to successively remove print statements showing the same values for intermediate presentations.</p>
+<p>When you’re confident that both implementations yield the same output, verifying the outputs with
+<code>torch.allclose(original_output, output, atol=1e-3)</code>, you’re done with the most difficult part! Congratulations - the
+work left to be done should be a cakewalk 😊.</p>
+<p><strong>8. Adding all necessary model tests</strong></p>
+<p>At this point, you have successfully added a new model. However, it is very much possible that the model does not yet
+fully comply with the required design. To make sure, the implementation is fully compatible with 🤗 Transformers, all
+common tests should pass. The Cookiecutter should have automatically added a test file for your model, probably under
+the same <code>tests/test_modeling_brand_new_bert.py</code>. Run this test file to verify that all common tests pass:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->pytest tests/test_modeling_brand_new_bert.py<!-- HTML_TAG_END --></pre></div>
+<p>Having fixed all common tests, it is now crucial to ensure that all the nice work you have done is well tested, so that</p>
+<ul><li>a) The community can easily understand your work by looking at specific tests of <em>brand_new_bert</em></li>
+<li>b) Future changes to your model will not break any important feature of the model.</li></ul>
+<p>At first, integration tests should be added. Those integration tests essentially do the same as the debugging scripts
+you used earlier to implement the model to 🤗 Transformers. A template of those model tests is already added by the
+Cookiecutter, called <code>BrandNewBertModelIntegrationTests</code> and only has to be filled out by you. To ensure that those
+tests are passing, run</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->RUN_SLOW=1 pytest -sv tests/test_modeling_brand_new_bert.py::BrandNewBertModelIntegrationTests<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>In case you are using Windows, you should replace <code>RUN_SLOW=1</code> with <code>SET RUN_SLOW=1</code></p></div>
+<p>Second, all features that are special to <em>brand_new_bert</em> should be tested additionally in a separate test under
+<code>BrandNewBertModelTester</code>/`<code>BrandNewBertModelTest</code>. This part is often forgotten but is extremely useful in two
+ways:</p>
+<ul><li>It helps to transfer the knowledge you have acquired during the model addition to the community by showing how the
+special features of <em>brand_new_bert</em> should work.</li>
+<li>Future contributors can quickly test changes to the model by running those special tests.</li></ul>
+<p><strong>9. Implement the tokenizer</strong></p>
+<p>Next, we should add the tokenizer of <em>brand_new_bert</em>. Usually, the tokenizer is equivalent or very similar to an
+already existing tokenizer of 🤗 Transformers.</p>
+<p>It is very important to find/extract the original tokenizer file and to manage to load this file into the 🤗
+Transformers’ implementation of the tokenizer.</p>
+<p>To ensure that the tokenizer works correctly, it is recommended to first create a script in the original repository
+that inputs a string and returns the `input_ids“. It could look similar to this (in pseudo-code):</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->input_str = <span class="hljs-string">&quot;This is a long example input string containing special characters .$?-, numbers 2872 234 12 and words.&quot;</span>
+model = BrandNewBertModel.load_pretrained_checkpoint(<span class="hljs-string">&quot;/path/to/checkpoint/&quot;</span>)
+input_ids = model.tokenize(input_str)<!-- HTML_TAG_END --></pre></div>
+<p>You might have to take a deeper look again into the original repository to find the correct tokenizer function or you
+might even have to do changes to your clone of the original repository to only output the <code>input_ids</code>. Having written
+a functional tokenization script that uses the original repository, an analogous script for 🤗 Transformers should be
+created. It should look similar to this:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BrandNewBertTokenizer
+
+input_str = <span class="hljs-string">&quot;This is a long example input string containing special characters .$?-, numbers 2872 234 12 and words.&quot;</span>
+
+tokenizer = BrandNewBertTokenizer.from_pretrained(<span class="hljs-string">&quot;/path/to/tokenizer/folder/&quot;</span>)
+
+input_ids = tokenizer(input_str).input_ids<!-- HTML_TAG_END --></pre></div>
+<p>When both <code>input_ids</code> yield the same values, as a final step a tokenizer test file should also be added.</p>
+<p>Analogous to the modeling test files of <em>brand_new_bert</em>, the tokenization test files of <em>brand_new_bert</em> should
+contain a couple of hard-coded integration tests.</p>
+<p><strong>10. Run End-to-end integration tests</strong></p>
+<p>Having added the tokenizer, you should also add a couple of end-to-end integration tests using both the model and the
+tokenizer to <code>tests/test_modeling_brand_new_bert.py</code> in 🤗 Transformers. Such a test should show on a meaningful
+text-to-text sample that the 🤗 Transformers implementation works as expected. A meaningful text-to-text sample can
+include <em>e.g.</em> a source-to-target-translation pair, an article-to-summary pair, a question-to-answer pair, etc… If none
+of the ported checkpoints has been fine-tuned on a downstream task it is enough to simply rely on the model tests. In a
+final step to ensure that the model is fully functional, it is advised that you also run all tests on GPU. It can
+happen that you forgot to add some <code>.to(self.device)</code> statements to internal tensors of the model, which in such a
+test would show in an error. In case you have no access to a GPU, the Hugging Face team can take care of running those
+tests for you.</p>
+<p><strong>11. Add Docstring</strong></p>
+<p>Now, all the necessary functionality for <em>brand_new_bert</em> is added - you’re almost done! The only thing left to add is
+a nice docstring and a doc page. The Cookiecutter should have added a template file called
+<code>docs/source/model_doc/brand_new_bert.rst</code> that you should fill out. Users of your model will usually first look at
+this page before using your model. Hence, the documentation must be understandable and concise. It is very useful for
+the community to add some <em>Tips</em> to show how the model should be used. Don’t hesitate to ping the Hugging Face team
+regarding the docstrings.</p>
+<p>Next, make sure that the docstring added to <code>src/transformers/models/brand_new_bert/modeling_brand_new_bert.py</code> is
+correct and included all necessary inputs and outputs. We have a detailed guide about writing documentation and our docstring format <a href="writing-documentation">here</a>. It is always to good to remind oneself that documentation should
+be treated at least as carefully as the code in 🤗 Transformers since the documentation is usually the first contact
+point of the community with the model.</p>
+<p><strong>Code refactor</strong></p>
+<p>Great, now you have added all the necessary code for <em>brand_new_bert</em>. At this point, you should correct some potential
+incorrect code style by running:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->make style<!-- HTML_TAG_END --></pre></div>
+<p>and verify that your coding style passes the quality check:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->make quality<!-- HTML_TAG_END --></pre></div>
+<p>There are a couple of other very strict design tests in 🤗 Transformers that might still be failing, which shows up in
+the tests of your pull request. This is often because of some missing information in the docstring or some incorrect
+naming. The Hugging Face team will surely help you if you’re stuck here.</p>
+<p>Lastly, it is always a good idea to refactor one’s code after having ensured that the code works correctly. With all
+tests passing, now it’s a good time to go over the added code again and do some refactoring.</p>
+<p>You have now finished the coding part, congratulation! 🎉 You are Awesome! 😎</p>
+<p><strong>12. Upload the models to the model hub</strong></p>
+<p>In this final part, you should convert and upload all checkpoints to the model hub and add a model card for each
+uploaded model checkpoint. You can get familiar with the hub functionalities by reading our <a href="model_sharing">Model sharing and uploading Page</a>. You should work alongside the Hugging Face team here to decide on a fitting name for each
+checkpoint and to get the required access rights to be able to upload the model under the author’s organization of
+<em>brand_new_bert</em>. The <code>push_to_hub</code> method, present in all models in <code>transformers</code>, is a quick and efficient way to push your checkpoint to the hub. A little snippet is pasted below:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->brand_new_bert.push_to_hub(<span class="hljs-string">&quot;brand_new_bert&quot;</span>)
+<span class="hljs-comment"># Uncomment the following line to push to an organization.</span>
+<span class="hljs-comment"># brand_new_bert.push_to_hub(&quot;&lt;organization&gt;/brand_new_bert&quot;)</span><!-- HTML_TAG_END --></pre></div>
+<p>It is worth spending some time to create fitting model cards for each checkpoint. The model cards should highlight the
+specific characteristics of this particular checkpoint, <em>e.g.</em> On which dataset was the checkpoint
+pretrained/fine-tuned on? On what down-stream task should the model be used? And also include some code on how to
+correctly use the model.</p>
+<p><strong>13. (Optional) Add notebook</strong></p>
+<p>It is very helpful to add a notebook that showcases in-detail how <em>brand_new_bert</em> can be used for inference and/or
+fine-tuned on a downstream task. This is not mandatory to merge your PR, but very useful for the community.</p>
+<p><strong>14. Submit your finished PR</strong></p>
+<p>You’re done programming now and can move to the last step, which is getting your PR merged into main. Usually, the
+Hugging Face team should have helped you already at this point, but it is worth taking some time to give your finished
+PR a nice description and eventually add comments to your code, if you want to point out certain design choices to your
+reviewer.</p>
+<h3 class="relative group"><a id="share-your-work" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#share-your-work"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Share your work!!
+	</span></h3>
+
+<p>Now, it’s time to get some credit from the community for your work! Having completed a model addition is a major
+contribution to Transformers and the whole NLP community. Your code and the ported pre-trained models will certainly be
+used by hundreds and possibly even thousands of developers and researchers. You should be proud of your work and share
+your achievement with the community.</p>
+<p><strong>You have made another model that is super easy to access for everyone in the community! 🤯</strong></p>
+
+
+		<script type="module" data-hydrate="gok3m7">
+		import { start } from "/docs/transformers/v4.22.1/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="gok3m7"]').parentNode,
+			paths: {"base":"/docs/transformers/v4.22.1/en","assets":"/docs/transformers/v4.22.1/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/transformers/v4.22.1/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/transformers/v4.22.1/en/_app/pages/add_new_model.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
