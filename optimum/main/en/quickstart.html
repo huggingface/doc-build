@@ -23,18 +23,15 @@
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
 	Copied</div></button></div>
-	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> os
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTModelForSequenceClassification
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTModelForSequenceClassification
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
 <span class="hljs-meta">&gt;&gt;&gt; </span>model_checkpoint = <span class="hljs-string">&quot;distilbert-base-uncased-finetuned-sst-2-english&quot;</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>save_directory = <span class="hljs-string">&quot;tmp/onnx/&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>file_name = <span class="hljs-string">&quot;model.onnx&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_path = os.path.join(save_directory, <span class="hljs-string">&quot;model.onnx&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Load a model from transformers and export it through the ONNX format</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = ORTModelForSequenceClassification.from_pretrained(model_checkpoint, from_transformers=<span class="hljs-literal">True</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Load a model from transformers and export it to ONNX</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>ort_model = ORTModelForSequenceClassification.from_pretrained(model_checkpoint, from_transformers=<span class="hljs-literal">True</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Save the onnx model and tokenizer</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>model.save_pretrained(save_directory, file_name=file_name)
+<span class="hljs-meta">&gt;&gt;&gt; </span>ort_model.save_pretrained(save_directory)
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.save_pretrained(save_directory)<!-- HTML_TAG_END --></pre></div>
 <p>Let’s see now how we can apply dynamic quantization with ONNX Runtime:</p>
 
@@ -45,21 +42,17 @@
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTQuantizer
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Define the quantization methodology</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>qconfig = AutoQuantizationConfig.arm64(is_static=<span class="hljs-literal">False</span>, per_channel=<span class="hljs-literal">False</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>quantizer = ORTQuantizer.from_pretrained(model_checkpoint, feature=<span class="hljs-string">&quot;sequence-classification&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>quantizer = ORTQuantizer.from_pretrained(ort_model)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Apply dynamic quantization on the model</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>quantizer.export(
-<span class="hljs-meta">... </span>    onnx_model_path=onnx_path,
-<span class="hljs-meta">... </span>    onnx_quantized_model_output_path=os.path.join(save_directory, <span class="hljs-string">&quot;model-quantized.onnx&quot;</span>),
-<span class="hljs-meta">... </span>    quantization_config=qconfig,
-<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
-<p>In this example, we’ve quantized a model from the Hugging Face Hub, but it could also be a path to a local model directory. The <code>feature</code> argument in the <code>from_pretrained()</code> method corresponds to the type of task that we wish to quantize the model for. The result from applying the <code>export()</code> method is a <code>model-quantized.onnx</code> file that can be used to run inference. Here’s an example of how to load an ONNX Runtime model and generate predictions with it:</p>
+<span class="hljs-meta">&gt;&gt;&gt; </span>quantizer.quantize(save_dir=save_directory, quantization_config=qconfig)<!-- HTML_TAG_END --></pre></div>
+<p>In this example, we’ve quantized a model from the Hugging Face Hub, but it could also be a path to a local model directory. The result from applying the <code>quantize()</code> method is a <code>model_quantized.onnx</code> file that can be used to run inference. Here’s an example of how to load an ONNX Runtime model and generate predictions with it:</p>
 
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
 	Copied</div></button></div>
 	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTModelForSequenceClassification
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline, AutoTokenizer
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = ORTModelForSequenceClassification.from_pretrained(save_directory, file_name=<span class="hljs-string">&quot;model-quantized.onnx&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = ORTModelForSequenceClassification.from_pretrained(save_directory, file_name=<span class="hljs-string">&quot;model_quantized.onnx&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(save_directory)
 <span class="hljs-meta">&gt;&gt;&gt; </span>cls_pipeline = pipeline(<span class="hljs-string">&quot;text-classification&quot;</span>, model=model, tokenizer=tokenizer)
 <span class="hljs-meta">&gt;&gt;&gt; </span>results = cls_pipeline(<span class="hljs-string">&quot;I love burritos!&quot;</span>)<!-- HTML_TAG_END --></pre></div>
@@ -77,11 +70,15 @@
 	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> partial
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime.configuration <span class="hljs-keyword">import</span> AutoCalibrationConfig
 
+<span class="hljs-comment"># Define the processing function to apply to each example after loading the dataset</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">preprocess_fn</span>(<span class="hljs-params">ex, tokenizer</span>):
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> tokenizer(ex[<span class="hljs-string">&quot;sentence&quot;</span>])
+
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Create the calibration dataset</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>calibration_dataset = quantizer.get_calibration_dataset(
 <span class="hljs-meta">... </span>    <span class="hljs-string">&quot;glue&quot;</span>,
 <span class="hljs-meta">... </span>    dataset_config_name=<span class="hljs-string">&quot;sst2&quot;</span>,
-<span class="hljs-meta">... </span>    preprocess_function=partial(preprocess_fn, tokenizer=quantizer.preprocessor),
+<span class="hljs-meta">... </span>    preprocess_function=partial(preprocess_fn, tokenizer=tokenizer),
 <span class="hljs-meta">... </span>    num_samples=<span class="hljs-number">50</span>,
 <span class="hljs-meta">... </span>    dataset_split=<span class="hljs-string">&quot;train&quot;</span>,
 <span class="hljs-meta">... </span>)
@@ -91,13 +88,11 @@
 <span class="hljs-meta">&gt;&gt;&gt; </span>ranges = quantizer.fit(
 <span class="hljs-meta">... </span>    dataset=calibration_dataset,
 <span class="hljs-meta">... </span>    calibration_config=calibration_config,
-<span class="hljs-meta">... </span>    onnx_model_path=onnx_path,
 <span class="hljs-meta">... </span>    operators_to_quantize=qconfig.operators_to_quantize,
 <span class="hljs-meta">... </span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Apply static quantization on the model</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>quantizer.export(
-<span class="hljs-meta">... </span>    onnx_model_path=onnx_path,
-<span class="hljs-meta">... </span>    onnx_quantized_model_output_path=os.path.join(save_directory, <span class="hljs-string">&quot;model-quantized.onnx&quot;</span>),
+<span class="hljs-meta">&gt;&gt;&gt; </span>quantizer.quantize(
+<span class="hljs-meta">... </span>    save_dir=save_directory,
 <span class="hljs-meta">... </span>    calibration_tensors_range=ranges,
 <span class="hljs-meta">... </span>    quantization_config=qconfig,
 <span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
@@ -117,29 +112,23 @@
 	Copied</div></button></div>
 	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTOptimizer
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>optimizer = ORTOptimizer.from_pretrained(
-<span class="hljs-meta">... </span>    model_checkpoint,
-<span class="hljs-meta">... </span>    feature=<span class="hljs-string">&quot;sequence-classification&quot;</span>,
-<span class="hljs-meta">... </span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Export the optimized model</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>optimizer.export(
-<span class="hljs-meta">... </span>    onnx_model_path=onnx_path,
-<span class="hljs-meta">... </span>    onnx_optimized_model_output_path=os.path.join(save_directory, <span class="hljs-string">&quot;model-optimized.onnx&quot;</span>),
-<span class="hljs-meta">... </span>    optimization_config=optimization_config,
-<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimizer = ORTOptimizer.from_pretrained(ort_model)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Optimize the model</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>optimizer.optimize(save_dir=save_directory, optimization_config=optimization_config)<!-- HTML_TAG_END --></pre></div>
 <p>And that’s it - the model is now optimized and ready for inference! As you can see, the process is similar in each case:</p>
 <ol><li>Define the optimization / quantization strategies via an <code>OptimizationConfig</code> / <code>QuantizationConfig</code> object</li>
 <li>Instantiate a <code>ORTQuantizer</code> or <code>ORTOptimizer</code> class</li>
-<li>Apply the <code>export()</code> method</li>
+<li>Apply the <code>quantize()</code> or <code>optimize()</code> method</li>
 <li>Run inference</li></ol>
 <p>Check out the <a href="https://github.com/huggingface/optimum/tree/main/examples" rel="nofollow"><code>examples</code></a> directory for more sophisticated usage.</p>
 <p>Happy optimising 🤗!</p>
 
 
-		<script type="module" data-hydrate="3fsov5">
+		<script type="module" data-hydrate="bbnog1">
 		import { start } from "/docs/optimum/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="3fsov5"]').parentNode,
+			target: document.querySelector('[data-hydrate="bbnog1"]').parentNode,
 			paths: {"base":"/docs/optimum/main/en","assets":"/docs/optimum/main/en"},
 			session: {},
 			route: false,
