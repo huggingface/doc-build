@@ -345,13 +345,13 @@ width).</li>
 <p><a
   href="/docs/transformers/main/en/main_classes/feature_extractor#transformers.BatchFeature"
 >BatchFeature</a></p>
-`}}),De=new yt({props:{warning:!0,$$slots:{default:[Ch]},$$scope:{ctx:F}}}),eo=new k({props:{name:"post_process_semantic_segmentation",anchor:"transformers.BeitFeatureExtractor.post_process_semantic_segmentation",parameters:[{name:"outputs",val:""},{name:"target_sizes",val:": typing.Union[transformers.utils.generic.TensorType, typing.List[typing.Tuple]] = None"}],parametersDescription:[{anchor:"transformers.BeitFeatureExtractor.post_process_semantic_segmentation.outputs",description:`<strong>outputs</strong> (<a href="/docs/transformers/main/en/model_doc/beit#transformers.BeitForSemanticSegmentation">BeitForSemanticSegmentation</a>) &#x2014;
-Raw outputs of the model.`,name:"outputs"},{anchor:"transformers.BeitFeatureExtractor.post_process_semantic_segmentation.target_sizes",description:`<strong>target_sizes</strong> (<code>torch.Tensor</code> of shape <code>(batch_size, 2)</code> or <code>List[Tuple]</code> of length <code>batch_size</code>, <em>optional</em>) &#x2014;
-Torch Tensor (or list) corresponding to the requested final size (h, w) of each prediction. If left to
+`}}),De=new yt({props:{warning:!0,$$slots:{default:[Ch]},$$scope:{ctx:F}}}),eo=new k({props:{name:"post_process_semantic_segmentation",anchor:"transformers.BeitFeatureExtractor.post_process_semantic_segmentation",parameters:[{name:"outputs",val:""},{name:"target_sizes",val:": typing.List[typing.Tuple] = None"}],parametersDescription:[{anchor:"transformers.BeitFeatureExtractor.post_process_semantic_segmentation.outputs",description:`<strong>outputs</strong> (<a href="/docs/transformers/main/en/model_doc/beit#transformers.BeitForSemanticSegmentation">BeitForSemanticSegmentation</a>) &#x2014;
+Raw outputs of the model.`,name:"outputs"},{anchor:"transformers.BeitFeatureExtractor.post_process_semantic_segmentation.target_sizes",description:`<strong>target_sizes</strong> (<code>List[Tuple]</code> of length <code>batch_size</code>, <em>optional</em>) &#x2014;
+List of tuples corresponding to the requested final size (height, width) of each prediction. If left to
 None, predictions will not be resized.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/beit/feature_extraction_beit.py#L229",returnDescription:`
-<p><code>torch.Tensor</code> of shape <code>(batch_size, 2)</code> or <code>List[torch.Tensor]</code> of length
-<code>batch_size</code>, where each item is a semantic segmentation map of of the corresponding target_sizes entry (if
-<code>target_sizes</code> is specified). Each entry of each <code>torch.Tensor</code> correspond to a semantic class id.</p>
+<p><code>List[torch.Tensor]</code> of length <code>batch_size</code>, where each item is a semantic
+segmentation map of shape (height, width) corresponding to the target_sizes entry (if <code>target_sizes</code> is
+specified). Each entry of each <code>torch.Tensor</code> correspond to a semantic class id.</p>
 `,returnType:`
 <p>semantic_segmentation</p>
 `}}),oo=new Q({}),ao=new k({props:{name:"class transformers.BeitModel",anchor:"transformers.BeitModel",parameters:[{name:"config",val:": BeitConfig"},{name:"add_pooling_layer",val:": bool = True"}],parametersDescription:[{anchor:"transformers.BeitModel.config",description:`<strong>config</strong> (<a href="/docs/transformers/main/en/model_doc/beit#transformers.BeitConfig">BeitConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
