@@ -1,0 +1,127 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;evaluate-predictions&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;load-metric&quot;,&quot;title&quot;:&quot;Load metric&quot;},{&quot;local&quot;:&quot;select-a-configuration&quot;,&quot;title&quot;:&quot;Select a configuration&quot;},{&quot;local&quot;:&quot;metrics-object&quot;,&quot;title&quot;:&quot;Metrics object&quot;},{&quot;local&quot;:&quot;compute-metric&quot;,&quot;title&quot;:&quot;Compute metric&quot;}],&quot;title&quot;:&quot;Evaluate predictions&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/pages/metrics.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+<h1 class="relative group"><a id="evaluate-predictions" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#evaluate-predictions"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Evaluate predictions
+	</span></h1>
+
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>Metrics is deprecated in 🤗 Datasets. To learn more about how to use metrics, take a look at the library 🤗 <a href="https://huggingface.co/docs/evaluate/index" rel="nofollow">Evaluate</a>! In addition to metrics, you can find more tools for evaluating models and datasets.</p></div>
+<p>🤗 Datasets provides various common and NLP-specific <a href="https://huggingface.co/metrics" rel="nofollow">metrics</a> for you to measure your models performance. In this section of the tutorials, you will load a metric and use it to evaluate your models predictions.</p>
+<p>You can see what metrics are available with <a href="/docs/datasets/v2.5.1/en/package_reference/loading_methods#datasets.list_metrics">list_metrics()</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> list_metrics
+<span class="hljs-meta">&gt;&gt;&gt; </span>metrics_list = list_metrics()
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">len</span>(metrics_list)
+<span class="hljs-number">28</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(metrics_list)
+[<span class="hljs-string">&#x27;accuracy&#x27;</span>, <span class="hljs-string">&#x27;bertscore&#x27;</span>, <span class="hljs-string">&#x27;bleu&#x27;</span>, <span class="hljs-string">&#x27;bleurt&#x27;</span>, <span class="hljs-string">&#x27;cer&#x27;</span>, <span class="hljs-string">&#x27;comet&#x27;</span>, <span class="hljs-string">&#x27;coval&#x27;</span>, <span class="hljs-string">&#x27;cuad&#x27;</span>, <span class="hljs-string">&#x27;f1&#x27;</span>, <span class="hljs-string">&#x27;gleu&#x27;</span>, <span class="hljs-string">&#x27;glue&#x27;</span>, <span class="hljs-string">&#x27;indic_glue&#x27;</span>, <span class="hljs-string">&#x27;matthews_correlation&#x27;</span>, <span class="hljs-string">&#x27;meteor&#x27;</span>, <span class="hljs-string">&#x27;pearsonr&#x27;</span>, <span class="hljs-string">&#x27;precision&#x27;</span>, <span class="hljs-string">&#x27;recall&#x27;</span>, <span class="hljs-string">&#x27;rouge&#x27;</span>, <span class="hljs-string">&#x27;sacrebleu&#x27;</span>, <span class="hljs-string">&#x27;sari&#x27;</span>, <span class="hljs-string">&#x27;seqeval&#x27;</span>, <span class="hljs-string">&#x27;spearmanr&#x27;</span>, <span class="hljs-string">&#x27;squad&#x27;</span>, <span class="hljs-string">&#x27;squad_v2&#x27;</span>, <span class="hljs-string">&#x27;super_glue&#x27;</span>, <span class="hljs-string">&#x27;wer&#x27;</span>, <span class="hljs-string">&#x27;wiki_split&#x27;</span>, <span class="hljs-string">&#x27;xnli&#x27;</span>]<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="load-metric" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#load-metric"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Load metric
+	</span></h2>
+
+<p>It is very easy to load a metric with 🤗 Datasets. In fact, you will notice that it is very similar to loading a dataset! Load a metric from the Hub with <a href="/docs/datasets/v2.5.1/en/package_reference/loading_methods#datasets.load_metric">load_metric()</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_metric
+<span class="hljs-meta">&gt;&gt;&gt; </span>metric = load_metric(<span class="hljs-string">&#x27;glue&#x27;</span>, <span class="hljs-string">&#x27;mrpc&#x27;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>This will load the metric associated with the MRPC dataset from the GLUE benchmark.</p>
+<h2 class="relative group"><a id="select-a-configuration" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#select-a-configuration"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Select a configuration
+	</span></h2>
+
+<p>If you are using a benchmark dataset, you need to select a metric that is associated with the configuration you are using. Select a metric configuration by providing the configuration name:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>metric = load_metric(<span class="hljs-string">&#x27;glue&#x27;</span>, <span class="hljs-string">&#x27;mrpc&#x27;</span>)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="metrics-object" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#metrics-object"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Metrics object
+	</span></h2>
+
+<p>Before you begin using a <a href="/docs/datasets/v2.5.1/en/package_reference/main_classes#datasets.Metric">Metric</a> object, you should get to know it a little better. As with a dataset, you can return some basic information about a metric. For example, access the <code>inputs_description</code> parameter in <a href="/docs/datasets/v2.5.1/en/package_reference/main_classes#datasets.MetricInfo">datasets.MetricInfo</a> to get more information about a metrics expected input format and some usage examples:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(metric.inputs_description)
+Compute GLUE evaluation metric associated to each GLUE dataset.
+Args:
+    predictions: <span class="hljs-built_in">list</span> of predictions to score.
+        Each translation should be tokenized into a <span class="hljs-built_in">list</span> of tokens.
+    references: <span class="hljs-built_in">list</span> of lists of references <span class="hljs-keyword">for</span> each translation.
+        Each reference should be tokenized into a <span class="hljs-built_in">list</span> of tokens.
+Returns: depending on the GLUE subset, one <span class="hljs-keyword">or</span> several of:
+    <span class="hljs-string">&quot;accuracy&quot;</span>: Accuracy
+    <span class="hljs-string">&quot;f1&quot;</span>: F1 score
+    <span class="hljs-string">&quot;pearson&quot;</span>: Pearson Correlation
+    <span class="hljs-string">&quot;spearmanr&quot;</span>: Spearman Correlation
+    <span class="hljs-string">&quot;matthews_correlation&quot;</span>: Matthew Correlation
+Examples:
+    &gt;&gt;&gt; glue_metric = datasets.load_metric(<span class="hljs-string">&#x27;glue&#x27;</span>, <span class="hljs-string">&#x27;sst2&#x27;</span>)  <span class="hljs-comment"># &#x27;sst2&#x27; or any of [&quot;mnli&quot;, &quot;mnli_mismatched&quot;, &quot;mnli_matched&quot;, &quot;qnli&quot;, &quot;rte&quot;, &quot;wnli&quot;, &quot;hans&quot;]</span>
+    &gt;&gt;&gt; references = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+    &gt;&gt;&gt; predictions = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+    &gt;&gt;&gt; results = glue_metric.compute(predictions=predictions, references=references)
+    &gt;&gt;&gt; <span class="hljs-built_in">print</span>(results)
+    {<span class="hljs-string">&#x27;accuracy&#x27;</span>: <span class="hljs-number">1.0</span>}
+    ...
+    &gt;&gt;&gt; glue_metric = datasets.load_metric(<span class="hljs-string">&#x27;glue&#x27;</span>, <span class="hljs-string">&#x27;mrpc&#x27;</span>)  <span class="hljs-comment"># &#x27;mrpc&#x27; or &#x27;qqp&#x27;</span>
+    &gt;&gt;&gt; references = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+    &gt;&gt;&gt; predictions = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+    &gt;&gt;&gt; results = glue_metric.compute(predictions=predictions, references=references)
+    &gt;&gt;&gt; <span class="hljs-built_in">print</span>(results)
+    {<span class="hljs-string">&#x27;accuracy&#x27;</span>: <span class="hljs-number">1.0</span>, <span class="hljs-string">&#x27;f1&#x27;</span>: <span class="hljs-number">1.0</span>}
+    ...<!-- HTML_TAG_END --></pre></div>
+<p>Notice for the MRPC configuration, the metric expects the input format to be zero or one. For a complete list of attributes you can return with your metric, take a look at <a href="/docs/datasets/v2.5.1/en/package_reference/main_classes#datasets.MetricInfo">MetricInfo</a>.</p>
+<h2 class="relative group"><a id="compute-metric" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#compute-metric"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Compute metric
+	</span></h2>
+
+<p>Once you have loaded a metric, you are ready to use it to evaluate a models predictions. Provide the model predictions and references to <a href="/docs/datasets/v2.5.1/en/package_reference/main_classes#datasets.Metric.compute">compute()</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>model_predictions = model(model_inputs)
+<span class="hljs-meta">&gt;&gt;&gt; </span>final_score = metric.compute(predictions=model_predictions, references=gold_references)<!-- HTML_TAG_END --></pre></div>
+
+
+		<script type="module" data-hydrate="9u10io">
+		import { start } from "/docs/datasets/v2.5.1/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="9u10io"]').parentNode,
+			paths: {"base":"/docs/datasets/v2.5.1/en","assets":"/docs/datasets/v2.5.1/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/datasets/v2.5.1/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/datasets/v2.5.1/en/_app/pages/metrics.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>

@@ -1,0 +1,171 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;search-index&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;faiss&quot;,&quot;title&quot;:&quot;FAISS&quot;},{&quot;local&quot;:&quot;elasticsearch&quot;,&quot;title&quot;:&quot;ElasticSearch&quot;}],&quot;title&quot;:&quot;Search index&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/pages/faiss_es.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.1/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+<h1 class="relative group"><a id="search-index" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#search-index"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Search index
+	</span></h1>
+
+<p><a href="https://github.com/facebookresearch/faiss" rel="nofollow">FAISS</a> and <a href="https://www.elastic.co/elasticsearch/" rel="nofollow">ElasticSearch</a> enables searching for examples in a dataset. This can be useful when you want to retrieve specific examples from a dataset that are relevant to your NLP task. For example, if you are working on a Open Domain Question Answering task, you may want to only return examples that are relevant to answering your question.</p>
+<p>This guide will show you how to build an index for your dataset that will allow you to search it.</p>
+<h2 class="relative group"><a id="faiss" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#faiss"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>FAISS
+	</span></h2>
+
+<p>FAISS retrieves documents based on the similarity of their vector representations. In this example, you will generate the vector representations with the <a href="https://huggingface.co/transformers/model_doc/dpr.html" rel="nofollow">DPR</a> model.</p>
+<ol><li>Download the DPR model from 🤗 Transformers:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DPRContextEncoder, DPRContextEncoderTokenizer
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+<span class="hljs-meta">&gt;&gt;&gt; </span>torch.set_grad_enabled(<span class="hljs-literal">False</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>ctx_encoder = DPRContextEncoder.from_pretrained(<span class="hljs-string">&quot;facebook/dpr-ctx_encoder-single-nq-base&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>ctx_tokenizer = DPRContextEncoderTokenizer.from_pretrained(<span class="hljs-string">&quot;facebook/dpr-ctx_encoder-single-nq-base&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<ol start="2"><li>Load your dataset and compute the vector representations:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds = load_dataset(<span class="hljs-string">&#x27;crime_and_punish&#x27;</span>, split=<span class="hljs-string">&#x27;train[:100]&#x27;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds_with_embeddings = ds.<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> example: {<span class="hljs-string">&#x27;embeddings&#x27;</span>: ctx_encoder(**ctx_tokenizer(example[<span class="hljs-string">&quot;line&quot;</span>], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>))[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].numpy()})<!-- HTML_TAG_END --></pre></div>
+<ol start="3"><li>Create the index with <a href="/docs/datasets/v2.5.1/en/package_reference/main_classes#datasets.Dataset.add_faiss_index">Dataset.add_faiss_index()</a>:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>ds_with_embeddings.add_faiss_index(column=<span class="hljs-string">&#x27;embeddings&#x27;</span>)<!-- HTML_TAG_END --></pre></div>
+<ol start="4"><li>Now you can query your dataset with the <code>embeddings</code> index. Load the DPR Question Encoder, and search for a question with <a href="/docs/datasets/v2.5.1/en/package_reference/main_classes#datasets.Dataset.get_nearest_examples">Dataset.get_nearest_examples()</a>:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DPRQuestionEncoder, DPRQuestionEncoderTokenizer
+<span class="hljs-meta">&gt;&gt;&gt; </span>q_encoder = DPRQuestionEncoder.from_pretrained(<span class="hljs-string">&quot;facebook/dpr-question_encoder-single-nq-base&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>q_tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(<span class="hljs-string">&quot;facebook/dpr-question_encoder-single-nq-base&quot;</span>)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>question = <span class="hljs-string">&quot;Is it serious ?&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>question_embedding = q_encoder(**q_tokenizer(question, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>))[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].numpy()
+<span class="hljs-meta">&gt;&gt;&gt; </span>scores, retrieved_examples = ds_with_embeddings.get_nearest_examples(<span class="hljs-string">&#x27;embeddings&#x27;</span>, question_embedding, k=<span class="hljs-number">10</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>retrieved_examples[<span class="hljs-string">&quot;line&quot;</span>][<span class="hljs-number">0</span>]
+<span class="hljs-string">&#x27;_that_ serious? It is not serious at all. It’s simply a fantasy to amuse\r\n&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<ol start="5"><li>You can access the index with <a href="/docs/datasets/v2.5.1/en/package_reference/main_classes#datasets.Dataset.get_index">Dataset.get_index()</a> and use it for special operations, e.g. query it using <code>range_search</code>:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>faiss_index = ds_with_embeddings.get_index(<span class="hljs-string">&#x27;embeddings&#x27;</span>).faiss_index
+<span class="hljs-meta">&gt;&gt;&gt; </span>limits, distances, indices = faiss_index.range_search(x=question_embedding.reshape(<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>), thresh=<span class="hljs-number">0.95</span>)<!-- HTML_TAG_END --></pre></div>
+<ol start="6"><li>When you are done querying, save the index on disk with <a href="/docs/datasets/v2.5.1/en/package_reference/main_classes#datasets.Dataset.save_faiss_index">Dataset.save_faiss_index()</a>:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>ds_with_embeddings.save_faiss_index(<span class="hljs-string">&#x27;embeddings&#x27;</span>, <span class="hljs-string">&#x27;my_index.faiss&#x27;</span>)<!-- HTML_TAG_END --></pre></div>
+<ol start="7"><li>Reload it at a later time with <a href="/docs/datasets/v2.5.1/en/package_reference/main_classes#datasets.Dataset.load_faiss_index">Dataset.load_faiss_index()</a>:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>ds = load_dataset(<span class="hljs-string">&#x27;crime_and_punish&#x27;</span>, split=<span class="hljs-string">&#x27;train[:100]&#x27;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds.load_faiss_index(<span class="hljs-string">&#x27;embeddings&#x27;</span>, <span class="hljs-string">&#x27;my_index.faiss&#x27;</span>)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="elasticsearch" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#elasticsearch"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>ElasticSearch
+	</span></h2>
+
+<p>Unlike FAISS, ElasticSearch retrieves documents based on exact matches. </p>
+<p>Start ElasticSearch on your machine, or see the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/setup.html" rel="nofollow">ElasticSearch installation guide</a> if you don’t already have it installed.</p>
+<ol><li>Load the dataset you want to index:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+<span class="hljs-meta">&gt;&gt;&gt; </span>squad = load_dataset(<span class="hljs-string">&#x27;squad&#x27;</span>, split=<span class="hljs-string">&#x27;validation&#x27;</span>)<!-- HTML_TAG_END --></pre></div>
+<ol start="2"><li>Build the index with <a href="/docs/datasets/v2.5.1/en/package_reference/main_classes#datasets.Dataset.add_elasticsearch_index">Dataset.add_elasticsearch_index()</a>:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>squad.add_elasticsearch_index(<span class="hljs-string">&quot;context&quot;</span>, host=<span class="hljs-string">&quot;localhost&quot;</span>, port=<span class="hljs-string">&quot;9200&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<ol start="3"><li>Then you can query the <code>context</code> index with <a href="/docs/datasets/v2.5.1/en/package_reference/main_classes#datasets.Dataset.get_nearest_examples">Dataset.get_nearest_examples()</a>:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>query = <span class="hljs-string">&quot;machine&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>scores, retrieved_examples = squad.get_nearest_examples(<span class="hljs-string">&quot;context&quot;</span>, query, k=<span class="hljs-number">10</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>retrieved_examples[<span class="hljs-string">&quot;title&quot;</span>][<span class="hljs-number">0</span>]
+<span class="hljs-string">&#x27;Computational_complexity_theory&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<ol start="4"><li>If you want to reuse the index, define the <code>es_index_name</code> parameter when you build the index:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+<span class="hljs-meta">&gt;&gt;&gt; </span>squad = load_dataset(<span class="hljs-string">&#x27;squad&#x27;</span>, split=<span class="hljs-string">&#x27;validation&#x27;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>squad.add_elasticsearch_index(<span class="hljs-string">&quot;context&quot;</span>, host=<span class="hljs-string">&quot;localhost&quot;</span>, port=<span class="hljs-string">&quot;9200&quot;</span>, es_index_name=<span class="hljs-string">&quot;hf_squad_val_context&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>squad.get_index(<span class="hljs-string">&quot;context&quot;</span>).es_index_name
+hf_squad_val_context<!-- HTML_TAG_END --></pre></div>
+<ol start="5"><li>Reload it later with the index name when you call <a href="/docs/datasets/v2.5.1/en/package_reference/main_classes#datasets.Dataset.load_elasticsearch_index">Dataset.load_elasticsearch_index()</a>:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+<span class="hljs-meta">&gt;&gt;&gt; </span>squad = load_dataset(<span class="hljs-string">&#x27;squad&#x27;</span>, split=<span class="hljs-string">&#x27;validation&#x27;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>squad.load_elasticsearch_index(<span class="hljs-string">&quot;context&quot;</span>, host=<span class="hljs-string">&quot;localhost&quot;</span>, port=<span class="hljs-string">&quot;9200&quot;</span>, es_index_name=<span class="hljs-string">&quot;hf_squad_val_context&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>query = <span class="hljs-string">&quot;machine&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>scores, retrieved_examples = squad.get_nearest_examples(<span class="hljs-string">&quot;context&quot;</span>, query, k=<span class="hljs-number">10</span>)<!-- HTML_TAG_END --></pre></div>
+<p>For more advanced ElasticSearch usage, you can specify your own configuration with custom settings:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> elasticsearch <span class="hljs-keyword">as</span> es
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> elasticsearch.helpers
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> elasticsearch <span class="hljs-keyword">import</span> Elasticsearch
+<span class="hljs-meta">&gt;&gt;&gt; </span>es_client = Elasticsearch([{<span class="hljs-string">&quot;host&quot;</span>: <span class="hljs-string">&quot;localhost&quot;</span>, <span class="hljs-string">&quot;port&quot;</span>: <span class="hljs-string">&quot;9200&quot;</span>}])  <span class="hljs-comment"># default client</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>es_config = {
+<span class="hljs-meta">... </span>    <span class="hljs-string">&quot;settings&quot;</span>: {
+<span class="hljs-meta">... </span>        <span class="hljs-string">&quot;number_of_shards&quot;</span>: <span class="hljs-number">1</span>,
+<span class="hljs-meta">... </span>        <span class="hljs-string">&quot;analysis&quot;</span>: {<span class="hljs-string">&quot;analyzer&quot;</span>: {<span class="hljs-string">&quot;stop_standard&quot;</span>: {<span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;standard&quot;</span>, <span class="hljs-string">&quot; stopwords&quot;</span>: <span class="hljs-string">&quot;_english_&quot;</span>}}},
+<span class="hljs-meta">... </span>    },
+<span class="hljs-meta">... </span>    <span class="hljs-string">&quot;mappings&quot;</span>: {<span class="hljs-string">&quot;properties&quot;</span>: {<span class="hljs-string">&quot;text&quot;</span>: {<span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;text&quot;</span>, <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;standard&quot;</span>, <span class="hljs-string">&quot;similarity&quot;</span>: <span class="hljs-string">&quot;BM25&quot;</span>}}},
+<span class="hljs-meta">... </span>}  <span class="hljs-comment"># default config</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>es_index_name = <span class="hljs-string">&quot;hf_squad_context&quot;</span>  <span class="hljs-comment"># name of the index in ElasticSearch</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>squad.add_elasticsearch_index(<span class="hljs-string">&quot;context&quot;</span>, es_client=es_client, es_config=es_config, es_index_name=es_index_name)<!-- HTML_TAG_END --></pre></div>
+
+
+		<script type="module" data-hydrate="1d1sdp1">
+		import { start } from "/docs/datasets/v2.5.1/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="1d1sdp1"]').parentNode,
+			paths: {"base":"/docs/datasets/v2.5.1/en","assets":"/docs/datasets/v2.5.1/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/datasets/v2.5.1/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/datasets/v2.5.1/en/_app/pages/faiss_es.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
