@@ -1,0 +1,256 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;metrics&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;add-predictions-and-references&quot;,&quot;title&quot;:&quot;Add predictions and references&quot;},{&quot;local&quot;:&quot;compute-scores&quot;,&quot;title&quot;:&quot;Compute scores&quot;},{&quot;local&quot;:&quot;custom-metric-loading-script&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;add-metric-attributes&quot;,&quot;title&quot;:&quot;Add metric attributes&quot;},{&quot;local&quot;:&quot;download-metric-files&quot;,&quot;title&quot;:&quot;Download metric files&quot;},{&quot;local&quot;:&quot;compute-score&quot;,&quot;title&quot;:&quot;Compute score&quot;},{&quot;local&quot;:&quot;test&quot;,&quot;title&quot;:&quot;Test&quot;}],&quot;title&quot;:&quot;Custom metric loading script&quot;}],&quot;title&quot;:&quot;Metrics&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.0/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.0/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.0/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.0/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.0/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.0/en/_app/pages/how_to_metrics.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.0/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.0/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.0/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+<h1 class="relative group"><a id="metrics" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#metrics"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Metrics
+	</span></h1>
+
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>Metrics is deprecated in 🤗 Datasets. To learn more about how to use metrics, take a look at the library 🤗 <a href="https://huggingface.co/docs/evaluate/index" rel="nofollow">Evaluate</a>! In addition to metrics, you can find more tools for evaluating models and datasets.</p></div>
+<p>Metrics are important for evaluating a model’s predictions. In the tutorial, you learned how to compute a metric over an entire evaluation set. You have also seen how to load a metric. </p>
+<p>This guide will show you how to:</p>
+<ul><li>Add predictions and references.</li>
+<li>Compute metrics using different methods.</li>
+<li>Write your own metric loading script.</li></ul>
+<h2 class="relative group"><a id="add-predictions-and-references" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#add-predictions-and-references"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Add predictions and references
+	</span></h2>
+
+<p>When you want to add model predictions and references to a <a href="/docs/datasets/v2.5.0/en/package_reference/main_classes#datasets.Metric">Metric</a> instance, you have two options:</p>
+<ul><li><p><a href="/docs/datasets/v2.5.0/en/package_reference/main_classes#datasets.Metric.add">Metric.add()</a> adds a single <code>prediction</code> and <code>reference</code>.</p></li>
+<li><p><a href="/docs/datasets/v2.5.0/en/package_reference/main_classes#datasets.Metric.add_batch">Metric.add_batch()</a> adds a batch of <code>predictions</code> and <code>references</code>.</p></li></ul>
+<p>Use <a href="/docs/datasets/v2.5.0/en/package_reference/main_classes#datasets.Metric.add_batch">Metric.add_batch()</a> by passing it your model predictions, and the references the model predictions should be evaluated against:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> datasets
+<span class="hljs-meta">&gt;&gt;&gt; </span>metric = datasets.load_metric(<span class="hljs-string">&#x27;my_metric&#x27;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> model_input, gold_references <span class="hljs-keyword">in</span> evaluation_dataset:
+<span class="hljs-meta">... </span>    model_predictions = model(model_inputs)
+<span class="hljs-meta">... </span>    metric.add_batch(predictions=model_predictions, references=gold_references)
+<span class="hljs-meta">&gt;&gt;&gt; </span>final_score = metric.compute()<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Metrics accepts various input formats (Python lists, NumPy arrays, PyTorch tensors, etc.) and converts them to an appropriate format for storage and computation.</p></div>
+<h2 class="relative group"><a id="compute-scores" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#compute-scores"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Compute scores
+	</span></h2>
+
+<p>The most straightforward way to calculate a metric is to call <a href="/docs/datasets/v2.5.0/en/package_reference/main_classes#datasets.Metric.compute">Metric.compute()</a>. But some metrics have additional arguments that allow you to modify the metrics behavior. </p>
+<p>Let’s load the <a href="https://huggingface.co/metrics/sacrebleu" rel="nofollow">SacreBLEU</a> metric, and compute it with a different smoothing method.</p>
+<ol><li>Load the SacreBLEU metric:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> datasets
+<span class="hljs-meta">&gt;&gt;&gt; </span>metric = datasets.load_metric(<span class="hljs-string">&#x27;sacrebleu&#x27;</span>)<!-- HTML_TAG_END --></pre></div>
+<ol start="2"><li>Inspect the different argument methods for computing the metric:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(metric.inputs_description)
+Produces BLEU scores along <span class="hljs-keyword">with</span> its sufficient statistics
+<span class="hljs-keyword">from</span> a source against one <span class="hljs-keyword">or</span> more references.
+
+Args:
+    predictions: The system stream (a sequence of segments).
+    references: A <span class="hljs-built_in">list</span> of one <span class="hljs-keyword">or</span> more reference streams (each a sequence of segments).
+    smooth_method: The smoothing method to use. (Default: <span class="hljs-string">&#x27;exp&#x27;</span>).
+    smooth_value: The smoothing value. Only valid <span class="hljs-keyword">for</span> <span class="hljs-string">&#x27;floor&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;add-k&#x27;</span>. (Defaults: floor: <span class="hljs-number">0.1</span>, add-k: <span class="hljs-number">1</span>).
+    tokenize: Tokenization method to use <span class="hljs-keyword">for</span> BLEU. If <span class="hljs-keyword">not</span> provided, defaults to <span class="hljs-string">&#x27;zh&#x27;</span> <span class="hljs-keyword">for</span> Chinese, <span class="hljs-string">&#x27;ja-mecab&#x27;</span> <span class="hljs-keyword">for</span> Japanese <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;13a&#x27;</span> (mteval) otherwise.
+    lowercase: Lowercase the data. If <span class="hljs-literal">True</span>, enables case-insensitivity. (Default: <span class="hljs-literal">False</span>).
+    force: Insist that your tokenized <span class="hljs-built_in">input</span> <span class="hljs-keyword">is</span> actually detokenized.
+...<!-- HTML_TAG_END --></pre></div>
+<ol start="3"><li>Compute the metric with the <code>floor</code> method, and a different <code>smooth_value</code>:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>score = metric.compute(smooth_method=<span class="hljs-string">&quot;floor&quot;</span>, smooth_value=<span class="hljs-number">0.2</span>)<!-- HTML_TAG_END --></pre></div>
+<a id="metric_script"></a>
+<h2 class="relative group"><a id="custom-metric-loading-script" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#custom-metric-loading-script"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Custom metric loading script
+	</span></h2>
+
+<p>Write a metric loading script to use your own custom metric (or one that is not on the Hub). Then you can load it as usual with <a href="/docs/datasets/v2.5.0/en/package_reference/loading_methods#datasets.load_metric">load_metric()</a>.</p>
+<p>To help you get started, open the <a href="https://github.com/huggingface/datasets/blob/main/metrics/squad/squad.py" rel="nofollow">SQuAD metric loading script</a> and follow along.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Get jump started with our metric loading script <a href="https://github.com/huggingface/datasets/blob/main/templates/new_metric_script.py" rel="nofollow">template</a>!</p></div>
+<h3 class="relative group"><a id="add-metric-attributes" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#add-metric-attributes"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Add metric attributes
+	</span></h3>
+
+<p>Start by adding some information about your metric in <code>Metric._info()</code>. The most important attributes you should specify are:</p>
+<ol><li><p><code>MetricInfo.description</code> provides a brief description about your metric.</p></li>
+<li><p><code>MetricInfo.citation</code> contains a BibTex citation for the metric.</p></li>
+<li><p><code>MetricInfo.inputs_description</code> describes the expected inputs and outputs. It may also provide an example usage of the metric.</p></li>
+<li><p><code>MetricInfo.features</code> defines the name and type of the predictions and references.</p></li></ol>
+<p>After you’ve filled out all these fields in the template, it should look like the following example from the SQuAD metric script:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">class</span> <span class="hljs-title class_">Squad</span>(datasets.Metric):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_info</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-keyword">return</span> datasets.MetricInfo(
+            description=_DESCRIPTION,
+            citation=_CITATION,
+            inputs_description=_KWARGS_DESCRIPTION,
+            features=datasets.Features(
+                {
+                    <span class="hljs-string">&quot;predictions&quot;</span>: {<span class="hljs-string">&quot;id&quot;</span>: datasets.Value(<span class="hljs-string">&quot;string&quot;</span>), <span class="hljs-string">&quot;prediction_text&quot;</span>: datasets.Value(<span class="hljs-string">&quot;string&quot;</span>)},
+                    <span class="hljs-string">&quot;references&quot;</span>: {
+                        <span class="hljs-string">&quot;id&quot;</span>: datasets.Value(<span class="hljs-string">&quot;string&quot;</span>),
+                        <span class="hljs-string">&quot;answers&quot;</span>: datasets.features.<span class="hljs-type">Sequence</span>(
+                            {
+                                <span class="hljs-string">&quot;text&quot;</span>: datasets.Value(<span class="hljs-string">&quot;string&quot;</span>),
+                                <span class="hljs-string">&quot;answer_start&quot;</span>: datasets.Value(<span class="hljs-string">&quot;int32&quot;</span>),
+                            }
+                        ),
+                    },
+                }
+            ),
+            codebase_urls=[<span class="hljs-string">&quot;https://rajpurkar.github.io/SQuAD-explorer/&quot;</span>],
+            reference_urls=[<span class="hljs-string">&quot;https://rajpurkar.github.io/SQuAD-explorer/&quot;</span>],
+        )<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="download-metric-files" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#download-metric-files"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Download metric files
+	</span></h3>
+
+<p>If your metric needs to download, or retrieve local files, you will need to use the <code>Metric._download_and_prepare()</code> method. For this example, let’s examine the <a href="https://github.com/huggingface/datasets/blob/main/metrics/bleurt/bleurt.py" rel="nofollow">BLEURT metric loading script</a>. </p>
+<ol><li>Provide a dictionary of URLs that point to the metric files:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->CHECKPOINT_URLS = {
+    <span class="hljs-string">&quot;bleurt-tiny-128&quot;</span>: <span class="hljs-string">&quot;https://storage.googleapis.com/bleurt-oss/bleurt-tiny-128.zip&quot;</span>,
+    <span class="hljs-string">&quot;bleurt-tiny-512&quot;</span>: <span class="hljs-string">&quot;https://storage.googleapis.com/bleurt-oss/bleurt-tiny-512.zip&quot;</span>,
+    <span class="hljs-string">&quot;bleurt-base-128&quot;</span>: <span class="hljs-string">&quot;https://storage.googleapis.com/bleurt-oss/bleurt-base-128.zip&quot;</span>,
+    <span class="hljs-string">&quot;bleurt-base-512&quot;</span>: <span class="hljs-string">&quot;https://storage.googleapis.com/bleurt-oss/bleurt-base-512.zip&quot;</span>,
+    <span class="hljs-string">&quot;bleurt-large-128&quot;</span>: <span class="hljs-string">&quot;https://storage.googleapis.com/bleurt-oss/bleurt-large-128.zip&quot;</span>,
+    <span class="hljs-string">&quot;bleurt-large-512&quot;</span>: <span class="hljs-string">&quot;https://storage.googleapis.com/bleurt-oss/bleurt-large-512.zip&quot;</span>,
+}<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>If the files are stored locally, provide a dictionary of path(s) instead of URLs.</p></div>
+<ol start="2"><li><code>Metric._download_and_prepare()</code> will take the URLs and download the metric files specified:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">_download_and_prepare</span>(<span class="hljs-params">self, dl_manager</span>):
+
+    <span class="hljs-comment"># check that config name specifies a valid BLEURT model</span>
+    <span class="hljs-keyword">if</span> self.config_name == <span class="hljs-string">&quot;default&quot;</span>:
+        logger.warning(
+            <span class="hljs-string">&quot;Using default BLEURT-Base checkpoint for sequence maximum length 128. &quot;</span>
+            <span class="hljs-string">&quot;You can use a bigger model for better results with e.g.: datasets.load_metric(&#x27;bleurt&#x27;, &#x27;bleurt-large-512&#x27;).&quot;</span>
+        )
+        self.config_name = <span class="hljs-string">&quot;bleurt-base-128&quot;</span>
+    <span class="hljs-keyword">if</span> self.config_name <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> CHECKPOINT_URLS.keys():
+        <span class="hljs-keyword">raise</span> KeyError(
+            <span class="hljs-string">f&quot;<span class="hljs-subst">{self.config_name}</span> model not found. You should supply the name of a model checkpoint for bleurt in <span class="hljs-subst">{CHECKPOINT_URLS.keys()}</span>&quot;</span>
+        )
+
+    <span class="hljs-comment"># download the model checkpoint specified by self.config_name and set up the scorer</span>
+    model_path = dl_manager.download_and_extract(CHECKPOINT_URLS[self.config_name])
+    self.scorer = score.BleurtScorer(os.path.join(model_path, self.config_name))<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="compute-score" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#compute-score"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Compute score
+	</span></h3>
+
+<p><code>DatasetBuilder._compute</code> provides the actual instructions for how to compute a metric given the predictions and references. Now let’s take a look at the <a href="https://github.com/huggingface/datasets/blob/main/metrics/glue/glue.py" rel="nofollow">GLUE metric loading script</a>.</p>
+<ol><li>Provide the functions for <code>DatasetBuilder._compute</code> to calculate your metric:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">simple_accuracy</span>(<span class="hljs-params">preds, labels</span>):
+    <span class="hljs-keyword">return</span> (preds == labels).mean().item()
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">acc_and_f1</span>(<span class="hljs-params">preds, labels</span>):
+    acc = simple_accuracy(preds, labels)
+    f1 = f1_score(y_true=labels, y_pred=preds).item()
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-string">&quot;accuracy&quot;</span>: acc,
+        <span class="hljs-string">&quot;f1&quot;</span>: f1,
+    }
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">pearson_and_spearman</span>(<span class="hljs-params">preds, labels</span>):
+    pearson_corr = pearsonr(preds, labels)[<span class="hljs-number">0</span>].item()
+    spearman_corr = spearmanr(preds, labels)[<span class="hljs-number">0</span>].item()
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-string">&quot;pearson&quot;</span>: pearson_corr,
+        <span class="hljs-string">&quot;spearmanr&quot;</span>: spearman_corr,
+    }<!-- HTML_TAG_END --></pre></div>
+<ol start="2"><li>Create <code>DatasetBuilder._compute</code> with instructions for what metric to calculate for each configuration:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">def</span> <span class="hljs-title function_">_compute</span>(<span class="hljs-params">self, predictions, references</span>):
+    <span class="hljs-keyword">if</span> self.config_name == <span class="hljs-string">&quot;cola&quot;</span>:
+        <span class="hljs-keyword">return</span> {<span class="hljs-string">&quot;matthews_correlation&quot;</span>: matthews_corrcoef(references, predictions)}
+    <span class="hljs-keyword">elif</span> self.config_name == <span class="hljs-string">&quot;stsb&quot;</span>:
+        <span class="hljs-keyword">return</span> pearson_and_spearman(predictions, references)
+    <span class="hljs-keyword">elif</span> self.config_name <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;mrpc&quot;</span>, <span class="hljs-string">&quot;qqp&quot;</span>]:
+        <span class="hljs-keyword">return</span> acc_and_f1(predictions, references)
+    <span class="hljs-keyword">elif</span> self.config_name <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;sst2&quot;</span>, <span class="hljs-string">&quot;mnli&quot;</span>, <span class="hljs-string">&quot;mnli_mismatched&quot;</span>, <span class="hljs-string">&quot;mnli_matched&quot;</span>, <span class="hljs-string">&quot;qnli&quot;</span>, <span class="hljs-string">&quot;rte&quot;</span>, <span class="hljs-string">&quot;wnli&quot;</span>, <span class="hljs-string">&quot;hans&quot;</span>]:
+        <span class="hljs-keyword">return</span> {<span class="hljs-string">&quot;accuracy&quot;</span>: simple_accuracy(predictions, references)}
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">raise</span> KeyError(
+            <span class="hljs-string">&quot;You should supply a configuration name selected in &quot;</span>
+            <span class="hljs-string">&#x27;[&quot;sst2&quot;, &quot;mnli&quot;, &quot;mnli_mismatched&quot;, &quot;mnli_matched&quot;, &#x27;</span>
+            <span class="hljs-string">&#x27;&quot;cola&quot;, &quot;stsb&quot;, &quot;mrpc&quot;, &quot;qqp&quot;, &quot;qnli&quot;, &quot;rte&quot;, &quot;wnli&quot;, &quot;hans&quot;]&#x27;</span>
+        )<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="test" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#test"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Test
+	</span></h3>
+
+<p>Once you’re finished writing your metric loading script, try to load it locally:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_metric
+<span class="hljs-meta">&gt;&gt;&gt; </span>metric = load_metric(<span class="hljs-string">&#x27;PATH/TO/MY/SCRIPT.py&#x27;</span>)<!-- HTML_TAG_END --></pre></div>
+
+
+		<script type="module" data-hydrate="aqto87">
+		import { start } from "/docs/datasets/v2.5.0/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="aqto87"]').parentNode,
+			paths: {"base":"/docs/datasets/v2.5.0/en","assets":"/docs/datasets/v2.5.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/datasets/v2.5.0/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/datasets/v2.5.0/en/_app/pages/how_to_metrics.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
