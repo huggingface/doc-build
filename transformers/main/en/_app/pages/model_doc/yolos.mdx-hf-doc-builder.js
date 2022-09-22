@@ -169,9 +169,9 @@ objects.`,name:"return_tensors"}],source:"https://github.com/huggingface/transfo
 >BatchFeature</a></p>
 `}}),De=new q({props:{name:"post_process",anchor:"transformers.YolosFeatureExtractor.post_process",parameters:[{name:"outputs",val:""},{name:"target_sizes",val:""}],parametersDescription:[{anchor:"transformers.YolosFeatureExtractor.post_process.outputs",description:`<strong>outputs</strong> (<code>DetrObjectDetectionOutput</code>) &#x2014;
 Raw outputs of the model.`,name:"outputs"},{anchor:"transformers.YolosFeatureExtractor.post_process.target_sizes",description:`<strong>target_sizes</strong> (<code>torch.Tensor</code> of shape <code>(batch_size, 2)</code>) &#x2014;
-Tensor containing the size (h, w) of each image of the batch. For evaluation, this must be the original
-image size (before any data augmentation). For visualization, this should be the image size after data
-augment, but before padding.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/yolos/feature_extraction_yolos.py#L660",returnDescription:`
+Tensor containing the size (height, width) of each image of the batch. For evaluation, this must be the
+original image size (before any data augmentation). For visualization, this should be the image size
+after data augment, but before padding.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/yolos/feature_extraction_yolos.py#L660",returnDescription:`
 <p>A list of dictionaries, each dictionary containing the scores, labels and boxes for an image
 in the batch as predicted by the model.</p>
 `,returnType:`
