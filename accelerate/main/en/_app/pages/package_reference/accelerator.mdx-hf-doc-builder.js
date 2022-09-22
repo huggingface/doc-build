@@ -199,8 +199,8 @@ A list of loggers to be setup for experiment tracking. Should be one or several 
 <li><code>&quot;tensorboard&quot;</code></li>
 <li><code>&quot;wandb&quot;</code></li>
 <li><code>&quot;comet_ml&quot;</code>
-If <code>&quot;all</code>&#x201D; is selected, will pick up all available trackers in the environment and intialize them. Can also
-accept implementations of <code>GeneralTracker</code> for custom trackers, and can be combined with <code>&quot;all&quot;</code>.</li>
+If <code>&quot;all&quot;</code> is selected, will pick up all available trackers in the environment and initialize them. Can
+also accept implementations of <code>GeneralTracker</code> for custom trackers, and can be combined with <code>&quot;all&quot;</code>.</li>
 </ul>`,name:"log_with"},{anchor:"accelerate.Accelerator.logging_dir",description:`<strong>logging_dir</strong> (<code>str</code>, <code>os.PathLike</code>, <em>optional</em>) &#x2014;
 A path to a directory for storing logs of locally-compatible loggers.`,name:"logging_dir"},{anchor:"accelerate.Accelerator.dispatch_batches",description:`<strong>dispatch_batches</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 If set to <code>True</code>, the dataloader prepared by the Accelerator is only iterated through on the main process
