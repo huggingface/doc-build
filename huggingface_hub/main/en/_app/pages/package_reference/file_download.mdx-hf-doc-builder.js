@@ -103,7 +103,7 @@ If <code>True</code>, avoid downloading the file and return the path to the
 local cached file if it exists.`,name:"local_files_only"},{anchor:"huggingface_hub.hf_hub_download.legacy_cache_layout",description:`<strong>legacy_cache_layout</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 If <code>True</code>, uses the legacy file cache layout i.e. just call <a href="/docs/huggingface_hub/main/en/package_reference/file_download#huggingface_hub.hf_hub_url">hf_hub_url()</a>
 then <code>cached_download</code>. This is deprecated as the new cache layout is
-more powerful.`,name:"legacy_cache_layout"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/file_download.py#L924",returnDescription:`
+more powerful.`,name:"legacy_cache_layout"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/file_download.py#L913",returnDescription:`
 <p>Local path (string) of file or if networking is off, last version of
 file cached on disk.</p>
 `}}),de=new Ra({props:{anchor:"huggingface_hub.hf_hub_download.example",$$slots:{default:[Ka]},$$scope:{ctx:ae}}}),fe=new Qt({props:{$$slots:{default:[Ja]},$$scope:{ctx:ae}}}),ye=new Ie({}),$e=new Mo({props:{name:"huggingface_hub.hf_hub_url",anchor:"huggingface_hub.hf_hub_url",parameters:[{name:"repo_id",val:": str"},{name:"filename",val:": str"},{name:"subfolder",val:": typing.Optional[str] = None"},{name:"repo_type",val:": typing.Optional[str] = None"},{name:"revision",val:": typing.Optional[str] = None"}],parametersDescription:[{anchor:"huggingface_hub.hf_hub_url.repo_id",description:`<strong>repo_id</strong> (<code>str</code>) &#x2014;
@@ -148,7 +148,7 @@ folder.</li>
 </ul>`,name:"use_auth_token"},{anchor:"huggingface_hub.get_hf_file_metadata.proxies",description:`<strong>proxies</strong> (<code>dict</code>, <em>optional</em>) &#x2014;
 Dictionary mapping protocol to the URL of the proxy passed to
 <code>requests.request</code>.`,name:"proxies"},{anchor:"huggingface_hub.get_hf_file_metadata.etag_timeout",description:`<strong>etag_timeout</strong> (<code>float</code>, <em>optional</em>, defaults to 10) &#x2014;
-How many seconds to wait for the server to send metadata before giving up.`,name:"etag_timeout"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/file_download.py#L1409",returnDescription:`
+How many seconds to wait for the server to send metadata before giving up.`,name:"etag_timeout"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/file_download.py#L1387",returnDescription:`
 <p>A <a
   href="/docs/huggingface_hub/main/en/package_reference/file_download#huggingface_hub.HfFileMetadata"
 >HfFileMetadata</a> object containing metadata such as location, etag and
