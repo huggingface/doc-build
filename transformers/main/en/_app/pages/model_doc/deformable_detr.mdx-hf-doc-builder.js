@@ -155,7 +155,7 @@ objects.`,name:"return_tensors"}],source:"https://github.com/huggingface/transfo
 `}}),re=new Ba({props:{warning:!0,$$slots:{default:[Yn]},$$scope:{ctx:z}}}),ke=new M({props:{name:"pad_and_create_pixel_mask",anchor:"transformers.DeformableDetrFeatureExtractor.pad_and_create_pixel_mask",parameters:[{name:"pixel_values_list",val:": typing.List[ForwardRef('torch.Tensor')]"},{name:"return_tensors",val:": typing.Union[str, transformers.utils.generic.TensorType, NoneType] = None"}],parametersDescription:[{anchor:"transformers.DeformableDetrFeatureExtractor.pad_and_create_pixel_mask.pixel_values_list",description:`<strong>pixel_values_list</strong> (<code>List[torch.Tensor]</code>) &#x2014;
 List of images (pixel values) to be padded. Each image should be a tensor of shape (C, H, W).`,name:"pixel_values_list"},{anchor:"transformers.DeformableDetrFeatureExtractor.pad_and_create_pixel_mask.return_tensors",description:`<strong>return_tensors</strong> (<code>str</code> or <a href="/docs/transformers/main/en/internal/file_utils#transformers.TensorType">TensorType</a>, <em>optional</em>) &#x2014;
 If set, will return tensors instead of NumPy arrays. If set to <code>&apos;pt&apos;</code>, return PyTorch <code>torch.Tensor</code>
-objects.`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/deformable_detr/feature_extraction_deformable_detr.py#L643",returnDescription:`
+objects.`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/deformable_detr/feature_extraction_deformable_detr.py#L651",returnDescription:`
 <p>A <a
   href="/docs/transformers/main/en/main_classes/feature_extractor#transformers.BatchFeature"
 >BatchFeature</a> with the following fields:</p>
@@ -172,7 +172,7 @@ objects.`,name:"return_tensors"}],source:"https://github.com/huggingface/transfo
 Raw outputs of the model.`,name:"outputs"},{anchor:"transformers.DeformableDetrFeatureExtractor.post_process.target_sizes",description:`<strong>target_sizes</strong> (<code>torch.Tensor</code> of shape <code>(batch_size, 2)</code>) &#x2014;
 Tensor containing the size (height, width) of each image of the batch. For evaluation, this must be the
 original image size (before any data augmentation). For visualization, this should be the image size
-after data augment, but before padding.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/deformable_detr/feature_extraction_deformable_detr.py#L685",returnDescription:`
+after data augment, but before padding.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/deformable_detr/feature_extraction_deformable_detr.py#L693",returnDescription:`
 <p>A list of dictionaries, each dictionary containing the scores, labels and boxes for an image
 in the batch as predicted by the model.</p>
 `,returnType:`
@@ -181,7 +181,7 @@ in the batch as predicted by the model.</p>
 Raw outputs of the model.`,name:"outputs"},{anchor:"transformers.DeformableDetrFeatureExtractor.post_process_segmentation.target_sizes",description:`<strong>target_sizes</strong> (<code>torch.Tensor</code> of shape <code>(batch_size, 2)</code> or <code>List[Tuple]</code> of length <code>batch_size</code>) &#x2014;
 Torch Tensor (or list) corresponding to the requested final size (h, w) of each prediction.`,name:"target_sizes"},{anchor:"transformers.DeformableDetrFeatureExtractor.post_process_segmentation.threshold",description:`<strong>threshold</strong> (<code>float</code>, <em>optional</em>, defaults to 0.9) &#x2014;
 Threshold to use to filter out queries.`,name:"threshold"},{anchor:"transformers.DeformableDetrFeatureExtractor.post_process_segmentation.mask_threshold",description:`<strong>mask_threshold</strong> (<code>float</code>, <em>optional</em>, defaults to 0.5) &#x2014;
-Threshold to use when turning the predicted masks into binary values.`,name:"mask_threshold"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/deformable_detr/feature_extraction_deformable_detr.py#L726",returnDescription:`
+Threshold to use when turning the predicted masks into binary values.`,name:"mask_threshold"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/deformable_detr/feature_extraction_deformable_detr.py#L734",returnDescription:`
 <p>A list of dictionaries, each dictionary containing the scores, labels, and masks for an image
 in the batch as predicted by the model.</p>
 `,returnType:`
@@ -194,7 +194,7 @@ Torch Tensor (or list) corresponding to the requested final size (h, w) of each 
 None, it will default to the <code>processed_sizes</code>.`,name:"target_sizes"},{anchor:"transformers.DeformableDetrFeatureExtractor.post_process_panoptic.is_thing_map",description:`<strong>is_thing_map</strong> (<code>torch.Tensor</code> of shape <code>(batch_size, 2)</code>, <em>optional</em>) &#x2014;
 Dictionary mapping class indices to either True or False, depending on whether or not they are a thing.
 If not set, defaults to the <code>is_thing_map</code> of COCO panoptic.`,name:"is_thing_map"},{anchor:"transformers.DeformableDetrFeatureExtractor.post_process_panoptic.threshold",description:`<strong>threshold</strong> (<code>float</code>, <em>optional</em>, defaults to 0.85) &#x2014;
-Threshold to use to filter out queries.`,name:"threshold"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/deformable_detr/feature_extraction_deformable_detr.py#L813",returnDescription:`
+Threshold to use to filter out queries.`,name:"threshold"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/deformable_detr/feature_extraction_deformable_detr.py#L821",returnDescription:`
 <p>A list of dictionaries, each dictionary containing a PNG string and segments_info values for
 an image in the batch as predicted by the model.</p>
 `,returnType:`
