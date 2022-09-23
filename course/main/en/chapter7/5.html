@@ -279,7 +279,7 @@ inputs<!-- HTML_TAG_END --></pre></div>
 	Copied</div></button></div>
 	<pre><!-- HTML_TAG_START -->[<span class="hljs-string">&#x27;▁I&#x27;</span>, <span class="hljs-string">&#x27;▁&#x27;</span>, <span class="hljs-string">&#x27;loved&#x27;</span>, <span class="hljs-string">&#x27;▁reading&#x27;</span>, <span class="hljs-string">&#x27;▁the&#x27;</span>, <span class="hljs-string">&#x27;▁Hung&#x27;</span>, <span class="hljs-string">&#x27;er&#x27;</span>, <span class="hljs-string">&#x27;▁Games&#x27;</span>, <span class="hljs-string">&#x27;&lt;/s&gt;&#x27;</span>]<!-- HTML_TAG_END --></pre></div>
 <p>The special Unicode character <code>▁</code> and end-of-sequence token <code>&lt;/s&gt;</code> indicate that we’re dealing with the SentencePiece tokenizer, which is based on the Unigram segmentation algorithm discussed in <a href="/course/chapter6">Chapter 6</a>. Unigram is especially useful for multilingual corpora since it allows SentencePiece to be agnostic about accents, punctuation, and the fact that many languages, like Japanese, do not have whitespace characters.</p>
-<p>To tokenize our corpus, we have to deal with a subtlety associated with summarization: because our labels are also text, it is possible that they exceed the model’s maximum context size. This means we need to apply truncation to both the reviews and their titles to ensure we don’t pass excessively long inputs to our model. The tokenizers in 🤗 Transformers provide a nifty <code>as_target_tokenizer()</code> function that allows you to tokenize the labels in parallel to the inputs. This is typically done using a context manager inside a preprocessing function that first encodes the inputs, and then encodes the labels as a separate column. Here is an example of such a function for mT5:</p>
+<p>To tokenize our corpus, we have to deal with a subtlety associated with summarization: because our labels are also text, it is possible that they exceed the model’s maximum context size. This means we need to apply truncation to both the reviews and their titles to ensure we don’t pass excessively long inputs to our model. The tokenizers in 🤗 Transformers provide a nifty <code>text_target</code> argument that allows you to tokenize the labels in parallel to the inputs. Here is an example of how the inputs and targets are processed for mT5:</p>
 
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
@@ -290,17 +290,15 @@ max_target_length = <span class="hljs-number">30</span>
 
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">preprocess_function</span>(<span class="hljs-params">examples</span>):
     model_inputs = tokenizer(
-        examples[<span class="hljs-string">&quot;review_body&quot;</span>], max_length=max_input_length, truncation=<span class="hljs-literal">True</span>
+        examples[<span class="hljs-string">&quot;review_body&quot;</span>],
+        max_length=max_input_length,
+        truncation=<span class="hljs-literal">True</span>,
     )
-    <span class="hljs-comment"># Set up the tokenizer for targets</span>
-    <span class="hljs-keyword">with</span> tokenizer.as_target_tokenizer():
-        labels = tokenizer(
-            examples[<span class="hljs-string">&quot;review_title&quot;</span>], max_length=max_target_length, truncation=<span class="hljs-literal">True</span>
-        )
-
+    labels = tokenizer(text_target=targets, max_length=max_target_length, truncation=<span class="hljs-literal">True</span>)
     model_inputs[<span class="hljs-string">&quot;labels&quot;</span>] = labels[<span class="hljs-string">&quot;input_ids&quot;</span>]
+    model_inputs[<span class="hljs-string">&quot;labels_mask&quot;</span>] = labels[<span class="hljs-string">&quot;attention_mask&quot;</span>]
     <span class="hljs-keyword">return</span> model_inputs<!-- HTML_TAG_END --></pre></div>
-<p>Let’s walk through this code to understand what’s happening. The first thing we’ve done is define values for <code>max_input_length</code> and <code>max_target_length</code>, which set the upper limits for how long our reviews and titles can be. Since the review body is typically much larger than the title, we’ve scaled these values accordingly. Then, in the  <code>preprocess_function()</code> itself we can see the reviews are first tokenized, followed by the titles with <code>as_target_tokenizer()</code>.</p>
+<p>Let’s walk through this code to understand what’s happening. The first thing we’ve done is define values for <code>max_input_length</code> and <code>max_target_length</code>, which set the upper limits for how long our reviews and titles can be. Since the review body is typically much larger than the title, we’ve scaled these values accordingly.</p>
 <p>With <code>preprocess_function()</code>, it is then a simple matter to tokenize the whole corpus using the handy <code>Dataset.map()</code> function we’ve used extensively throughout this course:</p>
 
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
@@ -901,10 +899,10 @@ summarizer = pipeline(<span class="hljs-string">&quot;summarization&quot;</span>
 <p>Next, we’ll turn our attention to a slightly more complex task: training a language model from scratch.</p>
 
 
-		<script type="module" data-hydrate="1ihvlc1">
+		<script type="module" data-hydrate="mhqyb9">
 		import { start } from "/docs/course/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="1ihvlc1"]').parentNode,
+			target: document.querySelector('[data-hydrate="mhqyb9"]').parentNode,
 			paths: {"base":"/docs/course/main/en","assets":"/docs/course/main/en"},
 			session: {},
 			route: false,

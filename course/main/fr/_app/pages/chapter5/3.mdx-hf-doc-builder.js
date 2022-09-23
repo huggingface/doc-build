@@ -3,11 +3,11 @@ import{S as U3,i as J3,s as V3,e as o,k as d,w as f,t as n,M as F3,c as r,d as s
 !unzip drugsCom_raw.<span class="hljs-built_in">zip</span>`}}),Ns=new E({props:{code:`from datasets import load_dataset
 
 data_files = {"train": "drugsComTrain_raw.tsv", "test": "drugsComTest_raw.tsv"}
-# \\t is the tab character in Python
+# \\t est le caract\xE8re de tabulation en Python
 drug_dataset = load_dataset("csv", data_files=data_files, delimiter="\\t")`,highlighted:`<span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
 
 data_files = {<span class="hljs-string">&quot;train&quot;</span>: <span class="hljs-string">&quot;drugsComTrain_raw.tsv&quot;</span>, <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-string">&quot;drugsComTest_raw.tsv&quot;</span>}
-<span class="hljs-comment"># \\t is the tab character in Python</span>
+<span class="hljs-comment"># \\t est le caract\xE8re de tabulation en Python</span>
 drug_dataset = load_dataset(<span class="hljs-string">&quot;csv&quot;</span>, data_files=data_files, delimiter=<span class="hljs-string">&quot;\\t&quot;</span>)`}}),As=new E({props:{code:`drug_sample = drug_dataset["train"].shuffle(seed=42).select(range(1000))
 # Un coup d'\u0153il sur les premiers exemples
 drug_sample[:3]`,highlighted:`drug_sample = drug_dataset[<span class="hljs-string">&quot;train&quot;</span>].shuffle(seed=<span class="hljs-number">42</span>).select(<span class="hljs-built_in">range</span>(<span class="hljs-number">1000</span>))
@@ -181,7 +181,7 @@ tokenized_dataset = drug_dataset.<span class="hljs-built_in">map</span>(slow_tok
         max_length=128,
         return_overflowing_tokens=True,
     )
-    # Extract mapping between new and old indices
+    # Extraire la correspondance entre les nouveaux et les anciens indices
     sample_map = result.pop("overflow_to_sample_mapping")
     for key, values in examples.items():
         result[key] = [values[i] for i in sample_map]
@@ -192,7 +192,7 @@ tokenized_dataset = drug_dataset.<span class="hljs-built_in">map</span>(slow_tok
         max_length=<span class="hljs-number">128</span>,
         return_overflowing_tokens=<span class="hljs-literal">True</span>,
     )
-    <span class="hljs-comment"># Extract mapping between new and old indices</span>
+    <span class="hljs-comment"># Extraire la correspondance entre les nouveaux et les anciens indices</span>
     sample_map = result.pop(<span class="hljs-string">&quot;overflow_to_sample_mapping&quot;</span>)
     <span class="hljs-keyword">for</span> key, values <span class="hljs-keyword">in</span> examples.items():
         result[key] = [values[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> sample_map]
@@ -243,14 +243,14 @@ freq_dataset`}}),Jn=new E({props:{code:`Dataset({
     features: [<span class="hljs-string">&#x27;condition&#x27;</span>, <span class="hljs-string">&#x27;frequency&#x27;</span>],
     num_rows: <span class="hljs-number">819</span>
 })`}}),ls=new Cs({props:{$$slots:{default:[t4]},$$scope:{ctx:R}}}),Vn=new E({props:{code:"drug_dataset.reset_format()",highlighted:"drug_dataset.reset_format()"}}),Fn=new ma({}),Bn=new E({props:{code:`drug_dataset_clean = drug_dataset["train"].train_test_split(train_size=0.8, seed=42)
-# Rename the default "test" split to "validation"
+# Renommer la division par d\xE9faut "test" en "validation"
 drug_dataset_clean["validation"] = drug_dataset_clean.pop("test")
-# Add the "test" set to our \`DatasetDict\`
+# Ajoutez le jeu "test" \xE0 notre \`DatasetDict\`
 drug_dataset_clean["test"] = drug_dataset["test"]
 drug_dataset_clean`,highlighted:`drug_dataset_clean = drug_dataset[<span class="hljs-string">&quot;train&quot;</span>].train_test_split(train_size=<span class="hljs-number">0.8</span>, seed=<span class="hljs-number">42</span>)
-<span class="hljs-comment"># Rename the default &quot;test&quot; split to &quot;validation&quot;</span>
+<span class="hljs-comment"># Renommer la division par d\xE9faut &quot;test&quot; en &quot;validation&quot;</span>
 drug_dataset_clean[<span class="hljs-string">&quot;validation&quot;</span>] = drug_dataset_clean.pop(<span class="hljs-string">&quot;test&quot;</span>)
-<span class="hljs-comment"># Add the &quot;test&quot; set to our \`DatasetDict\`</span>
+<span class="hljs-comment"># Ajoutez le jeu &quot;test&quot; \xE0 notre \`DatasetDict\`</span>
 drug_dataset_clean[<span class="hljs-string">&quot;test&quot;</span>] = drug_dataset[<span class="hljs-string">&quot;test&quot;</span>]
 drug_dataset_clean`}}),Gn=new E({props:{code:`DatasetDict({
     train: Dataset({
