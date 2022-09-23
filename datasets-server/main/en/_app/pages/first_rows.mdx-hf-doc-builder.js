@@ -1,17 +1,15 @@
-import{S as Lo,i as Wo,s as Fo,e as n,k as i,w as T,t as o,M as Ko,c as e,d as t,m as h,a as l,x as b,h as p,b as u,G as s,g as f,y as $,q as k,o as D,B as x,v as Jo,L as ql}from"../chunks/vendor-hf-doc-builder.js";import{I as Vo,C as ht}from"../chunks/CodeBlock-hf-doc-builder.js";import{I as Uo,M as ml}from"../chunks/InferenceApi-hf-doc-builder.js";function Yo(v){let c,j;return c=new ht({props:{code:`import json
-import requests
+import{S as Lo,i as Wo,s as Fo,e as n,k as i,w as T,t as o,M as Ko,c as e,d as t,m as h,a as l,x as b,h as p,b as u,G as s,g as f,y as $,q as k,o as D,B as x,v as Jo,L as ql}from"../chunks/vendor-hf-doc-builder.js";import{I as Vo,C as ht}from"../chunks/CodeBlock-hf-doc-builder.js";import{I as Uo,M as ml}from"../chunks/InferenceApi-hf-doc-builder.js";function Yo(v){let c,j;return c=new ht({props:{code:`import requests
 headers = {"Authorization": f"Bearer {API_TOKEN}"}
 API_URL = "https://datasets-server.huggingface.co/first-rows?dataset=duorc&config=SelfRC&split=train"
 def query():
     response = requests.request("GET", API_URL, headers=headers)
-    return json.loads(response.content.decode("utf-8"))
-data = query()`,highlighted:`<span class="hljs-keyword">import</span> json
-<span class="hljs-keyword">import</span> requests
+    return response.json()
+data = query()`,highlighted:`<span class="hljs-keyword">import</span> requests
 headers = {<span class="hljs-string">&quot;Authorization&quot;</span>: <span class="hljs-string">f&quot;Bearer <span class="hljs-subst">{API_TOKEN}</span>&quot;</span>}
 API_URL = <span class="hljs-string">&quot;https://datasets-server.huggingface.co/first-rows?dataset=duorc&amp;config=SelfRC&amp;split=train&quot;</span>
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">query</span>():
     response = requests.request(<span class="hljs-string">&quot;GET&quot;</span>, API_URL, headers=headers)
-    <span class="hljs-keyword">return</span> json.loads(response.content.decode(<span class="hljs-string">&quot;utf-8&quot;</span>))
+    <span class="hljs-keyword">return</span> response.json()
 data = query()`}}),{c(){T(c.$$.fragment)},l(r){b(c.$$.fragment,r)},m(r,g){$(c,r,g),j=!0},p:ql,i(r){j||(k(c.$$.fragment,r),j=!0)},o(r){D(c.$$.fragment,r),j=!1},d(r){x(c,r)}}}function Qo(v){let c,j;return c=new ml({props:{$$slots:{default:[Yo]},$$scope:{ctx:v}}}),{c(){T(c.$$.fragment)},l(r){b(c.$$.fragment,r)},m(r,g){$(c,r,g),j=!0},p(r,g){const w={};g&2&&(w.$$scope={dirty:g,ctx:r}),c.$set(w)},i(r){j||(k(c.$$.fragment,r),j=!0)},o(r){D(c.$$.fragment,r),j=!1},d(r){x(c,r)}}}function Xo(v){let c,j;return c=new ht({props:{code:`import fetch from "node-fetch";
 async function query(data) {
     const response = await fetch(
