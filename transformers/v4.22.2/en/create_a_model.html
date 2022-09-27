@@ -1,0 +1,393 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;create-a-custom-architecture&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;configuration&quot;,&quot;title&quot;:&quot;Configuration&quot;},{&quot;local&quot;:&quot;model&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;model-heads&quot;,&quot;title&quot;:&quot;Model heads&quot;}],&quot;title&quot;:&quot;Model&quot;},{&quot;local&quot;:&quot;tokenizer&quot;,&quot;title&quot;:&quot;Tokenizer&quot;},{&quot;local&quot;:&quot;feature-extractor&quot;,&quot;title&quot;:&quot;Feature Extractor&quot;},{&quot;local&quot;:&quot;processor&quot;,&quot;title&quot;:&quot;Processor&quot;}],&quot;title&quot;:&quot;Create a custom architecture&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.2/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.2/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.2/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.2/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.2/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.2/en/_app/pages/create_a_model.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.2/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.2/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.2/en/_app/chunks/CodeBlock-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/v4.22.2/en/_app/chunks/Markdown-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="create-a-custom-architecture" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#create-a-custom-architecture"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Create a custom architecture
+	</span></h1>
+
+<p>An <a href="model_doc/auto"><code>AutoClass</code></a> automatically infers the model architecture and downloads pretrained configuration and weights. Generally, we recommend using an <code>AutoClass</code> to produce checkpoint-agnostic code. But users who want more control over specific model parameters can create a custom 🤗 Transformers model from just a few base classes. This could be particularly useful for anyone who is interested in studying, training or experimenting with a 🤗 Transformers model. In this guide, dive deeper into creating a custom model without an <code>AutoClass</code>. Learn how to:</p>
+<ul><li>Load and customize a model configuration.</li>
+<li>Create a model architecture.</li>
+<li>Create a slow and fast tokenizer for text.</li>
+<li>Create a feature extractor for audio or image tasks.</li>
+<li>Create a processor for multimodal tasks.</li></ul>
+<h2 class="relative group"><a id="configuration" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#configuration"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Configuration
+	</span></h2>
+
+<p>A <a href="main_classes/configuration">configuration</a> refers to a model’s specific attributes. Each model configuration has different attributes; for instance, all NLP models have the <code>hidden_size</code>, <code>num_attention_heads</code>, <code>num_hidden_layers</code> and <code>vocab_size</code> attributes in common. These attributes specify the number of attention heads or hidden layers to construct a model with.</p>
+<p>Get a closer look at <a href="model_doc/distilbert">DistilBERT</a> by accessing <a href="/docs/transformers/v4.22.2/en/model_doc/distilbert#transformers.DistilBertConfig">DistilBertConfig</a> to inspect it’s attributes:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DistilBertConfig
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>config = DistilBertConfig()
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(config)
+DistilBertConfig {
+  <span class="hljs-string">&quot;activation&quot;</span>: <span class="hljs-string">&quot;gelu&quot;</span>,
+  <span class="hljs-string">&quot;attention_dropout&quot;</span>: <span class="hljs-number">0.1</span>,
+  <span class="hljs-string">&quot;dim&quot;</span>: <span class="hljs-number">768</span>,
+  <span class="hljs-string">&quot;dropout&quot;</span>: <span class="hljs-number">0.1</span>,
+  <span class="hljs-string">&quot;hidden_dim&quot;</span>: <span class="hljs-number">3072</span>,
+  <span class="hljs-string">&quot;initializer_range&quot;</span>: <span class="hljs-number">0.02</span>,
+  <span class="hljs-string">&quot;max_position_embeddings&quot;</span>: <span class="hljs-number">512</span>,
+  <span class="hljs-string">&quot;model_type&quot;</span>: <span class="hljs-string">&quot;distilbert&quot;</span>,
+  <span class="hljs-string">&quot;n_heads&quot;</span>: <span class="hljs-number">12</span>,
+  <span class="hljs-string">&quot;n_layers&quot;</span>: <span class="hljs-number">6</span>,
+  <span class="hljs-string">&quot;pad_token_id&quot;</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-string">&quot;qa_dropout&quot;</span>: <span class="hljs-number">0.1</span>,
+  <span class="hljs-string">&quot;seq_classif_dropout&quot;</span>: <span class="hljs-number">0.2</span>,
+  <span class="hljs-string">&quot;sinusoidal_pos_embds&quot;</span>: false,
+  <span class="hljs-string">&quot;transformers_version&quot;</span>: <span class="hljs-string">&quot;4.16.2&quot;</span>,
+  <span class="hljs-string">&quot;vocab_size&quot;</span>: <span class="hljs-number">30522</span>
+}<!-- HTML_TAG_END --></pre></div>
+<p><a href="/docs/transformers/v4.22.2/en/model_doc/distilbert#transformers.DistilBertConfig">DistilBertConfig</a> displays all the default attributes used to build a base <a href="/docs/transformers/v4.22.2/en/model_doc/distilbert#transformers.DistilBertModel">DistilBertModel</a>. All attributes are customizable, creating space for experimentation. For example, you can customize a default model to:</p>
+<ul><li>Try a different activation function with the <code>activation</code> parameter.</li>
+<li>Use a higher dropout ratio for the attention probabilities with the <code>attention_dropout</code> parameter.</li></ul>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>my_config = DistilBertConfig(activation=<span class="hljs-string">&quot;relu&quot;</span>, attention_dropout=<span class="hljs-number">0.4</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(my_config)
+DistilBertConfig {
+  <span class="hljs-string">&quot;activation&quot;</span>: <span class="hljs-string">&quot;relu&quot;</span>,
+  <span class="hljs-string">&quot;attention_dropout&quot;</span>: <span class="hljs-number">0.4</span>,
+  <span class="hljs-string">&quot;dim&quot;</span>: <span class="hljs-number">768</span>,
+  <span class="hljs-string">&quot;dropout&quot;</span>: <span class="hljs-number">0.1</span>,
+  <span class="hljs-string">&quot;hidden_dim&quot;</span>: <span class="hljs-number">3072</span>,
+  <span class="hljs-string">&quot;initializer_range&quot;</span>: <span class="hljs-number">0.02</span>,
+  <span class="hljs-string">&quot;max_position_embeddings&quot;</span>: <span class="hljs-number">512</span>,
+  <span class="hljs-string">&quot;model_type&quot;</span>: <span class="hljs-string">&quot;distilbert&quot;</span>,
+  <span class="hljs-string">&quot;n_heads&quot;</span>: <span class="hljs-number">12</span>,
+  <span class="hljs-string">&quot;n_layers&quot;</span>: <span class="hljs-number">6</span>,
+  <span class="hljs-string">&quot;pad_token_id&quot;</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-string">&quot;qa_dropout&quot;</span>: <span class="hljs-number">0.1</span>,
+  <span class="hljs-string">&quot;seq_classif_dropout&quot;</span>: <span class="hljs-number">0.2</span>,
+  <span class="hljs-string">&quot;sinusoidal_pos_embds&quot;</span>: false,
+  <span class="hljs-string">&quot;transformers_version&quot;</span>: <span class="hljs-string">&quot;4.16.2&quot;</span>,
+  <span class="hljs-string">&quot;vocab_size&quot;</span>: <span class="hljs-number">30522</span>
+}<!-- HTML_TAG_END --></pre></div>
+<p>Pretrained model attributes can be modified in the <a href="/docs/transformers/v4.22.2/en/main_classes/configuration#transformers.PretrainedConfig.from_pretrained">from_pretrained()</a> function:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>my_config = DistilBertConfig.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>, activation=<span class="hljs-string">&quot;relu&quot;</span>, attention_dropout=<span class="hljs-number">0.4</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Once you are satisfied with your model configuration, you can save it with <a href="/docs/transformers/v4.22.2/en/main_classes/configuration#transformers.PretrainedConfig.save_pretrained">save_pretrained()</a>. Your configuration file is stored as a JSON file in the specified save directory:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>my_config.save_pretrained(save_directory=<span class="hljs-string">&quot;./your_model_save_path&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>To reuse the configuration file, load it with <a href="/docs/transformers/v4.22.2/en/main_classes/configuration#transformers.PretrainedConfig.from_pretrained">from_pretrained()</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>my_config = DistilBertConfig.from_pretrained(<span class="hljs-string">&quot;./your_model_save_path/my_config.json&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>You can also save your configuration file as a dictionary or even just the difference between your custom configuration attributes and the default configuration attributes! See the <a href="main_classes/configuration">configuration</a> documentation for more details.</p></div>
+<h2 class="relative group"><a id="model" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#model"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Model
+	</span></h2>
+
+<p>The next step is to create a <a href="main_classes/models">model</a>. The model - also loosely referred to as the architecture - defines what each layer is doing and what operations are happening. Attributes like <code>num_hidden_layers</code> from the configuration are used to define the architecture. Every model shares the base class <a href="/docs/transformers/v4.22.2/en/main_classes/model#transformers.PreTrainedModel">PreTrainedModel</a> and a few common methods like resizing input embeddings and pruning self-attention heads. In addition, all models are also either a <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html" rel="nofollow"><code>torch.nn.Module</code></a>, <a href="https://www.tensorflow.org/api_docs/python/tf/keras/Model" rel="nofollow"><code>tf.keras.Model</code></a> or <a href="https://flax.readthedocs.io/en/latest/flax.linen.html#module" rel="nofollow"><code>flax.linen.Module</code></a> subclass. This means models are compatible with each of their respective framework’s usage.</p>
+<div class="space-y-10 py-6 2xl:py-8 2xl:-mx-4">
+
+<div class="border border-gray-200 rounded-xl px-4 relative"><div class="flex h-[22px] mt-[-12.5px] justify-between leading-none"><div class="flex px-1 items-center space-x-1 bg-white dark:bg-gray-950"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><defs><clipPath id="a"><rect x="3.05" y="0.5" width="25.73" height="31" fill="none"></rect></clipPath></defs><g clip-path="url(#a)"><path d="M24.94,9.51a12.81,12.81,0,0,1,0,18.16,12.68,12.68,0,0,1-18,0,12.81,12.81,0,0,1,0-18.16l9-9V5l-.84.83-6,6a9.58,9.58,0,1,0,13.55,0ZM20.44,9a1.68,1.68,0,1,1,1.67-1.67A1.68,1.68,0,0,1,20.44,9Z" fill="#ee4c2c"></path></g></svg>
+			<span>Pytorch</span></div>
+		<div class="cursor-pointer flex items-center justify-center space-x-1 text-sm px-2 bg-white dark:bg-gray-950 hover:underline leading-none"><svg class="" width="0.9em" height="0.9em" viewBox="0 0 10 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M1.39125 1.9725L0.0883333 0.669997L0.677917 0.0804138L8.9275 8.33041L8.33792 8.91958L6.95875 7.54041C6.22592 8.00523 5.37572 8.25138 4.50792 8.25C2.26125 8.25 0.392083 6.63333 0 4.5C0.179179 3.52946 0.667345 2.64287 1.39167 1.9725H1.39125ZM5.65667 6.23833L5.04667 5.62833C4.81335 5.73996 4.55116 5.77647 4.29622 5.73282C4.04129 5.68918 3.80617 5.56752 3.62328 5.38463C3.44039 5.20175 3.31874 4.96663 3.27509 4.71169C3.23144 4.45676 3.26795 4.19456 3.37958 3.96125L2.76958 3.35125C2.50447 3.75187 2.38595 4.2318 2.4341 4.70978C2.48225 5.18777 2.6941 5.63442 3.0338 5.97411C3.37349 6.31381 3.82015 6.52567 4.29813 6.57382C4.77611 6.62197 5.25605 6.50345 5.65667 6.23833ZM2.83042 1.06666C3.35 0.862497 3.91625 0.749997 4.50792 0.749997C6.75458 0.749997 8.62375 2.36666 9.01583 4.5C8.88816 5.19404 8.60119 5.84899 8.1775 6.41333L6.56917 4.805C6.61694 4.48317 6.58868 4.15463 6.48664 3.84569C6.3846 3.53675 6.21162 3.256 5.98156 3.02594C5.7515 2.79588 5.47075 2.6229 5.16181 2.52086C4.85287 2.41882 4.52433 2.39056 4.2025 2.43833L2.83042 1.06708V1.06666Z" fill="currentColor"></path></svg>
+				<span>Hide Pytorch content</span></div></div>
+	<div class="framework-content">
+<p>Load your custom configuration attributes into the model:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DistilBertModel
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>my_config = DistilBertConfig.from_pretrained(<span class="hljs-string">&quot;./your_model_save_path/my_config.json&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = DistilBertModel(my_config)<!-- HTML_TAG_END --></pre></div>
+<p>This creates a model with random values instead of pretrained weights. You won’t be able to use this model for anything useful yet until you train it. Training is a costly and time-consuming process. It is generally better to use a pretrained model to obtain better results faster, while using only a fraction of the resources required for training.</p>
+<p>Create a pretrained model with <a href="/docs/transformers/v4.22.2/en/main_classes/model#transformers.PreTrainedModel.from_pretrained">from_pretrained()</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>model = DistilBertModel.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>When you load pretrained weights, the default model configuration is automatically loaded if the model is provided by 🤗 Transformers. However, you can still replace - some or all of - the default model configuration attributes with your own if you’d like:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>model = DistilBertModel.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>, config=my_config)<!-- HTML_TAG_END --></pre></div></div></div>
+	
+
+<div class="border border-gray-200 rounded-xl px-4 relative"><div class="flex h-[22px] mt-[-12.5px] justify-between leading-none"><div class="flex px-1 items-center space-x-1 bg-white dark:bg-gray-950"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="0.94em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 274"><path d="M145.726 42.065v42.07l72.861 42.07v-42.07l-72.86-42.07zM0 84.135v42.07l36.43 21.03V105.17L0 84.135zm109.291 21.035l-36.43 21.034v126.2l36.43 21.035v-84.135l36.435 21.035v-42.07l-36.435-21.034V105.17z" fill="#E55B2D"></path><path d="M145.726 42.065L36.43 105.17v42.065l72.861-42.065v42.065l36.435-21.03v-84.14zM255.022 63.1l-36.435 21.035v42.07l36.435-21.035V63.1zm-72.865 84.135l-36.43 21.035v42.07l36.43-21.036v-42.07zm-36.43 63.104l-36.436-21.035v84.135l36.435-21.035V210.34z" fill="#ED8E24"></path><path d="M145.726 0L0 84.135l36.43 21.035l109.296-63.105l72.861 42.07L255.022 63.1L145.726 0zm0 126.204l-36.435 21.03l36.435 21.036l36.43-21.035l-36.43-21.03z" fill="#F8BF3C"></path></svg>
+			<span>TensorFlow</span></div>
+		<div class="cursor-pointer flex items-center justify-center space-x-1 text-sm px-2 bg-white dark:bg-gray-950 hover:underline leading-none"><svg class="" width="0.9em" height="0.9em" viewBox="0 0 10 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M1.39125 1.9725L0.0883333 0.669997L0.677917 0.0804138L8.9275 8.33041L8.33792 8.91958L6.95875 7.54041C6.22592 8.00523 5.37572 8.25138 4.50792 8.25C2.26125 8.25 0.392083 6.63333 0 4.5C0.179179 3.52946 0.667345 2.64287 1.39167 1.9725H1.39125ZM5.65667 6.23833L5.04667 5.62833C4.81335 5.73996 4.55116 5.77647 4.29622 5.73282C4.04129 5.68918 3.80617 5.56752 3.62328 5.38463C3.44039 5.20175 3.31874 4.96663 3.27509 4.71169C3.23144 4.45676 3.26795 4.19456 3.37958 3.96125L2.76958 3.35125C2.50447 3.75187 2.38595 4.2318 2.4341 4.70978C2.48225 5.18777 2.6941 5.63442 3.0338 5.97411C3.37349 6.31381 3.82015 6.52567 4.29813 6.57382C4.77611 6.62197 5.25605 6.50345 5.65667 6.23833ZM2.83042 1.06666C3.35 0.862497 3.91625 0.749997 4.50792 0.749997C6.75458 0.749997 8.62375 2.36666 9.01583 4.5C8.88816 5.19404 8.60119 5.84899 8.1775 6.41333L6.56917 4.805C6.61694 4.48317 6.58868 4.15463 6.48664 3.84569C6.3846 3.53675 6.21162 3.256 5.98156 3.02594C5.7515 2.79588 5.47075 2.6229 5.16181 2.52086C4.85287 2.41882 4.52433 2.39056 4.2025 2.43833L2.83042 1.06708V1.06666Z" fill="currentColor"></path></svg>
+				<span>Hide TensorFlow content</span></div></div>
+	<div class="framework-content">
+<p>Load your custom configuration attributes into the model:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TFDistilBertModel
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>my_config = DistilBertConfig.from_pretrained(<span class="hljs-string">&quot;./your_model_save_path/my_config.json&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tf_model = TFDistilBertModel(my_config)<!-- HTML_TAG_END --></pre></div>
+<p>This creates a model with random values instead of pretrained weights. You won’t be able to use this model for anything useful yet until you train it. Training is a costly and time-consuming process. It is generally better to use a pretrained model to obtain better results faster, while using only a fraction of the resources required for training.</p>
+<p>Create a pretrained model with <a href="/docs/transformers/v4.22.2/en/main_classes/model#transformers.TFPreTrainedModel.from_pretrained">from_pretrained()</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>tf_model = TFDistilBertModel.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>When you load pretrained weights, the default model configuration is automatically loaded if the model is provided by 🤗 Transformers. However, you can still replace - some or all of - the default model configuration attributes with your own if you’d like:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>tf_model = TFDistilBertModel.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>, config=my_config)<!-- HTML_TAG_END --></pre></div>
+					</div></div>
+	</div>
+<h3 class="relative group"><a id="model-heads" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#model-heads"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Model heads
+	</span></h3>
+
+<p>At this point, you have a base DistilBERT model which outputs the <em>hidden states</em>. The hidden states are passed as inputs to a model head to produce the final output. 🤗 Transformers provides a different model head for each task as long as a model supports the task (i.e., you can’t use DistilBERT for a sequence-to-sequence task like translation).</p>
+<div class="space-y-10 py-6 2xl:py-8 2xl:-mx-4">
+
+<div class="border border-gray-200 rounded-xl px-4 relative"><div class="flex h-[22px] mt-[-12.5px] justify-between leading-none"><div class="flex px-1 items-center space-x-1 bg-white dark:bg-gray-950"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><defs><clipPath id="a"><rect x="3.05" y="0.5" width="25.73" height="31" fill="none"></rect></clipPath></defs><g clip-path="url(#a)"><path d="M24.94,9.51a12.81,12.81,0,0,1,0,18.16,12.68,12.68,0,0,1-18,0,12.81,12.81,0,0,1,0-18.16l9-9V5l-.84.83-6,6a9.58,9.58,0,1,0,13.55,0ZM20.44,9a1.68,1.68,0,1,1,1.67-1.67A1.68,1.68,0,0,1,20.44,9Z" fill="#ee4c2c"></path></g></svg>
+			<span>Pytorch</span></div>
+		<div class="cursor-pointer flex items-center justify-center space-x-1 text-sm px-2 bg-white dark:bg-gray-950 hover:underline leading-none"><svg class="" width="0.9em" height="0.9em" viewBox="0 0 10 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M1.39125 1.9725L0.0883333 0.669997L0.677917 0.0804138L8.9275 8.33041L8.33792 8.91958L6.95875 7.54041C6.22592 8.00523 5.37572 8.25138 4.50792 8.25C2.26125 8.25 0.392083 6.63333 0 4.5C0.179179 3.52946 0.667345 2.64287 1.39167 1.9725H1.39125ZM5.65667 6.23833L5.04667 5.62833C4.81335 5.73996 4.55116 5.77647 4.29622 5.73282C4.04129 5.68918 3.80617 5.56752 3.62328 5.38463C3.44039 5.20175 3.31874 4.96663 3.27509 4.71169C3.23144 4.45676 3.26795 4.19456 3.37958 3.96125L2.76958 3.35125C2.50447 3.75187 2.38595 4.2318 2.4341 4.70978C2.48225 5.18777 2.6941 5.63442 3.0338 5.97411C3.37349 6.31381 3.82015 6.52567 4.29813 6.57382C4.77611 6.62197 5.25605 6.50345 5.65667 6.23833ZM2.83042 1.06666C3.35 0.862497 3.91625 0.749997 4.50792 0.749997C6.75458 0.749997 8.62375 2.36666 9.01583 4.5C8.88816 5.19404 8.60119 5.84899 8.1775 6.41333L6.56917 4.805C6.61694 4.48317 6.58868 4.15463 6.48664 3.84569C6.3846 3.53675 6.21162 3.256 5.98156 3.02594C5.7515 2.79588 5.47075 2.6229 5.16181 2.52086C4.85287 2.41882 4.52433 2.39056 4.2025 2.43833L2.83042 1.06708V1.06666Z" fill="currentColor"></path></svg>
+				<span>Hide Pytorch content</span></div></div>
+	<div class="framework-content">
+<p>For example, <a href="/docs/transformers/v4.22.2/en/model_doc/distilbert#transformers.DistilBertForSequenceClassification">DistilBertForSequenceClassification</a> is a base DistilBERT model with a sequence classification head. The sequence classification head is a linear layer on top of the pooled outputs.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DistilBertForSequenceClassification
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = DistilBertForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Easily reuse this checkpoint for another task by switching to a different model head. For a question answering task, you would use the <a href="/docs/transformers/v4.22.2/en/model_doc/distilbert#transformers.DistilBertForQuestionAnswering">DistilBertForQuestionAnswering</a> model head. The question answering head is similar to the sequence classification head except it is a linear layer on top of the hidden states output.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DistilBertForQuestionAnswering
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = DistilBertForQuestionAnswering.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)<!-- HTML_TAG_END --></pre></div></div></div>
+	
+
+<div class="border border-gray-200 rounded-xl px-4 relative"><div class="flex h-[22px] mt-[-12.5px] justify-between leading-none"><div class="flex px-1 items-center space-x-1 bg-white dark:bg-gray-950"><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="0.94em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 274"><path d="M145.726 42.065v42.07l72.861 42.07v-42.07l-72.86-42.07zM0 84.135v42.07l36.43 21.03V105.17L0 84.135zm109.291 21.035l-36.43 21.034v126.2l36.43 21.035v-84.135l36.435 21.035v-42.07l-36.435-21.034V105.17z" fill="#E55B2D"></path><path d="M145.726 42.065L36.43 105.17v42.065l72.861-42.065v42.065l36.435-21.03v-84.14zM255.022 63.1l-36.435 21.035v42.07l36.435-21.035V63.1zm-72.865 84.135l-36.43 21.035v42.07l36.43-21.036v-42.07zm-36.43 63.104l-36.436-21.035v84.135l36.435-21.035V210.34z" fill="#ED8E24"></path><path d="M145.726 0L0 84.135l36.43 21.035l109.296-63.105l72.861 42.07L255.022 63.1L145.726 0zm0 126.204l-36.435 21.03l36.435 21.036l36.43-21.035l-36.43-21.03z" fill="#F8BF3C"></path></svg>
+			<span>TensorFlow</span></div>
+		<div class="cursor-pointer flex items-center justify-center space-x-1 text-sm px-2 bg-white dark:bg-gray-950 hover:underline leading-none"><svg class="" width="0.9em" height="0.9em" viewBox="0 0 10 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M1.39125 1.9725L0.0883333 0.669997L0.677917 0.0804138L8.9275 8.33041L8.33792 8.91958L6.95875 7.54041C6.22592 8.00523 5.37572 8.25138 4.50792 8.25C2.26125 8.25 0.392083 6.63333 0 4.5C0.179179 3.52946 0.667345 2.64287 1.39167 1.9725H1.39125ZM5.65667 6.23833L5.04667 5.62833C4.81335 5.73996 4.55116 5.77647 4.29622 5.73282C4.04129 5.68918 3.80617 5.56752 3.62328 5.38463C3.44039 5.20175 3.31874 4.96663 3.27509 4.71169C3.23144 4.45676 3.26795 4.19456 3.37958 3.96125L2.76958 3.35125C2.50447 3.75187 2.38595 4.2318 2.4341 4.70978C2.48225 5.18777 2.6941 5.63442 3.0338 5.97411C3.37349 6.31381 3.82015 6.52567 4.29813 6.57382C4.77611 6.62197 5.25605 6.50345 5.65667 6.23833ZM2.83042 1.06666C3.35 0.862497 3.91625 0.749997 4.50792 0.749997C6.75458 0.749997 8.62375 2.36666 9.01583 4.5C8.88816 5.19404 8.60119 5.84899 8.1775 6.41333L6.56917 4.805C6.61694 4.48317 6.58868 4.15463 6.48664 3.84569C6.3846 3.53675 6.21162 3.256 5.98156 3.02594C5.7515 2.79588 5.47075 2.6229 5.16181 2.52086C4.85287 2.41882 4.52433 2.39056 4.2025 2.43833L2.83042 1.06708V1.06666Z" fill="currentColor"></path></svg>
+				<span>Hide TensorFlow content</span></div></div>
+	<div class="framework-content">
+<p>For example, <a href="/docs/transformers/v4.22.2/en/model_doc/distilbert#transformers.TFDistilBertForSequenceClassification">TFDistilBertForSequenceClassification</a> is a base DistilBERT model with a sequence classification head. The sequence classification head is a linear layer on top of the pooled outputs.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TFDistilBertForSequenceClassification
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tf_model = TFDistilBertForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Easily reuse this checkpoint for another task by switching to a different model head. For a question answering task, you would use the <a href="/docs/transformers/v4.22.2/en/model_doc/distilbert#transformers.TFDistilBertForQuestionAnswering">TFDistilBertForQuestionAnswering</a> model head. The question answering head is similar to the sequence classification head except it is a linear layer on top of the hidden states output.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TFDistilBertForQuestionAnswering
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tf_model = TFDistilBertForQuestionAnswering.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+					</div></div>
+	</div>
+<h2 class="relative group"><a id="tokenizer" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#tokenizer"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Tokenizer
+	</span></h2>
+
+<p>The last base class you need before using a model for textual data is a <a href="main_classes/tokenizer">tokenizer</a> to convert raw text to tensors. There are two types of tokenizers you can use with 🤗 Transformers:</p>
+<ul><li><a href="/docs/transformers/v4.22.2/en/main_classes/tokenizer#transformers.PreTrainedTokenizer">PreTrainedTokenizer</a>: a Python implementation of a tokenizer.</li>
+<li><a href="/docs/transformers/v4.22.2/en/main_classes/tokenizer#transformers.PreTrainedTokenizerFast">PreTrainedTokenizerFast</a>: a tokenizer from our Rust-based <a href="https://huggingface.co/docs/tokenizers/python/latest/" rel="nofollow">🤗 Tokenizer</a> library. This tokenizer type is significantly faster - especially during batch tokenization - due to it’s Rust implementation. The fast tokenizer also offers additional methods like <em>offset mapping</em> which maps tokens to their original words or characters.</li></ul>
+<p>Both tokenizers support common methods such as encoding and decoding, adding new tokens, and managing special tokens.</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>Not every model supports a fast tokenizer. Take a look at this <a href="index#supported-frameworks">table</a> to check if a model has fast tokenizer support.</p></div>
+<p>If you trained your own tokenizer, you can create one from your <em>vocabulary</em> file:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DistilBertTokenizer
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>my_tokenizer = DistilBertTokenizer(vocab_file=<span class="hljs-string">&quot;my_vocab_file.txt&quot;</span>, do_lower_case=<span class="hljs-literal">False</span>, padding_side=<span class="hljs-string">&quot;left&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>It is important to remember the vocabulary from a custom tokenizer will be different from the vocabulary generated by a pretrained model’s tokenizer. You need to use a pretrained model’s vocabulary if you are using a pretrained model, otherwise the inputs won’t make sense. Create a tokenizer with a pretrained model’s vocabulary with the <a href="/docs/transformers/v4.22.2/en/model_doc/distilbert#transformers.DistilBertTokenizer">DistilBertTokenizer</a> class:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DistilBertTokenizer
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>slow_tokenizer = DistilBertTokenizer.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Create a fast tokenizer with the <a href="/docs/transformers/v4.22.2/en/model_doc/distilbert#transformers.DistilBertTokenizerFast">DistilBertTokenizerFast</a> class:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DistilBertTokenizerFast
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>fast_tokenizer = DistilBertTokenizerFast.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>By default, <a href="/docs/transformers/v4.22.2/en/model_doc/auto#transformers.AutoTokenizer">AutoTokenizer</a> will try to load a fast tokenizer. You can disable this behavior by setting <code>use_fast=False</code> in <code>from_pretrained</code>.</p></div>
+<h2 class="relative group"><a id="feature-extractor" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#feature-extractor"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Feature Extractor
+	</span></h2>
+
+<p>A feature extractor processes audio or image inputs. It inherits from the base <a href="/docs/transformers/v4.22.2/en/main_classes/feature_extractor#transformers.FeatureExtractionMixin">FeatureExtractionMixin</a> class, and may also inherit from the <a href="/docs/transformers/v4.22.2/en/main_classes/feature_extractor#transformers.ImageFeatureExtractionMixin">ImageFeatureExtractionMixin</a> class for processing image features or the <a href="/docs/transformers/v4.22.2/en/main_classes/feature_extractor#transformers.SequenceFeatureExtractor">SequenceFeatureExtractor</a> class for processing audio inputs.</p>
+<p>Depending on whether you are working on an audio or vision task, create a feature extractor associated with the model you’re using. For example, create a default <a href="/docs/transformers/v4.22.2/en/model_doc/vit#transformers.ViTFeatureExtractor">ViTFeatureExtractor</a> if you are using <a href="model_doc/vit">ViT</a> for image classification:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ViTFeatureExtractor
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>vit_extractor = ViTFeatureExtractor()
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(vit_extractor)
+ViTFeatureExtractor {
+  <span class="hljs-string">&quot;do_normalize&quot;</span>: true,
+  <span class="hljs-string">&quot;do_resize&quot;</span>: true,
+  <span class="hljs-string">&quot;feature_extractor_type&quot;</span>: <span class="hljs-string">&quot;ViTFeatureExtractor&quot;</span>,
+  <span class="hljs-string">&quot;image_mean&quot;</span>: [
+    <span class="hljs-number">0.5</span>,
+    <span class="hljs-number">0.5</span>,
+    <span class="hljs-number">0.5</span>
+  ],
+  <span class="hljs-string">&quot;image_std&quot;</span>: [
+    <span class="hljs-number">0.5</span>,
+    <span class="hljs-number">0.5</span>,
+    <span class="hljs-number">0.5</span>
+  ],
+  <span class="hljs-string">&quot;resample&quot;</span>: <span class="hljs-number">2</span>,
+  <span class="hljs-string">&quot;size&quot;</span>: <span class="hljs-number">224</span>
+}<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>If you aren’t looking for any customization, just use the <code>from_pretrained</code> method to load a model’s default feature extractor parameters.</p></div>
+<p>Modify any of the <a href="/docs/transformers/v4.22.2/en/model_doc/vit#transformers.ViTFeatureExtractor">ViTFeatureExtractor</a> parameters to create your custom feature extractor:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ViTFeatureExtractor
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>my_vit_extractor = ViTFeatureExtractor(resample=<span class="hljs-string">&quot;PIL.Image.BOX&quot;</span>, do_normalize=<span class="hljs-literal">False</span>, image_mean=[<span class="hljs-number">0.3</span>, <span class="hljs-number">0.3</span>, <span class="hljs-number">0.3</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(my_vit_extractor)
+ViTFeatureExtractor {
+  <span class="hljs-string">&quot;do_normalize&quot;</span>: false,
+  <span class="hljs-string">&quot;do_resize&quot;</span>: true,
+  <span class="hljs-string">&quot;feature_extractor_type&quot;</span>: <span class="hljs-string">&quot;ViTFeatureExtractor&quot;</span>,
+  <span class="hljs-string">&quot;image_mean&quot;</span>: [
+    <span class="hljs-number">0.3</span>,
+    <span class="hljs-number">0.3</span>,
+    <span class="hljs-number">0.3</span>
+  ],
+  <span class="hljs-string">&quot;image_std&quot;</span>: [
+    <span class="hljs-number">0.5</span>,
+    <span class="hljs-number">0.5</span>,
+    <span class="hljs-number">0.5</span>
+  ],
+  <span class="hljs-string">&quot;resample&quot;</span>: <span class="hljs-string">&quot;PIL.Image.BOX&quot;</span>,
+  <span class="hljs-string">&quot;size&quot;</span>: <span class="hljs-number">224</span>
+}<!-- HTML_TAG_END --></pre></div>
+<p>For audio inputs, you can create a <a href="/docs/transformers/v4.22.2/en/model_doc/wav2vec2#transformers.Wav2Vec2FeatureExtractor">Wav2Vec2FeatureExtractor</a> and customize the parameters in a similar way:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Wav2Vec2FeatureExtractor
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>w2v2_extractor = Wav2Vec2FeatureExtractor()
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(w2v2_extractor)
+Wav2Vec2FeatureExtractor {
+  <span class="hljs-string">&quot;do_normalize&quot;</span>: true,
+  <span class="hljs-string">&quot;feature_extractor_type&quot;</span>: <span class="hljs-string">&quot;Wav2Vec2FeatureExtractor&quot;</span>,
+  <span class="hljs-string">&quot;feature_size&quot;</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-string">&quot;padding_side&quot;</span>: <span class="hljs-string">&quot;right&quot;</span>,
+  <span class="hljs-string">&quot;padding_value&quot;</span>: <span class="hljs-number">0.0</span>,
+  <span class="hljs-string">&quot;return_attention_mask&quot;</span>: false,
+  <span class="hljs-string">&quot;sampling_rate&quot;</span>: <span class="hljs-number">16000</span>
+}<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="processor" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#processor"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Processor
+	</span></h2>
+
+<p>For models that support multimodal tasks, 🤗 Transformers offers a processor class that conveniently wraps a feature extractor and tokenizer into a single object. For example, let’s use the <a href="/docs/transformers/v4.22.2/en/model_doc/wav2vec2#transformers.Wav2Vec2Processor">Wav2Vec2Processor</a> for an automatic speech recognition task (ASR). ASR transcribes audio to text, so you will need a feature extractor and a tokenizer.</p>
+<p>Create a feature extractor to handle the audio inputs:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Wav2Vec2FeatureExtractor
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>feature_extractor = Wav2Vec2FeatureExtractor(padding_value=<span class="hljs-number">1.0</span>, do_normalize=<span class="hljs-literal">True</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Create a tokenizer to handle the text inputs:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Wav2Vec2CTCTokenizer
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = Wav2Vec2CTCTokenizer(vocab_file=<span class="hljs-string">&quot;my_vocab_file.txt&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Combine the feature extractor and tokenizer in <a href="/docs/transformers/v4.22.2/en/model_doc/wav2vec2#transformers.Wav2Vec2Processor">Wav2Vec2Processor</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Wav2Vec2Processor
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)<!-- HTML_TAG_END --></pre></div>
+<p>With two basic classes - configuration and model - and an additional preprocessing class (tokenizer, feature extractor, or processor), you can create any of the models supported by 🤗 Transformers. Each of these base classes are configurable, allowing you to use the specific attributes you want. You can easily setup a model for training or modify an existing pretrained model to fine-tune.</p>
+
+
+		<script type="module" data-hydrate="dqkly5">
+		import { start } from "/docs/transformers/v4.22.2/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="dqkly5"]').parentNode,
+			paths: {"base":"/docs/transformers/v4.22.2/en","assets":"/docs/transformers/v4.22.2/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/transformers/v4.22.2/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/transformers/v4.22.2/en/_app/pages/create_a_model.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
