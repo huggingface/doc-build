@@ -1,0 +1,154 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;hyperparameter-search-using-trainer-api&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;hyperparameter-search-backend&quot;,&quot;title&quot;:&quot;Hyperparameter Search backend&quot;},{&quot;local&quot;:&quot;how-to-enable-hyperparameter-search-in-example&quot;,&quot;title&quot;:&quot;How to enable Hyperparameter search in example&quot;},{&quot;local&quot;:&quot;hyperparameter-search-for-ddp-refinetune&quot;,&quot;title&quot;:&quot;Hyperparameter search For DDP refinetune&quot;}],&quot;title&quot;:&quot;Hyperparameter Search using Trainer API&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/pages/hpo_train.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="hyperparameter-search-using-trainer-api" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#hyperparameter-search-using-trainer-api"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Hyperparameter Search using Trainer API
+	</span></h1>
+
+<p>🤗 Transformers provides a <a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer">Trainer</a> class optimized for training 🤗 Transformers models, making it easier to start training without manually writing your own training loop. The <a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer">Trainer</a> provides API for hyperparameter search. This doc shows how to enable it in example. </p>
+<h2 class="relative group"><a id="hyperparameter-search-backend" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#hyperparameter-search-backend"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Hyperparameter Search backend
+	</span></h2>
+
+<p><a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer">Trainer</a> supports four hyperparameter search backends currently:
+<a href="https://optuna.org/" rel="nofollow">optuna</a>, <a href="https://sigopt.com/" rel="nofollow">sigopt</a>, <a href="https://docs.ray.io/en/latest/tune/index.html" rel="nofollow">raytune</a> and <a href="https://wandb.ai/site/sweeps" rel="nofollow">wandb</a>.</p>
+<p>you should install them before using them as the hyperparameter search backend</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->pip install optuna/sigopt/wandb/ray[tune] <!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="how-to-enable-hyperparameter-search-in-example" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#how-to-enable-hyperparameter-search-in-example"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>How to enable Hyperparameter search in example
+	</span></h2>
+
+<p>Define the hyperparameter search space, different backends need different format.</p>
+<p>For sigopt, see sigopt <a href="https://docs.sigopt.com/ai-module-api-references/api_reference/objects/object_parameter" rel="nofollow">object_parameter</a>, it’s like following:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">sigopt_hp_space</span>(<span class="hljs-params">trial</span>):
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> [
+<span class="hljs-meta">... </span>        {<span class="hljs-string">&quot;bounds&quot;</span>: {<span class="hljs-string">&quot;min&quot;</span>: <span class="hljs-number">1e-6</span>, <span class="hljs-string">&quot;max&quot;</span>: <span class="hljs-number">1e-4</span>}, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;learning_rate&quot;</span>, <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;double&quot;</span>},
+<span class="hljs-meta">... </span>        {
+<span class="hljs-meta">... </span>            <span class="hljs-string">&quot;categorical_values&quot;</span>: [<span class="hljs-string">&quot;16&quot;</span>, <span class="hljs-string">&quot;32&quot;</span>, <span class="hljs-string">&quot;64&quot;</span>, <span class="hljs-string">&quot;128&quot;</span>],
+<span class="hljs-meta">... </span>            <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;per_device_train_batch_size&quot;</span>,
+<span class="hljs-meta">... </span>            <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;categorical&quot;</span>,
+<span class="hljs-meta">... </span>        },
+<span class="hljs-meta">... </span>    ]<!-- HTML_TAG_END --></pre></div>
+<p>For optuna, see optuna <a href="https://optuna.readthedocs.io/en/stable/tutorial/10_key_features/002_configurations.html#sphx-glr-tutorial-10-key-features-002-configurations-py" rel="nofollow">object_parameter</a>, it’s like following:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">optuna_hp_space</span>(<span class="hljs-params">trial</span>):
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> {
+<span class="hljs-meta">... </span>        <span class="hljs-string">&quot;learning_rate&quot;</span>: trial.suggest_float(<span class="hljs-string">&quot;learning_rate&quot;</span>, <span class="hljs-number">1e-6</span>, <span class="hljs-number">1e-4</span>, log=<span class="hljs-literal">True</span>),
+<span class="hljs-meta">... </span>        <span class="hljs-string">&quot;per_device_train_batch_size&quot;</span>: trial.suggest_categorical(<span class="hljs-string">&quot;per_device_train_batch_size&quot;</span>, [<span class="hljs-number">16</span>, <span class="hljs-number">32</span>, <span class="hljs-number">64</span>, <span class="hljs-number">128</span>]),
+<span class="hljs-meta">... </span>    }<!-- HTML_TAG_END --></pre></div>
+<p>For raytune, see raytune <a href="https://docs.ray.io/en/latest/tune/api_docs/search_space.html" rel="nofollow">object_parameter</a>, it’s like following:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">ray_hp_space</span>(<span class="hljs-params">trial</span>):
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> {
+<span class="hljs-meta">... </span>        <span class="hljs-string">&quot;learning_rate&quot;</span>: tune.loguniform(<span class="hljs-number">1e-6</span>, <span class="hljs-number">1e-4</span>),
+<span class="hljs-meta">... </span>        <span class="hljs-string">&quot;per_device_train_batch_size&quot;</span>: tune.choice([<span class="hljs-number">16</span>, <span class="hljs-number">32</span>, <span class="hljs-number">64</span>, <span class="hljs-number">128</span>]),
+<span class="hljs-meta">... </span>    }<!-- HTML_TAG_END --></pre></div>
+<p>For wandb, see wandb <a href="https://docs.wandb.ai/guides/sweeps/configuration" rel="nofollow">object_parameter</a>, it’s like following:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">wandb_hp_space</span>(<span class="hljs-params">trial</span>):
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> {
+<span class="hljs-meta">... </span>        <span class="hljs-string">&quot;method&quot;</span>: <span class="hljs-string">&quot;random&quot;</span>,
+<span class="hljs-meta">... </span>        <span class="hljs-string">&quot;metric&quot;</span>: {<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;objective&quot;</span>, <span class="hljs-string">&quot;goal&quot;</span>: <span class="hljs-string">&quot;minimize&quot;</span>},
+<span class="hljs-meta">... </span>        <span class="hljs-string">&quot;parameters&quot;</span>: {
+<span class="hljs-meta">... </span>            <span class="hljs-string">&quot;learning_rate&quot;</span>: {<span class="hljs-string">&quot;distribution&quot;</span>: <span class="hljs-string">&quot;uniform&quot;</span>, <span class="hljs-string">&quot;min&quot;</span>: <span class="hljs-number">1e-6</span>, <span class="hljs-string">&quot;max&quot;</span>: <span class="hljs-number">1e-4</span>},
+<span class="hljs-meta">... </span>            <span class="hljs-string">&quot;per_device_train_batch_size&quot;</span>: {<span class="hljs-string">&quot;values&quot;</span>: [<span class="hljs-number">16</span>, <span class="hljs-number">32</span>, <span class="hljs-number">64</span>, <span class="hljs-number">128</span>]},
+<span class="hljs-meta">... </span>        },
+<span class="hljs-meta">... </span>    }<!-- HTML_TAG_END --></pre></div>
+<p>Define a <code>model_init</code> function and pass it to the <a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer">Trainer</a>, as an example:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">model_init</span>(<span class="hljs-params">trial</span>):
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> AutoModelForSequenceClassification.from_pretrained(
+<span class="hljs-meta">... </span>        model_args.model_name_or_path,
+<span class="hljs-meta">... </span>        from_tf=<span class="hljs-built_in">bool</span>(<span class="hljs-string">&quot;.ckpt&quot;</span> <span class="hljs-keyword">in</span> model_args.model_name_or_path),
+<span class="hljs-meta">... </span>        config=config,
+<span class="hljs-meta">... </span>        cache_dir=model_args.cache_dir,
+<span class="hljs-meta">... </span>        revision=model_args.model_revision,
+<span class="hljs-meta">... </span>        use_auth_token=<span class="hljs-literal">True</span> <span class="hljs-keyword">if</span> model_args.use_auth_token <span class="hljs-keyword">else</span> <span class="hljs-literal">None</span>,
+<span class="hljs-meta">... </span>    )<!-- HTML_TAG_END --></pre></div>
+<p>Create a <a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer">Trainer</a> with your <code>model_init</code> function, training arguments, training and test datasets, and evaluation function:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>trainer = Trainer(
+<span class="hljs-meta">... </span>    model=<span class="hljs-literal">None</span>,
+<span class="hljs-meta">... </span>    args=training_args,
+<span class="hljs-meta">... </span>    train_dataset=small_train_dataset,
+<span class="hljs-meta">... </span>    eval_dataset=small_eval_dataset,
+<span class="hljs-meta">... </span>    compute_metrics=compute_metrics,
+<span class="hljs-meta">... </span>    tokenizer=tokenizer,
+<span class="hljs-meta">... </span>    model_init=model_init,
+<span class="hljs-meta">... </span>    data_collator=data_collator,
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+<p>Call hyperparameter search, get the best trial parameters, backend could be <code>&quot;optuna&quot;</code>/<code>&quot;sigopt&quot;</code>/<code>&quot;wandb&quot;</code>/<code>&quot;ray&quot;</code>. direction can be<code>&quot;minimize&quot;</code> or <code>&quot;maximize&quot;</code>, which indicates whether to optimize greater or lower objective.</p>
+<p>You could define your own compute_objective function, if not defined, the default compute_objective will be called, and the sum of eval metric like f1 is returned as objective value.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>best_trial = trainer.hyperparameter_search(
+<span class="hljs-meta">... </span>    direction=<span class="hljs-string">&quot;maximize&quot;</span>,
+<span class="hljs-meta">... </span>    backend=<span class="hljs-string">&quot;optuna&quot;</span>,
+<span class="hljs-meta">... </span>    hp_space=optuna_hp_space,
+<span class="hljs-meta">... </span>    n_trials=<span class="hljs-number">20</span>,
+<span class="hljs-meta">... </span>    compute_objective=compute_objective,
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="hyperparameter-search-for-ddp-refinetune" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#hyperparameter-search-for-ddp-refinetune"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Hyperparameter search For DDP refinetune
+	</span></h2>
+
+Currently, Hyperparameter search for DDP is enabled for optuna and sigopt. Only the rank-zero process will generate the search trial and pass the argument to other ranks.
+
+
+		<script type="module" data-hydrate="14ziqnj">
+		import { start } from "/docs/transformers/main/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="14ziqnj"]').parentNode,
+			paths: {"base":"/docs/transformers/main/en","assets":"/docs/transformers/main/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/transformers/main/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/transformers/main/en/_app/pages/hpo_train.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
