@@ -24,33 +24,44 @@
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
 	Copied</div></button></div>
-	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> optimum.intel.neural_compressor <span class="hljs-keyword">import</span> IncQuantizationConfig, IncQuantizer 
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForQuestionAnswering, AutoTokenizer, pipeline
+<span class="hljs-keyword">from</span> evaluate <span class="hljs-keyword">import</span> evaluator
+<span class="hljs-keyword">from</span> optimum.intel.neural_compressor <span class="hljs-keyword">import</span> IncOptimizer, IncQuantizationConfig, IncQuantizer
 
-<span class="hljs-comment"># Load the quantization configuration detailing the quantization methodology we wish to apply</span>
-quantization_config = IncQuantizationConfig.from_pretrained(
-  <span class="hljs-string">&quot;Intel/distilbert-base-uncased-finetuned-sst-2-english-int8-dynamic&quot;</span>, 
-  config_file_name=<span class="hljs-string">&quot;quantization.yml&quot;</span>,
-)
-<span class="hljs-comment"># Create our quantizer with the quantization configuration and the evaluation function needed </span>
-<span class="hljs-comment"># for the automatic accuracy-driven tuning strategies</span>
+model_id = <span class="hljs-string">&quot;distilbert-base-cased-distilled-squad&quot;</span>
+max_eval_samples = <span class="hljs-number">100</span>
+model = AutoModelForQuestionAnswering.from_pretrained(model_id)
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+eval_dataset = load_dataset(<span class="hljs-string">&quot;squad&quot;</span>, split=<span class="hljs-string">&quot;validation&quot;</span>).select(<span class="hljs-built_in">range</span>(max_eval_samples))
+<span class="hljs-built_in">eval</span> = evaluator(<span class="hljs-string">&quot;question-answering&quot;</span>)
+qa_pipeline = pipeline(<span class="hljs-string">&quot;question-answering&quot;</span>, model=model, tokenizer=tokenizer)
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">eval_func</span>(<span class="hljs-params">model</span>):
+    qa_pipeline.model = model
+    metrics = <span class="hljs-built_in">eval</span>.compute(model_or_pipeline=qa_pipeline, data=eval_dataset, metric=<span class="hljs-string">&quot;squad&quot;</span>)
+    <span class="hljs-keyword">return</span> metrics[<span class="hljs-string">&quot;f1&quot;</span>]
+
+<span class="hljs-comment"># Load the quantization configuration detailing the quantization we wish to apply</span>
+config_name_or_path = <span class="hljs-string">&quot;echarlaix/distilbert-base-uncased-finetuned-sst-2-english-int8-dynamic&quot;</span>
+quantization_config = IncQuantizationConfig.from_pretrained(config_name_or_path)
+
+<span class="hljs-comment"># Instantiate our IncQuantizer using the desired configuration and the evaluation function used</span>
+<span class="hljs-comment"># for the INC accuracy-driven tuning strategy</span>
 quantizer = IncQuantizer(quantization_config, eval_func=eval_func)<!-- HTML_TAG_END --></pre></div>
 <p>In a second step, we create our optimizer which will take care of the optimization process.</p>
 
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
 	Copied</div></button></div>
-	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForSequenceClassification
-<span class="hljs-keyword">from</span> optimum.intel.neural_compressor <span class="hljs-keyword">import</span> IncOptimizer
-
-model = AutoModelForSequenceClassification(<span class="hljs-string">&quot;distilbert-base-uncased-finetuned-sst-2-english&quot;</span>)
-
-<span class="hljs-comment"># Create our optimizer by giving the model we wish to optimize with the corresponding quantizer</span>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># Create our optimizer by giving the model we wish to optimize with the corresponding quantizer</span>
 optimizer = IncOptimizer(model, quantizer=quantizer)
 
 <span class="hljs-comment"># Apply dynamic quantization</span>
-optimized_model = optimizer.fit()
+quantized_model = optimizer.fit()
 
 <span class="hljs-comment"># Save the resulting model and its corresponding configuration in the given directory</span>
+save_dir = <span class="hljs-string">&quot;./quantized_model&quot;</span>
 optimizer.save_pretrained(save_dir)<!-- HTML_TAG_END --></pre></div>
 <p>To load a quantized model hosted locally or on the 🤗 hub, you can do as follows :</p>
 
@@ -64,7 +75,29 @@ loaded_model_from_hub = IncQuantizedModelForSequenceClassification.from_pretrain
 )<!-- HTML_TAG_END --></pre></div>
 <p>You can load many more quantized models hosted on the hub under the Intel organization <a href="https://huggingface.co/Intel" rel="nofollow"><code>here</code></a>.</p>
 <p>Check out the <a href="https://github.com/huggingface/optimum-intel/tree/main/examples" rel="nofollow"><code>examples</code></a> directory for more sophisticated usage.</p>
-<p>It is also possible to combine different compression techniques such as pruning and quantization.</p>
+<p>It is also possible to combine different compression techniques such as pruning and quantization.
+To apply pruning, we need to create an instance of IncTrainer, which is very similar to the 🤗 Transformers <a href="https://huggingface.co/docs/transformers/main_classes/trainer" rel="nofollow">Trainer</a>.
+We will fine-tune our model for 3 epochs while applying pruning.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-deletion">-from transformers import Trainer</span>
+<span class="hljs-addition">+from optimum.intel.neural_compressor import IncTrainer</span>
+
+# Initialize our IncTrainer
+<span class="hljs-deletion">-trainer = Trainer(</span>
+<span class="hljs-addition">+trainer = IncTrainer(</span>
+    model=model,
+    args=TrainingArguments(output_dir, num_train_epochs=3.0),
+    train_dataset=train_dataset,
+    eval_dataset=eval_dataset,
+    compute_metrics=compute_metrics,
+    tokenizer=tokenizer,
+    data_collator=default_data_collator,
+)<!-- HTML_TAG_END --></pre></div>
+<p>Here is an example on how to combine magnitude pruning with dynamic quantization while fine-tuning a DistilBERT
+First, we create the corresponding configuration describing the quantization and the pruning processes we wish to apply on the model.</p>
 
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
@@ -74,13 +107,17 @@ loaded_model_from_hub = IncQuantizedModelForSequenceClassification.from_pretrain
 
 <span class="hljs-comment"># The targeted sparsity is set to 10%</span>
 target_sparsity = <span class="hljs-number">0.1</span>
-config_path = <span class="hljs-string">&quot;echarlaix/distilbert-sst2-inc-dynamic-quantization-magnitude-pruning-0.1&quot;</span>
+config_name_or_path = <span class="hljs-string">&quot;echarlaix/distilbert-sst2-inc-dynamic-quantization-magnitude-pruning-0.1&quot;</span>
 <span class="hljs-comment"># Load the quantization configuration detailing the quantization we wish to apply</span>
-quantization_config = IncQuantizationConfig.from_pretrained(config_path, config_file_name=<span class="hljs-string">&quot;quantization.yml&quot;</span>)
+quantization_config = IncQuantizationConfig.from_pretrained(config_name_or_path)
 <span class="hljs-comment"># Load the pruning configuration detailing the pruning we wish to apply</span>
-pruning_config = IncPruningConfig.from_pretrained(config_path, config_file_name=<span class="hljs-string">&quot;prune.yml&quot;</span>)
+pruning_config = IncPruningConfig.from_pretrained(config_name_or_path)<!-- HTML_TAG_END --></pre></div>
+<p>Finally we instantiate our optimizer which will take care of the optimization process. The training function <code>train_func</code> will characterize the training step (<a href="https://github.com/huggingface/optimum-intel/blob/main/examples/neural_compressor/question-answering/run_qa.py#L748-L766" rel="nofollow">see</a> for more examples).</p>
 
-<span class="hljs-comment"># Instantiate our IncQuantizer using the desired configuration</span>
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># Instantiate our IncQuantizer using the desired configuration</span>
 quantizer = IncQuantizer(quantization_config, eval_func=eval_func)
 <span class="hljs-comment"># Instantiate our IncPruner using the desired configuration</span>
 pruner = IncPruner(pruning_config, eval_func=eval_func, train_func=train_func)
@@ -490,10 +527,10 @@ state dictionary.<!-- HTML_TAG_END -->
 		</div></div></div>
 
 
-		<script type="module" data-hydrate="108x66">
+		<script type="module" data-hydrate="1xmaou9">
 		import { start } from "/docs/optimum.intel/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="108x66"]').parentNode,
+			target: document.querySelector('[data-hydrate="1xmaou9"]').parentNode,
 			paths: {"base":"/docs/optimum.intel/main/en","assets":"/docs/optimum.intel/main/en"},
 			session: {},
 			route: false,
