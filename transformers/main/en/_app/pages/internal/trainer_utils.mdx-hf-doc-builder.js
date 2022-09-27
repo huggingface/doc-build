@@ -74,7 +74,7 @@ parsed.`,name:"allow_extra_keys"}],source:"https://github.com/huggingface/transf
 `}}),Me=new A({props:{name:"parse_yaml_file",anchor:"transformers.HfArgumentParser.parse_yaml_file",parameters:[{name:"yaml_file",val:": str"},{name:"allow_extra_keys",val:": bool = False"}],parametersDescription:[{anchor:"transformers.HfArgumentParser.parse_yaml_file.yaml_file",description:`<strong>yaml_file</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
 File name of the yaml file to parse`,name:"yaml_file"},{anchor:"transformers.HfArgumentParser.parse_yaml_file.allow_extra_keys",description:`<strong>allow_extra_keys</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Defaults to False. If False, will raise an exception if the json file contains keys that are not
-parsed.`,name:"allow_extra_keys"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/hf_argparser.py#L287",returnDescription:`
+parsed.`,name:"allow_extra_keys"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/hf_argparser.py#L289",returnDescription:`
 <ul>
 <li>the dataclass instances in the same order as they were passed to the initializer.</li>
 </ul>
