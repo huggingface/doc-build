@@ -796,10 +796,9 @@ finish the current pass after allocated time has been passed.`,name:"max_time(fl
 Mask to avoid performing attention on padding token indices. Mask values are in <code>[0, 1]</code>, 1 for tokens
 that are not masked, and 0 for masked tokens. If not provided, will default to a tensor the same shape
 as <code>input_ids</code> that masks the pad token. <a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.generation_utils.GenerationMixin.generate.decoder_start_token_id",description:`<strong>decoder_start_token_id</strong> (<code>int</code>, <em>optional</em>) &#x2014;
-If an encoder-decoder model starts decoding with a different token than <em>bos</em>, the id of that token.
-use_cache &#x2014; (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>):
+If an encoder-decoder model starts decoding with a different token than <em>bos</em>, the id of that token.`,name:"decoder_start_token_id"},{anchor:"transformers.generation_utils.GenerationMixin.generate.use_cache",description:`<strong>use_cache</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not the model should use the past last key/values attentions (if applicable to the model) to
-speed up decoding.`,name:"decoder_start_token_id"},{anchor:"transformers.generation_utils.GenerationMixin.generate.num_beam_groups",description:`<strong>num_beam_groups</strong> (<code>int</code>, <em>optional</em>, defaults to <code>model.config.num_beam_groups</code> or 1 if the config does not set any value) &#x2014;
+speed up decoding.`,name:"use_cache"},{anchor:"transformers.generation_utils.GenerationMixin.generate.num_beam_groups",description:`<strong>num_beam_groups</strong> (<code>int</code>, <em>optional</em>, defaults to <code>model.config.num_beam_groups</code> or 1 if the config does not set any value) &#x2014;
 Number of groups to divide <code>num_beams</code> into in order to ensure diversity among different groups of
 beams. <a href="https://arxiv.org/pdf/1610.02424.pdf" rel="nofollow">this paper</a> for more details.`,name:"num_beam_groups"},{anchor:"transformers.generation_utils.GenerationMixin.generate.diversity_penalty",description:`<strong>diversity_penalty</strong> (<code>float</code>, <em>optional</em>, defaults to <code>model.config.diversity_penalty</code> or 0.0 if the config does not set any value) &#x2014;
 This value is subtracted from a beam&#x2019;s score if it generates a token same as any beam from other group
@@ -1135,10 +1134,9 @@ Mask to avoid performing attention on padding token indices. Mask values are in 
 that are not masked, and 0 for masked tokens.</p>
 <p>If not provided, will default to a tensor the same shape as <code>input_ids</code> that masks the pad token.</p>
 <p><a href="../glossary#attention-mask">What are attention masks?</a>`,name:"attention_mask"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.decoder_start_token_id",description:`<strong>decoder_start_token_id</strong> (<code>int</code>, <em>optional</em>) &#x2014;
-If an encoder-decoder model starts decoding with a different token than <em>bos</em>, the id of that token.
-use_cache &#x2014; (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>):
+If an encoder-decoder model starts decoding with a different token than <em>bos</em>, the id of that token.`,name:"decoder_start_token_id"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.use_cache",description:`<strong>use_cache</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not the model should use the past last key/values attentions (if applicable to the model) to
-speed up decoding.`,name:"decoder_start_token_id"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+speed up decoding.`,name:"use_cache"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.output_attentions",description:`<strong>output_attentions</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether or not to return the attentions tensors of all attention layers. See <code>attentions</code> under
 returned tensors for more details.`,name:"output_attentions"},{anchor:"transformers.generation_tf_utils.TFGenerationMixin.generate.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors
