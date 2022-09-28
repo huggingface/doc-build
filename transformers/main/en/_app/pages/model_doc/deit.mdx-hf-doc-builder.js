@@ -263,7 +263,7 @@ import tensorflow as tf
 from PIL import Image
 import requests
 
-tf.random.set_seed(3)
+tf.keras.utils.set_random_seed(3)
 url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 image = Image.open(requests.get(url, stream=True).raw)
 
@@ -282,7 +282,7 @@ print("Predicted class:", model.config.id2label[int(predicted_class_idx)])`,high
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> requests
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>tf.random.set_seed(<span class="hljs-number">3</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tf.keras.utils.set_random_seed(<span class="hljs-number">3</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>url = <span class="hljs-string">&quot;http://images.cocodataset.org/val2017/000000039769.jpg&quot;</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>image = Image.<span class="hljs-built_in">open</span>(requests.get(url, stream=<span class="hljs-literal">True</span>).raw)
 
@@ -297,7 +297,7 @@ print("Predicted class:", model.config.id2label[int(predicted_class_idx)])`,high
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># model predicts one of the 1000 ImageNet classes</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>predicted_class_idx = tf.math.argmax(logits, axis=-<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Predicted class:&quot;</span>, model.config.id2label[<span class="hljs-built_in">int</span>(predicted_class_idx)])
-Predicted <span class="hljs-keyword">class</span>: ptarmigan`}}),{c(){d=s("p"),b=i("Examples:"),p=f(),w(h.$$.fragment)},l(a){d=n(a,"P",{});var c=r(d);b=l(c,"Examples:"),c.forEach(o),p=u(a),v(h.$$.fragment,a)},m(a,c){T(a,d,c),e(d,b),T(a,p,c),$(h,a,c),_=!0},p:je,i(a){_||(y(h.$$.fragment,a),_=!0)},o(a){D(h.$$.fragment,a),_=!1},d(a){a&&o(d),a&&o(p),F(h,a)}}}function dh(k){let d,b,p,h,_;return{c(){d=s("p"),b=i("Although the recipe for forward pass needs to be defined within this function, one should call the "),p=s("code"),h=i("Module"),_=i(`
+Predicted <span class="hljs-keyword">class</span>: little blue heron, Egretta caerulea`}}),{c(){d=s("p"),b=i("Examples:"),p=f(),w(h.$$.fragment)},l(a){d=n(a,"P",{});var c=r(d);b=l(c,"Examples:"),c.forEach(o),p=u(a),v(h.$$.fragment,a)},m(a,c){T(a,d,c),e(d,b),T(a,p,c),$(h,a,c),_=!0},p:je,i(a){_||(y(h.$$.fragment,a),_=!0)},o(a){D(h.$$.fragment,a),_=!1},d(a){a&&o(d),a&&o(p),F(h,a)}}}function dh(k){let d,b,p,h,_;return{c(){d=s("p"),b=i("Although the recipe for forward pass needs to be defined within this function, one should call the "),p=s("code"),h=i("Module"),_=i(`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
 the latter silently ignores them.`)},l(a){d=n(a,"P",{});var c=r(d);b=l(c,"Although the recipe for forward pass needs to be defined within this function, one should call the "),p=n(c,"CODE",{});var x=r(p);h=l(x,"Module"),x.forEach(o),_=l(c,`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
