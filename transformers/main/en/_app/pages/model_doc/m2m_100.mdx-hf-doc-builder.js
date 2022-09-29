@@ -84,7 +84,7 @@ tgt_text = "La vie est comme une bo\xEEte de chocolat."
 
 model_inputs = tokenizer(src_text, text_target=tgt_text, return_tensors="pt")
 
-loss = model(**model_inputs, labels=labels)  # forward pass`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> M2M100Config, M2M100ForConditionalGeneration, M2M100Tokenizer
+loss = model(**model_inputs).loss  # forward pass`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> M2M100Config, M2M100ForConditionalGeneration, M2M100Tokenizer
 
 model = M2M100ForConditionalGeneration.from_pretrained(<span class="hljs-string">&quot;facebook/m2m100_418M&quot;</span>)
 tokenizer = M2M100Tokenizer.from_pretrained(<span class="hljs-string">&quot;facebook/m2m100_418M&quot;</span>, src_lang=<span class="hljs-string">&quot;en&quot;</span>, tgt_lang=<span class="hljs-string">&quot;fr&quot;</span>)
@@ -94,7 +94,7 @@ tgt_text = <span class="hljs-string">&quot;La vie est comme une bo\xEEte de choc
 
 model_inputs = tokenizer(src_text, text_target=tgt_text, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 
-loss = model(**model_inputs, labels=labels)  <span class="hljs-comment"># forward pass</span>`}}),qe=new qt({props:{code:`from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
+loss = model(**model_inputs).loss  <span class="hljs-comment"># forward pass</span>`}}),qe=new qt({props:{code:`from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
 hi_text = "\u091C\u0940\u0935\u0928 \u090F\u0915 \u091A\u0949\u0915\u0932\u0947\u091F \u092C\u0949\u0915\u094D\u0938 \u0915\u0940 \u0924\u0930\u0939 \u0939\u0948\u0964"
 chinese_text = "\u751F\u6D3B\u5C31\u50CF\u4E00\u76D2\u5DE7\u514B\u529B\u3002"
