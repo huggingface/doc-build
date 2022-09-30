@@ -1,0 +1,330 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;how-to-convert-a-transformers-model-to-tensorflow&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;stepbystep-guide-to-add-tensorflow-model-architecture-code&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;13-prepare-your-model-contribution&quot;,&quot;title&quot;:&quot;1.-3. Prepare your model contribution&quot;},{&quot;local&quot;:&quot;4-model-implementation&quot;,&quot;title&quot;:&quot;4. Model implementation&quot;},{&quot;local&quot;:&quot;5-add-model-tests&quot;,&quot;title&quot;:&quot;5. Add model tests&quot;},{&quot;local&quot;:&quot;67-ensure-everyone-can-use-your-model&quot;,&quot;title&quot;:&quot;6.-7. Ensure everyone can use your model&quot;}],&quot;title&quot;:&quot;Step-by-step guide to add TensorFlow model architecture code&quot;},{&quot;local&quot;:&quot;adding-tensorflow-weights-to-hub&quot;,&quot;title&quot;:&quot;Adding TensorFlow weights to 🤗 Hub&quot;},{&quot;local&quot;:&quot;debugging-mismatches-across-ml-frameworks&quot;,&quot;title&quot;:&quot;Debugging mismatches across ML frameworks 🐛&quot;}],&quot;title&quot;:&quot;How to convert a 🤗 Transformers model to TensorFlow?&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/pages/add_tensorflow_model.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="how-to-convert-a-transformers-model-to-tensorflow" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#how-to-convert-a-transformers-model-to-tensorflow"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>How to convert a 🤗 Transformers model to TensorFlow?
+	</span></h1>
+
+<p>Having multiple frameworks available to use with 🤗 Transformers gives you flexibility to play their strengths when
+designing your application, but it implies that compatibility must be added on a per-model basis. The good news is that
+adding TensorFlow compatibility to an existing model is simpler than <a href="add_new_model">adding a new model from scratch</a>!
+Whether you wish to have a deeper understanding of large TensorFlow models, make a major open-source contribution, or
+enable TensorFlow for your model of choice, this guide is for you.</p>
+<p>This guide empowers you, a member of our community, to contribute TensorFlow model weights and/or
+architectures to be used in 🤗 Transformers, with minimal supervision from the Hugging Face team. Writing a new model
+is no small feat, but hopefully this guide will make it less of a rollercoaster 🎢 and more of a walk in the park 🚶.
+Harnessing our collective experiences is absolutely critical to make this process increasingly easier, and thus we
+highly encourage that you suggest improvements to this guide!</p>
+<p>Before you dive deeper, it is recommended that you check the following resources if you’re new to 🤗 Transformers:</p>
+<ul><li><a href="add_new_model#general-overview-of-transformers">General overview of 🤗 Transformers</a></li>
+<li><a href="https://huggingface.co/blog/tensorflow-philosophy" rel="nofollow">Hugging Face’s TensorFlow Philosophy</a></li></ul>
+<p>In the remainder of this guide, you will learn what’s needed to add a new TensorFlow model architecture, the
+procedure to convert PyTorch into TensorFlow model weights, and how to efficiently debug mismatches across ML
+frameworks. Let’s get started!</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Are you unsure whether the model you wish to use already has a corresponding TensorFlow architecture?</p>
+<p> </p>
+<p>Check the <code>model_type</code> field of the <code>config.json</code> of your model of choice
+(<a href="https://huggingface.co/bert-base-uncased/blob/main/config.json#L14" rel="nofollow">example</a>). If the corresponding model folder in
+🤗 Transformers has a file whose name starts with “modeling_tf”, it means that it has a corresponding TensorFlow
+architecture (<a href="https://github.com/huggingface/transformers/tree/main/src/transformers/models/bert" rel="nofollow">example</a>).</p></div>
+<h2 class="relative group"><a id="stepbystep-guide-to-add-tensorflow-model-architecture-code" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#stepbystep-guide-to-add-tensorflow-model-architecture-code"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Step-by-step guide to add TensorFlow model architecture code
+	</span></h2>
+
+<p>There are many ways to design a large model architecture, and multiple ways of implementing said design. However,
+you might recall from our <a href="add_new_model#general-overview-of-transformers">general overview of 🤗 Transformers</a>
+that we are an opinionated bunch - the ease of use of 🤗 Transformers relies on consistent design choices. From
+experience, we can tell you a few important things about adding TensorFlow models:</p>
+<ul><li>Don’t reinvent the wheel! More often that not, there are at least two reference implementations you should check: the
+PyTorch equivalent of the model you are implementing and other TensorFlow models for the same class of problems.</li>
+<li>Great model implementations survive the test of time. This doesn’t happen because the code is pretty, but rather
+because the code is clear, easy to debug and build upon. If you make the life of the maintainers easy with your
+TensorFlow implementation, by replicating the same patterns as in other TensorFlow models and minimizing the mismatch
+to the PyTorch implementation, you ensure your contribution will be long lived.</li>
+<li>Ask for help when you’re stuck! The 🤗 Transformers team is here to help, and we’ve probably found solutions to the same
+problems you’re facing.</li></ul>
+<p>Here’s an overview of the steps needed to add a TensorFlow model architecture:</p>
+<ol><li>Select the model you wish to convert</li>
+<li>Prepare transformers dev environment</li>
+<li>(Optional) Understand theoretical aspects and the existing implementation</li>
+<li>Implement the model architecture</li>
+<li>Implement model tests</li>
+<li>Submit the pull request</li>
+<li>(Optional) Build demos and share with the world</li></ol>
+<h3 class="relative group"><a id="13-prepare-your-model-contribution" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#13-prepare-your-model-contribution"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>1.-3. Prepare your model contribution
+	</span></h3>
+
+<p><strong>1. Select the model you wish to convert</strong></p>
+<p>Let’s start off with the basics: the first thing you need to know is the architecture you want to convert. If you
+don’t have your eyes set on a specific architecture, asking the 🤗 Transformers team for suggestions is a great way to
+maximize your impact - we will guide you towards the most prominent architectures that are missing on the TensorFlow
+side. If the specific model you want to use with TensorFlow already has a TensorFlow architecture implementation in
+🤗 Transformers but is lacking weights, feel free to jump straight into the
+<a href="#adding-tensorflow-weights-to-hub">weight conversion section</a>
+of this page.</p>
+<p>For simplicity, the remainder of this guide assumes you’ve decided to contribute with the TensorFlow version of
+<em>BrandNewBert</em> (the same example as in the <a href="add_new_model">guide</a> to add a new model from scratch).</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Before starting the work on a TensorFlow model architecture, double-check that there is no ongoing effort to do so.
+You can search for <code>BrandNewBert</code> on the
+<a href="https://github.com/huggingface/transformers/pulls?q=is%3Apr" rel="nofollow">pull request GitHub page</a> to confirm that there is no
+TensorFlow-related pull request.</p></div>
+<p><strong>2. Prepare transformers dev environment</strong></p>
+<p>Having selected the model architecture, open an draft PR to signal your intention to work on it. Follow the
+instructions below to set up your environment and open a draft PR.</p>
+<ol><li><p>Fork the <a href="https://github.com/huggingface/transformers" rel="nofollow">repository</a> by clicking on the ‘Fork’ button on the
+repository’s page. This creates a copy of the code under your GitHub user account.</p></li>
+<li><p>Clone your <code>transformers</code> fork to your local disk, and add the base repository as a remote:</p></li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git <span class="hljs-built_in">clone</span> https://github.com/[your Github handle]/transformers.git
+<span class="hljs-built_in">cd</span> transformers
+git remote add upstream https://github.com/huggingface/transformers.git<!-- HTML_TAG_END --></pre></div>
+<ol start="3"><li>Set up a development environment, for instance by running the following command:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m venv .<span class="hljs-built_in">env</span>
+<span class="hljs-built_in">source</span> .<span class="hljs-built_in">env</span>/bin/activate
+pip install -e <span class="hljs-string">&quot;.[dev]&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p><strong>Note:</strong> You don’t need to have CUDA installed. Making the new model work on CPU is sufficient.</p>
+<ol start="4"><li>Create a branch with a descriptive name from your main branch</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git checkout -b add_tf_brand_new_bert<!-- HTML_TAG_END --></pre></div>
+<ol start="5"><li>Fetch and rebase to current main</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git fetch upstream
+git rebase upstream/main<!-- HTML_TAG_END --></pre></div>
+<ol start="6"><li><p>Add an empty <code>.py</code> file in <code>transformers/src/models/brandnewbert/</code> named <code>modeling_tf_brandnewbert.py</code>. This will
+be your TensorFlow model file.</p></li>
+<li><p>Push the changes to your account using:</p></li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git add .
+git commit -m <span class="hljs-string">&quot;initial commit&quot;</span>
+git push -u origin add_tf_brand_new_bert<!-- HTML_TAG_END --></pre></div>
+<ol start="8"><li><p>Once you are satisfied, go to the webpage of your fork on GitHub. Click on “Pull request”. Make sure to add the
+GitHub handle of some members of the Hugging Face team as reviewers, so that the Hugging Face team gets notified for
+future changes.</p></li>
+<li><p>Change the PR into a draft by clicking on “Convert to draft” on the right of the GitHub pull request web page.</p></li></ol>
+<p>Now you have set up a development environment to port <em>BrandNewBert</em> to TensorFlow in 🤗 Transformers.</p>
+<p><strong>3. (Optional) Understand theoretical aspects and the existing implementation</strong></p>
+<p>You should take some time to read <em>BrandNewBert’s</em> paper, if such descriptive work exists. There might be large
+sections of the paper that are difficult to understand. If this is the case, this is fine - don’t worry! The goal is
+not to get a deep theoretical understanding of the paper, but to extract the necessary information required to
+effectively re-implement the model in 🤗 Transformers using TensorFlow. That being said, you don’t have to spend too
+much time on the theoretical aspects, but rather focus on the practical ones, namely the existing model documentation
+page (e.g. <a href="model_doc/bert">model docs for BERT</a>).</p>
+<p>After you’ve grasped the basics of the models you are about to implement, it’s important to understand the existing
+implementation. This is a great chance to confirm that a working implementation matches your expectations for the
+model, as well as to foresee technical challenges on the TensorFlow side.</p>
+<p>It’s perfectly natural that you feel overwhelmed with the amount of information that you’ve just absorbed. It is
+definitely not a requirement that you understand all facets of the model at this stage. Nevertheless, we highly
+encourage you to clear any pressing questions in our <a href="https://discuss.huggingface.co/" rel="nofollow">forum</a>.</p>
+<h3 class="relative group"><a id="4-model-implementation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#4-model-implementation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>4. Model implementation
+	</span></h3>
+
+<p>Now it’s time to finally start coding. Our suggested starting point is the PyTorch file itself: copy the contents of
+<code>modeling_brand_new_bert.py</code> inside <code>src/transformers/models/brand_new_bert/</code> into
+<code>modeling_tf_brand_new_bert.py</code>. The goal of this section is to modify the file and update the import structure of
+🤗 Transformers such that you can import <code>TFBrandNewBert</code> and
+<code>TFBrandNewBert.from_pretrained(model_repo, from_pt=True)</code> sucessfully loads a working TensorFlow <em>BrandNewBert</em> model.</p>
+<p>Sadly, there is no prescription to convert a PyTorch model into TensorFlow. You can, however, follow our selection of
+tips to make the process as smooth as possible:</p>
+<ul><li>Prepend <code>TF</code> to the name of all classes (e.g. <code>BrandNewBert</code> becomes <code>TFBrandNewBert</code>).</li>
+<li>Most PyTorch operations have a direct TensorFlow replacement. For example, <code>torch.nn.Linear</code> corresponds to
+<code>tf.keras.layers.Dense</code>, <code>torch.nn.Dropout</code> corresponds to <code>tf.keras.layers.Dropout</code>, etc. If you’re not sure
+about a specific operation, you can use the <a href="https://www.tensorflow.org/api_docs/python/tf" rel="nofollow">TensorFlow documentation</a>
+or the <a href="https://pytorch.org/docs/stable/" rel="nofollow">PyTorch documentation</a>.</li>
+<li>Look for patterns in the 🤗 Transformers codebase. If you come across a certain operation that doesn’t have a direct
+replacement, the odds are that someone else already had the same problem.</li>
+<li>By default, keep the same variable names and structure as in PyTorch. This will make it easier to debug, track
+issues, and add fixes down the line.</li>
+<li>Some layers have different default values in each framework. A notable example is the batch normalization layer’s
+epsilon (<code>1e-5</code> in <a href="https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html#torch.nn.BatchNorm2d" rel="nofollow">PyTorch</a>
+and <code>1e-3</code> in <a href="https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization" rel="nofollow">TensorFlow</a>).
+Double-check the documentation!</li>
+<li>PyTorch’s <code>nn.Parameter</code> variables typically need to be initialized within TF Layer’s <code>build()</code>. See the following
+example: <a href="https://github.com/huggingface/transformers/blob/655f72a6896c0533b1bdee519ed65a059c2425ac/src/transformers/models/vit_mae/modeling_vit_mae.py#L212" rel="nofollow">PyTorch</a> /
+<a href="https://github.com/huggingface/transformers/blob/655f72a6896c0533b1bdee519ed65a059c2425ac/src/transformers/models/vit_mae/modeling_tf_vit_mae.py#L220" rel="nofollow">TensorFlow</a></li>
+<li>If the PyTorch model has a <code>#copied from ...</code> on top of a function, the odds are that your TensorFlow model can also
+borrow that function from the architecture it was copied from, assuming it has a TensorFlow architecture.</li>
+<li>Assigning the <code>name</code> attribute correctly in TensorFlow functions is critical to do the <code>from_pt=True</code> weight
+cross-loading. <code>name</code> is almost always the name of the corresponding variable in the PyTorch code. If <code>name</code> is not
+properly set, you will see it in the error message when loading the model weights.</li>
+<li>The logic of the base model class, <code>BrandNewBertModel</code>, will actually reside in <code>TFBrandNewBertMainLayer</code>, a Keras
+layer subclass (<a href="https://github.com/huggingface/transformers/blob/4fd32a1f499e45f009c2c0dea4d81c321cba7e02/src/transformers/models/bert/modeling_tf_bert.py#L719" rel="nofollow">example</a>).
+<code>TFBrandNewBertModel</code> will simply be a wrapper around this layer.</li>
+<li>Keras models need to be built in order to load pretrained weights. For that reason, <code>TFBrandNewBertPreTrainedModel</code>
+will need to hold an example of inputs to the model, the <code>dummy_inputs</code>
+(<a href="https://github.com/huggingface/transformers/blob/4fd32a1f499e45f009c2c0dea4d81c321cba7e02/src/transformers/models/bert/modeling_tf_bert.py#L916" rel="nofollow">example</a>).</li>
+<li>If you get stuck, ask for help - we’re here to help you! 🤗</li></ul>
+<p>In addition to the model file itself, you will also need to add the pointers to the model classes and related
+documentation pages. You can complete this part entirely following the patterns in other PRs
+(<a href="https://github.com/huggingface/transformers/pull/18020/files" rel="nofollow">example</a>). Here’s a list of the needed manual
+changes:</p>
+<ul><li>Include all public classes of <em>BrandNewBert</em> in <code>src/transformers/__init__.py</code></li>
+<li>Add <em>BrandNewBert</em> classes to the corresponing Auto classes in <code>src/transformers/models/auto/modeling_tf_auto.py</code></li>
+<li>Include the modeling file in the documentation test file list in <code>utils/documentation_tests.txt</code></li>
+<li>Add the lazy loading classes related to <em>BrandNewBert</em> in <code>src/transformers/utils/dummy_tf_objects.py</code></li>
+<li>Update the import structures for the public classes in <code>src/transformers/models/brand_new_bert/__init__.py</code></li>
+<li>Add the documentation pointers to the public methods of <em>BrandNewBert</em> in <code>docs/source/en/model_doc/brand_new_bert.mdx</code></li>
+<li>Add yourself to the list of contributors to <em>BrandNewBert</em> in <code>docs/source/en/model_doc/brand_new_bert.mdx</code></li>
+<li>Finally, add a green tick ✅ to the TensorFlow column of <em>BrandNewBert</em> in <code>docs/source/en/index.mdx</code></li></ul>
+<p>When you’re happy with your implementation, run the following checklist to confirm that your model architecture is
+ready:</p>
+<ol><li>All layers that behave differently at train time (e.g. Dropout) are called with a <code>training</code> argument, which is
+propagated all the way from the top-level classes</li>
+<li>You have used <code>#copied from ...</code> whenever possible</li>
+<li><code>TFBrandNewBertMainLayer</code> and all classes that use it have their <code>call</code> function decorated with <code>@unpack_inputs</code></li>
+<li><code>TFBrandNewBertMainLayer</code> is decorated with <code>@keras_serializable</code></li>
+<li>A TensorFlow model can be loaded from PyTorch weights using <code>TFBrandNewBert.from_pretrained(model_repo, from_pt=True)</code></li>
+<li>You can call the TensorFlow model using the expected input format</li></ol>
+<h3 class="relative group"><a id="5-add-model-tests" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#5-add-model-tests"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>5. Add model tests
+	</span></h3>
+
+<p>Hurray, you’ve implemented a TensorFlow model! Now it’s time to add tests to make sure that your model behaves as
+expected. As in the previous section, we suggest you start by copying the <code>test_modeling_brand_new_bert.py</code> file in
+<code>tests/models/brand_new_bert/</code> into <code>test_modeling_tf_brand_new_bert.py</code>, and continue by making the necessary
+TensorFlow replacements. For now, in all <code>.from_pretrained()</code> calls, you should use the <code>from_pt=True</code> flag to load
+the existing PyTorch weights.</p>
+<p>After you’re done, it’s time for the moment of truth: run the tests! 😬</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->NVIDIA_TF32_OVERRIDE=0 RUN_SLOW=1 RUN_PT_TF_CROSS_TESTS=1 \
+py.test -vv tests/models/brand_new_bert/test_modeling_tf_brand_new_bert.py<!-- HTML_TAG_END --></pre></div>
+<p>The most likely outcome is that you’ll see a bunch of errors. Don’t worry, this is expected! Debugging ML models is
+notoriously hard, and the key ingredient to success is patience (and <code>breakpoint()</code>). In our experience, the hardest
+problems arise from subtle mismatches between ML frameworks, for which we have a few pointers at the end of this guide.
+In other cases, a general test might not be directly applicable to your model, in which case we suggest an override
+at the model test class level. Regardless of the issue, don’t hesitate to ask for help in your draft pull request if
+you’re stuck.</p>
+<p>When all tests pass, congratulations, your model is nearly ready to be added to the 🤗 Transformers library! 🎉</p>
+<h3 class="relative group"><a id="67-ensure-everyone-can-use-your-model" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#67-ensure-everyone-can-use-your-model"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>6.-7. Ensure everyone can use your model
+	</span></h3>
+
+<p><strong>6. Submit the pull request</strong></p>
+<p>Once you’re done with the implementation and the tests, it’s time to submit a pull request. Before pushing your code,
+run our code formatting utility, <code>make fixup</code> 🪄. This will automatically fix any formatting issues, which would cause
+our automatic checks to fail.</p>
+<p>It’s now time to convert your draft pull request into a real pull request. To do so, click on the “Ready for
+review” button and add Joao (<code>@gante</code>) and Matt (<code>@Rocketknight1</code>) as reviewers. A model pull request will need
+at least 3 reviewers, but they will take care of finding appropriate additional reviewers for your model.</p>
+<p>After all reviewers are happy with the state of your PR, the final action point is to remove the <code>from_pt=True</code> flag in
+<code>.from_pretrained()</code> calls. Since there are no TensorFlow weights, you will have to add them! Check the section
+below for instructions on how to do it.</p>
+<p>Finally, when the TensorFlow weights get merged, you have at least 3 reviewer approvals, and all CI checks are
+green, double-check the tests locally one last time</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->NVIDIA_TF32_OVERRIDE=0 RUN_SLOW=1 RUN_PT_TF_CROSS_TESTS=1 \
+py.test -vv tests/models/brand_new_bert/test_modeling_tf_brand_new_bert.py<!-- HTML_TAG_END --></pre></div>
+<p>and we will merge your PR! Congratulations on the milestone 🎉</p>
+<p><strong>7. (Optional) Build demos and share with the world</strong></p>
+<p>One of the hardest parts about open-source is discovery. How can the other users learn about the existence of your
+fabulous TensorFlow contribution? With proper communication, of course! 📣</p>
+<p>There are two main ways to share your model with the community:</p>
+<ul><li>Build demos. These include Gradio demos, notebooks, and other fun ways to show off your model. We highly
+encourage you to add a notebook to our <a href="https://huggingface.co/docs/transformers/community" rel="nofollow">community-driven demos</a>.</li>
+<li>Share stories on social media like Twitter and LinkedIn. You should be proud of your work and share
+your achievement with the community - your model can now be used by thousands of engineers and researchers around
+the world 🌍! We will be happy to retweet your posts and help you share your work with the community.</li></ul>
+<h2 class="relative group"><a id="adding-tensorflow-weights-to-hub" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#adding-tensorflow-weights-to-hub"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Adding TensorFlow weights to 🤗 Hub
+	</span></h2>
+
+<p>Assuming that the TensorFlow model architecture is available in 🤗 Transformers, converting PyTorch weights into
+TensorFlow weights is a breeze!</p>
+<p>Here’s how to do it:</p>
+<ol><li>Make sure you are logged into your Hugging Face account in your terminal. You can log in using the command
+<code>huggingface-cli login</code> (you can find your access tokens <a href="https://huggingface.co/settings/tokens" rel="nofollow">here</a>)</li>
+<li>Run <code>transformers-cli pt-to-tf --model-name foo/bar</code>, where <code>foo/bar</code> is the name of the model repository
+containing the PyTorch weights you want to convert</li>
+<li>Tag <code>@joaogante</code> and <code>@Rocketknight1</code> in the 🤗 Hub PR the command above has just created</li></ol>
+<p>That’s it! 🎉</p>
+<h2 class="relative group"><a id="debugging-mismatches-across-ml-frameworks" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#debugging-mismatches-across-ml-frameworks"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Debugging mismatches across ML frameworks 🐛
+	</span></h2>
+
+<p>At some point, when adding a new architecture or when creating TensorFlow weights for an existing architecture, you
+might come across errors compaining about mismatches between PyTorch and TensorFlow. You might even decide to open the
+model architecture code for the two frameworks, and find that they look identical. What’s going on? 🤔</p>
+<p>First of all, let’s talk about why understanding these mismatches matters. Many community members will use 🤗
+Transformers models out of the box, and trust that our models behave as expected. When there is a large mismatch
+between the two frameworks, it implies that the model is not following the reference implementation for at least one
+of the frameworks. This might lead to silent failures, in which the model runs but has poor performance. This is
+arguably worse than a model that fails to run at all! To that end, we aim at having a framework mismatch smaller than
+<code>1e-5</code> at all stages of the model.</p>
+<p>As in other numerical problems, the devil is in the details. And as in any detail-oriented craft, the secret
+ingredient here is patience. Here is our suggested workflow for when you come across this type of issues:</p>
+<ol><li>Locate the source of mismatches. The model you’re converting probably has near identical inner variables up to a
+certain point. Place <code>breakpoint()</code> statements in the two frameworks’ architectures, and compare the values of the
+numerical variables in a top-down fashion until you find the source of the problems.</li>
+<li>Now that you’ve pinpointed the source of the issue, get in touch with the 🤗 Transformers team. It is possible
+that we’ve seen a similar problem before and can promptly provide a solution. As a fallback, scan popular pages
+like StackOverflow and GitHub issues.</li>
+<li>If there is no solution in sight, it means you’ll have to go deeper. The good news is that you’ve located the
+issue, so you can focus on the problematic instruction, abstracting away the rest of the model! The bad news is
+that you’ll have to venture into the source implementation of said instruction. In some cases, you might find an
+issue with a reference implementation - don’t abstain from opening an issue in the upstream repository.</li></ol>
+<p>In some cases, in dicussion with the 🤗 Transformers team, we might find that the fixing the mismatch is infeasible.
+When the mismatch is very small in the output layers of the model (but potentially large in the hidden states), we
+might decide to ignore it in favor of distributing the model. The <code>pt-to-tf</code> CLI mentioned above has a <code>--max-error</code>
+flag to override the error message at weight conversion time.</p>
+
+
+		<script type="module" data-hydrate="2ktz1b">
+		import { start } from "/docs/transformers/main/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="2ktz1b"]').parentNode,
+			paths: {"base":"/docs/transformers/main/en","assets":"/docs/transformers/main/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/transformers/main/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/transformers/main/en/_app/pages/add_tensorflow_model.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
