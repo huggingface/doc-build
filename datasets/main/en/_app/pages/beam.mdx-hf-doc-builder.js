@@ -8,14 +8,14 @@ REGION=your_region`,highlighted:`<span class="hljs-attribute">PROJECT</span><spa
 echo "apache_beam" >> /tmp/beam_requirements.txt`,highlighted:`echo <span class="hljs-string">&quot;datasets&quot;</span> &gt; <span class="hljs-regexp">/tmp/</span>beam_requirements.txt
 echo <span class="hljs-string">&quot;apache_beam&quot;</span> &gt;&gt; <span class="hljs-regexp">/tmp/</span>beam_requirements.txt`}}),D=new ue({props:{code:`datasets-cli run_beam datasets/$DATASET_NAME \\
 --name $CONFIG_NAME \\
---save_info \\
+--save_infos \\
 --cache_dir gs://$BUCKET/cache/datasets \\
 --beam_pipeline_options=\\
 "runner=DataflowRunner,project=$PROJECT,job_name=$DATASET_NAME-gen,"\\
 "staging_location=gs://$BUCKET/binaries,temp_location=gs://$BUCKET/temp,"\\
 "region=$REGION,requirements_file=/tmp/beam_requirements.txt"`,highlighted:`datasets-cli run_beam datasets/<span class="hljs-variable">$DATASET_NAME</span> \\
 --name <span class="hljs-variable">$CONFIG_NAME</span> \\
---save_info \\
+--save_infos \\
 --cache_dir gs://<span class="hljs-variable">$BUCKET</span>/cache/datasets \\
 --beam_pipeline_options=\\
 <span class="hljs-string">&quot;runner=DataflowRunner,project=<span class="hljs-variable">$PROJECT</span>,job_name=<span class="hljs-variable">$DATASET_NAME</span>-gen,&quot;</span>\\
