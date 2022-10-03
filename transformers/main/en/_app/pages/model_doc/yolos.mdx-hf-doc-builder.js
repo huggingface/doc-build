@@ -276,9 +276,7 @@ scale-invariant IoU loss.</li>
 <li><strong>logits</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, num_queries, num_classes + 1)</code>) \u2014 Classification logits (including no-object) for all queries.</li>
 <li><strong>pred_boxes</strong> (<code>torch.FloatTensor</code> of shape <code>(batch_size, num_queries, 4)</code>) \u2014 Normalized boxes coordinates for all queries, represented as (center_x, center_y, width, height). These
 values are normalized in [0, 1], relative to the size of each individual image in the batch (disregarding
-possible padding). You can use <a
-  href="/docs/transformers/main/en/model_doc/detr#transformers.DetrFeatureExtractor.post_process"
->post_process()</a> to retrieve the unnormalized bounding
+possible padding). You can use <code>post_process()</code> to retrieve the unnormalized bounding
 boxes.</li>
 <li><strong>auxiliary_outputs</strong> (<code>list[Dict]</code>, <em>optional</em>) \u2014 Optional, only returned when auxilary losses are activated (i.e. <code>config.auxiliary_loss</code> is set to <code>True</code>)
 and labels are provided. It is a list of dictionaries containing the two above keys (<code>logits</code> and
