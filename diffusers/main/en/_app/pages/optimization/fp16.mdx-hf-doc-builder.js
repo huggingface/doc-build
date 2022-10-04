@@ -64,11 +64,11 @@ pipe.enable_attention_slicing()
 pipe.unet.to(memory_format=torch.channels_last)  # in-place operation
 print(
     pipe.unet.conv_out.state_dict()["weight"].stride()
-)  # (2880, 1, 960, 320) haveing a stride of 1 for the 2nd dimension proves that it works`,highlighted:`<span class="hljs-built_in">print</span>(pipe.unet.conv_out.state_dict()[<span class="hljs-string">&quot;weight&quot;</span>].stride())  <span class="hljs-comment"># (2880, 9, 3, 1)</span>
+)  # (2880, 1, 960, 320) having a stride of 1 for the 2nd dimension proves that it works`,highlighted:`<span class="hljs-built_in">print</span>(pipe.unet.conv_out.state_dict()[<span class="hljs-string">&quot;weight&quot;</span>].stride())  <span class="hljs-comment"># (2880, 9, 3, 1)</span>
 pipe.unet.to(memory_format=torch.channels_last)  <span class="hljs-comment"># in-place operation</span>
 <span class="hljs-built_in">print</span>(
     pipe.unet.conv_out.state_dict()[<span class="hljs-string">&quot;weight&quot;</span>].stride()
-)  <span class="hljs-comment"># (2880, 1, 960, 320) haveing a stride of 1 for the 2nd dimension proves that it works</span>`}}),be=new ae({}),je=new ne({props:{code:`import time
+)  <span class="hljs-comment"># (2880, 1, 960, 320) having a stride of 1 for the 2nd dimension proves that it works</span>`}}),be=new ae({}),je=new ne({props:{code:`import time
 import torch
 from diffusers import StableDiffusionPipeline
 import functools
