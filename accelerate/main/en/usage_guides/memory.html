@@ -29,19 +29,22 @@ start their script and let it run.</p>
 training script. To use it, restructure your training function to include an inner function that includes this wrapper,
 and build your dataloaders inside it. At a minimum, this could look like 4 new lines of code. </p>
 <blockquote><p>Note: The inner function <em>must</em> take in the batch size as the first parameter, but we do not pass one to it when called. The wrapper handles this for us</p></blockquote>
+<p>It should also be noted that anything which will consume CUDA memory and passed to the <code>accelerator</code> <strong>must</strong> be declared inside the inner function,
+such as models and optimizers.</p>
 
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
 	Copied</div></button></div>
 	<pre><!-- HTML_TAG_START -->def training_function(args):
     accelerator = Accelerator()
-    model = get_model()
-    model.to(accelerator.device)
-    optimizer = get_optimizer()
 
 <span class="hljs-addition">+   @find_executable_batch_size(starting_batch_size=args.batch_size)</span>
 <span class="hljs-addition">+   def inner_training_loop(batch_size):</span>
-<span class="hljs-addition">+       nonlocal model, optimizer # Ensure they can be used in our context</span>
+<span class="hljs-addition">+       nonlocal accelerator # Ensure they can be used in our context</span>
+<span class="hljs-addition">+       accelerator.free_memory() # Free all lingering references</span>
+        model = get_model()
+        model.to(accelerator.device)
+        optimizer = get_optimizer()
         train_dataloader, eval_dataloader = get_dataloaders(accelerator, batch_size)
         lr_scheduler = get_scheduler(
             optimizer, 
@@ -56,10 +59,10 @@ and build your dataloaders inside it. At a minimum, this could look like 4 new l
 <p>To find out more, check the documentation <a href="../package_reference/utilities#accelerate.find_executable_batch_size">here</a>.</p>
 
 
-		<script type="module" data-hydrate="d2aiot">
+		<script type="module" data-hydrate="14ts9bu">
 		import { start } from "/docs/accelerate/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="d2aiot"]').parentNode,
+			target: document.querySelector('[data-hydrate="14ts9bu"]').parentNode,
 			paths: {"base":"/docs/accelerate/main/en","assets":"/docs/accelerate/main/en"},
 			session: {},
 			route: false,
