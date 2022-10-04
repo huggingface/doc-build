@@ -1,0 +1,371 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;transformers&quot;,&quot;title&quot;:&quot;从 🤗 Transformers 调试管道&quot;},{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;调试模型的前向传递&quot;}],&quot;title&quot;:&quot;出现错误时该怎么办&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/pages/chapter8/2.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/Youtube-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/CodeBlock-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/DocNotebookDropdown-hf-doc-builder.js"> 
+
+
+
+
+
+<h1 id="">出现错误时该怎么办</h1>
+
+
+<div class="flex space-x-1 absolute z-10 right-0 top-0">
+	<a href="https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter8/section2.ipynb" target="_blank"><img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
+	<a href="https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter8/section2.ipynb" target="_blank"><img alt="Open In Studio Lab" class="!m-0" src="https://studiolab.sagemaker.aws/studiolab.svg"></a></div>
+<p>在本节中, 我们将研究当你尝试从新调整的 Transformer 模型生成预测时可能发生的一些常见错误。这将为 <a href="/course/chapter8/section4">第四节</a> 做准备, 我们将探索如何调试训练阶段本身。</p>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/DQ-CpJn6Rc4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>我们为这一节准备了一个 <a href="https://huggingface.co/lewtun/distilbert-base-uncased-finetuned-squad-d5716d28" rel="nofollow">模板模型库</a>, 如果你想运行本章中的代码, 你首先需要将模型复制到你的 <a href="https://huggingface.co" rel="nofollow">Hugging Face Hub</a> 账号。为此, 首先通过在 Jupyter 笔记本中运行以下任一命令来登录:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> notebook_login
+
+notebook_login()<!-- HTML_TAG_END --></pre></div>
+<p>或在你最喜欢的终端中执行以下操作:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->huggingface-cli login<!-- HTML_TAG_END --></pre></div>
+<p>这将提示你输入用户名和密码, 并将在下面保存一个令牌 <em>~/.cache/huggingface/</em>。登录后, 你可以使用以下功能复制模板存储库:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> distutils.dir_util <span class="hljs-keyword">import</span> copy_tree
+<span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> Repository, snapshot_download, create_repo, get_full_repo_name
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">copy_repository_template</span>():
+    <span class="hljs-comment"># Clone the repo and extract the local path</span>
+    template_repo_id = <span class="hljs-string">&quot;lewtun/distilbert-base-uncased-finetuned-squad-d5716d28&quot;</span>
+    commit_hash = <span class="hljs-string">&quot;be3eaffc28669d7932492681cd5f3e8905e358b4&quot;</span>
+    template_repo_dir = snapshot_download(template_repo_id, revision=commit_hash)
+    <span class="hljs-comment"># Create an empty repo on the Hub</span>
+    model_name = template_repo_id.split(<span class="hljs-string">&quot;/&quot;</span>)[<span class="hljs-number">1</span>]
+    create_repo(model_name, exist_ok=<span class="hljs-literal">True</span>)
+    <span class="hljs-comment"># Clone the empty repo</span>
+    new_repo_id = get_full_repo_name(model_name)
+    new_repo_dir = model_name
+    repo = Repository(local_dir=new_repo_dir, clone_from=new_repo_id)
+    <span class="hljs-comment"># Copy files</span>
+    copy_tree(template_repo_dir, new_repo_dir)
+    <span class="hljs-comment"># Push to Hub</span>
+    repo.push_to_hub()<!-- HTML_TAG_END --></pre></div>
+<p>现在, 当你调用 <code>copy_repository_template()</code> 时, 它将在你的帐户下创建模板存储库的副本。</p>
+<h2 class="relative group"><a id="transformers" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#transformers"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>从 🤗 Transformers 调试管道
+	</span></h2>
+
+<p>要开始我们调试 Transformer 模型的奇妙世界之旅, 请考虑以下场景: 你正在与一位同事合作进行问答项目, 以帮助电子商务网站的客户找到有关消费品的答案。你的同事给你发了一条消息, 比如:</p>
+<blockquote><p>嗨! 我刚刚使用了抱抱脸课程的 <a href="/course/chapter7/7">第七章</a> 中的技术进行了一个实验, 并在 SQuAD 上获得了一些很棒的结果! 我认为我们可以用这个模型作为我们项目的起点。Hub上的模型ID是 “lewtun/distillbert-base-uncased-finetuned-squad-d5716d28”。请随意测试一下 :)</p></blockquote>
+<p>你首先想到的是使用 🤗 Transformers 中的 <code>管道</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline
+
+model_checkpoint = get_full_repo_name(<span class="hljs-string">&quot;distillbert-base-uncased-finetuned-squad-d5716d28&quot;</span>)
+reader = pipeline(<span class="hljs-string">&quot;question-answering&quot;</span>, model=model_checkpoint)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&quot;&quot;&quot;
+OSError: Can&#x27;t load config for &#x27;lewtun/distillbert-base-uncased-finetuned-squad-d5716d28&#x27;. Make sure that:
+
+- &#x27;lewtun/distillbert-base-uncased-finetuned-squad-d5716d28&#x27; is a correct model identifier listed on &#x27;https://huggingface.co/models&#x27;
+
+- or &#x27;lewtun/distillbert-base-uncased-finetuned-squad-d5716d28&#x27; is the correct path to a directory containing a config.json file
+&quot;&quot;&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>哦不对, 好像出了什么问题! 如果你是编程新手, 这些类型的错误一开始看起来有点神秘 (甚至是一个 <code>OSError</code>?!)。这里显示的错误只是一个更大的错误报告的最后一部分, 称为 <em>Python traceback</em> (又名堆栈跟踪)。例如, 如果你在 Google Colab 上运行此代码, 你应该会看到类似于以下屏幕截图的内容:</p>
+<div class="flex justify-center"><img src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter8/traceback.png" alt="A Python traceback." width="100%"></div>
+<p>这些报告中包含很多信息, 所以让我们一起来看看关键部分。首先要注意的是, 应该从 <em>从底部到顶部</em> 读取回溯。如果你习惯于从上到下阅读英文文本, 这可能听起来很奇怪,但它反映了这样一个事实,即回溯显示了在下载模型和标记器时 <code>管道</code> 进行的函数调用序列。(查看 <a href="/course/chapter2">第二章</a> 了解有关 <code>pipeline</code> 如何在后台工作的更多详细信息。)</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>🚨 看到Google Colab 回溯中 “6 帧” 周围的蓝色框了吗? 这是 Colab 的一个特殊功能, 它将回溯压缩为”帧”。如果你似乎无法找到错误的来源, 请确保通过单击这两个小箭头来展开完整的回溯。</p></div>
+<p>这意味着回溯的最后一行指示最后一条错误消息并给出引发的异常的名称。在这种情况下, 异常类型是<code>OSError</code>, 表示与系统相关的错误。如果我们阅读随附的错误消息, 我们可以看到模型的 <em>config.json</em> 文件似乎有问题, 我们给出了两个修复它的建议:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&quot;&quot;&quot;
+Make sure that:
+
+- &#x27;lewtun/distillbert-base-uncased-finetuned-squad-d5716d28&#x27; is a correct model identifier listed on &#x27;https://huggingface.co/models&#x27;
+
+- or &#x27;lewtun/distillbert-base-uncased-finetuned-squad-d5716d28&#x27; is the correct path to a directory containing a config.json file
+&quot;&quot;&quot;</span><!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>💡 如果你遇到难以理解的错误消息, 只需将该消息复制并粘贴到 Google 或 <a href="https://stackoverflow.com/" rel="nofollow">Stack Overflow</a> 搜索栏中 (是的, 真的!)。你很可能不是第一个遇到错误的人, 这是找到社区中其他人发布的解决方案的好方法。例如, 在 Stack Overflow 上搜索 <code>OSError: Can&#39;t load config for</code> 给出了几个<a href="https://stackoverflow.com/search?q=OSError%3A+Can%27t+load+config+for+" rel="nofollow">hits</a>, 可能是用作解决问题的起点。</p></div>
+<p>第一个建议是要求我们检查模型ID是否真的正确, 所以首先要做的就是复制标识符并将其粘贴到Hub的搜索栏中:</p>
+<div class="flex justify-center"><img src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter8/wrong-model-id.png" alt="The wrong model name." width="100%"></div>
+<p>嗯, 看起来我们同事的模型确实不在 Hub 上… 啊哈, 但是模型名称中有一个错字! DistilBERT 的名称中只有一个 “l”, 所以让我们解决这个问题并寻找 “lewtun/distilbert-base-uncased-finetuned-squad-d5716d28”:</p>
+<div class="flex justify-center"><img src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter8/true-model-id.png" alt="The right model name." width="100%"></div>
+<p>好的, 这很受欢迎。现在让我们尝试使用正确的模型 ID 再次下载模型:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->model_checkpoint = get_full_repo_name(<span class="hljs-string">&quot;distilbert-base-uncased-finetuned-squad-d5716d28&quot;</span>)
+reader = pipeline(<span class="hljs-string">&quot;question-answering&quot;</span>, model=model_checkpoint)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&quot;&quot;&quot;
+OSError: Can&#x27;t load config for &#x27;lewtun/distilbert-base-uncased-finetuned-squad-d5716d28&#x27;. Make sure that:
+
+- &#x27;lewtun/distilbert-base-uncased-finetuned-squad-d5716d28&#x27; is a correct model identifier listed on &#x27;https://huggingface.co/models&#x27;
+
+- or &#x27;lewtun/distilbert-base-uncased-finetuned-squad-d5716d28&#x27; is the correct path to a directory containing a config.json file
+&quot;&quot;&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>啊, 再次挫败 — 欢迎来到机器学习工程师的日常生活! 因为我们已经修复了模型 ID, 所以问题一定出在存储库本身。访问 🤗 Hub 上存储库内容的一种快速方法是通过 <code>huggingface_hub</code> 库的 <code>list_repo_files()</code> 方法:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> list_repo_files
+
+list_repo_files(repo_id=model_checkpoint)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->[<span class="hljs-string">&#x27;.gitattributes&#x27;</span>, <span class="hljs-string">&#x27;README.md&#x27;</span>, <span class="hljs-string">&#x27;pytorch_model.bin&#x27;</span>, <span class="hljs-string">&#x27;special_tokens_map.json&#x27;</span>, <span class="hljs-string">&#x27;tokenizer_config.json&#x27;</span>, <span class="hljs-string">&#x27;training_args.bin&#x27;</span>, <span class="hljs-string">&#x27;vocab.txt&#x27;</span>]<!-- HTML_TAG_END --></pre></div>
+<p>有趣 — 似乎没有配置文件存储库中的 <em>config.json</em> 文件! 难怪我们的 <code>pipeline</code> 无法加载模型; 我们的同事一定是在微调后忘记将这个文件推送到 Hub。在这种情况下, 问题似乎很容易解决: 我们可以要求他们添加文件, 或者, 因为我们可以从模型 ID 中看到使用的预训练模型是 <a href="https://huggingface.co/distilbert-base-uncased" rel="nofollow"><code>distilbert-base-uncased</code></a>, 我们可以下载此模型的配置并将其推送到我们的存储库以查看是否可以解决问题。让我们试试看。使用我们在 <a href="/course/chapter2">第二章</a> 中学习的技术, 我们使用 <code>AutoConfig</code> 类下载模型的配置:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoConfig
+
+pretrained_checkpoint = <span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>
+config = AutoConfig.from_pretrained(pretrained_checkpoint)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>🚨 我们在这里采用的方法并不是万无一失的, 因为我们的同事可能在微调模型之前已经调整了 <code>distilbert-base-uncased</code> 配置。在现实生活中, 我们想首先检查它们, 但出于本节的目的, 我们假设它们使用默认配置。</p></div>
+<p>然后我们可以使用配置的 <code>push_to_hub()</code> 方法将其推送到我们的模型存储库:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->config.push_to_hub(model_checkpoint, commit_message=<span class="hljs-string">&quot;Add config.json&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>现在我们可以通过从最新提交的 <code>main</code> 分支中加载模型来测试这是否有效:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->reader = pipeline(<span class="hljs-string">&quot;question-answering&quot;</span>, model=model_checkpoint, revision=<span class="hljs-string">&quot;main&quot;</span>)
+
+context = <span class="hljs-string">r&quot;&quot;&quot;
+Extractive Question Answering is the task of extracting an answer from a text
+given a question. An example of a question answering dataset is the SQuAD
+dataset, which is entirely based on that task. If you would like to fine-tune a
+model on a SQuAD task, you may leverage the
+examples/pytorch/question-answering/run_squad.py script.
+
+🤗 Transformers is interoperable with the PyTorch, TensorFlow, and JAX
+frameworks, so you can use your favourite tools for a wide variety of tasks!
+&quot;&quot;&quot;</span>
+
+question = <span class="hljs-string">&quot;What is extractive question answering?&quot;</span>
+reader(question=question, context=context)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-string">&#x27;score&#x27;</span>: <span class="hljs-number">0.38669535517692566</span>,
+ <span class="hljs-string">&#x27;start&#x27;</span>: <span class="hljs-number">34</span>,
+ <span class="hljs-string">&#x27;end&#x27;</span>: <span class="hljs-number">95</span>,
+ <span class="hljs-string">&#x27;answer&#x27;</span>: <span class="hljs-string">&#x27;the task of extracting an answer from a text given a question&#x27;</span>}<!-- HTML_TAG_END --></pre></div>
+<p>哇哦, 成功了!让我们回顾一下你刚刚学到的东西:</p>
+<ul><li>Python 中的错误消息称为 <em>tracebacks</em> , 并从下到上阅读。错误消息的最后一行通常包含定位问题根源所需的信息。</li>
+<li>如果最后一行没有包含足够的信息, 请按照您的方式进行回溯, 看看您是否可以确定源代码中发生错误的位置。</li>
+<li>如果没有任何错误消息可以帮助您调试问题, 请尝试在线搜索类似问题的解决方案。</li>
+<li><code>huggingface_hub</code>
+// 🤗 Hub?
+库提供了一套工具, 你可以使用这些工具与 Hub 上的存储库进行交互和调试。</li></ul>
+<p>现在你知道如何调试管道, 让我们看一下模型本身前向传递中的一个更棘手的示例。</p>
+<h2 id="">调试模型的前向传递</h2>
+<p>尽管 <code>pipeline</code> 对于大多数需要快速生成预测的应用程序来说非常有用, 有时您需要访问模型的 logits (例如, 如果您有一些想要应用的自定义后处理)。为了看看在这种情况下会出现什么问题, 让我们首先从 <code>pipeline</code> 中获取模型和标记器:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->tokenizer = reader.tokenizer
+model = reader.model<!-- HTML_TAG_END --></pre></div>
+<p>接下来我们需要一个问题, 那么让我们看看是否支持我们最喜欢的框架:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->question = <span class="hljs-string">&quot;Which frameworks can I use?&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>正如我们在 <a href="/course/chapter7">第七章</a> 中学习的, 我们需要采取的通常步骤是对输入进行标记化, 提取开始和结束标记的对数, 然后解码答案范围:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> torch
+
+inputs = tokenizer(question, context, add_special_tokens=<span class="hljs-literal">True</span>)
+input_ids = inputs[<span class="hljs-string">&quot;input_ids&quot;</span>][<span class="hljs-number">0</span>]
+outputs = model(**inputs)
+answer_start_scores = outputs.start_logits
+answer_end_scores = outputs.end_logits
+<span class="hljs-comment"># Get the most likely beginning of answer with the argmax of the score</span>
+answer_start = torch.argmax(answer_start_scores)
+<span class="hljs-comment"># Get the most likely end of answer with the argmax of the score</span>
+answer_end = torch.argmax(answer_end_scores) + <span class="hljs-number">1</span>
+answer = tokenizer.convert_tokens_to_string(
+    tokenizer.convert_ids_to_tokens(input_ids[answer_start:answer_end])
+)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Question: <span class="hljs-subst">{question}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Answer: <span class="hljs-subst">{answer}</span>&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&quot;&quot;&quot;
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+/var/folders/28/k4cy5q7s2hs92xq7_h89_vgm0000gn/T/ipykernel_75743/2725838073.py in &lt;module&gt;
+      1 inputs = tokenizer(question, text, add_special_tokens=True)
+      2 input_ids = inputs[&quot;input_ids&quot;]
+----&gt; 3 outputs = model(**inputs)
+      4 answer_start_scores = outputs.start_logits
+      5 answer_end_scores = outputs.end_logits
+
+~/miniconda3/envs/huggingface/lib/python3.8/site-packages/torch/nn/modules/module.py in _call_impl(self, *input, **kwargs)
+   1049         if not (self._backward_hooks or self._forward_hooks or self._forward_pre_hooks or _global_backward_hooks
+   1050                 or _global_forward_hooks or _global_forward_pre_hooks):
+-&gt; 1051             return forward_call(*input, **kwargs)
+   1052         # Do not call functions when jit is used
+   1053         full_backward_hooks, non_full_backward_hooks = [], []
+
+~/miniconda3/envs/huggingface/lib/python3.8/site-packages/transformers/models/distilbert/modeling_distilbert.py in forward(self, input_ids, attention_mask, head_mask, inputs_embeds, start_positions, end_positions, output_attentions, output_hidden_states, return_dict)
+    723         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
+    724
+--&gt; 725         distilbert_output = self.distilbert(
+    726             input_ids=input_ids,
+    727             attention_mask=attention_mask,
+
+~/miniconda3/envs/huggingface/lib/python3.8/site-packages/torch/nn/modules/module.py in _call_impl(self, *input, **kwargs)
+   1049         if not (self._backward_hooks or self._forward_hooks or self._forward_pre_hooks or _global_backward_hooks
+   1050                 or _global_forward_hooks or _global_forward_pre_hooks):
+-&gt; 1051             return forward_call(*input, **kwargs)
+   1052         # Do not call functions when jit is used
+   1053         full_backward_hooks, non_full_backward_hooks = [], []
+
+~/miniconda3/envs/huggingface/lib/python3.8/site-packages/transformers/models/distilbert/modeling_distilbert.py in forward(self, input_ids, attention_mask, head_mask, inputs_embeds, output_attentions, output_hidden_states, return_dict)
+    471             raise ValueError(&quot;You cannot specify both input_ids and inputs_embeds at the same time&quot;)
+    472         elif input_ids is not None:
+--&gt; 473             input_shape = input_ids.size()
+    474         elif inputs_embeds is not None:
+    475             input_shape = inputs_embeds.size()[:-1]
+
+AttributeError: &#x27;list&#x27; object has no attribute &#x27;size&#x27;
+&quot;&quot;&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>噢, 看起来我们的代码中有一个错误!但我们不怕一点调试。您可以在笔记本中使用 Python 调试器:</p>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/rSPyvPw0p9k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>或在终端中:</p>
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/5PkZ4rbHL6c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>在这里, 阅读错误消息告诉我们 <code>&#39;list&#39; object has no attribute &#39;size&#39;</code>, 我们可以看到一个 <code>--&gt;</code> 箭头指向 <code>model(**inputs)</code> 中出现问题的行。你可以使用 Python 调试器以交互方式调试它, 但现在我们只需打印出一部分 <code>inputs</code>, 看看我们有什么:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->inputs[<span class="hljs-string">&quot;input_ids&quot;</span>][:<span class="hljs-number">5</span>]<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->[<span class="hljs-number">101</span>, <span class="hljs-number">2029</span>, <span class="hljs-number">7705</span>, <span class="hljs-number">2015</span>, <span class="hljs-number">2064</span>]<!-- HTML_TAG_END --></pre></div>
+<p>这当然看起来像一个普通的 Python <code>list</code>, 但让我们仔细检查一下类型:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-built_in">type</span>(inputs[<span class="hljs-string">&quot;input_ids&quot;</span>])<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-built_in">list</span><!-- HTML_TAG_END --></pre></div>
+<p>是的, 这肯定是一个 Python <code>list</code>。那么出了什么问题呢? 回忆 <a href="/course/chapter2">第二章</a> 🤗 Transformers 中的 <code>AutoModelForXxx</code> 类在 <em>tensors</em> 上运行(PyTorch或者or TensorFlow), 一个常见的操作是使用 <code>Tensor.size()</code> 方法提取张量的维度, 例如, 在 PyTorch 中。让我们再看看回溯, 看看哪一行触发了异常:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->~<span class="hljs-regexp">/miniconda3/</span>envs<span class="hljs-regexp">/huggingface/</span>lib<span class="hljs-regexp">/python3.8/</span>site-packages<span class="hljs-regexp">/transformers/m</span>odels<span class="hljs-regexp">/distilbert/m</span>odeling_distilbert.py in forward(self, input_ids, attention_mask, head_mask, inputs_embeds, output_attentions, output_hidden_states, return_dict)
+    <span class="hljs-number">471</span>             raise ValueError(<span class="hljs-string">&quot;You cannot specify both input_ids and inputs_embeds at the same time&quot;</span>)
+    <span class="hljs-number">472</span>         elif input_ids is not None:
+--&gt; <span class="hljs-number">473</span>             input_shape = input_ids.<span class="hljs-keyword">size</span>()
+    <span class="hljs-number">474</span>         elif inputs_embeds is not None:
+    <span class="hljs-number">475</span>             input_shape = inputs_embeds.<span class="hljs-keyword">size</span>()[:-<span class="hljs-number">1</span>]
+
+AttributeError: <span class="hljs-string">&#x27;list&#x27;</span> object has no attribute <span class="hljs-string">&#x27;size&#x27;</span><!-- HTML_TAG_END --></pre></div>
+<p>看起来我们的代码试图调用 <code>input_ids.size()</code>, 但这显然不适用于 Python <code>list</code>, 这只是一个容器。我们如何解决这个问题? 在 Stack Overflow 上搜索错误消息给出了很多相关的 <a href="https://stackoverflow.com/search?q=AttributeError%3A+%27list%27+object+has+no+attribute+%27size%27&s=c15ec54c-63cb-481d-a749-408920073e8f" rel="nofollow">hits</a>。单击第一个会显示与我们类似的问题, 答案如下面的屏幕截图所示:</p>
+<div class="flex justify-center"><img src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter8/stack-overflow.png" alt="An answer from Stack Overflow." width="100%"></div>
+<p>答案建议我们添加 <code>return_tensors=&#39;pt&#39;</code> 到标记器, 所以让我们看看这是否适合我们:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->inputs = tokenizer(question, context, add_special_tokens=<span class="hljs-literal">True</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+input_ids = inputs[<span class="hljs-string">&quot;input_ids&quot;</span>][<span class="hljs-number">0</span>]
+outputs = model(**inputs)
+answer_start_scores = outputs.start_logits
+answer_end_scores = outputs.end_logits
+<span class="hljs-comment"># Get the most likely beginning of answer with the argmax of the score</span>
+answer_start = torch.argmax(answer_start_scores)
+<span class="hljs-comment"># Get the most likely end of answer with the argmax of the score</span>
+answer_end = torch.argmax(answer_end_scores) + <span class="hljs-number">1</span>
+answer = tokenizer.convert_tokens_to_string(
+    tokenizer.convert_ids_to_tokens(input_ids[answer_start:answer_end])
+)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Question: <span class="hljs-subst">{question}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Answer: <span class="hljs-subst">{answer}</span>&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&quot;&quot;&quot;
+Question: Which frameworks can I use?
+Answer: pytorch, tensorflow, and jax
+&quot;&quot;&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>不错, 成功了! 这是 Stack Overflow 非常有用的一个很好的例子: 通过识别类似的问题, 我们能够从社区中其他人的经验中受益。然而, 像这样的搜索并不总是会产生相关的答案, 那么在这种情况下你能做什么呢? 幸运的是, 有一个受欢迎的开发者社区 <a href="https://discuss.huggingface.co/" rel="nofollow">Hugging Face forums</a> 可以帮助你! 在下一节中, 我们将看看如何设计可能得到回答的优秀论坛问题。</p>
+
+
+		<script type="module" data-hydrate="3ipce3">
+		import { start } from "/docs/course/main/zh-CN/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="3ipce3"]').parentNode,
+			paths: {"base":"/docs/course/main/zh-CN","assets":"/docs/course/main/zh-CN"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/course/main/zh-CN/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/course/main/zh-CN/_app/pages/chapter8/2.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>

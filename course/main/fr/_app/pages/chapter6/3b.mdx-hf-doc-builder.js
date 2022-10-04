@@ -131,8 +131,8 @@ for start_probs, end_probs in zip(start_probabilities, end_probabilities):
     scores = start_probs[:, None] * end_probs[None, :]
     idx = np.triu(scores).argmax().item()
 
-    start_idx = idx // scores.shape[0]
-    end_idx = idx % scores.shape[0]
+    start_idx = idx // scores.shape[1]
+    end_idx = idx % scores.shape[1]
     score = scores[start_idx, end_idx].item()
     candidates.append((start_idx, end_idx, score))
 
@@ -141,8 +141,8 @@ print(candidates)`,highlighted:`candidates = []
     scores = start_probs[:, <span class="hljs-literal">None</span>] * end_probs[<span class="hljs-literal">None</span>, :]
     idx = np.triu(scores).argmax().item()
 
-    start_idx = idx // scores.shape[<span class="hljs-number">0</span>]
-    end_idx = idx % scores.shape[<span class="hljs-number">0</span>]
+    start_idx = idx // scores.shape[<span class="hljs-number">1</span>]
+    end_idx = idx % scores.shape[<span class="hljs-number">1</span>]
     score = scores[start_idx, end_idx].item()
     candidates.append((start_idx, end_idx, score))
 
@@ -151,8 +151,8 @@ for start_probs, end_probs in zip(start_probabilities, end_probabilities):
     scores = start_probs[:, None] * end_probs[None, :]
     idx = torch.triu(scores).argmax().item()
 
-    start_idx = idx // scores.shape[0]
-    end_idx = idx % scores.shape[0]
+    start_idx = idx // scores.shape[1]
+    end_idx = idx % scores.shape[1]
     score = scores[start_idx, end_idx].item()
     candidates.append((start_idx, end_idx, score))
 
@@ -161,8 +161,8 @@ print(candidates)`,highlighted:`candidates = []
     scores = start_probs[:, <span class="hljs-literal">None</span>] * end_probs[<span class="hljs-literal">None</span>, :]
     idx = torch.triu(scores).argmax().item()
 
-    start_idx = idx // scores.shape[<span class="hljs-number">0</span>]
-    end_idx = idx % scores.shape[<span class="hljs-number">0</span>]
+    start_idx = idx // scores.shape[<span class="hljs-number">1</span>]
+    end_idx = idx % scores.shape[<span class="hljs-number">1</span>]
     score = scores[start_idx, end_idx].item()
     candidates.append((start_idx, end_idx, score))
 

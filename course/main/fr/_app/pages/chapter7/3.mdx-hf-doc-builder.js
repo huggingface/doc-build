@@ -129,6 +129,7 @@ def whole_word_masking_data_collator(features):
             for idx in mapping[word_id]:
                 new_labels[idx] = labels[idx]
                 input_ids[idx] = tokenizer.mask_token_id
+        feature["labels"] = new_labels
 
     return tf_default_data_collator(features)`,highlighted:`<span class="hljs-keyword">import</span> collections
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
@@ -163,6 +164,7 @@ wwm_probability = <span class="hljs-number">0.2</span>
             <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> mapping[word_id]:
                 new_labels[idx] = labels[idx]
                 input_ids[idx] = tokenizer.mask_token_id
+        feature[<span class="hljs-string">&quot;labels&quot;</span>] = new_labels
 
     <span class="hljs-keyword">return</span> tf_default_data_collator(features)`}}),{c(){w(i.$$.fragment)},l(d){E(i.$$.fragment,d)},m(d,$){x(i,d,$),h=!0},i(d){h||(g(i.$$.fragment,d),h=!0)},o(d){b(i.$$.fragment,d),h=!1},d(d){j(i,d)}}}function dg(H){let i,h;return i=new S({props:{code:`import collections
 import numpy as np
@@ -197,6 +199,7 @@ def whole_word_masking_data_collator(features):
             for idx in mapping[word_id]:
                 new_labels[idx] = labels[idx]
                 input_ids[idx] = tokenizer.mask_token_id
+        feature["labels"] = new_labels
 
     return default_data_collator(features)`,highlighted:`<span class="hljs-keyword">import</span> collections
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
@@ -231,6 +234,7 @@ wwm_probability = <span class="hljs-number">0.2</span>
             <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> mapping[word_id]:
                 new_labels[idx] = labels[idx]
                 input_ids[idx] = tokenizer.mask_token_id
+        feature[<span class="hljs-string">&quot;labels&quot;</span>] = new_labels
 
     <span class="hljs-keyword">return</span> default_data_collator(features)`}}),{c(){w(i.$$.fragment)},l(d){E(i.$$.fragment,d)},m(d,$){x(i,d,$),h=!0},i(d){h||(g(i.$$.fragment,d),h=!0)},o(d){b(i.$$.fragment,d),h=!1},d(d){j(i,d)}}}function mg(H){let i,h,d,$,A,q,k,z,f,M,O,C,L,I;return{c(){i=l("p"),h=a("\u270F\uFE0F "),d=l("strong"),$=a("Essayez"),A=a(" Ex\xE9cutez le code ci-dessus plusieurs fois pour voir le masquage al\xE9atoire se produire sous vos yeux ! Remplacez aussi la m\xE9thode "),q=l("code"),k=a("tokenizer.decode()"),z=a(" par "),f=l("code"),M=a("tokenizer.convert_ids_to_tokens()"),O=a(" pour voir que les "),C=l("em"),L=a("tokens"),I=a(" d\u2019un mot donn\xE9 sont toujours masqu\xE9s ensemble.")},l(D){i=o(D,"P",{});var P=r(i);h=n(P,"\u270F\uFE0F "),d=o(P,"STRONG",{});var U=r(d);$=n(U,"Essayez"),U.forEach(t),A=n(P," Ex\xE9cutez le code ci-dessus plusieurs fois pour voir le masquage al\xE9atoire se produire sous vos yeux ! Remplacez aussi la m\xE9thode "),q=o(P,"CODE",{});var K=r(q);k=n(K,"tokenizer.decode()"),K.forEach(t),z=n(P," par "),f=o(P,"CODE",{});var v=r(f);M=n(v,"tokenizer.convert_ids_to_tokens()"),v.forEach(t),O=n(P," pour voir que les "),C=o(P,"EM",{});var N=r(C);L=n(N,"tokens"),N.forEach(t),I=n(P," d\u2019un mot donn\xE9 sont toujours masqu\xE9s ensemble."),P.forEach(t)},m(D,P){p(D,i,P),s(i,h),s(i,d),s(d,$),s(i,A),s(i,q),s(q,k),s(i,z),s(i,f),s(f,M),s(i,O),s(i,C),s(C,L),s(i,I)},d(D){D&&t(i)}}}function cg(H){let i,h,d,$,A,q,k,z,f,M,O,C,L,I,D,P,U,K,v,N,W,G,J,ee,re,te,V,R,ie,Q,se,ue,Z,ge,ne,de,rs,be,ke,is,Ve,qe,us,We,je,Ne,Je,X,pe,ye,me,ps,ze,$e,Xe,le,Ze,we,Ee,B,ae,Re,ce,es,Ye,Me,Oe,Be;return k=new S({props:{code:`from transformers import TrainingArguments
 

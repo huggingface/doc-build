@@ -1,0 +1,246 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;gradio&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;为什么要块 🧱?&quot;},{&quot;local&quot;:&quot;demo&quot;,&quot;title&quot;:&quot;使用块创建简单demo&quot;},{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;自定义演示的布局&quot;},{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;探索事件和状态&quot;},{&quot;local&quot;:&quot;demo&quot;,&quot;title&quot;:&quot;创建多步demo&quot;},{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;更新组件属性&quot;}],&quot;title&quot;:&quot;Gradio 块简介&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/pages/chapter9/7.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/CodeBlock-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/DocNotebookDropdown-hf-doc-builder.js"> 
+
+
+
+
+
+<h1 class="relative group"><a id="gradio" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#gradio"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Gradio 块简介
+	</span></h1>
+
+
+
+<div class="flex space-x-1 absolute z-10 right-0 top-0">
+	<a href="https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter9/section7.ipynb" target="_blank"><img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
+	<a href="https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter9/section7.ipynb" target="_blank"><img alt="Open In Studio Lab" class="!m-0" src="https://studiolab.sagemaker.aws/studiolab.svg"></a></div>
+<p>在前面的部分中, 我们已经使用 <code>Interface</code> 类探索并创建了演示。在本节中, 我们将介绍我们 <strong>新开发</strong>的称为<code>gradio.Blocks</code>低级API。</p>
+<p>现在, <code>接口</code>和<code>块</code>之间有什么区别?</p>
+<ul><li><p>⚡ <code>接口</code>: 一个高级 API, 让你只需提供输入和输出列表即可创建完整的机器学习演示。</p></li>
+<li><p>🧱 <code>块</code>: :一个低级的 API, 它允许你完全控制你的应用程序的数据流和布局。您可以使用<code>块</code>(如 “构建块”)构建非常复杂的多步骤应用程序。</p></li></ul>
+<h3 id="">为什么要块 🧱?</h3>
+<p>正如我们在前几节中看到的, <code>Interface</code> 类允许你使用几行代码轻松创建成熟的机器学习demo。<code>Interface</code> API 非常易于使用, 但缺乏 <code>Blocks</code> API 提供的灵活性。例如, 你可能想要:</p>
+<ul><li>将相关演示组合为一个web应用程序中的多个选项卡</li>
+<li>更改demo的布局, 例如指定输入和输出的位置</li>
+<li>具有多步骤接口, 其中一个模型的输出成为下一个模型的输入, 或者通常具有更灵活的数据流</li>
+<li>根据用户输入更改组件的属性 (例如, 下拉列表中的选项) 或其可见性</li></ul>
+<p>我们将在下面探讨所有这些概念。</p>
+<h3 class="relative group"><a id="demo" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#demo"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>使用块创建简单demo
+	</span></h3>
+
+<p>安装 Gradio 后, 将以下代码作为 Python 脚本、Jupyter 笔记本或 Colab 笔记本运行。</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> gradio <span class="hljs-keyword">as</span> gr
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">flip_text</span>(<span class="hljs-params">x</span>):
+    <span class="hljs-keyword">return</span> x[::-<span class="hljs-number">1</span>]
+
+
+demo = gr.Blocks()
+
+<span class="hljs-keyword">with</span> demo:
+    gr.Markdown(
+        <span class="hljs-string">&quot;&quot;&quot;
+    # Flip Text!
+    Start typing below to see the output.
+    &quot;&quot;&quot;</span>
+    )
+    <span class="hljs-built_in">input</span> = gr.Textbox(placeholder=<span class="hljs-string">&quot;Flip this text&quot;</span>)
+    output = gr.Textbox()
+
+    <span class="hljs-built_in">input</span>.change(fn=flip_text, inputs=<span class="hljs-built_in">input</span>, outputs=output)
+
+demo.launch()<!-- HTML_TAG_END --></pre></div>
+<iframe src="https://hf.space/gradioiframe/course-demos/flip_text/+" frameborder="0" height="400" title="Gradio app" class="container p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<p>上述简单示例介绍了块的4个基本概念:</p>
+<ol><li><p>块允许你允许你构建结合markdown、HTML、按钮和交互组件的web应用程序, 只需在一个带有gradio的Python中实例化对象。</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400">🙋如果你不熟悉 Python 中的 `with` 语句, 我们建议你查看来自 Real Python 的极好的[教程](https://realpython.com/python-with-statement/)。看完后回到这里 🤗
+</div>
+实例化组件的顺序很重要, 因为每个元素都按照创建的顺序呈现到 Web 应用程序中。(更复杂的布局在下面讨论)
+</li>
+<li><p>你可以在代码中的任何位置定义常规 Python 函数, 并使用<code>块</code>在用户输入的情况下运行它们。在我们的示例中, 们有一个”翻转”输入文本的简单函数, 但你可以编写任何 Python 函数, 从简单的计算到处理机器学习模型的预测。</p></li>
+<li><p>你可以将事件指定给任何<code>块</code>组件。这将在组件被单击、更改等情况下运行函数。当你分配一个事件时, 你传入三个参数: <code>fn</code>: 应该被调用的函数, <code>inputs</code>: 输入组件的(列表), 以及 <code>outputs</code>: 应该被调用的输出组件的(列表)。</p>
+<p>在上面的示例中, 当名为 <code>input</code> 的 <code>Textbox</code> 中的值发生变化时, 我们运行 <code>flip_text()</code> 函数。该事件读取<code>输入</code>中的值, 将其作为名称参数传递给 <code>flip_text()</code>, 然后它返回一个值, 该值被分配给我们的第二个名为 <code>output</code> 的 <code>Textbox</code>。</p>
+<p>要查看每个组件支持的事件列表, 请参阅 Gradio <a href="https://www.gradio.app/docs/" rel="nofollow">文档</a>。</p></li>
+<li><p>块会根据你定义的事件触发器自动确定组件是否应该是交互式的 (接受用户输入)。在我们的示例中, 第一个文本框是交互式的, 因为它的值由 <code>flip_text()</code> 函数使用。第二个文本框不是交互式的, 因为它的值从不用作输入。在某些情况下, 你可能想要覆盖它, 你可以通过传递一个布尔值给组件的<code>交互</code>参数(例如 <code>gr.Textbox(placeholder=&quot;Flip this text&quot;, interactive=True)</code>)。</p></li></ol>
+<h3 id="">自定义演示的布局</h3>
+<p>我们如何使用<code>块</code>来定制我们的演示的布局? 默认情况下, <code>块</code>在一列中垂直呈现创建的组件。你可以通过使用 <code>with gradio.Column():</code> 创建其他列或使用 <code>with gradio.Row():</code> 创建其他行并在这些上下文中创建组件来改变这一点。</p>
+<p>你应该记住: 在 <code>列</code> 下创建的任何组件(这也是默认设置) 都将垂直布局。在 <code>Row</code> 下创建的任何组件都将水平布局, 类似于 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox" rel="nofollow">Web 开发中的 flexbox 模型</a>。</p>
+<p>最后, 你还可以使用 <code>with gradio.Tabs()</code> 上下文管理器为您的demo创建选项卡。在此上下文中, 您可以通过使用 <code>gradio.TabItem(name_of_tab):</code> 指定来创建多个选项卡。在 <code>gradio.TabItem(name_of_tab):</code> 中创建的任何组件都会出现在该选项卡中。</p>
+<p>现在让我们在demo中添加一个 <code>flip_image()</code>函数并添加一个翻转图像的新选项卡。下面是一个带有 2 个选项卡的示例, 也使用了一个行:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> gradio <span class="hljs-keyword">as</span> gr
+
+demo = gr.Blocks()
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">flip_text</span>(<span class="hljs-params">x</span>):
+    <span class="hljs-keyword">return</span> x[::-<span class="hljs-number">1</span>]
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">flip_image</span>(<span class="hljs-params">x</span>):
+    <span class="hljs-keyword">return</span> np.fliplr(x)
+
+
+<span class="hljs-keyword">with</span> demo:
+    gr.Markdown(<span class="hljs-string">&quot;Flip text or image files using this demo.&quot;</span>)
+    <span class="hljs-keyword">with</span> gr.Tabs():
+        <span class="hljs-keyword">with</span> gr.TabItem(<span class="hljs-string">&quot;Flip Text&quot;</span>):
+            <span class="hljs-keyword">with</span> gr.Row():
+                text_input = gr.Textbox()
+                text_output = gr.Textbox()
+            text_button = gr.Button(<span class="hljs-string">&quot;Flip&quot;</span>)
+        <span class="hljs-keyword">with</span> gr.TabItem(<span class="hljs-string">&quot;Flip Image&quot;</span>):
+            <span class="hljs-keyword">with</span> gr.Row():
+                image_input = gr.Image()
+                image_output = gr.Image()
+            image_button = gr.Button(<span class="hljs-string">&quot;Flip&quot;</span>)
+
+    text_button.click(flip_text, inputs=text_input, outputs=text_output)
+    image_button.click(flip_image, inputs=image_input, outputs=image_output)
+
+demo.launch()<!-- HTML_TAG_END --></pre></div>
+<iframe src="https://hf.space/gradioiframe/course-demos/flip_text_image/+" frameborder="0" height="450" title="Gradio app" class="container p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<p>你会注意到, 在这个示例中, 我们还在每个选项卡中创建了一个 <code>Button</code> 组件, 并且我们为每个按钮分配了一个点击事件,这是实际运行该函数的事件。</p>
+<h3 id="">探索事件和状态</h3>
+<p>正如你可以控制布局一样, <code>块</code> 可以让你对触发函数调用的事件进行细粒度控制。每个组件和许多布局都有它们支持的特定事件。</p>
+<p>例如, <code>Textbox</code> 组件有两个事件: <code>change()</code> (当文本框内的值发生变化时), 和 <code>submit()</code> (当用户在关注文本框时按下enter键)。更复杂的组件可以有更多的事件: 例如,<code>Audio</code>组件也有单独的事件, 用于播放、清除、暂停音频文件等。请参阅文档了解每个组件支持的事件。</p>
+<p>你可以将事件触发器附加到这些事件中的一个、一个或多个。你可以通过在组件实例中调用事件名称作为函数来创建一个事件触发器 — 例如 <code>textbox.change(...)</code> 或 <code>btn.click(...)</code>。如前所述, 该函数接受三个参数:</p>
+<ul><li><code>fn</code>: 要运行的函数</li>
+<li><code>inputs</code>: 组件的(列表), 其值应作为函数的输入参数提供。每个组件的值按顺序映射到相应的函数参数。如果函数不带任何参数, 则此参数可以为 None。</li>
+<li><code>outputs</code>: 应根据函数返回的值更新其值的组件(列表)。每个返回值按顺序设置相应组件的值。如果函数不返回任何内容, 则此参数可以为None。</li></ul>
+<p>你甚至可以使输入和输出组件成为同一个组件, 就像我们在这个使用 GPT 模型进行文本补全的示例中所做的那样:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> gradio <span class="hljs-keyword">as</span> gr
+
+api = gr.Interface.load(<span class="hljs-string">&quot;huggingface/EleutherAI/gpt-j-6B&quot;</span>)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">complete_with_gpt</span>(<span class="hljs-params">text</span>):
+    <span class="hljs-comment"># Use the last 50 characters of the text as context</span>
+    <span class="hljs-keyword">return</span> text[:-<span class="hljs-number">50</span>] + api(text[-<span class="hljs-number">50</span>:])
+
+
+<span class="hljs-keyword">with</span> gr.Blocks() <span class="hljs-keyword">as</span> demo:
+    textbox = gr.Textbox(placeholder=<span class="hljs-string">&quot;Type here and press enter...&quot;</span>, lines=<span class="hljs-number">4</span>)
+    btn = gr.Button(<span class="hljs-string">&quot;Generate&quot;</span>)
+
+    btn.click(complete_with_gpt, textbox, textbox)
+
+demo.launch()<!-- HTML_TAG_END --></pre></div>
+<iframe src="https://hf.space/gradioiframe/course-demos/blocks_gpt/+" frameborder="0" height="300" title="Gradio app" class="container p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<h3 class="relative group"><a id="demo" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#demo"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>创建多步demo
+	</span></h3>
+
+<p>在某些情况下, 您可能需要一个 <em>多步骤的demo</em>, 其中重用一个函数的输出作为下一个函数的输入。使用 <code>块</code> 很容易做到这一点, 因为你可以使用组件作为一个事件触发器的输入, 但作为另一个事件触发器的输出。看看下面示例中的文本组件, 它的值是语音到文本模型的结果, 但也被传递到情感分析模型:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline
+
+<span class="hljs-keyword">import</span> gradio <span class="hljs-keyword">as</span> gr
+
+asr = pipeline(<span class="hljs-string">&quot;automatic-speech-recognition&quot;</span>, <span class="hljs-string">&quot;facebook/wav2vec2-base-960h&quot;</span>)
+classifier = pipeline(<span class="hljs-string">&quot;text-classification&quot;</span>)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">speech_to_text</span>(<span class="hljs-params">speech</span>):
+    text = asr(speech)[<span class="hljs-string">&quot;text&quot;</span>]
+    <span class="hljs-keyword">return</span> text
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">text_to_sentiment</span>(<span class="hljs-params">text</span>):
+    <span class="hljs-keyword">return</span> classifier(text)[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;label&quot;</span>]
+
+
+demo = gr.Blocks()
+
+<span class="hljs-keyword">with</span> demo:
+    audio_file = gr.Audio(<span class="hljs-built_in">type</span>=<span class="hljs-string">&quot;filepath&quot;</span>)
+    text = gr.Textbox()
+    label = gr.Label()
+
+    b1 = gr.Button(<span class="hljs-string">&quot;Recognize Speech&quot;</span>)
+    b2 = gr.Button(<span class="hljs-string">&quot;Classify Sentiment&quot;</span>)
+
+    b1.click(speech_to_text, inputs=audio_file, outputs=text)
+    b2.click(text_to_sentiment, inputs=text, outputs=label)
+
+demo.launch()<!-- HTML_TAG_END --></pre></div>
+<iframe src="https://hf.space/gradioiframe/course-demos/blocks_multi_step/+" frameborder="0" height="600" title="Gradio app" class="container p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<h3 id="">更新组件属性</h3>
+<p>到目前为止, 我们已经了解了如何创建事件来更新另一个组件的值。但是, 如果您想更改组件的其他属性, 例如文本框的可见性或单选按钮组中的选项, 会发生什么? 您可以通过返回组件类的 <code>update()</code> 方法而不是函数的常规返回值来做到这一点。</p>
+<p>这很容易用一个例子来说明:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> gradio <span class="hljs-keyword">as</span> gr
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">change_textbox</span>(<span class="hljs-params">choice</span>):
+    <span class="hljs-keyword">if</span> choice == <span class="hljs-string">&quot;short&quot;</span>:
+        <span class="hljs-keyword">return</span> gr.Textbox.update(lines=<span class="hljs-number">2</span>, visible=<span class="hljs-literal">True</span>)
+    <span class="hljs-keyword">elif</span> choice == <span class="hljs-string">&quot;long&quot;</span>:
+        <span class="hljs-keyword">return</span> gr.Textbox.update(lines=<span class="hljs-number">8</span>, visible=<span class="hljs-literal">True</span>)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> gr.Textbox.update(visible=<span class="hljs-literal">False</span>)
+
+
+<span class="hljs-keyword">with</span> gr.Blocks() <span class="hljs-keyword">as</span> block:
+    radio = gr.Radio(
+        [<span class="hljs-string">&quot;short&quot;</span>, <span class="hljs-string">&quot;long&quot;</span>, <span class="hljs-string">&quot;none&quot;</span>], label=<span class="hljs-string">&quot;What kind of essay would you like to write?&quot;</span>
+    )
+    text = gr.Textbox(lines=<span class="hljs-number">2</span>, interactive=<span class="hljs-literal">True</span>)
+
+    radio.change(fn=change_textbox, inputs=radio, outputs=text)
+    block.launch()<!-- HTML_TAG_END --></pre></div>
+<iframe src="https://hf.space/gradioiframe/course-demos/blocks_update_component_properties/+" frameborder="0" height="300" title="Gradio app" class="container p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<p>我们刚刚探索了<code>块</code>的所有核心概念! 就像 <code>参数一样</code>, 你可以创建很酷的demo, 可以通过在<code>launch()</code>方法中使用<code>share=True</code>来共享, 或者部署在<a href="https://huggingface.co/spaces" rel="nofollow">Hugging Face Spaces</a>上。</p>
+
+
+		<script type="module" data-hydrate="1eg004k">
+		import { start } from "/docs/course/main/zh-CN/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="1eg004k"]').parentNode,
+			paths: {"base":"/docs/course/main/zh-CN","assets":"/docs/course/main/zh-CN"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/course/main/zh-CN/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/course/main/zh-CN/_app/pages/chapter9/7.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>

@@ -1,0 +1,119 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;使用状态保存数据&quot;},{&quot;local&quot;:&quot;&quot;,&quot;title&quot;:&quot;通过解释来理解预测&quot;}],&quot;title&quot;:&quot;高级接口功能&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/pages/chapter9/6.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/CodeBlock-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/course/main/zh-CN/_app/chunks/DocNotebookDropdown-hf-doc-builder.js"> 
+
+
+
+
+
+<h1 id="">高级接口功能</h1>
+
+
+<div class="flex space-x-1 absolute z-10 right-0 top-0">
+	<a href="https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter9/section6.ipynb" target="_blank"><img alt="Open In Colab" class="!m-0" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
+	<a href="https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter9/section6.ipynb" target="_blank"><img alt="Open In Studio Lab" class="!m-0" src="https://studiolab.sagemaker.aws/studiolab.svg"></a></div>
+<p>现在我们可以构建和共享一个基本接口, 让我们来探索一些更高级的特性, 如状态和解释。</p>
+<h3 id="">使用状态保存数据</h3>
+<p>Gradio 支持 <em>会话状态</em>, 其中数据在页面加载中的多个提交中持续存在。会话状态对于构建演示很有用, 例如, 你希望在用户与模型交互时保留数据的聊天机器人。请注意, 会话状态不会在模型的不同用户之间共享数据。</p>
+<p>要将数据存储在会话状态中, 你需要做三件事:</p>
+<ol><li>向函数中传递一个 <em>额外的参数</em> , 该参数表示接口的状态。</li>
+<li>在函数结束时, 将状态的更新值作为 <em>额外的返回值</em> 返回。</li>
+<li>在创建<code>接口</code>时添加 ‘state’ 输入和 ‘state’ 输出组件。</li></ol>
+<p>请参阅下面的聊天机器人示例:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> random
+
+<span class="hljs-keyword">import</span> gradio <span class="hljs-keyword">as</span> gr
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">chat</span>(<span class="hljs-params">message, history</span>):
+    history = history <span class="hljs-keyword">or</span> []
+    <span class="hljs-keyword">if</span> message.startswith(<span class="hljs-string">&quot;How many&quot;</span>):
+        response = random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>)
+    <span class="hljs-keyword">elif</span> message.startswith(<span class="hljs-string">&quot;How&quot;</span>):
+        response = random.choice([<span class="hljs-string">&quot;Great&quot;</span>, <span class="hljs-string">&quot;Good&quot;</span>, <span class="hljs-string">&quot;Okay&quot;</span>, <span class="hljs-string">&quot;Bad&quot;</span>])
+    <span class="hljs-keyword">elif</span> message.startswith(<span class="hljs-string">&quot;Where&quot;</span>):
+        response = random.choice([<span class="hljs-string">&quot;Here&quot;</span>, <span class="hljs-string">&quot;There&quot;</span>, <span class="hljs-string">&quot;Somewhere&quot;</span>])
+    <span class="hljs-keyword">else</span>:
+        response = <span class="hljs-string">&quot;I don&#x27;t know&quot;</span>
+    history.append((message, response))
+    <span class="hljs-keyword">return</span> history, history
+
+
+iface = gr.Interface(
+    chat,
+    [<span class="hljs-string">&quot;text&quot;</span>, <span class="hljs-string">&quot;state&quot;</span>],
+    [<span class="hljs-string">&quot;chatbot&quot;</span>, <span class="hljs-string">&quot;state&quot;</span>],
+    allow_screenshot=<span class="hljs-literal">False</span>,
+    allow_flagging=<span class="hljs-string">&quot;never&quot;</span>,
+)
+iface.launch()<!-- HTML_TAG_END --></pre></div>
+<iframe src="https://hf.space/gradioiframe/course-demos/Chatbot-Demo/+" frameborder="0" height="350" title="Gradio app" class="container p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<p>请注意输出组件的状态如何在提交之间保持不变。注意: 可以给 state 参数传入一个默认值, 作为 state 的初始值。</p>
+<h3 id="">通过解释来理解预测</h3>
+<p>大多数机器学习模型都是黑盒子, 函数的内部逻辑对终端用户是隐藏的。为了提高透明度, 我们通过简单地将 Interface 类中的解释关键字设置为默认值, 使向模型添加解释变得非常容易。这允许你的用户理解输入的哪些部分负责输出。看看下面这个简单的接口, 它显示了一个还包括解释的图像分类器:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+<span class="hljs-keyword">import</span> gradio <span class="hljs-keyword">as</span> gr
+
+inception_net = tf.keras.applications.MobileNetV2()  <span class="hljs-comment"># load the model</span>
+
+<span class="hljs-comment"># Download human-readable labels for ImageNet.</span>
+response = requests.get(<span class="hljs-string">&quot;https://git.io/JJkYN&quot;</span>)
+labels = response.text.split(<span class="hljs-string">&quot;\n&quot;</span>)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">classify_image</span>(<span class="hljs-params">inp</span>):
+    inp = inp.reshape((-<span class="hljs-number">1</span>, <span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>))
+    inp = tf.keras.applications.mobilenet_v2.preprocess_input(inp)
+    prediction = inception_net.predict(inp).flatten()
+    <span class="hljs-keyword">return</span> {labels[i]: <span class="hljs-built_in">float</span>(prediction[i]) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1000</span>)}
+
+
+image = gr.Image(shape=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>))
+label = gr.Label(num_top_classes=<span class="hljs-number">3</span>)
+
+title = <span class="hljs-string">&quot;Gradio Image Classifiction + Interpretation Example&quot;</span>
+gr.Interface(
+    fn=classify_image, inputs=image, outputs=label, interpretation=<span class="hljs-string">&quot;default&quot;</span>, title=title
+).launch()<!-- HTML_TAG_END --></pre></div>
+<p>通过提交一个输入, 然后单击输出组件下的Interpret来测试解释功能。</p>
+<iframe src="https://hf.space/gradioiframe/course-demos/gradio-image-interpretation/+" frameborder="0" height="570" title="Gradio app" class="container p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<p>除了Gradio提供的默认解释方法之外, 你还可以为 <code>interpretation</code> 参数指定 <code>shap</code>, 并设置 <code>num_shap</code> 参数。这使用基于 Shapley 的解释, 你可以在 <a href="https://christophm.github.io/interpretable-ml-book/shap.html" rel="nofollow">here</a> 阅读更多信息。最后, 还可以将自己的解释函数传入 <code>interpretation</code> 参数。在Gradio的入门页面 <a href="https://gradio.app/getting_started/" rel="nofollow">here</a> 中可以看到一个例子。</p>
+<p>这结束了我们对Gradio的<code>Interface</code>类的深入研究。正如我们所看到的, 这个类使用几行Python代码创建机器学习演示变得简单。然而, 有时你会想通过改变布局或链接多个预测函数来定制你的demo。如果我们能以某种方式将 <code>接口</code> 分成可定制的 “块”, 那不是很好吗? 幸运的是, 有! 这是最后一部分的主题。</p>
+
+
+		<script type="module" data-hydrate="cl4j6w">
+		import { start } from "/docs/course/main/zh-CN/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="cl4j6w"]').parentNode,
+			paths: {"base":"/docs/course/main/zh-CN","assets":"/docs/course/main/zh-CN"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/course/main/zh-CN/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/course/main/zh-CN/_app/pages/chapter9/6.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
