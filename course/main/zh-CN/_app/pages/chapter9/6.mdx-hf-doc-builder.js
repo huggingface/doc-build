@@ -1,0 +1,103 @@
+import{S as Le,i as Ae,s as Je,e as n,k as m,t as l,w as re,M as Be,c as i,d as e,m as f,a as p,h as o,x as ne,b as c,N as He,G as t,g as r,y as ie,L as Fe,q as pe,o as ce,B as me,v as ze}from"../../chunks/vendor-hf-doc-builder.js";import{C as Se}from"../../chunks/CodeBlock-hf-doc-builder.js";import{D as Re}from"../../chunks/DocNotebookDropdown-hf-doc-builder.js";function Te(fe){let y,K,j,ys,Q,q,X,D,gs,Z,k,js,ss,g,qs,J,ks,Es,es,O,vs,ts,_,E,$s,B,xs,Is,Gs,v,Cs,F,Ps,Ds,Os,$,Ms,z,Ns,Hs,as,M,Ss,ls,x,os,d,ue,rs,N,Ls,ns,I,As,is,H,Js,ps,G,cs,S,Bs,ms,w,he,fs,u,Fs,R,zs,Rs,T,Ts,Vs,V,Ws,Ys,C,Us,Ks,W,Qs,Xs,P,Zs,se,us,b,ee,Y,te,ae,U,le,oe,hs;return q=new Re({props:{classNames:"absolute z-10 right-0 top-0",options:[{label:"Google Colab",value:"https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/chapter9/section6.ipynb"},{label:"Aws Studio",value:"https://studiolab.sagemaker.aws/import/github/huggingface/notebooks/blob/master/course/chapter9/section6.ipynb"}]}}),x=new Se({props:{code:`import random
+
+import gradio as gr
+
+
+def chat(message, history):
+    history = history or []
+    if message.startswith("How many"):
+        response = random.randint(1, 10)
+    elif message.startswith("How"):
+        response = random.choice(["Great", "Good", "Okay", "Bad"])
+    elif message.startswith("Where"):
+        response = random.choice(["Here", "There", "Somewhere"])
+    else:
+        response = "I don't know"
+    history.append((message, response))
+    return history, history
+
+
+iface = gr.Interface(
+    chat,
+    ["text", "state"],
+    ["chatbot", "state"],
+    allow_screenshot=False,
+    allow_flagging="never",
+)
+iface.launch()`,highlighted:`<span class="hljs-keyword">import</span> random
+
+<span class="hljs-keyword">import</span> gradio <span class="hljs-keyword">as</span> gr
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">chat</span>(<span class="hljs-params">message, history</span>):
+    history = history <span class="hljs-keyword">or</span> []
+    <span class="hljs-keyword">if</span> message.startswith(<span class="hljs-string">&quot;How many&quot;</span>):
+        response = random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>)
+    <span class="hljs-keyword">elif</span> message.startswith(<span class="hljs-string">&quot;How&quot;</span>):
+        response = random.choice([<span class="hljs-string">&quot;Great&quot;</span>, <span class="hljs-string">&quot;Good&quot;</span>, <span class="hljs-string">&quot;Okay&quot;</span>, <span class="hljs-string">&quot;Bad&quot;</span>])
+    <span class="hljs-keyword">elif</span> message.startswith(<span class="hljs-string">&quot;Where&quot;</span>):
+        response = random.choice([<span class="hljs-string">&quot;Here&quot;</span>, <span class="hljs-string">&quot;There&quot;</span>, <span class="hljs-string">&quot;Somewhere&quot;</span>])
+    <span class="hljs-keyword">else</span>:
+        response = <span class="hljs-string">&quot;I don&#x27;t know&quot;</span>
+    history.append((message, response))
+    <span class="hljs-keyword">return</span> history, history
+
+
+iface = gr.Interface(
+    chat,
+    [<span class="hljs-string">&quot;text&quot;</span>, <span class="hljs-string">&quot;state&quot;</span>],
+    [<span class="hljs-string">&quot;chatbot&quot;</span>, <span class="hljs-string">&quot;state&quot;</span>],
+    allow_screenshot=<span class="hljs-literal">False</span>,
+    allow_flagging=<span class="hljs-string">&quot;never&quot;</span>,
+)
+iface.launch()`}}),G=new Se({props:{code:`import requests
+import tensorflow as tf
+
+import gradio as gr
+
+inception_net = tf.keras.applications.MobileNetV2()  # load the model
+
+# Download human-readable labels for ImageNet.
+response = requests.get("https://git.io/JJkYN")
+labels = response.text.split("\\n")
+
+
+def classify_image(inp):
+    inp = inp.reshape((-1, 224, 224, 3))
+    inp = tf.keras.applications.mobilenet_v2.preprocess_input(inp)
+    prediction = inception_net.predict(inp).flatten()
+    return {labels[i]: float(prediction[i]) for i in range(1000)}
+
+
+image = gr.Image(shape=(224, 224))
+label = gr.Label(num_top_classes=3)
+
+title = "Gradio Image Classifiction + Interpretation Example"
+gr.Interface(
+    fn=classify_image, inputs=image, outputs=label, interpretation="default", title=title
+).launch()`,highlighted:`<span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+<span class="hljs-keyword">import</span> gradio <span class="hljs-keyword">as</span> gr
+
+inception_net = tf.keras.applications.MobileNetV2()  <span class="hljs-comment"># load the model</span>
+
+<span class="hljs-comment"># Download human-readable labels for ImageNet.</span>
+response = requests.get(<span class="hljs-string">&quot;https://git.io/JJkYN&quot;</span>)
+labels = response.text.split(<span class="hljs-string">&quot;\\n&quot;</span>)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">classify_image</span>(<span class="hljs-params">inp</span>):
+    inp = inp.reshape((-<span class="hljs-number">1</span>, <span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>))
+    inp = tf.keras.applications.mobilenet_v2.preprocess_input(inp)
+    prediction = inception_net.predict(inp).flatten()
+    <span class="hljs-keyword">return</span> {labels[i]: <span class="hljs-built_in">float</span>(prediction[i]) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1000</span>)}
+
+
+image = gr.Image(shape=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>))
+label = gr.Label(num_top_classes=<span class="hljs-number">3</span>)
+
+title = <span class="hljs-string">&quot;Gradio Image Classifiction + Interpretation Example&quot;</span>
+gr.Interface(
+    fn=classify_image, inputs=image, outputs=label, interpretation=<span class="hljs-string">&quot;default&quot;</span>, title=title
+).launch()`}}),{c(){y=n("meta"),K=m(),j=n("h1"),ys=l("\u9AD8\u7EA7\u63A5\u53E3\u529F\u80FD"),Q=m(),re(q.$$.fragment),X=m(),D=n("p"),gs=l("\u73B0\u5728\u6211\u4EEC\u53EF\u4EE5\u6784\u5EFA\u548C\u5171\u4EAB\u4E00\u4E2A\u57FA\u672C\u63A5\u53E3, \u8BA9\u6211\u4EEC\u6765\u63A2\u7D22\u4E00\u4E9B\u66F4\u9AD8\u7EA7\u7684\u7279\u6027, \u5982\u72B6\u6001\u548C\u89E3\u91CA\u3002"),Z=m(),k=n("h3"),js=l("\u4F7F\u7528\u72B6\u6001\u4FDD\u5B58\u6570\u636E"),ss=m(),g=n("p"),qs=l("Gradio \u652F\u6301 "),J=n("em"),ks=l("\u4F1A\u8BDD\u72B6\u6001"),Es=l(", \u5176\u4E2D\u6570\u636E\u5728\u9875\u9762\u52A0\u8F7D\u4E2D\u7684\u591A\u4E2A\u63D0\u4EA4\u4E2D\u6301\u7EED\u5B58\u5728\u3002\u4F1A\u8BDD\u72B6\u6001\u5BF9\u4E8E\u6784\u5EFA\u6F14\u793A\u5F88\u6709\u7528, \u4F8B\u5982, \u4F60\u5E0C\u671B\u5728\u7528\u6237\u4E0E\u6A21\u578B\u4EA4\u4E92\u65F6\u4FDD\u7559\u6570\u636E\u7684\u804A\u5929\u673A\u5668\u4EBA\u3002\u8BF7\u6CE8\u610F, \u4F1A\u8BDD\u72B6\u6001\u4E0D\u4F1A\u5728\u6A21\u578B\u7684\u4E0D\u540C\u7528\u6237\u4E4B\u95F4\u5171\u4EAB\u6570\u636E\u3002"),es=m(),O=n("p"),vs=l("\u8981\u5C06\u6570\u636E\u5B58\u50A8\u5728\u4F1A\u8BDD\u72B6\u6001\u4E2D, \u4F60\u9700\u8981\u505A\u4E09\u4EF6\u4E8B:"),ts=m(),_=n("ol"),E=n("li"),$s=l("\u5411\u51FD\u6570\u4E2D\u4F20\u9012\u4E00\u4E2A "),B=n("em"),xs=l("\u989D\u5916\u7684\u53C2\u6570"),Is=l(" , \u8BE5\u53C2\u6570\u8868\u793A\u63A5\u53E3\u7684\u72B6\u6001\u3002"),Gs=m(),v=n("li"),Cs=l("\u5728\u51FD\u6570\u7ED3\u675F\u65F6, \u5C06\u72B6\u6001\u7684\u66F4\u65B0\u503C\u4F5C\u4E3A "),F=n("em"),Ps=l("\u989D\u5916\u7684\u8FD4\u56DE\u503C"),Ds=l(" \u8FD4\u56DE\u3002"),Os=m(),$=n("li"),Ms=l("\u5728\u521B\u5EFA"),z=n("code"),Ns=l("\u63A5\u53E3"),Hs=l("\u65F6\u6DFB\u52A0 \u2018state\u2019 \u8F93\u5165\u548C \u2018state\u2019 \u8F93\u51FA\u7EC4\u4EF6\u3002"),as=m(),M=n("p"),Ss=l("\u8BF7\u53C2\u9605\u4E0B\u9762\u7684\u804A\u5929\u673A\u5668\u4EBA\u793A\u4F8B:"),ls=m(),re(x.$$.fragment),os=m(),d=n("iframe"),rs=m(),N=n("p"),Ls=l("\u8BF7\u6CE8\u610F\u8F93\u51FA\u7EC4\u4EF6\u7684\u72B6\u6001\u5982\u4F55\u5728\u63D0\u4EA4\u4E4B\u95F4\u4FDD\u6301\u4E0D\u53D8\u3002\u6CE8\u610F: \u53EF\u4EE5\u7ED9 state \u53C2\u6570\u4F20\u5165\u4E00\u4E2A\u9ED8\u8BA4\u503C, \u4F5C\u4E3A state \u7684\u521D\u59CB\u503C\u3002"),ns=m(),I=n("h3"),As=l("\u901A\u8FC7\u89E3\u91CA\u6765\u7406\u89E3\u9884\u6D4B"),is=m(),H=n("p"),Js=l("\u5927\u591A\u6570\u673A\u5668\u5B66\u4E60\u6A21\u578B\u90FD\u662F\u9ED1\u76D2\u5B50, \u51FD\u6570\u7684\u5185\u90E8\u903B\u8F91\u5BF9\u7EC8\u7AEF\u7528\u6237\u662F\u9690\u85CF\u7684\u3002\u4E3A\u4E86\u63D0\u9AD8\u900F\u660E\u5EA6, \u6211\u4EEC\u901A\u8FC7\u7B80\u5355\u5730\u5C06 Interface \u7C7B\u4E2D\u7684\u89E3\u91CA\u5173\u952E\u5B57\u8BBE\u7F6E\u4E3A\u9ED8\u8BA4\u503C, \u4F7F\u5411\u6A21\u578B\u6DFB\u52A0\u89E3\u91CA\u53D8\u5F97\u975E\u5E38\u5BB9\u6613\u3002\u8FD9\u5141\u8BB8\u4F60\u7684\u7528\u6237\u7406\u89E3\u8F93\u5165\u7684\u54EA\u4E9B\u90E8\u5206\u8D1F\u8D23\u8F93\u51FA\u3002\u770B\u770B\u4E0B\u9762\u8FD9\u4E2A\u7B80\u5355\u7684\u63A5\u53E3, \u5B83\u663E\u793A\u4E86\u4E00\u4E2A\u8FD8\u5305\u62EC\u89E3\u91CA\u7684\u56FE\u50CF\u5206\u7C7B\u5668:"),ps=m(),re(G.$$.fragment),cs=m(),S=n("p"),Bs=l("\u901A\u8FC7\u63D0\u4EA4\u4E00\u4E2A\u8F93\u5165, \u7136\u540E\u5355\u51FB\u8F93\u51FA\u7EC4\u4EF6\u4E0B\u7684Interpret\u6765\u6D4B\u8BD5\u89E3\u91CA\u529F\u80FD\u3002"),ms=m(),w=n("iframe"),fs=m(),u=n("p"),Fs=l("\u9664\u4E86Gradio\u63D0\u4F9B\u7684\u9ED8\u8BA4\u89E3\u91CA\u65B9\u6CD5\u4E4B\u5916, \u4F60\u8FD8\u53EF\u4EE5\u4E3A "),R=n("code"),zs=l("interpretation"),Rs=l(" \u53C2\u6570\u6307\u5B9A "),T=n("code"),Ts=l("shap"),Vs=l(", \u5E76\u8BBE\u7F6E "),V=n("code"),Ws=l("num_shap"),Ys=l(" \u53C2\u6570\u3002\u8FD9\u4F7F\u7528\u57FA\u4E8E Shapley \u7684\u89E3\u91CA, \u4F60\u53EF\u4EE5\u5728 "),C=n("a"),Us=l("here"),Ks=l(" \u9605\u8BFB\u66F4\u591A\u4FE1\u606F\u3002\u6700\u540E, \u8FD8\u53EF\u4EE5\u5C06\u81EA\u5DF1\u7684\u89E3\u91CA\u51FD\u6570\u4F20\u5165 "),W=n("code"),Qs=l("interpretation"),Xs=l(" \u53C2\u6570\u3002\u5728Gradio\u7684\u5165\u95E8\u9875\u9762 "),P=n("a"),Zs=l("here"),se=l(" \u4E2D\u53EF\u4EE5\u770B\u5230\u4E00\u4E2A\u4F8B\u5B50\u3002"),us=m(),b=n("p"),ee=l("\u8FD9\u7ED3\u675F\u4E86\u6211\u4EEC\u5BF9Gradio\u7684"),Y=n("code"),te=l("Interface"),ae=l("\u7C7B\u7684\u6DF1\u5165\u7814\u7A76\u3002\u6B63\u5982\u6211\u4EEC\u6240\u770B\u5230\u7684, \u8FD9\u4E2A\u7C7B\u4F7F\u7528\u51E0\u884CPython\u4EE3\u7801\u521B\u5EFA\u673A\u5668\u5B66\u4E60\u6F14\u793A\u53D8\u5F97\u7B80\u5355\u3002\u7136\u800C, \u6709\u65F6\u4F60\u4F1A\u60F3\u901A\u8FC7\u6539\u53D8\u5E03\u5C40\u6216\u94FE\u63A5\u591A\u4E2A\u9884\u6D4B\u51FD\u6570\u6765\u5B9A\u5236\u4F60\u7684demo\u3002\u5982\u679C\u6211\u4EEC\u80FD\u4EE5\u67D0\u79CD\u65B9\u5F0F\u5C06 "),U=n("code"),le=l("\u63A5\u53E3"),oe=l(" \u5206\u6210\u53EF\u5B9A\u5236\u7684 \u201C\u5757\u201D, \u90A3\u4E0D\u662F\u5F88\u597D\u5417? \u5E78\u8FD0\u7684\u662F, \u6709! \u8FD9\u662F\u6700\u540E\u4E00\u90E8\u5206\u7684\u4E3B\u9898\u3002"),this.h()},l(s){const a=Be('[data-svelte="svelte-1phssyn"]',document.head);y=i(a,"META",{name:!0,content:!0}),a.forEach(e),K=f(s),j=i(s,"H1",{id:!0});var de=p(j);ys=o(de,"\u9AD8\u7EA7\u63A5\u53E3\u529F\u80FD"),de.forEach(e),Q=f(s),ne(q.$$.fragment,s),X=f(s),D=i(s,"P",{});var we=p(D);gs=o(we,"\u73B0\u5728\u6211\u4EEC\u53EF\u4EE5\u6784\u5EFA\u548C\u5171\u4EAB\u4E00\u4E2A\u57FA\u672C\u63A5\u53E3, \u8BA9\u6211\u4EEC\u6765\u63A2\u7D22\u4E00\u4E9B\u66F4\u9AD8\u7EA7\u7684\u7279\u6027, \u5982\u72B6\u6001\u548C\u89E3\u91CA\u3002"),we.forEach(e),Z=f(s),k=i(s,"H3",{id:!0});var _e=p(k);js=o(_e,"\u4F7F\u7528\u72B6\u6001\u4FDD\u5B58\u6570\u636E"),_e.forEach(e),ss=f(s),g=i(s,"P",{});var ds=p(g);qs=o(ds,"Gradio \u652F\u6301 "),J=i(ds,"EM",{});var be=p(J);ks=o(be,"\u4F1A\u8BDD\u72B6\u6001"),be.forEach(e),Es=o(ds,", \u5176\u4E2D\u6570\u636E\u5728\u9875\u9762\u52A0\u8F7D\u4E2D\u7684\u591A\u4E2A\u63D0\u4EA4\u4E2D\u6301\u7EED\u5B58\u5728\u3002\u4F1A\u8BDD\u72B6\u6001\u5BF9\u4E8E\u6784\u5EFA\u6F14\u793A\u5F88\u6709\u7528, \u4F8B\u5982, \u4F60\u5E0C\u671B\u5728\u7528\u6237\u4E0E\u6A21\u578B\u4EA4\u4E92\u65F6\u4FDD\u7559\u6570\u636E\u7684\u804A\u5929\u673A\u5668\u4EBA\u3002\u8BF7\u6CE8\u610F, \u4F1A\u8BDD\u72B6\u6001\u4E0D\u4F1A\u5728\u6A21\u578B\u7684\u4E0D\u540C\u7528\u6237\u4E4B\u95F4\u5171\u4EAB\u6570\u636E\u3002"),ds.forEach(e),es=f(s),O=i(s,"P",{});var ye=p(O);vs=o(ye,"\u8981\u5C06\u6570\u636E\u5B58\u50A8\u5728\u4F1A\u8BDD\u72B6\u6001\u4E2D, \u4F60\u9700\u8981\u505A\u4E09\u4EF6\u4E8B:"),ye.forEach(e),ts=f(s),_=i(s,"OL",{});var L=p(_);E=i(L,"LI",{});var ws=p(E);$s=o(ws,"\u5411\u51FD\u6570\u4E2D\u4F20\u9012\u4E00\u4E2A "),B=i(ws,"EM",{});var ge=p(B);xs=o(ge,"\u989D\u5916\u7684\u53C2\u6570"),ge.forEach(e),Is=o(ws," , \u8BE5\u53C2\u6570\u8868\u793A\u63A5\u53E3\u7684\u72B6\u6001\u3002"),ws.forEach(e),Gs=f(L),v=i(L,"LI",{});var _s=p(v);Cs=o(_s,"\u5728\u51FD\u6570\u7ED3\u675F\u65F6, \u5C06\u72B6\u6001\u7684\u66F4\u65B0\u503C\u4F5C\u4E3A "),F=i(_s,"EM",{});var je=p(F);Ps=o(je,"\u989D\u5916\u7684\u8FD4\u56DE\u503C"),je.forEach(e),Ds=o(_s," \u8FD4\u56DE\u3002"),_s.forEach(e),Os=f(L),$=i(L,"LI",{});var bs=p($);Ms=o(bs,"\u5728\u521B\u5EFA"),z=i(bs,"CODE",{});var qe=p(z);Ns=o(qe,"\u63A5\u53E3"),qe.forEach(e),Hs=o(bs,"\u65F6\u6DFB\u52A0 \u2018state\u2019 \u8F93\u5165\u548C \u2018state\u2019 \u8F93\u51FA\u7EC4\u4EF6\u3002"),bs.forEach(e),L.forEach(e),as=f(s),M=i(s,"P",{});var ke=p(M);Ss=o(ke,"\u8BF7\u53C2\u9605\u4E0B\u9762\u7684\u804A\u5929\u673A\u5668\u4EBA\u793A\u4F8B:"),ke.forEach(e),ls=f(s),ne(x.$$.fragment,s),os=f(s),d=i(s,"IFRAME",{src:!0,frameborder:!0,height:!0,title:!0,class:!0,allow:!0,sandbox:!0}),p(d).forEach(e),rs=f(s),N=i(s,"P",{});var Ee=p(N);Ls=o(Ee,"\u8BF7\u6CE8\u610F\u8F93\u51FA\u7EC4\u4EF6\u7684\u72B6\u6001\u5982\u4F55\u5728\u63D0\u4EA4\u4E4B\u95F4\u4FDD\u6301\u4E0D\u53D8\u3002\u6CE8\u610F: \u53EF\u4EE5\u7ED9 state \u53C2\u6570\u4F20\u5165\u4E00\u4E2A\u9ED8\u8BA4\u503C, \u4F5C\u4E3A state \u7684\u521D\u59CB\u503C\u3002"),Ee.forEach(e),ns=f(s),I=i(s,"H3",{id:!0});var ve=p(I);As=o(ve,"\u901A\u8FC7\u89E3\u91CA\u6765\u7406\u89E3\u9884\u6D4B"),ve.forEach(e),is=f(s),H=i(s,"P",{});var $e=p(H);Js=o($e,"\u5927\u591A\u6570\u673A\u5668\u5B66\u4E60\u6A21\u578B\u90FD\u662F\u9ED1\u76D2\u5B50, \u51FD\u6570\u7684\u5185\u90E8\u903B\u8F91\u5BF9\u7EC8\u7AEF\u7528\u6237\u662F\u9690\u85CF\u7684\u3002\u4E3A\u4E86\u63D0\u9AD8\u900F\u660E\u5EA6, \u6211\u4EEC\u901A\u8FC7\u7B80\u5355\u5730\u5C06 Interface \u7C7B\u4E2D\u7684\u89E3\u91CA\u5173\u952E\u5B57\u8BBE\u7F6E\u4E3A\u9ED8\u8BA4\u503C, \u4F7F\u5411\u6A21\u578B\u6DFB\u52A0\u89E3\u91CA\u53D8\u5F97\u975E\u5E38\u5BB9\u6613\u3002\u8FD9\u5141\u8BB8\u4F60\u7684\u7528\u6237\u7406\u89E3\u8F93\u5165\u7684\u54EA\u4E9B\u90E8\u5206\u8D1F\u8D23\u8F93\u51FA\u3002\u770B\u770B\u4E0B\u9762\u8FD9\u4E2A\u7B80\u5355\u7684\u63A5\u53E3, \u5B83\u663E\u793A\u4E86\u4E00\u4E2A\u8FD8\u5305\u62EC\u89E3\u91CA\u7684\u56FE\u50CF\u5206\u7C7B\u5668:"),$e.forEach(e),ps=f(s),ne(G.$$.fragment,s),cs=f(s),S=i(s,"P",{});var xe=p(S);Bs=o(xe,"\u901A\u8FC7\u63D0\u4EA4\u4E00\u4E2A\u8F93\u5165, \u7136\u540E\u5355\u51FB\u8F93\u51FA\u7EC4\u4EF6\u4E0B\u7684Interpret\u6765\u6D4B\u8BD5\u89E3\u91CA\u529F\u80FD\u3002"),xe.forEach(e),ms=f(s),w=i(s,"IFRAME",{src:!0,frameborder:!0,height:!0,title:!0,class:!0,allow:!0,sandbox:!0}),p(w).forEach(e),fs=f(s),u=i(s,"P",{});var h=p(u);Fs=o(h,"\u9664\u4E86Gradio\u63D0\u4F9B\u7684\u9ED8\u8BA4\u89E3\u91CA\u65B9\u6CD5\u4E4B\u5916, \u4F60\u8FD8\u53EF\u4EE5\u4E3A "),R=i(h,"CODE",{});var Ie=p(R);zs=o(Ie,"interpretation"),Ie.forEach(e),Rs=o(h," \u53C2\u6570\u6307\u5B9A "),T=i(h,"CODE",{});var Ge=p(T);Ts=o(Ge,"shap"),Ge.forEach(e),Vs=o(h,", \u5E76\u8BBE\u7F6E "),V=i(h,"CODE",{});var Ce=p(V);Ws=o(Ce,"num_shap"),Ce.forEach(e),Ys=o(h," \u53C2\u6570\u3002\u8FD9\u4F7F\u7528\u57FA\u4E8E Shapley \u7684\u89E3\u91CA, \u4F60\u53EF\u4EE5\u5728 "),C=i(h,"A",{href:!0,rel:!0});var Pe=p(C);Us=o(Pe,"here"),Pe.forEach(e),Ks=o(h," \u9605\u8BFB\u66F4\u591A\u4FE1\u606F\u3002\u6700\u540E, \u8FD8\u53EF\u4EE5\u5C06\u81EA\u5DF1\u7684\u89E3\u91CA\u51FD\u6570\u4F20\u5165 "),W=i(h,"CODE",{});var De=p(W);Qs=o(De,"interpretation"),De.forEach(e),Xs=o(h," \u53C2\u6570\u3002\u5728Gradio\u7684\u5165\u95E8\u9875\u9762 "),P=i(h,"A",{href:!0,rel:!0});var Oe=p(P);Zs=o(Oe,"here"),Oe.forEach(e),se=o(h," \u4E2D\u53EF\u4EE5\u770B\u5230\u4E00\u4E2A\u4F8B\u5B50\u3002"),h.forEach(e),us=f(s),b=i(s,"P",{});var A=p(b);ee=o(A,"\u8FD9\u7ED3\u675F\u4E86\u6211\u4EEC\u5BF9Gradio\u7684"),Y=i(A,"CODE",{});var Me=p(Y);te=o(Me,"Interface"),Me.forEach(e),ae=o(A,"\u7C7B\u7684\u6DF1\u5165\u7814\u7A76\u3002\u6B63\u5982\u6211\u4EEC\u6240\u770B\u5230\u7684, \u8FD9\u4E2A\u7C7B\u4F7F\u7528\u51E0\u884CPython\u4EE3\u7801\u521B\u5EFA\u673A\u5668\u5B66\u4E60\u6F14\u793A\u53D8\u5F97\u7B80\u5355\u3002\u7136\u800C, \u6709\u65F6\u4F60\u4F1A\u60F3\u901A\u8FC7\u6539\u53D8\u5E03\u5C40\u6216\u94FE\u63A5\u591A\u4E2A\u9884\u6D4B\u51FD\u6570\u6765\u5B9A\u5236\u4F60\u7684demo\u3002\u5982\u679C\u6211\u4EEC\u80FD\u4EE5\u67D0\u79CD\u65B9\u5F0F\u5C06 "),U=i(A,"CODE",{});var Ne=p(U);le=o(Ne,"\u63A5\u53E3"),Ne.forEach(e),oe=o(A," \u5206\u6210\u53EF\u5B9A\u5236\u7684 \u201C\u5757\u201D, \u90A3\u4E0D\u662F\u5F88\u597D\u5417? \u5E78\u8FD0\u7684\u662F, \u6709! \u8FD9\u662F\u6700\u540E\u4E00\u90E8\u5206\u7684\u4E3B\u9898\u3002"),A.forEach(e),this.h()},h(){c(y,"name","hf:doc:metadata"),c(y,"content",JSON.stringify(Ve)),c(j,"id",""),c(k,"id",""),He(d.src,ue="https://hf.space/gradioiframe/course-demos/Chatbot-Demo/+")||c(d,"src",ue),c(d,"frameborder","0"),c(d,"height","350"),c(d,"title","Gradio app"),c(d,"class","container p-0 flex-grow space-iframe"),c(d,"allow","accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking"),c(d,"sandbox","allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"),c(I,"id",""),He(w.src,he="https://hf.space/gradioiframe/course-demos/gradio-image-interpretation/+")||c(w,"src",he),c(w,"frameborder","0"),c(w,"height","570"),c(w,"title","Gradio app"),c(w,"class","container p-0 flex-grow space-iframe"),c(w,"allow","accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking"),c(w,"sandbox","allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"),c(C,"href","https://christophm.github.io/interpretable-ml-book/shap.html"),c(C,"rel","nofollow"),c(P,"href","https://gradio.app/getting_started/"),c(P,"rel","nofollow")},m(s,a){t(document.head,y),r(s,K,a),r(s,j,a),t(j,ys),r(s,Q,a),ie(q,s,a),r(s,X,a),r(s,D,a),t(D,gs),r(s,Z,a),r(s,k,a),t(k,js),r(s,ss,a),r(s,g,a),t(g,qs),t(g,J),t(J,ks),t(g,Es),r(s,es,a),r(s,O,a),t(O,vs),r(s,ts,a),r(s,_,a),t(_,E),t(E,$s),t(E,B),t(B,xs),t(E,Is),t(_,Gs),t(_,v),t(v,Cs),t(v,F),t(F,Ps),t(v,Ds),t(_,Os),t(_,$),t($,Ms),t($,z),t(z,Ns),t($,Hs),r(s,as,a),r(s,M,a),t(M,Ss),r(s,ls,a),ie(x,s,a),r(s,os,a),r(s,d,a),r(s,rs,a),r(s,N,a),t(N,Ls),r(s,ns,a),r(s,I,a),t(I,As),r(s,is,a),r(s,H,a),t(H,Js),r(s,ps,a),ie(G,s,a),r(s,cs,a),r(s,S,a),t(S,Bs),r(s,ms,a),r(s,w,a),r(s,fs,a),r(s,u,a),t(u,Fs),t(u,R),t(R,zs),t(u,Rs),t(u,T),t(T,Ts),t(u,Vs),t(u,V),t(V,Ws),t(u,Ys),t(u,C),t(C,Us),t(u,Ks),t(u,W),t(W,Qs),t(u,Xs),t(u,P),t(P,Zs),t(u,se),r(s,us,a),r(s,b,a),t(b,ee),t(b,Y),t(Y,te),t(b,ae),t(b,U),t(U,le),t(b,oe),hs=!0},p:Fe,i(s){hs||(pe(q.$$.fragment,s),pe(x.$$.fragment,s),pe(G.$$.fragment,s),hs=!0)},o(s){ce(q.$$.fragment,s),ce(x.$$.fragment,s),ce(G.$$.fragment,s),hs=!1},d(s){e(y),s&&e(K),s&&e(j),s&&e(Q),me(q,s),s&&e(X),s&&e(D),s&&e(Z),s&&e(k),s&&e(ss),s&&e(g),s&&e(es),s&&e(O),s&&e(ts),s&&e(_),s&&e(as),s&&e(M),s&&e(ls),me(x,s),s&&e(os),s&&e(d),s&&e(rs),s&&e(N),s&&e(ns),s&&e(I),s&&e(is),s&&e(H),s&&e(ps),me(G,s),s&&e(cs),s&&e(S),s&&e(ms),s&&e(w),s&&e(fs),s&&e(u),s&&e(us),s&&e(b)}}}const Ve={local:"",sections:[{local:"",title:"\u4F7F\u7528\u72B6\u6001\u4FDD\u5B58\u6570\u636E"},{local:"",title:"\u901A\u8FC7\u89E3\u91CA\u6765\u7406\u89E3\u9884\u6D4B"}],title:"\u9AD8\u7EA7\u63A5\u53E3\u529F\u80FD"};function We(fe){return ze(()=>{new URLSearchParams(window.location.search).get("fw")}),[]}class Qe extends Le{constructor(y){super();Ae(this,y,We,Te,Je,{})}}export{Qe as default,Ve as metadata};
