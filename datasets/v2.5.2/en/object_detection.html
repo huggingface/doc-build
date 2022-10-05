@@ -1,0 +1,181 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;object-detection&quot;,&quot;title&quot;:&quot;Object detection&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.2/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.2/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.2/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.2/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.2/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.2/en/_app/pages/object_detection.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.2/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/datasets/v2.5.2/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+<h1 class="relative group"><a id="object-detection" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#object-detection"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Object detection
+	</span></h1>
+
+<p>Object detection models identify something in an image, and object detection datasets are used for applications such as autonomous driving and detecting natural hazards like wildfire. This guide will show you how to apply transformations to an object detection dataset following the <a href="https://albumentations.ai/docs/examples/example_bboxes/" rel="nofollow">tutorial</a> from <a href="https://albumentations.ai/docs/" rel="nofollow">Albumentations</a>.</p>
+<p>To run these examples, make sure you have up-to-date versions of <code>albumentations</code> and <code>cv2</code> installed:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->pip <span class="hljs-keyword">install</span> -U albumentations opencv-python<!-- HTML_TAG_END --></pre></div>
+<p>In this example, you’ll use the <a href="https://huggingface.co/datasets/cppe-5" rel="nofollow"><code>cppe-5</code></a> dataset for identifying medical personal protective equipment (PPE) in the context of the COVID-19 pandemic.</p>
+<p>Load the dataset and take a look at an example:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds = load_dataset(<span class="hljs-string">&quot;cppe-5&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>example = ds[<span class="hljs-string">&#x27;train&#x27;</span>][<span class="hljs-number">0</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>example
+{<span class="hljs-string">&#x27;height&#x27;</span>: <span class="hljs-number">663</span>,
+ <span class="hljs-string">&#x27;image&#x27;</span>: &lt;PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=943x663 at <span class="hljs-number">0x7FC3DC756250</span>&gt;,
+ <span class="hljs-string">&#x27;image_id&#x27;</span>: <span class="hljs-number">15</span>,
+ <span class="hljs-string">&#x27;objects&#x27;</span>: {<span class="hljs-string">&#x27;area&#x27;</span>: [<span class="hljs-number">3796</span>, <span class="hljs-number">1596</span>, <span class="hljs-number">152768</span>, <span class="hljs-number">81002</span>],
+  <span class="hljs-string">&#x27;bbox&#x27;</span>: [[<span class="hljs-number">302.0</span>, <span class="hljs-number">109.0</span>, <span class="hljs-number">73.0</span>, <span class="hljs-number">52.0</span>],
+   [<span class="hljs-number">810.0</span>, <span class="hljs-number">100.0</span>, <span class="hljs-number">57.0</span>, <span class="hljs-number">28.0</span>],
+   [<span class="hljs-number">160.0</span>, <span class="hljs-number">31.0</span>, <span class="hljs-number">248.0</span>, <span class="hljs-number">616.0</span>],
+   [<span class="hljs-number">741.0</span>, <span class="hljs-number">68.0</span>, <span class="hljs-number">202.0</span>, <span class="hljs-number">401.0</span>]],
+  <span class="hljs-string">&#x27;category&#x27;</span>: [<span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+  <span class="hljs-string">&#x27;id&#x27;</span>: [<span class="hljs-number">114</span>, <span class="hljs-number">115</span>, <span class="hljs-number">116</span>, <span class="hljs-number">117</span>]},
+ <span class="hljs-string">&#x27;width&#x27;</span>: <span class="hljs-number">943</span>}<!-- HTML_TAG_END --></pre></div>
+<p>The dataset has the following fields:</p>
+<ul><li><code>image</code>: PIL.Image.Image object containing the image.</li>
+<li><code>image_id</code>: The image ID.</li>
+<li><code>height</code>: The image height.</li>
+<li><code>width</code>: The image width.</li>
+<li><code>objects</code>: A dictionary containing bounding box metadata for the objects in the image:<ul><li><code>id</code>: The annotation id.</li>
+<li><code>area</code>: The area of the bounding box.</li>
+<li><code>bbox</code>: The object’s bounding box (in the <a href="https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/#coco" rel="nofollow">coco</a> format).</li>
+<li><code>category</code>: The object’s category, with possible values including <code>Coverall (0)</code>, <code>Face_Shield (1)</code>, <code>Gloves (2)</code>, <code>Goggles (3)</code> and <code>Mask (4)</code>.</li></ul></li></ul>
+<p>You can visualize the <code>bboxes</code> on the image using some internal torch utilities. To do that, you will need to reference the <a href="/docs/datasets/v2.5.2/en/package_reference/main_classes#datasets.ClassLabel">ClassLabel</a> feature associated with the category IDs so you can look up the string labels:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> torchvision.ops <span class="hljs-keyword">import</span> box_convert
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> torchvision.utils <span class="hljs-keyword">import</span> draw_bounding_boxes
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> torchvision.transforms.functional <span class="hljs-keyword">import</span> pil_to_tensor, to_pil_image
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>categories = ds[<span class="hljs-string">&#x27;train&#x27;</span>].features[<span class="hljs-string">&#x27;objects&#x27;</span>].feature[<span class="hljs-string">&#x27;category&#x27;</span>]
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>boxes_xywh = torch.tensor(example[<span class="hljs-string">&#x27;objects&#x27;</span>][<span class="hljs-string">&#x27;bbox&#x27;</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>boxes_xyxy = box_convert(boxes_xywh, <span class="hljs-string">&#x27;xywh&#x27;</span>, <span class="hljs-string">&#x27;xyxy&#x27;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = [categories.int2str(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> example[<span class="hljs-string">&#x27;objects&#x27;</span>][<span class="hljs-string">&#x27;category&#x27;</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>to_pil_image(
+<span class="hljs-meta">... </span>    draw_bounding_boxes(
+<span class="hljs-meta">... </span>        pil_to_tensor(example[<span class="hljs-string">&#x27;image&#x27;</span>]),
+<span class="hljs-meta">... </span>        boxes_xyxy,
+<span class="hljs-meta">... </span>        colors=<span class="hljs-string">&quot;red&quot;</span>,
+<span class="hljs-meta">... </span>        labels=labels,
+<span class="hljs-meta">... </span>    )
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+<div class="flex justify-center"><img src="https://huggingface.co/datasets/nateraw/documentation-images/resolve/main/visualize_detection_example.png"></div>
+<p>With <code>albumentations</code>, you can apply transforms that will affect the image while also updating the <code>bboxes</code> accordingly. In this case, the image is resized to (480, 480), flipped horizontally, and brightened. </p>
+<p><code>albumentations</code> expects the image to be in BGR format, not RGB, so you’ll have to convert the image before applying the transform.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> albumentations <span class="hljs-keyword">as</span> A
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>transform = A.Compose([
+<span class="hljs-meta">... </span>    A.Resize(<span class="hljs-number">480</span>, <span class="hljs-number">480</span>),
+<span class="hljs-meta">... </span>    A.HorizontalFlip(p=<span class="hljs-number">1.0</span>),
+<span class="hljs-meta">... </span>    A.RandomBrightnessContrast(p=<span class="hljs-number">1.0</span>),
+<span class="hljs-meta">... </span>], bbox_params=A.BboxParams(<span class="hljs-built_in">format</span>=<span class="hljs-string">&#x27;coco&#x27;</span>,  label_fields=[<span class="hljs-string">&#x27;category&#x27;</span>]))
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># RGB PIL Image -&gt; BGR Numpy array</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>image = np.flip(np.array(example[<span class="hljs-string">&#x27;image&#x27;</span>]), -<span class="hljs-number">1</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>out = transform(
+<span class="hljs-meta">... </span>    image=image,
+<span class="hljs-meta">... </span>    bboxes=example[<span class="hljs-string">&#x27;objects&#x27;</span>][<span class="hljs-string">&#x27;bbox&#x27;</span>],
+<span class="hljs-meta">... </span>    category=example[<span class="hljs-string">&#x27;objects&#x27;</span>][<span class="hljs-string">&#x27;category&#x27;</span>],
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+<p>Now when you visualize the result, the image should be flipped, but the <code>bboxes</code> should still be in the right places.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>image = torch.tensor(out[<span class="hljs-string">&#x27;image&#x27;</span>]).flip(-<span class="hljs-number">1</span>).permute(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>boxes_xywh = torch.stack([torch.tensor(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> out[<span class="hljs-string">&#x27;bboxes&#x27;</span>]])
+<span class="hljs-meta">&gt;&gt;&gt; </span>boxes_xyxy = box_convert(boxes_xywh, <span class="hljs-string">&#x27;xywh&#x27;</span>, <span class="hljs-string">&#x27;xyxy&#x27;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = [categories.int2str(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> out[<span class="hljs-string">&#x27;category&#x27;</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>to_pil_image(
+<span class="hljs-meta">... </span>    draw_bounding_boxes(
+<span class="hljs-meta">... </span>        image,
+<span class="hljs-meta">... </span>        boxes_xyxy,
+<span class="hljs-meta">... </span>        colors=<span class="hljs-string">&#x27;red&#x27;</span>,
+<span class="hljs-meta">... </span>        labels=labels
+<span class="hljs-meta">... </span>    )
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+<div class="flex justify-center"><img src="https://huggingface.co/datasets/nateraw/documentation-images/resolve/main/visualize_detection_example_transformed.png"></div>
+<p>Create a function to apply the transform to a batch of examples:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">transforms</span>(<span class="hljs-params">examples</span>):
+<span class="hljs-meta">... </span>    images, bboxes, categories = [], [], []
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">for</span> image, objects <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(examples[<span class="hljs-string">&#x27;image&#x27;</span>], examples[<span class="hljs-string">&#x27;objects&#x27;</span>]):
+<span class="hljs-meta">... </span>        image = np.array(image.convert(<span class="hljs-string">&quot;RGB&quot;</span>))[:, :, ::-<span class="hljs-number">1</span>]
+<span class="hljs-meta">... </span>        out = transform(
+<span class="hljs-meta">... </span>            image=image,
+<span class="hljs-meta">... </span>            bboxes=objects[<span class="hljs-string">&#x27;bbox&#x27;</span>],
+<span class="hljs-meta">... </span>            category=objects[<span class="hljs-string">&#x27;category&#x27;</span>]
+<span class="hljs-meta">... </span>        )
+<span class="hljs-meta">... </span>        images.append(torch.tensor(out[<span class="hljs-string">&#x27;image&#x27;</span>]).flip(-<span class="hljs-number">1</span>).permute(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>))
+<span class="hljs-meta">... </span>        bboxes.append(torch.tensor(out[<span class="hljs-string">&#x27;bboxes&#x27;</span>]))
+<span class="hljs-meta">... </span>        categories.append(out[<span class="hljs-string">&#x27;category&#x27;</span>])
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> {<span class="hljs-string">&#x27;image&#x27;</span>: images, <span class="hljs-string">&#x27;bbox&#x27;</span>: bboxes, <span class="hljs-string">&#x27;category&#x27;</span>: categories}<!-- HTML_TAG_END --></pre></div>
+<p>Use the <a href="/docs/datasets/v2.5.2/en/package_reference/main_classes#datasets.Dataset.set_transform">set_transform()</a> function to apply the transform on-the-fly which consumes less disk space. The randomness of data augmentation may return a different image if you access the same example twice. It is especially useful when training a model for several epochs.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>ds[<span class="hljs-string">&#x27;train&#x27;</span>].set_transform(transforms)<!-- HTML_TAG_END --></pre></div>
+<p>You can verify the transform works by visualizing the 10th example:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span>example = ds[<span class="hljs-string">&#x27;train&#x27;</span>][<span class="hljs-number">10</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>to_pil_image(
+<span class="hljs-meta">... </span>    draw_bounding_boxes(
+<span class="hljs-meta">... </span>        example[<span class="hljs-string">&#x27;image&#x27;</span>],
+<span class="hljs-meta">... </span>        box_convert(example[<span class="hljs-string">&#x27;bbox&#x27;</span>], <span class="hljs-string">&#x27;xywh&#x27;</span>, <span class="hljs-string">&#x27;xyxy&#x27;</span>),
+<span class="hljs-meta">... </span>        colors=<span class="hljs-string">&#x27;red&#x27;</span>,
+<span class="hljs-meta">... </span>        labels=[categories.int2str(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> example[<span class="hljs-string">&#x27;category&#x27;</span>]]
+<span class="hljs-meta">... </span>    )
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+<div class="flex justify-center"><img src="https://huggingface.co/datasets/nateraw/documentation-images/resolve/main/visualize_detection_example_transformed_2.png"></div>
+
+
+		<script type="module" data-hydrate="18c6zse">
+		import { start } from "/docs/datasets/v2.5.2/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="18c6zse"]').parentNode,
+			paths: {"base":"/docs/datasets/v2.5.2/en","assets":"/docs/datasets/v2.5.2/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/datasets/v2.5.2/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/datasets/v2.5.2/en/_app/pages/object_detection.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
