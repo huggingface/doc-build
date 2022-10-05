@@ -307,7 +307,7 @@ there can only be one sky in an image, but several persons, so the label ID for 
 set, but not the one for person.`,name:"label_ids_to_fuse"},{anchor:"transformers.MaskFormerFeatureExtractor.post_process_panoptic_segmentation.target_sizes",description:`<strong>target_sizes</strong> (<code>List[Tuple]</code>, <em>optional</em>) &#x2014;
 List of length (batch_size), where each list item (<code>Tuple[int, int]]</code>) corresponds to the requested
 final size (height, width) of each prediction in batch. If left to None, predictions will not be
-resized.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/maskformer/feature_extraction_maskformer.py#L796",returnDescription:`
+resized.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/maskformer/feature_extraction_maskformer.py#L797",returnDescription:`
 <p>A list of dictionaries, one per image, each dictionary containing two keys:</p>
 <ul>
 <li><strong>segmentation</strong> \u2014 a tensor of shape <code>(height, width)</code> where each pixel represents a <code>segment_id</code>, set
