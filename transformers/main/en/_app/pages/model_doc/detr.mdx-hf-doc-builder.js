@@ -417,7 +417,7 @@ set, but not the one for person.
 target_sizes (<code>List[Tuple]</code>, <em>optional</em>):
 List of length (batch_size), where each list item (<code>Tuple[int, int]]</code>) corresponds to the requested
 final size (height, width) of each prediction in batch. If left to None, predictions will not be
-resized.`,name:"Converts"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/detr/feature_extraction_detr.py#L1285",returnDescription:`
+resized.`,name:"Converts"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/detr/feature_extraction_detr.py#L1286",returnDescription:`
 <p>A list of dictionaries, one per image, each dictionary containing two keys:</p>
 <ul>
 <li><strong>segmentation</strong> \u2014 a tensor of shape <code>(height, width)</code> where each pixel represents a <code>segment_id</code> or
