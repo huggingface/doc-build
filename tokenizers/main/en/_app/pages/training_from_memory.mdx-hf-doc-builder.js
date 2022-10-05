@@ -1,4 +1,4 @@
-import{S as qs,i as xs,s as As,e as i,k as f,w as c,t as l,M as Ps,c as n,d as t,m as h,a as o,x as d,h as p,b as m,G as s,g as r,y,L as Ts,q as w,o as b,B as _,v as Ss}from"../chunks/vendor-hf-doc-builder.js";import{I as at}from"../chunks/IconCopyLink-hf-doc-builder.js";import{C as Y}from"../chunks/CodeBlock-hf-doc-builder.js";function Ls(Zt){let v,ze,z,q,fe,U,rt,he,it,$e,x,nt,Z,ot,lt,je,g,pt,G,ft,ht,me,mt,ut,Ee,C,qe,k,ct,J,dt,yt,V,wt,bt,xe,N,_t,X,gt,Ae,$,A,ue,F,kt,ce,vt,Pe,P,zt,de,$t,jt,Te,D,Se,u,Et,ye,qt,xt,we,At,Pt,be,Tt,St,Le,j,T,_e,I,Lt,ge,Bt,Be,S,Ut,O,Ct,Nt,Ue,ee,Ft,Ce,H,Ne,te,Dt,Fe,K,De,se,It,Ie,ae,Ot,Oe,M,He,re,Ht,Ke,E,L,ke,R,Kt,ve,Mt,Me,ie,Rt,Re,Q,Qe,ne,Qt,We,W,Ye,oe,Wt,Ze;return U=new at({}),C=new Y({props:{code:`from tokenizers import Tokenizer, models, normalizers, pre_tokenizers, decoders, trainers
+import{S as qs,i as xs,s as As,e as i,k as f,w as c,t as l,M as Ps,c as n,d as t,m as h,a as o,x as d,h as p,b as m,G as s,g as r,y,L as Ts,q as w,o as b,B as _,v as Ss}from"../chunks/vendor-hf-doc-builder.js";import{I as at}from"../chunks/IconCopyLink-hf-doc-builder.js";import{C as Y}from"../chunks/CodeBlock-hf-doc-builder.js";function Ls(Zt){let v,ze,z,q,fe,U,rt,he,it,$e,x,nt,Z,ot,lt,je,g,pt,G,ft,ht,me,mt,ut,Ee,C,qe,k,ct,J,dt,yt,V,wt,bt,xe,N,_t,X,gt,Ae,$,A,ue,F,kt,ce,vt,Pe,P,zt,de,$t,jt,Te,D,Se,u,Et,ye,qt,xt,we,At,Pt,be,Tt,St,Le,j,T,_e,I,Lt,ge,Bt,Be,S,Ut,O,Ct,Nt,Ue,ee,Ft,Ce,H,Ne,te,Dt,Fe,K,De,se,It,Ie,ae,Ot,Oe,M,He,re,Ht,Ke,E,L,ke,R,Kt,ve,Mt,Me,ie,Rt,Re,Q,Qe,ne,Qt,We,W,Ye,oe,Wt,Ze;return U=new at({}),C=new Y({props:{code:`from tokenizers import Tokenizer, decoders, models, normalizers, pre_tokenizers, trainers
 tokenizer = Tokenizer(models.Unigram())
 tokenizer.normalizer = normalizers.NFKC()
 tokenizer.pre_tokenizer = pre_tokenizers.ByteLevel()
@@ -7,7 +7,7 @@ trainer = trainers.UnigramTrainer(
     vocab_size=20000,
     initial_alphabet=pre_tokenizers.ByteLevel.alphabet(),
     special_tokens=["<PAD>", "<BOS>", "<EOS>"],
-)`,highlighted:`<span class="hljs-keyword">from</span> tokenizers <span class="hljs-keyword">import</span> Tokenizer, models, normalizers, pre_tokenizers, decoders, trainers
+)`,highlighted:`<span class="hljs-keyword">from</span> tokenizers <span class="hljs-keyword">import</span> Tokenizer, decoders, models, normalizers, pre_tokenizers, trainers
 tokenizer = Tokenizer(models.Unigram())
 tokenizer.normalizer = normalizers.NFKC()
 tokenizer.pre_tokenizer = pre_tokenizers.ByteLevel()
@@ -37,12 +37,8 @@ data = [
     <span class="hljs-string">&quot;Readability counts.&quot;</span>
 ]
 tokenizer.train_from_iterator(data, trainer=trainer)`}}),I=new at({}),H=new Y({props:{code:`import datasets
-dataset = datasets.load_dataset(
-    "wikitext", "wikitext-103-raw-v1", split="train+test+validation"
-)`,highlighted:`<span class="hljs-keyword">import</span> datasets
-dataset = datasets.load_dataset(
-    <span class="hljs-string">&quot;wikitext&quot;</span>, <span class="hljs-string">&quot;wikitext-103-raw-v1&quot;</span>, split=<span class="hljs-string">&quot;train+test+validation&quot;</span>
-)`}}),K=new Y({props:{code:`def batch_iterator(batch_size=1000):
+dataset = datasets.load_dataset("wikitext", "wikitext-103-raw-v1", split="train+test+validation")`,highlighted:`<span class="hljs-keyword">import</span> datasets
+dataset = datasets.load_dataset(<span class="hljs-string">&quot;wikitext&quot;</span>, <span class="hljs-string">&quot;wikitext-103-raw-v1&quot;</span>, split=<span class="hljs-string">&quot;train+test+validation&quot;</span>)`}}),K=new Y({props:{code:`def batch_iterator(batch_size=1000):
     for i in range(0, len(dataset), batch_size):
         yield dataset[i : i + batch_size]["text"]`,highlighted:`<span class="hljs-keyword">def</span> <span class="hljs-title function_">batch_iterator</span>(<span class="hljs-params">batch_size=<span class="hljs-number">1000</span></span>):
     <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(dataset), batch_size):
