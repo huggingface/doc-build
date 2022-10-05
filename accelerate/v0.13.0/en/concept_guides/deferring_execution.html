@@ -1,0 +1,133 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;deferring-executions&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;downloading-a-dataset&quot;,&quot;title&quot;:&quot;Downloading a Dataset &quot;},{&quot;local&quot;:&quot;saving-the-statedict&quot;,&quot;title&quot;:&quot;Saving the `state_dict`&quot;},{&quot;local&quot;:&quot;loading-in-the-statedict&quot;,&quot;title&quot;:&quot;Loading in the `state_dict`&quot;},{&quot;local&quot;:&quot;applying-a-multiworker-cpu-operation&quot;,&quot;title&quot;:&quot;Applying a multi-worker CPU operation &quot;}],&quot;title&quot;:&quot;Deferring Executions&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/pages/concept_guides/deferring_execution.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="deferring-executions" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#deferring-executions"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Deferring Executions
+	</span></h1>
+
+<p>When you run your usual script, instructions are executed in order. Using 🤗 Accelerate to deploy your script on several
+GPUs at the same time introduces a complication: while each process executes all instructions in order, some may be
+faster than others.</p>
+<p>You might need to wait for all processes to have reached a certain point before executing a given instruction. For
+instance, you shouldn’t save a model before being sure every process is done with training, and you wouldn’t want to
+continue training before all the model weights have been loaded in. To do this, just write the following line in your code:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerator.wait<span class="hljs-constructor">_for_everyone()</span><!-- HTML_TAG_END --></pre></div>
+<p>This instruction will block all the processes that arrive first until all the other processes have reached that
+point (if you run your script on just one GPU or CPU, this won’t do anything).</p>
+<p>A few example cases for when to use this utility are listed below:</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Some of these are utilized with the <a href="/docs/accelerate/v0.13.0/en/package_reference/accelerator#accelerate.Accelerator.main_process_first">main_process_first()</a> context manager, which utilizes <a href="/docs/accelerate/v0.13.0/en/package_reference/accelerator#accelerate.Accelerator.wait_for_everyone">wait_for_everyone()</a> to
+run a particular set of code on the main process beforehand before triggering and launching the other processes</p></div>
+<h2 class="relative group"><a id="downloading-a-dataset" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#downloading-a-dataset"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Downloading a Dataset 
+	</span></h2>
+
+<p>When downloading a dataset, you should download it first on the main process and then loading the cached dataset in afterwards</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p><code>load_dataset</code> will perform a lock under the hood to stop multiple downloads from happening at once, but if you are downloading something
+not using this library you should use this method.</p></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">with</span> accelerator.main_process_first():
+    datasets = load_dataset(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mrpc&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Under the hood this is the same as calling: </p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># First do something on the main process</span>
+<span class="hljs-keyword">if</span> accelerator.is_main_process:
+    datasets = load_dataset(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mrpc&quot;</span>)
+<span class="hljs-keyword">else</span>:
+    accelerator.wait_for_everyone()
+
+<span class="hljs-comment"># And then send it to the rest of them</span>
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> accelerator.is_main_process:
+    datasets = load_dataset(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mrpc&quot;</span>)
+<span class="hljs-keyword">else</span>:
+    accelerator.wait_for_everyone()<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="saving-the-statedict" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#saving-the-statedict"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Saving the <code>state_dict</code></span></h2>
+
+<p>When saving the <code>state_dict</code> of the model, since you would normally save one file on just the main process
+you should specify that:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">if</span> accelerator.is_main_process:
+    model = accelerator.unwrap_model(model)
+    torch.save(model.state_dict(), <span class="hljs-string">&quot;weights.pth&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="loading-in-the-statedict" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#loading-in-the-statedict"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Loading in the <code>state_dict</code></span></h2>
+
+<p>When loading in the <code>state_dict</code> to a model, optimizer, or scheduler, you should wait
+for all workers to have the weights loaded in before moving on to training</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">with</span> accelerator.main_process_first():
+    state = torch.load(<span class="hljs-string">&quot;weights.pth&quot;</span>)
+    model.load_state_dict(state)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="applying-a-multiworker-cpu-operation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#applying-a-multiworker-cpu-operation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Applying a multi-worker CPU operation 
+	</span></h2>
+
+<p>Applying a <code>map()</code> operation on multiple workers, such as tokenizing should be done on the
+main process first, and then propagated to each one. </p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->datasets = load_dataset(<span class="hljs-string">&quot;glue&quot;</span>, <span class="hljs-string">&quot;mrpc&quot;</span>)
+
+<span class="hljs-keyword">with</span> accelerator.main_process_first():
+    tokenized_datasets = datasets.<span class="hljs-built_in">map</span>(
+        tokenize_function,
+        batched=<span class="hljs-literal">True</span>,
+        remove_columns=[<span class="hljs-string">&quot;idx&quot;</span>, <span class="hljs-string">&quot;sentence1&quot;</span>, <span class="hljs-string">&quot;sentence2&quot;</span>],
+    )<!-- HTML_TAG_END --></pre></div>
+
+
+		<script type="module" data-hydrate="1fgryqn">
+		import { start } from "/docs/accelerate/v0.13.0/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="1fgryqn"]').parentNode,
+			paths: {"base":"/docs/accelerate/v0.13.0/en","assets":"/docs/accelerate/v0.13.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/accelerate/v0.13.0/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/accelerate/v0.13.0/en/_app/pages/concept_guides/deferring_execution.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>

@@ -1,0 +1,156 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;migrating-your-code-to-accelerate&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;the-base-training-loop&quot;,&quot;title&quot;:&quot;The base training loop&quot;},{&quot;local&quot;:&quot;add-in-accelerate&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;setting-the-right-device&quot;,&quot;title&quot;:&quot;Setting the right device&quot;},{&quot;local&quot;:&quot;preparing-your-objects&quot;,&quot;title&quot;:&quot;Preparing your objects&quot;},{&quot;local&quot;:&quot;modifying-the-training-loop&quot;,&quot;title&quot;:&quot;Modifying the training loop&quot;}],&quot;title&quot;:&quot;Add in 🤗 Accelerate&quot;},{&quot;local&quot;:&quot;the-finished-code&quot;,&quot;title&quot;:&quot;The finished code&quot;}],&quot;title&quot;:&quot;Migrating your code to 🤗 Accelerate&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/pages/basic_tutorials/migration.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="migrating-your-code-to-accelerate" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#migrating-your-code-to-accelerate"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Migrating your code to 🤗 Accelerate
+	</span></h1>
+
+<p>This tutorial will detail how to easily convert existing PyTorch code to use 🤗 Accelerate!
+You’ll see that by just changing a few lines of code, 🤗 Accelerate can perform its magic and get you on
+your way towards running your code on distributed systems with ease!</p>
+<h2 class="relative group"><a id="the-base-training-loop" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#the-base-training-loop"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>The base training loop
+	</span></h2>
+
+<p>To begin, write out a very basic PyTorch training loop. </p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>We are under the presumption that <code>training_dataloader</code>, <code>model</code>, <code>optimizer</code>, <code>scheduler</code>, and <code>loss_function</code> have been defined beforehand.</p></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->device = <span class="hljs-string">&quot;cuda&quot;</span>
+model.to(device)
+
+<span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> training_dataloader:
+    optimizer.zero_grad()
+    inputs, targets = batch
+    inputs = inputs.to(device)
+    targets = targets.to(device)
+    outputs = model(inputs)
+    loss = loss_function(outputs, targets)
+    loss.backward()
+    optimizer.step()
+    scheduler.step()<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="add-in-accelerate" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#add-in-accelerate"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Add in 🤗 Accelerate
+	</span></h2>
+
+<p>To start using 🤗 Accelerate, first import and create an <a href="/docs/accelerate/v0.13.0/en/package_reference/accelerator#accelerate.Accelerator">Accelerator</a> instance:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> Accelerator
+
+accelerator = Accelerator()<!-- HTML_TAG_END --></pre></div>
+<p><a href="/docs/accelerate/v0.13.0/en/package_reference/accelerator#accelerate.Accelerator">Accelerator</a> is the main force behind utilizing all the possible options for distributed training!</p>
+<h3 class="relative group"><a id="setting-the-right-device" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#setting-the-right-device"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Setting the right device
+	</span></h3>
+
+<p>The <a href="/docs/accelerate/v0.13.0/en/package_reference/accelerator#accelerate.Accelerator">Accelerator</a> class knows the right device to move any PyTorch object to at any time, so you should
+change the definition of <code>device</code> to come from <a href="/docs/accelerate/v0.13.0/en/package_reference/accelerator#accelerate.Accelerator">Accelerator</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-deletion">- device = &#x27;cuda&#x27;</span>
+<span class="hljs-addition">+ device = accelerator.device</span>
+  model.to(device)<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="preparing-your-objects" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#preparing-your-objects"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Preparing your objects
+	</span></h3>
+
+<p>Next you need to pass all of the important objects related to training into <a href="/docs/accelerate/v0.13.0/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a>. 🤗 Accelerate will
+make sure everything is setup in the current environment for you to start training:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-built_in">model,</span> optimizer, training_dataloader, scheduler = accelerator.prepare(
+<span class="hljs-built_in">    model,</span> optimizer, training_dataloader, scheduler
+)<!-- HTML_TAG_END --></pre></div>
+<p>These objects are returned in the same order they were sent in with. By default when using <code>device_placement=True</code>, all of the objects that can be sent to the right device will be.
+If you need to work with data that isn’t passed to [~Accelerator.prepare] but should be on the active device, you should pass in the <code>device</code> you made earlier. </p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>Accelerate will only prepare objects that inherit from their respective PyTorch classes (such as <code>torch.optim.Optimizer</code>).</p></div>
+<h3 class="relative group"><a id="modifying-the-training-loop" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#modifying-the-training-loop"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Modifying the training loop
+	</span></h3>
+
+<p>Finally, three lines of code need to be changed in the training loop. 🤗 Accelerate’s DataLoader classes will automatically handle the device placement by default,
+and <a href="/docs/accelerate/v0.13.0/en/package_reference/accelerator#accelerate.Accelerator.backward">backward()</a> should be used for performing the backward pass:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-deletion">-   inputs = inputs.to(device)</span>
+<span class="hljs-deletion">-   targets = targets.to(device)</span>
+    outputs = model(inputs)
+    loss = loss_function(outputs, targets)
+<span class="hljs-deletion">-   loss.backward()</span>
+<span class="hljs-addition">+   accelerator.backward(loss)</span><!-- HTML_TAG_END --></pre></div>
+<p>With that, your training loop is now ready to use 🤗 Accelerate!</p>
+<h2 class="relative group"><a id="the-finished-code" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#the-finished-code"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>The finished code
+	</span></h2>
+
+<p>Below is the final version of the converted code: </p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> Accelerator
+
+accelerator = Accelerator()
+
+model, optimizer, training_dataloader, scheduler = accelerator.prepare(
+    model, optimizer, training_dataloader, scheduler
+)
+
+<span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> training_dataloader:
+    optimizer.zero_grad()
+    inputs, targets = batch
+    outputs = model(inputs)
+    loss = loss_function(outputs, targets)
+    accelerator.backward(loss)
+    optimizer.step()
+    scheduler.step()<!-- HTML_TAG_END --></pre></div>
+
+
+		<script type="module" data-hydrate="u0iq">
+		import { start } from "/docs/accelerate/v0.13.0/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="u0iq"]').parentNode,
+			paths: {"base":"/docs/accelerate/v0.13.0/en","assets":"/docs/accelerate/v0.13.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/accelerate/v0.13.0/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/accelerate/v0.13.0/en/_app/pages/basic_tutorials/migration.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>

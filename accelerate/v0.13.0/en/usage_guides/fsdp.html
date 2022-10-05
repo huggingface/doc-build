@@ -1,0 +1,152 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;fully-sharded-data-parallel&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;how-it-works-out-of-the-box&quot;,&quot;title&quot;:&quot;How it works out of the box&quot;},{&quot;local&quot;:&quot;a-few-caveats-to-be-aware-of&quot;,&quot;title&quot;:&quot;A few caveats to be aware of&quot;}],&quot;title&quot;:&quot;Fully Sharded Data Parallel&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/pages/usage_guides/fsdp.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.0/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="fully-sharded-data-parallel" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#fully-sharded-data-parallel"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Fully Sharded Data Parallel
+	</span></h1>
+
+<p>To accelerate training huge models on larger batch sizes, we can use a fully sharded data parallel model.
+This type of data parallel paradigm enables fitting more data and larger models by sharding the optimizer states, gradients and parameters.
+To read more about it and the benefits, check out the <a href="https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/" rel="nofollow">Fully Sharded Data Parallel blog</a>.
+We have integrated the latest PyTorch’s Fully Sharded Data Parallel (FSDP) training feature.
+All you need to do is enable it through the config.</p>
+<h2 class="relative group"><a id="how-it-works-out-of-the-box" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#how-it-works-out-of-the-box"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>How it works out of the box
+	</span></h2>
+
+<p>On your machine(s) just run:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerate config<!-- HTML_TAG_END --></pre></div>
+<p>and answer the questions asked. This will generate a config file that will be used automatically to properly set the
+default options when doing</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerate launch my_script.py --args_to_my_script<!-- HTML_TAG_END --></pre></div>
+<p>For instance, here is how you would run the NLP example (from the root of the repo) with FSDP enabled:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->compute_environment: LOCAL_MACHINE
+deepspeed_config: {}
+distributed_type: FSDP
+downcast_bf16: <span class="hljs-string">&#x27;no&#x27;</span>
+fsdp_config:
+  fsdp_auto_wrap_policy: TRANSFORMER_BASED_WRAP
+  fsdp_backward_prefetch_policy: BACKWARD_PRE
+  fsdp_offload_params: <span class="hljs-literal">false</span>
+  fsdp_sharding_strategy: 1
+  fsdp_state_dict_type: FULL_STATE_DICT
+  fsdp_transformer_layer_cls_to_wrap: GPT2Block
+machine_rank: 0
+main_process_ip: null
+main_process_port: null
+main_training_function: main
+mixed_precision: <span class="hljs-string">&#x27;no&#x27;</span>
+num_machines: 1
+num_processes: 2
+use_cpu: <span class="hljs-literal">false</span><!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerate launch examples/nlp_example.py<!-- HTML_TAG_END --></pre></div>
+<p>Currently, <code>Accelerate</code> supports the following config through the CLI:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->`Sharding Strategy`: [1] FULL_SHARD (shards optimizer states, gradients and parameters), [2] SHARD_GRAD_OP (shards optimizer states and gradients), [3] NO_SHARD
+`Offload Params`: Decides Whether to offload parameters and gradients to CPU
+`Auto Wrap Policy`: [1] TRANSFORMER_BASED_WRAP, [2] SIZE_BASED_WRAP, [3] NO_WRAP 
+`Transformer Layer Class to Wrap`: When using `TRANSFORMER_BASED_WRAP`, user specifies transformer layer class name (case-sensitive) to wrap ,e.g, `BertLayer`, `GPTJBlock`, `T5Block`...
+`Min Num Params`: minimum number of parameters when using `SIZE_BASED_WRAP`
+`Backward Prefetch`: [1] BACKWARD_PRE, [2] BACKWARD_POST, [3] NO_PREFETCH
+`State Dict Type`: [1] FULL_STATE_DICT, [2] LOCAL_STATE_DICT, [3] SHARDED_STATE_DICT  <!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="a-few-caveats-to-be-aware-of" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#a-few-caveats-to-be-aware-of"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>A few caveats to be aware of
+	</span></h2>
+
+<ul><li>PyTorch FSDP auto wraps sub-modules, flattens the parameters and shards the parameters in place.
+Due to this, any optimizer created before model wrapping gets broken and occupies more memory.
+Hence, it is highly recommended and efficient to prepare the model before creating the optimizer.
+<code>Accelerate</code> will automatically wrap the model and create an optimizer for you in case of single model with a warning message.<blockquote><p>FSDP Warning: When using FSDP, it is efficient and recommended to call prepare for the model before creating the optimizer</p></blockquote></li></ul>
+<p>However, below is the recommended way to prepare model and optimizer while using FSDP:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->  model = AutoModelForSequenceClassification.from_pretrained(&quot;bert-base-cased&quot;, return_dict=True)
+<span class="hljs-addition">+ model = accelerator.prepare(model)</span>
+
+  optimizer = torch.optim.AdamW(params=model.parameters(), lr=lr)
+
+<span class="hljs-deletion">- model, optimizer, train_dataloader, eval_dataloader, lr_scheduler = accelerator.prepare(</span>
+<span class="hljs-deletion">-        model, optimizer, train_dataloader, eval_dataloader, lr_scheduler</span>
+<span class="hljs-deletion">-    )</span>
+
+<span class="hljs-addition">+ optimizer, train_dataloader, eval_dataloader, lr_scheduler = accelerator.prepare(</span>
+<span class="hljs-addition">+         optimizer, train_dataloader, eval_dataloader, lr_scheduler</span>
+<span class="hljs-addition">+    )</span><!-- HTML_TAG_END --></pre></div>
+<ul><li><p>In case of a single model, if you have created the optimizer with multiple parameter groups and called prepare with them together,
+then the parameter groups will be lost and the following warning is displayed:</p>
+<blockquote><p>FSDP Warning: When using FSDP, several parameter groups will be conflated into
+a single one due to nested module wrapping and parameter flattening.</p></blockquote>
+<p>This is because parameter groups created before wrapping will have no meaning post wrapping due to parameter flattening of nested FSDP modules into 1D arrays (which can consume many layers).
+For instance, below are the named parameters of an FSDP model on GPU 0 (When using 2 GPUs. Around 55M (110M/2) params in 1D arrays as this will have the 1st shard of the parameters).
+Here, if one has applied no weight decay for [bias, LayerNorm.weight] the named parameters of an unwrapped BERT model,
+it can’t be applied to the below FSDP wrapped model as there are no named parameters with either of those strings and
+the parameters of those layers are concatenated with parameters of various other layers.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{
+  <span class="hljs-string">&#x27;_fsdp_wrapped_module.flat_param&#x27;</span>: torch<span class="hljs-selector-class">.Size</span>(<span class="hljs-selector-attr">[494209]</span>), 
+  <span class="hljs-string">&#x27;_fsdp_wrapped_module._fpw_module.bert.embeddings.word_embeddings._fsdp_wrapped_module.flat_param&#x27;</span>: torch<span class="hljs-selector-class">.Size</span>(<span class="hljs-selector-attr">[11720448]</span>), 
+  <span class="hljs-string">&#x27;_fsdp_wrapped_module._fpw_module.bert.encoder._fsdp_wrapped_module.flat_param&#x27;</span>: torch<span class="hljs-selector-class">.Size</span>(<span class="hljs-selector-attr">[42527232]</span>)
+}<!-- HTML_TAG_END --></pre></div></li></ul>
+<ul><li>In case of multiple models, it is necessary to prepare the models before creating optimizers or else it will throw an error.
+Then pass the optimizers to the prepare call in the same order as corresponding models else <code>accelerator.save_state()</code> and <code>accelerator.load_state()</code> will result in wrong/unexpected behaviour.</li>
+<li>This feature is incompatible with <code>--predict_with_generate</code> in the <code>run_translation.py</code> script of 🤗 <code>Transformers</code> library.</li></ul>
+<p>For more control, users can leverage the <code>FullyShardedDataParallelPlugin</code>. After creating an instance of this class, users can pass it to the Accelerator class instantiation.
+For more information on these options, please refer to the PyTorch <a href="https://github.com/pytorch/pytorch/blob/0df2e863fbd5993a7b9e652910792bd21a516ff3/torch/distributed/fsdp/fully_sharded_data_parallel.py#L236" rel="nofollow">FullyShardedDataParallel</a> code.</p>
+
+
+		<script type="module" data-hydrate="1d7gu6r">
+		import { start } from "/docs/accelerate/v0.13.0/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="1d7gu6r"]').parentNode,
+			paths: {"base":"/docs/accelerate/v0.13.0/en","assets":"/docs/accelerate/v0.13.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/accelerate/v0.13.0/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/accelerate/v0.13.0/en/_app/pages/usage_guides/fsdp.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
