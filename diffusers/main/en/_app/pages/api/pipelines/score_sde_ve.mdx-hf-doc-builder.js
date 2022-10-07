@@ -7,7 +7,7 @@ deterministic.`,name:"generator"},{anchor:"diffusers.ScoreSdeVePipeline.__call__
 The output format of the generate image. Choose between
 <a href="https://pillow.readthedocs.io/en/stable/" rel="nofollow">PIL</a>: <code>PIL.Image.Image</code> or <code>np.array</code>.`,name:"output_type"},{anchor:"diffusers.ScoreSdeVePipeline.__call__.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not to return a <a href="/docs/diffusers/main/en/api/diffusion_pipeline#diffusers.pipeline_utils.ImagePipelineOutput">ImagePipelineOutput</a> instead of a plain tuple.`,name:"return_dict"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/score_sde_ve/pipeline_score_sde_ve.py#L26",returnDescription:`
-<p><code>ImagePipelineOutput</code> if
+<p><code>~pipelines.utils.ImagePipelineOutput</code> if
 <code>return_dict</code> is True, otherwise a \`tuple. When returning a tuple, the first element is a list with the
 generated images.</p>
 `,returnType:`
