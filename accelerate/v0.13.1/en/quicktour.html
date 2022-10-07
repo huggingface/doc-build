@@ -1,0 +1,462 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;quick-tour&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;main-use&quot;,&quot;title&quot;:&quot;Main use&quot;},{&quot;local&quot;:&quot;distributed-evaluation&quot;,&quot;title&quot;:&quot;Distributed evaluation&quot;},{&quot;local&quot;:&quot;launching-your-distributed-script&quot;,&quot;title&quot;:&quot;Launching your distributed script&quot;},{&quot;local&quot;:&quot;launching-training-from-a-notebook&quot;,&quot;title&quot;:&quot;Launching training from a notebook&quot;},{&quot;local&quot;:&quot;training-on-tpu&quot;,&quot;title&quot;:&quot;Training on TPU&quot;},{&quot;local&quot;:&quot;other-caveats&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;execute-a-statement-only-on-one-processes&quot;,&quot;title&quot;:&quot;Execute a statement only on one processes&quot;},{&quot;local&quot;:&quot;defer-execution&quot;,&quot;title&quot;:&quot;Defer execution&quot;},{&quot;local&quot;:&quot;savingloading-a-model&quot;,&quot;title&quot;:&quot;Saving/loading a model&quot;}],&quot;title&quot;:&quot;Other caveats&quot;},{&quot;local&quot;:&quot;savingloading-entire-states&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;gradient-clipping&quot;,&quot;title&quot;:&quot;Gradient clipping&quot;},{&quot;local&quot;:&quot;mixed-precision-training&quot;,&quot;title&quot;:&quot;Mixed Precision training&quot;},{&quot;local&quot;:&quot;gradient-accumulation&quot;,&quot;title&quot;:&quot;Gradient Accumulation &quot;},{&quot;local&quot;:&quot;deepspeed&quot;,&quot;title&quot;:&quot;DeepSpeed&quot;}],&quot;title&quot;:&quot;Saving/loading entire states&quot;},{&quot;local&quot;:&quot;internal-mechanism&quot;,&quot;title&quot;:&quot;Internal mechanism&quot;}],&quot;title&quot;:&quot;Quick tour&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/pages/quicktour.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="quick-tour" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#quick-tour"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Quick tour
+	</span></h1>
+
+<p>Let’s have a look at the 🤗 Accelerate main features and traps to avoid.</p>
+<h2 class="relative group"><a id="main-use" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#main-use"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Main use
+	</span></h2>
+
+<p>To use 🤗 Accelerate in your own script, you have to change four things:</p>
+<ol><li>Import the <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator">Accelerator</a> main class and instantiate one in an <code>accelerator</code> object:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> Accelerator
+
+accelerator = Accelerator()<!-- HTML_TAG_END --></pre></div>
+<p>This should happen as early as possible in your training script as it will initialize everything necessary for
+distributed training. You don’t need to indicate the kind of environment you are in (just one machine with a GPU, one
+machines with several GPUs, several machines with multiple GPUs or a TPU), the library will detect this automatically.</p>
+<ol start="2"><li>Remove the call <code>.to(device)</code> or <code>.cuda()</code> for your model and input data. The <code>accelerator</code> object
+will handle this for you and place all those objects on the right device for you. If you know what you’re doing, you
+can leave those <code>.to(device)</code> calls but you should use the device provided by the <code>accelerator</code> object:
+<code>accelerator.device</code>.</li></ol>
+<p>To fully deactivate the automatic device placement, pass along <code>device_placement=False</code> when initializing your
+<a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator">Accelerator</a>.</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>If you place your objects manually on the proper device, be careful to create your optimizer after putting your
+model on <code>accelerator.device</code> or your training will fail on TPU.</p></div>
+<ol start="3"><li>Pass all objects relevant to training (optimizer, model, training dataloader, learning rate scheduler) to the
+<a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a> method. This will make sure everything is ready for training.</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->model, optimizer, train_dataloader, lr_scheduler = accelerator.prepare(
+    model, optimizer, train_dataloader, lr_scheduler
+)<!-- HTML_TAG_END --></pre></div>
+<p>In particular, your training dataloader will be sharded across all GPUs/TPU cores available so that each one sees a
+different portion of the training dataset. Also, the random states of all processes will be synchronized at the
+beginning of each iteration through your dataloader, to make sure the data is shuffled the same way (if you decided to
+use <code>shuffle=True</code> or any kind of random sampler).</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>The actual batch size for your training will be the number of devices used multiplied by the batch size you set in
+your script: for instance training on 4 GPUs with a batch size of 16 set when creating the training dataloader will
+train at an actual batch size of 64.</p></div>
+<p>Alternatively, you can use the option <code>split_batches=True</code> when creating initializing your
+<a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator">Accelerator</a>, in which case the batch size will always stay the same, whether your run your
+script on 1, 2, 4 or 64 GPUs.</p>
+<p>You should execute this instruction as soon as all objects for training are created, before starting your actual
+training loop.</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>You should only pass the learning rate scheduler to <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a> when the scheduler needs to be stepped
+at each optimizer step.</p></div>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>Your training dataloader may change length when going through this method: if you run on X GPUs, it will have its
+length divided by X (since your actual batch size will be multiplied by X), unless you set
+<code>split_batches=True</code>.</p></div>
+<p>Any instruction using your training dataloader length (for instance if you want to log the number of total training
+steps) should go after the call to <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a>.</p>
+<p>You can perfectly send your dataloader to <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a> on its own, but it’s best to send the
+model and optimizer to <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a> together.</p>
+<p>You may or may not want to send your validation dataloader to <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a>, depending on
+whether you want to run distributed evaluation or not (see below).</p>
+<ol start="4"><li>Replace the line <code>loss.backward()</code> by <code>accelerator.backward(loss)</code>.</li></ol>
+<p>And you’re all set! With all these changes, your script will run on your local machine as well as on multiple GPUs or a
+TPU! You can either use your favorite tool to launch the distributed training, or you can use the 🤗 Accelerate
+launcher.</p>
+<h2 class="relative group"><a id="distributed-evaluation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#distributed-evaluation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Distributed evaluation
+	</span></h2>
+
+<p>You can perform regular evaluation in your training script, if you leave your validation dataloader out of the
+<a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a> method. In this case, you will need to put the input data on the
+<code>accelerator.device</code> manually.</p>
+<p>To perform distributed evaluation, send along your validation dataloader to the <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a>
+method:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->validation_dataloader = accelerator.prepare(validation_dataloader)<!-- HTML_TAG_END --></pre></div>
+<p>As for your training dataloader, it will mean that (should you run your script on multiple devices) each device will
+only see part of the evaluation data. This means you will need to group your predictions together. This is very easy to
+do with the <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.gather_for_metrics">gather_for_metrics()</a> method.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">for</span> inputs, targets <span class="hljs-keyword">in</span> validation_dataloader:
+    predictions = model(inputs)
+    <span class="hljs-comment"># Gather all predictions and targets</span>
+    all_predictions, all_targets = accelerator.gather_for_metrics((predictions, targets))
+    <span class="hljs-comment"># Example of use with a *Datasets.Metric*</span>
+    metric.add_batch(all_predictions, all_targets)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>Similar to the training dataloader, passing your validation dataloader through
+<a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a> may change it: if you run on X GPUs, it will have its length divided by X
+(since your actual batch size will be multiplied by X), unless you set <code>split_batches=True</code>.</p></div>
+<p>Any instruction using your training dataloader length (for instance if you need the number of total training steps
+to create a learning rate scheduler) should go after the call to <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a>. </p>
+<p>Some data at the end of the dataset may be duplicated so the batch can be divided equally among all workers. As a result, metrics
+should be calculated through the <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.gather_for_metrics">gather_for_metrics()</a> method to automatically remove the duplicated data while gathering.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>If for some reason you don’t wish to have this automatically done, <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.gather">gather()</a> can be used instead to gather
+the data across all processes and this can manually be done instead.</p></div>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>The <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.gather">gather()</a> and <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.gather_for_metrics">gather_for_metrics()</a> methods require the tensors to be all the same size on each process. If
+you have tensors of different sizes on each process (for instance when dynamically padding to the maximum length in
+a batch), you should use the <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.pad_across_processes">pad_across_processes()</a> method to pad you tensor to the
+biggest size across processes.</p></div>
+<h2 class="relative group"><a id="launching-your-distributed-script" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#launching-your-distributed-script"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Launching your distributed script
+	</span></h2>
+
+<p>You can use the regular commands to launch your distributed training (like <code>torch.distributed.launch</code> for
+PyTorch), they are fully compatible with 🤗 Accelerate. The only caveat here is that 🤗 Accelerate uses the environment
+to determine all useful information, so <code>torch.distributed.launch</code> should be used with the flag <code>--use_env</code>.</p>
+<p>🤗 Accelerate also provides a CLI tool that unifies all launchers, so you only have to remember one command. To use it,
+just run:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerate config<!-- HTML_TAG_END --></pre></div>
+<p>on your machine and reply to the questions asked. This will save a <em>default_config.yaml</em> file in your cache folder for
+🤗 Accelerate. That cache folder is (with decreasing order of priority):</p>
+<ul><li>The content of your environment variable <code>HF_HOME</code> suffixed with <em>accelerate</em>.</li>
+<li>If it does not exist, the content of your environment variable <code>XDG_CACHE_HOME</code> suffixed with
+<em>huggingface/accelerate</em>.</li>
+<li>If this does not exist either, the folder <em>~/.cache/huggingface/accelerate</em></li></ul>
+<p>You can also specify with the flag <code>--config_file</code> the location of the file you want to save.</p>
+<p>Once this is done, you can test everything is going well on your setup by running:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerate <span class="hljs-built_in">test</span><!-- HTML_TAG_END --></pre></div>
+<p>This will launch a short script that will test the distributed environment. If it runs fine, you are ready for the next
+step!</p>
+<p>Note that if you specified a location for the config file in the previous step, you need to pass it here as well:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerate <span class="hljs-built_in">test</span> --config_file path_to_config.yaml<!-- HTML_TAG_END --></pre></div>
+<p>Now that this is done, you can run your script with the following command:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerate launch path_to_script.py --args_for_the_script<!-- HTML_TAG_END --></pre></div>
+<p>If you stored the config file in a non-default location, you can indicate it to the launcher like his:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerate launch --config_file path_to_config.yaml path_to_script.py --args_for_the_script<!-- HTML_TAG_END --></pre></div>
+<p>You can also override any of the arguments determined by your config file.
+To see the complete list of parameters that you can pass in, run <code>accelerate launch -h</code>. </p>
+<p>Check out the <a href="basic_tutorials/launch">Launch tutorial</a> for more information about launching your scripts. </p>
+<h2 class="relative group"><a id="launching-training-from-a-notebook" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#launching-training-from-a-notebook"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Launching training from a notebook
+	</span></h2>
+
+<p>In Accelerate 0.3.0, a new <a href="/docs/accelerate/v0.13.1/en/package_reference/launchers#accelerate.notebook_launcher">notebook_launcher()</a> has been introduced to help you launch your training
+function from a notebook. This launcher supports launching a training with TPUs on Colab or Kaggle, as well as training
+on several GPUs (if the machine on which you are running your notebook has them).</p>
+<p>Just define a function responsible for your whole training and/or evaluation in a cell of the notebook, then execute a
+cell with the following code:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> notebook_launcher
+
+notebook_launcher(training_function)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>Your <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator">Accelerator</a> object should only be defined inside the training function. This is because the
+initialization should be done inside the launcher only.</p></div>
+<p>Check out the <a href="basic_tutorials/notebook">Notebook Launcher tutorial</a> for more information about training on TPUs. </p>
+<h2 class="relative group"><a id="training-on-tpu" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#training-on-tpu"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Training on TPU
+	</span></h2>
+
+<p>If you want to launch your script on TPUs, there are a few caveats you should be aware of. Behind the scenes, the TPUs
+will create a graph of all the operations happening in your training step (forward pass, backward pass and optimizer
+step). This is why your first step of training will always be very long as building and compiling this graph for
+optimizations takes some time.</p>
+<p>The good news is that this compilation will be cached so the second step and all the following will be much faster. The
+bad news is that it only applies if all of your steps do exactly the same operations, which implies:</p>
+<ul><li>having all tensors of the same length in all your batches</li>
+<li>having static code (i.e., not a for loop of length that could change from step to step)</li></ul>
+<p>Having any of the things above change between two steps will trigger a new compilation which will, once again, take a
+lot of time. In practice, that means you must take special care to have all your tensors in your inputs of the same
+shape (so no dynamic padding for instance if you are in an NLP problem) and should not use layers with for loops that
+have different lengths depending on the inputs (such as an LSTM) or the training will be excruciatingly slow.</p>
+<p>To introduce special behavior in your script for TPUs you can check the <code>distributed_type</code> of your
+<code>accelerator</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> DistributedType
+
+<span class="hljs-keyword">if</span> accelerator.distributed_type == DistributedType.TPU:
+    <span class="hljs-comment"># do something of static shape</span>
+<span class="hljs-keyword">else</span>:
+    <span class="hljs-comment"># go crazy and be dynamic</span><!-- HTML_TAG_END --></pre></div>
+<p>The <a href="https://github.com/huggingface/accelerate/blob/main/examples/nlp_example.py" rel="nofollow">NLP example</a> shows an example in a
+situation with dynamic padding.</p>
+<p>One last thing to pay close attention to: if your model has tied weights (such as language models which tie the weights
+of the embedding matrix with the weights of the decoder), moving this model to the TPU (either yourself or after you
+passed your model to <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a>) will break the tying. You will need to retie the weights
+after. You can find an example of this in the <a href="https://github.com/huggingface/transformers/blob/master/examples/pytorch/language-modeling/run_clm.py" rel="nofollow">run_clm_no_trainer</a> script in
+the Transformers repository.</p>
+<p>Check out the <a href="concept_guides/training_tpu">TPU tutorial</a> for more information about training on TPUs. </p>
+<h2 class="relative group"><a id="other-caveats" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#other-caveats"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Other caveats
+	</span></h2>
+
+<p>We list here all smaller issues you could have in your script conversion and how to resolve them.</p>
+<h3 class="relative group"><a id="execute-a-statement-only-on-one-processes" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#execute-a-statement-only-on-one-processes"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Execute a statement only on one processes
+	</span></h3>
+
+<p>Some of your instructions only need to run for one process on a given server: for instance a data download or a log
+statement. To do this, wrap the statement in a test like this:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">if</span> accelerator.is_local_main_process:
+    <span class="hljs-comment"># Is executed once per server</span><!-- HTML_TAG_END --></pre></div>
+<p>Another example is progress bars: to avoid having multiple progress bars in your output, you should only display one on
+the local main process:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> tqdm.auto <span class="hljs-keyword">import</span> tqdm
+
+progress_bar = tqdm(<span class="hljs-built_in">range</span>(args.max_train_steps), disable=<span class="hljs-keyword">not</span> accelerator.is_local_main_process)<!-- HTML_TAG_END --></pre></div>
+<p>The <em>local</em> means per machine: if you are running your training on two servers with several GPUs, the instruction will
+be executed once on each of those servers. If you need to execute something only once for all processes (and not per
+machine) for instance, uploading the final model to the 🤗 model hub, wrap it in a test like this:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">if</span> accelerator.is_main_process:
+    <span class="hljs-comment"># Is executed once only</span><!-- HTML_TAG_END --></pre></div>
+<p>For printing statements you only want executed once per machine, you can just replace the <code>print</code> function by
+<code>accelerator.print</code>.</p>
+<h3 class="relative group"><a id="defer-execution" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#defer-execution"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Defer execution
+	</span></h3>
+
+<p>When you run your usual script, instructions are executed in order. Using 🤗 Accelerate to deploy your script on several
+GPUs at the same time introduces a complication: while each process executes all instructions in order, some may be
+faster than others.</p>
+<p>You might need to wait for all processes to have reached a certain point before executing a given instruction. For
+instance, you shouldn’t save a model before being sure every process is done with training. To do this, just write the
+following line in your code:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerator.wait<span class="hljs-constructor">_for_everyone()</span><!-- HTML_TAG_END --></pre></div>
+<p>This instruction will block all the processes that arrive first until all the other processes have reached that
+point (if you run your script on just one GPU or CPU, this won’t do anything).</p>
+<h3 class="relative group"><a id="savingloading-a-model" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#savingloading-a-model"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Saving/loading a model
+	</span></h3>
+
+<p>Saving the model you trained might need a bit of adjustment: first you should wait for all processes to reach that
+point in the script as shown above, and then, you should unwrap your model before saving it. This is because when going
+through the <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a> method, your model may have been placed inside a bigger model,
+which deals with the distributed training. This in turn means that saving your model state dictionary without taking
+any precaution will take that potential extra layer into account, and you will end up with weights you can’t load back
+in your base model.</p>
+<p>This is why it’s recommended to <em>unwrap</em> your model first. Here is an example:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerator.wait<span class="hljs-constructor">_for_everyone()</span>
+unwrapped_model = accelerator.unwrap<span class="hljs-constructor">_model(<span class="hljs-params">model</span>)</span>
+accelerator.save(unwrapped_model.state<span class="hljs-constructor">_dict()</span>, filename)<!-- HTML_TAG_END --></pre></div>
+<p>If your script contains logic to load a checkpoint, we also recommend you load your weights in the unwrapped model
+(this is only useful if you use the load function after making your model go through
+<a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a>). Here is an example:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->unwrapped_model = accelerator.unwrap<span class="hljs-constructor">_model(<span class="hljs-params">model</span>)</span>
+unwrapped_model.load<span class="hljs-constructor">_state_dict(<span class="hljs-params">torch</span>.<span class="hljs-params">load</span>(<span class="hljs-params">filename</span>)</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Note that since all the model parameters are references to tensors, this will load your weights inside <code>model</code>.</p>
+<h2 class="relative group"><a id="savingloading-entire-states" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#savingloading-entire-states"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Saving/loading entire states
+	</span></h2>
+
+<p>When training your model, you may want to save the current state of the model, optimizer, random generators, and potentially LR schedulers to be restored in the <em>same script</em>.
+You can use <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.save_state">save_state()</a> and <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.load_state">load_state()</a> respectively to do so, just by simply passing in a save location.
+If you have registered any other stateful items to be stored through <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.register_for_checkpointing">register_for_checkpointing()</a> they will also be saved and/or loaded.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Every object passed to <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.register_for_checkpointing">register_for_checkpointing()</a> must have a <code>load_state_dict</code> and <code>state_dict</code> function to be stored</p></div>
+<h3 class="relative group"><a id="gradient-clipping" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#gradient-clipping"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Gradient clipping
+	</span></h3>
+
+<p>If you are using gradient clipping in your script, you should replace the calls to
+<code>torch.nn.utils.clip_grad_norm_</code> or <code>torch.nn.utils.clip_grad_value_</code> with <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.clip_grad_norm_">clip<em>grad_norm</em>()</a>
+and <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.clip_grad_value_">clip<em>grad_value</em>()</a> respectively.</p>
+<h3 class="relative group"><a id="mixed-precision-training" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#mixed-precision-training"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Mixed Precision training
+	</span></h3>
+
+<p>If you are running your training in Mixed Precision with 🤗 Accelerate, you will get the best result with your loss being
+computed inside your model (like in Transformer models for instance). Every computation outside of the model will be
+executed in full precision (which is generally what you want for loss computation, especially if it involves a
+softmax). However you might want to put your loss computation inside the <em>accelerator.autocast</em> context manager:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">with</span> accelerator.autocast<span class="hljs-literal">()</span>:
+    loss = complex<span class="hljs-constructor">_loss_function(<span class="hljs-params">outputs</span>, <span class="hljs-params">target</span>)</span>:<!-- HTML_TAG_END --></pre></div>
+<p>Another caveat with Mixed Precision training is that the gradient will skip a few updates at the beginning and
+sometimes during training: because of the dynamic loss scaling strategy, there are points during training where the
+gradients have overflown, and the loss scaling factor is reduced to avoid this happening again at the next step.</p>
+<p>This means that you may update your learning rate scheduler when there was no update, which is fine in general, but may
+have an impact when you have very little training data, or if the first learning rate values of your scheduler are very
+important. In this case, you can skip the learning rate scheduler updates when the optimizer step was not done like
+this:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">if</span> not accelerator<span class="hljs-selector-class">.optimizer_step_was_skipped</span>:
+    lr_scheduler<span class="hljs-selector-class">.step</span>()<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="gradient-accumulation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#gradient-accumulation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Gradient Accumulation 
+	</span></h3>
+
+<p>To perform gradient accumulation use <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.accumulate">accumulate()</a> and specify a <code>gradient_accumulation_steps</code>.
+This will also automatically ensure the gradients are synced or unsynced when on multi-device training, check if the step should
+actually be performed, and auto-scale the loss:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerator = Accelerator(gradient_accumulation_steps=<span class="hljs-number">2</span>)
+model, optimizer, training_dataloader = accelerator.prepare(model, optimizer, training_dataloader)
+
+<span class="hljs-keyword">for</span> <span class="hljs-built_in">input</span>, label <span class="hljs-keyword">in</span> training_dataloader:
+    <span class="hljs-keyword">with</span> accelerator.accumulate(model):
+        predictions = model(<span class="hljs-built_in">input</span>)
+        loss = loss_function(predictions, label)
+        accelerator.backward(loss)
+        optimizer.step()
+        scheduler.step()
+        optimizer.zero_grad()<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="deepspeed" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#deepspeed"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>DeepSpeed
+	</span></h3>
+
+<p>DeepSpeed support is experimental, so the underlying API will evolve in the near future and may have some slight
+breaking changes. In particular, 🤗 Accelerate does not support DeepSpeed config you have written yourself yet, this
+will be added in a next version.</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>The <a href="/docs/accelerate/v0.13.1/en/package_reference/launchers#accelerate.notebook_launcher">notebook_launcher()</a> does not support the DeepSpeed integration yet.</p></div>
+<h2 class="relative group"><a id="internal-mechanism" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#internal-mechanism"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Internal mechanism
+	</span></h2>
+
+<p>Internally, the library works by first analyzing the environment in which the script is launched to determine which
+kind of distributed setup is used, how many different processes there are and which one the current script is in. All
+that information is stored in the <code>~AcceleratorState</code>.</p>
+<p>This class is initialized the first time you instantiate an <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator">~Accelerator</a> as well as performing any
+specific initialization your distributed setup needs. Its state is then uniquely shared through all instances of
+<a href="/docs/accelerate/v0.13.1/en/package_reference/state#accelerate.state.AcceleratorState">AcceleratorState</a>.</p>
+<p>Then, when calling <a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator.prepare">prepare()</a>, the library:</p>
+<ul><li>wraps your model(s) in the container adapted for the distributed setup,</li>
+<li>wraps your optimizer(s) in a <a href="/docs/accelerate/v0.13.1/en/package_reference/torch_wrappers#accelerate.optimizer.AcceleratedOptimizer">AcceleratedOptimizer</a>,</li>
+<li>creates a new version of your dataloader(s) in a <a href="/docs/accelerate/v0.13.1/en/package_reference/torch_wrappers#accelerate.data_loader.DataLoaderShard">DataLoaderShard</a>.</li></ul>
+<p>While the model(s) and optimizer(s) are just put in simple wrappers, the dataloader(s) are re-created. This is mostly
+because PyTorch does not let the user change the <code>batch_sampler</code> of a dataloader once it’s been created and the
+library handles the sharding of your data between processes by changing that <code>batch_sampler</code> to yield every other
+<code>num_processes</code> batches.</p>
+<p>The <a href="/docs/accelerate/v0.13.1/en/package_reference/torch_wrappers#accelerate.data_loader.DataLoaderShard">DataLoaderShard</a> subclasses <code>DataLoader</code> to add the following functionality:</p>
+<ul><li>it synchronizes the appropriate random number generator of all processes at each new iteration, to ensure any
+randomization (like shuffling) is done the exact same way across processes.</li>
+<li>it puts the batches on the proper device before yielding them (unless you have opted out of
+<code>device_placement=True</code>).</li></ul>
+<p>The random number generator synchronization will by default synchronize:</p>
+<ul><li>the <code>generator</code> attribute of a given sampler (like the PyTorch <code>RandomSampler</code>) for PyTorch &gt;= 1.6</li>
+<li>the main random number generator in PyTorch &lt;=1.5.1</li></ul>
+<p>You can choose which random number generator(s) to synchronize with the <code>rng_types</code> argument of the main
+<a href="/docs/accelerate/v0.13.1/en/package_reference/accelerator#accelerate.Accelerator">Accelerator</a>. In PyTorch &gt;= 1.6, it is recommended to rely on a local <code>generator</code> to avoid
+setting the same seed in the main random number generator in all processes.</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>Synchronization of the main torch (or CUDA or XLA) random number generator will affect any other potential random
+artifacts you could have in your dataset (like random data augmentation) in the sense that all processes will get
+the same random numbers from the torch random modules (so will apply the same random data augmentation if it’s
+controlled by torch).</p></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>The randomization part of your custom sampler, batch sampler or iterable dataset should be done using a local
+<code>torch.Generator</code> object (in PyTorch &gt;= 1.6), see the traditional <code>RandomSampler</code>, as an example.</p></div>
+<p>For more details about the internals, see the <a href="package_reference/torch_wrappers">Internals page</a>.</p>
+
+
+		<script type="module" data-hydrate="ul7ajn">
+		import { start } from "/docs/accelerate/v0.13.1/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="ul7ajn"]').parentNode,
+			paths: {"base":"/docs/accelerate/v0.13.1/en","assets":"/docs/accelerate/v0.13.1/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/accelerate/v0.13.1/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/accelerate/v0.13.1/en/_app/pages/quicktour.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>

@@ -1,0 +1,301 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;handling-big-models&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;how-the-process-works-a-quick-overview&quot;,&quot;title&quot;:&quot;How the Process Works: A Quick Overview&quot;},{&quot;local&quot;:&quot;how-the-process-works-working-with-code&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;instantiating-an-empty-model&quot;,&quot;title&quot;:&quot;Instantiating an empty model&quot;},{&quot;local&quot;:&quot;sharded-checkpoints&quot;,&quot;title&quot;:&quot;Sharded checkpoints&quot;},{&quot;local&quot;:&quot;loading-weights&quot;,&quot;title&quot;:&quot;Loading weights&quot;}],&quot;title&quot;:&quot;How the Process Works: Working with Code&quot;}],&quot;title&quot;:&quot;Handling big models&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/pages/usage_guides/big_modeling.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.13.1/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="handling-big-models" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#handling-big-models"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Handling big models
+	</span></h1>
+
+<p>When loading a pretrained model in PyTorch, the usual workflow looks like this:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> torch
+
+my_model = ModelClass(...)
+state_dict = torch.load(checkpoint_file)
+my_model.load_state_dict(state_dict)<!-- HTML_TAG_END --></pre></div>
+<p>In plain English, those steps are:</p>
+<ol><li>Create the model with randomly initialized weights</li>
+<li>Load the model weights (in a dictionary usually called a state dict) from the disk</li>
+<li>Load those weights inside the model</li></ol>
+<p>While this works very well for regularly sized models, this workflow has some clear limitations when we deal with a huge model: in step 1, we load a full version of the model in RAM, and spend some time randomly initializing the weights (which will be discarded in step 3). In step 2, we load another full version of the model in RAM, with the pretrained weights. If you’re loading a model with 6 billions parameters, this means you will need 24GB of RAM for each copy of the model, so 48GB in total (half of it to load the model in FP16).</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>This API is quite new and still in its experimental stage. While we strive to provide a stable API, it’s possible some small parts of the public API will change in the future.</p></div>
+<h2 class="relative group"><a id="how-the-process-works-a-quick-overview" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#how-the-process-works-a-quick-overview"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>How the Process Works: A Quick Overview
+	</span></h2>
+
+<iframe class="w-full xl:w-4/6 h-80" src="https://www.youtube-nocookie.com/embed/MWCSGj9jEAo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 class="relative group"><a id="how-the-process-works-working-with-code" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#how-the-process-works-working-with-code"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>How the Process Works: Working with Code
+	</span></h2>
+
+<h3 class="relative group"><a id="instantiating-an-empty-model" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#instantiating-an-empty-model"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Instantiating an empty model
+	</span></h3>
+
+<p>The first tool 🤗 Accelerate introduces to help with big models is a context manager <a href="/docs/accelerate/v0.13.1/en/package_reference/big_modeling#accelerate.init_empty_weights">init_empty_weights()</a> that helps you initialize a model without using any RAM, so that step 1 can be done on models of any size. Here is how it works:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> init_empty_weights
+
+<span class="hljs-keyword">with</span> init_empty_weights():
+    my_model = ModelClass(...)<!-- HTML_TAG_END --></pre></div>
+<p>For instance:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">with</span> init_empty_weights():
+    model = nn.Sequential(*[nn.Linear(<span class="hljs-number">10000</span>, <span class="hljs-number">10000</span>) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1000</span>)])<!-- HTML_TAG_END --></pre></div>
+<p>initializes an empty model with a bit more than 100B parameters. Behind the scenes, this relies on the meta device introduced in PyTorch 1.9. During the initialization under the context manager, each time a parameter is created, it is instantly moved on that device.</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>You can’t move a model initialized like this on CPU or another device directly, since it doesn’t have any data. It’s also very likely that a forward pass with that empty model will fail, as not all operations are supported on the meta device.</p></div>
+<h3 class="relative group"><a id="sharded-checkpoints" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#sharded-checkpoints"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Sharded checkpoints
+	</span></h3>
+
+<p>It’s possible your model is so big that even a single copy won’t fit in RAM. That doesn’t mean it can’t be loaded: if you have one or several GPUs, this is more memory available to store your model. In this case, it’s better if your checkpoint is split in several smaller files that we call checkpoint shards.</p>
+<p>🤗 Accelerate will handle sharded checkpoints as long as you follow the following format: your checkpoint should be in a folder, with several files containing the partial state dicts, and there should be an index in the JSON format that contains a dictionary mapping parameter names to the file containing their weights. For instance we could have a folder containing:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->first_state_dict.bin
+index.json
+second_state_dict.bin<!-- HTML_TAG_END --></pre></div>
+<p>with index.json being the following file:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;linear1.weight&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;first_state_dict.bin&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;linear1.bias&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;first_state_dict.bin&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;linear2.weight&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;second_state_dict.bin&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;linear2.bias&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;second_state_dict.bin&quot;</span>
+<span class="hljs-punctuation">}</span><!-- HTML_TAG_END --></pre></div>
+<p>and <code>first_state_dict.bin</code> containing the weights for <code>&quot;linear1.weight&quot;</code> and <code>&quot;linear1.bias&quot;</code>, <code>second_state_dict.bin</code> the ones for <code>&quot;linear2.weight&quot;</code> and <code>&quot;linear2.bias&quot;</code></p>
+<h3 class="relative group"><a id="loading-weights" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#loading-weights"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Loading weights
+	</span></h3>
+
+<p>The second tool 🤗 Accelerate introduces is a function <a href="/docs/accelerate/v0.13.1/en/package_reference/big_modeling#accelerate.load_checkpoint_and_dispatch">load_checkpoint_and_dispatch()</a>, that will allow you to load a checkpoint inside your empty model. This supports full checkpoints (a single file containing the whole state dict) as well as sharded checkpoints. It will also automatically dispatch those weights across the devices you have available (GPUs, CPU RAM), so if you are loading a sharded checkpoint, the maximum RAM usage will be the size of the biggest shard.</p>
+<p>Here is how we can use this to load the <a href="https://huggingface.co/EleutherAI/gpt-j-6B" rel="nofollow">GPT-J-6B</a> model. You clone the sharded version of this model with:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git <span class="hljs-built_in">clone</span> https://huggingface.co/sgugger/sharded-gpt-j-6B
+<span class="hljs-built_in">cd</span> sharded-gpt-j-6B
+git-lfs install
+git pull<!-- HTML_TAG_END --></pre></div>
+<p>then we can initialize the model with</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> init_empty_weights
+<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoConfig, AutoModelForCausalLM
+
+checkpoint = <span class="hljs-string">&quot;EleutherAI/gpt-j-6B&quot;</span>
+config = AutoConfig.from_pretrained(checkpoint)
+
+<span class="hljs-keyword">with</span> init_empty_weights():
+    model = AutoModelForCausalLM.from_config(config)<!-- HTML_TAG_END --></pre></div>
+<p>and load the checkpoint we just downloaded with:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> load_checkpoint_and_dispatch
+
+model = load_checkpoint_and_dispatch(
+    model, <span class="hljs-string">&quot;sharded-gpt-j-6B&quot;</span>, device_map=<span class="hljs-string">&quot;auto&quot;</span>, no_split_module_classes=[<span class="hljs-string">&quot;GPTJBlock&quot;</span>]
+)<!-- HTML_TAG_END --></pre></div>
+<p>By passing <code>device_map=&quot;auto&quot;</code>, we tell 🤗 Accelerate to determine automatically where to put each layer of the model depending on the available resources:</p>
+<ul><li>first we use the maximum space available on the GPU(s)</li>
+<li>if we still need space, we store the remaining weights on the CPU</li>
+<li>if there is not enough RAM, we store the remaining weights on the hard drive as memory-mapped tensors</li></ul>
+<p><code>no_split_module_classes=[&quot;GPTJBlock&quot;]</code> indicates that the modules that are <code>GPTJBlock</code> should not be split on different devices. You should set here all blocks that include a residual connection of some kind.</p>
+<p>You can see the <code>device_map</code> that 🤗 Accelerate picked by accessing the <code>hf_device_map</code> attribute of your model:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->model.hf_device_map<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{<span class="hljs-string">&#x27;transformer.wte&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.drop&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.0&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.1&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.2&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.3&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.4&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.5&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.6&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.7&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.8&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.9&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.10&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.11&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.12&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.13&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.14&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.15&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.16&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.17&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.18&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.19&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.20&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.21&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.22&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.23&#x27;</span>: <span class="hljs-number">0</span>,
+ <span class="hljs-string">&#x27;transformer.h.24&#x27;</span>: <span class="hljs-number">1</span>,
+ <span class="hljs-string">&#x27;transformer.h.25&#x27;</span>: <span class="hljs-number">1</span>,
+ <span class="hljs-string">&#x27;transformer.h.26&#x27;</span>: <span class="hljs-number">1</span>,
+ <span class="hljs-string">&#x27;transformer.h.27&#x27;</span>: <span class="hljs-number">1</span>,
+ <span class="hljs-string">&#x27;transformer.ln_f&#x27;</span>: <span class="hljs-number">1</span>,
+ <span class="hljs-string">&#x27;lm_head&#x27;</span>: <span class="hljs-number">1</span>}<!-- HTML_TAG_END --></pre></div>
+<p>You can also design your <code>device_map</code> yourself, if you prefer to explicitly decide where each layer should be. In this case, the command above becomes:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->model = load_checkpoint_and_dispatch(model, <span class="hljs-string">&quot;sharded-gpt-j-6B&quot;</span>, device_map=my_device_map)<!-- HTML_TAG_END --></pre></div>
+<h3 class="relative group"><a id="run-the-model" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#run-the-model"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Run the model
+	</span></h3>
+
+<p>Now that we have done this, our model lies across several devices, and maybe the hard drive. But it can still be used as a regular PyTorch model:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+inputs = tokenizer(<span class="hljs-string">&quot;Hello, my name is&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
+inputs = inputs.to(<span class="hljs-number">0</span>)
+output = model.generate(inputs[<span class="hljs-string">&quot;input_ids&quot;</span>])
+tokenizer.decode(output[<span class="hljs-number">0</span>].tolist())<!-- HTML_TAG_END --></pre></div>
+<p>Behind the scenes, 🤗 Accelerate added hooks to the model, so that:</p>
+<ul><li>at each layer, the inputs are put on the right device (so even if your model is spread across several GPUs, it works)</li>
+<li>for the weights offloaded on the CPU, they are put on a GPU just before the forward pass, and cleaned up just after</li>
+<li>for the weights offloaded on the hard drive, they are loaded in RAM then put on a GPU just before the forward pass, and cleaned up just after</li></ul>
+<p>This way, you model can run for inference even if it doesn’t fit on one of the GPUs or the CPU RAM!</p>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>This only supports inference of your model, not training. Most of the computation happens behind <code>torch.no_grad()</code> context managers to avoid spending some GPU memory with intermediate activations.</p></div>
+<h3 class="relative group"><a id="designing-a-device-map" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#designing-a-device-map"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Designing a device map
+	</span></h3>
+
+<p>You can let 🤗 Accelerate handle the device map computation by setting <code>device_map</code> to one of the supported options (<code>&quot;auto&quot;</code>, <code>&quot;balanced&quot;</code>, <code>&quot;balanced_low_0&quot;</code>, <code>&quot;sequential&quot;</code>) or create one yourself, if you want more control over where each layer should go.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>You can derive all sizes of the model (and thus compute a <code>device_map</code>) on a model that is on the meta device.</p></div>
+<p>All the options will produce the same result when you don’t have enough GPU memory to accommodate the whole model (which is to fit everything that can on the GPU, then offload weights on the CPU or even on the disk if there is not enough RAM). </p>
+<p>When you have more GPU memory available than the model size, here the difference between each option:</p>
+<ul><li><code>&quot;auto&quot;</code> and <code>&quot;balanced&quot;</code> evenly split the model on all available GPUs, making it possible for you to use a batch size greater than 1.</li>
+<li><code>&quot;balanced_low_0&quot;</code> evenly splits the model on all GPUs except the first one, and only puts on GPU 0 what does not fit on the others. This option is great when you need to use GPU 0 for some processing of the outputs, like when using the <code>generate</code> function for Transformers models</li>
+<li><code>&quot;sequential&quot;</code> will fit what it can on GPU 0, then move on GPU 1 and so forth (so won’t use the last GPUs if it doesn’t need to).</li></ul>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>The options <code>&quot;auto&quot;</code> and <code>&quot;balanced&quot;</code> produce the same results for now, but the behavior of <code>&quot;auto&quot;</code> might change in the future if we find a strategy that makes more sense, while <code>&quot;balanced&quot;</code> will stay stable.</p></div>
+<p>First note that you can limit the memory used on each GPU by using the <code>max_memory</code> argument (available in <code>infer_auto_device_map()</code> and in all functions using it). When setting <code>max_memory</code>, you should pass along a dictionary containing the GPU identifiers (for instance <code>0</code>, <code>1</code> etc.) and the <code>&quot;cpu&quot;</code> key for the maximum RAM you want used for CPU offload. The values can either be an integer (in bytes) or a string representing a number with its unit, such as <code>&quot;10GiB&quot;</code> or <code>&quot;10GB&quot;</code>.</p>
+<p>Here is an example where we don’t want to use more than 10GiB on each of two GPUs and no more than 30GiB of CPU RAM for the model weights:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate <span class="hljs-keyword">import</span> infer_auto_device_map
+
+device_map = infer_auto_device_map(my_model, max_memory={<span class="hljs-number">0</span>: <span class="hljs-string">&quot;10GiB&quot;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&quot;10GiB&quot;</span>, <span class="hljs-string">&quot;cpu&quot;</span>: <span class="hljs-string">&quot;30GiB&quot;</span>})<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip course-tip-orange bg-gradient-to-br dark:bg-gradient-to-r before:border-orange-500 dark:before:border-orange-800 from-orange-50 dark:from-gray-900 to-white dark:to-gray-950 border border-orange-50 text-orange-700 dark:text-gray-400"><p>When a first allocation happens in PyTorch, it loads CUDA kernels which take about 1-2GB of memory depending on the GPU. Therefore you always have less usable memory than the actual size of the GPU. To see how much memory is actually used do <code>torch.ones(1).cuda()</code> and look at the memory usage.</p>
+<p>Therefore when you create memory maps with <code>max_memory</code> make sure to adjust the avaialble memory accordingly to avoid out-of-memory errors.</p></div>
+<p>Additionally, if you do some additional operations with your outputs without placing them back on the CPU (for instance inside the <code>generate</code> method of Transformers) and if you placed your inputs on a GPU, that GPU will consume more memory than the others (Accelerate always place the output back to the device of the input). Therefore if you would like to optimize the maximum batch size and you have many GPUs, give the first GPU less memory. For example, with BLOOM-176B on 8x80 A100 setup the close to ideal map is:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->max_memory = {<span class="hljs-number">0</span>: <span class="hljs-string">&quot;30GIB&quot;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&quot;46GIB&quot;</span>, <span class="hljs-number">2</span>: <span class="hljs-string">&quot;46GIB&quot;</span>, <span class="hljs-number">3</span>: <span class="hljs-string">&quot;46GIB&quot;</span>, <span class="hljs-number">4</span>: <span class="hljs-string">&quot;46GIB&quot;</span>, <span class="hljs-number">5</span>: <span class="hljs-string">&quot;46GIB&quot;</span>, <span class="hljs-number">6</span>: <span class="hljs-string">&quot;46GIB&quot;</span>, <span class="hljs-number">7</span>: <span class="hljs-string">&quot;46GIB&quot;</span>}<!-- HTML_TAG_END --></pre></div>
+<p>as you can see we gave the remaining 7 GPUs ~50% more memory than GPU 0.</p>
+<p>If you opt to fully design the <code>device_map</code> yourself, it should be a dictionary with keys being module names of your model and values being a valid device identifier (for instance an integer for the GPUs) or <code>&quot;cpu&quot;</code> for CPU offload, <code>&quot;disk&quot;</code> for disk offload. The keys need to cover the whole model, you can then define your device map as you wish: for instance if your model has two blocks (let’s say <code>block1</code> and <code>block2</code>) which each contain three linear layers (let’s say <code>linear1</code>, <code>linear2</code> and <code>linear3</code>), a valid device map can be:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->device_map = {<span class="hljs-string">&quot;block1&quot;</span>: <span class="hljs-number">0</span>, <span class="hljs-string">&quot;block2&quot;</span>: <span class="hljs-number">1</span>}<!-- HTML_TAG_END --></pre></div>
+<p>another one that is valid could be:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->device_map = {<span class="hljs-string">&quot;block1&quot;</span>: <span class="hljs-number">0</span>, <span class="hljs-string">&quot;block2.linear1&quot;</span>: <span class="hljs-number">0</span>, <span class="hljs-string">&quot;block2.linear2&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;block2.linear3&quot;</span>: <span class="hljs-number">1</span>}<!-- HTML_TAG_END --></pre></div>
+<p>On the other hand, this one is not valid as it does not cover every parameter of the model:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->device_map = {<span class="hljs-string">&quot;block1&quot;</span>: <span class="hljs-number">0</span>, <span class="hljs-string">&quot;block2.linear1&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;block2.linear2&quot;</span>: <span class="hljs-number">1</span>}<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>To be the most efficient, make sure your device map puts the parameters on the GPUs in a sequential manner (e.g. don’t put one of the first weights on GPU 0, then weights on GPU 1 and the last weight back to GPU 0) to avoid making many transfers of data between the GPUs.</p></div>
+<h2 class="relative group"><a id="limits-and-further-development" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#limits-and-further-development"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Limits and further development
+	</span></h2>
+
+<p>We are aware of the current limitations in the API:</p>
+<ul><li>While this could theoretically work on just one CPU with potential disk offload, you need at least one GPU to run this API. This will be fixed in further development.</li>
+<li><code>infer_auto_device_map()</code> (or <code>device_map=&quot;auto&quot;</code> in <a href="/docs/accelerate/v0.13.1/en/package_reference/big_modeling#accelerate.load_checkpoint_and_dispatch">load_checkpoint_and_dispatch()</a>) tries to maximize GPU and CPU RAM it sees available when you execute it. While PyTorch is very good at managing GPU RAM efficiently (and giving it back when not needed), it’s not entirely true with Python and CPU RAM. Therefore, an automatically computed device map might be too intense on the CPU. Move a few modules to the disk device if you get crashes due to lack of RAM.</li>
+<li><code>infer_auto_device_map()</code> (or <code>device_map=&quot;auto&quot;</code> in <a href="/docs/accelerate/v0.13.1/en/package_reference/big_modeling#accelerate.load_checkpoint_and_dispatch">load_checkpoint_and_dispatch()</a>) attributes devices sequentially (to avoid moving things back and forth) so if your first layer is bigger than the size of the GPU you have, it will end up with everything on the CPU/Disk.</li>
+<li><a href="/docs/accelerate/v0.13.1/en/package_reference/big_modeling#accelerate.load_checkpoint_and_dispatch">load_checkpoint_and_dispatch()</a> and <code>load_checkpoint_in_model()</code> do not perform any check on the correctness of your state dict compared to your model at the moment (this will be fixed in a future version), so you may get some weird errors if trying to load a checkpoint with mismatched or missing keys.</li>
+<li>The model parallelism used when your model is split on several GPUs is naive and not optimized, meaning that only one GPU works at a given time and the other sits idle.</li>
+<li>When weights are offloaded on the CPU/hard drive, there is no pre-fetching (yet, we will work on this for future versions) which means the weights are put on the GPU when they are needed and not before.</li>
+<li>Hard-drive offloading might be very slow if the hardware you run on does not have fast communication between disk and CPU (like NVMes).</li></ul>
+
+
+		<script type="module" data-hydrate="b5qpzm">
+		import { start } from "/docs/accelerate/v0.13.1/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="b5qpzm"]').parentNode,
+			paths: {"base":"/docs/accelerate/v0.13.1/en","assets":"/docs/accelerate/v0.13.1/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/accelerate/v0.13.1/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/accelerate/v0.13.1/en/_app/pages/usage_guides/big_modeling.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
