@@ -18,14 +18,14 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = model.config`}}),{c(){l=r("p"),_=s("Example:"),m=p(),v(u.$$.fragment)},l(c){l=n(c,"P",{});var g=a(l);_=i(g,"Example:"),g.forEach(o),m=h(c),b(u.$$.fragment,c)},m(c,g){T(c,l,g),e(l,_),T(c,m,g),$(u,c,g),C=!0},p:fo,i(c){C||(w(u.$$.fragment,c),C=!0)},o(c){M(u.$$.fragment,c),C=!1},d(c){c&&o(l),c&&o(m),y(u,c)}}}function is(E){let l,_,m,u,C,c,g,P;return{c(){l=r("p"),_=s(`This class method is simply calling the feature extractor
 `),m=r("a"),u=s("from_pretrained()"),C=s(` and the tokenizer
-`),c=r("code"),g=s("from_pretrained"),P=s(` methods. Please refer to the docstrings of the
+`),c=r("code"),g=s("~tokenization_utils_base.PreTrainedTokenizer.from_pretrained"),P=s(` methods. Please refer to the docstrings of the
 methods above for more information.`),this.h()},l(F){l=n(F,"P",{});var x=a(l);_=i(x,`This class method is simply calling the feature extractor
 `),m=n(x,"A",{href:!0});var j=a(m);u=i(j,"from_pretrained()"),j.forEach(o),C=i(x,` and the tokenizer
-`),c=n(x,"CODE",{});var q=a(c);g=i(q,"from_pretrained"),q.forEach(o),P=i(x,` methods. Please refer to the docstrings of the
+`),c=n(x,"CODE",{});var q=a(c);g=i(q,"~tokenization_utils_base.PreTrainedTokenizer.from_pretrained"),q.forEach(o),P=i(x,` methods. Please refer to the docstrings of the
 methods above for more information.`),x.forEach(o),this.h()},h(){d(m,"href","/docs/transformers/main/en/main_classes/feature_extractor#transformers.FeatureExtractionMixin.from_pretrained")},m(F,x){T(F,l,x),e(l,_),e(l,m),e(m,u),e(l,C),e(l,c),e(c,g),e(l,P)},d(F){F&&o(l)}}}function ls(E){let l,_,m,u,C,c,g,P;return{c(){l=r("p"),_=s("This class method is simply calling "),m=r("a"),u=s("save_pretrained()"),C=s(` and
-`),c=r("code"),g=s("save_pretrained"),P=s(`. Please refer to the docstrings of the methods
+`),c=r("code"),g=s("~tokenization_utils_base.PreTrainedTokenizer.save_pretrained"),P=s(`. Please refer to the docstrings of the methods
 above for more information.`),this.h()},l(F){l=n(F,"P",{});var x=a(l);_=i(x,"This class method is simply calling "),m=n(x,"A",{href:!0});var j=a(m);u=i(j,"save_pretrained()"),j.forEach(o),C=i(x,` and
-`),c=n(x,"CODE",{});var q=a(c);g=i(q,"save_pretrained"),q.forEach(o),P=i(x,`. Please refer to the docstrings of the methods
+`),c=n(x,"CODE",{});var q=a(c);g=i(q,"~tokenization_utils_base.PreTrainedTokenizer.save_pretrained"),q.forEach(o),P=i(x,`. Please refer to the docstrings of the methods
 above for more information.`),x.forEach(o),this.h()},h(){d(m,"href","/docs/transformers/main/en/main_classes/feature_extractor#transformers.FeatureExtractionMixin.save_pretrained")},m(F,x){T(F,l,x),e(l,_),e(l,m),e(m,u),e(l,C),e(l,c),e(c,g),e(l,P)},d(F){F&&o(l)}}}function cs(E){let l,_,m,u,C;return{c(){l=r("p"),_=s("Although the recipe for forward pass needs to be defined within this function, one should call the "),m=r("code"),u=s("Module"),C=s(`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
 the latter silently ignores them.`)},l(c){l=n(c,"P",{});var g=a(l);_=i(g,"Although the recipe for forward pass needs to be defined within this function, one should call the "),m=n(g,"CODE",{});var P=a(m);u=i(P,"Module"),P.forEach(o),C=i(g,`
@@ -222,7 +222,7 @@ namespaced under a user or organization name, like <code>dbmdz/bert-base-german-
 **kwargs &#x2014;
 Additional keyword arguments passed along to both
 <a href="/docs/transformers/main/en/main_classes/feature_extractor#transformers.FeatureExtractionMixin.from_pretrained">from_pretrained()</a> and
-<code>from_pretrained</code>.</li>
+<code>~tokenization_utils_base.PreTrainedTokenizer.from_pretrained</code>.</li>
 </ul>`,name:"pretrained_model_name_or_path"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/processing_utils.py#L152"}}),he=new Ro({props:{$$slots:{default:[is]},$$scope:{ctx:E}}}),Ue=new N({props:{name:"save_pretrained",anchor:"transformers.MCTCTProcessor.save_pretrained",parameters:[{name:"save_directory",val:""},{name:"push_to_hub",val:": bool = False"},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.MCTCTProcessor.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
 Directory where the feature extractor JSON file and the tokenizer files will be saved (directory will
 be created if it does not exist).`,name:"save_directory"},{anchor:"transformers.MCTCTProcessor.save_pretrained.push_to_hub",description:`<strong>push_to_hub</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;

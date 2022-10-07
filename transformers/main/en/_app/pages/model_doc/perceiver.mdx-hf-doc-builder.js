@@ -1258,7 +1258,7 @@ computationally infeasible, hence one only uses parts of the decoder queries to 
 representation. This is determined by the subsampled indices for each modality, which can be provided as additional
 input to the forward pass of `),xn=o("a"),Qv=a("PerceiverForMultimodalAutoencoding"),Yv=a("."),e_=l(),wr=o("p"),En=o("a"),t_=a("PerceiverMultimodalDecoder"),r_=a(` also pads the decoder queries of the different
 modalities to the same number of channels, in order to concatenate them along the time dimension. Next, cross-attention
-is performed with the latent representation of `),Fn=o("a"),o_=a("PerceiverModel"),s_=a("."),n_=l(),Fs=o("p"),a_=a("Finally, "),cc=o("code"),i_=a("PerceiverMultiModalPostprocessor"),c_=a(` is used to turn this tensor into an
+is performed with the latent representation of `),Fn=o("a"),o_=a("PerceiverModel"),s_=a("."),n_=l(),Fs=o("p"),a_=a("Finally, "),cc=o("code"),i_=a("~models.perceiver.modeling_perceiver.PerceiverMultiModalPostprocessor"),c_=a(` is used to turn this tensor into an
 actual video. It first splits up the output into the different modalities, and then applies the respective
 postprocessor for each modality.`),l_=l(),lc=o("p"),d_=a(`Note that, by masking the classification label during evaluation (i.e. simply providing a tensor of zeros for the
 \u201Clabel\u201D modality), this auto-encoding model becomes a Kinetics 700 video classifier.`),p_=l(),js=o("p"),m_=a("This model is a PyTorch "),Cs=o("a"),h_=a("torch.nn.Module"),u_=a(` sub-class. Use
@@ -1369,7 +1369,7 @@ computationally infeasible, hence one only uses parts of the decoder queries to 
 representation. This is determined by the subsampled indices for each modality, which can be provided as additional
 input to the forward pass of `),xn=s(Os,"A",{href:!0});var nw=n(xn);Qv=i(nw,"PerceiverForMultimodalAutoencoding"),nw.forEach(r),Yv=i(Os,"."),Os.forEach(r),e_=d(I),wr=s(I,"P",{});var Tc=n(wr);En=s(Tc,"A",{href:!0});var aw=n(En);t_=i(aw,"PerceiverMultimodalDecoder"),aw.forEach(r),r_=i(Tc,` also pads the decoder queries of the different
 modalities to the same number of channels, in order to concatenate them along the time dimension. Next, cross-attention
-is performed with the latent representation of `),Fn=s(Tc,"A",{href:!0});var iw=n(Fn);o_=i(iw,"PerceiverModel"),iw.forEach(r),s_=i(Tc,"."),Tc.forEach(r),n_=d(I),Fs=s(I,"P",{});var Qd=n(Fs);a_=i(Qd,"Finally, "),cc=s(Qd,"CODE",{});var cw=n(cc);i_=i(cw,"PerceiverMultiModalPostprocessor"),cw.forEach(r),c_=i(Qd,` is used to turn this tensor into an
+is performed with the latent representation of `),Fn=s(Tc,"A",{href:!0});var iw=n(Fn);o_=i(iw,"PerceiverModel"),iw.forEach(r),s_=i(Tc,"."),Tc.forEach(r),n_=d(I),Fs=s(I,"P",{});var Qd=n(Fs);a_=i(Qd,"Finally, "),cc=s(Qd,"CODE",{});var cw=n(cc);i_=i(cw,"~models.perceiver.modeling_perceiver.PerceiverMultiModalPostprocessor"),cw.forEach(r),c_=i(Qd,` is used to turn this tensor into an
 actual video. It first splits up the output into the different modalities, and then applies the respective
 postprocessor for each modality.`),Qd.forEach(r),l_=d(I),lc=s(I,"P",{});var lw=n(lc);d_=i(lw,`Note that, by masking the classification label during evaluation (i.e. simply providing a tensor of zeros for the
 \u201Clabel\u201D modality), this auto-encoding model becomes a Kinetics 700 video classifier.`),lw.forEach(r),p_=d(I),js=s(I,"P",{});var Yd=n(js);m_=i(Yd,"This model is a PyTorch "),Cs=s(Yd,"A",{href:!0,rel:!0});var dw=n(Cs);h_=i(dw,"torch.nn.Module"),dw.forEach(r),u_=i(Yd,` sub-class. Use

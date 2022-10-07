@@ -800,11 +800,11 @@ similarity scores.</li>
 <a
   href="/docs/transformers/main/en/model_doc/clip#transformers.TFCLIPVisionModel"
 >TFCLIPVisionModel</a>.</li>
-<li><strong>text_model_output(<code>TFBaseModelOutputWithPooling</code>):</strong>
+<li><strong>text_model_output(<code>~modeling_tf_utils.TFBaseModelOutputWithPooling</code>):</strong>
 The output of the <a
   href="/docs/transformers/main/en/model_doc/clip#transformers.TFCLIPTextModel"
 >TFCLIPTextModel</a>.</li>
-<li><strong>vision_model_output(<code>TFBaseModelOutputWithPooling</code>):</strong>
+<li><strong>vision_model_output(<code>~modeling_tf_utils.TFBaseModelOutputWithPooling</code>):</strong>
 The output of the <a
   href="/docs/transformers/main/en/model_doc/clip#transformers.TFCLIPVisionModel"
 >TFCLIPVisionModel</a>.</li>
