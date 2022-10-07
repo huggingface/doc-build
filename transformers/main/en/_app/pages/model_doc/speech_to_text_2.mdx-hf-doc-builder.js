@@ -18,14 +18,14 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = model.config`}}),{c(){f=a("p"),E=r("Example:"),u=l(),g(_.$$.fragment)},l(m){f=n(m,"P",{});var S=i(f);E=s(S,"Example:"),S.forEach(o),u=d(m),v(_.$$.fragment,m)},m(m,S){h(m,f,S),e(f,E),h(m,u,S),T(_,m,S),w=!0},p:Hi,i(m){w||(x(_.$$.fragment,m),w=!0)},o(m){k(_.$$.fragment,m),w=!1},d(m){m&&o(f),m&&o(u),b(_,m)}}}function Zi(H){let f,E,u,_,w,m,S,D;return{c(){f=a("p"),E=r(`This class method is simply calling the feature extractor
 `),u=a("a"),_=r("from_pretrained()"),w=r(` and the tokenizer
-`),m=a("code"),S=r("from_pretrained"),D=r(` methods. Please refer to the docstrings of the
+`),m=a("code"),S=r("~tokenization_utils_base.PreTrainedTokenizer.from_pretrained"),D=r(` methods. Please refer to the docstrings of the
 methods above for more information.`),this.h()},l(q){f=n(q,"P",{});var $=i(f);E=s($,`This class method is simply calling the feature extractor
 `),u=n($,"A",{href:!0});var M=i(u);_=s(M,"from_pretrained()"),M.forEach(o),w=s($,` and the tokenizer
-`),m=n($,"CODE",{});var F=i(m);S=s(F,"from_pretrained"),F.forEach(o),D=s($,` methods. Please refer to the docstrings of the
+`),m=n($,"CODE",{});var F=i(m);S=s(F,"~tokenization_utils_base.PreTrainedTokenizer.from_pretrained"),F.forEach(o),D=s($,` methods. Please refer to the docstrings of the
 methods above for more information.`),$.forEach(o),this.h()},h(){c(u,"href","/docs/transformers/main/en/main_classes/feature_extractor#transformers.FeatureExtractionMixin.from_pretrained")},m(q,$){h(q,f,$),e(f,E),e(f,u),e(u,_),e(f,w),e(f,m),e(m,S),e(f,D)},d(q){q&&o(f)}}}function ec(H){let f,E,u,_,w,m,S,D;return{c(){f=a("p"),E=r("This class method is simply calling "),u=a("a"),_=r("save_pretrained()"),w=r(` and
-`),m=a("code"),S=r("save_pretrained"),D=r(`. Please refer to the docstrings of the methods
+`),m=a("code"),S=r("~tokenization_utils_base.PreTrainedTokenizer.save_pretrained"),D=r(`. Please refer to the docstrings of the methods
 above for more information.`),this.h()},l(q){f=n(q,"P",{});var $=i(f);E=s($,"This class method is simply calling "),u=n($,"A",{href:!0});var M=i(u);_=s(M,"save_pretrained()"),M.forEach(o),w=s($,` and
-`),m=n($,"CODE",{});var F=i(m);S=s(F,"save_pretrained"),F.forEach(o),D=s($,`. Please refer to the docstrings of the methods
+`),m=n($,"CODE",{});var F=i(m);S=s(F,"~tokenization_utils_base.PreTrainedTokenizer.save_pretrained"),F.forEach(o),D=s($,`. Please refer to the docstrings of the methods
 above for more information.`),$.forEach(o),this.h()},h(){c(u,"href","/docs/transformers/main/en/main_classes/feature_extractor#transformers.FeatureExtractionMixin.save_pretrained")},m(q,$){h(q,f,$),e(f,E),e(f,u),e(u,_),e(f,w),e(f,m),e(m,S),e(f,D)},d(q){q&&o(f)}}}function tc(H){let f,E,u,_,w;return _=new $r({props:{code:`from transformers import (
     SpeechEncoderDecoderModel,
     Speech2Text2ForCausalLM,
@@ -215,7 +215,7 @@ namespaced under a user or organization name, like <code>dbmdz/bert-base-german-
 **kwargs &#x2014;
 Additional keyword arguments passed along to both
 <a href="/docs/transformers/main/en/main_classes/feature_extractor#transformers.FeatureExtractionMixin.from_pretrained">from_pretrained()</a> and
-<code>from_pretrained</code>.</li>
+<code>~tokenization_utils_base.PreTrainedTokenizer.from_pretrained</code>.</li>
 </ul>`,name:"pretrained_model_name_or_path"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/processing_utils.py#L152"}}),_e=new Ri({props:{$$slots:{default:[Zi]},$$scope:{ctx:H}}}),rt=new V({props:{name:"save_pretrained",anchor:"transformers.Speech2Text2Processor.save_pretrained",parameters:[{name:"save_directory",val:""},{name:"push_to_hub",val:": bool = False"},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.Speech2Text2Processor.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
 Directory where the feature extractor JSON file and the tokenizer files will be saved (directory will
 be created if it does not exist).`,name:"save_directory"},{anchor:"transformers.Speech2Text2Processor.save_pretrained.push_to_hub",description:`<strong>push_to_hub</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
