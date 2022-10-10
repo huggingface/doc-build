@@ -56,7 +56,6 @@ from PIL import Image
 import requests
 
 torch.manual_seed(2)
-
 url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 image = Image.open(requests.get(url, stream=True).raw)
 
@@ -74,7 +73,6 @@ print(model.config.id2label[predicted_label])`,highlighted:`<span class="hljs-me
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> requests
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>torch.manual_seed(<span class="hljs-number">2</span>)
-
 <span class="hljs-meta">&gt;&gt;&gt; </span>url = <span class="hljs-string">&quot;http://images.cocodataset.org/val2017/000000039769.jpg&quot;</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>image = Image.<span class="hljs-built_in">open</span>(requests.get(url, stream=<span class="hljs-literal">True</span>).raw)
 
