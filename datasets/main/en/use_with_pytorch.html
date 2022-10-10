@@ -97,26 +97,53 @@ In particular, a PyTorch formatted dataset outputs nested lists instead of a sin
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
 	Copied</div></button></div>
 	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> Dataset, Features, ClassLabel
-<span class="hljs-meta">&gt;&gt;&gt; </span>data = [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>features = Features({<span class="hljs-string">&quot;data&quot;</span>: ClassLabel(names=[<span class="hljs-string">&quot;negative&quot;</span>, <span class="hljs-string">&quot;positive&quot;</span>])})
-<span class="hljs-meta">&gt;&gt;&gt; </span>ds = Dataset.from_dict({<span class="hljs-string">&quot;data&quot;</span>: data}, features=features) 
+<span class="hljs-meta">&gt;&gt;&gt; </span>labels = [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>features = Features({<span class="hljs-string">&quot;label&quot;</span>: ClassLabel(names=[<span class="hljs-string">&quot;negative&quot;</span>, <span class="hljs-string">&quot;positive&quot;</span>])})
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds = Dataset.from_dict({<span class="hljs-string">&quot;label&quot;</span>: labels}, features=features) 
 <span class="hljs-meta">&gt;&gt;&gt; </span>ds = ds.with_format(<span class="hljs-string">&quot;torch&quot;</span>)  
 <span class="hljs-meta">&gt;&gt;&gt; </span>ds[:<span class="hljs-number">3</span>]
-{<span class="hljs-string">&#x27;data&#x27;</span>: tensor([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>])}<!-- HTML_TAG_END --></pre></div>
-<p>However, since it’s not possible to convert text data to PyTorch tensors, you can’t format a <code>string</code> column to PyTorch.
-Instead, you can explicitly format certain columns and leave the other columns unformatted:</p>
+{<span class="hljs-string">&#x27;label&#x27;</span>: tensor([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>])}<!-- HTML_TAG_END --></pre></div>
+<p>String and binary objects are unchanged, since PyTorch only supports numbers.</p>
+<p>The <a href="/docs/datasets/main/en/package_reference/main_classes#datasets.Image">Image</a> and <a href="/docs/datasets/main/en/package_reference/main_classes#datasets.Audio">Audio</a> feature types are also supported:</p>
 
 	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
 	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
 	Copied</div></button></div>
-	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> Dataset, Features 
-<span class="hljs-meta">&gt;&gt;&gt; </span>text = [<span class="hljs-string">&quot;foo&quot;</span>, <span class="hljs-string">&quot;bar&quot;</span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>data = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>] 
-<span class="hljs-meta">&gt;&gt;&gt; </span>ds = Dataset.from_dict({<span class="hljs-string">&quot;text&quot;</span>: text, <span class="hljs-string">&quot;data&quot;</span>: data})  
-<span class="hljs-meta">&gt;&gt;&gt; </span>ds = ds.with_format(<span class="hljs-string">&quot;torch&quot;</span>, columns=[<span class="hljs-string">&quot;data&quot;</span>], output_all_columns=<span class="hljs-literal">True</span>) 
-<span class="hljs-meta">&gt;&gt;&gt; </span>ds[:<span class="hljs-number">2</span>]                                                                                                                                                     
-{<span class="hljs-string">&#x27;data&#x27;</span>: tensor([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]), <span class="hljs-string">&#x27;text&#x27;</span>: [<span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-string">&#x27;bar&#x27;</span>]}<!-- HTML_TAG_END --></pre></div>
-<p>The <a href="/docs/datasets/main/en/package_reference/main_classes#datasets.Image">Image</a> and <a href="/docs/datasets/main/en/package_reference/main_classes#datasets.Audio">Audio</a> feature types are not supported yet.</p>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> Dataset, Features, Audio, Image
+<span class="hljs-meta">&gt;&gt;&gt; </span>images = [<span class="hljs-string">&quot;path/to/image.png&quot;</span>] * <span class="hljs-number">10</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>features = Features({<span class="hljs-string">&quot;image&quot;</span>: Image()})
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds = Dataset.from_dict({<span class="hljs-string">&quot;image&quot;</span>: images}, features=features) 
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds = ds.with_format(<span class="hljs-string">&quot;torch&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;image&quot;</span>].shape
+torch.Size([<span class="hljs-number">512</span>, <span class="hljs-number">512</span>, <span class="hljs-number">4</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds[<span class="hljs-number">0</span>]
+{<span class="hljs-string">&#x27;image&#x27;</span>: tensor([[[<span class="hljs-number">255</span>, <span class="hljs-number">215</span>, <span class="hljs-number">106</span>, <span class="hljs-number">255</span>],
+         [<span class="hljs-number">255</span>, <span class="hljs-number">215</span>, <span class="hljs-number">106</span>, <span class="hljs-number">255</span>],
+         ...,
+         [<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>],
+         [<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>]]], dtype=torch.uint8)}
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds[:<span class="hljs-number">2</span>][<span class="hljs-string">&quot;image&quot;</span>].shape
+torch.Size([<span class="hljs-number">2</span>, <span class="hljs-number">512</span>, <span class="hljs-number">512</span>, <span class="hljs-number">4</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds[:<span class="hljs-number">2</span>]
+{<span class="hljs-string">&#x27;image&#x27;</span>: tensor([[[[<span class="hljs-number">255</span>, <span class="hljs-number">215</span>, <span class="hljs-number">106</span>, <span class="hljs-number">255</span>],
+          [<span class="hljs-number">255</span>, <span class="hljs-number">215</span>, <span class="hljs-number">106</span>, <span class="hljs-number">255</span>],
+          ...,
+          [<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>],
+          [<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>]]]], dtype=torch.uint8)}<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> Dataset, Features, Audio, Image
+<span class="hljs-meta">&gt;&gt;&gt; </span>audio = [<span class="hljs-string">&quot;path/to/audio.wav&quot;</span>] * <span class="hljs-number">10</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>features = Features({<span class="hljs-string">&quot;audio&quot;</span>: Audio()})
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds = Dataset.from_dict({<span class="hljs-string">&quot;audio&quot;</span>: audio}, features=features) 
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds = ds.with_format(<span class="hljs-string">&quot;torch&quot;</span>)  
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;audio&quot;</span>][<span class="hljs-string">&quot;array&quot;</span>]
+tensor([ <span class="hljs-number">6.1035e-05</span>,  <span class="hljs-number">1.5259e-05</span>,  <span class="hljs-number">1.6785e-04</span>,  ..., -<span class="hljs-number">1.5259e-05</span>,
+        -<span class="hljs-number">1.5259e-05</span>,  <span class="hljs-number">1.5259e-05</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>ds[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;audio&quot;</span>][<span class="hljs-string">&quot;sampling_rate&quot;</span>]
+tensor(<span class="hljs-number">44100</span>)<!-- HTML_TAG_END --></pre></div>
 <h2 class="relative group"><a id="data-loading" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#data-loading"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
 	<span>Data loading
 	</span></h2>
@@ -222,10 +249,10 @@ Set the format of a streaming dataset to <code>torch</code>, and it inherits fro
 <p>In this case each worker will be given a subset of the list of shards to stream from.</p>
 
 
-		<script type="module" data-hydrate="1qc13vw">
+		<script type="module" data-hydrate="1hgb6sn">
 		import { start } from "/docs/datasets/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="1qc13vw"]').parentNode,
+			target: document.querySelector('[data-hydrate="1hgb6sn"]').parentNode,
 			paths: {"base":"/docs/datasets/main/en","assets":"/docs/datasets/main/en"},
 			session: {},
 			route: false,
