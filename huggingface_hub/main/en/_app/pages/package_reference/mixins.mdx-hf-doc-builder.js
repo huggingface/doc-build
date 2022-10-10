@@ -73,7 +73,7 @@ saving it. You can specify the repository you want to push to with
 namespace).
 kwargs &#x2014;
 Additional key word arguments passed along to the
-<code>push_to_hub</code> method.`,name:"push_to_hub"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/hub_mixin.py#L31"}}),be=new yo({}),ve=new K({props:{name:"huggingface_hub.from_pretrained_keras",anchor:"huggingface_hub.from_pretrained_keras",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"huggingface_hub.from_pretrained_keras.pretrained_model_name_or_path",description:`<strong>pretrained_model_name_or_path</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
+<code>~utils.PushToHubMixin.push_to_hub</code> method.`,name:"push_to_hub"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/hub_mixin.py#L31"}}),be=new yo({}),ve=new K({props:{name:"huggingface_hub.from_pretrained_keras",anchor:"huggingface_hub.from_pretrained_keras",parameters:[{name:"*args",val:""},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"huggingface_hub.from_pretrained_keras.pretrained_model_name_or_path",description:`<strong>pretrained_model_name_or_path</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
 Can be either:<ul>
 <li>A string, the <code>model id</code> of a pretrained model hosted inside a
 model repo on huggingface.co. Valid model ids can be located
