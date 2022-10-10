@@ -449,7 +449,7 @@ Can be either:</p>
 <li>A string, the <em>model id</em> of a pretrained model hosted inside a model repo on huggingface.co.
 Valid model ids can be located at the root-level, like <code>bert-base-uncased</code>, or namespaced under a
 user or organization name, like <code>dbmdz/bert-base-german-cased</code>.</li>
-<li>A path to a <em>directory</em> containing a model saved using <code>save_pretrained</code>,
+<li>A path to a <em>directory</em> containing a model saved using <code>~OptimizedModel.save_pretrained</code>,
 e.g., <code>./my_model_directory/</code>.</li>
 </ul>`,name:"model_id"},{anchor:"optimum.onnxruntime.ORTModel.from_pretrained.from_transformers",description:`<strong>from_transformers</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Defines whether the provided <code>model_id</code> contains a vanilla Transformers checkpoint.`,name:"from_transformers"},{anchor:"optimum.onnxruntime.ORTModel.from_pretrained.force_download",description:`<strong>force_download</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
