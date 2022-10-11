@@ -179,6 +179,7 @@ instance afterwards instead of this since the former takes care of running the p
 the latter silently ignores them.`),p.forEach(o)},m(n,p){v(n,l,p),e(l,T),e(l,u),e(u,c),e(l,f)},d(n){n&&o(l)}}}function gp(k){let l,T,u,c,f;return c=new ie({props:{code:`from PIL import Image
 import requests
 from transformers import AutoProcessor, TFGroupViTModel
+import tensorflow as tf
 
 model = TFGroupViTModel.from_pretrained("nvidia/groupvit-gcc-yfcc")
 processor = AutoProcessor.from_pretrained("nvidia/groupvit-gcc-yfcc")
@@ -192,9 +193,10 @@ inputs = processor(
 
 outputs = model(**inputs)
 logits_per_image = outputs.logits_per_image  # this is the image-text similarity score
-probs = logits_per_image.softmax(dim=1)  # we can take the softmax to get the label probabilities`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
+probs = tf.math.softmax(logits_per_image, axis=1)  # we can take the softmax to get the label probabilities`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> requests
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoProcessor, TFGroupViTModel
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = TFGroupViTModel.from_pretrained(<span class="hljs-string">&quot;nvidia/groupvit-gcc-yfcc&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>processor = AutoProcessor.from_pretrained(<span class="hljs-string">&quot;nvidia/groupvit-gcc-yfcc&quot;</span>)
@@ -208,7 +210,7 @@ probs = logits_per_image.softmax(dim=1)  # we can take the softmax to get the la
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)
 <span class="hljs-meta">&gt;&gt;&gt; </span>logits_per_image = outputs.logits_per_image  <span class="hljs-comment"># this is the image-text similarity score</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>probs = logits_per_image.softmax(dim=<span class="hljs-number">1</span>)  <span class="hljs-comment"># we can take the softmax to get the label probabilities</span>`}}),{c(){l=a("p"),T=r("Examples:"),u=h(),$(c.$$.fragment)},l(n){l=i(n,"P",{});var p=d(l);T=s(p,"Examples:"),p.forEach(o),u=g(n),y(c.$$.fragment,n)},m(n,p){v(n,l,p),e(l,T),v(n,u,p),b(c,n,p),f=!0},p:ae,i(n){f||(w(c.$$.fragment,n),f=!0)},o(n){V(c.$$.fragment,n),f=!1},d(n){n&&o(l),n&&o(u),x(c,n)}}}function _p(k){let l,T,u,c,f;return{c(){l=a("p"),T=r("Although the recipe for forward pass needs to be defined within this function, one should call the "),u=a("code"),c=r("Module"),f=r(`
+<span class="hljs-meta">&gt;&gt;&gt; </span>probs = tf.math.softmax(logits_per_image, axis=<span class="hljs-number">1</span>)  <span class="hljs-comment"># we can take the softmax to get the label probabilities</span>`}}),{c(){l=a("p"),T=r("Examples:"),u=h(),$(c.$$.fragment)},l(n){l=i(n,"P",{});var p=d(l);T=s(p,"Examples:"),p.forEach(o),u=g(n),y(c.$$.fragment,n)},m(n,p){v(n,l,p),e(l,T),v(n,u,p),b(c,n,p),f=!0},p:ae,i(n){f||(w(c.$$.fragment,n),f=!0)},o(n){V(c.$$.fragment,n),f=!1},d(n){n&&o(l),n&&o(u),x(c,n)}}}function _p(k){let l,T,u,c,f;return{c(){l=a("p"),T=r("Although the recipe for forward pass needs to be defined within this function, one should call the "),u=a("code"),c=r("Module"),f=r(`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
 the latter silently ignores them.`)},l(n){l=i(n,"P",{});var p=d(l);T=s(p,"Although the recipe for forward pass needs to be defined within this function, one should call the "),u=i(p,"CODE",{});var G=d(u);c=s(G,"Module"),G.forEach(o),f=s(p,`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
