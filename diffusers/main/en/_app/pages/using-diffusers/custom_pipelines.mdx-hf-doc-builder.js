@@ -49,24 +49,24 @@ class MyPipeline(DiffusionPipeline):
         # Sample gaussian noise to begin loop
         image = torch.randn((batch_size, self.unet.in_channels, self.unet.sample_size, self.unet.sample_size))
 
-    image = image.to(self.device)
+        image = image.to(self.device)
 
-    # set step values
-    self.scheduler.set_timesteps(num_inference_steps)
+        # set step values
+        self.scheduler.set_timesteps(num_inference_steps)
 
-    for t in self.progress_bar(self.scheduler.timesteps):
-        # 1. predict noise model_output
-        model_output = self.unet(image, t).sample
+        for t in self.progress_bar(self.scheduler.timesteps):
+            # 1. predict noise model_output
+            model_output = self.unet(image, t).sample
 
-        # 2. predict previous mean of image x_t-1 and add variance depending on eta
-        # eta corresponds to \u03B7 in paper and should be between [0, 1]
-        # do x_t -> x_t-1
-        image = self.scheduler.step(model_output, t, image, eta).prev_sample
+            # 2. predict previous mean of image x_t-1 and add variance depending on eta
+            # eta corresponds to \u03B7 in paper and should be between [0, 1]
+            # do x_t -> x_t-1
+            image = self.scheduler.step(model_output, t, image, eta).prev_sample
 
-    image = (image / 2 + 0.5).clamp(0, 1)
-    image = image.cpu().permute(0, 2, 3, 1).numpy()
+        image = (image / 2 + 0.5).clamp(0, 1)
+        image = image.cpu().permute(0, 2, 3, 1).numpy()
 
-    return image`,highlighted:`<span class="hljs-keyword">import</span> torch
+        return image`,highlighted:`<span class="hljs-keyword">import</span> torch
 <span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline
 
 
@@ -81,24 +81,24 @@ class MyPipeline(DiffusionPipeline):
         <span class="hljs-comment"># Sample gaussian noise to begin loop</span>
         image = torch.randn((batch_size, self.unet.in_channels, self.unet.sample_size, self.unet.sample_size))
 
-    image = image.to(self.device)
+        image = image.to(self.device)
 
-    <span class="hljs-comment"># set step values</span>
-    self.scheduler.set_timesteps(num_inference_steps)
+        <span class="hljs-comment"># set step values</span>
+        self.scheduler.set_timesteps(num_inference_steps)
 
-    <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> self.progress_bar(self.scheduler.timesteps):
-        <span class="hljs-comment"># 1. predict noise model_output</span>
-        model_output = self.unet(image, t).sample
+        <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> self.progress_bar(self.scheduler.timesteps):
+            <span class="hljs-comment"># 1. predict noise model_output</span>
+            model_output = self.unet(image, t).sample
 
-        <span class="hljs-comment"># 2. predict previous mean of image x_t-1 and add variance depending on eta</span>
-        <span class="hljs-comment"># eta corresponds to \u03B7 in paper and should be between [0, 1]</span>
-        <span class="hljs-comment"># do x_t -&gt; x_t-1</span>
-        image = self.scheduler.step(model_output, t, image, eta).prev_sample
+            <span class="hljs-comment"># 2. predict previous mean of image x_t-1 and add variance depending on eta</span>
+            <span class="hljs-comment"># eta corresponds to \u03B7 in paper and should be between [0, 1]</span>
+            <span class="hljs-comment"># do x_t -&gt; x_t-1</span>
+            image = self.scheduler.step(model_output, t, image, eta).prev_sample
 
-    image = (image / <span class="hljs-number">2</span> + <span class="hljs-number">0.5</span>).clamp(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>)
-    image = image.cpu().permute(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>).numpy()
+        image = (image / <span class="hljs-number">2</span> + <span class="hljs-number">0.5</span>).clamp(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>)
+        image = image.cpu().permute(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>).numpy()
 
-    <span class="hljs-keyword">return</span> image`}}),ie=new oi({props:{code:`my_pipeline = DiffusionPipeline.from_pretrained(
+        <span class="hljs-keyword">return</span> image`}}),ie=new oi({props:{code:`my_pipeline = DiffusionPipeline.from_pretrained(
     "google/ddpm-cifar10-32", custom_pipeline="patrickvonplaten/my_custom_pipeline"
 )`,highlighted:`my_pipeline = DiffusionPipeline.from_pretrained(
     <span class="hljs-string">&quot;google/ddpm-cifar10-32&quot;</span>, custom_pipeline=<span class="hljs-string">&quot;patrickvonplaten/my_custom_pipeline&quot;</span>
