@@ -74,12 +74,12 @@ dataset = Dataset.from_list(my_list)`,highlighted:`<span class="hljs-meta">&gt;&
 def my_gen():
     for i in range(1, 4):
         yield {"a": i}
-dataset = Dataset.from_generator(my_dict)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> Dataset
+dataset = Dataset.from_generator(my_gen)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> Dataset
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">my_gen</span>():
 <span class="hljs-meta">... </span>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>):
 <span class="hljs-meta">... </span>        <span class="hljs-keyword">yield</span> {<span class="hljs-string">&quot;a&quot;</span>: i}
 ...
-<span class="hljs-meta">&gt;&gt;&gt; </span>dataset = Dataset.from_generator(my_dict)`}}),ks=new A({}),Es=new E({props:{code:`from datasets import Dataset
+<span class="hljs-meta">&gt;&gt;&gt; </span>dataset = Dataset.from_generator(my_gen)`}}),ks=new A({}),Es=new E({props:{code:`from datasets import Dataset
 import pandas as pd
 df = pd.DataFrame({"a": [1, 2, 3]})
 dataset = Dataset.from_pandas(df)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> Dataset
