@@ -1,18 +1,18 @@
-import{S as Fh,i as Eh,s as kh,e as a,k as m,w,t as r,M as Mh,c as n,d as t,m as p,a as s,x,h as i,b as d,N as Ih,G as e,g as _,y as $,q as y,o as T,B,v as jh,L as Bt}from"../../chunks/vendor-hf-doc-builder.js";import{T as yt}from"../../chunks/Tip-hf-doc-builder.js";import{D as k}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Ft}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Q}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Tt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Ph(F){let c,v,g,f,b;return f=new Ft({props:{code:`from transformers import BeitModel, BeitConfig
+import{S as Fh,i as Eh,s as kh,e as a,k as m,w,t as r,M as Mh,c as n,d as t,m as p,a as s,x,h as i,b as d,N as Ih,G as e,g as _,y as $,q as y,o as T,B,v as jh,L as Bt}from"../../chunks/vendor-hf-doc-builder.js";import{T as yt}from"../../chunks/Tip-hf-doc-builder.js";import{D as k}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Ft}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Q}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Tt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Ph(F){let c,v,g,f,b;return f=new Ft({props:{code:`from transformers import BeitConfig, BeitModel
 
 # Initializing a BEiT beit-base-patch16-224-pt22k style configuration
 configuration = BeitConfig()
 
-# Initializing a model from the beit-base-patch16-224-pt22k style configuration
+# Initializing a model (with random weights) from the beit-base-patch16-224-pt22k style configuration
 model = BeitModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BeitModel, BeitConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BeitConfig, BeitModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a BEiT beit-base-patch16-224-pt22k style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = BeitConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the beit-base-patch16-224-pt22k style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the beit-base-patch16-224-pt22k style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = BeitModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
