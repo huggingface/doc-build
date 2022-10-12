@@ -1,18 +1,18 @@
-import{S as W7,i as H7,s as K7,e as s,k as c,w as T,t as o,M as R7,c as r,d as t,m as p,a,x as v,h as n,b as u,G as e,g as _,y as w,q as $,o as x,B as F,v as Q7,L as ie}from"../../chunks/vendor-hf-doc-builder.js";import{T as Se}from"../../chunks/Tip-hf-doc-builder.js";import{D as A}from"../../chunks/Docstring-hf-doc-builder.js";import{C as le}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Ue}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as ae}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function V7(B){let d,g,m,f,b;return f=new le({props:{code:`from transformers import BertModel, BertConfig
+import{S as W7,i as H7,s as K7,e as s,k as c,w as T,t as o,M as R7,c as r,d as t,m as p,a,x as v,h as n,b as u,G as e,g as _,y as w,q as $,o as x,B as F,v as Q7,L as ie}from"../../chunks/vendor-hf-doc-builder.js";import{T as Se}from"../../chunks/Tip-hf-doc-builder.js";import{D as A}from"../../chunks/Docstring-hf-doc-builder.js";import{C as le}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Ue}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as ae}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function V7(B){let d,g,m,f,b;return f=new le({props:{code:`from transformers import BertConfig, BertModel
 
 # Initializing a BERT bert-base-uncased style configuration
 configuration = BertConfig()
 
-# Initializing a model from the bert-base-uncased style configuration
+# Initializing a model (with random weights) from the bert-base-uncased style configuration
 model = BertModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertModel, BertConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertConfig, BertModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a BERT bert-base-uncased style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = BertConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the bert-base-uncased style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the bert-base-uncased style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = BertModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
