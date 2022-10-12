@@ -10,7 +10,7 @@ albert_base_configuration = AlbertConfig(
     intermediate_size=3072,
 )
 
-# Initializing a model from the ALBERT-base style configuration
+# Initializing a model (with random weights) from the ALBERT-base style configuration
 model = AlbertModel(albert_xxlarge_configuration)
 
 # Accessing the model configuration
@@ -26,7 +26,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">... </span>    intermediate_size=<span class="hljs-number">3072</span>,
 <span class="hljs-meta">... </span>)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the ALBERT-base style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the ALBERT-base style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = AlbertModel(albert_xxlarge_configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>

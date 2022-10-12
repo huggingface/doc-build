@@ -1,18 +1,18 @@
-import{S as sl,i as al,s as il,e as n,k as h,w as k,t as a,M as dl,c as r,d as o,m as p,a as s,x as w,h as i,b as c,G as e,g,y,q as T,o as $,B as W,v as cl,L as Hn}from"../../chunks/vendor-hf-doc-builder.js";import{T as Zo}from"../../chunks/Tip-hf-doc-builder.js";import{D as E}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Un}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as oe}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Rn}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function ll(F){let l,b,f,_,v;return _=new Un({props:{code:`from transformers import WhisperModel, WhisperConfig
+import{S as sl,i as al,s as il,e as n,k as h,w as k,t as a,M as dl,c as r,d as o,m as p,a as s,x as w,h as i,b as c,G as e,g,y,q as T,o as $,B as W,v as cl,L as Hn}from"../../chunks/vendor-hf-doc-builder.js";import{T as Zo}from"../../chunks/Tip-hf-doc-builder.js";import{D as E}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Un}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as oe}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Rn}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function ll(F){let l,b,f,_,v;return _=new Un({props:{code:`from transformers import WhisperConfig, WhisperModel
 
 # Initializing a Whisper tiny style configuration
 configuration = WhisperConfig()
 
-# Initializing a model from the tiny style configuration
+# Initializing a model (with random weights) from the tiny style configuration
 model = WhisperModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> WhisperModel, WhisperConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> WhisperConfig, WhisperModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Whisper tiny style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = WhisperConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the tiny style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the tiny style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = WhisperModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
