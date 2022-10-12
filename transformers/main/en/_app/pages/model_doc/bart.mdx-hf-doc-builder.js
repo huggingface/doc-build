@@ -1,18 +1,18 @@
-import{S as _w,i as gw,s as bw,e as a,k as u,w as y,t as i,M as kw,c as s,d as t,m as h,a as r,x as v,h as d,b as f,G as e,g as k,y as T,q as w,o as $,B as x,v as yw,L as P}from"../../chunks/vendor-hf-doc-builder.js";import{T as Se}from"../../chunks/Tip-hf-doc-builder.js";import{D as q}from"../../chunks/Docstring-hf-doc-builder.js";import{C as M}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Z}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function vw(F){let l,g,m,p,_;return p=new M({props:{code:`from transformers import BartModel, BartConfig
+import{S as _w,i as gw,s as bw,e as a,k as u,w as y,t as i,M as kw,c as s,d as t,m as h,a as r,x as v,h as d,b as f,G as e,g as k,y as T,q as w,o as $,B as x,v as yw,L as P}from"../../chunks/vendor-hf-doc-builder.js";import{T as Se}from"../../chunks/Tip-hf-doc-builder.js";import{D as q}from"../../chunks/Docstring-hf-doc-builder.js";import{C as M}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Z}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function vw(F){let l,g,m,p,_;return p=new M({props:{code:`from transformers import BartConfig, BartModel
 
 # Initializing a BART facebook/bart-large style configuration
 configuration = BartConfig()
 
-# Initializing a model from the facebook/bart-large style configuration
+# Initializing a model (with random weights) from the facebook/bart-large style configuration
 model = BartModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BartModel, BartConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BartConfig, BartModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a BART facebook/bart-large style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = BartConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the facebook/bart-large style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the facebook/bart-large style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = BartModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
