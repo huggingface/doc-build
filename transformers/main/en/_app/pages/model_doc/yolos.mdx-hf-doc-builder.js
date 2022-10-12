@@ -1,18 +1,18 @@
-import{S as ya,i as xa,s as wa,e as r,k as m,w as y,t as n,M as $a,c as s,d as o,m as h,a,x,h as i,b as c,N as Ta,G as e,g as u,y as w,q as $,o as T,B as Y,v as Ya,L as Os}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ts}from"../../chunks/Tip-hf-doc-builder.js";import{D as q}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Es}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as yt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ys}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Oa(F){let d,b,g,f,v;return f=new Es({props:{code:`from transformers import YolosModel, YolosConfig
+import{S as ya,i as xa,s as wa,e as r,k as m,w as y,t as n,M as $a,c as s,d as o,m as h,a,x,h as i,b as c,N as Ta,G as e,g as u,y as w,q as $,o as T,B as Y,v as Ya,L as Os}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ts}from"../../chunks/Tip-hf-doc-builder.js";import{D as q}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Es}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as yt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ys}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Oa(F){let d,b,g,f,v;return f=new Es({props:{code:`from transformers import YolosConfig, YolosModel
 
 # Initializing a YOLOS hustvl/yolos-base style configuration
 configuration = YolosConfig()
 
-# Initializing a model from the hustvl/yolos-base style configuration
+# Initializing a model (with random weights) from the hustvl/yolos-base style configuration
 model = YolosModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> YolosModel, YolosConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> YolosConfig, YolosModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a YOLOS hustvl/yolos-base style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = YolosConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the hustvl/yolos-base style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the hustvl/yolos-base style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = YolosModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
