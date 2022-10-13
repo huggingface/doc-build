@@ -1,18 +1,18 @@
-import{S as Jm,i as Qm,s as Xm,e as n,k as c,w as y,t as a,M as Ym,c as s,d as t,m as p,a as r,x as v,h as d,b as u,G as e,g as _,y as T,q as w,o as $,B as x,v as Zm,L as et}from"../../chunks/vendor-hf-doc-builder.js";import{T as gt}from"../../chunks/Tip-hf-doc-builder.js";import{D as A}from"../../chunks/Docstring-hf-doc-builder.js";import{C as We}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ze}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ze}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function ef(z){let l,k,f,m,b;return m=new We({props:{code:`from transformers import BlenderbotModel, BlenderbotConfig
+import{S as Jm,i as Qm,s as Xm,e as n,k as c,w as y,t as a,M as Ym,c as s,d as t,m as p,a as r,x as v,h as d,b as u,G as e,g as _,y as T,q as w,o as $,B as x,v as Zm,L as et}from"../../chunks/vendor-hf-doc-builder.js";import{T as gt}from"../../chunks/Tip-hf-doc-builder.js";import{D as A}from"../../chunks/Docstring-hf-doc-builder.js";import{C as We}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ze}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ze}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function ef(z){let l,k,f,m,b;return m=new We({props:{code:`from transformers import BlenderbotConfig, BlenderbotModel
 
 # Initializing a Blenderbot facebook/blenderbot-3B style configuration
 configuration = BlenderbotConfig()
 
-# Initializing a model from the facebook/blenderbot-3B style configuration
+# Initializing a model (with random weights) from the facebook/blenderbot-3B style configuration
 model = BlenderbotModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BlenderbotModel, BlenderbotConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BlenderbotConfig, BlenderbotModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Blenderbot facebook/blenderbot-3B style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = BlenderbotConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the facebook/blenderbot-3B style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the facebook/blenderbot-3B style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = BlenderbotModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
