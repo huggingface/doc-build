@@ -1,18 +1,18 @@
-import{S as qs,i as Is,s as zs,e as a,k as m,w as b,t as r,M as Os,c as s,d as t,m as p,a as i,x as $,h as n,b as h,N as Ds,G as e,g,y as M,q as A,o as k,B as x,v as Ns,L as ur}from"../../chunks/vendor-hf-doc-builder.js";import{T as yo}from"../../chunks/Tip-hf-doc-builder.js";import{D as vt}from"../../chunks/Docstring-hf-doc-builder.js";import{C as fr}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as bo}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as pr}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Ls(C){let d,w,u,f,v;return f=new fr({props:{code:`from transformers import ViTMAEModel, ViTMAEConfig
+import{S as qs,i as Is,s as zs,e as a,k as m,w as b,t as r,M as Os,c as s,d as t,m as p,a as i,x as $,h as n,b as h,N as Ds,G as e,g,y as M,q as A,o as k,B as x,v as Ns,L as ur}from"../../chunks/vendor-hf-doc-builder.js";import{T as yo}from"../../chunks/Tip-hf-doc-builder.js";import{D as vt}from"../../chunks/Docstring-hf-doc-builder.js";import{C as fr}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as bo}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as pr}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Ls(C){let d,w,u,f,v;return f=new fr({props:{code:`from transformers import ViTMAEConfig, ViTMAEModel
 
 # Initializing a ViT MAE vit-mae-base style configuration
 configuration = ViTMAEConfig()
 
-# Initializing a model from the vit-mae-base style configuration
+# Initializing a model (with random weights) from the vit-mae-base style configuration
 model = ViTMAEModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ViTMAEModel, ViTMAEConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ViTMAEConfig, ViTMAEModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a ViT MAE vit-mae-base style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = ViTMAEConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the vit-mae-base style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the vit-mae-base style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = ViTMAEModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>

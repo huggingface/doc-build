@@ -1,18 +1,18 @@
-import{S as qi,i as Fi,s as zi,e as r,k as g,w,t as d,M as ji,c as i,d as t,m as _,a as l,x as $,h as c,b as f,N as Ci,G as e,g as b,y,q as v,o as T,B as Y,v as Oi,L as S}from"../../chunks/vendor-hf-doc-builder.js";import{T as ft}from"../../chunks/Tip-hf-doc-builder.js";import{D as A}from"../../chunks/Docstring-hf-doc-builder.js";import{C as P}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as we}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Ai(M){let n,u,a,p,k;return p=new P({props:{code:`from transformers import YosoModel, YosoConfig
+import{S as qi,i as Fi,s as zi,e as r,k as g,w,t as d,M as ji,c as i,d as t,m as _,a as l,x as $,h as c,b as f,N as Ci,G as e,g as b,y,q as v,o as T,B as Y,v as Oi,L as S}from"../../chunks/vendor-hf-doc-builder.js";import{T as ft}from"../../chunks/Tip-hf-doc-builder.js";import{D as A}from"../../chunks/Docstring-hf-doc-builder.js";import{C as P}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as we}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Ai(M){let n,u,a,p,k;return p=new P({props:{code:`from transformers import YosoConfig, YosoModel
 
 # Initializing a YOSO uw-madison/yoso-4096 style configuration
 configuration = YosoConfig()
 
-# Initializing a model from the uw-madison/yoso-4096 style configuration
+# Initializing a model (with random weights) from the uw-madison/yoso-4096 style configuration
 model = YosoModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> YosoModel, YosoConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> YosoConfig, YosoModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a YOSO uw-madison/yoso-4096 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = YosoConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the uw-madison/yoso-4096 style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the uw-madison/yoso-4096 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = YosoModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
