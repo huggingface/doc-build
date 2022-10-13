@@ -354,7 +354,7 @@ with open("./local/filepath", "rb") as fobj:
         path_or_fileobj=fileobj,
         path_in_repo="remote/file/path.h5",
         repo_id="username/my-dataset",
-        repo_type="datasets",
+        repo_type="dataset",
         token="my_token",
     )
 
@@ -378,7 +378,7 @@ upload_file(
 <span class="hljs-meta">... </span>        path_or_fileobj=fileobj,
 <span class="hljs-meta">... </span>        path_in_repo=<span class="hljs-string">&quot;remote/file/path.h5&quot;</span>,
 <span class="hljs-meta">... </span>        repo_id=<span class="hljs-string">&quot;username/my-dataset&quot;</span>,
-<span class="hljs-meta">... </span>        repo_type=<span class="hljs-string">&quot;datasets&quot;</span>,
+<span class="hljs-meta">... </span>        repo_type=<span class="hljs-string">&quot;dataset&quot;</span>,
 <span class="hljs-meta">... </span>        token=<span class="hljs-string">&quot;my_token&quot;</span>,
 <span class="hljs-meta">... </span>    )
 <span class="hljs-string">&quot;https://huggingface.co/datasets/username/my-dataset/blob/main/remote/file/path.h5&quot;</span>
