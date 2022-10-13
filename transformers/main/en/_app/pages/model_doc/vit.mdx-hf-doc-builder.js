@@ -1,18 +1,18 @@
-import{S as tm,i as om,s as am,e as s,k as h,w,t as a,M as nm,c as r,d as t,m,a as i,x as y,h as n,b as c,N as sm,G as e,g as _,y as $,q as x,o as E,B as k,v as rm,L as zo}from"../../chunks/vendor-hf-doc-builder.js";import{T as je}from"../../chunks/Tip-hf-doc-builder.js";import{D as ne}from"../../chunks/Docstring-hf-doc-builder.js";import{C as No}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ct}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as qo}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function im(V){let d,T,f,u,v;return u=new No({props:{code:`from transformers import ViTConfig, ViTModel
+import{S as tm,i as om,s as am,e as s,k as h,w,t as a,M as nm,c as r,d as t,m,a as i,x as y,h as n,b as c,N as sm,G as e,g as _,y as $,q as x,o as E,B as k,v as rm,L as zo}from"../../chunks/vendor-hf-doc-builder.js";import{T as je}from"../../chunks/Tip-hf-doc-builder.js";import{D as ne}from"../../chunks/Docstring-hf-doc-builder.js";import{C as No}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ct}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as qo}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function im(V){let d,T,f,u,v;return u=new No({props:{code:`from transformers import ViTModel, ViTConfig
 
 # Initializing a ViT vit-base-patch16-224 style configuration
 configuration = ViTConfig()
 
-# Initializing a model (with random weights) from the vit-base-patch16-224 style configuration
+# Initializing a model from the vit-base-patch16-224 style configuration
 model = ViTModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ViTConfig, ViTModel
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ViTModel, ViTConfig
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a ViT vit-base-patch16-224 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = ViTConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the vit-base-patch16-224 style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the vit-base-patch16-224 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = ViTModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
