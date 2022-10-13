@@ -1,18 +1,18 @@
-import{S as Qv,i as Vv,s as Gv,e as r,k as h,w as y,t as o,M as Jv,c as a,d as t,m,a as i,x as w,h as n,b as g,G as e,g as _,y as v,q as $,o as M,B as F,v as Yv,L as Le}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ye}from"../../chunks/Tip-hf-doc-builder.js";import{D as ne}from"../../chunks/Docstring-hf-doc-builder.js";import{C as We}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Xe}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ie}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Xv(x){let d,b,c,u,T;return u=new We({props:{code:`from transformers import MobileBertModel, MobileBertConfig
+import{S as Qv,i as Vv,s as Gv,e as r,k as h,w as y,t as o,M as Jv,c as a,d as t,m,a as i,x as w,h as n,b as g,G as e,g as _,y as v,q as $,o as M,B as F,v as Yv,L as Le}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ye}from"../../chunks/Tip-hf-doc-builder.js";import{D as ne}from"../../chunks/Docstring-hf-doc-builder.js";import{C as We}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Xe}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ie}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Xv(x){let d,b,c,u,T;return u=new We({props:{code:`from transformers import MobileBertConfig, MobileBertModel
 
 # Initializing a MobileBERT configuration
 configuration = MobileBertConfig()
 
-# Initializing a model from the configuration above
+# Initializing a model (with random weights) from the configuration above
 model = MobileBertModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> MobileBertModel, MobileBertConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> MobileBertConfig, MobileBertModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a MobileBERT configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = MobileBertConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration above</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration above</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = MobileBertModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
