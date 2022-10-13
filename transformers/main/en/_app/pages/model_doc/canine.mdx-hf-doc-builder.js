@@ -1,18 +1,18 @@
-import{S as Gc,i as Yc,s as Xc,e as o,k as p,w,t as i,M as Kc,c as s,d as t,m as h,a as r,x as $,h as l,b as f,G as e,g as _,y as C,q as v,o as y,B as T,v as Zc,L as J}from"../../chunks/vendor-hf-doc-builder.js";import{T as Yo}from"../../chunks/Tip-hf-doc-builder.js";import{D as F}from"../../chunks/Docstring-hf-doc-builder.js";import{C as O}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Y}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as V}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function ed(q){let c,k,d,m,b;return m=new O({props:{code:`from transformers import CanineModel, CanineConfig
+import{S as Gc,i as Yc,s as Xc,e as o,k as p,w,t as i,M as Kc,c as s,d as t,m as h,a as r,x as $,h as l,b as f,G as e,g as _,y as C,q as v,o as y,B as T,v as Zc,L as J}from"../../chunks/vendor-hf-doc-builder.js";import{T as Yo}from"../../chunks/Tip-hf-doc-builder.js";import{D as F}from"../../chunks/Docstring-hf-doc-builder.js";import{C as O}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Y}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as V}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function ed(q){let c,k,d,m,b;return m=new O({props:{code:`from transformers import CanineConfig, CanineModel
 
 # Initializing a CANINE google/canine-s style configuration
 configuration = CanineConfig()
 
-# Initializing a model from the google/canine-s style configuration
+# Initializing a model (with random weights) from the google/canine-s style configuration
 model = CanineModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> CanineModel, CanineConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> CanineConfig, CanineModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a CANINE google/canine-s style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = CanineConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the google/canine-s style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the google/canine-s style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = CanineModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
