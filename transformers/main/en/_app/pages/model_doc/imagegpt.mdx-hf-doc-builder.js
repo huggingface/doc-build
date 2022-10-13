@@ -1,18 +1,18 @@
-import{S as ic,i as lc,s as dc,e as a,k as l,w as b,t as r,M as cc,c as n,d as t,m as d,a as s,x as y,h as i,b as m,N as mc,G as e,g as u,y as I,q as w,o as P,B as k,v as pc,L as mn}from"../../chunks/vendor-hf-doc-builder.js";import{T as dn}from"../../chunks/Tip-hf-doc-builder.js";import{D as fe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as pn}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as $t}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as cn}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function hc($){let p,v,f,g,T;return g=new pn({props:{code:`from transformers import ImageGPTModel, ImageGPTConfig
+import{S as ic,i as lc,s as dc,e as a,k as l,w as b,t as r,M as cc,c as n,d as t,m as d,a as s,x as y,h as i,b as m,N as mc,G as e,g as u,y as I,q as w,o as P,B as k,v as pc,L as mn}from"../../chunks/vendor-hf-doc-builder.js";import{T as dn}from"../../chunks/Tip-hf-doc-builder.js";import{D as fe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as pn}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as $t}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as cn}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function hc($){let p,v,f,g,T;return g=new pn({props:{code:`from transformers import ImageGPTConfig, ImageGPTModel
 
 # Initializing a ImageGPT configuration
 configuration = ImageGPTConfig()
 
-# Initializing a model from the configuration
+# Initializing a model (with random weights) from the configuration
 model = ImageGPTModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ImageGPTModel, ImageGPTConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ImageGPTConfig, ImageGPTModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a ImageGPT configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = ImageGPTConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = ImageGPTModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
