@@ -3,7 +3,7 @@ import{S as LM,i as AM,s as OM,e as a,k as h,w as v,t as n,M as NM,c as r,d as t
 # Initializing a RoBERTa configuration
 configuration = RobertaConfig()
 
-# Initializing a model from the configuration
+# Initializing a model (with random weights) from the configuration
 model = RobertaModel(configuration)
 
 # Accessing the model configuration
@@ -12,7 +12,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a RoBERTa configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = RobertaConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = RobertaModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
