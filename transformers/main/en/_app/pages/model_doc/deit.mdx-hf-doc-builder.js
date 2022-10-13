@@ -1,20 +1,20 @@
 import{S as Wc,i as Sc,s as Vc,e as s,k as f,w,t as i,M as Bc,c as n,d as o,m as u,a as r,x as v,h as l,b as m,G as e,g as T,y as $,q as y,o as D,B as F,v as Hc,L as je}from"../../chunks/vendor-hf-doc-builder.js";import{T as oe}from"../../chunks/Tip-hf-doc-builder.js";import{D as M}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Ce}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Z}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ee}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Uc(k){let d,b,p,h,_;return{c(){d=s("p"),b=i(`This is a recently introduced model so the API hasn\u2019t been tested extensively. There may be some bugs or slight
 breaking changes to fix it in the future. If you see something strange, file a `),p=s("a"),h=i("Github Issue"),_=i("."),this.h()},l(a){d=n(a,"P",{});var c=r(d);b=l(c,`This is a recently introduced model so the API hasn\u2019t been tested extensively. There may be some bugs or slight
-breaking changes to fix it in the future. If you see something strange, file a `),p=n(c,"A",{href:!0,rel:!0});var x=r(p);h=l(x,"Github Issue"),x.forEach(o),_=l(c,"."),c.forEach(o),this.h()},h(){m(p,"href","https://github.com/huggingface/transformers/issues/new?assignees=&labels=&template=bug-report.md&title"),m(p,"rel","nofollow")},m(a,c){T(a,d,c),e(d,b),e(d,p),e(p,h),e(d,_)},d(a){a&&o(d)}}}function Rc(k){let d,b,p,h,_;return h=new Ce({props:{code:`from transformers import DeiTModel, DeiTConfig
+breaking changes to fix it in the future. If you see something strange, file a `),p=n(c,"A",{href:!0,rel:!0});var x=r(p);h=l(x,"Github Issue"),x.forEach(o),_=l(c,"."),c.forEach(o),this.h()},h(){m(p,"href","https://github.com/huggingface/transformers/issues/new?assignees=&labels=&template=bug-report.md&title"),m(p,"rel","nofollow")},m(a,c){T(a,d,c),e(d,b),e(d,p),e(p,h),e(d,_)},d(a){a&&o(d)}}}function Rc(k){let d,b,p,h,_;return h=new Ce({props:{code:`from transformers import DeiTConfig, DeiTModel
 
 # Initializing a DeiT deit-base-distilled-patch16-224 style configuration
 configuration = DeiTConfig()
 
-# Initializing a model from the deit-base-distilled-patch16-224 style configuration
+# Initializing a model (with random weights) from the deit-base-distilled-patch16-224 style configuration
 model = DeiTModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DeiTModel, DeiTConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DeiTConfig, DeiTModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a DeiT deit-base-distilled-patch16-224 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = DeiTConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the deit-base-distilled-patch16-224 style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the deit-base-distilled-patch16-224 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = DeiTModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>

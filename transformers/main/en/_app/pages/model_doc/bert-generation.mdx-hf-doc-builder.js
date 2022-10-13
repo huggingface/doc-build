@@ -3,7 +3,7 @@ import{S as as,i as ss,s as is,e as a,k as h,w as k,t as n,M as ds,c as s,d as o
 # Initializing a BertGeneration config
 configuration = BertGenerationConfig()
 
-# Initializing a model from the config
+# Initializing a model (with random weights) from the config
 model = BertGenerationEncoder(configuration)
 
 # Accessing the model configuration
@@ -12,7 +12,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a BertGeneration config</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = BertGenerationConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the config</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the config</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = BertGenerationEncoder(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
