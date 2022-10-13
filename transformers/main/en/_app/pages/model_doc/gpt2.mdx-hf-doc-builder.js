@@ -1,18 +1,18 @@
-import{S as Tb,i as bb,s as yb,e as a,k as h,w as v,t as n,M as vb,c as r,d as t,m,a as i,x as k,h as s,b as f,G as e,g,y as w,q as $,o as P,B as M,v as kb,L as pe}from"../../chunks/vendor-hf-doc-builder.js";import{T as et}from"../../chunks/Tip-hf-doc-builder.js";import{D as S}from"../../chunks/Docstring-hf-doc-builder.js";import{C as he}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Ve}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as ce}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function wb(G){let d,_,p,u,T;return u=new he({props:{code:`from transformers import GPT2Model, GPT2Config
+import{S as Tb,i as bb,s as yb,e as a,k as h,w as v,t as n,M as vb,c as r,d as t,m,a as i,x as k,h as s,b as f,G as e,g,y as w,q as $,o as P,B as M,v as kb,L as pe}from"../../chunks/vendor-hf-doc-builder.js";import{T as et}from"../../chunks/Tip-hf-doc-builder.js";import{D as S}from"../../chunks/Docstring-hf-doc-builder.js";import{C as he}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Ve}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as ce}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function wb(G){let d,_,p,u,T;return u=new he({props:{code:`from transformers import GPT2Config, GPT2Model
 
 # Initializing a GPT2 configuration
 configuration = GPT2Config()
 
-# Initializing a model from the configuration
+# Initializing a model (with random weights) from the configuration
 model = GPT2Model(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> GPT2Model, GPT2Config
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> GPT2Config, GPT2Model
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a GPT2 configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = GPT2Config()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = GPT2Model(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
