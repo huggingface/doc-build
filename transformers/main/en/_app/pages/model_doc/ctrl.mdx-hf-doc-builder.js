@@ -1,18 +1,18 @@
-import{S as _c,i as Tc,s as yc,e as a,k as h,w as k,t as o,M as vc,c as r,d as t,m as u,a as i,x as w,h as n,b as f,G as e,g,y as C,q as $,o as L,B as R,v as bc,L as Tt}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ht}from"../../chunks/Tip-hf-doc-builder.js";import{D as Ue}from"../../chunks/Docstring-hf-doc-builder.js";import{C as yt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Lt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as _t}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function kc(F){let d,y,c,m,v;return m=new yt({props:{code:`from transformers import CTRLModel, CTRLConfig
+import{S as _c,i as Tc,s as yc,e as a,k as h,w as k,t as o,M as vc,c as r,d as t,m as u,a as i,x as w,h as n,b as f,G as e,g,y as C,q as $,o as L,B as R,v as bc,L as Tt}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ht}from"../../chunks/Tip-hf-doc-builder.js";import{D as Ue}from"../../chunks/Docstring-hf-doc-builder.js";import{C as yt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Lt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as _t}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function kc(F){let d,y,c,m,v;return m=new yt({props:{code:`from transformers import CTRLConfig, CTRLModel
 
 # Initializing a CTRL configuration
 configuration = CTRLConfig()
 
-# Initializing a model from the configuration
+# Initializing a model (with random weights) from the configuration
 model = CTRLModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> CTRLModel, CTRLConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> CTRLConfig, CTRLModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a CTRL configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = CTRLConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = CTRLModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
