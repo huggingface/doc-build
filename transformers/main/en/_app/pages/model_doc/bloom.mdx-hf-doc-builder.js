@@ -1,18 +1,18 @@
-import{S as Fl,i as Cl,s as zl,e as s,k as u,w as k,t as i,M as El,c as a,d as t,m as f,a as r,x as y,h as l,b as h,G as e,g as v,y as w,q as $,o as T,B,v as Ml,L as ne}from"../../chunks/vendor-hf-doc-builder.js";import{T as _t}from"../../chunks/Tip-hf-doc-builder.js";import{D as R}from"../../chunks/Docstring-hf-doc-builder.js";import{C as se}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ye}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as te}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function xl(F){let d,_,c,m,b;return m=new se({props:{code:`from transformers import BloomModel, BloomConfig
+import{S as Fl,i as Cl,s as zl,e as s,k as u,w as k,t as i,M as El,c as a,d as t,m as f,a as r,x as y,h as l,b as h,G as e,g as v,y as w,q as $,o as T,B,v as Ml,L as ne}from"../../chunks/vendor-hf-doc-builder.js";import{T as _t}from"../../chunks/Tip-hf-doc-builder.js";import{D as R}from"../../chunks/Docstring-hf-doc-builder.js";import{C as se}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ye}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as te}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function xl(F){let d,_,c,m,b;return m=new se({props:{code:`from transformers import BloomConfig, BloomModel
 
 # Initializing a Bloom configuration
 configuration = BloomConfig()
 
-# Initializing a model from the configuration
+# Initializing a model (with random weights) from the configuration
 model = BloomModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BloomModel, BloomConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BloomConfig, BloomModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Bloom configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = BloomConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = BloomModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
