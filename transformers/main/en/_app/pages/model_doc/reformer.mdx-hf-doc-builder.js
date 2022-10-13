@@ -1,18 +1,18 @@
-import{S as qu,i as Eu,s as ju,e as o,k as h,w as y,t,Y as M,M as Lu,c as r,d as a,m as d,a as i,x as k,h as n,Z as R,b as c,G as s,g as u,y as w,q as x,o as z,B as $,v as Fu,L as ms}from"../../chunks/vendor-hf-doc-builder.js";import{T as po}from"../../chunks/Tip-hf-doc-builder.js";import{D as B}from"../../chunks/Docstring-hf-doc-builder.js";import{C as rs}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as X}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as ls}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Au(T){let m,v,g,f,b;return f=new rs({props:{code:`from transformers import ReformerModel, ReformerConfig
+import{S as qu,i as Eu,s as ju,e as o,k as h,w as y,t,Y as M,M as Lu,c as r,d as a,m as d,a as i,x as k,h as n,Z as R,b as c,G as s,g as u,y as w,q as x,o as z,B as $,v as Fu,L as ms}from"../../chunks/vendor-hf-doc-builder.js";import{T as po}from"../../chunks/Tip-hf-doc-builder.js";import{D as B}from"../../chunks/Docstring-hf-doc-builder.js";import{C as rs}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as X}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as ls}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Au(T){let m,v,g,f,b;return f=new rs({props:{code:`from transformers import ReformerConfig, ReformerModel
 
 # Initializing a Reformer configuration
 configuration = ReformerConfig()
 
-# Initializing a Reformer model
+# Initializing a Reformer model (with random weights)
 model = ReformerModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ReformerModel, ReformerConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ReformerConfig, ReformerModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Reformer configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = ReformerConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Reformer model</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Reformer model (with random weights)</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = ReformerModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
