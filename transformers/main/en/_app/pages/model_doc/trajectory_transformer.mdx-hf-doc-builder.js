@@ -1,18 +1,18 @@
-import{S as To,i as yo,s as vo,e as t,k as p,w,t as s,M as jo,c as a,d as o,m as g,a as n,x as $,h as i,b as l,G as r,g as h,y as k,q as C,o as x,B as z,v as bo,L as uo}from"../../chunks/vendor-hf-doc-builder.js";import{T as wo}from"../../chunks/Tip-hf-doc-builder.js";import{D as Ir}from"../../chunks/Docstring-hf-doc-builder.js";import{C as _o}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Je}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as go}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function $o(R){let d,_;return d=new _o({props:{code:`from transformers import TrajectoryTransformerModel, TrajectoryTransformerConfig
+import{S as To,i as yo,s as vo,e as t,k as p,w,t as s,M as jo,c as a,d as o,m as g,a as n,x as $,h as i,b as l,G as r,g as h,y as k,q as C,o as x,B as z,v as bo,L as uo}from"../../chunks/vendor-hf-doc-builder.js";import{T as wo}from"../../chunks/Tip-hf-doc-builder.js";import{D as Ir}from"../../chunks/Docstring-hf-doc-builder.js";import{C as _o}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Je}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as go}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function $o(R){let d,_;return d=new _o({props:{code:`from transformers import TrajectoryTransformerConfig, TrajectoryTransformerModel
 
 # Initializing a TrajectoryTransformer CarlCochet/trajectory-transformer-halfcheetah-medium-v2 style configuration
 configuration = TrajectoryTransformerConfig()
 
-# Initializing a model from the CarlCochet/trajectory-transformer-halfcheetah-medium-v2 style configuration
+# Initializing a model (with random weights) from the CarlCochet/trajectory-transformer-halfcheetah-medium-v2 style configuration
 model = TrajectoryTransformerModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TrajectoryTransformerModel, TrajectoryTransformerConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TrajectoryTransformerConfig, TrajectoryTransformerModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a TrajectoryTransformer CarlCochet/trajectory-transformer-halfcheetah-medium-v2 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = TrajectoryTransformerConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the CarlCochet/trajectory-transformer-halfcheetah-medium-v2 style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the CarlCochet/trajectory-transformer-halfcheetah-medium-v2 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = TrajectoryTransformerModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
