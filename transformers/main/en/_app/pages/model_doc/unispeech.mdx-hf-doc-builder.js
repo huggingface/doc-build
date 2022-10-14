@@ -1,18 +1,18 @@
-import{S as Ys,i as Rs,s as Bs,e as n,k as h,w,t as s,M as Qs,c as a,d as o,m,a as r,x as y,h as i,b as d,G as e,g as _,y as $,q as S,o as T,B as k,v as Xs,L as St}from"../../chunks/vendor-hf-doc-builder.js";import{T as fn}from"../../chunks/Tip-hf-doc-builder.js";import{D as H}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Tt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as je}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as $t}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Zs(U){let c,v,p,u,b;return u=new Tt({props:{code:`from transformers import UniSpeechModel, UniSpeechConfig
+import{S as Ys,i as Rs,s as Bs,e as n,k as h,w,t as s,M as Qs,c as a,d as o,m,a as r,x as y,h as i,b as d,G as e,g as _,y as $,q as S,o as T,B as k,v as Xs,L as St}from"../../chunks/vendor-hf-doc-builder.js";import{T as fn}from"../../chunks/Tip-hf-doc-builder.js";import{D as H}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Tt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as je}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as $t}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Zs(U){let c,v,p,u,b;return u=new Tt({props:{code:`from transformers import UniSpeechConfig, UniSpeechModel
 
 # Initializing a UniSpeech facebook/unispeech-base-960h style configuration
 configuration = UniSpeechConfig()
 
-# Initializing a model from the facebook/unispeech-base-960h style configuration
+# Initializing a model (with random weights) from the facebook/unispeech-base-960h style configuration
 model = UniSpeechModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> UniSpeechModel, UniSpeechConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> UniSpeechConfig, UniSpeechModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a UniSpeech facebook/unispeech-base-960h style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = UniSpeechConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the facebook/unispeech-base-960h style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the facebook/unispeech-base-960h style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = UniSpeechModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
