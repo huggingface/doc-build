@@ -1,18 +1,18 @@
-import{S as IL,i as DL,s as SL,e as s,k as p,w as v,t as o,M as BL,c as a,d as t,m as h,a as r,x as T,h as n,b as u,G as e,g as _,y as w,q as M,o as $,B as F,v as WL,L as ue}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ie}from"../../chunks/Tip-hf-doc-builder.js";import{D as A}from"../../chunks/Docstring-hf-doc-builder.js";import{C as fe}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Be}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as me}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function UL(x){let d,g,c,f,k;return f=new fe({props:{code:`from transformers import XLMRobertaModel, XLMRobertaConfig
+import{S as IL,i as DL,s as SL,e as s,k as p,w as v,t as o,M as BL,c as a,d as t,m as h,a as r,x as T,h as n,b as u,G as e,g as _,y as w,q as M,o as $,B as F,v as WL,L as ue}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ie}from"../../chunks/Tip-hf-doc-builder.js";import{D as A}from"../../chunks/Docstring-hf-doc-builder.js";import{C as fe}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Be}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as me}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function UL(x){let d,g,c,f,k;return f=new fe({props:{code:`from transformers import XLMRobertaConfig, XLMRobertaModel
 
 # Initializing a XLM-RoBERTa xlm-roberta-base style configuration
 configuration = XLMRobertaConfig()
 
-# Initializing a model from the xlm-roberta-base style configuration
+# Initializing a model (with random weights) from the xlm-roberta-base style configuration
 model = XLMRobertaModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> XLMRobertaModel, XLMRobertaConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> XLMRobertaConfig, XLMRobertaModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a XLM-RoBERTa xlm-roberta-base style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = XLMRobertaConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the xlm-roberta-base style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the xlm-roberta-base style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = XLMRobertaModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
