@@ -1,18 +1,18 @@
-import{S as Ds,i as Rs,s as Bs,e as n,k as h,w,t as o,M as Hs,c as s,d as a,m as f,a as i,x as $,h as r,b as c,N as Us,G as e,g as v,y as L,q as y,o as T,B as E,v as Js,L as Ya}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ga}from"../../chunks/Tip-hf-doc-builder.js";import{D as oe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Za}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as rt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Xa}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Gs(I){let d,b,u,p,_;return p=new Za({props:{code:`from transformers import LevitModel, LevitConfig
+import{S as Ds,i as Rs,s as Bs,e as n,k as h,w,t as o,M as Hs,c as s,d as a,m as f,a as i,x as $,h as r,b as c,N as Us,G as e,g as v,y as L,q as y,o as T,B as E,v as Js,L as Ya}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ga}from"../../chunks/Tip-hf-doc-builder.js";import{D as oe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Za}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as rt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Xa}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Gs(I){let d,b,u,p,_;return p=new Za({props:{code:`from transformers import LevitConfig, LevitModel
 
 # Initializing a LeViT levit-128S style configuration
 configuration = LevitConfig()
 
-# Initializing a model from the levit-128S style configuration
+# Initializing a model (with random weights) from the levit-128S style configuration
 model = LevitModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> LevitModel, LevitConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> LevitConfig, LevitModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a LeViT levit-128S style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = LevitConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the levit-128S style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the levit-128S style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = LevitModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
