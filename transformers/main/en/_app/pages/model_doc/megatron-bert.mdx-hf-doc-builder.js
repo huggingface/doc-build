@@ -1,18 +1,18 @@
-import{S as cm,i as pm,s as hm,e as a,k as m,w as v,t as r,M as mm,c as i,d as o,m as g,a as l,x as M,h as s,b as f,G as e,g as b,y as T,q as w,o as $,B as y,v as gm,L as j}from"../../chunks/vendor-hf-doc-builder.js";import{T as We}from"../../chunks/Tip-hf-doc-builder.js";import{D as P}from"../../chunks/Docstring-hf-doc-builder.js";import{C as z}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as te}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function um(B){let d,_,c,h,k;return h=new z({props:{code:`from transformers import MegatronBertModel, MegatronBertConfig
+import{S as cm,i as pm,s as hm,e as a,k as m,w as v,t as r,M as mm,c as i,d as o,m as g,a as l,x as M,h as s,b as f,G as e,g as b,y as T,q as w,o as $,B as y,v as gm,L as j}from"../../chunks/vendor-hf-doc-builder.js";import{T as We}from"../../chunks/Tip-hf-doc-builder.js";import{D as P}from"../../chunks/Docstring-hf-doc-builder.js";import{C as z}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as te}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function um(B){let d,_,c,h,k;return h=new z({props:{code:`from transformers import MegatronBertConfig, MegatronBertModel
 
 # Initializing a MEGATRON_BERT bert-base-uncased style configuration
 configuration = MegatronBertConfig()
 
-# Initializing a model from the bert-base-uncased style configuration
+# Initializing a model (with random weights) from the bert-base-uncased style configuration
 model = MegatronBertModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> MegatronBertModel, MegatronBertConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> MegatronBertConfig, MegatronBertModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a MEGATRON_BERT bert-base-uncased style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = MegatronBertConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the bert-base-uncased style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the bert-base-uncased style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = MegatronBertModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
