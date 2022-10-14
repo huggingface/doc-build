@@ -3,7 +3,7 @@ import{S as ga,i as _a,s as wa,e as a,k as u,w as b,t as i,M as va,c as s,d as o
 # Initializing a Swinv2 microsoft/swinv2_tiny_patch4_windows8_256 style configuration
 configuration = Swinv2Config()
 
-# Initializing a model from the microsoft/swinv2_tiny_patch4_windows8_256 style configuration
+# Initializing a model (with random weights) from the microsoft/swinv2_tiny_patch4_windows8_256 style configuration
 model = Swinv2Model(configuration)
 
 # Accessing the model configuration
@@ -12,7 +12,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Swinv2 microsoft/swinv2_tiny_patch4_windows8_256 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = Swinv2Config()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the microsoft/swinv2_tiny_patch4_windows8_256 style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the microsoft/swinv2_tiny_patch4_windows8_256 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = Swinv2Model(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
