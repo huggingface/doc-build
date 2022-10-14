@@ -1,18 +1,18 @@
-import{S as Z2,i as eD,s as tD,e as r,k as h,w,t as o,M as oD,c as a,d as t,m,a as i,x as T,h as s,b as f,G as e,g as _,y as $,q as y,o as D,B as F,v as sD,L as ue}from"../../chunks/vendor-hf-doc-builder.js";import{T as Le}from"../../chunks/Tip-hf-doc-builder.js";import{D as Z}from"../../chunks/Docstring-hf-doc-builder.js";import{C as fe}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Qe}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as me}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function nD(E){let d,g,c,u,k;return u=new fe({props:{code:`from transformers import DistilBertModel, DistilBertConfig
+import{S as Z2,i as eD,s as tD,e as r,k as h,w,t as o,M as oD,c as a,d as t,m,a as i,x as T,h as s,b as f,G as e,g as _,y as $,q as y,o as D,B as F,v as sD,L as ue}from"../../chunks/vendor-hf-doc-builder.js";import{T as Le}from"../../chunks/Tip-hf-doc-builder.js";import{D as Z}from"../../chunks/Docstring-hf-doc-builder.js";import{C as fe}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Qe}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as me}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function nD(E){let d,g,c,u,k;return u=new fe({props:{code:`from transformers import DistilBertConfig, DistilBertModel
 
 # Initializing a DistilBERT configuration
 configuration = DistilBertConfig()
 
-# Initializing a model from the configuration
+# Initializing a model (with random weights) from the configuration
 model = DistilBertModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DistilBertModel, DistilBertConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DistilBertConfig, DistilBertModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a DistilBERT configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = DistilBertConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = DistilBertModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
