@@ -5,7 +5,7 @@ breaking changes to fix it in the future. If you see something strange, file a `
 # Initializing a default Time Series Transformer configuration
 configuration = TimeSeriesTransformerConfig()
 
-# Randomly initializing a model from the configuration
+# Randomly initializing a model (with random weights) from the configuration
 model = TimeSeriesTransformerModel(configuration)
 
 # Accessing the model configuration
@@ -14,7 +14,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a default Time Series Transformer configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = TimeSeriesTransformerConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Randomly initializing a model from the configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Randomly initializing a model (with random weights) from the configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = TimeSeriesTransformerModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
