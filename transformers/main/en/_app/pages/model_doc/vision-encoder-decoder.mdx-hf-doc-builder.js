@@ -6,7 +6,7 @@ config_decoder = BertConfig()
 
 config = VisionEncoderDecoderConfig.from_encoder_decoder_configs(config_encoder, config_decoder)
 
-# Initializing a ViTBert model from a ViT & bert-base-uncased style configurations
+# Initializing a ViTBert model (with random weights) from a ViT & bert-base-uncased style configurations
 model = VisionEncoderDecoderModel(config=config)
 
 # Accessing the model configuration
@@ -29,7 +29,7 @@ model = VisionEncoderDecoderModel.from_pretrained("my-model", config=encoder_dec
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>config = VisionEncoderDecoderConfig.from_encoder_decoder_configs(config_encoder, config_decoder)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a ViTBert model from a ViT &amp; bert-base-uncased style configurations</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a ViTBert model (with random weights) from a ViT &amp; bert-base-uncased style configurations</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = VisionEncoderDecoderModel(config=config)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
