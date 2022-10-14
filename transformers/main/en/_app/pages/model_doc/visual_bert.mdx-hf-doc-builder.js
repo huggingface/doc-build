@@ -1,18 +1,18 @@
-import{S as md,i as fd,s as gd,e as n,k as p,w as k,t as i,M as _d,c as s,d as o,m as h,a,x as T,h as l,b as c,G as e,g as _,y,q as w,o as $,B,v as vd,L as Gt}from"../../chunks/vendor-hf-doc-builder.js";import{T as Eo}from"../../chunks/Tip-hf-doc-builder.js";import{D as j}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Ke}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as G}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Kt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function bd(V){let d,b,g,m,v;return m=new Ke({props:{code:`from transformers import VisualBertModel, VisualBertConfig
+import{S as md,i as fd,s as gd,e as n,k as p,w as k,t as i,M as _d,c as s,d as o,m as h,a,x as T,h as l,b as c,G as e,g as _,y,q as w,o as $,B,v as vd,L as Gt}from"../../chunks/vendor-hf-doc-builder.js";import{T as Eo}from"../../chunks/Tip-hf-doc-builder.js";import{D as j}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Ke}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as G}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Kt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function bd(V){let d,b,g,m,v;return m=new Ke({props:{code:`from transformers import VisualBertConfig, VisualBertModel
 
 # Initializing a VisualBERT visualbert-vqa-coco-pre style configuration
 configuration = VisualBertConfig.from_pretrained("visualbert-vqa-coco-pre")
 
-# Initializing a model from the visualbert-vqa-coco-pre style configuration
+# Initializing a model (with random weights) from the visualbert-vqa-coco-pre style configuration
 model = VisualBertModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> VisualBertModel, VisualBertConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> VisualBertConfig, VisualBertModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a VisualBERT visualbert-vqa-coco-pre style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = VisualBertConfig.from_pretrained(<span class="hljs-string">&quot;visualbert-vqa-coco-pre&quot;</span>)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the visualbert-vqa-coco-pre style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the visualbert-vqa-coco-pre style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = VisualBertModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
