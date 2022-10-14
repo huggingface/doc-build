@@ -2,15 +2,19 @@ import{S as Mr,i as Pr,s as qr,e as a,k as u,w as $,t as l,M as Or,c as r,d as s
 
 # Initializing a ResNet resnet-50 style configuration
 configuration = ResNetConfig()
-# Initializing a model from the resnet-50 style configuration
+
+# Initializing a model (with random weights) from the resnet-50 style configuration
 model = ResNetModel(configuration)
+
 # Accessing the model configuration
 configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ResNetConfig, ResNetModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a ResNet resnet-50 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = ResNetConfig()
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the resnet-50 style configuration</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the resnet-50 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = ResNetModel(configuration)
+
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = model.config`}}),{c(){d=a("p"),v=l("Example:"),h=u(),$(p.$$.fragment)},l(o){d=r(o,"P",{});var f=n(d);v=i(f,"Example:"),f.forEach(s),h=g(o),b(p.$$.fragment,o)},m(o,f){_(o,d,f),e(d,v),_(o,h,f),N(p,o,f),w=!0},p:es,i(o){w||(y(p.$$.fragment,o),w=!0)},o(o){T(p.$$.fragment,o),w=!1},d(o){o&&s(d),o&&s(h),R(p,o)}}}function Lr(F){let d,v,h,p,w;return{c(){d=a("p"),v=l("Although the recipe for forward pass needs to be defined within this function, one should call the "),h=a("code"),p=l("Module"),w=l(`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
