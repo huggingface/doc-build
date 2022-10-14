@@ -1,18 +1,18 @@
-import{S as ls,i as ds,s as cs,e as a,k as h,w,t as i,M as ps,c as s,d as o,m as u,a as r,x as y,h as l,b as p,G as e,g as _,y as E,q as $,o as S,B as W,v as ms,L as _t}from"../../chunks/vendor-hf-doc-builder.js";import{T as wa}from"../../chunks/Tip-hf-doc-builder.js";import{D as Qe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as vt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ut}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as gt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function fs(D){let d,v,c,m,b;return m=new vt({props:{code:`from transformers import SEWDModel, SEWDConfig
+import{S as ls,i as ds,s as cs,e as a,k as h,w,t as i,M as ps,c as s,d as o,m as u,a as r,x as y,h as l,b as p,G as e,g as _,y as E,q as $,o as S,B as W,v as ms,L as _t}from"../../chunks/vendor-hf-doc-builder.js";import{T as wa}from"../../chunks/Tip-hf-doc-builder.js";import{D as Qe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as vt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ut}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as gt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function fs(D){let d,v,c,m,b;return m=new vt({props:{code:`from transformers import SEWDConfig, SEWDModel
 
 # Initializing a SEW-D asapp/sew-d-tiny-100k style configuration
 configuration = SEWDConfig()
 
-# Initializing a model from the asapp/sew-d-tiny-100k style configuration
+# Initializing a model (with random weights) from the asapp/sew-d-tiny-100k style configuration
 model = SEWDModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> SEWDModel, SEWDConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> SEWDConfig, SEWDModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a SEW-D asapp/sew-d-tiny-100k style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = SEWDConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the asapp/sew-d-tiny-100k style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the asapp/sew-d-tiny-100k style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = SEWDModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
