@@ -1662,7 +1662,7 @@ By default it corresponds to <em>column</em>.`,name:"index_name"},{anchor:"datas
 If a list of positive integers is passed in, run only on those GPUs. By default it uses the CPU.`,name:"device"},{anchor:"datasets.Dataset.add_faiss_index.string_factory",description:`<strong>string_factory</strong> (Optional <code>str</code>) &#x2014;
 This is passed to the index factory of Faiss to create the index.
 Default index class is <code>IndexFlat</code>.`,name:"string_factory"},{anchor:"datasets.Dataset.add_faiss_index.metric_type",description:`<strong>metric_type</strong> (Optional <code>int</code>) &#x2014;
-Type of metric. Ex: faiss.faiss.METRIC_INNER_PRODUCT or faiss.METRIC_L2.`,name:"metric_type"},{anchor:"datasets.Dataset.add_faiss_index.custom_index",description:`<strong>custom_index</strong> (Optional <code>faiss.Index</code>) &#x2014;
+Type of metric. Ex: faiss.METRIC_INNER_PRODUCT or faiss.METRIC_L2.`,name:"metric_type"},{anchor:"datasets.Dataset.add_faiss_index.custom_index",description:`<strong>custom_index</strong> (Optional <code>faiss.Index</code>) &#x2014;
 Custom Faiss index that you already have instantiated and configured for your needs.`,name:"custom_index"},{anchor:"datasets.Dataset.add_faiss_index.batch_size",description:`<strong>batch_size</strong> (Optional <code>int</code>) &#x2014; Size of the batch to use while adding vectors to the FaissIndex. Default value is 1000.<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400">
 						<p class="font-medium">Added in 2.4.0</p>
 						
