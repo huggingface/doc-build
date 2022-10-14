@@ -1,18 +1,18 @@
-import{S as Zi,i as Gi,s as Ji,e as r,k as u,w as v,t as n,M as Qi,c as i,d as o,m as g,a as l,x as $,h as a,b as h,N as Xi,G as e,g as _,y as T,q as y,o as S,B as k,v as el,L as Dt}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ot}from"../../chunks/Tip-hf-doc-builder.js";import{D as q}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Lt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ce}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Nt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function tl(F){let d,b;return d=new Lt({props:{code:`from transformers import SwinModel, SwinConfig
+import{S as Zi,i as Gi,s as Ji,e as r,k as u,w as v,t as n,M as Qi,c as i,d as o,m as g,a as l,x as $,h as a,b as h,N as Xi,G as e,g as _,y as T,q as y,o as S,B as k,v as el,L as Dt}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ot}from"../../chunks/Tip-hf-doc-builder.js";import{D as q}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Lt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ce}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Nt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function tl(F){let d,b;return d=new Lt({props:{code:`from transformers import SwinConfig, SwinModel
 
 # Initializing a Swin microsoft/swin-tiny-patch4-window7-224 style configuration
 configuration = SwinConfig()
 
-# Initializing a model from the microsoft/swin-tiny-patch4-window7-224 style configuration
+# Initializing a model (with random weights) from the microsoft/swin-tiny-patch4-window7-224 style configuration
 model = SwinModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> SwinModel, SwinConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> SwinConfig, SwinModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Swin microsoft/swin-tiny-patch4-window7-224 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = SwinConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the microsoft/swin-tiny-patch4-window7-224 style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the microsoft/swin-tiny-patch4-window7-224 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = SwinModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
