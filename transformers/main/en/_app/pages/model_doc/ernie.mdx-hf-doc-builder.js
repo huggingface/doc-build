@@ -1,18 +1,18 @@
-import{S as jf,i as Df,s as Wf,e as o,k as c,w as v,t as a,M as Bf,c as r,d as t,m as h,a as s,x as y,h as i,b as l,G as e,g as _,y as T,q as E,o as w,B as $,v as Hf,L as Dt}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ye}from"../../chunks/Tip-hf-doc-builder.js";import{D as P}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Xe}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as W}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as jt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Rf(z){let p,b,u,f,k;return f=new Xe({props:{code:`from transformers import ErnieModel, ErnieConfig
+import{S as jf,i as Df,s as Wf,e as o,k as c,w as v,t as a,M as Bf,c as r,d as t,m as h,a as s,x as y,h as i,b as l,G as e,g as _,y as T,q as E,o as w,B as $,v as Hf,L as Dt}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ye}from"../../chunks/Tip-hf-doc-builder.js";import{D as P}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Xe}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as W}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as jt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Rf(z){let p,b,u,f,k;return f=new Xe({props:{code:`from transformers import ErnieConfig, ErnieModel
 
 # Initializing a ERNIE nghuyong/ernie-3.0-base-zh style configuration
 configuration = ErnieConfig()
 
-# Initializing a model from the nghuyong/ernie-3.0-base-zh style configuration
+# Initializing a model (with random weights) from the nghuyong/ernie-3.0-base-zh style configuration
 model = ErnieModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ErnieModel, ErnieConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ErnieConfig, ErnieModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a ERNIE nghuyong/ernie-3.0-base-zh style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = ErnieConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the nghuyong/ernie-3.0-base-zh style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the nghuyong/ernie-3.0-base-zh style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = ErnieModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
