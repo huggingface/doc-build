@@ -288,7 +288,7 @@ Whether or not to return the hidden states of all layers. See <code>hidden_state
 more detail.`,name:"output_hidden_states"},{anchor:"transformers.UniSpeechModel.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/unispeech/modeling_unispeech.py#L1137",returnDescription:`
 <p>A <a
-  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.Wav2Vec2BaseModelOutput"
+  href="/docs/transformers/main/en/model_doc/wav2vec2#transformers.modeling_outputs.Wav2Vec2BaseModelOutput"
 >transformers.modeling_outputs.Wav2Vec2BaseModelOutput</a> or a tuple of
 <code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
 elements depending on the configuration (<a
@@ -314,7 +314,7 @@ heads.</p>
 </ul>
 `,returnType:`
 <p><a
-  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.Wav2Vec2BaseModelOutput"
+  href="/docs/transformers/main/en/model_doc/wav2vec2#transformers.modeling_outputs.Wav2Vec2BaseModelOutput"
 >transformers.modeling_outputs.Wav2Vec2BaseModelOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
 `}}),me=new fn({props:{$$slots:{default:[Gs]},$$scope:{ctx:U}}}),ue=new $t({props:{anchor:"transformers.UniSpeechModel.forward.example",$$slots:{default:[Js]},$$scope:{ctx:U}}}),Xe=new je({}),Ze=new H({props:{name:"class transformers.UniSpeechForCTC",anchor:"transformers.UniSpeechForCTC",parameters:[{name:"config",val:""}],parametersDescription:[{anchor:"transformers.UniSpeechForCTC.config",description:`<strong>config</strong> (<a href="/docs/transformers/main/en/model_doc/unispeech#transformers.UniSpeechConfig">UniSpeechConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
 Initializing with a config file does not load the weights associated with the model, only the

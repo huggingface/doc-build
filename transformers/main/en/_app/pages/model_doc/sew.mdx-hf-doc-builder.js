@@ -1,18 +1,18 @@
-import{S as ls,i as cs,s as ds,e as a,k as h,w,t as i,M as ps,c as s,d as o,m as u,a as r,x as E,h as l,b as p,G as e,g as _,y,q as $,o as S,B as W,v as ms,L as _t}from"../../chunks/vendor-hf-doc-builder.js";import{T as wa}from"../../chunks/Tip-hf-doc-builder.js";import{D as Qe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as vt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ut}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as gt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function fs(k){let c,v,d,m,b;return m=new vt({props:{code:`from transformers import SEWModel, SEWConfig
+import{S as ls,i as cs,s as ds,e as a,k as h,w,t as i,M as ps,c as s,d as o,m as u,a as r,x as E,h as l,b as p,G as e,g as _,y,q as $,o as S,B as W,v as ms,L as _t}from"../../chunks/vendor-hf-doc-builder.js";import{T as wa}from"../../chunks/Tip-hf-doc-builder.js";import{D as Qe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as vt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ut}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as gt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function fs(k){let c,v,d,m,b;return m=new vt({props:{code:`from transformers import SEWConfig, SEWModel
 
 # Initializing a SEW asapp/sew-tiny-100k style configuration
 configuration = SEWConfig()
 
-# Initializing a model from the asapp/sew-tiny-100k style configuration
+# Initializing a model (with random weights) from the asapp/sew-tiny-100k style configuration
 model = SEWModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> SEWModel, SEWConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> SEWConfig, SEWModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a SEW asapp/sew-tiny-100k style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = SEWConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the asapp/sew-tiny-100k style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the asapp/sew-tiny-100k style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = SEWModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
