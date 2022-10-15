@@ -1,18 +1,18 @@
-import{S as zi,i as Gi,s as Ei,e as n,k as p,w as b,t as s,M as xi,c as a,d as t,m as h,a as r,x as w,h as i,b as c,G as e,g as _,y as $,q as y,o as C,B as T,v as Pi,L as St}from"../../chunks/vendor-hf-doc-builder.js";import{T as En}from"../../chunks/Tip-hf-doc-builder.js";import{D as ae}from"../../chunks/Docstring-hf-doc-builder.js";import{C as No}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as re}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ot}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Mi(E){let d,k,g,m,v;return m=new No({props:{code:`from transformers import CodeGenModel, CodeGenConfig
+import{S as zi,i as Gi,s as Ei,e as n,k as p,w as b,t as s,M as xi,c as a,d as t,m as h,a as r,x as w,h as i,b as c,G as e,g as _,y as $,q as y,o as C,B as T,v as Pi,L as St}from"../../chunks/vendor-hf-doc-builder.js";import{T as En}from"../../chunks/Tip-hf-doc-builder.js";import{D as ae}from"../../chunks/Docstring-hf-doc-builder.js";import{C as No}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as re}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ot}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Mi(E){let d,k,g,m,v;return m=new No({props:{code:`from transformers import CodeGenConfig, CodeGenModel
 
 # Initializing a CodeGen 6B configuration
 configuration = CodeGenConfig()
 
-# Initializing a model from the configuration
+# Initializing a model (with random weights) from the configuration
 model = CodeGenModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> CodeGenModel, CodeGenConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> CodeGenConfig, CodeGenModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a CodeGen 6B configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = CodeGenConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = CodeGenModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
