@@ -27,14 +27,40 @@ For detailed information and how things work behind the scene please refer the g
 
 <p>Accelerate integrates following feature of Megatron-LM to enable large scale pre-training/finetuning
 of BERT (Encoder), GPT (Decoder) or T5 models (Encoder and Decoder):</p>
-<p>a. <strong>Tensor Parallelism (TP)</strong>: Reduces memory footprint without much additional communication on intra-node ranks</p>
+<p>a. <strong>Tensor Parallelism (TP)</strong>: Reduces memory footprint without much additional communication on intra-node ranks.
+Each tensor is split into multiple chunks with each shard residing on separate GPU. At each step, the same mini-batch of data is processed
+independently and in parallel by each shard followed by syncing across all GPUs (<code>all-reduce</code> operation).
+In a simple transformer layer, this leads to 2 <code>all-reduces</code> in the forward path and 2 in the backward path.
+For more details, please refer research paper <a href="https://arxiv.org/pdf/1909.08053.pdf" rel="nofollow">Megatron-LM: Training Multi-Billion Parameter Language Models Using
+Model Parallelism</a> and
+this section of 🤗 blogpost <a href="https://huggingface.co/blog/bloom-megatron-deepspeed#tensor-parallelism" rel="nofollow">The Technology Behind BLOOM Training</a>.</p>
 <p>b. <strong>Pipeline Parallelism (PP)</strong>: Reduces memory footprint and enables large scale training via inter-node parallelization.
 Reduces the bubble of naive PP via PipeDream-Flush schedule/1F1B schedule and Interleaved 1F1B schedule.
-Layers are distributed uniformly across PP stages.</p>
-<p>c. <strong>Sequence Parallelism (SP)</strong>: Reduces memory footprint without any additional communication. Only applicable when using TP.</p>
-<p>d. <strong>Data Parallelism (DP)</strong> via Distributed Optimizer: Reduces memory footprint by sharding optimizer states and gradients across DP ranks.</p>
+Layers are distributed uniformly across PP stages. For example, if a model has <code>24</code> layers and we have <code>4</code> GPUs for
+pipeline parallelism, each GPU will have <code>6</code> layers (24/4). For more details on schedules to reduce the idle time of PP,
+please refer to the research paper <a href="https://arxiv.org/pdf/2104.04473.pdf" rel="nofollow">Efficient Large-Scale Language Model Training on GPU Clusters
+Using Megatron-LM</a> and
+this section of 🤗 blogpost <a href="https://huggingface.co/blog/bloom-megatron-deepspeed#pipeline-parallelism" rel="nofollow">The Technology Behind BLOOM Training</a>.</p>
+<p>c. <strong>Sequence Parallelism (SP)</strong>: Reduces memory footprint without any additional communication. Only applicable when using TP.
+It reduces activation memory required as it prevents the same copies to be on the tensor parallel ranks
+post <code>all-reduce</code> by replacing then with <code>reduce-scatter</code> and <code>no-op</code> operation would be replaced by <code>all-gather</code>.
+As <code>all-reduce = reduce-scatter + all-gather</code>, this saves a ton of activation memory at no added communication cost.
+To put it simply, it shards the outputs of each transformer layer along sequence dimension, e.g.,
+if the sequence length is <code>1024</code> and the TP size is <code>4</code>, each GPU will have <code>256</code> tokens (1024/4) for each sample.
+This increases the batch size that can be supported for training. For more details, please refer to the research paper
+<a href="https://arxiv.org/pdf/2205.05198.pdf" rel="nofollow">Reducing Activation Recomputation in Large Transformer Models</a>. </p>
+<p>d. <strong>Data Parallelism (DP)</strong> via Distributed Optimizer: Reduces the memory footprint by sharding optimizer states and gradients across DP ranks
+(versus the traditional method of replicating the optimizer state across data parallel ranks).
+For example, when using Adam optimizer with mixed-precision training, each parameter accounts for 12 bytes of memory.
+This gets distributed equally across the GPUs, i.e., each parameter would account for 3 bytes (12/4) if we have 4 GPUs.
+For more details, please refer the research paper <a href="https://arxiv.org/pdf/1910.02054.pdf" rel="nofollow">ZeRO: Memory Optimizations Toward Training Trillion
+Parameter Models</a> and following section of 🤗 blog
+<a href="https://huggingface.co/blog/bloom-megatron-deepspeed#zero-data-parallelism" rel="nofollow">The Technology Behind BLOOM Training</a>.</p>
 <p>e. <strong>Selective Activation Recomputation</strong>: Reduces the memory footprint of activations significantly via smart activation checkpointing.
-It doesn’t store activations occupying large memory while being fast to recompute thereby achieving great tradeoff between memory and recomputation.</p>
+It doesn’t store activations occupying large memory while being fast to recompute thereby achieving great tradeoff between memory and recomputation.
+For example, for GPT-3, this leads to 70% reduction in required memory for activations at the expense of
+only 2.7% FLOPs overhead for recomputation of activations. For more details, please refer to the research paper
+<a href="https://arxiv.org/pdf/2205.05198.pdf" rel="nofollow">Reducing Activation Recomputation in Large Transformer Models</a>.</p>
 <p>f. <strong>Fused Kernels</strong>: Fused Softmax, Mixed Precision Fused Layer Norm and  Fused gradient accumulation to weight gradient computation of linear layer.
 PyTorch JIT compiled Fused GeLU and Fused Bias+Dropout+Residual addition.</p>
 <p>g. <strong>Support for Indexed datasets</strong>: Efficient binary format of datasets for large scale training. Support for the <code>mmap</code>, <code>cached</code> index file and the <code>lazy</code> loader format.</p>
@@ -501,10 +527,10 @@ Only these 🤗 transformers model architectures are supported.</p></li></ol>
 <a href="https://huggingface.co/docs/transformers/model_doc/mt5" rel="nofollow">MT5</a></p>
 
 
-		<script type="module" data-hydrate="1rj89qz">
+		<script type="module" data-hydrate="r1n6aj">
 		import { start } from "/docs/accelerate/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="1rj89qz"]').parentNode,
+			target: document.querySelector('[data-hydrate="r1n6aj"]').parentNode,
 			paths: {"base":"/docs/accelerate/main/en","assets":"/docs/accelerate/main/en"},
 			session: {},
 			route: false,
