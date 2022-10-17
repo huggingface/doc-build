@@ -1,18 +1,18 @@
-import{S as ri,i as ai,s as si,e as s,k as c,w as C,t as r,M as ni,c as n,d as o,m as h,a as i,x as w,h as a,b as l,N as ii,G as e,g as f,y as k,q as O,o as $,B as R,v as li,L as oi}from"../../chunks/vendor-hf-doc-builder.js";import{T as ei}from"../../chunks/Tip-hf-doc-builder.js";import{D as te}from"../../chunks/Docstring-hf-doc-builder.js";import{C as As}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as xt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as ti}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function di(S){let p,E,u,g,T;return g=new As({props:{code:`from transformers import TrOCRForCausalLM, TrOCRConfig
+import{S as ri,i as ai,s as si,e as s,k as c,w as C,t as r,M as ni,c as n,d as o,m as h,a as i,x as w,h as a,b as l,N as ii,G as e,g as f,y as k,q as O,o as $,B as R,v as li,L as oi}from"../../chunks/vendor-hf-doc-builder.js";import{T as ei}from"../../chunks/Tip-hf-doc-builder.js";import{D as te}from"../../chunks/Docstring-hf-doc-builder.js";import{C as As}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as xt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as ti}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function di(S){let p,E,u,g,T;return g=new As({props:{code:`from transformers import TrOCRConfig, TrOCRForCausalLM
 
 # Initializing a TrOCR-base style configuration
 configuration = TrOCRConfig()
 
-# Initializing a model from the TrOCR-base style configuration
+# Initializing a model (with random weights) from the TrOCR-base style configuration
 model = TrOCRForCausalLM(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TrOCRForCausalLM, TrOCRConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> TrOCRConfig, TrOCRForCausalLM
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a TrOCR-base style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = TrOCRConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the TrOCR-base style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the TrOCR-base style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = TrOCRForCausalLM(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
