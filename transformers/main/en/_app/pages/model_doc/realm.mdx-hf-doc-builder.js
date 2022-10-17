@@ -1,18 +1,18 @@
-import{S as ym,i as Em,s as zm,e as n,k as d,w as b,t as i,M as xm,c as r,d as t,m as c,a,x as w,h as l,b as p,G as e,g as _,y as $,q as R,o as T,B as y,v as qm,L as rt}from"../../chunks/vendor-hf-doc-builder.js";import{T as yr}from"../../chunks/Tip-hf-doc-builder.js";import{D as x}from"../../chunks/Docstring-hf-doc-builder.js";import{C as at}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as X}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as nt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Am(E){let m,v,u,f,k;return f=new at({props:{code:`from transformers import RealmEmbedder, RealmConfig
+import{S as ym,i as Em,s as zm,e as n,k as d,w as b,t as i,M as xm,c as r,d as t,m as c,a,x as w,h as l,b as p,G as e,g as _,y as $,q as R,o as T,B as y,v as qm,L as rt}from"../../chunks/vendor-hf-doc-builder.js";import{T as yr}from"../../chunks/Tip-hf-doc-builder.js";import{D as x}from"../../chunks/Docstring-hf-doc-builder.js";import{C as at}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as X}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as nt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Am(E){let m,v,u,f,k;return f=new at({props:{code:`from transformers import RealmConfig, RealmEmbedder
 
 # Initializing a REALM realm-cc-news-pretrained-* style configuration
 configuration = RealmConfig()
 
-# Initializing a model from the google/realm-cc-news-pretrained-embedder style configuration
+# Initializing a model (with random weights) from the google/realm-cc-news-pretrained-embedder style configuration
 model = RealmEmbedder(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> RealmEmbedder, RealmConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> RealmConfig, RealmEmbedder
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a REALM realm-cc-news-pretrained-* style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = RealmConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the google/realm-cc-news-pretrained-embedder style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the google/realm-cc-news-pretrained-embedder style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = RealmEmbedder(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
