@@ -3,7 +3,7 @@ import{S as tv,i as ov,s as nv,e as a,k as c,w as T,t as n,M as sv,c as r,d as t
 # Initializing a XLNet configuration
 configuration = XLNetConfig()
 
-# Initializing a model from the configuration
+# Initializing a model (with random weights) from the configuration
 model = XLNetModel(configuration)
 
 # Accessing the model configuration
@@ -12,7 +12,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a XLNet configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = XLNetConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = XLNetModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
