@@ -16,21 +16,21 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = Data2VecTextModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>configuration = model.config`}}),{c(){d=r("p"),g=a("Examples:"),c=m(),w(h.$$.fragment)},l(s){d=i(s,"P",{});var p=l(d);g=n(p,"Examples:"),p.forEach(t),c=u(s),T(h.$$.fragment,s)},m(s,p){b(s,d,p),e(d,g),b(s,c,p),k(h,s,p),v=!0},p:I,i(s){v||(y(h.$$.fragment,s),v=!0)},o(s){$(h.$$.fragment,s),v=!1},d(s){s&&t(d),s&&t(c),x(h,s)}}}function h$(V){let d,g,c,h,v;return h=new N({props:{code:`from transformers import Data2VecAudioModel, Data2VecAudioConfig
+<span class="hljs-meta">&gt;&gt;&gt; </span>configuration = model.config`}}),{c(){d=r("p"),g=a("Examples:"),c=m(),w(h.$$.fragment)},l(s){d=i(s,"P",{});var p=l(d);g=n(p,"Examples:"),p.forEach(t),c=u(s),T(h.$$.fragment,s)},m(s,p){b(s,d,p),e(d,g),b(s,c,p),k(h,s,p),v=!0},p:I,i(s){v||(y(h.$$.fragment,s),v=!0)},o(s){$(h.$$.fragment,s),v=!1},d(s){s&&t(d),s&&t(c),x(h,s)}}}function h$(V){let d,g,c,h,v;return h=new N({props:{code:`from transformers import Data2VecAudioConfig, Data2VecAudioModel
 
 # Initializing a Data2VecAudio facebook/data2vec-audio-base-960h style configuration
 configuration = Data2VecAudioConfig()
 
-# Initializing a model from the facebook/data2vec-audio-base-960h style configuration
+# Initializing a model (with random weights) from the facebook/data2vec-audio-base-960h style configuration
 model = Data2VecAudioModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Data2VecAudioModel, Data2VecAudioConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Data2VecAudioConfig, Data2VecAudioModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Data2VecAudio facebook/data2vec-audio-base-960h style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = Data2VecAudioConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the facebook/data2vec-audio-base-960h style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the facebook/data2vec-audio-base-960h style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = Data2VecAudioModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
