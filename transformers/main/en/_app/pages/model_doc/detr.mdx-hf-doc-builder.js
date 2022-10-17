@@ -81,16 +81,16 @@ outputs = model(**inputs)
 
 # convert outputs (bounding boxes and class logits) to COCO API
 target_sizes = torch.tensor([image.size[::-1]])
-results = feature_extractor.post_process_object_detection(outputs, target_sizes=target_sizes)[0]
+results = feature_extractor.post_process_object_detection(
+    outputs, threshold=0.9, target_sizes=target_sizes
+)[0]
 
 for score, label, box in zip(results["scores"], results["labels"], results["boxes"]):
     box = [round(i, 2) for i in box.tolist()]
-    # let's only keep detections with score > 0.9
-    if score > 0.9:
-        print(
-            f"Detected {model.config.id2label[label.item()]} with confidence "
-            f"{round(score.item(), 3)} at location {box}"
-        )`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DetrFeatureExtractor, DetrForObjectDetection
+    print(
+        f"Detected {model.config.id2label[label.item()]} with confidence "
+        f"{round(score.item(), 3)} at location {box}"
+    )`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DetrFeatureExtractor, DetrForObjectDetection
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> requests
@@ -106,16 +106,16 @@ for score, label, box in zip(results["scores"], results["labels"], results["boxe
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># convert outputs (bounding boxes and class logits) to COCO API</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>target_sizes = torch.tensor([image.size[::-<span class="hljs-number">1</span>]])
-<span class="hljs-meta">&gt;&gt;&gt; </span>results = feature_extractor.post_process_object_detection(outputs, target_sizes=target_sizes)[<span class="hljs-number">0</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>results = feature_extractor.post_process_object_detection(
+<span class="hljs-meta">... </span>    outputs, threshold=<span class="hljs-number">0.9</span>, target_sizes=target_sizes
+<span class="hljs-meta">... </span>)[<span class="hljs-number">0</span>]
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> score, label, box <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(results[<span class="hljs-string">&quot;scores&quot;</span>], results[<span class="hljs-string">&quot;labels&quot;</span>], results[<span class="hljs-string">&quot;boxes&quot;</span>]):
 <span class="hljs-meta">... </span>    box = [<span class="hljs-built_in">round</span>(i, <span class="hljs-number">2</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> box.tolist()]
-<span class="hljs-meta">... </span>    <span class="hljs-comment"># let&#x27;s only keep detections with score &gt; 0.9</span>
-<span class="hljs-meta">... </span>    <span class="hljs-keyword">if</span> score &gt; <span class="hljs-number">0.9</span>:
-<span class="hljs-meta">... </span>        <span class="hljs-built_in">print</span>(
-<span class="hljs-meta">... </span>            <span class="hljs-string">f&quot;Detected <span class="hljs-subst">{model.config.id2label[label.item()]}</span> with confidence &quot;</span>
-<span class="hljs-meta">... </span>            <span class="hljs-string">f&quot;<span class="hljs-subst">{<span class="hljs-built_in">round</span>(score.item(), <span class="hljs-number">3</span>)}</span> at location <span class="hljs-subst">{box}</span>&quot;</span>
-<span class="hljs-meta">... </span>        )
+<span class="hljs-meta">... </span>    <span class="hljs-built_in">print</span>(
+<span class="hljs-meta">... </span>        <span class="hljs-string">f&quot;Detected <span class="hljs-subst">{model.config.id2label[label.item()]}</span> with confidence &quot;</span>
+<span class="hljs-meta">... </span>        <span class="hljs-string">f&quot;<span class="hljs-subst">{<span class="hljs-built_in">round</span>(score.item(), <span class="hljs-number">3</span>)}</span> at location <span class="hljs-subst">{box}</span>&quot;</span>
+<span class="hljs-meta">... </span>    )
 Detected remote <span class="hljs-keyword">with</span> confidence <span class="hljs-number">0.998</span> at location [<span class="hljs-number">40.16</span>, <span class="hljs-number">70.81</span>, <span class="hljs-number">175.55</span>, <span class="hljs-number">117.98</span>]
 Detected remote <span class="hljs-keyword">with</span> confidence <span class="hljs-number">0.996</span> at location [<span class="hljs-number">333.24</span>, <span class="hljs-number">72.55</span>, <span class="hljs-number">368.33</span>, <span class="hljs-number">187.66</span>]
 Detected couch <span class="hljs-keyword">with</span> confidence <span class="hljs-number">0.995</span> at location [-<span class="hljs-number">0.02</span>, <span class="hljs-number">1.15</span>, <span class="hljs-number">639.73</span>, <span class="hljs-number">473.76</span>]
