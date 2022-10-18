@@ -1,18 +1,18 @@
-import{S as cn,i as fn,s as mn,e as r,k as p,w as $,t as a,M as hn,c as n,d as t,m as u,a as l,x as w,h as s,b as f,G as e,g as v,y as T,q as y,o as k,B as F,v as pn,L as ko}from"../../chunks/vendor-hf-doc-builder.js";import{T as Zt}from"../../chunks/Tip-hf-doc-builder.js";import{D as be}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Fo}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as wt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as yo}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function un(j){let d,C,h,c,_;return c=new Fo({props:{code:`from transformers import CvtModel, CvtConfig
+import{S as cn,i as fn,s as mn,e as r,k as p,w as $,t as a,M as hn,c as n,d as t,m as u,a as l,x as w,h as s,b as f,G as e,g as v,y as T,q as y,o as k,B as F,v as pn,L as ko}from"../../chunks/vendor-hf-doc-builder.js";import{T as Zt}from"../../chunks/Tip-hf-doc-builder.js";import{D as be}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Fo}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as wt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as yo}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function un(j){let d,C,h,c,_;return c=new Fo({props:{code:`from transformers import CvtConfig, CvtModel
 
 # Initializing a Cvt msft/cvt style configuration
 configuration = CvtConfig()
 
-# Initializing a model from the msft/cvt style configuration
+# Initializing a model (with random weights) from the msft/cvt style configuration
 model = CvtModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> CvtModel, CvtConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> CvtConfig, CvtModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Cvt msft/cvt style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = CvtConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the msft/cvt style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the msft/cvt style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = CvtModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
