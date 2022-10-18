@@ -1,16 +1,20 @@
-import{S as pr,i as mr,s as ur,e as s,k as h,w as C,t as n,M as gr,c as r,d as t,m as p,a as i,x as b,h as a,b as f,N as vr,G as e,g as m,y as $,q as T,o as N,B as E,v as _r,L as sn}from"../../chunks/vendor-hf-doc-builder.js";import{T as Mo}from"../../chunks/Tip-hf-doc-builder.js";import{D as Qe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as rn}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Dt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as an}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function xr(M){let d,w,g,u,x;return u=new rn({props:{code:`from transformers import ConvNextModel, ConvNextConfig
+import{S as pr,i as mr,s as ur,e as s,k as h,w as C,t as n,M as gr,c as r,d as t,m as p,a as i,x as b,h as a,b as f,N as vr,G as e,g as m,y as $,q as T,o as N,B as E,v as _r,L as sn}from"../../chunks/vendor-hf-doc-builder.js";import{T as Mo}from"../../chunks/Tip-hf-doc-builder.js";import{D as Qe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as rn}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Dt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as an}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function xr(M){let d,w,g,u,x;return u=new rn({props:{code:`from transformers import ConvNextConfig, ConvNextModel
 
 # Initializing a ConvNext convnext-tiny-224 style configuration
 configuration = ConvNextConfig()
-# Initializing a model from the convnext-tiny-224 style configuration
+
+# Initializing a model (with random weights) from the convnext-tiny-224 style configuration
 model = ConvNextModel(configuration)
+
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ConvNextModel, ConvNextConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ConvNextConfig, ConvNextModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a ConvNext convnext-tiny-224 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = ConvNextConfig()
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the convnext-tiny-224 style configuration</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the convnext-tiny-224 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = ConvNextModel(configuration)
+
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = model.config`}}),{c(){d=s("p"),w=n("Example:"),g=h(),C(u.$$.fragment)},l(l){d=r(l,"P",{});var c=i(d);w=a(c,"Example:"),c.forEach(t),g=p(l),b(u.$$.fragment,l)},m(l,c){m(l,d,c),e(d,w),m(l,g,c),$(u,l,c),x=!0},p:sn,i(l){x||(T(u.$$.fragment,l),x=!0)},o(l){N(u.$$.fragment,l),x=!1},d(l){l&&t(d),l&&t(g),E(u,l)}}}function wr(M){let d,w,g,u,x;return{c(){d=s("p"),w=n("Although the recipe for forward pass needs to be defined within this function, one should call the "),g=s("code"),u=n("Module"),x=n(`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
