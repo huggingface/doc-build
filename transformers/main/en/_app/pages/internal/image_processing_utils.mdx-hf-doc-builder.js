@@ -52,29 +52,29 @@ feature extractor.push_to_hub(<span class="hljs-string">&quot;huggingface/my-fin
 The image to normalize.`,name:"image"},{anchor:"transformers.image_transforms.normalize.mean",description:`<strong>mean</strong> (<code>float</code> or <code>Iterable[float]</code>) &#x2014;
 The mean to use for normalization.`,name:"mean"},{anchor:"transformers.image_transforms.normalize.std",description:`<strong>std</strong> (<code>float</code> or <code>Iterable[float]</code>) &#x2014;
 The standard deviation to use for normalization.`,name:"std"},{anchor:"transformers.image_transforms.normalize.data_format",description:`<strong>data_format</strong> (<code>ChannelDimension</code>, <em>optional</em>) &#x2014;
-The channel dimension format of the output image. If <code>None</code>, will use the inferred format from the input.`,name:"data_format"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L265"}}),me=new T({props:{name:"transformers.rescale",anchor:"transformers.rescale",parameters:[{name:"image",val:": ndarray"},{name:"scale",val:": float"},{name:"data_format",val:": typing.Optional[transformers.image_utils.ChannelDimension] = None"},{name:"dtype",val:" = <class 'numpy.float32'>"}],parametersDescription:[{anchor:"transformers.rescale.image",description:`<strong>image</strong> (<code>np.ndarray</code>) &#x2014;
+The channel dimension format of the output image. If <code>None</code>, will use the inferred format from the input.`,name:"data_format"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L266"}}),me=new T({props:{name:"transformers.rescale",anchor:"transformers.rescale",parameters:[{name:"image",val:": ndarray"},{name:"scale",val:": float"},{name:"data_format",val:": typing.Optional[transformers.image_utils.ChannelDimension] = None"},{name:"dtype",val:" = <class 'numpy.float32'>"}],parametersDescription:[{anchor:"transformers.rescale.image",description:`<strong>image</strong> (<code>np.ndarray</code>) &#x2014;
 The image to rescale.`,name:"image"},{anchor:"transformers.rescale.scale",description:`<strong>scale</strong> (<code>float</code>) &#x2014;
 The scale to use for rescaling the image.`,name:"scale"},{anchor:"transformers.rescale.data_format",description:`<strong>data_format</strong> (<code>ChannelDimension</code>, <em>optional</em>) &#x2014;
 The channel dimension format of the image. If not provided, it will be the same as the input image.`,name:"data_format"},{anchor:"transformers.rescale.dtype",description:`<strong>dtype</strong> (<code>np.dtype</code>, <em>optional</em>, defaults to <code>np.float32</code>) &#x2014;
 The dtype of the output image. Defaults to <code>np.float32</code>. Used for backwards compatibility with feature
-extractors.`,name:"dtype"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L79",returnDescription:`
+extractors.`,name:"dtype"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L80",returnDescription:`
 <p>The rescaled image.</p>
 `,returnType:`
 <p><code>np.ndarray</code></p>
 `}}),fe=new T({props:{name:"transformers.resize",anchor:"transformers.resize",parameters:[{name:"image",val:""},{name:"size",val:": typing.Tuple[int, int]"},{name:"resample",val:" = <Resampling.BILINEAR: 2>"},{name:"data_format",val:": typing.Optional[transformers.image_utils.ChannelDimension] = None"},{name:"return_numpy",val:": bool = True"}],parametersDescription:[{anchor:"transformers.resize.image",description:`<strong>image</strong> (<code>PIL.Image.Image</code> or <code>np.ndarray</code> or <code>torch.Tensor</code>) &#x2014;
 The image to resize.`,name:"image"},{anchor:"transformers.resize.size",description:`<strong>size</strong> (<code>Tuple[int, int]</code>) &#x2014;
-The size to use for resizing the image.`,name:"size"},{anchor:"transformers.resize.resample",description:`<strong>resample</strong> (<code>int</code>, <em>optional</em>, defaults to <code>PIL.Image.BILINEAR</code>) &#x2014;
+The size to use for resizing the image.`,name:"size"},{anchor:"transformers.resize.resample",description:`<strong>resample</strong> (<code>int</code>, <em>optional</em>, defaults to <code>PIL.Image.Resampling.BILINEAR</code>) &#x2014;
 The filter to user for resampling.`,name:"resample"},{anchor:"transformers.resize.data_format",description:`<strong>data_format</strong> (<code>ChannelDimension</code>, <em>optional</em>) &#x2014;
 The channel dimension format of the output image. If <code>None</code>, will use the inferred format from the input.`,name:"data_format"},{anchor:"transformers.resize.return_numpy",description:`<strong>return_numpy</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not to return the resized image as a numpy array. If False a <code>PIL.Image.Image</code> object is
-returned.`,name:"return_numpy"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L216",returnDescription:`
+returned.`,name:"return_numpy"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L217",returnDescription:`
 <p>The resized image.</p>
 `,returnType:`
 <p><code>np.ndarray</code></p>
 `}}),pe=new T({props:{name:"transformers.to_pil_image",anchor:"transformers.to_pil_image",parameters:[{name:"image",val:": typing.Union[numpy.ndarray, PIL.Image.Image, ForwardRef('torch.Tensor'), ForwardRef('tf.Tensor'), ForwardRef('jnp.Tensor')]"},{name:"do_rescale",val:": typing.Optional[bool] = None"}],parametersDescription:[{anchor:"transformers.to_pil_image.image",description:`<strong>image</strong> (<code>PIL.Image.Image</code> or <code>numpy.ndarray</code> or <code>torch.Tensor</code> or <code>tf.Tensor</code>) &#x2014;
 The image to convert to the <code>PIL.Image</code> format.`,name:"image"},{anchor:"transformers.to_pil_image.do_rescale",description:`<strong>do_rescale</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Whether or not to apply the scaling factor (to make pixel values integers between 0 and 255). Will default
-to <code>True</code> if the image type is a floating type, <code>False</code> otherwise.`,name:"do_rescale"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L109",returnDescription:`
+to <code>True</code> if the image type is a floating type, <code>False</code> otherwise.`,name:"do_rescale"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L110",returnDescription:`
 <p>The converted image.</p>
 `,returnType:`
 <p><code>PIL.Image.Image</code></p>
