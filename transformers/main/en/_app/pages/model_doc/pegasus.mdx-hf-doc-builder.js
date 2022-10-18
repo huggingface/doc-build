@@ -1,18 +1,18 @@
-import{S as K_,i as R_,s as H_,e as n,k as l,w as v,t as r,M as V_,c as s,d as t,m as c,a,x as y,h as i,b as u,G as e,g as f,y as T,q as w,o as P,B as $,v as Q_,L as ht}from"../../chunks/vendor-hf-doc-builder.js";import{T as dn}from"../../chunks/Tip-hf-doc-builder.js";import{D as j}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Ve}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Y}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as pt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function J_(z){let p,b,_,m,k;return m=new Ve({props:{code:`from transformers import PegasusModel, PegasusConfig
+import{S as K_,i as R_,s as H_,e as n,k as l,w as v,t as r,M as V_,c as s,d as t,m as c,a,x as y,h as i,b as u,G as e,g as f,y as T,q as w,o as P,B as $,v as Q_,L as ht}from"../../chunks/vendor-hf-doc-builder.js";import{T as dn}from"../../chunks/Tip-hf-doc-builder.js";import{D as j}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Ve}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Y}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as pt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function J_(z){let p,b,_,m,k;return m=new Ve({props:{code:`from transformers import PegasusConfig, PegasusModel
 
 # Initializing a PEGASUS google/pegasus-large style configuration
 configuration = PegasusConfig()
 
-# Initializing a model from the google/pegasus-large style configuration
+# Initializing a model (with random weights) from the google/pegasus-large style configuration
 model = PegasusModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> PegasusModel, PegasusConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> PegasusConfig, PegasusModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a PEGASUS google/pegasus-large style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = PegasusConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the google/pegasus-large style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the google/pegasus-large style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = PegasusModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
