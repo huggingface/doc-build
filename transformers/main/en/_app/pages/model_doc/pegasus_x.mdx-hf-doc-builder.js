@@ -1,18 +1,18 @@
-import{S as Xn,i as Sn,s as qn,e as s,k as m,w as y,t as i,M as En,c as a,d as t,m as f,a as r,x as T,h as d,b as c,G as o,g,y as k,q as w,o as P,B as $,v as Cn,L as Wt}from"../../chunks/vendor-hf-doc-builder.js";import{T as xn}from"../../chunks/Tip-hf-doc-builder.js";import{D as to}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Bt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as no}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Dt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Mn(S){let l,v,_,p,b;return p=new Bt({props:{code:`from transformers import PegasusXModel, PegasusXConfig
+import{S as Xn,i as Sn,s as qn,e as s,k as m,w as y,t as i,M as En,c as a,d as t,m as f,a as r,x as T,h as d,b as c,G as o,g,y as k,q as w,o as P,B as $,v as Cn,L as Wt}from"../../chunks/vendor-hf-doc-builder.js";import{T as xn}from"../../chunks/Tip-hf-doc-builder.js";import{D as to}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Bt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as no}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Dt}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Mn(S){let l,v,_,p,b;return p=new Bt({props:{code:`from transformers import PegasusXConfig, PegasusXModel
 
 # Initializing a PEGASUS google/pegasus-x-large style configuration
 configuration = PegasusXConfig()
 
-# Initializing a model from the google/pegasus-x-large style configuration
+# Initializing a model (with random weights) from the google/pegasus-x-large style configuration
 model = PegasusXModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> PegasusXModel, PegasusXConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> PegasusXConfig, PegasusXModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a PEGASUS google/pegasus-x-large style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = PegasusXConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the google/pegasus-x-large style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the google/pegasus-x-large style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = PegasusXModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
