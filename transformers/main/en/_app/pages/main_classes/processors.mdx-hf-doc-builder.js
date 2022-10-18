@@ -21,10 +21,10 @@ processor.push_to_hub(<span class="hljs-string">&quot;my-finetuned-bert&quot;</s
 
 <span class="hljs-comment"># Push the processor to an organization with the name &quot;my-finetuned-bert&quot;.</span>
 processor.push_to_hub(<span class="hljs-string">&quot;huggingface/my-finetuned-bert&quot;</span>)`}}),{c(){u=s("p"),y=n("Examples:"),_=i(),g(h.$$.fragment)},l(f){u=a(f,"P",{});var w=o(u);y=l(w,"Examples:"),w.forEach(r),_=d(f),v(h.$$.fragment,f)},m(f,w){c(f,u,w),t(u,y),c(f,_,w),$(h,f,w),P=!0},p:vi,i(f){P||(b(h.$$.fragment,f),P=!0)},o(f){x(h.$$.fragment,f),P=!1},d(f){f&&r(u),f&&r(_),E(h,f)}}}function vp(M){let u,y;return{c(){u=s("p"),y=n("This API is experimental and may have some slight breaking changes in the next releases.")},l(_){u=a(_,"P",{});var h=o(u);y=l(h,"This API is experimental and may have some slight breaking changes in the next releases."),h.forEach(r)},m(_,h){c(_,u,h),t(u,y)},d(_){_&&r(u)}}}function $p(M){let u,y,_,h,P,f,w,V;return{c(){u=s("p"),y=n("This class method is simply calling "),_=s("a"),h=n("save_pretrained()"),P=n(` and
-`),f=s("code"),w=n("~tokenization_utils_base.PreTrainedTokenizer.save_pretrained"),V=n(`. Please refer to the docstrings of the methods
-above for more information.`),this.h()},l(T){u=a(T,"P",{});var q=o(u);y=l(q,"This class method is simply calling "),_=a(q,"A",{href:!0});var C=o(_);h=l(C,"save_pretrained()"),C.forEach(r),P=l(q,` and
-`),f=a(q,"CODE",{});var K=o(f);w=l(K,"~tokenization_utils_base.PreTrainedTokenizer.save_pretrained"),K.forEach(r),V=l(q,`. Please refer to the docstrings of the methods
-above for more information.`),q.forEach(r),this.h()},h(){m(_,"href","/docs/transformers/main/en/internal/image_processing_utils#transformers.FeatureExtractionMixin.save_pretrained")},m(T,q){c(T,u,q),t(u,y),t(u,_),t(_,h),t(u,P),t(u,f),t(f,w),t(u,V)},d(T){T&&r(u)}}}function bp(M){let u,y,_,h,P;return h=new As({props:{code:`import tensorflow_datasets as tfds
+`),f=s("a"),w=n("save_pretrained()"),V=n(`. Please refer to the docstrings of the
+methods above for more information.`),this.h()},l(T){u=a(T,"P",{});var q=o(u);y=l(q,"This class method is simply calling "),_=a(q,"A",{href:!0});var C=o(_);h=l(C,"save_pretrained()"),C.forEach(r),P=l(q,` and
+`),f=a(q,"A",{href:!0});var K=o(f);w=l(K,"save_pretrained()"),K.forEach(r),V=l(q,`. Please refer to the docstrings of the
+methods above for more information.`),q.forEach(r),this.h()},h(){m(_,"href","/docs/transformers/main/en/internal/image_processing_utils#transformers.FeatureExtractionMixin.save_pretrained"),m(f,"href","/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.save_pretrained")},m(T,q){c(T,u,q),t(u,y),t(u,_),t(_,h),t(u,P),t(u,f),t(f,w),t(u,V)},d(T){T&&r(u)}}}function bp(M){let u,y,_,h,P;return h=new As({props:{code:`import tensorflow_datasets as tfds
 
 dataset = tfds.load("squad")
 

@@ -23,10 +23,10 @@ methods above for more information.`),this.h()},l(j){p=n(j,"P",{});var b=i(p);E=
 `),u=n(b,"A",{href:!0});var z=i(u);g=a(z,"from_pretrained()"),z.forEach(o),T=a(b,` and the tokenizer
 `),m=n(b,"CODE",{});var F=i(m);_=a(F,"~tokenization_utils_base.PreTrainedTokenizer.from_pretrained"),F.forEach(o),D=a(b,` methods. Please refer to the docstrings of the
 methods above for more information.`),b.forEach(o),this.h()},h(){l(u,"href","/docs/transformers/main/en/internal/image_processing_utils#transformers.FeatureExtractionMixin.from_pretrained")},m(j,b){f(j,p,b),e(p,E),e(p,u),e(u,g),e(p,T),e(p,m),e(m,_),e(p,D)},d(j){j&&o(p)}}}function hi(S){let p,E,u,g,T,m,_,D;return{c(){p=s("p"),E=r("This class method is simply calling "),u=s("a"),g=r("save_pretrained()"),T=r(` and
-`),m=s("code"),_=r("~tokenization_utils_base.PreTrainedTokenizer.save_pretrained"),D=r(`. Please refer to the docstrings of the methods
-above for more information.`),this.h()},l(j){p=n(j,"P",{});var b=i(p);E=a(b,"This class method is simply calling "),u=n(b,"A",{href:!0});var z=i(u);g=a(z,"save_pretrained()"),z.forEach(o),T=a(b,` and
-`),m=n(b,"CODE",{});var F=i(m);_=a(F,"~tokenization_utils_base.PreTrainedTokenizer.save_pretrained"),F.forEach(o),D=a(b,`. Please refer to the docstrings of the methods
-above for more information.`),b.forEach(o),this.h()},h(){l(u,"href","/docs/transformers/main/en/internal/image_processing_utils#transformers.FeatureExtractionMixin.save_pretrained")},m(j,b){f(j,p,b),e(p,E),e(p,u),e(u,g),e(p,T),e(p,m),e(m,_),e(p,D)},d(j){j&&o(p)}}}function mi(S){let p,E,u,g,T;return g=new As({props:{code:`from transformers import (
+`),m=s("a"),_=r("save_pretrained()"),D=r(`. Please refer to the docstrings of the
+methods above for more information.`),this.h()},l(j){p=n(j,"P",{});var b=i(p);E=a(b,"This class method is simply calling "),u=n(b,"A",{href:!0});var z=i(u);g=a(z,"save_pretrained()"),z.forEach(o),T=a(b,` and
+`),m=n(b,"A",{href:!0});var F=i(m);_=a(F,"save_pretrained()"),F.forEach(o),D=a(b,`. Please refer to the docstrings of the
+methods above for more information.`),b.forEach(o),this.h()},h(){l(u,"href","/docs/transformers/main/en/internal/image_processing_utils#transformers.FeatureExtractionMixin.save_pretrained"),l(m,"href","/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.save_pretrained")},m(j,b){f(j,p,b),e(p,E),e(p,u),e(u,g),e(p,T),e(p,m),e(m,_),e(p,D)},d(j){j&&o(p)}}}function mi(S){let p,E,u,g,T;return g=new As({props:{code:`from transformers import (
     TrOCRConfig,
     TrOCRProcessor,
     TrOCRForCausalLM,
