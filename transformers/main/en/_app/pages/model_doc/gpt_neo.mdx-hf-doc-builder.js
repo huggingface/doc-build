@@ -1,18 +1,18 @@
-import{S as Fl,i as Ml,s as Cl,e as s,k as h,w as b,t as i,M as El,c as a,d as o,m as u,a as r,x as y,h as l,b as c,G as e,g as v,y as k,q as $,o as P,B as w,v as ql,L as ge}from"../../chunks/vendor-hf-doc-builder.js";import{T as hn}from"../../chunks/Tip-hf-doc-builder.js";import{D as V}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Q}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as me}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as fe}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function zl(N){let d,_,p,m,T;return m=new Q({props:{code:`from transformers import GPTNeoModel, GPTNeoConfig
+import{S as Fl,i as Ml,s as Cl,e as s,k as h,w as b,t as i,M as El,c as a,d as o,m as u,a as r,x as y,h as l,b as c,G as e,g as v,y as k,q as $,o as P,B as w,v as ql,L as ge}from"../../chunks/vendor-hf-doc-builder.js";import{T as hn}from"../../chunks/Tip-hf-doc-builder.js";import{D as V}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Q}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as me}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as fe}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function zl(N){let d,_,p,m,T;return m=new Q({props:{code:`from transformers import GPTNeoConfig, GPTNeoModel
 
 # Initializing a GPTNeo EleutherAI/gpt-neo-1.3B style configuration
 configuration = GPTNeoConfig()
 
-# Initializing a model from the EleutherAI/gpt-neo-1.3B style configuration
+# Initializing a model (with random weights) from the EleutherAI/gpt-neo-1.3B style configuration
 model = GPTNeoModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> GPTNeoModel, GPTNeoConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> GPTNeoConfig, GPTNeoModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a GPTNeo EleutherAI/gpt-neo-1.3B style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = GPTNeoConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the EleutherAI/gpt-neo-1.3B style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the EleutherAI/gpt-neo-1.3B style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = GPTNeoModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
