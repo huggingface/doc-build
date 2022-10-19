@@ -1,18 +1,18 @@
-import{S as Zi,i as Qi,s as Ji,e as r,k as u,w,t as n,M as Gi,c as i,d as o,m as f,a as l,x as y,h as s,b as p,G as e,g as v,y as M,q as $,o as k,B as W,v as el,L as me}from"../../chunks/vendor-hf-doc-builder.js";import{T as Zo}from"../../chunks/Tip-hf-doc-builder.js";import{D as X}from"../../chunks/Docstring-hf-doc-builder.js";import{C as he}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Oe}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as pe}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function tl(L){let d,_,c,m,b;return m=new he({props:{code:"",highlighted:""}}),{c(){d=r("p"),_=n("Example:"),c=u(),w(m.$$.fragment)},l(a){d=i(a,"P",{});var h=l(d);_=s(h,"Example:"),h.forEach(o),c=f(a),y(m.$$.fragment,a)},m(a,h){v(a,d,h),e(d,_),v(a,c,h),M(m,a,h),b=!0},p:me,i(a){b||($(m.$$.fragment,a),b=!0)},o(a){k(m.$$.fragment,a),b=!1},d(a){a&&o(d),a&&o(c),W(m,a)}}}function ol(L){let d,_,c,m,b;return m=new he({props:{code:`from transformers import WavLMModel, WavLMConfig
+import{S as Zi,i as Qi,s as Ji,e as r,k as u,w,t as n,M as Gi,c as i,d as o,m as f,a as l,x as y,h as s,b as p,G as e,g as v,y as M,q as $,o as k,B as W,v as el,L as me}from"../../chunks/vendor-hf-doc-builder.js";import{T as Zo}from"../../chunks/Tip-hf-doc-builder.js";import{D as X}from"../../chunks/Docstring-hf-doc-builder.js";import{C as he}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Oe}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as pe}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function tl(L){let d,_,c,m,b;return m=new he({props:{code:"",highlighted:""}}),{c(){d=r("p"),_=n("Example:"),c=u(),w(m.$$.fragment)},l(a){d=i(a,"P",{});var h=l(d);_=s(h,"Example:"),h.forEach(o),c=f(a),y(m.$$.fragment,a)},m(a,h){v(a,d,h),e(d,_),v(a,c,h),M(m,a,h),b=!0},p:me,i(a){b||($(m.$$.fragment,a),b=!0)},o(a){k(m.$$.fragment,a),b=!1},d(a){a&&o(d),a&&o(c),W(m,a)}}}function ol(L){let d,_,c,m,b;return m=new he({props:{code:`from transformers import WavLMConfig, WavLMModel
 
 # Initializing a WavLM facebook/wavlm-base-960h style configuration
 configuration = WavLMConfig()
 
-# Initializing a model from the facebook/wavlm-base-960h style configuration
+# Initializing a model (with random weights) from the facebook/wavlm-base-960h style configuration
 model = WavLMModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> WavLMModel, WavLMConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> WavLMConfig, WavLMModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a WavLM facebook/wavlm-base-960h style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = WavLMConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the facebook/wavlm-base-960h style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the facebook/wavlm-base-960h style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = WavLMModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
