@@ -3,7 +3,7 @@ import{S as Xy,i as Ey,s as qy,e as a,k as m,w,t as o,M as zy,c as r,d as t,m as
 # Initializing a XLM configuration
 configuration = XLMConfig()
 
-# Initializing a model from the configuration
+# Initializing a model (with random weights) from the configuration
 model = XLMModel(configuration)
 
 # Accessing the model configuration
@@ -12,7 +12,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a XLM configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = XLMConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = XLMModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
