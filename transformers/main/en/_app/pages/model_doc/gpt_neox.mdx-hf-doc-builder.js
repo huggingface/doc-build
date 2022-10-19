@@ -1,18 +1,18 @@
-import{S as us,i as fs,s as gs,e as n,k as m,w as v,t as i,M as _s,c as s,d as o,m as u,a,x as k,h as l,b as h,G as t,g,y as w,q as P,o as y,B as $,v as Ts,L as oo}from"../../chunks/vendor-hf-doc-builder.js";import{T as Fn}from"../../chunks/Tip-hf-doc-builder.js";import{D as et}from"../../chunks/Docstring-hf-doc-builder.js";import{C as tt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Ie}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as to}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function bs(G){let d,T;return d=new tt({props:{code:`from transformers import GPTNeoXModel, GPTNeoXConfig
+import{S as us,i as fs,s as gs,e as n,k as m,w as v,t as i,M as _s,c as s,d as o,m as u,a,x as k,h as l,b as h,G as t,g,y as w,q as P,o as y,B as $,v as Ts,L as oo}from"../../chunks/vendor-hf-doc-builder.js";import{T as Fn}from"../../chunks/Tip-hf-doc-builder.js";import{D as et}from"../../chunks/Docstring-hf-doc-builder.js";import{C as tt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Ie}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as to}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function bs(G){let d,T;return d=new tt({props:{code:`from transformers import GPTNeoXConfig, GPTNeoXModel
 
 # Initializing a GPTNeoX gpt-neox-20b style configuration
 configuration = GPTNeoXConfig()
 
-# Initializing a model from the gpt-neox-20b style configuration
+# Initializing a model (with random weights) from the gpt-neox-20b style configuration
 model = GPTNeoXModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> GPTNeoXModel, GPTNeoXConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> GPTNeoXConfig, GPTNeoXModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a GPTNeoX gpt-neox-20b style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = GPTNeoXConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the gpt-neox-20b style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the gpt-neox-20b style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = GPTNeoXModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>

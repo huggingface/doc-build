@@ -1,18 +1,18 @@
-import{S as os,i as ns,s as as,e as n,k as p,w as v,t as r,M as ss,c as a,d as o,m as h,a as s,x as k,h as i,b as l,G as e,g as _,y,q as w,o as P,B as $,v as rs,L as lo}from"../../chunks/vendor-hf-doc-builder.js";import{T as ts}from"../../chunks/Tip-hf-doc-builder.js";import{D as Ve}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Ft}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Ke}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as io}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function is(G){let c,b;return c=new Ft({props:{code:`from transformers import GPTNeoXJapaneseModel, GPTNeoXJapaneseConfig
+import{S as os,i as ns,s as as,e as n,k as p,w as v,t as r,M as ss,c as a,d as o,m as h,a as s,x as k,h as i,b as l,G as e,g as _,y,q as w,o as P,B as $,v as rs,L as lo}from"../../chunks/vendor-hf-doc-builder.js";import{T as ts}from"../../chunks/Tip-hf-doc-builder.js";import{D as Ve}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Ft}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Ke}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as io}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function is(G){let c,b;return c=new Ft({props:{code:`from transformers import GPTNeoXJapaneseConfig, GPTNeoXJapaneseModel
 
 # Initializing a GPTNeoXJapanese gpt-neox-japanese-2.7b style configuration
 configuration = GPTNeoXJapaneseConfig()
 
-# Initializing a model from the gpt-neox-japanese-2.7b style configuration
+# Initializing a model (with random weights) from the gpt-neox-japanese-2.7b style configuration
 model = GPTNeoXJapaneseModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> GPTNeoXJapaneseModel, GPTNeoXJapaneseConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> GPTNeoXJapaneseConfig, GPTNeoXJapaneseModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a GPTNeoXJapanese gpt-neox-japanese-2.7b style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = GPTNeoXJapaneseConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the gpt-neox-japanese-2.7b style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the gpt-neox-japanese-2.7b style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = GPTNeoXJapaneseModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
