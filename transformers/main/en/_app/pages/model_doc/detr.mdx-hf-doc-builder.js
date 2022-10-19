@@ -1,18 +1,18 @@
-import{S as Rg,i as Hg,s as Ug,e as a,k as d,w as b,t as n,M as Wg,c as s,d as t,m as c,a as i,x as v,h as r,b as l,G as e,g as p,y as D,q as y,o as w,B as T,v as Gg,L as Js}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ks}from"../../chunks/Tip-hf-doc-builder.js";import{D as N}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Oo}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as xt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Zs}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Bg(C){let f,E,g,u,x;return u=new Oo({props:{code:`from transformers import DetrModel, DetrConfig
+import{S as Rg,i as Hg,s as Ug,e as a,k as d,w as b,t as n,M as Wg,c as s,d as t,m as c,a as i,x as v,h as r,b as l,G as e,g as p,y as D,q as y,o as w,B as T,v as Gg,L as Js}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ks}from"../../chunks/Tip-hf-doc-builder.js";import{D as N}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Oo}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as xt}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Zs}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Bg(C){let f,E,g,u,x;return u=new Oo({props:{code:`from transformers import DetrConfig, DetrModel
 
 # Initializing a DETR facebook/detr-resnet-50 style configuration
 configuration = DetrConfig()
 
-# Initializing a model from the facebook/detr-resnet-50 style configuration
+# Initializing a model (with random weights) from the facebook/detr-resnet-50 style configuration
 model = DetrModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DetrModel, DetrConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DetrConfig, DetrModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a DETR facebook/detr-resnet-50 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = DetrConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the facebook/detr-resnet-50 style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the facebook/detr-resnet-50 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = DetrModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
