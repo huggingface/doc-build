@@ -1,18 +1,18 @@
-import{S as Mc,i as Ac,s as zc,e as n,k as p,w,t as r,M as Sc,c as s,d as t,m as f,a as i,x as C,h as a,b as d,G as e,g as _,y,q as k,o as $,B as T,v as Oc,L as ye}from"../../chunks/vendor-hf-doc-builder.js";import{T as Nt}from"../../chunks/Tip-hf-doc-builder.js";import{D as z}from"../../chunks/Docstring-hf-doc-builder.js";import{C as ke}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ee}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ce}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Dc(V){let c,v,m,u,b;return u=new ke({props:{code:`from transformers import Wav2Vec2ConformerModel, Wav2Vec2ConformerConfig
+import{S as Mc,i as Ac,s as zc,e as n,k as p,w,t as r,M as Sc,c as s,d as t,m as f,a as i,x as C,h as a,b as d,G as e,g as _,y,q as k,o as $,B as T,v as Oc,L as ye}from"../../chunks/vendor-hf-doc-builder.js";import{T as Nt}from"../../chunks/Tip-hf-doc-builder.js";import{D as z}from"../../chunks/Docstring-hf-doc-builder.js";import{C as ke}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as ee}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ce}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Dc(V){let c,v,m,u,b;return u=new ke({props:{code:`from transformers import Wav2Vec2ConformerConfig, Wav2Vec2ConformerModel
 
 # Initializing a Wav2Vec2Conformer facebook/wav2vec2-conformer-rel-pos-large style configuration
 configuration = Wav2Vec2ConformerConfig()
 
-# Initializing a model from the facebook/wav2vec2-conformer-rel-pos-large style configuration
+# Initializing a model (with random weights) from the facebook/wav2vec2-conformer-rel-pos-large style configuration
 model = Wav2Vec2ConformerModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Wav2Vec2ConformerModel, Wav2Vec2ConformerConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Wav2Vec2ConformerConfig, Wav2Vec2ConformerModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Wav2Vec2Conformer facebook/wav2vec2-conformer-rel-pos-large style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = Wav2Vec2ConformerConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the facebook/wav2vec2-conformer-rel-pos-large style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the facebook/wav2vec2-conformer-rel-pos-large style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = Wav2Vec2ConformerModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
