@@ -3,7 +3,7 @@ import{S as vu,i as wu,s as $u,e as a,k as c,w as v,t as n,M as Pu,c as r,d as t
 # Initializing a GPT configuration
 configuration = OpenAIGPTConfig()
 
-# Initializing a model from the configuration
+# Initializing a model (with random weights) from the configuration
 model = OpenAIGPTModel(configuration)
 
 # Accessing the model configuration
@@ -12,7 +12,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a GPT configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = OpenAIGPTConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = OpenAIGPTModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>

@@ -1,18 +1,18 @@
-import{S as Kd,i as Vd,s as Zd,e as n,k as p,w as v,t as a,M as Rd,c as s,d as t,m as u,a as i,x as k,h as r,b as f,G as e,g,y as w,q as P,o as $,B as O,v as Jd,L as Ie}from"../../chunks/vendor-hf-doc-builder.js";import{T as Dn}from"../../chunks/Tip-hf-doc-builder.js";import{D as oe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Se}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as at}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ne}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Xd(x){let d,y,m,h,T;return h=new Se({props:{code:`from transformers import OPTModel, OPTConfig
+import{S as Kd,i as Vd,s as Zd,e as n,k as p,w as v,t as a,M as Rd,c as s,d as t,m as u,a as i,x as k,h as r,b as f,G as e,g,y as w,q as P,o as $,B as O,v as Jd,L as Ie}from"../../chunks/vendor-hf-doc-builder.js";import{T as Dn}from"../../chunks/Tip-hf-doc-builder.js";import{D as oe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Se}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as at}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ne}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Xd(x){let d,y,m,h,T;return h=new Se({props:{code:`from transformers import OPTConfig, OPTModel
 
 # Initializing a OPT facebook/opt-large style configuration
 configuration = OPTConfig()
 
-# Initializing a model from the facebook/opt-large style configuration
+# Initializing a model (with random weights) from the facebook/opt-large style configuration
 model = OPTModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> OPTModel, OPTConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> OPTConfig, OPTModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a OPT facebook/opt-large style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = OPTConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the facebook/opt-large style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the facebook/opt-large style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = OPTModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
