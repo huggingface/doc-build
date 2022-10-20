@@ -1226,7 +1226,7 @@ A list of pairs of integers which indicates a mapping from generation indices to
 will be forced before sampling. For example, <code>[[1, 123]]</code> means the second generated token will always
 be a token of index 123.
 model_specific_kwargs &#x2014;
-Additional model specific kwargs will be forwarded to the <code>forward</code> function of the model.`,name:"forced_decoder_ids"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_tf_utils.py#L378",returnDescription:`
+Additional model specific kwargs will be forwarded to the <code>forward</code> function of the model.`,name:"forced_decoder_ids"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/generation_tf_utils.py#L379",returnDescription:`
 <p>A <a
   href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput"
 >ModelOutput</a> (if <code>return_dict_in_generate=True</code> or when
