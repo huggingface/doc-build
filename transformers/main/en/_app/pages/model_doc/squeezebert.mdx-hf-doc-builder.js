@@ -1,18 +1,18 @@
-import{S as Kh,i as Hh,s as Qh,e as i,k as h,w as z,t as r,M as Uh,c as l,d as s,m,a as d,x as q,h as a,b,G as e,g as k,y as $,q as w,o as v,B as y,v as Vh,L as B}from"../../chunks/vendor-hf-doc-builder.js";import{T as Qn}from"../../chunks/Tip-hf-doc-builder.js";import{D as L}from"../../chunks/Docstring-hf-doc-builder.js";import{C as E}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as oe}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as S}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Gh(T){let o,f,p,c,g;return c=new E({props:{code:`from transformers import SqueezeBertModel, SqueezeBertConfig
+import{S as Kh,i as Hh,s as Qh,e as i,k as h,w as z,t as r,M as Uh,c as l,d as s,m,a as d,x as q,h as a,b,G as e,g as k,y as $,q as w,o as v,B as y,v as Vh,L as B}from"../../chunks/vendor-hf-doc-builder.js";import{T as Qn}from"../../chunks/Tip-hf-doc-builder.js";import{D as L}from"../../chunks/Docstring-hf-doc-builder.js";import{C as E}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as oe}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as S}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Gh(T){let o,f,p,c,g;return c=new E({props:{code:`from transformers import SqueezeBertConfig, SqueezeBertModel
 
 # Initializing a SqueezeBERT configuration
 configuration = SqueezeBertConfig()
 
-# Initializing a model from the configuration above
+# Initializing a model (with random weights) from the configuration above
 model = SqueezeBertModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> SqueezeBertModel, SqueezeBertConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> SqueezeBertConfig, SqueezeBertModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a SqueezeBERT configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = SqueezeBertConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration above</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration above</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = SqueezeBertModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
