@@ -1,18 +1,18 @@
-import{S as Op,i as Gp,s as Up,e as a,k as p,w as y,t as n,M as Wp,c as r,d as t,m as h,a as i,x,h as s,b as l,G as e,g as u,y as k,q as w,o as S,B as $,v as Rp,L as la}from"../../chunks/vendor-hf-doc-builder.js";import{T as bo}from"../../chunks/Tip-hf-doc-builder.js";import{D as G}from"../../chunks/Docstring-hf-doc-builder.js";import{C as En}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as st}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as da}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Vp(j){let c,b,_,g,v;return g=new En({props:{code:`from transformers import Speech2TextModel, Speech2TextConfig
+import{S as Op,i as Gp,s as Up,e as a,k as p,w as y,t as n,M as Wp,c as r,d as t,m as h,a as i,x,h as s,b as l,G as e,g as u,y as k,q as w,o as S,B as $,v as Rp,L as la}from"../../chunks/vendor-hf-doc-builder.js";import{T as bo}from"../../chunks/Tip-hf-doc-builder.js";import{D as G}from"../../chunks/Docstring-hf-doc-builder.js";import{C as En}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as st}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as da}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Vp(j){let c,b,_,g,v;return g=new En({props:{code:`from transformers import Speech2TextConfig, Speech2TextModel
 
 # Initializing a Speech2Text s2t_transformer_s style configuration
 configuration = Speech2TextConfig()
 
-# Initializing a model from the s2t_transformer_s style configuration
+# Initializing a model (with random weights) from the s2t_transformer_s style configuration
 model = Speech2TextModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Speech2TextModel, Speech2TextConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Speech2TextConfig, Speech2TextModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a Speech2Text s2t_transformer_s style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = Speech2TextConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the s2t_transformer_s style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the s2t_transformer_s style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = Speech2TextModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
