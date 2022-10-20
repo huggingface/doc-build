@@ -1023,7 +1023,7 @@ Whether or not to return the hidden states of all layers. See <code>hidden_state
 more detail.`,name:"output_hidden_states"},{anchor:"transformers.Data2VecAudioModel.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/data2vec/modeling_data2vec_audio.py#L911",returnDescription:`
 <p>A <a
-  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.Wav2Vec2BaseModelOutput"
+  href="/docs/transformers/main/en/model_doc/wav2vec2#transformers.modeling_outputs.Wav2Vec2BaseModelOutput"
 >transformers.modeling_outputs.Wav2Vec2BaseModelOutput</a> or a tuple of
 <code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
 elements depending on the configuration (<a
@@ -1049,7 +1049,7 @@ heads.</p>
 </ul>
 `,returnType:`
 <p><a
-  href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.Wav2Vec2BaseModelOutput"
+  href="/docs/transformers/main/en/model_doc/wav2vec2#transformers.modeling_outputs.Wav2Vec2BaseModelOutput"
 >transformers.modeling_outputs.Wav2Vec2BaseModelOutput</a> or <code>tuple(torch.FloatTensor)</code></p>
 `}}),ga=new ie({props:{$$slots:{default:[u$]},$$scope:{ctx:V}}}),_a=new L({props:{anchor:"transformers.Data2VecAudioModel.forward.example",$$slots:{default:[f$]},$$scope:{ctx:V}}}),is=new K({}),ls=new M({props:{name:"class transformers.Data2VecAudioForAudioFrameClassification",anchor:"transformers.Data2VecAudioForAudioFrameClassification",parameters:[{name:"config",val:""}],parametersDescription:[{anchor:"transformers.Data2VecAudioForAudioFrameClassification.config",description:`<strong>config</strong> (<a href="/docs/transformers/main/en/model_doc/data2vec#transformers.Data2VecAudioConfig">Data2VecAudioConfig</a>) &#x2014; Model configuration class with all the parameters of the model.
 Initializing with a config file does not load the weights associated with the model, only the
