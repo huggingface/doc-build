@@ -5,7 +5,6 @@ configuration = GPTNeoXConfig()
 
 # Initializing a model (with random weights) from the gpt-neox-20b style configuration
 model = GPTNeoXModel(configuration)
-
 # Accessing the model configuration
 configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> GPTNeoXConfig, GPTNeoXModel
 
@@ -14,7 +13,6 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the gpt-neox-20b style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = GPTNeoXModel(configuration)
-
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = model.config`}}),{c(){v(d.$$.fragment)},l(p){k(d.$$.fragment,p)},m(p,f){w(d,p,f),T=!0},p:oo,i(p){T||(P(d.$$.fragment,p),T=!0)},o(p){y(d.$$.fragment,p),T=!1},d(p){$(d,p)}}}function vs(G){let d,T,p,f,b;return f=new tt({props:{code:`from transformers import GPTNeoXTokenizerFast
 tokenizer = GPTNeoXTokenizerFast.from_pretrained("gpt2")
