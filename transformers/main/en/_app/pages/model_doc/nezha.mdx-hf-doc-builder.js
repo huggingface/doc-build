@@ -3,7 +3,7 @@ import{S as Xc,i as Yc,s as eh,e as i,k as m,w as k,t as a,M as th,c as l,d as n
 # Initializing an Nezha configuration
 configuration = NezhaConfig()
 
-# Initializing a model from the Nezha-base style configuration model
+# Initializing a model (with random weights) from the Nezha-base style configuration model
 model = NezhaModel(configuration)
 
 # Accessing the model configuration
@@ -12,7 +12,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing an Nezha configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = NezhaConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the Nezha-base style configuration model</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the Nezha-base style configuration model</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = NezhaModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
