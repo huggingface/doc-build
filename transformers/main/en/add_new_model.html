@@ -18,27 +18,18 @@
 	<span>How to add a model to 🤗 Transformers?
 	</span></h1>
 
-<p>Adding a new model is often difficult and requires an in-depth knowledge of the 🤗 Transformers library and ideally also
-of the model’s original repository. At Hugging Face, we are trying to empower the community more and more to add models
-independently. Thus, for some new models that the community wants to be added to 🤗 Transformers, we create a customized
-<em>call-for-model-addition</em> that explains step-by-step how to add the requested model. With this
-<em>call-for-model-addition</em>, we want to teach a motivated and experienced contributor of the community how to port a
-model to 🤗 Transformers.</p>
-<p>If this sounds like something you would be interested in, feel free to check out the currently open
-“calls-for-model-addition” <a href="https://github.com/huggingface/transformers/tree/main/templates/adding_a_new_model/open_model_proposals/README.md" rel="nofollow">here</a>
-and to contact us.</p>
-<p>If selected, you will then work closely with one member of the Hugging Face team to integrate the model into 🤗
-Transformers. By doing so, you will both gain a theoretical and deep practical understanding of the proposed model. But
-more importantly, you will have made a major open-source contribution to 🤗 Transformers. Along the way, you will:</p>
+<p>The 🤗 Transformers library is often able to offer new models thanks to community contributors. But this can be a challenging project and requires an in-depth knowledge of the 🤗 Transformers library and the model to implement. At Hugging Face, we’re trying to empower more of the community to actively add models and we’ve put together this guide to walk you through the process of adding a PyTorch model (make sure you have <a href="https://pytorch.org/get-started/locally/" rel="nofollow">PyTorch installed</a>).</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>If you’re interested in implementing a TensorFlow model, take a look at the <a href="add_tensorflow_model">How to convert a 🤗 Transformers model to TensorFlow</a> guide!</p></div>
+<p>Along the way, you’ll:</p>
 <ul><li>get insights into open-source best practices</li>
-<li>understand the design principles of one of the most popular NLP libraries</li>
-<li>learn how to do efficiently test large NLP models</li>
-<li>learn how to integrate Python utilities like <code>black</code>, <code>isort</code>, <code>make fix-copies</code> into a library to always
-ensure clean and readable code</li></ul>
-<p>We are also more than happy if you want to add a model that cannot be found in the “calls-for-model-addition” folder.
-The following sections explain in detail how to add a new model. It might also be very helpful to check out already
-added models to see if those resemble the model you would like to add <a href="https://github.com/huggingface/transformers/pulls?q=is%3Apr+label%3A%22PR+for+Model+Addition%22+is%3Aclosed" rel="nofollow">here</a>.</p>
-<p>To start, let’s try to get a general overview of the Transformers library.</p>
+<li>understand the design principles behind one of the most popular deep learning libraries</li>
+<li>learn how to efficiently test large models</li>
+<li>learn how to integrate Python utilities like <code>black</code>, <code>isort</code>, and <code>make fix-copies</code> to ensure clean and readable code</li></ul>
+<p>A Hugging Face team member will be available to help you along the way so you’ll never be alone. 🤗 ❤️</p>
+<p>To get started, open a <a href="https://github.com/huggingface/transformers/issues/new?assignees=&labels=New+model&template=new-model-addition.yml" rel="nofollow">New model addition</a> issue for the model you want to see in 🤗 Transformers. If you’re not especially picky about contributing a specific model, you can filter by the <a href="https://github.com/huggingface/transformers/labels/New%20model" rel="nofollow">New model label</a> to see if there are any unclaimed model requests and work on it.</p>
+<p>Once you’ve opened a new model request, the first step is to get familiar with 🤗 Transformers if you aren’t already!</p>
 <h2 class="relative group"><a id="general-overview-of-transformers" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#general-overview-of-transformers"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
 	<span>General overview of 🤗 Transformers
 	</span></h2>
@@ -136,20 +127,20 @@ progress.</li></ul>
 <p>In the following, we try to give you a general recipe that we found most useful when porting a model to 🤗 Transformers.</p>
 <p>The following list is a summary of everything that has to be done to add a model and can be used by you as a To-Do
 List:</p>
-<ul><li><ol><li>☐ (Optional) Understood theoretical aspects</li></ol></li>
-<li><ol start="2"><li>☐ Prepared transformers dev environment</li></ol></li>
-<li><ol start="3"><li>☐ Set up debugging environment of the original repository</li></ol></li>
-<li><ol start="4"><li>☐ Created script that successfully runs forward pass using original repository and checkpoint</li></ol></li>
-<li><ol start="5"><li>☐ Successfully added the model skeleton to Transformers</li></ol></li>
-<li><ol start="6"><li>☐ Successfully converted original checkpoint to Transformers checkpoint</li></ol></li>
-<li><ol start="7"><li>☐ Successfully ran forward pass in Transformers that gives identical output to original checkpoint</li></ol></li>
-<li><ol start="8"><li>☐ Finished model tests in Transformers</li></ol></li>
-<li><ol start="9"><li>☐ Successfully added Tokenizer in Transformers</li></ol></li>
-<li><ol start="10"><li>☐ Run end-to-end integration tests</li></ol></li>
-<li><ol start="11"><li>☐ Finished docs</li></ol></li>
-<li><ol start="12"><li>☐ Uploaded model weights to the hub</li></ol></li>
-<li><ol start="13"><li>☐ Submitted the pull request</li></ol></li>
-<li><ol start="14"><li>☐ (Optional) Added a demo notebook</li></ol></li></ul>
+<p>☐ (Optional) Understood the model’s theoretical aspects<br>
+☐ Prepared 🤗 Transformers dev environment<br>
+☐ Set up debugging environment of the original repository<br>
+☐ Created script that successfully runs the <code>forward()</code> pass using the original repository and checkpoint<br>
+☐ Successfully added the model skeleton to 🤗 Transformers<br>
+☐ Successfully converted original checkpoint to 🤗 Transformers checkpoint<br>
+☐ Successfully ran <code>forward()</code> pass in 🤗 Transformers that gives identical output to original checkpoint<br>
+☐ Finished model tests in 🤗 Transformers<br>
+☐ Successfully added tokenizer in 🤗 Transformers<br>
+☐ Run end-to-end integration tests<br>
+☐ Finished docs<br>
+☐ Uploaded model weights to the Hub<br>
+☐ Submitted the pull request<br>
+☐ (Optional) Added a demo notebook</p>
 <p>To begin with, we usually recommend to start by getting a good theoretical understanding of <code>BrandNewBert</code>. However,
 if you prefer to understand the theoretical aspects of the model <em>on-the-job</em>, then it is totally fine to directly dive
 into the <code>BrandNewBert</code>’s code-base. This option might suit you better, if your engineering skills are better than
@@ -695,7 +686,7 @@ tests for you.</p>
 <p><strong>11. Add Docstring</strong></p>
 <p>Now, all the necessary functionality for <em>brand_new_bert</em> is added - you’re almost done! The only thing left to add is
 a nice docstring and a doc page. The Cookiecutter should have added a template file called
-<code>docs/source/model_doc/brand_new_bert.rst</code> that you should fill out. Users of your model will usually first look at
+<code>docs/source/model_doc/brand_new_bert.mdx</code> that you should fill out. Users of your model will usually first look at
 this page before using your model. Hence, the documentation must be understandable and concise. It is very useful for
 the community to add some <em>Tips</em> to show how the model should be used. Don’t hesitate to ping the Hugging Face team
 regarding the docstrings.</p>
@@ -758,10 +749,10 @@ your achievement with the community.</p>
 <p><strong>You have made another model that is super easy to access for everyone in the community! 🤯</strong></p>
 
 
-		<script type="module" data-hydrate="1n2r63z">
+		<script type="module" data-hydrate="1471v6f">
 		import { start } from "/docs/transformers/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="1n2r63z"]').parentNode,
+			target: document.querySelector('[data-hydrate="1471v6f"]').parentNode,
 			paths: {"base":"/docs/transformers/main/en","assets":"/docs/transformers/main/en"},
 			session: {},
 			route: false,
