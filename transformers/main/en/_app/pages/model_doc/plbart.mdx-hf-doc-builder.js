@@ -1,16 +1,20 @@
-import{S as Pd,i as Ld,s as $d,e as n,k as m,w as v,t as i,M as Bd,c as a,d as o,m as f,a as s,x as y,h as d,b as c,G as e,g as _,y as T,q as w,o as P,B as L,v as qd,L as me}from"../../chunks/vendor-hf-doc-builder.js";import{T as ri}from"../../chunks/Tip-hf-doc-builder.js";import{D as G}from"../../chunks/Docstring-hf-doc-builder.js";import{C as R}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as he}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as ue}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function zd($){let l,b,p,u,k;return u=new R({props:{code:`from transformers import PLBartModel, PLBartConfig
+import{S as Pd,i as Ld,s as $d,e as n,k as m,w as v,t as i,M as Bd,c as a,d as o,m as f,a as s,x as y,h as d,b as c,G as e,g as _,y as T,q as w,o as P,B as L,v as qd,L as me}from"../../chunks/vendor-hf-doc-builder.js";import{T as ri}from"../../chunks/Tip-hf-doc-builder.js";import{D as G}from"../../chunks/Docstring-hf-doc-builder.js";import{C as R}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as he}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as ue}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function zd($){let l,b,p,u,k;return u=new R({props:{code:`from transformers import PLBartConfig, PLBartModel
 
 # Initializing a PLBART uclanlp/plbart-base style configuration
 configuration = PLBartConfig()
-# Initializing a model from the uclanlp/plbart-base style configuration
+
+# Initializing a model (with random weights) from the uclanlp/plbart-base style configuration
 model = PLBartModel(configuration)
+
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> PLBartModel, PLBartConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> PLBartConfig, PLBartModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a PLBART uclanlp/plbart-base style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = PLBartConfig()
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the uclanlp/plbart-base style configuration</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the uclanlp/plbart-base style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = PLBartModel(configuration)
+
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = model.config`}}),{c(){l=n("p"),b=i("Example:"),p=m(),v(u.$$.fragment)},l(r){l=a(r,"P",{});var g=s(l);b=d(g,"Example:"),g.forEach(o),p=f(r),y(u.$$.fragment,r)},m(r,g){_(r,l,g),e(l,b),_(r,p,g),T(u,r,g),k=!0},p:me,i(r){k||(w(u.$$.fragment,r),k=!0)},o(r){P(u.$$.fragment,r),k=!1},d(r){r&&o(l),r&&o(p),L(u,r)}}}function xd($){let l,b,p,u,k;return u=new R({props:{code:`from transformers import PLBartTokenizer
 
