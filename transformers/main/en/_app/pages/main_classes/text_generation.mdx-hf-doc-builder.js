@@ -850,11 +850,10 @@ for constrained generation conditioned on the prefix, as described in <a href="h
 Retrieval</a>.`,name:"prefix_allowed_tokens_fn"},{anchor:"transformers.generation_utils.GenerationMixin.generate.logits_processor",description:`<strong>logits_processor</strong> (<code>LogitsProcessorList</code>, <em>optional</em>) &#x2014;
 Custom logits processors that complement the default logits processors built from arguments and a
 model&#x2019;s config. If a logit processor is passed that is already created with the arguments or a model&#x2019;s
-config an error is thrown. This feature is intended for advanced users.
-renormalize_logits &#x2014; (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>):
+config an error is thrown. This feature is intended for advanced users.`,name:"logits_processor"},{anchor:"transformers.generation_utils.GenerationMixin.generate.renormalize_logits",description:`<strong>renormalize_logits</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether to renormalize the logits after applying all the logits processors or warpers (including the
 custom ones). It&#x2019;s highly recommended to set this flag to <code>True</code> as the search algorithms suppose the
-score logits are normalized but some logit processors or warpers break the normalization.`,name:"logits_processor"},{anchor:"transformers.generation_utils.GenerationMixin.generate.stopping_criteria",description:`<strong>stopping_criteria</strong> (<code>StoppingCriteriaList</code>, <em>optional</em>) &#x2014;
+score logits are normalized but some logit processors or warpers break the normalization.`,name:"renormalize_logits"},{anchor:"transformers.generation_utils.GenerationMixin.generate.stopping_criteria",description:`<strong>stopping_criteria</strong> (<code>StoppingCriteriaList</code>, <em>optional</em>) &#x2014;
 Custom stopping criteria that complement the default stopping criteria built from arguments and a
 model&#x2019;s config. If a stopping criteria is passed that is already created with the arguments or a
 model&#x2019;s config an error is thrown. This feature is intended for advanced users.`,name:"stopping_criteria"},{anchor:"transformers.generation_utils.GenerationMixin.generate.constraints",description:`<strong>constraints</strong> (<code>List[Constraint]</code>, <em>optional</em>) &#x2014;
