@@ -5,7 +5,7 @@ breaking changes to fix it in the future. If you see something strange, file a `
 # Initializing a MaskFormer facebook/maskformer-swin-base-ade configuration
 configuration = MaskFormerConfig()
 
-# Initializing a model from the facebook/maskformer-swin-base-ade style configuration
+# Initializing a model (with random weights) from the facebook/maskformer-swin-base-ade style configuration
 model = MaskFormerModel(configuration)
 
 # Accessing the model configuration
@@ -14,7 +14,7 @@ configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a MaskFormer facebook/maskformer-swin-base-ade configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = MaskFormerConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the facebook/maskformer-swin-base-ade style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the facebook/maskformer-swin-base-ade style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = MaskFormerModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
