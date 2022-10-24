@@ -1,0 +1,189 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;how-to-build-a-community-pipeline&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;how-do-community-pipelines-work&quot;,&quot;title&quot;:&quot;How do community pipelines work?&quot;}],&quot;title&quot;:&quot;How to build a community pipeline&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/diffusers/main/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/diffusers/main/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/diffusers/main/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/diffusers/main/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/diffusers/main/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/diffusers/main/en/_app/pages/using-diffusers/contribute_pipeline.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/diffusers/main/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/diffusers/main/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="how-to-build-a-community-pipeline" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#how-to-build-a-community-pipeline"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>How to build a community pipeline
+	</span></h1>
+
+<p><em>Note</em>: this page was built from the GitHub Issue on Community Pipelines <a href="https://github.com/huggingface/diffusers/issues/841" rel="nofollow">#841</a>.</p>
+<p>Let’s make an example!
+Say you want to define a pipeline that just does a single forward pass to a U-Net and then calls a scheduler only once (Note, this doesn’t make any sense from a scientific point of view, but only represents an example of how things work under the hood).</p>
+<p>Cool! So you open your favorite IDE and start creating your pipeline 💻.
+First, what model weights and configurations do we need?
+We have a U-Net and a scheduler, so our pipeline should take a U-Net and a scheduler as an argument.
+Also, as stated above, you’d like to be able to load weights and the scheduler config for Hub and share your code with others, so we’ll inherit from <code>DiffusionPipeline</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline
+<span class="hljs-keyword">import</span> torch
+
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">UnetSchedulerOneForwardPipeline</span>(<span class="hljs-title class_ inherited__">DiffusionPipeline</span>):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, unet, scheduler</span>):
+        <span class="hljs-built_in">super</span>().__init__()<!-- HTML_TAG_END --></pre></div>
+<p>Now, we must save the <code>unet</code> and <code>scheduler</code> in a config file so that you can save your pipeline with <code>save_pretrained</code>.
+Therefore, make sure you add every component that is save-able to the <code>register_modules</code> function:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline
+<span class="hljs-keyword">import</span> torch
+
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">UnetSchedulerOneForwardPipeline</span>(<span class="hljs-title class_ inherited__">DiffusionPipeline</span>):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, unet, scheduler</span>):
+        <span class="hljs-built_in">super</span>().__init__()
+
+        self.register_modules(unet=unet, scheduler=scheduler)<!-- HTML_TAG_END --></pre></div>
+<p>Cool, the init is done! 🔥 Now, let’s go into the forward pass, which we recommend defining as <code>__call__</code> . Here you’re given all the creative freedom there is. For our amazing “one-step” pipeline, we simply create a random image and call the unet once and the scheduler once:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline
+<span class="hljs-keyword">import</span> torch
+
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">UnetSchedulerOneForwardPipeline</span>(<span class="hljs-title class_ inherited__">DiffusionPipeline</span>):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, unet, scheduler</span>):
+        <span class="hljs-built_in">super</span>().__init__()
+
+        self.register_modules(unet=unet, scheduler=scheduler)
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__call__</span>(<span class="hljs-params">self</span>):
+        image = torch.randn(
+            (<span class="hljs-number">1</span>, self.unet.in_channels, self.unet.sample_size, self.unet.sample_size),
+        )
+        timestep = <span class="hljs-number">1</span>
+
+        model_output = self.unet(image, timestep).sample
+        scheduler_output = self.scheduler.step(model_output, timestep, image).prev_sample
+
+        <span class="hljs-keyword">return</span> scheduler_output<!-- HTML_TAG_END --></pre></div>
+<p>Cool, that’s it! 🚀 You can now run this pipeline by passing a <code>unet</code> and a <code>scheduler</code> to the init:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DDPMScheduler, Unet2DModel
+
+scheduler = DDPMScheduler()
+unet = UNet2DModel()
+
+pipeline = UnetSchedulerOneForwardPipeline(unet=unet, scheduler=scheduler)
+
+output = pipeline()<!-- HTML_TAG_END --></pre></div>
+<p>But what’s even better is that you can load pre-existing weights into the pipeline if they match exactly your pipeline structure. This is e.g. the case for <a href="https://huggingface.co/google/ddpm-cifar10-32" rel="nofollow">https://huggingface.co/google/ddpm-cifar10-32</a> so that we can do the following:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->pipeline = UnetSchedulerOneForwardPipeline.from_pretrained(<span class="hljs-string">&quot;google/ddpm-cifar10-32&quot;</span>)
+
+output = pipeline()<!-- HTML_TAG_END --></pre></div>
+<p>We want to share this amazing pipeline with the community, so we would open a PR request to add the following code under <code>one_step_unet.py</code> to <a href="https://github.com/huggingface/diffusers/tree/main/examples/community" rel="nofollow">https://github.com/huggingface/diffusers/tree/main/examples/community</a> .</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline
+<span class="hljs-keyword">import</span> torch
+
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">UnetSchedulerOneForwardPipeline</span>(<span class="hljs-title class_ inherited__">DiffusionPipeline</span>):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, unet, scheduler</span>):
+        <span class="hljs-built_in">super</span>().__init__()
+
+        self.register_modules(unet=unet, scheduler=scheduler)
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__call__</span>(<span class="hljs-params">self</span>):
+        image = torch.randn(
+            (<span class="hljs-number">1</span>, self.unet.in_channels, self.unet.sample_size, self.unet.sample_size),
+        )
+        timestep = <span class="hljs-number">1</span>
+
+        model_output = self.unet(image, timestep).sample
+        scheduler_output = self.scheduler.step(model_output, timestep, image).prev_sample
+
+        <span class="hljs-keyword">return</span> scheduler_output<!-- HTML_TAG_END --></pre></div>
+<p>Our amazing pipeline got merged here: <a href="https://github.com/huggingface/diffusers/pull/840" rel="nofollow">#840</a>.
+Now everybody that has <code>diffusers &gt;= 0.4.0</code> installed can use our pipeline magically 🪄 as follows:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline
+
+pipe = DiffusionPipeline.from_pretrained(<span class="hljs-string">&quot;google/ddpm-cifar10-32&quot;</span>, custom_pipeline=<span class="hljs-string">&quot;one_step_unet&quot;</span>)
+pipe()<!-- HTML_TAG_END --></pre></div>
+<p>Another way to upload your custom_pipeline, besides sending a PR, is uploading the code that contains it to the Hugging Face Hub, <a href="https://huggingface.co/docs/diffusers/using-diffusers/custom_pipelines#loading-custom-pipelines-from-the-hub" rel="nofollow">as exemplified here</a>.</p>
+<p><strong>Try it out now - it works!</strong></p>
+<p>In general, you will want to create much more sophisticated pipelines, so we recommend looking at existing pipelines here: <a href="https://github.com/huggingface/diffusers/tree/main/examples/community" rel="nofollow">https://github.com/huggingface/diffusers/tree/main/examples/community</a>.</p>
+<p>IMPORTANT:
+You can use whatever package you want in your community pipeline file - as long as the user has it installed, everything will work fine. Make sure you have one and only one pipeline class that inherits from <code>DiffusionPipeline</code> as this will be automatically detected.</p>
+<h2 class="relative group"><a id="how-do-community-pipelines-work" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#how-do-community-pipelines-work"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>How do community pipelines work?
+	</span></h2>
+
+A community pipeline is a class that has to inherit from [&#39;DiffusionPipeline&#39;]:
+and that has been added to `examples/community` [files](https://github.com/huggingface/diffusers/tree/main/examples/community).
+The community can load the pipeline code via the custom_pipeline argument from DiffusionPipeline. See docs [here](https://huggingface.co/docs/diffusers/api/diffusion_pipeline#diffusers.DiffusionPipeline.from_pretrained.custom_pipeline):
+<p>This means:
+The model weights and configs of the pipeline should be loaded from the <code>pretrained_model_name_or_path</code> <a href="https://huggingface.co/docs/diffusers/api/diffusion_pipeline#diffusers.DiffusionPipeline.from_pretrained.pretrained_model_name_or_path" rel="nofollow">argument</a>:
+whereas the code that powers the community pipeline is defined in a file added in <a href="https://github.com/huggingface/diffusers/tree/main/examples/community" rel="nofollow"><code>examples/community</code></a>.</p>
+<p>Now, it might very well be that only some of your pipeline components weights can be downloaded from an official repo.
+The other components should then be passed directly to init as is the case for the ClIP guidance notebook <a href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/CLIP_Guided_Stable_diffusion_with_diffusers.ipynb#scrollTo=z9Kglma6hjki" rel="nofollow">here</a>.</p>
+<p>The magic behind all of this is that we load the code directly from GitHub. You can check it out in more detail if you follow the functionality defined here:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># 2. Load the pipeline class, if using custom module then load it from the hub</span>
+<span class="hljs-comment"># if we load from explicit class, let&#x27;s use it</span>
+<span class="hljs-keyword">if</span> custom_pipeline <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+    pipeline_class = get_class_from_dynamic_module(
+        custom_pipeline, module_file=CUSTOM_PIPELINE_FILE_NAME, cache_dir=custom_pipeline
+    )
+<span class="hljs-keyword">elif</span> cls != DiffusionPipeline:
+    pipeline_class = cls
+<span class="hljs-keyword">else</span>:
+    diffusers_module = importlib.import_module(cls.__module__.split(<span class="hljs-string">&quot;.&quot;</span>)[<span class="hljs-number">0</span>])
+    pipeline_class = <span class="hljs-built_in">getattr</span>(diffusers_module, config_dict[<span class="hljs-string">&quot;_class_name&quot;</span>])<!-- HTML_TAG_END --></pre></div>
+<p>This is why a community pipeline merged to GitHub will be directly available to all <code>diffusers</code> packages.</p>
+
+
+		<script type="module" data-hydrate="hcjpwp">
+		import { start } from "/docs/diffusers/main/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="hcjpwp"]').parentNode,
+			paths: {"base":"/docs/diffusers/main/en","assets":"/docs/diffusers/main/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/diffusers/main/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/diffusers/main/en/_app/pages/using-diffusers/contribute_pipeline.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
