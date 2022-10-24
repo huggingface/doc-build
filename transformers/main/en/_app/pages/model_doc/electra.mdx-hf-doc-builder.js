@@ -1,18 +1,18 @@
-import{S as Qj,i as Vj,s as Jj,e as a,k as c,w as T,t as n,M as Gj,c as r,d as t,m as p,a as i,x as b,h as s,b as f,G as e,g as _,y as w,q as E,o as $,B as F,v as Xj,L as ie}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ie}from"../../chunks/Tip-hf-doc-builder.js";import{D as I}from"../../chunks/Docstring-hf-doc-builder.js";import{C as le}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Se}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as re}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Yj(x){let d,g,m,u,v;return u=new le({props:{code:`from transformers import ElectraModel, ElectraConfig
+import{S as Qj,i as Vj,s as Jj,e as a,k as c,w as T,t as n,M as Gj,c as r,d as t,m as p,a as i,x as b,h as s,b as f,G as e,g as _,y as w,q as E,o as $,B as F,v as Xj,L as ie}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ie}from"../../chunks/Tip-hf-doc-builder.js";import{D as I}from"../../chunks/Docstring-hf-doc-builder.js";import{C as le}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as Se}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as re}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Yj(x){let d,g,m,u,v;return u=new le({props:{code:`from transformers import ElectraConfig, ElectraModel
 
 # Initializing a ELECTRA electra-base-uncased style configuration
 configuration = ElectraConfig()
 
-# Initializing a model from the electra-base-uncased style configuration
+# Initializing a model (with random weights) from the electra-base-uncased style configuration
 model = ElectraModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ElectraModel, ElectraConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ElectraConfig, ElectraModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a ELECTRA electra-base-uncased style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = ElectraConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the electra-base-uncased style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the electra-base-uncased style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = ElectraModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
