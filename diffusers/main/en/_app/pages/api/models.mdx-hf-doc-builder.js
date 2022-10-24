@@ -5,24 +5,24 @@ this method in a firewalled environment.`),this.h()},l(p){x=a(p,"P",{});var w=s(
 this method in a firewalled environment.`),w.forEach(o),this.h()},h(){l($,"href","https://huggingface.co/diffusers/installation.html#offline-mode"),l($,"rel","nofollow")},m(p,w){m(p,x,w),e(x,M),e(x,$),e($,y),e(x,D)},d(p){p&&o(x)}}}function dm(L){let x,M,$,y,D;return y=new ur({props:{code:`from diffusers import FlaxUNet2DConditionModel
 
 # Download model and configuration from huggingface.co and cache.
-model, params = FlaxUNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-4")
+model, params = FlaxUNet2DConditionModel.from_pretrained("runwayml/stable-diffusion-v1-5")
 # Model was saved using *save_pretrained('./test/saved_model/')* (for example purposes, not runnable).
 model, params = FlaxUNet2DConditionModel.from_pretrained("./test/saved_model/")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> FlaxUNet2DConditionModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Download model and configuration from huggingface.co and cache.</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;CompVis/stable-diffusion-v1-4&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Model was saved using *save_pretrained(&#x27;./test/saved_model/&#x27;)* (for example purposes, not runnable).</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;./test/saved_model/&quot;</span>)`}}),{c(){x=n("p"),M=r("Examples:"),$=d(),u(y.$$.fragment)},l(p){x=a(p,"P",{});var w=s(x);M=i(w,"Examples:"),w.forEach(o),$=c(p),h(y.$$.fragment,p)},m(p,w){m(p,x,w),e(x,M),m(p,$,w),g(y,p,w),D=!0},p:mr,i(p){D||(_(y.$$.fragment,p),D=!0)},o(p){v(y.$$.fragment,p),D=!1},d(p){p&&o(x),p&&o($),b(y,p)}}}function cm(L){let x,M,$,y,D;return y=new ur({props:{code:`from diffusers import FlaxUNet2DConditionModel
 
 # load model
-model, params = FlaxUNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-4")
+model, params = FlaxUNet2DConditionModel.from_pretrained("runwayml/stable-diffusion-v1-5")
 # By default, the model parameters will be in fp32 precision, to cast these to bfloat16 precision
 params = model.to_bf16(params)
 # If you don't want to cast certain parameters (for example layer norm bias and scale)
 # then pass the mask as follows
 from flax import traverse_util
 
-model, params = FlaxUNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-4")
+model, params = FlaxUNet2DConditionModel.from_pretrained("runwayml/stable-diffusion-v1-5")
 flat_params = traverse_util.flatten_dict(params)
 mask = {
     path: (path[-2] != ("LayerNorm", "bias") and path[-2:] != ("LayerNorm", "scale"))
@@ -32,14 +32,14 @@ mask = traverse_util.unflatten_dict(mask)
 params = model.to_bf16(params, mask)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> FlaxUNet2DConditionModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># load model</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;CompVis/stable-diffusion-v1-4&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># By default, the model parameters will be in fp32 precision, to cast these to bfloat16 precision</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>params = model.to_bf16(params)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># If you don&#x27;t want to cast certain parameters (for example layer norm bias and scale)</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># then pass the mask as follows</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> flax <span class="hljs-keyword">import</span> traverse_util
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;CompVis/stable-diffusion-v1-4&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>flat_params = traverse_util.flatten_dict(params)
 <span class="hljs-meta">&gt;&gt;&gt; </span>mask = {
 <span class="hljs-meta">... </span>    path: (path[-<span class="hljs-number">2</span>] != (<span class="hljs-string">&quot;LayerNorm&quot;</span>, <span class="hljs-string">&quot;bias&quot;</span>) <span class="hljs-keyword">and</span> path[-<span class="hljs-number">2</span>:] != (<span class="hljs-string">&quot;LayerNorm&quot;</span>, <span class="hljs-string">&quot;scale&quot;</span>))
@@ -49,14 +49,14 @@ params = model.to_bf16(params, mask)`,highlighted:`<span class="hljs-meta">&gt;&
 <span class="hljs-meta">&gt;&gt;&gt; </span>params = model.to_bf16(params, mask)`}}),{c(){x=n("p"),M=r("Examples:"),$=d(),u(y.$$.fragment)},l(p){x=a(p,"P",{});var w=s(x);M=i(w,"Examples:"),w.forEach(o),$=c(p),h(y.$$.fragment,p)},m(p,w){m(p,x,w),e(x,M),m(p,$,w),g(y,p,w),D=!0},p:mr,i(p){D||(_(y.$$.fragment,p),D=!0)},o(p){v(y.$$.fragment,p),D=!1},d(p){p&&o(x),p&&o($),b(y,p)}}}function pm(L){let x,M,$,y,D;return y=new ur({props:{code:`from diffusers import FlaxUNet2DConditionModel
 
 # load model
-model, params = FlaxUNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-4")
+model, params = FlaxUNet2DConditionModel.from_pretrained("runwayml/stable-diffusion-v1-5")
 # By default, the model params will be in fp32, to cast these to float16
 params = model.to_fp16(params)
 # If you want don't want to cast certain parameters (for example layer norm bias and scale)
 # then pass the mask as follows
 from flax import traverse_util
 
-model, params = FlaxUNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-4")
+model, params = FlaxUNet2DConditionModel.from_pretrained("runwayml/stable-diffusion-v1-5")
 flat_params = traverse_util.flatten_dict(params)
 mask = {
     path: (path[-2] != ("LayerNorm", "bias") and path[-2:] != ("LayerNorm", "scale"))
@@ -66,14 +66,14 @@ mask = traverse_util.unflatten_dict(mask)
 params = model.to_fp16(params, mask)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> FlaxUNet2DConditionModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># load model</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;CompVis/stable-diffusion-v1-4&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># By default, the model params will be in fp32, to cast these to float16</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>params = model.to_fp16(params)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># If you want don&#x27;t want to cast certain parameters (for example layer norm bias and scale)</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># then pass the mask as follows</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> flax <span class="hljs-keyword">import</span> traverse_util
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;CompVis/stable-diffusion-v1-4&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>flat_params = traverse_util.flatten_dict(params)
 <span class="hljs-meta">&gt;&gt;&gt; </span>mask = {
 <span class="hljs-meta">... </span>    path: (path[-<span class="hljs-number">2</span>] != (<span class="hljs-string">&quot;LayerNorm&quot;</span>, <span class="hljs-string">&quot;bias&quot;</span>) <span class="hljs-keyword">and</span> path[-<span class="hljs-number">2</span>:] != (<span class="hljs-string">&quot;LayerNorm&quot;</span>, <span class="hljs-string">&quot;scale&quot;</span>))
@@ -83,7 +83,7 @@ params = model.to_fp16(params, mask)`,highlighted:`<span class="hljs-meta">&gt;&
 <span class="hljs-meta">&gt;&gt;&gt; </span>params = model.to_fp16(params, mask)`}}),{c(){x=n("p"),M=r("Examples:"),$=d(),u(y.$$.fragment)},l(p){x=a(p,"P",{});var w=s(x);M=i(w,"Examples:"),w.forEach(o),$=c(p),h(y.$$.fragment,p)},m(p,w){m(p,x,w),e(x,M),m(p,$,w),g(y,p,w),D=!0},p:mr,i(p){D||(_(y.$$.fragment,p),D=!0)},o(p){v(y.$$.fragment,p),D=!1},d(p){p&&o(x),p&&o($),b(y,p)}}}function fm(L){let x,M,$,y,D;return y=new ur({props:{code:`from diffusers import FlaxUNet2DConditionModel
 
 # Download model and configuration from huggingface.co
-model, params = FlaxUNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-4")
+model, params = FlaxUNet2DConditionModel.from_pretrained("runwayml/stable-diffusion-v1-5")
 # By default, the model params will be in fp32, to illustrate the use of this method,
 # we'll first cast to fp16 and back to fp32
 params = model.to_f16(params)
@@ -91,7 +91,7 @@ params = model.to_f16(params)
 params = model.to_fp32(params)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> FlaxUNet2DConditionModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Download model and configuration from huggingface.co</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;CompVis/stable-diffusion-v1-4&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model, params = FlaxUNet2DConditionModel.from_pretrained(<span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># By default, the model params will be in fp32, to illustrate the use of this method,</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># we&#x27;ll first cast to fp16 and back to fp32</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>params = model.to_f16(params)
@@ -130,7 +130,7 @@ Whether or not to return only the number of non-embeddings parameters`,name:"exc
 <p>The number of parameters.</p>
 `,returnType:`
 <p><code>int</code></p>
-`}}),wt=new k({props:{name:"save_pretrained",anchor:"diffusers.ModelMixin.save_pretrained",parameters:[{name:"save_directory",val:": typing.Union[str, os.PathLike]"},{name:"is_main_process",val:": bool = True"},{name:"save_function",val:": typing.Callable = <function save at 0x7f59be35ee50>"}],parametersDescription:[{anchor:"diffusers.ModelMixin.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
+`}}),wt=new k({props:{name:"save_pretrained",anchor:"diffusers.ModelMixin.save_pretrained",parameters:[{name:"save_directory",val:": typing.Union[str, os.PathLike]"},{name:"is_main_process",val:": bool = True"},{name:"save_function",val:": typing.Callable = <function save at 0x7f277599ce50>"}],parametersDescription:[{anchor:"diffusers.ModelMixin.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
 Directory to which to save. Will be created if it doesn&#x2019;t exist.`,name:"save_directory"},{anchor:"diffusers.ModelMixin.save_pretrained.is_main_process",description:`<strong>is_main_process</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether the process calling this is the main process or not. Useful when in distributed training like
 TPUs and need to call this function on all processes. In this case, set <code>is_main_process=True</code> only on
@@ -186,7 +186,7 @@ Can be either:</p>
 <ul>
 <li>A string, the <em>model id</em> of a pretrained model hosted inside a model repo on huggingface.co.
 Valid model ids are namespaced under a user or organization name, like
-<code>CompVis/stable-diffusion-v1-4</code>.</li>
+<code>runwayml/stable-diffusion-v1-5</code>.</li>
 <li>A path to a <em>directory</em> containing model weights saved using <a href="/docs/diffusers/main/en/api/models#diffusers.ModelMixin.save_pretrained">save_pretrained()</a>,
 e.g., <code>./my_model_directory/</code>.</li>
 </ul>`,name:"pretrained_model_name_or_path"},{anchor:"diffusers.FlaxModelMixin.from_pretrained.dtype",description:`<strong>dtype</strong> (<code>jax.numpy.dtype</code>, <em>optional</em>, defaults to <code>jax.numpy.float32</code>) &#x2014;
@@ -238,7 +238,7 @@ you want to cast, and should be <code>False</code> for those you want to skip`,n
 A <code>PyTree</code> of model parameters.`,name:"params"},{anchor:"diffusers.FlaxModelMixin.to_fp32.mask",description:`<strong>mask</strong> (<code>Union[Dict, FrozenDict]</code>) &#x2014;
 A <code>PyTree</code> with same structure as the <code>params</code> tree. The leaves should be booleans, <code>True</code> for params
 you want to cast, and should be <code>False</code> for those you want to skip`,name:"mask"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/modeling_flax_utils.py#L126"}}),Re=new fr({props:{anchor:"diffusers.FlaxModelMixin.to_fp32.example",$$slots:{default:[fm]},$$scope:{ctx:L}}}),co=new T({}),po=new k({props:{name:"class diffusers.models.unet_2d_condition_flax.FlaxUNet2DConditionOutput",anchor:"diffusers.models.unet_2d_condition_flax.FlaxUNet2DConditionOutput",parameters:[{name:"sample",val:": ndarray"}],parametersDescription:[{anchor:"diffusers.models.unet_2d_condition_flax.FlaxUNet2DConditionOutput.sample",description:`<strong>sample</strong> (<code>jnp.ndarray</code> of shape <code>(batch_size, num_channels, height, width)</code>) &#x2014;
-Hidden states conditioned on <code>encoder_hidden_states</code> input. Output of last layer of model.`,name:"sample"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/models/unet_2d_condition_flax.py#L36"}}),fo=new k({props:{name:"replace",anchor:"diffusers.models.unet_2d_condition_flax.FlaxUNet2DConditionOutput.replace",parameters:[{name:"**updates",val:""}],source:"https://github.com/huggingface/diffusers/blob/main/src/flax/struct.py#L108"}}),mo=new T({}),uo=new k({props:{name:"class diffusers.FlaxUNet2DConditionModel",anchor:"diffusers.FlaxUNet2DConditionModel",parameters:[{name:"sample_size",val:": int = 32"},{name:"in_channels",val:": int = 4"},{name:"out_channels",val:": int = 4"},{name:"down_block_types",val:": typing.Tuple[str] = ('CrossAttnDownBlock2D', 'CrossAttnDownBlock2D', 'CrossAttnDownBlock2D', 'DownBlock2D')"},{name:"up_block_types",val:": typing.Tuple[str] = ('UpBlock2D', 'CrossAttnUpBlock2D', 'CrossAttnUpBlock2D', 'CrossAttnUpBlock2D')"},{name:"block_out_channels",val:": typing.Tuple[int] = (320, 640, 1280, 1280)"},{name:"layers_per_block",val:": int = 2"},{name:"attention_head_dim",val:": int = 8"},{name:"cross_attention_dim",val:": int = 1280"},{name:"dropout",val:": float = 0.0"},{name:"dtype",val:": dtype = <class 'jax.numpy.float32'>"},{name:"freq_shift",val:": int = 0"},{name:"parent",val:": typing.Union[typing.Type[flax.linen.module.Module], typing.Type[flax.core.scope.Scope], typing.Type[flax.linen.module._Sentinel], NoneType] = <flax.linen.module._Sentinel object at 0x7f59aa939940>"},{name:"name",val:": str = None"}],parametersDescription:[{anchor:"diffusers.FlaxUNet2DConditionModel.sample_size",description:`<strong>sample_size</strong> (<code>int</code>, <em>optional</em>) &#x2014;
+Hidden states conditioned on <code>encoder_hidden_states</code> input. Output of last layer of model.`,name:"sample"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/models/unet_2d_condition_flax.py#L36"}}),fo=new k({props:{name:"replace",anchor:"diffusers.models.unet_2d_condition_flax.FlaxUNet2DConditionOutput.replace",parameters:[{name:"**updates",val:""}],source:"https://github.com/huggingface/diffusers/blob/main/src/flax/struct.py#L108"}}),mo=new T({}),uo=new k({props:{name:"class diffusers.FlaxUNet2DConditionModel",anchor:"diffusers.FlaxUNet2DConditionModel",parameters:[{name:"sample_size",val:": int = 32"},{name:"in_channels",val:": int = 4"},{name:"out_channels",val:": int = 4"},{name:"down_block_types",val:": typing.Tuple[str] = ('CrossAttnDownBlock2D', 'CrossAttnDownBlock2D', 'CrossAttnDownBlock2D', 'DownBlock2D')"},{name:"up_block_types",val:": typing.Tuple[str] = ('UpBlock2D', 'CrossAttnUpBlock2D', 'CrossAttnUpBlock2D', 'CrossAttnUpBlock2D')"},{name:"block_out_channels",val:": typing.Tuple[int] = (320, 640, 1280, 1280)"},{name:"layers_per_block",val:": int = 2"},{name:"attention_head_dim",val:": int = 8"},{name:"cross_attention_dim",val:": int = 1280"},{name:"dropout",val:": float = 0.0"},{name:"dtype",val:": dtype = <class 'jax.numpy.float32'>"},{name:"freq_shift",val:": int = 0"},{name:"parent",val:": typing.Union[typing.Type[flax.linen.module.Module], typing.Type[flax.core.scope.Scope], typing.Type[flax.linen.module._Sentinel], NoneType] = <flax.linen.module._Sentinel object at 0x7f2761f04d90>"},{name:"name",val:": str = None"}],parametersDescription:[{anchor:"diffusers.FlaxUNet2DConditionModel.sample_size",description:`<strong>sample_size</strong> (<code>int</code>, <em>optional</em>) &#x2014;
 The size of the input sample.`,name:"sample_size"},{anchor:"diffusers.FlaxUNet2DConditionModel.in_channels",description:`<strong>in_channels</strong> (<code>int</code>, <em>optional</em>, defaults to 4) &#x2014;
 The number of channels in the input sample.`,name:"in_channels"},{anchor:"diffusers.FlaxUNet2DConditionModel.out_channels",description:`<strong>out_channels</strong> (<code>int</code>, <em>optional</em>, defaults to 4) &#x2014;
 The number of channels in the output.`,name:"out_channels"},{anchor:"diffusers.FlaxUNet2DConditionModel.down_block_types",description:`<strong>down_block_types</strong> (<code>Tuple[str]</code>, <em>optional</em>, defaults to <code>(&quot;CrossAttnDownBlock2D&quot;, &quot;CrossAttnDownBlock2D&quot;, &quot;CrossAttnDownBlock2D&quot;, &quot;DownBlock2D&quot;)</code>) &#x2014;
@@ -254,7 +254,7 @@ Dropout probability for down, up and bottleneck blocks.`,name:"dropout"}],source
 Decoded output sample of the model. Output of the last layer of the model.`,name:"sample"},{anchor:"diffusers.models.vae_flax.FlaxDecoderOutput.dtype",description:`<strong>dtype</strong> (<code>jnp.dtype</code>, <em>optional</em>, defaults to jnp.float32) &#x2014;
 Parameters <em>dtype</em>`,name:"dtype"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/models/vae_flax.py#L33"}}),Do=new k({props:{name:"replace",anchor:"diffusers.models.vae_flax.FlaxDecoderOutput.replace",parameters:[{name:"**updates",val:""}],source:"https://github.com/huggingface/diffusers/blob/main/src/flax/struct.py#L108"}}),ko=new T({}),Mo=new k({props:{name:"class diffusers.models.vae_flax.FlaxAutoencoderKLOutput",anchor:"diffusers.models.vae_flax.FlaxAutoencoderKLOutput",parameters:[{name:"latent_dist",val:": FlaxDiagonalGaussianDistribution"}],parametersDescription:[{anchor:"diffusers.models.vae_flax.FlaxAutoencoderKLOutput.latent_dist",description:`<strong>latent_dist</strong> (<code>FlaxDiagonalGaussianDistribution</code>) &#x2014;
 Encoded outputs of <code>Encoder</code> represented as the mean and logvar of <code>FlaxDiagonalGaussianDistribution</code>.
-<code>FlaxDiagonalGaussianDistribution</code> allows for sampling latents from the distribution.`,name:"latent_dist"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/models/vae_flax.py#L48"}}),Eo=new k({props:{name:"replace",anchor:"diffusers.models.vae_flax.FlaxAutoencoderKLOutput.replace",parameters:[{name:"**updates",val:""}],source:"https://github.com/huggingface/diffusers/blob/main/src/flax/struct.py#L108"}}),Uo=new T({}),Ao=new k({props:{name:"class diffusers.FlaxAutoencoderKL",anchor:"diffusers.FlaxAutoencoderKL",parameters:[{name:"in_channels",val:": int = 3"},{name:"out_channels",val:": int = 3"},{name:"down_block_types",val:": typing.Tuple[str] = ('DownEncoderBlock2D',)"},{name:"up_block_types",val:": typing.Tuple[str] = ('UpDecoderBlock2D',)"},{name:"block_out_channels",val:": typing.Tuple[int] = (64,)"},{name:"layers_per_block",val:": int = 1"},{name:"act_fn",val:": str = 'silu'"},{name:"latent_channels",val:": int = 4"},{name:"norm_num_groups",val:": int = 32"},{name:"sample_size",val:": int = 32"},{name:"dtype",val:": dtype = <class 'jax.numpy.float32'>"},{name:"parent",val:": typing.Union[typing.Type[flax.linen.module.Module], typing.Type[flax.core.scope.Scope], typing.Type[flax.linen.module._Sentinel], NoneType] = <flax.linen.module._Sentinel object at 0x7f59aa939940>"},{name:"name",val:": str = None"}],parametersDescription:[{anchor:"diffusers.FlaxAutoencoderKL.in_channels",description:`<strong>in_channels</strong> (<code>int</code>, <em>optional</em>, defaults to 3) &#x2014;
+<code>FlaxDiagonalGaussianDistribution</code> allows for sampling latents from the distribution.`,name:"latent_dist"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/models/vae_flax.py#L48"}}),Eo=new k({props:{name:"replace",anchor:"diffusers.models.vae_flax.FlaxAutoencoderKLOutput.replace",parameters:[{name:"**updates",val:""}],source:"https://github.com/huggingface/diffusers/blob/main/src/flax/struct.py#L108"}}),Uo=new T({}),Ao=new k({props:{name:"class diffusers.FlaxAutoencoderKL",anchor:"diffusers.FlaxAutoencoderKL",parameters:[{name:"in_channels",val:": int = 3"},{name:"out_channels",val:": int = 3"},{name:"down_block_types",val:": typing.Tuple[str] = ('DownEncoderBlock2D',)"},{name:"up_block_types",val:": typing.Tuple[str] = ('UpDecoderBlock2D',)"},{name:"block_out_channels",val:": typing.Tuple[int] = (64,)"},{name:"layers_per_block",val:": int = 1"},{name:"act_fn",val:": str = 'silu'"},{name:"latent_channels",val:": int = 4"},{name:"norm_num_groups",val:": int = 32"},{name:"sample_size",val:": int = 32"},{name:"dtype",val:": dtype = <class 'jax.numpy.float32'>"},{name:"parent",val:": typing.Union[typing.Type[flax.linen.module.Module], typing.Type[flax.core.scope.Scope], typing.Type[flax.linen.module._Sentinel], NoneType] = <flax.linen.module._Sentinel object at 0x7f2761f04d90>"},{name:"name",val:": str = None"}],parametersDescription:[{anchor:"diffusers.FlaxAutoencoderKL.in_channels",description:`<strong>in_channels</strong> (<code>int</code>, <em>optional</em>, defaults to 3) &#x2014;
 Input channels`,name:"in_channels"},{anchor:"diffusers.FlaxAutoencoderKL.out_channels",description:`<strong>out_channels</strong> (<code>int</code>, <em>optional</em>, defaults to 3) &#x2014;
 Output channels`,name:"out_channels"},{anchor:"diffusers.FlaxAutoencoderKL.down_block_types",description:`<strong>down_block_types</strong> (<code>Tuple[str]</code>, <em>optional</em>, defaults to <em>(DownEncoderBlock2D)</em>) &#x2014;
 DownEncoder block type`,name:"down_block_types"},{anchor:"diffusers.FlaxAutoencoderKL.up_block_types",description:`<strong>up_block_types</strong> (<code>Tuple[str]</code>, <em>optional</em>, defaults to <em>(UpDecoderBlock2D)</em>) &#x2014;
