@@ -223,7 +223,6 @@ html_string = """
  <title>Hello world</title>
  </head>
  <body>
-
  <h1 class="relative group">
 	<a 
 		id="welcome" 
@@ -238,7 +237,6 @@ html_string = """
 </h1>
 
  <p>Here is my website.</p>
-
  </body>
  </html>"""
 
@@ -255,10 +253,8 @@ print(encoding.keys())`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span
 <span class="hljs-meta">... </span> &lt;title&gt;Hello world&lt;/title&gt;
 <span class="hljs-meta">... </span> &lt;/head&gt;
 <span class="hljs-meta">... </span> &lt;body&gt;
-
 <span class="hljs-meta">... </span> &lt;h1&gt;Welcome&lt;/h1&gt;
 <span class="hljs-meta">... </span> &lt;p&gt;Here is my website.&lt;/p&gt;
-
 <span class="hljs-meta">... </span> &lt;/body&gt;
 <span class="hljs-meta">... </span> &lt;/html&gt;&quot;&quot;&quot;</span>
 
@@ -312,7 +308,6 @@ html_string = """
  <title>Hello world</title>
  </head>
  <body>
-
  <h1 class="relative group">
 	<a 
 		id="welcome" 
@@ -327,7 +322,6 @@ html_string = """
 </h1>
 
  <p>My name is Niels.</p>
-
  </body>
  </html>"""
 
@@ -344,10 +338,8 @@ print(encoding.keys())`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span
 <span class="hljs-meta">... </span> &lt;title&gt;Hello world&lt;/title&gt;
 <span class="hljs-meta">... </span> &lt;/head&gt;
 <span class="hljs-meta">... </span> &lt;body&gt;
-
 <span class="hljs-meta">... </span> &lt;h1&gt;Welcome&lt;/h1&gt;
 <span class="hljs-meta">... </span> &lt;p&gt;My name is Niels.&lt;/p&gt;
-
 <span class="hljs-meta">... </span> &lt;/body&gt;
 <span class="hljs-meta">... </span> &lt;/html&gt;&quot;&quot;&quot;</span>
 
