@@ -1,18 +1,18 @@
-import{S as cl,i as ml,s as dl,e as r,k as i,w as P,t as n,M as fl,c as a,d as o,m as c,a as s,x as b,h as l,b as m,N as hl,G as e,g as p,y as w,q as $,o as y,B as E,v as pl,L as qs}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ds}from"../../chunks/Tip-hf-doc-builder.js";import{D as Qe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Os}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as No}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ns}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function ul(T){let f,v,g,u,F;return u=new Os({props:{code:`from transformers import PoolFormerModel, PoolFormerConfig
+import{S as cl,i as ml,s as dl,e as r,k as i,w as P,t as n,M as fl,c as a,d as o,m as c,a as s,x as b,h as l,b as m,N as hl,G as e,g as p,y as w,q as $,o as y,B as E,v as pl,L as qs}from"../../chunks/vendor-hf-doc-builder.js";import{T as Ds}from"../../chunks/Tip-hf-doc-builder.js";import{D as Qe}from"../../chunks/Docstring-hf-doc-builder.js";import{C as Os}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as No}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as Ns}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function ul(T){let f,v,g,u,F;return u=new Os({props:{code:`from transformers import PoolFormerConfig, PoolFormerModel
 
 # Initializing a PoolFormer sail/poolformer_s12 style configuration
 configuration = PoolFormerConfig()
 
-# Initializing a model from the sail/poolformer_s12 style configuration
+# Initializing a model (with random weights) from the sail/poolformer_s12 style configuration
 model = PoolFormerModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> PoolFormerModel, PoolFormerConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> PoolFormerConfig, PoolFormerModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a PoolFormer sail/poolformer_s12 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = PoolFormerConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the sail/poolformer_s12 style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the sail/poolformer_s12 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = PoolFormerModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
