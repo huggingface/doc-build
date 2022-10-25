@@ -1,0 +1,503 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;exportando-modelos-para-onnx&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;exportando-um-modelo-para-onnx&quot;,&quot;title&quot;:&quot;Exportando um modelo para ONNX&quot;},{&quot;local&quot;:&quot;selecionando-features-para-diferentes-tarefas-do-modelo&quot;,&quot;title&quot;:&quot;Selecionando features para diferentes tarefas do modelo&quot;},{&quot;local&quot;:&quot;exportando-um-modelo-para-uma-arquitetura-sem-suporte&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;implementando-uma-configurao-onnx-personalizada&quot;,&quot;title&quot;:&quot;Implementando uma configuração ONNX personalizada&quot;},{&quot;local&quot;:&quot;exportando-um-modelo&quot;,&quot;title&quot;:&quot;Exportando um modelo&quot;},{&quot;local&quot;:&quot;validando-a-sada-dos-modelos&quot;,&quot;title&quot;:&quot;Validando a saída dos modelos&quot;}],&quot;title&quot;:&quot;Exportando um modelo para uma arquitetura sem suporte&quot;},{&quot;local&quot;:&quot;contribuindo-com-uma-nova-configurao-para-transformers&quot;,&quot;title&quot;:&quot;Contribuindo com uma nova configuração para 🤗 Transformers&quot;}],&quot;title&quot;:&quot;Exportando modelos para ONNX &quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/transformers/main/pt/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/transformers/main/pt/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/pt/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/pt/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/pt/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/pt/_app/pages/serialization.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/pt/_app/chunks/Tip-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/pt/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/transformers/main/pt/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="exportando-modelos-para-onnx" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#exportando-modelos-para-onnx"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Exportando modelos para ONNX 
+	</span></h1>
+
+<p>Se você precisar implantar modelos 🤗 Transformers em ambientes de produção, recomendamos
+exporta-los para um formato serializado que pode ser carregado e executado em
+tempos de execução e hardware. Neste guia, mostraremos como exportar modelos 🤗 Transformers
+para <a href="http://onnx.ai" rel="nofollow">ONNX (Open Neural Network eXchange)</a>.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Uma vez exportado, um modelo pode ser otimizado para inferência por meio de técnicas como
+quantização e poda. Se você estiver interessado em otimizar seus modelos para serem executados com
+máxima eficiência, confira a biblioteca <a href="https://github.com/huggingface/optimum" rel="nofollow">🤗 Optimum
+</a>.</p></div>
+<p>ONNX é um padrão aberto que define um conjunto comum de operadores e um formato de arquivo comum
+para representar modelos de aprendizado profundo em uma ampla variedade de estruturas, incluindo PyTorch e
+TensorFlow. Quando um modelo é exportado para o formato ONNX, esses operadores são usados para
+construir um grafo computacional (muitas vezes chamado de <em>representação intermediária</em>) que
+representa o fluxo de dados através da rede neural.</p>
+<p>Ao expor um grafo com operadores e tipos de dados padronizados, o ONNX facilita a
+alternar entre os frameworks. Por exemplo, um modelo treinado em PyTorch pode ser exportado para
+formato ONNX e depois importado no TensorFlow (e vice-versa).</p>
+<p>🤗 Transformers fornece um pacote <a href="main_classes/onnx"><code>transformers.onnx</code></a> que permite
+que você converta os checkpoints do modelo em um grafo ONNX aproveitando os objetos de configuração.
+Esses objetos de configuração vêm prontos para várias arquiteturas de modelo e são
+projetado para ser facilmente extensível a outras arquiteturas.</p>
+<p>As configurações prontas incluem as seguintes arquiteturas:</p>
+
+<ul><li>ALBERT</li>
+<li>BART</li>
+<li>BEiT</li>
+<li>BERT</li>
+<li>BigBird</li>
+<li>BigBird-Pegasus</li>
+<li>Blenderbot</li>
+<li>BlenderbotSmall</li>
+<li>BLOOM</li>
+<li>CamemBERT</li>
+<li>CLIP</li>
+<li>CodeGen</li>
+<li>Conditional DETR</li>
+<li>ConvBERT</li>
+<li>ConvNeXT</li>
+<li>Data2VecText</li>
+<li>Data2VecVision</li>
+<li>DeBERTa</li>
+<li>DeBERTa-v2</li>
+<li>DeiT</li>
+<li>DETR</li>
+<li>DistilBERT</li>
+<li>ELECTRA</li>
+<li>ERNIE</li>
+<li>FlauBERT</li>
+<li>GPT Neo</li>
+<li>GPT-J</li>
+<li>GroupViT</li>
+<li>I-BERT</li>
+<li>LayoutLM</li>
+<li>LayoutLMv3</li>
+<li>LeViT</li>
+<li>Longformer</li>
+<li>LongT5</li>
+<li>M2M100</li>
+<li>Marian</li>
+<li>mBART</li>
+<li>MobileBERT</li>
+<li>MobileViT</li>
+<li>MT5</li>
+<li>OpenAI GPT-2</li>
+<li>OWL-ViT</li>
+<li>Perceiver</li>
+<li>PLBart</li>
+<li>ResNet</li>
+<li>RoBERTa</li>
+<li>RoFormer</li>
+<li>SegFormer</li>
+<li>SqueezeBERT</li>
+<li>Swin Transformer</li>
+<li>T5</li>
+<li>Table Transformer</li>
+<li>Vision Encoder decoder</li>
+<li>ViT</li>
+<li>XLM</li>
+<li>XLM-RoBERTa</li>
+<li>XLM-RoBERTa-XL</li>
+<li>YOLOS</li></ul>
+<p>Nas próximas duas seções, mostraremos como:</p>
+<ul><li>Exportar um modelo suportado usando o pacote <code>transformers.onnx</code>.</li>
+<li>Exportar um modelo personalizado para uma arquitetura sem suporte.</li></ul>
+<h2 class="relative group"><a id="exportando-um-modelo-para-onnx" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#exportando-um-modelo-para-onnx"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Exportando um modelo para ONNX
+	</span></h2>
+
+<p>Para exportar um modelo 🤗 Transformers para o ONNX, primeiro você precisa instalar algumas
+dependências extras:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->pip install transformers[onnx]<!-- HTML_TAG_END --></pre></div>
+<p>O pacote <code>transformers.onnx</code> pode então ser usado como um módulo Python:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m transformers.onnx --<span class="hljs-built_in">help</span>
+
+usage: Hugging Face Transformers ONNX exporter [-h] -m MODEL [--feature {causal-lm, ...}] [--opset OPSET] [--atol ATOL] output
+
+positional arguments:
+  output                Path indicating <span class="hljs-built_in">where</span> to store generated ONNX model.
+
+optional arguments:
+  -h, --<span class="hljs-built_in">help</span>            show this <span class="hljs-built_in">help</span> message and <span class="hljs-built_in">exit</span>
+  -m MODEL, --model MODEL
+                        Model ID on huggingface.co or path on disk to load model from.
+  --feature {causal-lm, ...}
+                        The <span class="hljs-built_in">type</span> of features to <span class="hljs-built_in">export</span> the model with.
+  --opset OPSET         ONNX opset version to <span class="hljs-built_in">export</span> the model with.
+  --atol ATOL           Absolute difference tolerence when validating the model.<!-- HTML_TAG_END --></pre></div>
+<p>A exportação de um checkpoint usando uma configuração pronta pode ser feita da seguinte forma:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m transformers.onnx --model=distilbert-base-uncased onnx/<!-- HTML_TAG_END --></pre></div>
+<p>Você deve ver os seguintes logs:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->Validating ONNX model...
+        -[✓] ONNX model output names match reference model ({<span class="hljs-string">&#x27;last_hidden_state&#x27;</span>})
+        - Validating ONNX Model output <span class="hljs-string">&quot;last_hidden_state&quot;</span>:
+                -[✓] (2, 8, 768) matches (2, 8, 768)
+                -[✓] all values close (atol: 1e-05)
+All good, model saved at: onnx/model.onnx<!-- HTML_TAG_END --></pre></div>
+<p>Isso exporta um grafo ONNX do ponto de verificação definido pelo argumento <code>--model</code>. Nisso
+Por exemplo, é <code>distilbert-base-uncased</code>, mas pode ser qualquer checkpoint no Hugging
+Face Hub ou um armazenado localmente.</p>
+<p>O arquivo <code>model.onnx</code> resultante pode ser executado em um dos <a href="https://onnx.ai/supported-tools.html#deployModel" rel="nofollow">muitos
+aceleradores</a> que suportam o ONNX
+padrão. Por exemplo, podemos carregar e executar o modelo com <a href="https://onnxruntime.ai/" rel="nofollow">ONNX
+Tempo de execução</a> da seguinte forma:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> onnxruntime <span class="hljs-keyword">import</span> InferenceSession
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>session = InferenceSession(<span class="hljs-string">&quot;onnx/model.onnx&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># ONNX Runtime expects NumPy arrays as input</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;Using DistilBERT with ONNX Runtime!&quot;</span>, return_tensors=<span class="hljs-string">&quot;np&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = session.run(output_names=[<span class="hljs-string">&quot;last_hidden_state&quot;</span>], input_feed=<span class="hljs-built_in">dict</span>(inputs))<!-- HTML_TAG_END --></pre></div>
+<p>Os nomes de saída necessários (como <code>[&quot;last_hidden_state&quot;]</code>) podem ser obtidos pegando uma
+configuração ONNX de cada modelo. Por exemplo, para DistilBERT temos:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers.models.distilbert <span class="hljs-keyword">import</span> DistilBertConfig, DistilBertOnnxConfig
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>config = DistilBertConfig()
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_config = DistilBertOnnxConfig(config)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(onnx_config.outputs.keys()))
+[<span class="hljs-string">&quot;last_hidden_state&quot;</span>]<!-- HTML_TAG_END --></pre></div>
+<p>O processo é idêntico para os checkpoints do TensorFlow no Hub. Por exemplo, podemos
+exportar um checkpoint TensorFlow puro do <a href="https://huggingface.co/keras-io" rel="nofollow">Keras
+</a> da seguinte forma:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m transformers.onnx --model=keras-io/transformers-qa onnx/<!-- HTML_TAG_END --></pre></div>
+<p>Para exportar um modelo armazenado localmente, você precisará ter os pesos e
+arquivos tokenizer armazenados em um diretório. Por exemplo, podemos carregar e salvar um checkpoint como:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, AutoModelForSequenceClassification
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Load tokenizer and PyTorch weights form the Hub</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>pt_model = AutoModelForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Save to disk</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.save_pretrained(<span class="hljs-string">&quot;local-pt-checkpoint&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>pt_model.save_pretrained(<span class="hljs-string">&quot;local-pt-checkpoint&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Uma vez que o checkpoint é salvo, podemos exportá-lo para o ONNX apontando o <code>--model</code>
+argumento do pacote <code>transformers.onnx</code> para o diretório desejado:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m transformers.onnx --model=local-pt-checkpoint onnx/<!-- HTML_TAG_END --></pre></div>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, TFAutoModelForSequenceClassification
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Load tokenizer and TensorFlow weights from the Hub</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tf_model = TFAutoModelForSequenceClassification.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Save to disk</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.save_pretrained(<span class="hljs-string">&quot;local-tf-checkpoint&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tf_model.save_pretrained(<span class="hljs-string">&quot;local-tf-checkpoint&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Uma vez que o checkpoint é salvo, podemos exportá-lo para o ONNX apontando o <code>--model</code>
+argumento do pacote <code>transformers.onnx</code> para o diretório desejado:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m transformers.onnx --model=local-tf-checkpoint onnx/<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="selecionando-features-para-diferentes-tarefas-do-modelo" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#selecionando-features-para-diferentes-tarefas-do-modelo"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Selecionando features para diferentes tarefas do modelo
+	</span></h2>
+
+<p>Cada configuração pronta vem com um conjunto de <em>features</em> que permitem exportar
+modelos para diferentes tipos de tarefas. Conforme mostrado na tabela abaixo, cada recurso é
+associado a uma <code>AutoClass</code> diferente:</p>
+<table><thead><tr><th>Feature</th>
+<th>Auto Class</th></tr></thead>
+<tbody><tr><td><code>causal-lm</code>, <code>causal-lm-with-past</code></td>
+<td><code>AutoModelForCausalLM</code></td></tr>
+<tr><td><code>default</code>, <code>default-with-past</code></td>
+<td><code>AutoModel</code></td></tr>
+<tr><td><code>masked-lm</code></td>
+<td><code>AutoModelForMaskedLM</code></td></tr>
+<tr><td><code>question-answering</code></td>
+<td><code>AutoModelForQuestionAnswering</code></td></tr>
+<tr><td><code>seq2seq-lm</code>, <code>seq2seq-lm-with-past</code></td>
+<td><code>AutoModelForSeq2SeqLM</code></td></tr>
+<tr><td><code>sequence-classification</code></td>
+<td><code>AutoModelForSequenceClassification</code></td></tr>
+<tr><td><code>token-classification</code></td>
+<td><code>AutoModelForTokenClassification</code></td></tr></tbody></table>
+<p>Para cada configuração, você pode encontrar a lista de recursos suportados por meio do
+<code>FeaturesManager</code>. Por exemplo, para DistilBERT temos:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers.onnx.features <span class="hljs-keyword">import</span> FeaturesManager
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>distilbert_features = <span class="hljs-built_in">list</span>(FeaturesManager.get_supported_features_for_model_type(<span class="hljs-string">&quot;distilbert&quot;</span>).keys())
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(distilbert_features)
+[<span class="hljs-string">&quot;default&quot;</span>, <span class="hljs-string">&quot;masked-lm&quot;</span>, <span class="hljs-string">&quot;causal-lm&quot;</span>, <span class="hljs-string">&quot;sequence-classification&quot;</span>, <span class="hljs-string">&quot;token-classification&quot;</span>, <span class="hljs-string">&quot;question-answering&quot;</span>]<!-- HTML_TAG_END --></pre></div>
+<p>Você pode então passar um desses recursos para o argumento <code>--feature</code> no
+pacote <code>transformers.onnx</code>. Por exemplo, para exportar um modelo de classificação de texto, podemos
+escolher um modelo ajustado no Hub e executar:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python -m transformers.onnx --model=distilbert-base-uncased-finetuned-sst-2-english \
+                            --feature=sequence-classification onnx/<!-- HTML_TAG_END --></pre></div>
+<p>Isso exibe os seguintes logs:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->Validating ONNX model...
+        -[✓] ONNX model output names match reference model ({<span class="hljs-string">&#x27;logits&#x27;</span>})
+        - Validating ONNX Model output <span class="hljs-string">&quot;logits&quot;</span>:
+                -[✓] (2, 2) matches (2, 2)
+                -[✓] all values close (atol: 1e-05)
+All good, model saved at: onnx/model.onnx<!-- HTML_TAG_END --></pre></div>
+<p>Observe que, neste caso, os nomes de saída do modelo ajustado são <code>logits</code>
+em vez do <code>last_hidden_state</code> que vimos com o checkpoint <code>distilbert-base-uncased</code>
+mais cedo. Isso é esperado, pois o modelo ajustado (fine-tuned) possui uma cabeça de classificação de sequência.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Os recursos que têm um sufixo <code>with-pass</code> (como <code>causal-lm-with-pass</code>) correspondem a
+classes de modelo com estados ocultos pré-computados (chave e valores nos blocos de atenção)
+que pode ser usado para decodificação autorregressiva rápida.</p></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Para modelos do tipo <code>VisionEncoderDecoder</code>, as partes do codificador e do decodificador são
+exportados separadamente como dois arquivos ONNX chamados <code>encoder_model.onnx</code> e <code>decoder_model.onnx</code> respectivamente.</p></div>
+<h2 class="relative group"><a id="exportando-um-modelo-para-uma-arquitetura-sem-suporte" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#exportando-um-modelo-para-uma-arquitetura-sem-suporte"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Exportando um modelo para uma arquitetura sem suporte
+	</span></h2>
+
+<p>Se você deseja exportar um modelo cuja arquitetura não é suportada nativamente pela
+biblioteca, há três etapas principais a seguir:</p>
+<ol><li>Implemente uma configuração ONNX personalizada.</li>
+<li>Exporte o modelo para o ONNX.</li>
+<li>Valide as saídas do PyTorch e dos modelos exportados.</li></ol>
+<p>Nesta seção, veremos como o DistilBERT foi implementado para mostrar o que está envolvido
+em cada passo.</p>
+<h3 class="relative group"><a id="implementando-uma-configurao-onnx-personalizada" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#implementando-uma-configurao-onnx-personalizada"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Implementando uma configuração ONNX personalizada
+	</span></h3>
+
+<p>Vamos começar com o objeto de configuração ONNX. Fornecemos três classes abstratas que
+você deve herdar, dependendo do tipo de arquitetura de modelo que deseja exportar:</p>
+<ul><li>Modelos baseados em codificador herdam de <code>OnnxConfig</code></li>
+<li>Modelos baseados em decodificador herdam de <code>OnnxConfigWithPast</code></li>
+<li>Os modelos codificador-decodificador herdam de <code>OnnxSeq2SeqConfigWithPast</code></li></ul>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Uma boa maneira de implementar uma configuração ONNX personalizada é observar as
+implementação no arquivo <code>configuration_&lt;model_name&gt;.py</code> de uma arquitetura semelhante.</p></div>
+<p>Como o DistilBERT é um modelo baseado em codificador, sua configuração é herdada de
+<code>OnnxConfig</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> Mapping, OrderedDict
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers.onnx <span class="hljs-keyword">import</span> OnnxConfig
+
+
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">class</span> <span class="hljs-title class_">DistilBertOnnxConfig</span>(<span class="hljs-title class_ inherited__">OnnxConfig</span>):
+<span class="hljs-meta">... </span>    @<span class="hljs-built_in">property</span>
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inputs</span>(<span class="hljs-params">self</span>) -&gt; Mapping[<span class="hljs-built_in">str</span>, Mapping[<span class="hljs-built_in">int</span>, <span class="hljs-built_in">str</span>]]:
+<span class="hljs-meta">... </span>        <span class="hljs-keyword">return</span> OrderedDict(
+<span class="hljs-meta">... </span>            [
+<span class="hljs-meta">... </span>                (<span class="hljs-string">&quot;input_ids&quot;</span>, {<span class="hljs-number">0</span>: <span class="hljs-string">&quot;batch&quot;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&quot;sequence&quot;</span>}),
+<span class="hljs-meta">... </span>                (<span class="hljs-string">&quot;attention_mask&quot;</span>, {<span class="hljs-number">0</span>: <span class="hljs-string">&quot;batch&quot;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&quot;sequence&quot;</span>}),
+<span class="hljs-meta">... </span>            ]
+<span class="hljs-meta">... </span>        )<!-- HTML_TAG_END --></pre></div>
+<p>Todo objeto de configuração deve implementar a propriedade <code>inputs</code> e retornar um mapeamento,
+onde cada chave corresponde a uma entrada esperada e cada valor indica o eixo
+dessa entrada. Para o DistilBERT, podemos ver que duas entradas são necessárias: <code>input_ids</code> e
+<code>attention_mask</code>. Essas entradas têm a mesma forma de <code>(batch_size, sequence_length)</code>
+é por isso que vemos os mesmos eixos usados na configuração.</p>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Notice that <code>inputs</code> property for <code>DistilBertOnnxConfig</code> returns an <code>OrderedDict</code>. This
+ensures that the inputs are matched with their relative position within the
+<code>PreTrainedModel.forward()</code> method when tracing the graph. We recommend using an
+<code>OrderedDict</code> for the <code>inputs</code> and <code>outputs</code> properties when implementing custom ONNX
+configurations.</p>
+<p>Observe que a propriedade <code>inputs</code> para <code>DistilBertOnnxConfig</code> retorna um <code>OrderedDict</code>. Este
+garante que as entradas sejam combinadas com sua posição relativa dentro do
+método <code>PreTrainedModel.forward()</code> ao traçar o grafo. Recomendamos o uso de um
+<code>OrderedDict</code> para as propriedades <code>inputs</code> e <code>outputs</code> ao implementar configurações personalizadas ONNX.</p></div>
+<p>Depois de implementar uma configuração ONNX, você pode instanciá-la fornecendo a
+configuração do modelo base da seguinte forma:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoConfig
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>config = AutoConfig.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_config = DistilBertOnnxConfig(config)<!-- HTML_TAG_END --></pre></div>
+<p>O objeto resultante tem várias propriedades úteis. Por exemplo, você pode visualizar o conjunto de operadores ONNX
+que será usado durante a exportação:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(onnx_config.default_onnx_opset)
+<span class="hljs-number">11</span><!-- HTML_TAG_END --></pre></div>
+<p>Você também pode visualizar as saídas associadas ao modelo da seguinte forma:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(onnx_config.outputs)
+OrderedDict([(<span class="hljs-string">&quot;last_hidden_state&quot;</span>, {<span class="hljs-number">0</span>: <span class="hljs-string">&quot;batch&quot;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&quot;sequence&quot;</span>})])<!-- HTML_TAG_END --></pre></div>
+<p>Observe que a propriedade outputs segue a mesma estrutura das entradas; ele retorna um
+<code>OrderedDict</code> de saídas nomeadas e suas formas. A estrutura de saída está ligada a
+escolha do recurso com o qual a configuração é inicializada. Por padrão, a configuração do ONNX
+é inicializada com o recurso <code>default</code> que corresponde à exportação de um
+modelo carregado com a classe <code>AutoModel</code>. Se você deseja exportar um modelo para outra tarefa,
+apenas forneça um recurso diferente para o argumento <code>task</code> quando você inicializar a configuração ONNX
+. Por exemplo, se quisermos exportar o DistilBERT com uma sequência
+de classificação, poderíamos usar:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoConfig
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>config = AutoConfig.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_config_for_seq_clf = DistilBertOnnxConfig(config, task=<span class="hljs-string">&quot;sequence-classification&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(onnx_config_for_seq_clf.outputs)
+OrderedDict([(<span class="hljs-string">&#x27;logits&#x27;</span>, {<span class="hljs-number">0</span>: <span class="hljs-string">&#x27;batch&#x27;</span>})])<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Todas as propriedades e métodos básicos associados a <code>OnnxConfig</code> e
+as outras classes de configuração podem ser substituídas se necessário. Confira <code>BartOnnxConfig</code>
+para um exemplo avançado.</p></div>
+<h3 class="relative group"><a id="exportando-um-modelo" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#exportando-um-modelo"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Exportando um modelo
+	</span></h3>
+
+<p>Depois de ter implementado a configuração do ONNX, o próximo passo é exportar o modelo.
+Aqui podemos usar a função <code>export()</code> fornecida pelo pacote <code>transformers.onnx</code>.
+Esta função espera a configuração do ONNX, juntamente com o modelo base e o tokenizer,
+e o caminho para salvar o arquivo exportado:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers.onnx <span class="hljs-keyword">import</span> export
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, AutoModel
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_path = Path(<span class="hljs-string">&quot;model.onnx&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model_ckpt = <span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>base_model = AutoModel.from_pretrained(model_ckpt)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(model_ckpt)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_inputs, onnx_outputs = export(tokenizer, base_model, onnx_config, onnx_config.default_onnx_opset, onnx_path)<!-- HTML_TAG_END --></pre></div>
+<p>Os <code>onnx_inputs</code> e <code>onnx_outputs</code> retornados pela função <code>export()</code> são listas de
+chaves definidas nas propriedades <code>inputs</code> e <code>outputs</code> da configuração. Uma vez que o
+modelo é exportado, você pode testar se o modelo está bem formado da seguinte forma:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> onnx
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx_model = onnx.load(<span class="hljs-string">&quot;model.onnx&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>onnx.checker.check_model(onnx_model)<!-- HTML_TAG_END --></pre></div>
+
+
+<div class="course-tip  bg-gradient-to-br dark:bg-gradient-to-r before:border-green-500 dark:before:border-green-800 from-green-50 dark:from-gray-900 to-white dark:to-gray-950 border border-green-50 text-green-700 dark:text-gray-400"><p>Se o seu modelo for maior que 2GB, você verá que muitos arquivos adicionais são criados
+durante a exportação. Isso é <em>esperado</em> porque o ONNX usa <a href="https://developers.google.com/protocol-buffers/" rel="nofollow">Protocol
+Buffers</a> para armazenar o modelo e estes
+têm um limite de tamanho de 2GB. Veja a <a href="https://github.com/onnx/onnx/blob/master/docs/ExternalData.md" rel="nofollow">ONNX
+documentação</a> para
+instruções sobre como carregar modelos com dados externos.</p></div>
+<h3 class="relative group"><a id="validando-a-sada-dos-modelos" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#validando-a-sada-dos-modelos"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Validando a saída dos modelos
+	</span></h3>
+
+<p>A etapa final é validar se as saídas do modelo base e exportado concordam
+dentro de alguma tolerância absoluta. Aqui podemos usar a função <code>validate_model_outputs()</code>
+fornecida pelo pacote <code>transformers.onnx</code> da seguinte forma:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers.onnx <span class="hljs-keyword">import</span> validate_model_outputs
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>validate_model_outputs(
+<span class="hljs-meta">... </span>    onnx_config, tokenizer, base_model, onnx_path, onnx_outputs, onnx_config.atol_for_validation
+<span class="hljs-meta">... </span>)<!-- HTML_TAG_END --></pre></div>
+<p>Esta função usa o método <code>generate_dummy_inputs()</code> para
+gerar entradas para o modelo base e o exportado, e a tolerância absoluta pode ser
+definida na configuração. Geralmente encontramos concordância numérica em 1e-6 a 1e-4
+de alcance, embora qualquer coisa menor que 1e-3 provavelmente esteja OK.</p>
+<h2 class="relative group"><a id="contribuindo-com-uma-nova-configurao-para-transformers" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#contribuindo-com-uma-nova-configurao-para-transformers"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Contribuindo com uma nova configuração para 🤗 Transformers
+	</span></h2>
+
+<p>Estamos procurando expandir o conjunto de configurações prontas e receber contribuições
+da comunidade! Se você gostaria de contribuir para a biblioteca, você
+precisará:</p>
+<ul><li>Implemente a configuração do ONNX no arquivo <code>configuration_&lt;model_name&gt;.py</code> correspondente
+Arquivo</li>
+<li>Incluir a arquitetura do modelo e recursos correspondentes em
+<code>~onnx.features.FeatureManager</code></li>
+<li>Adicione sua arquitetura de modelo aos testes em <code>test_onnx_v2.py</code></li></ul>
+<p>Confira como ficou a configuração do <a href="https://github.com/huggingface/transformers/pull/14868/files" rel="nofollow">IBERT
+</a> para obter uma
+idéia do que está envolvido.</p>
+
+
+		<script type="module" data-hydrate="4vj35f">
+		import { start } from "/docs/transformers/main/pt/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="4vj35f"]').parentNode,
+			paths: {"base":"/docs/transformers/main/pt","assets":"/docs/transformers/main/pt"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/transformers/main/pt/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/transformers/main/pt/_app/pages/serialization.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
