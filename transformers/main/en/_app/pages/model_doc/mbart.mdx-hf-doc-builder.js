@@ -1,18 +1,18 @@
-import{S as Px,i as Sx,s as Ox,e as a,k as c,w as y,t as i,M as Ax,c as s,d as t,m as p,a as r,x as v,h as d,b as f,G as e,g as b,y as T,q as w,o as M,B as $,v as Ix,L as P}from"../../chunks/vendor-hf-doc-builder.js";import{T as ft}from"../../chunks/Tip-hf-doc-builder.js";import{D as F}from"../../chunks/Docstring-hf-doc-builder.js";import{C as E}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as V}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as C}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Nx(x){let l,k,m,h,g;return h=new E({props:{code:`from transformers import MBartModel, MBartConfig
+import{S as Px,i as Sx,s as Ox,e as a,k as c,w as y,t as i,M as Ax,c as s,d as t,m as p,a as r,x as v,h as d,b as f,G as e,g as b,y as T,q as w,o as M,B as $,v as Ix,L as P}from"../../chunks/vendor-hf-doc-builder.js";import{T as ft}from"../../chunks/Tip-hf-doc-builder.js";import{D as F}from"../../chunks/Docstring-hf-doc-builder.js";import{C as E}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as V}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as C}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function Nx(x){let l,k,m,h,g;return h=new E({props:{code:`from transformers import MBartConfig, MBartModel
 
 # Initializing a MBART facebook/mbart-large-cc25 style configuration
 configuration = MBartConfig()
 
-# Initializing a model from the facebook/mbart-large-cc25 style configuration
+# Initializing a model (with random weights) from the facebook/mbart-large-cc25 style configuration
 model = MBartModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> MBartModel, MBartConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> MBartConfig, MBartModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a MBART facebook/mbart-large-cc25 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = MBartConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the facebook/mbart-large-cc25 style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the facebook/mbart-large-cc25 style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = MBartModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>

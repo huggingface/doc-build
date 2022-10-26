@@ -1,18 +1,18 @@
-import{S as ty,i as oy,s as ny,e as a,k as c,w as L,t as o,M as sy,c as r,d as t,m as p,a as i,x as T,h as n,b as h,G as e,g,y as v,q as M,o as $,B as x,v as ay,L as gt}from"../../chunks/vendor-hf-doc-builder.js";import{T as pt}from"../../chunks/Tip-hf-doc-builder.js";import{D as ne}from"../../chunks/Docstring-hf-doc-builder.js";import{C as lt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as it}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as ft}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function ry(z){let d,k,m,f,b;return f=new lt({props:{code:`from transformers import LayoutLMModel, LayoutLMConfig
+import{S as ty,i as oy,s as ny,e as a,k as c,w as L,t as o,M as sy,c as r,d as t,m as p,a as i,x as T,h as n,b as h,G as e,g,y as v,q as M,o as $,B as x,v as ay,L as gt}from"../../chunks/vendor-hf-doc-builder.js";import{T as pt}from"../../chunks/Tip-hf-doc-builder.js";import{D as ne}from"../../chunks/Docstring-hf-doc-builder.js";import{C as lt}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as it}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as ft}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function ry(z){let d,k,m,f,b;return f=new lt({props:{code:`from transformers import LayoutLMConfig, LayoutLMModel
 
 # Initializing a LayoutLM configuration
 configuration = LayoutLMConfig()
 
-# Initializing a model from the configuration
+# Initializing a model (with random weights) from the configuration
 model = LayoutLMModel(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> LayoutLMModel, LayoutLMConfig
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> LayoutLMConfig, LayoutLMModel
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a LayoutLM configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = LayoutLMConfig()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = LayoutLMModel(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>

@@ -1,18 +1,18 @@
-import{S as Mv,i as $v,s as Ev,e as a,k as c,w as v,t as n,M as zv,c as r,d as o,m as p,a as i,x as y,h as s,b as l,G as e,g as u,y as b,q as L,o as k,B as w,v as qv,L as sn}from"../../chunks/vendor-hf-doc-builder.js";import{T as Gi}from"../../chunks/Tip-hf-doc-builder.js";import{D as A}from"../../chunks/Docstring-hf-doc-builder.js";import{C as W}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as de}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as nn}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function jv(j){let h,x,f,g,T;return g=new W({props:{code:`from transformers import LayoutLMv2Model, LayoutLMv2Config
+import{S as Mv,i as $v,s as Ev,e as a,k as c,w as v,t as n,M as zv,c as r,d as o,m as p,a as i,x as y,h as s,b as l,G as e,g as u,y as b,q as L,o as k,B as w,v as qv,L as sn}from"../../chunks/vendor-hf-doc-builder.js";import{T as Gi}from"../../chunks/Tip-hf-doc-builder.js";import{D as A}from"../../chunks/Docstring-hf-doc-builder.js";import{C as W}from"../../chunks/CodeBlock-hf-doc-builder.js";import{I as de}from"../../chunks/IconCopyLink-hf-doc-builder.js";import{E as nn}from"../../chunks/ExampleCodeBlock-hf-doc-builder.js";function jv(j){let h,x,f,g,T;return g=new W({props:{code:`from transformers import LayoutLMv2Config, LayoutLMv2Model
 
 # Initializing a LayoutLMv2 microsoft/layoutlmv2-base-uncased style configuration
 configuration = LayoutLMv2Config()
 
-# Initializing a model from the microsoft/layoutlmv2-base-uncased style configuration
+# Initializing a model (with random weights) from the microsoft/layoutlmv2-base-uncased style configuration
 model = LayoutLMv2Model(configuration)
 
 # Accessing the model configuration
-configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> LayoutLMv2Model, LayoutLMv2Config
+configuration = model.config`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> LayoutLMv2Config, LayoutLMv2Model
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a LayoutLMv2 microsoft/layoutlmv2-base-uncased style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>configuration = LayoutLMv2Config()
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model from the microsoft/layoutlmv2-base-uncased style configuration</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Initializing a model (with random weights) from the microsoft/layoutlmv2-base-uncased style configuration</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = LayoutLMv2Model(configuration)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Accessing the model configuration</span>
