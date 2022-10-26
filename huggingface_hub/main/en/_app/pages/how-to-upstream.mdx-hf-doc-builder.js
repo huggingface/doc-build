@@ -58,10 +58,10 @@ with Repository(local_dir="text-files", clone_from="<user>/text-files").commit(c
 <span class="hljs-meta">... </span>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;file.txt&quot;</span>, <span class="hljs-string">&quot;w+&quot;</span>) <span class="hljs-keyword">as</span> f:
 <span class="hljs-meta">... </span>        f.write(json.dumps({<span class="hljs-string">&quot;hey&quot;</span>: <span class="hljs-number">8</span>}))`}}),tt=new w({props:{code:`import torch
 model = torch.nn.Transformer()
-with Repository("torch-model", clone_from="<user>/torch-model", use_auth_token=True).commit(commit_message="My cool model :)"):
+with Repository("torch-model", clone_from="<user>/torch-model", token=True).commit(commit_message="My cool model :)"):
     torch.save(model.state_dict(), "model.pt")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = torch.nn.Transformer()
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> Repository(<span class="hljs-string">&quot;torch-model&quot;</span>, clone_from=<span class="hljs-string">&quot;&lt;user&gt;/torch-model&quot;</span>, use_auth_token=<span class="hljs-literal">True</span>).commit(commit_message=<span class="hljs-string">&quot;My cool model :)&quot;</span>):
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> Repository(<span class="hljs-string">&quot;torch-model&quot;</span>, clone_from=<span class="hljs-string">&quot;&lt;user&gt;/torch-model&quot;</span>, token=<span class="hljs-literal">True</span>).commit(commit_message=<span class="hljs-string">&quot;My cool model :)&quot;</span>):
 <span class="hljs-meta">... </span>    torch.save(model.state_dict(), <span class="hljs-string">&quot;model.pt&quot;</span>)`}}),ot=new w({props:{code:'with repo.commit(commit_message="My cool model :)", blocking=False)',highlighted:'<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">with</span> repo.commit(commit_message=<span class="hljs-string">&quot;My cool model :)&quot;</span>, blocking=<span class="hljs-literal">False</span>)'}}),at=new w({props:{code:`last_command = repo.command_queue[-1]
 last_command.status`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>last_command = repo.command_queue[-<span class="hljs-number">1</span>]
 <span class="hljs-meta">&gt;&gt;&gt; </span>last_command.status`}}),nt=new w({props:{code:`last_command.stderr
