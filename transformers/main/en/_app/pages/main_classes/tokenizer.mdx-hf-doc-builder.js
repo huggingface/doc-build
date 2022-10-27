@@ -553,7 +553,7 @@ A list of new special tokens to add to the tokenizer you are training.`,name:"ne
 If you want to rename some of the special tokens this tokenizer uses, pass along a mapping old special
 token name to new special token name in this argument.
 kwargs &#x2014;
-Additional keyword arguments passed along to the trainer from the &#x1F917; Tokenizers library.`,name:"special_tokens_map"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_fast.py#L605",returnDescription:`
+Additional keyword arguments passed along to the trainer from the &#x1F917; Tokenizers library.`,name:"special_tokens_map"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_fast.py#L607",returnDescription:`
 <p>A new tokenizer of the same type as the original one, trained on
 <code>text_iterator</code>.</p>
 `,returnType:`
