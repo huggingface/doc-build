@@ -50,37 +50,25 @@ end_logits = outputs.end_logits.cpu().numpy()`}}),{c(){j(h.$$.fragment),g=d(),f=
 
 data_collator = DefaultDataCollator(return_tensors="tf")`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DefaultDataCollator
 
-data_collator = DefaultDataCollator(return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)`}}),m=new S({props:{code:`tf_train_dataset = train_dataset.to_tf_dataset(
-    columns=[
-        "input_ids",
-        "start_positions",
-        "end_positions",
-        "attention_mask",
-        "token_type_ids",
-    ],
+data_collator = DefaultDataCollator(return_tensors=<span class="hljs-string">&quot;tf&quot;</span>)`}}),m=new S({props:{code:`tf_train_dataset = model.prepare_tf_dataset(
+    train_dataset,
     collate_fn=data_collator,
     shuffle=True,
     batch_size=16,
 )
-tf_eval_dataset = validation_dataset.to_tf_dataset(
-    columns=["input_ids", "attention_mask", "token_type_ids"],
+tf_eval_dataset = model.prepare_tf_dataset(
+    validation_dataset,
     collate_fn=data_collator,
     shuffle=False,
     batch_size=16,
-)`,highlighted:`tf_train_dataset = train_dataset.to_tf_dataset(
-    columns=[
-        <span class="hljs-string">&quot;input_ids&quot;</span>,
-        <span class="hljs-string">&quot;start_positions&quot;</span>,
-        <span class="hljs-string">&quot;end_positions&quot;</span>,
-        <span class="hljs-string">&quot;attention_mask&quot;</span>,
-        <span class="hljs-string">&quot;token_type_ids&quot;</span>,
-    ],
+)`,highlighted:`tf_train_dataset = model.prepare_tf_dataset(
+    train_dataset,
     collate_fn=data_collator,
     shuffle=<span class="hljs-literal">True</span>,
     batch_size=<span class="hljs-number">16</span>,
 )
-tf_eval_dataset = validation_dataset.to_tf_dataset(
-    columns=[<span class="hljs-string">&quot;input_ids&quot;</span>, <span class="hljs-string">&quot;attention_mask&quot;</span>, <span class="hljs-string">&quot;token_type_ids&quot;</span>],
+tf_eval_dataset = model.prepare_tf_dataset(
+    validation_dataset,
     collate_fn=data_collator,
     shuffle=<span class="hljs-literal">False</span>,
     batch_size=<span class="hljs-number">16</span>,
