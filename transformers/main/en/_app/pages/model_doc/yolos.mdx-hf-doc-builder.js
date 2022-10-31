@@ -194,7 +194,7 @@ objects.`,name:"return_tensors"}],source:"https://github.com/huggingface/transfo
 Raw outputs of the model.`,name:"outputs"},{anchor:"transformers.YolosFeatureExtractor.post_process_object_detection.threshold",description:`<strong>threshold</strong> (<code>float</code>, <em>optional</em>) &#x2014;
 Score threshold to keep object detection predictions.`,name:"threshold"},{anchor:"transformers.YolosFeatureExtractor.post_process_object_detection.target_sizes",description:`<strong>target_sizes</strong> (<code>torch.Tensor</code> or <code>List[Tuple[int, int]]</code>, <em>optional</em>, defaults to <code>None</code>) &#x2014;
 Tensor of shape <code>(batch_size, 2)</code> or list of tuples (<code>Tuple[int, int]</code>) containing the target size
-(height, width) of each image in the batch. If left to None, predictions will not be resized.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/yolos/feature_extraction_yolos.py#L750",returnDescription:`
+(height, width) of each image in the batch. If left to None, predictions will not be resized.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/yolos/feature_extraction_yolos.py#L703",returnDescription:`
 <p>A list of dictionaries, each dictionary containing the scores, labels and boxes for an image
 in the batch as predicted by the model.</p>
 `,returnType:`
