@@ -158,9 +158,9 @@ tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")`,highlighte
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;distilbert-base-uncased&quot;</span>)`}}),Wa=new N({props:{code:`from datasets import load_dataset
 
-dataset = load_dataset("rottten_tomatoes")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
+dataset = load_dataset("rotten_tomatoes")`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>dataset = load_dataset(<span class="hljs-string">&quot;rottten_tomatoes&quot;</span>)`}}),Ua=new N({props:{code:`def tokenize_dataset(dataset):
+<span class="hljs-meta">&gt;&gt;&gt; </span>dataset = load_dataset(<span class="hljs-string">&quot;rotten_tomatoes&quot;</span>)`}}),Ua=new N({props:{code:`def tokenize_dataset(dataset):
     return tokenizer(dataset["text"])`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">tokenize_dataset</span>(<span class="hljs-params">dataset</span>):
 <span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> tokenizer(dataset[<span class="hljs-string">&quot;text&quot;</span>])`}}),Ka=new N({props:{code:"",highlighted:""}}),Ja=new N({props:{code:`from transformers import DataCollatorWithPadding
 
