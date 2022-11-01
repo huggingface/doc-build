@@ -63,7 +63,7 @@ model.config.vocab_size = model.config.decoder.vocab_size
 
 input_ids = tokenizer("This is a really long text", return_tensors="pt").input_ids
 labels = tokenizer("This is the corresponding summary", return_tensors="pt").input_ids
-outputs = model(input_ids=input_ids, labels=input_ids)
+outputs = model(input_ids=input_ids, labels=labels)
 loss, logits = outputs.loss, outputs.logits
 
 # save and load from pretrained
@@ -86,7 +86,7 @@ generated = model.generate(input_ids)`,highlighted:`<span class="hljs-meta">&gt;
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>input_ids = tokenizer(<span class="hljs-string">&quot;This is a really long text&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).input_ids
 <span class="hljs-meta">&gt;&gt;&gt; </span>labels = tokenizer(<span class="hljs-string">&quot;This is the corresponding summary&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).input_ids
-<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(input_ids=input_ids, labels=input_ids)
+<span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(input_ids=input_ids, labels=labels)
 <span class="hljs-meta">&gt;&gt;&gt; </span>loss, logits = outputs.loss, outputs.logits
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># save and load from pretrained</span>
