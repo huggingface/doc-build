@@ -61,7 +61,7 @@ previous ImageFeatureExtractionMixin method.<ul>
 <li>Unset: will return the same type as the input image.</li>
 <li><code>True</code>: will return a numpy array.</li>
 <li><code>False</code>: will return a <code>PIL.Image.Image</code> object.</li>
-</ul>`,name:"return_numpy"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L322",returnDescription:`
+</ul>`,name:"return_numpy"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L330",returnDescription:`
 <p>The cropped image.</p>
 `,returnType:`
 <p><code>np.ndarray</code></p>
@@ -69,7 +69,7 @@ previous ImageFeatureExtractionMixin method.<ul>
 The image to normalize.`,name:"image"},{anchor:"transformers.image_transforms.normalize.mean",description:`<strong>mean</strong> (<code>float</code> or <code>Iterable[float]</code>) &#x2014;
 The mean to use for normalization.`,name:"mean"},{anchor:"transformers.image_transforms.normalize.std",description:`<strong>std</strong> (<code>float</code> or <code>Iterable[float]</code>) &#x2014;
 The standard deviation to use for normalization.`,name:"std"},{anchor:"transformers.image_transforms.normalize.data_format",description:`<strong>data_format</strong> (<code>ChannelDimension</code>, <em>optional</em>) &#x2014;
-The channel dimension format of the output image. If <code>None</code>, will use the inferred format from the input.`,name:"data_format"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L266"}}),pe=new T({props:{name:"transformers.rescale",anchor:"transformers.rescale",parameters:[{name:"image",val:": ndarray"},{name:"scale",val:": float"},{name:"data_format",val:": typing.Optional[transformers.image_utils.ChannelDimension] = None"},{name:"dtype",val:" = <class 'numpy.float32'>"}],parametersDescription:[{anchor:"transformers.rescale.image",description:`<strong>image</strong> (<code>np.ndarray</code>) &#x2014;
+The channel dimension format of the output image. If <code>None</code>, will use the inferred format from the input.`,name:"data_format"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L272"}}),pe=new T({props:{name:"transformers.rescale",anchor:"transformers.rescale",parameters:[{name:"image",val:": ndarray"},{name:"scale",val:": float"},{name:"data_format",val:": typing.Optional[transformers.image_utils.ChannelDimension] = None"},{name:"dtype",val:" = <class 'numpy.float32'>"}],parametersDescription:[{anchor:"transformers.rescale.image",description:`<strong>image</strong> (<code>np.ndarray</code>) &#x2014;
 The image to rescale.`,name:"image"},{anchor:"transformers.rescale.scale",description:`<strong>scale</strong> (<code>float</code>) &#x2014;
 The scale to use for rescaling the image.`,name:"scale"},{anchor:"transformers.rescale.data_format",description:`<strong>data_format</strong> (<code>ChannelDimension</code>, <em>optional</em>) &#x2014;
 The channel dimension format of the image. If not provided, it will be the same as the input image.`,name:"data_format"},{anchor:"transformers.rescale.dtype",description:`<strong>dtype</strong> (<code>np.dtype</code>, <em>optional</em>, defaults to <code>np.float32</code>) &#x2014;
@@ -84,7 +84,7 @@ The size to use for resizing the image.`,name:"size"},{anchor:"transformers.resi
 The filter to user for resampling.`,name:"resample"},{anchor:"transformers.resize.data_format",description:`<strong>data_format</strong> (<code>ChannelDimension</code>, <em>optional</em>) &#x2014;
 The channel dimension format of the output image. If <code>None</code>, will use the inferred format from the input.`,name:"data_format"},{anchor:"transformers.resize.return_numpy",description:`<strong>return_numpy</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not to return the resized image as a numpy array. If False a <code>PIL.Image.Image</code> object is
-returned.`,name:"return_numpy"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L217",returnDescription:`
+returned.`,name:"return_numpy"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/image_transforms.py#L220",returnDescription:`
 <p>The resized image.</p>
 `,returnType:`
 <p><code>np.ndarray</code></p>
