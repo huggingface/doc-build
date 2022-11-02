@@ -1,0 +1,124 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;running-the-simulation&quot;,&quot;title&quot;:&quot;Running the simulation&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/simulate/main/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/simulate/main/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/simulate/main/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/simulate/main/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/simulate/main/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/simulate/main/en/_app/pages/tutorials/running_the_simulation.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/simulate/main/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/simulate/main/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="running-the-simulation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#running-the-simulation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Running the simulation
+	</span></h1>
+
+<p>This section will describe how to run the physics simulation and collect data.
+The code in this section is reflected in <a href="https://github.com/huggingface/simulate/blob/main/examples/basic/simple_physics.py" rel="nofollow">examples/basic/simple_physics.py</a>.</p>
+<p>Start by displaying a simple scene with a cube above a plane, viewed by a camera:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->import simulate as sm
+scene = sm.Scene(<span class="hljs-attribute">engine</span>=<span class="hljs-string">&quot;Unity&quot;</span>)
+scene += sm.LightSun()
+scene += sm.Box(
+    <span class="hljs-attribute">name</span>=<span class="hljs-string">&quot;floor&quot;</span>,
+    position=[0, 0, 0],
+    bounds=[-10, 10, -0.1, 0, -10, 10],
+    <span class="hljs-attribute">material</span>=sm.Material.GRAY75,
+)
+scene += sm.Box(
+    <span class="hljs-attribute">name</span>=<span class="hljs-string">&quot;cube&quot;</span>,
+    position=[0, 3, 0],
+    scaling=[1, 1, 1],
+    <span class="hljs-attribute">material</span>=sm.Material.GRAY50,
+    <span class="hljs-attribute">with_rigid_body</span>=<span class="hljs-literal">True</span>,
+)
+scene += sm.Camera(<span class="hljs-attribute">name</span>=<span class="hljs-string">&quot;camera&quot;</span>, position=[0, 2, -10])
+scene.show()
+
+<span class="hljs-comment"># Prevent auto-closing when running locally</span>
+input(<span class="hljs-string">&quot;Press enter to continue...&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Note that we use the Unity engine backend, which supports physics simulation, as well as specify <code>with_rigid_body=True</code> on the cube, to enable forces like gravity.</p>
+<p>Next, run the simulation for 30 timesteps:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">60</span>):
+    event = <span class="hljs-built_in">scene</span>.<span class="hljs-keyword">step</span>()<!-- HTML_TAG_END --></pre></div>
+<p>You should see the cube falling onto the plane. </p>
+<p><code>step()</code> tells the backend to step the simulation forward, and allows keyword arguments to be passed, allowing a wide variety of customizable behavior.
+The backend then returns a dictionary of data as an <code>event</code>. By default, this dictionary contains <code>nodes</code> and <code>frames</code>.</p>
+<p><code>nodes</code> is a dictionary containing all assets in the scene and their physical parameters such as position, rotation, and velocity.
+Try graphing the height of the cube as it falls:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->import numpy as np
+import matplotlib<span class="hljs-selector-class">.pyplot</span> as plt
+plt<span class="hljs-selector-class">.ion</span>()
+_, ax1 = plt<span class="hljs-selector-class">.subplots</span>(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+heights = <span class="hljs-selector-attr">[]</span>
+<span class="hljs-keyword">for</span> <span class="hljs-selector-tag">i</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">60</span>):
+    event = scene<span class="hljs-selector-class">.step</span>()
+    <span class="hljs-attribute">height</span> = event[<span class="hljs-string">&quot;nodes&quot;</span>][<span class="hljs-string">&quot;cube&quot;</span>][<span class="hljs-string">&quot;position&quot;</span>][<span class="hljs-number">1</span>]
+    heights<span class="hljs-selector-class">.append</span>(<span class="hljs-attribute">height</span>)
+    ax1<span class="hljs-selector-class">.clear</span>()
+    ax1<span class="hljs-selector-class">.set_xlim</span>(<span class="hljs-selector-attr">[0, 60]</span>)
+    ax1<span class="hljs-selector-class">.set_ylim</span>(<span class="hljs-selector-attr">[0, 3]</span>)
+    ax1<span class="hljs-selector-class">.plot</span>(np<span class="hljs-selector-class">.arange</span>(<span class="hljs-built_in">len</span>(heights)), heights)
+    plt<span class="hljs-selector-class">.pause</span>(<span class="hljs-number">0.1</span>)<!-- HTML_TAG_END --></pre></div>
+<p><code>frames</code> is a dictionary containing the rendering from each camera.
+Try modifying the code to display these frames in matplotlib:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->plt<span class="hljs-selector-class">.ion</span>()
+_, ax1 = plt<span class="hljs-selector-class">.subplots</span>(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+<span class="hljs-keyword">for</span> <span class="hljs-selector-tag">i</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">60</span>):
+    event = scene<span class="hljs-selector-class">.step</span>()
+    im = np<span class="hljs-selector-class">.array</span>(event<span class="hljs-selector-attr">[<span class="hljs-string">&quot;frames&quot;</span>]</span><span class="hljs-selector-attr">[<span class="hljs-string">&quot;camera&quot;</span>]</span>, dtype=np.uint8)<span class="hljs-selector-class">.transpose</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>)
+    ax1<span class="hljs-selector-class">.clear</span>()
+    ax1<span class="hljs-selector-class">.imshow</span>(im)
+    plt<span class="hljs-selector-class">.pause</span>(<span class="hljs-number">0.1</span>)<!-- HTML_TAG_END --></pre></div>
+<p>🤗 Simulate is highly customizable. If you aren’t interested in returning this data, you can modify the scene configuration prior to calling <code>show()</code> to disable it:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->scene<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.return_nodes</span> = False
+scene<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.return_frames</span> = False
+scene<span class="hljs-selector-class">.show</span>()<!-- HTML_TAG_END --></pre></div>
+<p>For advanced use, you can extend this functionality using <a href="./howto/plugins">plugins</a>.</p>
+<p>In this library, we include an extensive plugin for reinforcement learning. If you are using 🤗 Simulate for reinforcement learning, continue with <a href="../howto/rl">reinforcement learning how-tos</a>.</p>
+
+
+		<script type="module" data-hydrate="l14uqb">
+		import { start } from "/docs/simulate/main/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="l14uqb"]').parentNode,
+			paths: {"base":"/docs/simulate/main/en","assets":"/docs/simulate/main/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/simulate/main/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/simulate/main/en/_app/pages/tutorials/running_the_simulation.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
