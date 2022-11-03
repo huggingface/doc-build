@@ -358,7 +358,7 @@ outputs (<a href="/docs/transformers/main/en/model_doc/mobilevit#transformers.Mo
 Raw outputs of the model.
 target_sizes (<code>List[Tuple]</code>, <em>optional</em>):
 A list of length <code>batch_size</code>, where each item is a <code>Tuple[int, int]</code> corresponding to the requested
-final size (height, width) of each prediction. If left to None, predictions will not be resized.`,name:"Converts"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/mobilevit/image_processing_mobilevit.py#L323",returnDescription:`
+final size (height, width) of each prediction. If left to None, predictions will not be resized.`,name:"Converts"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/mobilevit/image_processing_mobilevit.py#L324",returnDescription:`
 <p>A list of length <code>batch_size</code>, where each item is a semantic segmentation map of shape (height, width)
 corresponding to the target_sizes entry (if <code>target_sizes</code> is specified). Each entry of each
 <code>torch.Tensor</code> correspond to a semantic class id.</p>
