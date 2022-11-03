@@ -282,7 +282,7 @@ answer_start_index = outputs.start_logits.argmax()
 answer_end_index = outputs.end_logits.argmax()
 
 predict_answer_tokens = inputs.input_ids[0, answer_start_index : answer_end_index + 1]
-tokenizer.decode(predict_answer_tokens)
+tokenizer.decode(predict_answer_tokens, skip_special_tokens=True)
 `,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, YosoForQuestionAnswering
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 
@@ -299,7 +299,7 @@ tokenizer.decode(predict_answer_tokens)
 <span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = outputs.end_logits.argmax()
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens, skip_special_tokens=<span class="hljs-literal">True</span>)
 `}}),{c(){n=r("p"),u=d("Example:"),a=g(),w(p.$$.fragment)},l(s){n=i(s,"P",{});var h=l(n);u=c(h,"Example:"),h.forEach(t),a=_(s),$(p.$$.fragment,s)},m(s,h){b(s,n,h),e(n,u),b(s,a,h),y(p,s,h),k=!0},p:S,i(s){k||(v(p.$$.fragment,s),k=!0)},o(s){T(p.$$.fragment,s),k=!1},d(s){s&&t(n),s&&t(a),Y(p,s)}}}function Zi(M){let n,u;return n=new P({props:{code:`# target is "nice puppet"
 target_start_index = torch.tensor([14])
 target_end_index = torch.tensor([15])

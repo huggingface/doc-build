@@ -253,7 +253,7 @@ answer_start_index = outputs.start_logits.argmax()
 answer_end_index = outputs.end_logits.argmax()
 
 predict_answer_tokens = inputs.input_ids[0, answer_start_index : answer_end_index + 1]
-tokenizer.decode(predict_answer_tokens)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaTokenizer, DebertaForQuestionAnswering
+tokenizer.decode(predict_answer_tokens, skip_special_tokens=True)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> DebertaTokenizer, DebertaForQuestionAnswering
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = DebertaTokenizer.from_pretrained(<span class="hljs-string">&quot;Palak/microsoft_deberta-large_squad&quot;</span>)
@@ -269,7 +269,7 @@ tokenizer.decode(predict_answer_tokens)`,highlighted:`<span class="hljs-meta">&g
 <span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = outputs.end_logits.argmax()
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens, skip_special_tokens=<span class="hljs-literal">True</span>)
 <span class="hljs-string">&#x27; a nice puppet&#x27;</span>`}}),{c(){d=a("p"),u=n("Example:"),c=h(),T(f.$$.fragment)},l(l){d=r(l,"P",{});var p=i(d);u=s(p,"Example:"),p.forEach(t),c=m(l),y(f.$$.fragment,l)},m(l,p){_(l,d,p),e(d,u),_(l,c,p),$(f,l,p),w=!0},p:ke,i(l){w||(v(f.$$.fragment,l),w=!0)},o(l){D(f.$$.fragment,l),w=!1},d(l){l&&t(d),l&&t(c),E(f,l)}}}function cb(q){let d,u;return d=new we({props:{code:`# target is "nice puppet"
 target_start_index = torch.tensor([12])
 target_end_index = torch.tensor([14])

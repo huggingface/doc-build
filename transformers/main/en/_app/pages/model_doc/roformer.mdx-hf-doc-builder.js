@@ -324,7 +324,7 @@ answer_start_index = outputs.start_logits.argmax()
 answer_end_index = outputs.end_logits.argmax()
 
 predict_answer_tokens = inputs.input_ids[0, answer_start_index : answer_end_index + 1]
-tokenizer.decode(predict_answer_tokens)
+tokenizer.decode(predict_answer_tokens, skip_special_tokens=True)
 `,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> RoFormerTokenizer, RoFormerForQuestionAnswering
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 
@@ -341,7 +341,7 @@ tokenizer.decode(predict_answer_tokens)
 <span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = outputs.end_logits.argmax()
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens, skip_special_tokens=<span class="hljs-literal">True</span>)
 `}}),{c(){d=s("p"),g=t("Example:"),c=m(),b(f.$$.fragment)},l(l){d=a(l,"P",{});var p=i(d);g=n(p,"Example:"),p.forEach(o),c=h(l),v(f.$$.fragment,l)},m(l,p){_(l,d,p),e(d,g),_(l,c,p),w(f,l,p),k=!0},p:pe,i(l){k||(T(f.$$.fragment,l),k=!0)},o(l){$(f.$$.fragment,l),k=!1},d(l){l&&o(d),l&&o(c),x(f,l)}}}function mR(E){let d,g;return d=new me({props:{code:`# target is "nice puppet"
 target_start_index = torch.tensor([14])
 target_end_index = torch.tensor([15])

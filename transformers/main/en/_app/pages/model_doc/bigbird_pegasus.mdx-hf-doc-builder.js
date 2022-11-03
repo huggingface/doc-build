@@ -178,7 +178,7 @@ answer_start_index = outputs.start_logits.argmax()
 answer_end_index = outputs.end_logits.argmax()
 
 predict_answer_tokens = inputs.input_ids[0, answer_start_index : answer_end_index + 1]
-tokenizer.decode(predict_answer_tokens)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> PegasusTokenizerFast, BigBirdPegasusForQuestionAnswering
+tokenizer.decode(predict_answer_tokens, skip_special_tokens=True)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> PegasusTokenizerFast, BigBirdPegasusForQuestionAnswering
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = PegasusTokenizerFast.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-bigbird_pegasus&quot;</span>)
@@ -194,7 +194,7 @@ tokenizer.decode(predict_answer_tokens)`,highlighted:`<span class="hljs-meta">&g
 <span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = outputs.end_logits.argmax()
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens, skip_special_tokens=<span class="hljs-literal">True</span>)
 <span class="hljs-string">&#x27;&#x27;</span>`}}),{c(){l=s("p"),_=i("Example:"),c=h(),y(u.$$.fragment)},l(n){l=a(n,"P",{});var p=r(l);_=d(p,"Example:"),p.forEach(t),c=g(n),w(u.$$.fragment,n)},m(n,p){b(n,l,p),e(l,_),b(n,c,p),B(u,n,p),v=!0},p:U,i(n){v||(k(u.$$.fragment,n),v=!0)},o(n){T(u.$$.fragment,n),v=!1},d(n){n&&t(l),n&&t(c),$(u,n)}}}function qi(P){let l,_;return l=new V({props:{code:`# target is "nice puppet"
 target_start_index = torch.tensor([14])
 target_end_index = torch.tensor([15])

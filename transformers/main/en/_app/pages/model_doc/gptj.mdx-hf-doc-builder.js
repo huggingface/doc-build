@@ -161,7 +161,7 @@ answer_start_index = outputs.start_logits.argmax()
 answer_end_index = outputs.end_logits.argmax()
 
 predict_answer_tokens = inputs.input_ids[0, answer_start_index : answer_end_index + 1]
-tokenizer.decode(predict_answer_tokens)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> GPT2Tokenizer, GPTJForQuestionAnswering
+tokenizer.decode(predict_answer_tokens, skip_special_tokens=True)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> GPT2Tokenizer, GPTJForQuestionAnswering
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = GPT2Tokenizer.from_pretrained(<span class="hljs-string">&quot;ydshieh/tiny-random-gptj-for-question-answering&quot;</span>)
@@ -177,7 +177,7 @@ tokenizer.decode(predict_answer_tokens)`,highlighted:`<span class="hljs-meta">&g
 <span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = outputs.end_logits.argmax()
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens, skip_special_tokens=<span class="hljs-literal">True</span>)
 <span class="hljs-string">&#x27; was Jim Henson?Jim Henson was a n&#x27;</span>`}}),{c(){d=a("p"),T=n("Example:"),c=h(),v(m.$$.fragment)},l(l){d=r(l,"P",{});var p=i(d);T=s(p,"Example:"),p.forEach(t),c=u(l),k(m.$$.fragment,l)},m(l,p){g(l,d,p),e(d,T),g(l,c,p),b(m,l,p),w=!0},p:Ke,i(l){w||($(m.$$.fragment,l),w=!0)},o(l){P(m.$$.fragment,l),w=!1},d(l){l&&t(d),l&&t(c),F(m,l)}}}function Pf(G){let d,T;return d=new ke({props:{code:`# target is "nice puppet"
 target_start_index = torch.tensor([14])
 target_end_index = torch.tensor([15])

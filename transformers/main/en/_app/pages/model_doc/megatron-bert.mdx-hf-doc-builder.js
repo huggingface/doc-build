@@ -356,7 +356,7 @@ answer_start_index = outputs.start_logits.argmax()
 answer_end_index = outputs.end_logits.argmax()
 
 predict_answer_tokens = inputs.input_ids[0, answer_start_index : answer_end_index + 1]
-tokenizer.decode(predict_answer_tokens)
+tokenizer.decode(predict_answer_tokens, skip_special_tokens=True)
 `,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, MegatronBertForQuestionAnswering
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 
@@ -373,7 +373,7 @@ tokenizer.decode(predict_answer_tokens)
 <span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = outputs.end_logits.argmax()
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens, skip_special_tokens=<span class="hljs-literal">True</span>)
 `}}),{c(){d=a("p"),_=r("Example:"),c=m(),v(h.$$.fragment)},l(n){d=i(n,"P",{});var p=l(d);_=s(p,"Example:"),p.forEach(o),c=g(n),M(h.$$.fragment,n)},m(n,p){b(n,d,p),e(d,_),b(n,c,p),T(h,n,p),k=!0},p:j,i(n){k||(w(h.$$.fragment,n),k=!0)},o(n){$(h.$$.fragment,n),k=!1},d(n){n&&o(d),n&&o(c),y(h,n)}}}function Nm(B){let d,_;return d=new z({props:{code:`# target is "nice puppet"
 target_start_index = torch.tensor([14])
 target_end_index = torch.tensor([15])

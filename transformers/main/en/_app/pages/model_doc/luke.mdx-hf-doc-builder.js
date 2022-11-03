@@ -385,7 +385,7 @@ answer_start_index = outputs.start_logits.argmax()
 answer_end_index = outputs.end_logits.argmax()
 
 predict_answer_tokens = inputs.input_ids[0, answer_start_index : answer_end_index + 1]
-tokenizer.decode(predict_answer_tokens)
+tokenizer.decode(predict_answer_tokens, skip_special_tokens=True)
 `,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> LukeTokenizer, LukeForQuestionAnswering
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 
@@ -402,7 +402,7 @@ tokenizer.decode(predict_answer_tokens)
 <span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = outputs.end_logits.argmax()
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens, skip_special_tokens=<span class="hljs-literal">True</span>)
 `}}),{c(){d=a("p"),_=o("Example:"),c=h(),b(f.$$.fragment)},l(l){d=r(l,"P",{});var m=i(d);_=s(m,"Example:"),m.forEach(t),c=u(l),T(f.$$.fragment,l)},m(l,m){k(l,d,m),e(d,_),k(l,c,m),w(f,l,m),y=!0},p:G,i(l){y||(v(f.$$.fragment,l),y=!0)},o(l){L(f.$$.fragment,l),y=!1},d(l){l&&t(d),l&&t(c),$(f,l)}}}function Hf(z){let d,_;return d=new K({props:{code:`# target is "nice puppet"
 target_start_index = torch.tensor([14])
 target_end_index = torch.tensor([15])

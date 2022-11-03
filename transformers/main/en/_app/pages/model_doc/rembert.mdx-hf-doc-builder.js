@@ -312,7 +312,7 @@ answer_start_index = outputs.start_logits.argmax()
 answer_end_index = outputs.end_logits.argmax()
 
 predict_answer_tokens = inputs.input_ids[0, answer_start_index : answer_end_index + 1]
-tokenizer.decode(predict_answer_tokens)
+tokenizer.decode(predict_answer_tokens, skip_special_tokens=True)
 `,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> RemBertTokenizer, RemBertForQuestionAnswering
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 
@@ -329,7 +329,7 @@ tokenizer.decode(predict_answer_tokens)
 <span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = outputs.end_logits.argmax()
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens, skip_special_tokens=<span class="hljs-literal">True</span>)
 `}}),{c(){d=r("p"),g=o("Example:"),c=m(),T(u.$$.fragment)},l(l){d=a(l,"P",{});var p=i(d);g=n(p,"Example:"),p.forEach(t),c=h(l),w(u.$$.fragment,l)},m(l,p){k(l,d,p),e(d,g),k(l,c,p),v(u,l,p),y=!0},p:Se,i(l){y||($(u.$$.fragment,l),y=!0)},o(l){F(u.$$.fragment,l),y=!1},d(l){l&&t(d),l&&t(c),R(u,l)}}}function Rw(M){let d,g;return d=new We({props:{code:`# target is "nice puppet"
 target_start_index = torch.tensor([14])
 target_end_index = torch.tensor([15])
