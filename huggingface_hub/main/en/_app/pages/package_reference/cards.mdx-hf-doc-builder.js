@@ -395,7 +395,7 @@ url = metadata_update("hf-internal-testing/reactiongif-roberta-card", metadata)
 A huggingface_hub.CardData instance containing the metadata you want to include in the YAML
 header of the repo card on the Hugging Face Hub.`,name:"card_data"},{anchor:"huggingface_hub.repocard.RepoCard.from_template.template_path",description:`<strong>template_path</strong> (<code>str</code>, <em>optional</em>) &#x2014;
 A path to a markdown file with optional Jinja template variables that can be filled
-in with <code>template_kwargs</code>. Defaults to the default template.`,name:"template_path"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L281",returnDescription:`
+in with <code>template_kwargs</code>. Defaults to the default template.`,name:"template_path"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L295",returnDescription:`
 <p>A RepoCard instance with the specified card data and content from the
 template.</p>
 `,returnType:`
@@ -409,7 +409,7 @@ use &#x201C;model&#x201D;. Other options are &#x201C;dataset&#x201D; and &#x201C
 a local filepath. If this is called from a child class, the default value will be
 the child class&#x2019;s <code>repo_type</code>.`,name:"repo_type"},{anchor:"huggingface_hub.repocard.RepoCard.load.token",description:`<strong>token</strong> (<code>str</code>, <em>optional</em>) &#x2014;
 Authentication token, obtained with <code>huggingface_hub.HfApi.login</code> method. Will default to
-the stored token.`,name:"token"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L125",returnDescription:`
+the stored token.`,name:"token"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L139",returnDescription:`
 <p>The RepoCard (or subclass) initialized from the repo\u2019s
 README.md file or filepath.</p>
 `,returnType:`
@@ -430,13 +430,13 @@ The OID / SHA of the parent commit, as a hexadecimal string. Shorthands (7 first
 If specified and <code>create_pr</code> is <code>False</code>, the commit will fail if <code>revision</code> does not point to <code>parent_commit</code>.
 If specified and <code>create_pr</code> is <code>True</code>, the pull request will be created from <code>parent_commit</code>.
 Specifying <code>parent_commit</code> ensures the repo has not changed before committing the changes, and can be
-especially useful if the repo is updated / committed to concurrently.`,name:"parent_commit"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L218",returnDescription:`
+especially useful if the repo is updated / committed to concurrently.`,name:"parent_commit"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L232",returnDescription:`
 <p>URL of the commit which updated the card metadata.</p>
 `,returnType:`
 <p><code>str</code></p>
-`}}),ga=new E({props:{name:"save",anchor:"huggingface_hub.repocard.RepoCard.save",parameters:[{name:"filepath",val:": typing.Union[pathlib.Path, str]"}],parametersDescription:[{anchor:"huggingface_hub.repocard.RepoCard.save.filepath",description:"<strong>filepath</strong> (<code>Union[Path, str]</code>) &#x2014; Filepath to the markdown file to save.",name:"filepath"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L107"}}),Te=new re({props:{anchor:"huggingface_hub.repocard.RepoCard.save.example",$$slots:{default:[ci]},$$scope:{ctx:C}}}),ha=new E({props:{name:"validate",anchor:"huggingface_hub.repocard.RepoCard.validate",parameters:[{name:"repo_type",val:": typing.Optional[str] = None"}],parametersDescription:[{anchor:"huggingface_hub.repocard.RepoCard.validate.repo_type",description:`<strong>repo_type</strong> (<code>str</code>, <em>optional</em>, defaults to &#x201C;model&#x201D;) &#x2014;
+`}}),ga=new E({props:{name:"save",anchor:"huggingface_hub.repocard.RepoCard.save",parameters:[{name:"filepath",val:": typing.Union[pathlib.Path, str]"}],parametersDescription:[{anchor:"huggingface_hub.repocard.RepoCard.save.filepath",description:"<strong>filepath</strong> (<code>Union[Path, str]</code>) &#x2014; Filepath to the markdown file to save.",name:"filepath"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L121"}}),Te=new re({props:{anchor:"huggingface_hub.repocard.RepoCard.save.example",$$slots:{default:[ci]},$$scope:{ctx:C}}}),ha=new E({props:{name:"validate",anchor:"huggingface_hub.repocard.RepoCard.validate",parameters:[{name:"repo_type",val:": typing.Optional[str] = None"}],parametersDescription:[{anchor:"huggingface_hub.repocard.RepoCard.validate.repo_type",description:`<strong>repo_type</strong> (<code>str</code>, <em>optional</em>, defaults to &#x201C;model&#x201D;) &#x2014;
 The type of Hugging Face repo to push to. Options are &#x201C;model&#x201D;, &#x201C;dataset&#x201D;, and &#x201C;space&#x201D;.
-If this function is called from a child class, the default will be the child class&#x2019;s <code>repo_type</code>.`,name:"repo_type"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L177"}}),qe=new ei({props:{$$slots:{default:[pi]},$$scope:{ctx:C}}}),ua=new M({}),fa=new E({props:{name:"class huggingface_hub.CardData",anchor:"huggingface_hub.CardData",parameters:[{name:"**kwargs",val:""}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard_data.py#L121"}}),_a=new E({props:{name:"to_dict",anchor:"huggingface_hub.CardData.to_dict",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard_data.py#L125",returnDescription:`
+If this function is called from a child class, the default will be the child class&#x2019;s <code>repo_type</code>.`,name:"repo_type"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L191"}}),qe=new ei({props:{$$slots:{default:[pi]},$$scope:{ctx:C}}}),ua=new M({}),fa=new E({props:{name:"class huggingface_hub.CardData",anchor:"huggingface_hub.CardData",parameters:[{name:"**kwargs",val:""}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard_data.py#L121"}}),_a=new E({props:{name:"to_dict",anchor:"huggingface_hub.CardData.to_dict",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard_data.py#L125",returnDescription:`
 <p>CardData represented as a dictionary ready to be dumped to a YAML
 block for inclusion in a README.md file.</p>
 `,returnType:`
@@ -446,11 +446,11 @@ The line break to use when dumping to yaml.`,name:"line_break"}],source:"https:/
 <p>CardData represented as a YAML block.</p>
 `,returnType:`
 <p><code>str</code></p>
-`}}),va=new M({}),xa=new M({}),$a=new E({props:{name:"class huggingface_hub.ModelCard",anchor:"huggingface_hub.ModelCard",parameters:[{name:"content",val:": str"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L321"}}),ya=new E({props:{name:"from_template",anchor:"huggingface_hub.ModelCard.from_template",parameters:[{name:"card_data",val:": ModelCardData"},{name:"template_path",val:": typing.Optional[str] = None"},{name:"**template_kwargs",val:""}],parametersDescription:[{anchor:"huggingface_hub.ModelCard.from_template.card_data",description:`<strong>card_data</strong> (<code>huggingface_hub.ModelCardData</code>) &#x2014;
+`}}),va=new M({}),xa=new M({}),$a=new E({props:{name:"class huggingface_hub.ModelCard",anchor:"huggingface_hub.ModelCard",parameters:[{name:"content",val:": str"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L335"}}),ya=new E({props:{name:"from_template",anchor:"huggingface_hub.ModelCard.from_template",parameters:[{name:"card_data",val:": ModelCardData"},{name:"template_path",val:": typing.Optional[str] = None"},{name:"**template_kwargs",val:""}],parametersDescription:[{anchor:"huggingface_hub.ModelCard.from_template.card_data",description:`<strong>card_data</strong> (<code>huggingface_hub.ModelCardData</code>) &#x2014;
 A huggingface_hub.ModelCardData instance containing the metadata you want to include in the YAML
 header of the model card on the Hugging Face Hub.`,name:"card_data"},{anchor:"huggingface_hub.ModelCard.from_template.template_path",description:`<strong>template_path</strong> (<code>str</code>, <em>optional</em>) &#x2014;
 A path to a markdown file with optional Jinja template variables that can be filled
-in with <code>template_kwargs</code>. Defaults to the default template.`,name:"template_path"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L326",returnDescription:`
+in with <code>template_kwargs</code>. Defaults to the default template.`,name:"template_path"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L340",returnDescription:`
 <p>A ModelCard instance with the specified card data and content from the
 template.</p>
 `,returnType:`
@@ -476,11 +476,11 @@ List of <code>huggingface_hub.EvalResult</code> that define evaluation results o
 A name for this model. Required if you provide <code>eval_results</code>. It is used along with
 <code>eval_results</code> to construct the <code>model-index</code> within the card&#x2019;s metadata. The name
 you supply here is what will be used on PapersWithCode&#x2019;s leaderboards. Defaults to None.`,name:"model_name"},{anchor:"huggingface_hub.ModelCardData.kwargs",description:`<strong>kwargs</strong> (<code>dict</code>, <em>optional</em>) &#x2014;
-Additional metadata that will be added to the model card. Defaults to None.`,name:"kwargs"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard_data.py#L161"}}),Ue=new re({props:{anchor:"huggingface_hub.ModelCardData.example",$$slots:{default:[gi]},$$scope:{ctx:C}}}),Ca=new M({}),Ea=new M({}),ka=new E({props:{name:"class huggingface_hub.DatasetCard",anchor:"huggingface_hub.DatasetCard",parameters:[{name:"content",val:": str"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L401"}}),Ra=new E({props:{name:"from_template",anchor:"huggingface_hub.DatasetCard.from_template",parameters:[{name:"card_data",val:": DatasetCardData"},{name:"template_path",val:": typing.Optional[str] = None"},{name:"**template_kwargs",val:""}],parametersDescription:[{anchor:"huggingface_hub.DatasetCard.from_template.card_data",description:`<strong>card_data</strong> (<code>huggingface_hub.DatasetCardData</code>) &#x2014;
+Additional metadata that will be added to the model card. Defaults to None.`,name:"kwargs"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard_data.py#L161"}}),Ue=new re({props:{anchor:"huggingface_hub.ModelCardData.example",$$slots:{default:[gi]},$$scope:{ctx:C}}}),Ca=new M({}),Ea=new M({}),ka=new E({props:{name:"class huggingface_hub.DatasetCard",anchor:"huggingface_hub.DatasetCard",parameters:[{name:"content",val:": str"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L415"}}),Ra=new E({props:{name:"from_template",anchor:"huggingface_hub.DatasetCard.from_template",parameters:[{name:"card_data",val:": DatasetCardData"},{name:"template_path",val:": typing.Optional[str] = None"},{name:"**template_kwargs",val:""}],parametersDescription:[{anchor:"huggingface_hub.DatasetCard.from_template.card_data",description:`<strong>card_data</strong> (<code>huggingface_hub.DatasetCardData</code>) &#x2014;
 A huggingface_hub.DatasetCardData instance containing the metadata you want to include in the YAML
 header of the dataset card on the Hugging Face Hub.`,name:"card_data"},{anchor:"huggingface_hub.DatasetCard.from_template.template_path",description:`<strong>template_path</strong> (<code>str</code>, <em>optional</em>) &#x2014;
 A path to a markdown file with optional Jinja template variables that can be filled
-in with <code>template_kwargs</code>. Defaults to the default template.`,name:"template_path"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L406",returnDescription:`
+in with <code>template_kwargs</code>. Defaults to the default template.`,name:"template_path"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L420",returnDescription:`
 <p>A DatasetCard instance with the specified card data and content from the
 template.</p>
 `,returnType:`
@@ -561,7 +561,7 @@ will be rejected.`,name:"metrics_verified"},{anchor:"huggingface_hub.metadata_ev
 Example: fr. The name of the dataset configuration used in <code>load_dataset()</code>.`,name:"dataset_config"},{anchor:"huggingface_hub.metadata_eval_result.dataset_split",description:`<strong>dataset_split</strong> (<code>str</code>, <em>optional</em>) &#x2014;
 Example: test. The name of the dataset split used in <code>load_dataset()</code>.`,name:"dataset_split"},{anchor:"huggingface_hub.metadata_eval_result.dataset_revision",description:`<strong>dataset_revision</strong> (<code>str</code>, <em>optional</em>) &#x2014;
 Example: 5503434ddd753f426f4b38109466949a1217c2bb. The name of the dataset dataset revision
-used in <code>load_dataset()</code>.`,name:"dataset_revision"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L536",returnDescription:`
+used in <code>load_dataset()</code>.`,name:"dataset_revision"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L550",returnDescription:`
 <p>a metadata dict with the result from a model evaluated on a dataset.</p>
 `,returnType:`
 <p><code>dict</code></p>
@@ -584,7 +584,7 @@ The OID / SHA of the parent commit, as a hexadecimal string. Shorthands (7 first
 If specified and <code>create_pr</code> is <code>False</code>, the commit will fail if <code>revision</code> does not point to <code>parent_commit</code>.
 If specified and <code>create_pr</code> is <code>True</code>, the pull request will be created from <code>parent_commit</code>.
 Specifying <code>parent_commit</code> ensures the repo has not changed before committing the changes, and can be
-especially useful if the repo is updated / committed to concurrently.`,name:"parent_commit"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L661",returnDescription:`
+especially useful if the repo is updated / committed to concurrently.`,name:"parent_commit"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py#L675",returnDescription:`
 <p>URL of the commit which updated the card metadata.</p>
 `,returnType:`
 <p><code>str</code></p>
