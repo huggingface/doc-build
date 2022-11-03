@@ -235,7 +235,7 @@ answer_start_index = outputs.start_logits.argmax()
 answer_end_index = outputs.end_logits.argmax()
 
 predict_answer_tokens = inputs.input_ids[0, answer_start_index : answer_end_index + 1]
-tokenizer.decode(predict_answer_tokens)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ReformerTokenizer, ReformerForQuestionAnswering
+tokenizer.decode(predict_answer_tokens, skip_special_tokens=True)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> ReformerTokenizer, ReformerForQuestionAnswering
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = ReformerTokenizer.from_pretrained(<span class="hljs-string">&quot;hf-internal-testing/tiny-random-reformer&quot;</span>)
@@ -251,7 +251,7 @@ tokenizer.decode(predict_answer_tokens)`,highlighted:`<span class="hljs-meta">&g
 <span class="hljs-meta">&gt;&gt;&gt; </span>answer_end_index = outputs.end_logits.argmax()
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>predict_answer_tokens = inputs.input_ids[<span class="hljs-number">0</span>, answer_start_index : answer_end_index + <span class="hljs-number">1</span>]
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.decode(predict_answer_tokens, skip_special_tokens=<span class="hljs-literal">True</span>)
 <span class="hljs-string">&#x27;&#x27;</span>`}}),{c(){m=o("p"),v=t("Example:"),g=h(),y(f.$$.fragment)},l(l){m=r(l,"P",{});var _=i(m);v=n(_,"Example:"),_.forEach(a),g=d(l),k(f.$$.fragment,l)},m(l,_){u(l,m,_),s(m,v),u(l,g,_),w(f,l,_),b=!0},p:ms,i(l){b||(x(f.$$.fragment,l),b=!0)},o(l){z(f.$$.fragment,l),b=!1},d(l){l&&a(m),l&&a(g),$(f,l)}}}function Vu(T){let m,v;return m=new rs({props:{code:`# target is "nice puppet"
 target_start_index = torch.tensor([14])
 target_end_index = torch.tensor([15])
