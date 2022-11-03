@@ -201,7 +201,7 @@ outputs (<a href="/docs/transformers/main/en/model_doc/dpt#transformers.DPTForSe
 Raw outputs of the model.
 target_sizes (<code>List[Tuple]</code> of length <code>batch_size</code>, <em>optional</em>):
 List of tuples corresponding to the requested final size (height, width) of each prediction. If unset,
-predictions will not be resized.`,name:"Converts"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/dpt/image_processing_dpt.py#L345",returnDescription:`
+predictions will not be resized.`,name:"Converts"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/dpt/image_processing_dpt.py#L346",returnDescription:`
 <p><code>List[torch.Tensor]</code> of length <code>batch_size</code>, where each item is a semantic
 segmentation map of shape (height, width) corresponding to the target_sizes entry (if <code>target_sizes</code> is
 specified). Each entry of each <code>torch.Tensor</code> correspond to a semantic class id.</p>
