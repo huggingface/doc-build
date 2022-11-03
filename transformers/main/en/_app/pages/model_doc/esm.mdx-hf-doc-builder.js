@@ -228,13 +228,13 @@ the latter silently ignores them.`),f.forEach(o)},m(n,f){k(n,d,f),e(d,_),e(d,c),
 
 model = EsmForProteinFolding.from_pretrained("facebook/esmfold_v1")
 tokenizer = AutoTokenizer.from_pretrained("facebook/esmfold_v1")
-inputs = tokenizer(["MLKNVQVQLV"], return_tensors="pt")  # A tiny random peptide
+inputs = tokenizer(["MLKNVQVQLV"], return_tensors="pt", add_special_tokens=False)  # A tiny random peptide
 outputs = model(**inputs)
 folded_positions = outputs.positions`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, EsmForProteinFolding
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>model = EsmForProteinFolding.from_pretrained(<span class="hljs-string">&quot;facebook/esmfold_v1&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;facebook/esmfold_v1&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer([<span class="hljs-string">&quot;MLKNVQVQLV&quot;</span>], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)  <span class="hljs-comment"># A tiny random peptide</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer([<span class="hljs-string">&quot;MLKNVQVQLV&quot;</span>], return_tensors=<span class="hljs-string">&quot;pt&quot;</span>, add_special_tokens=<span class="hljs-literal">False</span>)  <span class="hljs-comment"># A tiny random peptide</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>outputs = model(**inputs)
 <span class="hljs-meta">&gt;&gt;&gt; </span>folded_positions = outputs.positions`}}),{c(){d=r("p"),_=s("Example:"),c=p(),T(m.$$.fragment)},l(n){d=i(n,"P",{});var f=l(d);_=a(f,"Example:"),f.forEach(o),c=h(n),y(m.$$.fragment,n)},m(n,f){k(n,d,f),e(d,_),k(n,c,f),v(m,n,f),b=!0},p:j,i(n){b||($(m.$$.fragment,n),b=!0)},o(n){w(m.$$.fragment,n),b=!1},d(n){n&&o(d),n&&o(c),E(m,n)}}}function qf(F){let d,_,c,m,b;return{c(){d=r("p"),_=s("Although the recipe for forward pass needs to be defined within this function, one should call the "),c=r("code"),m=s("Module"),b=s(`
 instance afterwards instead of this since the former takes care of running the pre and post processing steps while
