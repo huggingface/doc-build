@@ -118,14 +118,14 @@ metric = evaluate.load("accuracy")`,highlighted:`<span class="hljs-keyword">from
 
 pipe = pipeline(<span class="hljs-string">&quot;text-classification&quot;</span>, model=<span class="hljs-string">&quot;lvwerra/distilbert-imdb&quot;</span>, device=<span class="hljs-number">0</span>)
 data = load_dataset(<span class="hljs-string">&quot;imdb&quot;</span>, split=<span class="hljs-string">&quot;test&quot;</span>).shuffle().select(<span class="hljs-built_in">range</span>(<span class="hljs-number">1000</span>))
-metric = evaluate.load(<span class="hljs-string">&quot;accuracy&quot;</span>)`}}),Ct=new b({props:{code:`eval = evaluator("text-classification")
+metric = evaluate.load(<span class="hljs-string">&quot;accuracy&quot;</span>)`}}),Ct=new b({props:{code:`task_evaluator = evaluator("text-classification")
 
-results = eval.compute(model_or_pipeline=pipe, data=data, metric=metric,
+results = task_evaluator.compute(model_or_pipeline=pipe, data=data, metric=metric,
                        label_mapping={"NEGATIVE": 0, "POSITIVE": 1},)
 
-print(results)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">eval</span> = evaluator(<span class="hljs-string">&quot;text-classification&quot;</span>)
+print(results)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span>task_evaluator = evaluator(<span class="hljs-string">&quot;text-classification&quot;</span>)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>results = <span class="hljs-built_in">eval</span>.compute(model_or_pipeline=pipe, data=data, metric=metric,
+<span class="hljs-meta">&gt;&gt;&gt; </span>results = task_evaluator.compute(model_or_pipeline=pipe, data=data, metric=metric,
 <span class="hljs-meta">... </span>                       label_mapping={<span class="hljs-string">&quot;NEGATIVE&quot;</span>: <span class="hljs-number">0</span>, <span class="hljs-string">&quot;POSITIVE&quot;</span>: <span class="hljs-number">1</span>},)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(results)
