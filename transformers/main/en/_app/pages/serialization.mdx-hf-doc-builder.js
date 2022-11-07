@@ -53,9 +53,9 @@ ensures that the inputs are matched with their relative position within the
 `),y=l(P,"CODE",{});var St=r(y);O=n(St,"PreTrainedModel.forward()"),St.forEach(o),g=n(P,` method when tracing the graph. We recommend using an
 `),N=l(P,"CODE",{});var fe=r(N);M=n(fe,"OrderedDict"),fe.forEach(o),R=n(P," for the "),Q=l(P,"CODE",{});var ve=r(Q);W=n(ve,"inputs"),ve.forEach(o),He=n(P," and "),K=l(P,"CODE",{});var zt=r(K);We=n(zt,"outputs"),zt.forEach(o),Ge=n(P,` properties when implementing custom ONNX
 configurations.`),P.forEach(o)},m(Z,P){d(Z,c,P),e(c,$),e(c,m),e(m,E),e(c,w),e(c,_),e(_,x),e(c,b),e(c,k),e(k,T),e(c,I),e(c,y),e(y,O),e(c,g),e(c,N),e(N,M),e(c,R),e(c,Q),e(Q,W),e(c,He),e(c,K),e(K,We),e(c,Ge)},d(Z){Z&&o(c)}}}function gg(X){let c,$,m,E,w,_,x,b;return{c(){c=a("p"),$=s("All of the base properties and methods associated with "),m=a("a"),E=s("OnnxConfig"),w=s(` and
-the other configuration classes can be overriden if needed. Check out `),_=a("code"),x=s("BartOnnxConfig"),b=s(`
+the other configuration classes can be overridden if needed. Check out `),_=a("code"),x=s("BartOnnxConfig"),b=s(`
 for an advanced example.`),this.h()},l(k){c=l(k,"P",{});var T=r(c);$=n(T,"All of the base properties and methods associated with "),m=l(T,"A",{href:!0});var I=r(m);E=n(I,"OnnxConfig"),I.forEach(o),w=n(T,` and
-the other configuration classes can be overriden if needed. Check out `),_=l(T,"CODE",{});var y=r(_);x=n(y,"BartOnnxConfig"),y.forEach(o),b=n(T,`
+the other configuration classes can be overridden if needed. Check out `),_=l(T,"CODE",{});var y=r(_);x=n(y,"BartOnnxConfig"),y.forEach(o),b=n(T,`
 for an advanced example.`),T.forEach(o),this.h()},h(){v(m,"href","/docs/transformers/main/en/main_classes/onnx#transformers.onnx.OnnxConfig")},m(k,T){d(k,c,T),e(c,$),e(c,m),e(m,E),e(c,w),e(c,_),e(_,x),e(c,b)},d(k){k&&o(c)}}}function _g(X){let c,$,m,E,w,_,x,b,k,T,I;return{c(){c=a("p"),$=s(`If your model is larger than 2GB, you will see that many additional files are created
 during the export. This is `),m=a("em"),E=s("expected"),w=s(" because ONNX uses "),_=a("a"),x=s(`Protocol
 Buffers`),b=s(` to store the model and these
@@ -80,7 +80,7 @@ optional arguments:
   --feature {causal-lm, ...}
                         The type of features to export the model with.
   --opset OPSET         ONNX opset version to export the model with.
-  --atol ATOL           Absolute difference tolerence when validating the model.`,highlighted:`python -m transformers.onnx --<span class="hljs-built_in">help</span>
+  --atol ATOL           Absolute difference tolerance when validating the model.`,highlighted:`python -m transformers.onnx --<span class="hljs-built_in">help</span>
 
 usage: Hugging Face Transformers ONNX exporter [-h] -m MODEL [--feature {causal-lm, ...}] [--opset OPSET] [--atol ATOL] output
 
@@ -94,7 +94,7 @@ optional arguments:
   --feature {causal-lm, ...}
                         The <span class="hljs-built_in">type</span> of features to <span class="hljs-built_in">export</span> the model with.
   --opset OPSET         ONNX opset version to <span class="hljs-built_in">export</span> the model with.
-  --atol ATOL           Absolute difference tolerence when validating the model.`}}),Ze=new B({props:{code:"python -m transformers.onnx --model=distilbert-base-uncased onnx/",highlighted:"python -m transformers.onnx --model=distilbert-base-uncased onnx/"}}),et=new B({props:{code:`Validating ONNX model...
+  --atol ATOL           Absolute difference tolerance when validating the model.`}}),Ze=new B({props:{code:"python -m transformers.onnx --model=distilbert-base-uncased onnx/",highlighted:"python -m transformers.onnx --model=distilbert-base-uncased onnx/"}}),et=new B({props:{code:`Validating ONNX model...
         -[\u2713] ONNX model output names match reference model ({'last_hidden_state'})
         - Validating ONNX Model output "last_hidden_state":
                 -[\u2713] (2, 8, 768) matches (2, 8, 768)
