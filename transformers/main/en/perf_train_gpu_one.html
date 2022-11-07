@@ -222,7 +222,7 @@ We&#39;ve seen that training the model uses much more memory than just putting t
 <li>6 bytes * number of parameters for mixed precision training (maintains a model in fp32 and one in fp16 in memory)</li></ul>
 <p><strong>Optimizer States:</strong></p>
 <ul><li>8 bytes * number of parameters for normal AdamW (maintains 2 states)</li>
-<li>2 bytes * number of parameters for 8-bit AdamW optimizers like <a href="https://github.com/facebookresearch/bitsandbytes" rel="nofollow">bitsandbytes</a></li>
+<li>2 bytes * number of parameters for 8-bit AdamW optimizers like <a href="https://github.com/TimDettmers/bitsandbytes" rel="nofollow">bitsandbytes</a></li>
 <li>4 bytes * number of parameters for optimizers like SGD with momentum (maintains only 1 state)</li></ul>
 <p><strong>Gradients</strong></p>
 <ul><li>4 bytes * number of parameters for either fp32 or mixed precision training (gradients are always kept in fp32)</li></ul>
@@ -407,7 +407,7 @@ torch<span class="hljs-selector-class">.backends</span><span class="hljs-selecto
 	<pre><!-- HTML_TAG_START -->$ python examples/pytorch/translation/run_translation.py -h | grep <span class="hljs-string">&quot;\-optim&quot;</span>
          [--optim {adamw_hf,adamw_torch,adamw_torch_xla,adamw_apex_fused,adafactor}]<!-- HTML_TAG_END --></pre></div>
 <p>For example, if you have <a href="https://github.com/NVIDIA/apex" rel="nofollow">NVIDIA/apex</a> installed <code>--optim adamw_apex_fused</code> will give you the fastest training experience among all supported AdamW optimizers.</p>
-<p>On the other hand <a href="https://github.com/facebookresearch/bitsandbytes" rel="nofollow">8bit BNB optimizer</a> can save 3/4 of memory normally used by a typical AdamW optimizer if it is configured to quantize all optimizer states, but in some situations only some optimizer states are quintized and then more memory is used.</p>
+<p>On the other hand <a href="https://github.com/TimDettmers/bitsandbytes" rel="nofollow">8bit BNB optimizer</a> can save 3/4 of memory normally used by a typical AdamW optimizer if it is configured to quantize all optimizer states, but in some situations only some optimizer states are quintized and then more memory is used.</p>
 <p>Let’s get a feel for the numbers and use for example use a 3B-parameter model, like <code>t5-3b</code>. Note that since a Gigabyte correpsonds to a billion bytes we can simply multiply the parameters (in billions) with the number of necessary bytes per parameter to get Gigabytes of GPU memory usage:</p>
 <ul><li>A standard AdamW uses 8 bytes for each parameter, here the optimizer will need (<code>8*3</code>) 24GB of GPU memory.</li>
 <li>Adafactor uses slightly more than 4 bytes, so (<code>4*3</code>) 12GB and then some extra.</li>
@@ -464,7 +464,7 @@ GPU memory occupied: 4847 MB.<!-- HTML_TAG_END --></pre></div>
 	</span></h3>
 
 <p>Instead of aggregating optimizer states like Adafactor, 8-bit Adam keeps the full state and quantizes it. Quantization means that it stores the state with lower precision and dequantizes it only for the optimization. This is similar to the idea behind FP16 training where using variables with lower precision saves memory.</p>
-<p>In contrast to the previous approaches is this one not integrated into the <a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer">Trainer</a> as a simple flag. We need to install the 8-bit optimizer and then pass it as a custom optimizer to the <a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer">Trainer</a>. Follow the installation guide in the Github <a href="https://github.com/facebookresearch/bitsandbytes" rel="nofollow">repo</a> to install the <code>bitsandbytes</code> library that implements the 8-bit Adam optimizer.</p>
+<p>In contrast to the previous approaches is this one not integrated into the <a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer">Trainer</a> as a simple flag. We need to install the 8-bit optimizer and then pass it as a custom optimizer to the <a href="/docs/transformers/main/en/main_classes/trainer#transformers.Trainer">Trainer</a>. Follow the installation guide in the Github <a href="https://github.com/TimDettmers/bitsandbytes" rel="nofollow">repo</a> to install the <code>bitsandbytes</code> library that implements the 8-bit Adam optimizer.</p>
 <p>Once installed, we just need to initialize the the optimizer. Although this looks like a considerable amount of work it actually just involves two steps: first we need to group the model’s parameters into two groups where to one group we apply weight decay and to the other we don’t. Usually, biases and layer norm parameters are not weight decayed. Then in a second step we just do some argument housekeeping to use the same parameters as the previously used AdamW optimizer.</p>
 
 
@@ -695,10 +695,10 @@ TrainingArguments(<span class="hljs-attribute">torchdynamo</span>=<span class="h
 <li><a href="https://github.com/pytorch/TensorRT/blob/master/docsrc/tutorials/getting_started_with_fx_path.rst#installation" rel="nofollow">Torch-TensorRT(FX) installation</a></li></ul>
 
 
-		<script type="module" data-hydrate="13fjokv">
+		<script type="module" data-hydrate="1843hnq">
 		import { start } from "/docs/transformers/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="13fjokv"]').parentNode,
+			target: document.querySelector('[data-hydrate="1843hnq"]').parentNode,
 			paths: {"base":"/docs/transformers/main/en","assets":"/docs/transformers/main/en"},
 			session: {},
 			route: false,
