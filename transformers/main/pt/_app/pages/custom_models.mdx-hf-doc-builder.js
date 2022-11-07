@@ -21,9 +21,9 @@ class ResnetConfig(PretrainedConfig):
         **kwargs,
     ):
         if block_type not in ["basic", "bottleneck"]:
-            raise ValueError(f"\`block\` must be 'basic' or bottleneck', got {block}.")
+            raise ValueError(f"\`block_type\` must be 'basic' or bottleneck', got {block_type}.")
         if stem_type not in ["", "deep", "deep-tiered"]:
-            raise ValueError(f"\`stem_type\` must be '', 'deep' or 'deep-tiered', got {block}.")
+            raise ValueError(f"\`stem_type\` must be '', 'deep' or 'deep-tiered', got {stem_type}.")
 
         self.block_type = block_type
         self.layers = layers
@@ -55,9 +55,9 @@ class ResnetConfig(PretrainedConfig):
         **kwargs,
     </span>):
         <span class="hljs-keyword">if</span> block_type <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;basic&quot;</span>, <span class="hljs-string">&quot;bottleneck&quot;</span>]:
-            <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f&quot;\`block\` must be &#x27;basic&#x27; or bottleneck&#x27;, got <span class="hljs-subst">{block}</span>.&quot;</span>)
+            <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f&quot;\`block_type\` must be &#x27;basic&#x27; or bottleneck&#x27;, got <span class="hljs-subst">{block_type}</span>.&quot;</span>)
         <span class="hljs-keyword">if</span> stem_type <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;deep&quot;</span>, <span class="hljs-string">&quot;deep-tiered&quot;</span>]:
-            <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f&quot;\`stem_type\` must be &#x27;&#x27;, &#x27;deep&#x27; or &#x27;deep-tiered&#x27;, got <span class="hljs-subst">{block}</span>.&quot;</span>)
+            <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f&quot;\`stem_type\` must be &#x27;&#x27;, &#x27;deep&#x27; or &#x27;deep-tiered&#x27;, got <span class="hljs-subst">{stem_type}</span>.&quot;</span>)
 
         self.block_type = block_type
         self.layers = layers
@@ -124,7 +124,10 @@ BLOCK_MAPPING = {<span class="hljs-string">&quot;basic&quot;</span>: BasicBlock,
         )
 
     <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, tensor</span>):
-        <span class="hljs-keyword">return</span> self.model.forward_features(tensor)`}}),Pe=new w({props:{code:`class ResnetModelForImageClassification(PreTrainedModel):
+        <span class="hljs-keyword">return</span> self.model.forward_features(tensor)`}}),Pe=new w({props:{code:`import torch
+
+
+class ResnetModelForImageClassification(PreTrainedModel):
     config_class = ResnetConfig
 
     def __init__(self, config):
@@ -147,7 +150,10 @@ BLOCK_MAPPING = {<span class="hljs-string">&quot;basic&quot;</span>: BasicBlock,
         if labels is not None:
             loss = torch.nn.cross_entropy(logits, labels)
             return {"loss": loss, "logits": logits}
-        return {"logits": logits}`,highlighted:`<span class="hljs-keyword">class</span> <span class="hljs-title class_">ResnetModelForImageClassification</span>(<span class="hljs-title class_ inherited__">PreTrainedModel</span>):
+        return {"logits": logits}`,highlighted:`<span class="hljs-keyword">import</span> torch
+
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">ResnetModelForImageClassification</span>(<span class="hljs-title class_ inherited__">PreTrainedModel</span>):
     config_class = ResnetConfig
 
     <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, config</span>):
