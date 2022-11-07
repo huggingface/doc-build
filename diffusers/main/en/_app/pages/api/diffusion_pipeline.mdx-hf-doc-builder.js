@@ -96,8 +96,8 @@ pipeline.</p>
 					</div>
 </li>
 </ul>
-<p>For more information on how to load and create custom pipelines, please have a look at <a href="https://huggingface.co/docs/diffusers/main/en/using-diffusers/custom_pipelines" rel="nofollow">Loading and
-Creating Custom
+<p>For more information on how to load and create custom pipelines, please have a look at <a href="https://huggingface.co/docs/diffusers/using-diffusers/custom_pipeline_overview" rel="nofollow">Loading and
+Adding Custom
 Pipelines</a>`,name:"custom_pipeline"},{anchor:"diffusers.DiffusionPipeline.from_pretrained.torch_dtype",description:"<strong>torch_dtype</strong> (<code>str</code> or <code>torch.dtype</code>, <em>optional</em>) &#x2014;",name:"torch_dtype"},{anchor:"diffusers.DiffusionPipeline.from_pretrained.force_download",description:`<strong>force_download</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether or not to force the (re-)download of the model weights and configuration files, overriding the
 cached versions if they exist.`,name:"force_download"},{anchor:"diffusers.DiffusionPipeline.from_pretrained.resume_download",description:`<strong>resume_download</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;

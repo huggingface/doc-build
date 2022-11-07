@@ -114,7 +114,7 @@ map</a>.`,name:"device_map"},{anchor:"diffusers.ModelMixin.from_pretrained.low_c
 Speed up model loading by not initializing the weights and only loading the pre-trained weights. This
 also tries to not use more than 1x model size in CPU memory (including peak memory) while loading the
 model. This is only supported when torch version &gt;= 1.9.0. If you are using an older version of torch,
-setting this argument to <code>True</code> will raise an error.`,name:"low_cpu_mem_usage"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/modeling_utils.py#L232"}}),ne=new ao({props:{$$slots:{default:[ta]},$$scope:{ctx:I}}}),ie=new ao({props:{$$slots:{default:[na]},$$scope:{ctx:I}}}),xe=new J({props:{name:"save_pretrained",anchor:"diffusers.ModelMixin.save_pretrained",parameters:[{name:"save_directory",val:": typing.Union[str, os.PathLike]"},{name:"is_main_process",val:": bool = True"},{name:"save_function",val:": typing.Callable = <function save at 0x7fe3a78fa670>"}],parametersDescription:[{anchor:"diffusers.ModelMixin.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
+setting this argument to <code>True</code> will raise an error.`,name:"low_cpu_mem_usage"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/modeling_utils.py#L232"}}),ne=new ao({props:{$$slots:{default:[ta]},$$scope:{ctx:I}}}),ie=new ao({props:{$$slots:{default:[na]},$$scope:{ctx:I}}}),xe=new J({props:{name:"save_pretrained",anchor:"diffusers.ModelMixin.save_pretrained",parameters:[{name:"save_directory",val:": typing.Union[str, os.PathLike]"},{name:"is_main_process",val:": bool = True"},{name:"save_function",val:": typing.Callable = <function save at 0x7fe45b5aa670>"}],parametersDescription:[{anchor:"diffusers.ModelMixin.save_pretrained.save_directory",description:`<strong>save_directory</strong> (<code>str</code> or <code>os.PathLike</code>) &#x2014;
 Directory to which to save. Will be created if it doesn&#x2019;t exist.`,name:"save_directory"},{anchor:"diffusers.ModelMixin.save_pretrained.is_main_process",description:`<strong>is_main_process</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether the process calling this is the main process or not. Useful when in distributed training like
 TPUs and need to call this function on all processes. In this case, set <code>is_main_process=True</code> only on
@@ -170,8 +170,8 @@ pipeline.</p>
 					</div>
 </li>
 </ul>
-<p>For more information on how to load and create custom pipelines, please have a look at <a href="https://huggingface.co/docs/diffusers/main/en/using-diffusers/custom_pipelines" rel="nofollow">Loading and
-Creating Custom
+<p>For more information on how to load and create custom pipelines, please have a look at <a href="https://huggingface.co/docs/diffusers/using-diffusers/custom_pipeline_overview" rel="nofollow">Loading and
+Adding Custom
 Pipelines</a>`,name:"custom_pipeline"},{anchor:"diffusers.DiffusionPipeline.from_pretrained.torch_dtype",description:"<strong>torch_dtype</strong> (<code>str</code> or <code>torch.dtype</code>, <em>optional</em>) &#x2014;",name:"torch_dtype"},{anchor:"diffusers.DiffusionPipeline.from_pretrained.force_download",description:`<strong>force_download</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether or not to force the (re-)download of the model weights and configuration files, overriding the
 cached versions if they exist.`,name:"force_download"},{anchor:"diffusers.DiffusionPipeline.from_pretrained.resume_download",description:`<strong>resume_download</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
