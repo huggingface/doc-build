@@ -78,7 +78,7 @@ optional arguments:
   --feature {causal-lm, ...}
                         The type of features to export the model with.
   --opset OPSET         ONNX opset version to export the model with.
-  --atol ATOL           Absolute difference tolerence when validating the model.`,highlighted:`python -m transformers.onnx --<span class="hljs-built_in">help</span>
+  --atol ATOL           Absolute difference tolerance when validating the model.`,highlighted:`python -m transformers.onnx --<span class="hljs-built_in">help</span>
 
 usage: Hugging Face Transformers ONNX exporter [-h] -m MODEL [--feature {causal-lm, ...}] [--opset OPSET] [--atol ATOL] output
 
@@ -92,7 +92,7 @@ optional arguments:
   --feature {causal-lm, ...}
                         The <span class="hljs-built_in">type</span> of features to <span class="hljs-built_in">export</span> the model with.
   --opset OPSET         ONNX opset version to <span class="hljs-built_in">export</span> the model with.
-  --atol ATOL           Absolute difference tolerence when validating the model.`}}),It=new S({props:{code:"python -m transformers.onnx --model=distilbert-base-uncased onnx/",highlighted:"python -m transformers.onnx --model=distilbert-base-uncased onnx/"}}),Lt=new S({props:{code:`Validating ONNX model...
+  --atol ATOL           Absolute difference tolerance when validating the model.`}}),It=new S({props:{code:"python -m transformers.onnx --model=distilbert-base-uncased onnx/",highlighted:"python -m transformers.onnx --model=distilbert-base-uncased onnx/"}}),Lt=new S({props:{code:`Validating ONNX model...
         -[\u2713] ONNX model output names match reference model ({'last_hidden_state'})
         - Validating ONNX Model output "last_hidden_state":
                 -[\u2713] (2, 8, 768) matches (2, 8, 768)
