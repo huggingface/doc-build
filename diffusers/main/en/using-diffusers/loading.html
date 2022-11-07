@@ -1,4 +1,4 @@
-<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;diffusers.ModelMixin&quot;,&quot;title&quot;:&quot;Loading&quot;}" data-svelte="svelte-1phssyn">
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;loading&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;loading-pipelines&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;loading-pipelines-that-require-access-request&quot;,&quot;title&quot;:&quot;Loading pipelines that require access request&quot;},{&quot;local&quot;:&quot;loading-pipelines-locally&quot;,&quot;title&quot;:&quot;Loading pipelines locally&quot;},{&quot;local&quot;:&quot;loading-customized-pipelines&quot;,&quot;title&quot;:&quot;Loading customized pipelines&quot;},{&quot;local&quot;:&quot;how-does-loading-work&quot;,&quot;title&quot;:&quot;How does loading work?&quot;}],&quot;title&quot;:&quot;Loading pipelines&quot;},{&quot;local&quot;:&quot;loading-models&quot;,&quot;title&quot;:&quot;Loading models&quot;},{&quot;local&quot;:&quot;loading-schedulers&quot;,&quot;title&quot;:&quot;Loading schedulers&quot;},{&quot;local&quot;:&quot;diffusers.ModelMixin&quot;,&quot;title&quot;:&quot;API&quot;}],&quot;title&quot;:&quot;Loading&quot;}" data-svelte="svelte-1phssyn">
 	<link rel="modulepreload" href="/docs/diffusers/main/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
 	<link rel="modulepreload" href="/docs/diffusers/main/en/_app/start-hf-doc-builder.js">
 	<link rel="modulepreload" href="/docs/diffusers/main/en/_app/chunks/vendor-hf-doc-builder.js">
@@ -16,11 +16,368 @@
 
 
 
-<h1 class="relative group"><a id="diffusers.ModelMixin" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#diffusers.ModelMixin"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+<h1 class="relative group"><a id="loading" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#loading"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
 	<span>Loading
 	</span></h1>
 
-<p>The core functionality for saving and loading systems in <code>Diffusers</code> is the HuggingFace Hub.</p>
+<p>A core premise of the diffusers library is to make diffusion models <strong>as accessible as possible</strong>.
+Accessibility is therefore achieved by providing an API to load complete diffusion pipelines as well as individual components with a single line of code. </p>
+<p>In the following we explain in-detail how to easily load:</p>
+<ul><li><em>Complete Diffusion Pipelines</em> via the <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline.from_pretrained">DiffusionPipeline.from_pretrained()</a></li>
+<li><em>Diffusion Models</em> via <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.ModelMixin.from_pretrained">ModelMixin.from_pretrained()</a></li>
+<li><em>Schedulers</em> via <a href="/docs/diffusers/main/en/using-diffusers/configuration#diffusers.ConfigMixin.from_config">ConfigMixin.from_config()</a></li></ul>
+<h2 class="relative group"><a id="loading-pipelines" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#loading-pipelines"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Loading pipelines
+	</span></h2>
+
+<p>The <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline">DiffusionPipeline</a> class is the easiest way to access any diffusion model that is <a href="https://huggingface.co/models?library=diffusers" rel="nofollow">available on the Hub</a>. Let’s look at an example on how to download <a href="https://huggingface.co/CompVis/ldm-text2im-large-256" rel="nofollow">CompVis’ Latent Diffusion model</a>.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline
+
+repo_id = <span class="hljs-string">&quot;CompVis/ldm-text2im-large-256&quot;</span>
+ldm = DiffusionPipeline.from_pretrained(repo_id)<!-- HTML_TAG_END --></pre></div>
+<p>Here <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline">DiffusionPipeline</a> automatically detects the correct pipeline (<em>i.e.</em> <a href="/docs/diffusers/main/en/api/pipelines/latent_diffusion#diffusers.LDMTextToImagePipeline">LDMTextToImagePipeline</a>), downloads and caches all required configuration and weight files (if not already done so), and finally returns a pipeline instance, called <code>ldm</code>.
+The pipeline instance can then be called using <a href="/docs/diffusers/main/en/api/pipelines/latent_diffusion#diffusers.LDMTextToImagePipeline.__call__">LDMTextToImagePipeline.<strong>call</strong>()</a> (i.e., <code>ldm(&quot;image of a astronaut riding a horse&quot;)</code>) for text-to-image generation.</p>
+<p>Instead of using the generic <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline">DiffusionPipeline</a> class for loading, you can also load the appropriate pipeline class directly. The code snippet above yields the same instance as when doing:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> LDMTextToImagePipeline
+
+repo_id = <span class="hljs-string">&quot;CompVis/ldm-text2im-large-256&quot;</span>
+ldm = LDMTextToImagePipeline.from_pretrained(repo_id)<!-- HTML_TAG_END --></pre></div>
+<p>Diffusion pipelines like <code>LDMTextToImagePipeline</code> often consist of multiple components. These components can be both parameterized models, such as <code>&quot;unet&quot;</code>, <code>&quot;vqvae&quot;</code> and “bert”, tokenizers or schedulers. These components can interact in complex ways with each other when using the pipeline in inference, <em>e.g.</em> for <a href="/docs/diffusers/main/en/api/pipelines/latent_diffusion#diffusers.LDMTextToImagePipeline">LDMTextToImagePipeline</a> or <a href="/docs/diffusers/main/en/api/pipelines/stable_diffusion#diffusers.StableDiffusionPipeline">StableDiffusionPipeline</a> the inference call is explained <a href="https://huggingface.co/blog/stable_diffusion#how-does-stable-diffusion-work" rel="nofollow">here</a>.
+The purpose of the <a href="./api/overview#diffusers-summary">pipeline classes</a> is to wrap the complexity of these diffusion systems and give the user an easy-to-use API while staying flexible for customization, as will be shown later.</p>
+<h3 class="relative group"><a id="loading-pipelines-that-require-access-request" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#loading-pipelines-that-require-access-request"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Loading pipelines that require access request
+	</span></h3>
+
+<p>Due to the capabilities of diffusion models to generate extremely realistic images, there is a certain danger that such models might be misused for unwanted applications, <em>e.g.</em> generating pornography or violent images.
+In order to minimize the possibility of such unsolicited use cases, some of the most powerful diffusion models require users to acknowledge a license before being able to use the model. If the user does not agree to the license, the pipeline cannot be downloaded.
+If you try to load <a href="https://huggingface.co/runwayml/stable-diffusion-v1-5" rel="nofollow"><code>runwayml/stable-diffusion-v1-5</code></a> the same way as done previously:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline
+
+repo_id = <span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>
+stable_diffusion = DiffusionPipeline.from_pretrained(repo_id)<!-- HTML_TAG_END --></pre></div>
+<p>it will only work if you have both <em>click-accepted</em> the license on <a href="https://huggingface.co/runwayml/stable-diffusion-v1-5" rel="nofollow">the model card</a> and are logged into the Hugging Face Hub. Otherwise you will get an error message
+such as the following:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->OSError: runwayml/stable-diffusion-v1<span class="hljs-number">-5</span> is <span class="hljs-keyword">not</span> <span class="hljs-keyword">a</span> <span class="hljs-built_in">local</span> <span class="hljs-built_in">folder</span> <span class="hljs-keyword">and</span> is <span class="hljs-keyword">not</span> <span class="hljs-keyword">a</span> valid model identifier listed <span class="hljs-keyword">on</span> <span class="hljs-string">&#x27;https://huggingface.co/models&#x27;</span>
+If this is <span class="hljs-keyword">a</span> <span class="hljs-keyword">private</span> repository, make sure <span class="hljs-built_in">to</span> pass <span class="hljs-keyword">a</span> <span class="hljs-keyword">token</span> having permission <span class="hljs-built_in">to</span> this repo <span class="hljs-keyword">with</span> `use_auth_token` <span class="hljs-keyword">or</span> <span class="hljs-built_in">log</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">with</span> `huggingface-cli login`<!-- HTML_TAG_END --></pre></div>
+<p>Therefore, we need to make sure to <em>click-accept</em> the license. You can do this by simply visiting
+the <a href="https://huggingface.co/runwayml/stable-diffusion-v1-5" rel="nofollow">model card</a> and clicking on “Agree and access repository”:</p>
+<p><img src="https://github.com/patrickvonplaten/scientific_images/blob/master/access_request.png" alt="access_request"></p>
+<p>Second, you need to login with your access token:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->huggingface-<span class="hljs-keyword">cli</span> login<!-- HTML_TAG_END --></pre></div>
+<p>before trying to load the model. Or alternatively, you can pass <a href="https://huggingface.co/docs/hub/security-tokens#user-access-tokens" rel="nofollow">your access token</a> directly via the flag <code>use_auth_token</code>. In this case you do <strong>not</strong> need
+to run <code>huggingface-cli login</code> before:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline
+
+repo_id = <span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>
+stable_diffusion = DiffusionPipeline.from_pretrained(repo_id, use_auth_token=<span class="hljs-string">&quot;&lt;your-access-token&gt;&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>The final option to use pipelines that require access without having to rely on the Hugging Face Hub is to load the pipeline locally as explained in the next section.</p>
+<h3 class="relative group"><a id="loading-pipelines-locally" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#loading-pipelines-locally"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Loading pipelines locally
+	</span></h3>
+
+<p>If you prefer to have complete control over the pipeline and its corresponding files or, as said before, if you want to use pipelines that require an access request without having to be connected to the Hugging Face Hub,
+we recommend loading pipelines locally.</p>
+<p>To load a diffusion pipeline locally, you first need to manually download the whole folder structure on your local disk and then pass a local path to the <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline.from_pretrained">DiffusionPipeline.from_pretrained()</a>. Let’s again look at an example for
+<a href="https://huggingface.co/CompVis/ldm-text2im-large-256" rel="nofollow">CompVis’ Latent Diffusion model</a>.</p>
+<p>First, you should make use of <a href="https://git-lfs.github.com/" rel="nofollow"><code>git-lfs</code></a> to download the whole folder structure that has been uploaded to the <a href="https://huggingface.co/CompVis/ldm-text2im-large-256/tree/main" rel="nofollow">model repository</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git lfs install
+git clone https:<span class="hljs-regexp">//</span>huggingface.co<span class="hljs-regexp">/runwayml/</span>stable-diffusion-v1-<span class="hljs-number">5</span><!-- HTML_TAG_END --></pre></div>
+<p>The command above will create a local folder called <code>./stable-diffusion-v1-5</code> on your disk.
+Now, all you have to do is to simply pass the local folder path to <code>from_pretrained</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline
+
+repo_id = <span class="hljs-string">&quot;./stable-diffusion-v1-5&quot;</span>
+stable_diffusion = DiffusionPipeline.from_pretrained(repo_id)<!-- HTML_TAG_END --></pre></div>
+<p>If <code>repo_id</code> is a local path, as it is the case here, <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline.from_pretrained">DiffusionPipeline.from_pretrained()</a> will automatically detect it and therefore not try to download any files from the Hub.
+While we usually recommend to load weights directly from the Hub to be certain to stay up to date with the newest changes, loading pipelines locally should be preferred if one
+wants to stay anonymous, self-contained applications, etc…</p>
+<h3 class="relative group"><a id="loading-customized-pipelines" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#loading-customized-pipelines"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Loading customized pipelines
+	</span></h3>
+
+<p>Advanced users that want to load customized versions of diffusion pipelines can do so by swapping any of the default components, <em>e.g.</em> the scheduler, with other scheduler classes.
+A classical use case of this functionality is to swap the scheduler. <a href="https://huggingface.co/runwayml/stable-diffusion-v1-5" rel="nofollow">Stable Diffusion v1-5</a> uses the <a href="/docs/diffusers/main/en/api/schedulers#diffusers.PNDMScheduler">PNDMScheduler</a> by default which is generally not the most performant scheduler. Since the release
+of stable diffusion, multiple improved schedulers have been published. To use those, the user has to manually load their preferred scheduler and pass it into <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline.from_pretrained">DiffusionPipeline.from_pretrained()</a>.</p>
+<p><em>E.g.</em> to use <a href="/docs/diffusers/main/en/api/schedulers#diffusers.EulerDiscreteScheduler">EulerDiscreteScheduler</a> or <a href="/docs/diffusers/main/en/api/schedulers#diffusers.DPMSolverMultistepScheduler">DPMSolverMultistepScheduler</a> to have a better quality vs. generation speed trade-off for inference, one could load them as follows:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline, EulerDiscreteScheduler, DPMSolverMultistepScheduler
+
+repo_id = <span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>
+
+scheduler = EulerDiscreteScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+<span class="hljs-comment"># or</span>
+<span class="hljs-comment"># scheduler = DPMSolverMultistepScheduler.from_config(repo_id, subfolder=&quot;scheduler&quot;)</span>
+
+stable_diffusion = DiffusionPipeline.from_pretrained(repo_id, scheduler=scheduler)<!-- HTML_TAG_END --></pre></div>
+<p>Three things are worth paying attention to here.</p>
+<ul><li>First, the scheduler is loaded with <a href="/docs/diffusers/main/en/using-diffusers/configuration#diffusers.ConfigMixin.from_config">ConfigMixin.from_config()</a> since it only depends on a configuration file and not any parameterized weights</li>
+<li>Second, the scheduler is loaded with a function argument, called <code>subfolder=&quot;scheduler&quot;</code> as the configuration of stable diffusion’s scheduling is defined in a <a href="https://huggingface.co/runwayml/stable-diffusion-v1-5/tree/main/scheduler" rel="nofollow">subfolder of the official pipeline repository</a></li>
+<li>Third, the scheduler instance can simply be passed with the <code>scheduler</code> keyword argument to <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline.from_pretrained">DiffusionPipeline.from_pretrained()</a>. This works because the <a href="/docs/diffusers/main/en/api/pipelines/stable_diffusion#diffusers.StableDiffusionPipeline">StableDiffusionPipeline</a> defines its scheduler with the <code>scheduler</code> attribute. It’s not possible to use a different name, such as <code>sampler=scheduler</code> since <code>sampler</code> is not a defined keyword for <code>StableDiffusionPipeline.__init__()</code></li></ul>
+<p>Not only the scheduler components can be customized for diffusion pipelines; in theory, all components of a pipeline can be customized. In practice, however, it often only makes sense to switch out a component that has <strong>compatible</strong> alternatives to what the pipeline expects.
+Many scheduler classes are compatible with each other as can be seen <a href="https://github.com/huggingface/diffusers/blob/0dd8c6b4dbab4069de9ed1cafb53cbd495873879/src/diffusers/schedulers/scheduling_ddim.py#L112" rel="nofollow">here</a>. This is not always the case for other components, such as the <code>&quot;unet&quot;</code>.</p>
+<p>One special case that can also be customized is the <code>&quot;safety_checker&quot;</code> of stable diffusion. If you believe the safety checker doesn’t serve you any good, you can simply disable it by passing <code>None</code>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline, EulerDiscreteScheduler, DPMSolverMultistepScheduler
+
+stable_diffusion = DiffusionPipeline.from_pretrained(repo_id, safety_checker=<span class="hljs-literal">None</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Another common use case is to reuse the same components in multiple pipelines, <em>e.g.</em> the weights and configurations of <a href="https://huggingface.co/runwayml/stable-diffusion-v1-5" rel="nofollow"><code>&quot;runwayml/stable-diffusion-v1-5&quot;</code></a> can be used for both <a href="/docs/diffusers/main/en/api/pipelines/stable_diffusion#diffusers.StableDiffusionPipeline">StableDiffusionPipeline</a> and <a href="/docs/diffusers/main/en/api/pipelines/stable_diffusion#diffusers.StableDiffusionImg2ImgPipeline">StableDiffusionImg2ImgPipeline</a> and we might not want to
+use the exact same weights into RAM twice. In this case, customizing all the input instances would help us
+to only load the weights into RAM once:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> StableDiffusionPipeline, StableDiffusionImg2ImgPipeline
+
+model_id = <span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>
+stable_diffusion_txt2img = StableDiffusionPipeline.from_pretrained(model_id)
+
+components = stable_diffusion_txt2img.components
+
+<span class="hljs-comment"># weights are not reloaded into RAM</span>
+stable_diffusion_img2img = StableDiffusionImg2ImgPipeline(**components)<!-- HTML_TAG_END --></pre></div>
+<p>Note how the above code snippet makes use of <a href="/docs/diffusers/main/en/api/diffusion_pipeline#diffusers.DiffusionPipeline.components">DiffusionPipeline.components</a>.</p>
+<h3 class="relative group"><a id="how-does-loading-work" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#how-does-loading-work"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>How does loading work?
+	</span></h3>
+
+<p>As a class method, <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline.from_pretrained">DiffusionPipeline.from_pretrained()</a> is responsible for two things:</p>
+<ul><li>Download the latest version of the folder structure required to run the <code>repo_id</code> with <code>diffusers</code> and cache them. If the latest folder structure is available in the local cache, <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline.from_pretrained">DiffusionPipeline.from_pretrained()</a> will simply reuse the cache and <strong>not</strong> re-download the files.</li>
+<li>Load the cached weights into the <em>correct</em> pipeline class – one of the <a href="./api/overview#diffusers-summary">officially supported pipeline classes</a> - and return an instance of the class. The <em>correct</em> pipeline class is thereby retrieved from the <code>model_index.json</code> file.</li></ul>
+<p>The underlying folder structure of diffusion pipelines correspond 1-to-1 to their corresponding class instances, <em>e.g.</em> <a href="/docs/diffusers/main/en/api/pipelines/latent_diffusion#diffusers.LDMTextToImagePipeline">LDMTextToImagePipeline</a> for <a href="https://huggingface.co/CompVis/ldm-text2im-large-256" rel="nofollow"><code>CompVis/ldm-text2im-large-256</code></a>
+This can be understood better by looking at an example. Let’s print out pipeline class instance <code>pipeline</code> we just defined:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline
+
+repo_id = <span class="hljs-string">&quot;CompVis/ldm-text2im-large-256&quot;</span>
+ldm = DiffusionPipeline.from_pretrained(repo_id)
+<span class="hljs-built_in">print</span>(ldm)<!-- HTML_TAG_END --></pre></div>
+<p><em>Output</em>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-symbol">LDMTextToImagePipeline</span> {
+  <span class="hljs-string">&quot;bert&quot;</span>: [
+    <span class="hljs-string">&quot;latent_diffusion&quot;</span>,
+    <span class="hljs-string">&quot;LDMBertModel&quot;</span>
+  ],
+  <span class="hljs-string">&quot;scheduler&quot;</span>: [
+    <span class="hljs-string">&quot;diffusers&quot;</span>,
+    <span class="hljs-string">&quot;DDIMScheduler&quot;</span>
+  ],
+  <span class="hljs-string">&quot;tokenizer&quot;</span>: [
+    <span class="hljs-string">&quot;transformers&quot;</span>,
+    <span class="hljs-string">&quot;BertTokenizer&quot;</span>
+  ],
+  <span class="hljs-string">&quot;unet&quot;</span>: [
+    <span class="hljs-string">&quot;diffusers&quot;</span>,
+    <span class="hljs-string">&quot;UNet2DConditionModel&quot;</span>
+  ],
+  <span class="hljs-string">&quot;vqvae&quot;</span>: [
+    <span class="hljs-string">&quot;diffusers&quot;</span>,
+    <span class="hljs-string">&quot;AutoencoderKL&quot;</span>
+  ]
+}<!-- HTML_TAG_END --></pre></div>
+<p>First, we see that the official pipeline is the <a href="/docs/diffusers/main/en/api/pipelines/latent_diffusion#diffusers.LDMTextToImagePipeline">LDMTextToImagePipeline</a>, and second we see that the <code>LDMTextToImagePipeline</code> consists of 5 components:</p>
+<ul><li><code>&quot;bert&quot;</code> of class <code>LDMBertModel</code> as defined <a href="https://github.com/huggingface/diffusers/blob/cd502b25cf0debac6f98d27a6638ef95208d1ea2/src/diffusers/pipelines/latent_diffusion/pipeline_latent_diffusion.py#L664" rel="nofollow">in the pipeline</a></li>
+<li><code>&quot;scheduler&quot;</code> of class <a href="/docs/diffusers/main/en/api/schedulers#diffusers.DDIMScheduler">DDIMScheduler</a></li>
+<li><code>&quot;tokenizer&quot;</code> of class <code>BertTokenizer</code> as defined <a href="https://huggingface.co/docs/transformers/model_doc/bert#transformers.BertTokenizer" rel="nofollow">in <code>transformers</code></a></li>
+<li><code>&quot;unet&quot;</code> of class <a href="/docs/diffusers/main/en/api/models#diffusers.UNet2DConditionModel">UNet2DConditionModel</a></li>
+<li><code>&quot;vqvae&quot;</code> of class <a href="/docs/diffusers/main/en/api/models#diffusers.AutoencoderKL">AutoencoderKL</a></li></ul>
+<p>Let’s now compare the pipeline instance to the folder structure of the model repository <code>CompVis/ldm-text2im-large-256</code>. Looking at the folder structure of <a href="https://huggingface.co/CompVis/ldm-text2im-large-256/tree/main" rel="nofollow"><code>CompVis/ldm-text2im-large-256</code></a> on the Hub, we can see it matches 1-to-1 the printed out instance of <code>LDMTextToImagePipeline</code> above:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->.
+├── <span class="hljs-keyword">bert
+</span>│   ├── <span class="hljs-built_in">config</span>.<span class="hljs-keyword">json
+</span>│   └── pytorch_model.<span class="hljs-keyword">bin
+</span>├── model_index.<span class="hljs-keyword">json
+</span>├── <span class="hljs-keyword">scheduler
+</span>│   └── <span class="hljs-keyword">scheduler_config.json
+</span>├── tokenizer
+│   ├── special_tokens_map.<span class="hljs-keyword">json
+</span>│   ├── tokenizer_config.<span class="hljs-keyword">json
+</span>│   └── vocab.txt
+├── unet
+│   ├── <span class="hljs-built_in">config</span>.<span class="hljs-keyword">json
+</span>│   └── <span class="hljs-keyword">diffusion_pytorch_model.bin
+</span>└── vqvae
+    ├── <span class="hljs-built_in">config</span>.<span class="hljs-keyword">json
+</span>    └── <span class="hljs-keyword">diffusion_pytorch_model.bin</span><!-- HTML_TAG_END --></pre></div>
+<p>As we can see each attribute of the instance of <code>LDMTextToImagePipeline</code> has its configuration and possibly weights defined in a subfolder that is called <strong>exactly</strong> like the class attribute (<code>&quot;bert&quot;</code>, <code>&quot;scheduler&quot;</code>, <code>&quot;tokenizer&quot;</code>, <code>&quot;unet&quot;</code>, <code>&quot;vqvae&quot;</code>). Importantly, every pipeline expects a <code>model_index.json</code> file that tells the <code>DiffusionPipeline</code> both:</p>
+<ul><li>which pipeline class should be loaded, and</li>
+<li>what sub-classes from which library are stored in which subfolders</li></ul>
+<p>In the case of <code>CompVis/ldm-text2im-large-256</code> the <code>model_index.json</code> is therefore defined as follows:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->{
+  <span class="hljs-string">&quot;_class_name&quot;</span>: <span class="hljs-string">&quot;LDMTextToImagePipeline&quot;</span>,
+  <span class="hljs-string">&quot;_diffusers_version&quot;</span>: <span class="hljs-string">&quot;0.0.4&quot;</span>,
+  <span class="hljs-string">&quot;bert&quot;</span>: [
+    <span class="hljs-string">&quot;latent_diffusion&quot;</span>,
+    <span class="hljs-string">&quot;LDMBertModel&quot;</span>
+  ],
+  <span class="hljs-string">&quot;scheduler&quot;</span>: [
+    <span class="hljs-string">&quot;diffusers&quot;</span>,
+    <span class="hljs-string">&quot;DDIMScheduler&quot;</span>
+  ],
+  <span class="hljs-string">&quot;tokenizer&quot;</span>: [
+    <span class="hljs-string">&quot;transformers&quot;</span>,
+    <span class="hljs-string">&quot;BertTokenizer&quot;</span>
+  ],
+  <span class="hljs-string">&quot;unet&quot;</span>: [
+    <span class="hljs-string">&quot;diffusers&quot;</span>,
+    <span class="hljs-string">&quot;UNet2DConditionModel&quot;</span>
+  ],
+  <span class="hljs-string">&quot;vqvae&quot;</span>: [
+    <span class="hljs-string">&quot;diffusers&quot;</span>,
+    <span class="hljs-string">&quot;AutoencoderKL&quot;</span>
+  ]
+}<!-- HTML_TAG_END --></pre></div>
+<ul><li><code>_class_name</code> tells <code>DiffusionPipeline</code> which pipeline class should be loaded. </li>
+<li><code>_diffusers_version</code> can be useful to know under which <code>diffusers</code> version this model was created.</li>
+<li>Every component of the pipeline is then defined under the form:</li></ul>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">&quot;name&quot;</span> : [
+  <span class="hljs-string">&quot;library&quot;</span>,
+  <span class="hljs-string">&quot;class&quot;</span>
+]<!-- HTML_TAG_END --></pre></div>
+<ul><li>The <code>&quot;name&quot;</code> field corresponds both to the name of the subfolder in which the configuration and weights are stored as well as the attribute name of the pipeline class (as can be seen <a href="https://huggingface.co/CompVis/ldm-text2im-large-256/tree/main/bert" rel="nofollow">here</a> and <a href="https://github.com/huggingface/diffusers/blob/cd502b25cf0debac6f98d27a6638ef95208d1ea2/src/diffusers/pipelines/latent_diffusion/pipeline_latent_diffusion.py#L42" rel="nofollow">here</a></li>
+<li>The <code>&quot;library&quot;</code> field corresponds to the name of the library, <em>e.g.</em> <code>diffusers</code> or <code>transformers</code> from which the <code>&quot;class&quot;</code> should be loaded</li>
+<li>The <code>&quot;class&quot;</code> field corresponds to the name of the class, <em>e.g.</em> <a href="https://huggingface.co/docs/transformers/model_doc/bert#transformers.BertTokenizer" rel="nofollow"><code>BertTokenizer</code></a> or <a href="/docs/diffusers/main/en/api/models#diffusers.UNet2DConditionModel">UNet2DConditionModel</a></li></ul>
+<h2 class="relative group"><a id="loading-models" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#loading-models"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Loading models
+	</span></h2>
+
+<p>Models as defined under <a href="https://github.com/huggingface/diffusers/tree/main/src/diffusers/models" rel="nofollow">src/diffusers/models</a> can be loaded via the <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.ModelMixin.from_pretrained">ModelMixin.from_pretrained()</a> function. The API is very similar the <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline.from_pretrained">DiffusionPipeline.from_pretrained()</a> and works in the same way:</p>
+<ul><li>Download the latest version of the model weights and configuration with <code>diffusers</code> and cache them. If the latest files are available in the local cache, <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.ModelMixin.from_pretrained">ModelMixin.from_pretrained()</a> will simply reuse the cache and <strong>not</strong> re-download the files.</li>
+<li>Load the cached weights into the <em>defined</em> model class - one of <a href="./api/models">the existing model classes</a> - and return an instance of the class.</li></ul>
+<p>In constrast to <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline.from_pretrained">DiffusionPipeline.from_pretrained()</a>, models rely on fewer files that usually don’t require a folder structure, but just a <code>diffusion_pytorch_model.bin</code> and <code>config.json</code> file.</p>
+<p>Let’s look at an example:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> UNet2DConditionModel
+
+repo_id = <span class="hljs-string">&quot;CompVis/ldm-text2im-large-256&quot;</span>
+model = UNet2DConditionModel.from_pretrained(repo_id, subfolder=<span class="hljs-string">&quot;unet&quot;</span>)<!-- HTML_TAG_END --></pre></div>
+<p>Note how we have to define the <code>subfolder=&quot;unet&quot;</code> argument to tell <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.ModelMixin.from_pretrained">ModelMixin.from_pretrained()</a> that the model weights are located in a <a href="https://huggingface.co/CompVis/ldm-text2im-large-256/tree/main/unet" rel="nofollow">subfolder of the repository</a>.</p>
+<p>As explained in <a href="%22./using-diffusers/loading#loading-customized-pipelines%22">Loading customized pipelines</a>, one can pass a loaded model to a diffusion pipeline, via <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline.from_pretrained">DiffusionPipeline.from_pretrained()</a>:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> DiffusionPipeline
+
+repo_id = <span class="hljs-string">&quot;CompVis/ldm-text2im-large-256&quot;</span>
+ldm = DiffusionPipeline.from_pretrained(repo_id, unet=model)<!-- HTML_TAG_END --></pre></div>
+<p>If the model files can be found directly at the root level, which is usually only the case for some very simple diffusion models, such as <a href="https://huggingface.co/google/ddpm-cifar10-32" rel="nofollow"><code>google/ddpm-cifar10-32</code></a>, we don’t
+need to pass a <code>subfolder</code> argument:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> UNet2DModel
+
+repo_id = <span class="hljs-string">&quot;google/ddpm-cifar10-32&quot;</span>
+model = UNet2DModel.from_pretrained(repo_id)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="loading-schedulers" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#loading-schedulers"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Loading schedulers
+	</span></h2>
+
+<p>Schedulers cannot be loaded via a <code>from_pretrained</code> method, but instead rely on <a href="/docs/diffusers/main/en/using-diffusers/configuration#diffusers.ConfigMixin.from_config">ConfigMixin.from_config()</a>. Schedulers are <strong>not parameterized</strong> or <strong>trained</strong>, but instead purely defined by a configuration file.
+Therefore the loading method was given a different name here.</p>
+<p>In constrast to pipelines or models, loading schedulers does not consume any significant amount of memory and the same configuration file can often be used for a variety of different schedulers.
+For example, all of:</p>
+<ul><li><a href="/docs/diffusers/main/en/api/schedulers#diffusers.DDPMScheduler">DDPMScheduler</a></li>
+<li><a href="/docs/diffusers/main/en/api/schedulers#diffusers.DDIMScheduler">DDIMScheduler</a></li>
+<li><a href="/docs/diffusers/main/en/api/schedulers#diffusers.PNDMScheduler">PNDMScheduler</a></li>
+<li><a href="/docs/diffusers/main/en/api/schedulers#diffusers.LMSDiscreteScheduler">LMSDiscreteScheduler</a></li>
+<li><a href="/docs/diffusers/main/en/api/schedulers#diffusers.EulerDiscreteScheduler">EulerDiscreteScheduler</a></li>
+<li><a href="/docs/diffusers/main/en/api/schedulers#diffusers.EulerAncestralDiscreteScheduler">EulerAncestralDiscreteScheduler</a></li>
+<li><a href="/docs/diffusers/main/en/api/schedulers#diffusers.DPMSolverMultistepScheduler">DPMSolverMultistepScheduler</a></li></ul>
+<p>are compatible with <a href="/docs/diffusers/main/en/api/pipelines/stable_diffusion#diffusers.StableDiffusionPipeline">StableDiffusionPipeline</a> and therefore the same scheduler configuration file can be loaded in any of those classes:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> StableDiffusionPipeline
+<span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> (
+    DDPMScheduler,
+    DDIMScheduler,
+    PNDMScheduler,
+    LMSDiscreteScheduler,
+    EulerDiscreteScheduler,
+    EulerAncestralDiscreteScheduler,
+    DPMSolverMultistepScheduler,
+)
+
+repo_id = <span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>
+
+ddpm = DDPMScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+ddim = DDIMScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+pndm = PNDMScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+lms = LMSDiscreteScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+euler_anc = EulerAncestralDiscreteScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+euler = EulerDiscreteScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+dpm = DPMSolverMultistepScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+
+<span class="hljs-comment"># replace `dpm` with any of `ddpm`, `ddim`, `pndm`, `lms`, `euler`, `euler_anc`</span>
+pipeline = StableDiffusionPipeline.from_pretrained(repo_id, scheduler=dpm)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="diffusers.ModelMixin" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#diffusers.ModelMixin"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>API
+	</span></h2>
+
 <div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
 
 <div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="diffusers.ModelMixin"><!-- HTML_TAG_START --><h3 class="!m-0"><span class="flex-1 break-all md:text-lg bg-gradient-to-r px-2.5 py-1.5 rounded-xl from-indigo-50/70 to-white dark:from-gray-900 dark:to-gray-950 dark:text-indigo-300 text-indigo-700"><svg class="mr-1.5 text-indigo-500 inline-block -mt-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width=".8em" height=".8em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" d="M20.23 7.24L12 12L3.77 7.24a1.98 1.98 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71z" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" d="M12 12v9.5a2.09 2.09 0 0 1-.91-.21L4.5 17.48a2.003 2.003 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01L12 12z" opacity=".5" fill="currentColor"></path><path class="uim-primary" d="M20.5 8.25v7.5a2.003 2.003 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01z" fill="currentColor"></path></svg><span class="font-light">class</span> <span class="font-medium">diffusers.</span><span class="font-semibold">ModelMixin</span></span></h3><!-- HTML_TAG_END -->
@@ -171,7 +528,7 @@ this method in a firewalled environment.</p></div></div>
 	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
 			<span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">save_directory<span class="opacity-60">: typing.Union[str, os.PathLike]</span></span>
 				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">is_main_process<span class="opacity-60">: bool = True</span></span>
-				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">save_function<span class="opacity-60">: typing.Callable = &lt;function save at 0x7fe45b5aa670&gt;</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">save_function<span class="opacity-60">: typing.Callable = &lt;function save at 0x7f2709879670&gt;</span></span>
 				</span>
 			<span>)</span>
 			</p>
@@ -789,13 +1146,12 @@ Directory to which to save. Will be created if it doesn&#x2019;t exist.<!-- HTML
 a directory. A pipeline variable can be saved and loaded if its class implements both a save and loading
 method. The pipeline can easily be re-loaded using the <code>[from_pretrained()](/docs/diffusers/main/en/using-diffusers/loading#diffusers.FlaxDiffusionPipeline.from_pretrained)</code> class
 method.</p></div></div>
-<p>Under further construction 🚧, open a <a href="https://github.com/huggingface/diffusers/compare" rel="nofollow">PR</a> if you want to contribute!</p>
 
 
-		<script type="module" data-hydrate="ifq2i8">
+		<script type="module" data-hydrate="ow1ba3">
 		import { start } from "/docs/diffusers/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="ifq2i8"]').parentNode,
+			target: document.querySelector('[data-hydrate="ow1ba3"]').parentNode,
 			paths: {"base":"/docs/diffusers/main/en","assets":"/docs/diffusers/main/en"},
 			session: {},
 			route: false,
