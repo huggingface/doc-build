@@ -1,0 +1,599 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;megatronlm&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;what-is-integrated&quot;,&quot;title&quot;:&quot;What is integrated?&quot;},{&quot;local&quot;:&quot;prerequisites&quot;,&quot;title&quot;:&quot;Pre-Requisites &quot;},{&quot;local&quot;:&quot;accelerate-megatronlm-plugin&quot;,&quot;title&quot;:&quot;Accelerate Megatron-LM Plugin&quot;},{&quot;local&quot;:&quot;advanced-features-to-leverage-writing-custom-train-step-and-megatronlm-indexed-datasets&quot;,&quot;title&quot;:&quot;Advanced features to leverage writing custom train step and Megatron-LM Indexed Datasets&quot;},{&quot;local&quot;:&quot;utility-for-checkpoint-reshaping-and-interoperability&quot;,&quot;title&quot;:&quot;Utility for Checkpoint reshaping and interoperability&quot;},{&quot;local&quot;:&quot;megatronlm-gpt-models-support-returning-logits-and-megatrongenerate-function-for-text-generation&quot;,&quot;title&quot;:&quot;Megatron-LM GPT models support returning logits and `megatron_generate` function for text generation&quot;},{&quot;local&quot;:&quot;support-for-rope-and-alibi-positional-embeddings-and-multiquery-attention&quot;,&quot;title&quot;:&quot;Support for ROPE and ALiBi Positional embeddings and Multi-Query Attention&quot;},{&quot;local&quot;:&quot;caveats&quot;,&quot;title&quot;:&quot;Caveats&quot;}],&quot;title&quot;:&quot;Megatron-LM&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/accelerate/v0.14.0/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/accelerate/v0.14.0/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.14.0/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.14.0/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.14.0/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.14.0/en/_app/pages/usage_guides/megatron_lm.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.14.0/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/accelerate/v0.14.0/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="megatronlm" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#megatronlm"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Megatron-LM
+	</span></h1>
+
+<p><a href="https://github.com/NVIDIA/Megatron-LM" rel="nofollow">Megatron-LM</a> enables training large transformer language models at scale.
+It provides efficient tensor, pipeline and sequence based model parallelism for pre-training transformer based
+Language Models such as <a href="https://arxiv.org/abs/2005.14165" rel="nofollow">GPT</a> (Decoder Only), <a href="https://arxiv.org/pdf/1810.04805.pdf" rel="nofollow">BERT</a> (Encoder Only) and <a href="https://arxiv.org/abs/1910.10683" rel="nofollow">T5</a> (Encoder-Decoder).
+For detailed information and how things work behind the scene please refer the github <a href="https://github.com/NVIDIA/Megatron-LM" rel="nofollow">repo</a>.</p>
+<h2 class="relative group"><a id="what-is-integrated" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#what-is-integrated"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>What is integrated?
+	</span></h2>
+
+<p>Accelerate integrates following feature of Megatron-LM to enable large scale pre-training/finetuning
+of BERT (Encoder), GPT (Decoder) or T5 models (Encoder and Decoder):</p>
+<p>a. <strong>Tensor Parallelism (TP)</strong>: Reduces memory footprint without much additional communication on intra-node ranks.
+Each tensor is split into multiple chunks with each shard residing on separate GPU. At each step, the same mini-batch of data is processed
+independently and in parallel by each shard followed by syncing across all GPUs (<code>all-reduce</code> operation).
+In a simple transformer layer, this leads to 2 <code>all-reduces</code> in the forward path and 2 in the backward path.
+For more details, please refer research paper <a href="https://arxiv.org/pdf/1909.08053.pdf" rel="nofollow">Megatron-LM: Training Multi-Billion Parameter Language Models Using
+Model Parallelism</a> and
+this section of 🤗 blogpost <a href="https://huggingface.co/blog/bloom-megatron-deepspeed#tensor-parallelism" rel="nofollow">The Technology Behind BLOOM Training</a>.</p>
+<p>b. <strong>Pipeline Parallelism (PP)</strong>: Reduces memory footprint and enables large scale training via inter-node parallelization.
+Reduces the bubble of naive PP via PipeDream-Flush schedule/1F1B schedule and Interleaved 1F1B schedule.
+Layers are distributed uniformly across PP stages. For example, if a model has <code>24</code> layers and we have <code>4</code> GPUs for
+pipeline parallelism, each GPU will have <code>6</code> layers (24/4). For more details on schedules to reduce the idle time of PP,
+please refer to the research paper <a href="https://arxiv.org/pdf/2104.04473.pdf" rel="nofollow">Efficient Large-Scale Language Model Training on GPU Clusters
+Using Megatron-LM</a> and
+this section of 🤗 blogpost <a href="https://huggingface.co/blog/bloom-megatron-deepspeed#pipeline-parallelism" rel="nofollow">The Technology Behind BLOOM Training</a>.</p>
+<p>c. <strong>Sequence Parallelism (SP)</strong>: Reduces memory footprint without any additional communication. Only applicable when using TP.
+It reduces activation memory required as it prevents the same copies to be on the tensor parallel ranks
+post <code>all-reduce</code> by replacing then with <code>reduce-scatter</code> and <code>no-op</code> operation would be replaced by <code>all-gather</code>.
+As <code>all-reduce = reduce-scatter + all-gather</code>, this saves a ton of activation memory at no added communication cost.
+To put it simply, it shards the outputs of each transformer layer along sequence dimension, e.g.,
+if the sequence length is <code>1024</code> and the TP size is <code>4</code>, each GPU will have <code>256</code> tokens (1024/4) for each sample.
+This increases the batch size that can be supported for training. For more details, please refer to the research paper
+<a href="https://arxiv.org/pdf/2205.05198.pdf" rel="nofollow">Reducing Activation Recomputation in Large Transformer Models</a>. </p>
+<p>d. <strong>Data Parallelism (DP)</strong> via Distributed Optimizer: Reduces the memory footprint by sharding optimizer states and gradients across DP ranks
+(versus the traditional method of replicating the optimizer state across data parallel ranks).
+For example, when using Adam optimizer with mixed-precision training, each parameter accounts for 12 bytes of memory.
+This gets distributed equally across the GPUs, i.e., each parameter would account for 3 bytes (12/4) if we have 4 GPUs.
+For more details, please refer the research paper <a href="https://arxiv.org/pdf/1910.02054.pdf" rel="nofollow">ZeRO: Memory Optimizations Toward Training Trillion
+Parameter Models</a> and following section of 🤗 blog
+<a href="https://huggingface.co/blog/bloom-megatron-deepspeed#zero-data-parallelism" rel="nofollow">The Technology Behind BLOOM Training</a>.</p>
+<p>e. <strong>Selective Activation Recomputation</strong>: Reduces the memory footprint of activations significantly via smart activation checkpointing.
+It doesn’t store activations occupying large memory while being fast to recompute thereby achieving great tradeoff between memory and recomputation.
+For example, for GPT-3, this leads to 70% reduction in required memory for activations at the expense of
+only 2.7% FLOPs overhead for recomputation of activations. For more details, please refer to the research paper
+<a href="https://arxiv.org/pdf/2205.05198.pdf" rel="nofollow">Reducing Activation Recomputation in Large Transformer Models</a>.</p>
+<p>f. <strong>Fused Kernels</strong>: Fused Softmax, Mixed Precision Fused Layer Norm and  Fused gradient accumulation to weight gradient computation of linear layer.
+PyTorch JIT compiled Fused GeLU and Fused Bias+Dropout+Residual addition.</p>
+<p>g. <strong>Support for Indexed datasets</strong>: Efficient binary format of datasets for large scale training. Support for the <code>mmap</code>, <code>cached</code> index file and the <code>lazy</code> loader format.</p>
+<p>h. <strong>Checkpoint reshaping and interoperability</strong>: Utility for reshaping Megatron-LM checkpoints of variable
+tensor and pipeline parallel sizes to the beloved 🤗 Transformers sharded checkpoints as it has great support with plethora of tools
+such as 🤗 Accelerate Big Model Inference, Megatron-DeepSpeed Inference etc.
+Support is also available for converting 🤗 Transformers sharded checkpoints to Megatron-LM checkpoint of variable tensor and pipeline parallel sizes
+for large scale training.  </p>
+<h2 class="relative group"><a id="prerequisites" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#prerequisites"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Pre-Requisites 
+	</span></h2>
+
+<p>You will need to install the latest pytorch, cuda, nccl, and NVIDIA <a href="https://github.com/NVIDIA/apex#quick-start" rel="nofollow">APEX</a> releases and the nltk library.
+See <a href="https://github.com/NVIDIA/Megatron-LM#setup" rel="nofollow">documentation</a> for more details.
+Another way to setup the environment is to pull an NVIDIA PyTorch Container that comes with all the required installations from NGC.</p>
+<p>Below is a step-by-step method to set up the conda environment:</p>
+<ol><li>Create a virtual environment</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->conda <span class="hljs-built_in">create</span> <span class="hljs-comment">--name ml</span><!-- HTML_TAG_END --></pre></div>
+<ol start="2"><li>Assuming that the machine has CUDA 11.3 installed, installing the corresponding PyTorch GPU Version</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-attribute">conda</span> install pytorch torchvision torchaudio cudatoolkit=<span class="hljs-number">11</span>.<span class="hljs-number">3</span> -c pytorch<!-- HTML_TAG_END --></pre></div>
+<ol start="3"><li>Install Nvidia APEX</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->git clone https:<span class="hljs-string">//github.com/NVIDIA/apex</span>
+<span class="hljs-keyword">cd</span> apex
+pip install -v <span class="hljs-params">--disable-pip-version-check</span> <span class="hljs-params">--no-cache-dir</span> <span class="hljs-params">--global-option=</span><span class="hljs-string">&quot;--cpp_ext&quot;</span> <span class="hljs-params">--global-option=</span><span class="hljs-string">&quot;--cuda_ext&quot;</span> <span class="hljs-string">./</span>
+<span class="hljs-keyword">cd</span> <span class="hljs-string">..</span><!-- HTML_TAG_END --></pre></div>
+<ol start="4"><li>Installing Megatron-LM</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->pip install git+https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/huggingface/</span>Megatron-LM.git<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="accelerate-megatronlm-plugin" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#accelerate-megatronlm-plugin"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Accelerate Megatron-LM Plugin
+	</span></h2>
+
+<p>Important features are directly supported via the <code>accelerate config</code> command.
+An example of thr corresponding questions for using Megatron-LM features is shown below:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->:~$ accelerate config --config_file <span class="hljs-string">&quot;megatron_gpt_config.yaml&quot;</span>
+In <span class="hljs-built_in">which</span> compute environment are you running? ([0] This machine, [1] AWS (Amazon SageMaker)): 0
+Which <span class="hljs-built_in">type</span> of machine are you using? ([0] No distributed training, [1] multi-CPU, [2] multi-GPU, [3] TPU [4] MPS): 2
+How many different machines will you use (use more than 1 <span class="hljs-keyword">for</span> multi-node training)? [1]: 
+Do you want to use DeepSpeed? [<span class="hljs-built_in">yes</span>/NO]: 
+Do you want to use FullyShardedDataParallel? [<span class="hljs-built_in">yes</span>/NO]: 
+Do you want to use Megatron-LM ? [<span class="hljs-built_in">yes</span>/NO]: <span class="hljs-built_in">yes</span>
+What is the Tensor Parallelism degree/size? [1]:2
+Do you want to <span class="hljs-built_in">enable</span> Sequence Parallelism? [YES/no]: 
+What is the Pipeline Parallelism degree/size? [1]:2
+What is the number of micro-batches? [1]:2
+Do you want to <span class="hljs-built_in">enable</span> selective activation recomputation? [YES/no]: 
+Do you want to use distributed optimizer <span class="hljs-built_in">which</span> shards optimizer state and gradients across data pralellel ranks? [YES/no]: 
+What is the gradient clipping value based on global L2 Norm (0 to <span class="hljs-built_in">disable</span>)? [1.0]: 
+How many GPU(s) should be used <span class="hljs-keyword">for</span> distributed training? [1]:4
+Do you wish to use FP16 or BF16 (mixed precision)? [NO/fp16/bf16]: bf16<!-- HTML_TAG_END --></pre></div>
+<p>The resulting config is shown below:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-string">~$</span> <span class="hljs-string">cat</span> <span class="hljs-string">megatron_gpt_config.yaml</span> 
+<span class="hljs-attr">compute_environment:</span> <span class="hljs-string">LOCAL_MACHINE</span>
+<span class="hljs-attr">deepspeed_config:</span> {}
+<span class="hljs-attr">distributed_type:</span> <span class="hljs-string">MEGATRON_LM</span>
+<span class="hljs-attr">downcast_bf16:</span> <span class="hljs-string">&#x27;no&#x27;</span>
+<span class="hljs-attr">fsdp_config:</span> {}
+<span class="hljs-attr">machine_rank:</span> <span class="hljs-number">0</span>
+<span class="hljs-attr">main_process_ip:</span> <span class="hljs-literal">null</span>
+<span class="hljs-attr">main_process_port:</span> <span class="hljs-literal">null</span>
+<span class="hljs-attr">main_training_function:</span> <span class="hljs-string">main</span>
+<span class="hljs-attr">megatron_lm_config:</span>
+  <span class="hljs-attr">megatron_lm_gradient_clipping:</span> <span class="hljs-number">1.0</span>
+  <span class="hljs-attr">megatron_lm_num_micro_batches:</span> <span class="hljs-number">2</span>
+  <span class="hljs-attr">megatron_lm_pp_degree:</span> <span class="hljs-number">2</span>
+  <span class="hljs-attr">megatron_lm_recompute_activations:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-attr">megatron_lm_sequence_parallelism:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-attr">megatron_lm_tp_degree:</span> <span class="hljs-number">2</span>
+  <span class="hljs-attr">megatron_lm_use_distributed_optimizer:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">mixed_precision:</span> <span class="hljs-string">bf16</span>
+<span class="hljs-attr">num_machines:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">num_processes:</span> <span class="hljs-number">4</span>
+<span class="hljs-attr">rdzv_backend:</span> <span class="hljs-string">static</span>
+<span class="hljs-attr">same_network:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">use_cpu:</span> <span class="hljs-literal">false</span><!-- HTML_TAG_END --></pre></div>
+<p>We will take the example of GPT pre-training. The minimal changes required to the official <code>run_clm_no_trainer.py</code>
+to use Megatron-LM are as follows:</p>
+<ol><li>As Megatron-LM uses its own implementation of Optimizer, the corresponding scheduler compatible with it needs to be used.
+As such, support for only the Megatron-LM’s scheduler is present. User will need to create <code>accelerate.utils.MegatronLMDummyScheduler</code>.
+Example is given below:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate.utils <span class="hljs-keyword">import</span> MegatronLMDummyScheduler
+
+<span class="hljs-keyword">if</span> accelerator.distributed_type == DistributedType.MEGATRON_LM:
+    lr_scheduler = MegatronLMDummyScheduler(
+        optimizer=optimizer,
+        total_num_steps=args.max_train_steps,
+        warmup_num_steps=args.num_warmup_steps,
+    )
+<span class="hljs-keyword">else</span>:
+    lr_scheduler = get_scheduler(
+        name=args.lr_scheduler_type,
+        optimizer=optimizer,
+        num_warmup_steps=args.num_warmup_steps * args.gradient_accumulation_steps,
+        num_training_steps=args.max_train_steps * args.gradient_accumulation_steps,
+    )<!-- HTML_TAG_END --></pre></div>
+<ol start="2"><li>Getting the details of the total batch size now needs to be cognization of tensor and pipeline parallel sizes.
+Example of getting the effective total batch size is shown below:</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">if</span> accelerator.distributed_type == DistributedType.MEGATRON_LM:
+    total_batch_size = accelerator.state.megatron_lm_plugin.global_batch_size
+<span class="hljs-keyword">else</span>:
+    total_batch_size = args.per_device_train_batch_size * accelerator.num_processes * args.gradient_accumulation_steps<!-- HTML_TAG_END --></pre></div>
+<ol start="3"><li>When using Megatron-LM, the losses are already averaged across the data parallel group</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">if</span> accelerator.distributed_type == DistributedType.MEGATRON_LM:
+    losses.append(loss)
+<span class="hljs-keyword">else</span>:
+    losses.append(accelerator.gather_for_metrics(loss.repeat(args.per_device_eval_batch_size)))
+
+<span class="hljs-keyword">if</span> accelerator.distributed_type == DistributedType.MEGATRON_LM:
+    losses = torch.tensor(losses)
+<span class="hljs-keyword">else</span>:
+    losses = torch.cat(losses)<!-- HTML_TAG_END --></pre></div>
+<ol start="4"><li>For Megatron-LM, we need to save the model using <code>accelerator.save_state</code></li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">if</span> accelerator.distributed_type == DistributedType.MEGATRON_LM:
+    accelerator.save_state(args.output_dir)
+<span class="hljs-keyword">else</span>:
+    unwrapped_model = accelerator.unwrap_model(model)
+    unwrapped_model.save_pretrained(
+        args.output_dir, is_main_process=accelerator.is_main_process, save_function=accelerator.save
+    )<!-- HTML_TAG_END --></pre></div>
+<p>That’s it! We are good to go 🚀. Please find the example script in the examples folder at the path <code>accelerate/examples/by_feature/megatron_lm_gpt_pretraining.py</code>.
+Let’s run it for <code>gpt-large</code> model architecture using 4 A100-80GB GPUs.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->accelerate launch --config_file megatron_gpt_config.yaml \
+examples/by_feature/megatron_lm_gpt_pretraining.py \
+--config_name <span class="hljs-string">&quot;gpt2-large&quot;</span> \
+--tokenizer_name <span class="hljs-string">&quot;gpt2-large&quot;</span> \
+--dataset_name wikitext \
+--dataset_config_name wikitext-2-raw-v1 \
+--block_size 1024 \
+--learning_rate 5e-5 \
+--per_device_train_batch_size 24 \
+--per_device_eval_batch_size 24 \
+--num_train_epochs 5 \
+--with_tracking \
+--report_to <span class="hljs-string">&quot;wandb&quot;</span> \
+--output_dir <span class="hljs-string">&quot;awesome_model&quot;</span><!-- HTML_TAG_END --></pre></div>
+<p>Below are some important excerpts from the output logs:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->Loading extension module fused_dense_cuda...
+&gt;&gt;&gt; <span class="hljs-keyword">done</span> with compiling and loading fused kernels. Compilation time: 3.569 seconds
+ &gt; padded vocab (size: 50257) with 175 dummy tokens (new size: 50432)
+Building gpt model <span class="hljs-keyword">in</span> the pre-training mode.
+The Megatron LM model weights are initialized at random <span class="hljs-keyword">in</span> `accelerator.prepare`. Please use `accelerator.load_checkpoint` to load a pre-trained checkpoint matching the distributed setup.
+Preparing dataloader
+Preparing dataloader
+Preparing model
+ &gt; number of parameters on (tensor, pipeline) model parallel rank (1, 0): 210753280
+ &gt; number of parameters on (tensor, pipeline) model parallel rank (1, 1): 209445120
+ &gt; number of parameters on (tensor, pipeline) model parallel rank (0, 0): 210753280
+ &gt; number of parameters on (tensor, pipeline) model parallel rank (0, 1): 209445120
+Preparing optimizer
+Preparing scheduler
+&gt; learning rate decay style: linear
+10/10/2022 22:57:22 - INFO - __main__ - ***** Running training *****
+10/10/2022 22:57:22 - INFO - __main__ -   Num examples = 2318
+10/10/2022 22:57:22 - INFO - __main__ -   Num Epochs = 5
+10/10/2022 22:57:22 - INFO - __main__ -   Instantaneous batch size per device = 24
+10/10/2022 22:57:22 - INFO - __main__ -   Total train batch size (w. parallel, distributed &amp; accumulation) = 48
+10/10/2022 22:57:22 - INFO - __main__ -   Gradient Accumulation steps = 1
+10/10/2022 22:57:22 - INFO - __main__ -   Total optimization steps = 245
+ 20%|████████████▍                                                 | 49/245 [01:04&lt;04:09,  1.27s/it]
+ 10/10/2022 22:58:29 - INFO - __main__ - epoch 0: perplexity: 1222.1594275215962 eval_loss: 7.10837459564209
+ 40%|████████████████████████▊                                     | 98/245 [02:10&lt;03:07,  1.28s/it]
+ 10/10/2022 22:59:35 - INFO - __main__ - epoch 1: perplexity: 894.5236583794557 eval_loss: 6.796291351318359
+ 60%|████████████████████████████████████▌                        | 147/245 [03:16&lt;02:05,  1.28s/it]
+ 10/10/2022 23:00:40 - INFO - __main__ - epoch 2: perplexity: 702.8458788508042 eval_loss: 6.555137634277344
+ 80%|████████████████████████████████████████████████▊            | 196/245 [04:22&lt;01:02,  1.28s/it]
+ 10/10/2022 23:01:46 - INFO - __main__ - epoch 3: perplexity: 600.3220028695281 eval_loss: 6.39746618270874
+100%|█████████████████████████████████████████████████████████████| 245/245 [05:27&lt;00:00,  1.28s/it]<!-- HTML_TAG_END --></pre></div>
+<p>There are a large number of other options/features that one can set using <code>accelerate.utils.MegatronLMPlugin</code>.</p>
+<h2 class="relative group"><a id="advanced-features-to-leverage-writing-custom-train-step-and-megatronlm-indexed-datasets" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#advanced-features-to-leverage-writing-custom-train-step-and-megatronlm-indexed-datasets"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Advanced features to leverage writing custom train step and Megatron-LM Indexed Datasets
+	</span></h2>
+
+<p>For leveraging more features, please go through below details.</p>
+<ol><li>Below is an example of changes required to customize the Train Step while using Megatron-LM.
+You will implement the <code>accelerate.utils.AbstractTrainStep</code> or inherit from their corresponding children
+<code>accelerate.utils.GPTTrainStep</code>, <code>accelerate.utils.BertTrainStep</code> or <code>accelerate.utils.T5TrainStep</code>.</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate.utils <span class="hljs-keyword">import</span> MegatronLMDummyScheduler, GPTTrainStep, avg_losses_across_data_parallel_group
+
+<span class="hljs-comment"># Custom loss function for the Megatron model</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">GPTTrainStepWithCustomLoss</span>(<span class="hljs-title class_ inherited__">GPTTrainStep</span>):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, megatron_args, **kwargs</span>):
+        <span class="hljs-built_in">super</span>().__init__(megatron_args)
+        self.kwargs = kwargs
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_loss_func</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-keyword">def</span> <span class="hljs-title function_">loss_func</span>(<span class="hljs-params">inputs, loss_mask, output_tensor</span>):
+            batch_size, seq_length = output_tensor.shape
+            losses = output_tensor.<span class="hljs-built_in">float</span>()
+            loss_mask = loss_mask.view(-<span class="hljs-number">1</span>).<span class="hljs-built_in">float</span>()
+            loss = losses.view(-<span class="hljs-number">1</span>) * loss_mask
+
+            <span class="hljs-comment"># Resize and average loss per sample</span>
+            loss_per_sample = loss.view(batch_size, seq_length).<span class="hljs-built_in">sum</span>(axis=<span class="hljs-number">1</span>)
+            loss_mask_per_sample = loss_mask.view(batch_size, seq_length).<span class="hljs-built_in">sum</span>(axis=<span class="hljs-number">1</span>)
+            loss_per_sample = loss_per_sample / loss_mask_per_sample
+
+            <span class="hljs-comment"># Calculate and scale weighting</span>
+            weights = torch.stack([(inputs == kt).<span class="hljs-built_in">float</span>() <span class="hljs-keyword">for</span> kt <span class="hljs-keyword">in</span> self.kwargs[<span class="hljs-string">&quot;keytoken_ids&quot;</span>]]).<span class="hljs-built_in">sum</span>(axis=[<span class="hljs-number">0</span>, <span class="hljs-number">2</span>])
+            weights = <span class="hljs-number">1.0</span> + self.kwargs[<span class="hljs-string">&quot;alpha&quot;</span>] * weights
+            <span class="hljs-comment"># Calculate weighted average</span>
+            weighted_loss = (loss_per_sample * weights).mean()
+
+            <span class="hljs-comment"># Reduce loss across data parallel groups</span>
+            averaged_loss = avg_losses_across_data_parallel_group([weighted_loss])
+
+            <span class="hljs-keyword">return</span> weighted_loss, {<span class="hljs-string">&quot;lm loss&quot;</span>: averaged_loss[<span class="hljs-number">0</span>]}
+
+        <span class="hljs-keyword">return</span> loss_func
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_forward_step_func</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward_step</span>(<span class="hljs-params">data_iterator, model</span>):
+            <span class="hljs-string">&quot;&quot;&quot;Forward step.&quot;&quot;&quot;</span>
+            <span class="hljs-comment"># Get the batch.</span>
+            tokens, labels, loss_mask, attention_mask, position_ids = self.get_batch(data_iterator)
+            output_tensor = model(tokens, position_ids, attention_mask, labels=labels)
+
+            <span class="hljs-keyword">return</span> output_tensor, partial(self.loss_func, tokens, loss_mask)
+
+        <span class="hljs-keyword">return</span> forward_step
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-comment"># Custom loss function for the Megatron model</span>
+    keytoken_ids = []
+    keywords = [<span class="hljs-string">&quot;plt&quot;</span>, <span class="hljs-string">&quot;pd&quot;</span>, <span class="hljs-string">&quot;sk&quot;</span>, <span class="hljs-string">&quot;fit&quot;</span>, <span class="hljs-string">&quot;predict&quot;</span>, <span class="hljs-string">&quot; plt&quot;</span>, <span class="hljs-string">&quot; pd&quot;</span>, <span class="hljs-string">&quot; sk&quot;</span>, <span class="hljs-string">&quot; fit&quot;</span>, <span class="hljs-string">&quot; predict&quot;</span>]
+    <span class="hljs-keyword">for</span> keyword <span class="hljs-keyword">in</span> keywords:
+        ids = tokenizer([keyword]).input_ids[<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(ids) == <span class="hljs-number">1</span>:
+            keytoken_ids.append(ids[<span class="hljs-number">0</span>])
+    accelerator.<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Keytoken ids: <span class="hljs-subst">{keytoken_ids}</span>&quot;</span>)
+    accelerator.state.megatron_lm_plugin.custom_train_step_class = GPTTrainStepWithCustomLoss
+    accelerator.state.megatron_lm_plugin.custom_train_step_kwargs = {
+        <span class="hljs-string">&quot;keytoken_ids&quot;</span>: keytoken_ids,
+        <span class="hljs-string">&quot;alpha&quot;</span>: <span class="hljs-number">0.25</span>,
+    }<!-- HTML_TAG_END --></pre></div>
+<ol start="2"><li>For using the Megatron-LM datasets, a few more changes are required. Dataloaders for these datasets
+are available only on rank 0 of each tensor parallel group. As such, there are rank where dataloader won’t be
+avaiable and this requires tweaks to the training loop. Being able to do all this shows how
+felixble and extensible 🤗 Accelerate is. The changes required are as follows.</li></ol>
+<p>a. For Megatron-LM indexed datasets, we need to use <code>MegatronLMDummyDataLoader</code>
+and pass the required dataset args to it such as <code>data_path</code>, <code>seq_length</code> etc.
+See <a href="https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/arguments.py#L804" rel="nofollow">here</a> for the list of available args. </p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">from</span> accelerate.utils <span class="hljs-keyword">import</span> MegatronLMDummyDataLoader
+
+megatron_dataloader_config = {
+    <span class="hljs-string">&quot;data_path&quot;</span>: args.data_path,
+    <span class="hljs-string">&quot;splits_string&quot;</span>: args.splits_string,
+    <span class="hljs-string">&quot;seq_length&quot;</span>: args.block_size,
+    <span class="hljs-string">&quot;micro_batch_size&quot;</span>: args.per_device_train_batch_size,
+}
+megatron_dataloader = MegatronLMDummyDataLoader(**megatron_dataloader_config)
+accelerator.state.megatron_lm_plugin.megatron_dataset_flag = <span class="hljs-literal">True</span><!-- HTML_TAG_END --></pre></div>
+<p>b. <code>megatron_dataloader</code> is repeated 3 times to get training, validation and test dataloaders
+as per the <code>args.splits_string</code> proportions</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->model, optimizer, lr_scheduler, train_dataloader, eval_dataloader, _ = accelerator.prepare(
+    model, optimizer, lr_scheduler, megatron_dataloader, megatron_dataloader, megatron_dataloader
+)<!-- HTML_TAG_END --></pre></div>
+<p>c. Changes to training and evaluation loops as dataloader is only available on tensor parallel ranks 0
+So, we need to iterate only if the dataloader isn’t <code>None</code> else provide empty dict
+As such, we loop using <code>while</code> loop and break when <code>completed_steps</code> is equal to <code>args.max_train_steps</code>
+This is similar to the Megatron-LM setup wherein user has to provide <code>max_train_steps</code> when using Megaton-LM indexed datasets.
+This displays how flexible and extensible 🤗 Accelerate is.</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">while</span> completed_steps &lt; args.max_train_steps:
+    model.train()
+    batch = <span class="hljs-built_in">next</span>(train_dataloader) <span class="hljs-keyword">if</span> train_dataloader <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> {}
+    outputs = model(**batch)
+    loss = outputs.loss
+    ...
+
+    <span class="hljs-keyword">if</span> completed_steps % eval_interval == <span class="hljs-number">0</span>:
+        eval_completed_steps = <span class="hljs-number">0</span>
+        losses = []
+        <span class="hljs-keyword">while</span> eval_completed_steps &lt; eval_iters:
+            model.<span class="hljs-built_in">eval</span>()
+            <span class="hljs-keyword">with</span> torch.no_grad():
+                batch = <span class="hljs-built_in">next</span>(eval_dataloader) <span class="hljs-keyword">if</span> eval_dataloader <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> {}
+                outputs = model(**batch)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="utility-for-checkpoint-reshaping-and-interoperability" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#utility-for-checkpoint-reshaping-and-interoperability"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Utility for Checkpoint reshaping and interoperability
+	</span></h2>
+
+<ol><li><p>The scripts for these are present in 🤗 Transformers library under respective models.
+Currently, it is available for GPT model <a href="https://github.com/huggingface/transformers/blob/main/src/transformers/models/megatron_gpt2/checkpoint_reshaping_and_interoperability.py" rel="nofollow">checkpoint_reshaping_and_interoperability.py</a></p></li>
+<li><p>Below is an example of conversion of checkpoint from Megatron-LM to universal 🤗 Transformers sharded checkpoint.</p></li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python checkpoint_reshaping_and_interoperability.py \
+--convert_checkpoint_from_megatron_to_transformers \
+--load_path <span class="hljs-string">&quot;gpt/iter_0005000&quot;</span> \
+--save_path <span class="hljs-string">&quot;gpt/trfs_checkpoint&quot;</span> \
+--max_shard_size <span class="hljs-string">&quot;200MB&quot;</span> \
+--tokenizer_name <span class="hljs-string">&quot;gpt2&quot;</span> \
+--print-checkpoint-structure<!-- HTML_TAG_END --></pre></div>
+<ol start="3"><li>Conversion of checkpoint from transformers to megatron with <code>tp_size=2</code>, <code>pp_size=2</code> and <code>dp_size=2</code>.</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->python checkpoint_utils/megatgron_gpt2/checkpoint_reshaping_and_interoperability.py \
+--load_path <span class="hljs-string">&quot;gpt/trfs_checkpoint&quot;</span> \
+--save_path <span class="hljs-string">&quot;gpt/megatron_lm_checkpoint&quot;</span> \
+--target_tensor_model_parallel_size 2 \
+--target_pipeline_model_parallel_size 2 \
+--target_data_parallel_size 2 \
+--target_params_dtype <span class="hljs-string">&quot;bf16&quot;</span> \
+--make_vocab_size_divisible_by 128 \
+--use_distributed_optimizer \
+--print-checkpoint-structure<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="megatronlm-gpt-models-support-returning-logits-and-megatrongenerate-function-for-text-generation" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#megatronlm-gpt-models-support-returning-logits-and-megatrongenerate-function-for-text-generation"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Megatron-LM GPT models support returning logits and <code>megatron_generate</code> function for text generation
+	</span></h2>
+
+<ol><li>Returning logits require setting <code>require_logits=True</code> in MegatronLMPlugin as shown below.
+These would be available on the in the last stage of pipeline.</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->megatron_lm_plugin = MegatronLMPlugin(return_logits=<span class="hljs-literal">True</span>)<!-- HTML_TAG_END --></pre></div>
+<ol start="2"><li><code>megatron_generate</code> method for Megatron-LM GPT model: This will use Tensor and Pipeline Parallelism to complete
+generations for a batch of inputs when using greedy with/without top_k/top_p sampling and for individual prompt inputs when using beam search decoding.
+Only a subset of features of transformers generate is supported. This will help in using large models via tensor and pipeline parallelism
+for generation (already does key-value caching and uses fused kernels by default).
+This requires data parallel size to be 1, sequence parallelism and activation checkpointing to be disabled.
+It also requires specifying path to tokenizer’s vocab file and merges file.
+Below example shows how to configure and use <code>megatron_generate</code> method for Megatron-LM GPT model.</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-comment"># specifying tokenizer&#x27;s vocab and merges file</span>
+vocab_file = os.path.join(args.resume_from_checkpoint, <span class="hljs-string">&quot;vocab.json&quot;</span>)
+merge_file = os.path.join(args.resume_from_checkpoint, <span class="hljs-string">&quot;merges.txt&quot;</span>)
+other_megatron_args = {<span class="hljs-string">&quot;vocab_file&quot;</span>: vocab_file, <span class="hljs-string">&quot;merge_file&quot;</span>: merge_file}
+megatron_lm_plugin = MegatronLMPlugin(other_megatron_args=other_megatron_args)
+
+<span class="hljs-comment"># inference using `megatron_generate` functionality</span>
+tokenizer.pad_token = tokenizer.eos_token
+max_new_tokens = <span class="hljs-number">64</span>
+batch_texts = [
+    <span class="hljs-string">&quot;Are you human?&quot;</span>,
+    <span class="hljs-string">&quot;The purpose of life is&quot;</span>,
+    <span class="hljs-string">&quot;The arsenal was constructed at the request of&quot;</span>,
+    <span class="hljs-string">&quot;How are you doing these days?&quot;</span>,
+]
+batch_encodings = tokenizer(batch_texts, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>, padding=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># top-p sampling</span>
+generated_tokens = model.megatron_generate(
+    batch_encodings[<span class="hljs-string">&quot;input_ids&quot;</span>],
+    batch_encodings[<span class="hljs-string">&quot;attention_mask&quot;</span>],
+    max_new_tokens=max_new_tokens,
+    top_p=<span class="hljs-number">0.8</span>,
+    top_p_decay=<span class="hljs-number">0.5</span>,
+    temperature=<span class="hljs-number">0.9</span>,
+)
+decoded_preds = tokenizer.batch_decode(generated_tokens.cpu().numpy())
+accelerator.<span class="hljs-built_in">print</span>(decoded_preds)
+
+<span class="hljs-comment"># top-k sampling</span>
+generated_tokens = model.megatron_generate(
+    batch_encodings[<span class="hljs-string">&quot;input_ids&quot;</span>],
+    batch_encodings[<span class="hljs-string">&quot;attention_mask&quot;</span>],
+    max_new_tokens=max_new_tokens,
+    top_k=<span class="hljs-number">50</span>,
+    temperature=<span class="hljs-number">0.9</span>,
+)
+decoded_preds = tokenizer.batch_decode(generated_tokens.cpu().numpy())
+accelerator.<span class="hljs-built_in">print</span>(decoded_preds)
+
+<span class="hljs-comment"># adding `bos` token at the start</span>
+generated_tokens = model.megatron_generate(
+    batch_encodings[<span class="hljs-string">&quot;input_ids&quot;</span>], batch_encodings[<span class="hljs-string">&quot;attention_mask&quot;</span>], max_new_tokens=max_new_tokens, add_BOS=<span class="hljs-literal">True</span>
+)
+decoded_preds = tokenizer.batch_decode(generated_tokens.cpu().numpy())
+accelerator.<span class="hljs-built_in">print</span>(decoded_preds)
+
+<span class="hljs-comment"># beam search =&gt; only takes single prompt</span>
+batch_texts = [<span class="hljs-string">&quot;The purpose of life is&quot;</span>]
+batch_encodings = tokenizer(batch_texts, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>, padding=<span class="hljs-literal">True</span>)
+generated_tokens = model.megatron_generate(
+    batch_encodings[<span class="hljs-string">&quot;input_ids&quot;</span>],
+    batch_encodings[<span class="hljs-string">&quot;attention_mask&quot;</span>],
+    max_new_tokens=max_new_tokens,
+    num_beams=<span class="hljs-number">20</span>,
+    length_penalty=<span class="hljs-number">1.5</span>,
+)
+decoded_preds = tokenizer.batch_decode(generated_tokens.cpu().numpy())
+accelerator.<span class="hljs-built_in">print</span>(decoded_preds)<!-- HTML_TAG_END --></pre></div>
+<ol start="3"><li>An end-to-end example of using <code>megatron_generate</code> method for Megatron-LM GPT model is available at
+<a href="https://github.com/pacman100/accelerate-megatron-test/blob/main/src/inference/megatron_gpt2_generation.py" rel="nofollow">megatron_gpt2_generation.py</a> with
+config file <a href="https://github.com/pacman100/accelerate-megatron-test/blob/main/src/Configs/megatron_lm_gpt_generate_config.yaml" rel="nofollow">megatron_lm_gpt_generate_config.yaml</a>.
+The bash script with accelerate launch command is available at <a href="https://github.com/pacman100/accelerate-megatron-test/blob/main/megatron_lm_gpt_generate.sh" rel="nofollow">megatron_lm_gpt_generate.sh</a>.
+The output logs of the script are available at <a href="https://github.com/pacman100/accelerate-megatron-test/blob/main/output_logs/megatron_lm_gpt_generate.log" rel="nofollow">megatron_lm_gpt_generate.log</a>.</li></ol>
+<h2 class="relative group"><a id="support-for-rope-and-alibi-positional-embeddings-and-multiquery-attention" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#support-for-rope-and-alibi-positional-embeddings-and-multiquery-attention"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Support for ROPE and ALiBi Positional embeddings and Multi-Query Attention
+	</span></h2>
+
+<ol><li>For ROPE/ALiBi attention, pass <code>position_embedding_type</code> with <code>(&quot;absolute&quot; | &quot;rotary&quot; | &quot;alibi&quot;)</code> to <code>MegatronLMPlugin</code> as shown below.</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->other_megatron_args = {<span class="hljs-string">&quot;position_embedding_type&quot;</span>: <span class="hljs-string">&quot;alibi&quot;</span>}
+megatron_lm_plugin = MegatronLMPlugin(other_megatron_args=other_megatron_args)<!-- HTML_TAG_END --></pre></div>
+<ol start="2"><li>For Multi-Query Attention, pass <code>attention_head_type</code> with <code>(&quot;multihead&quot; | &quot;multiquery&quot;)</code> to <code>MegatronLMPlugin</code> as shown below.</li></ol>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->other_megatron_args = {<span class="hljs-string">&quot;attention_head_type&quot;</span>: <span class="hljs-string">&quot;multiquery&quot;</span>}
+megatron_lm_plugin = MegatronLMPlugin(other_megatron_args=other_megatron_args)<!-- HTML_TAG_END --></pre></div>
+<h2 class="relative group"><a id="caveats" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#caveats"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Caveats
+	</span></h2>
+
+<ol><li><p>Supports Transformers GPT2, Megatron-BERT and T5 models.
+This covers Decoder only, Encode only and Encoder-Decoder model classes.</p></li>
+<li><p>Only loss is returned from model forward pass as
+there is quite complex interplay of pipeline, tensor and data parallelsim behind the scenes.
+The <code>model(**batch_data)</code> call return loss(es) averaged across the data parallel ranks.
+This is fine for most cases wherein pre-training jobs are run using Megatron-LM features and
+you can easily compute the <code>perplexity</code> using the loss.
+For GPT model, returning logits in addition to loss(es) is supported.
+These logits aren’t gathered across data prallel ranks. Use <code>accelerator.utils.gather_across_data_parallel_groups</code>
+to gather logits across data parallel ranks. These logits along with labels can be used for computing various
+performance metrics. </p></li>
+<li><p>The main process is the last rank as the losses/logits are available in the last stage of pipeline.
+<code>accelerator.is_main_process</code> and <code>accelerator.is_local_main_process</code> return <code>True</code> for last rank when using
+Megatron-LM integration.</p></li>
+<li><p>In <code>accelerator.prepare</code> call, a Megatron-LM model corresponding to a given Transformers model is created
+with random weights. Please use <code>accelerator.load_state</code> to load the Megatron-LM checkpoint with matching TP, PP and DP partitions.</p></li>
+<li><p>Currently, checkpoint reshaping and interoperability support is only available for GPT.
+Soon it will be extended to BERT and T5.</p></li>
+<li><p><code>gradient_accumulation_steps</code> needs to be 1. When using Megatron-LM, micro batches in pipeline parallelism
+setting is synonymous with gradient accumulation. </p></li>
+<li><p>When using Megatron-LM, use <code>accelerator.save_state</code> and <code>accelerator.load_state</code> for saving and loading checkpoints.</p></li>
+<li><p>Below are the mapping from Megatron-LM model architectures to the the equivalent 🤗 transformers model architectures.
+Only these 🤗 transformers model architectures are supported.</p></li></ol>
+<p>a. Megatron-LM <a href="https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/model/bert_model.py" rel="nofollow">BertModel</a> :
+🤗 transformers models with <code>megatron-bert</code> in config’s model type, e.g.,
+<a href="https://huggingface.co/docs/transformers/model_doc/megatron-bert" rel="nofollow">MegatronBERT</a></p>
+<p>b. Megatron-LM <a href="https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/model/gpt_model.py" rel="nofollow">GPTModel</a> :
+🤗 transformers models with <code>gpt2</code> in config’s model type, e.g.,
+<a href="https://huggingface.co/docs/transformers/model_doc/gpt2" rel="nofollow">OpenAI GPT2</a></p>
+<p>c. Megatron-LM <a href="https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/model/t5_model.py" rel="nofollow">T5Model</a> :
+🤗 transformers models with <code>t5</code> in  config’s model type, e.g.,
+<a href="https://huggingface.co/docs/transformers/model_doc/t5" rel="nofollow">T5</a> and
+<a href="https://huggingface.co/docs/transformers/model_doc/mt5" rel="nofollow">MT5</a></p>
+
+
+		<script type="module" data-hydrate="1eyjaez">
+		import { start } from "/docs/accelerate/v0.14.0/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="1eyjaez"]').parentNode,
+			paths: {"base":"/docs/accelerate/v0.14.0/en","assets":"/docs/accelerate/v0.14.0/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/accelerate/v0.14.0/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/accelerate/v0.14.0/en/_app/pages/usage_guides/megatron_lm.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
