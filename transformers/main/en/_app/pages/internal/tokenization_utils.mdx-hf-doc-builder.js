@@ -781,7 +781,7 @@ Whether or not to push your model to the Hugging Face model hub after saving it.
 repository you want to push to with <code>repo_id</code> (will default to the name of <code>save_directory</code> in your
 namespace).
 kwargs &#x2014;
-Additional key word arguments passed along to the <a href="/docs/transformers/main/en/internal/image_processing_utils#transformers.FeatureExtractionMixin.push_to_hub">push_to_hub()</a> method.`,name:"push_to_hub"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L2022",returnDescription:`
+Additional key word arguments passed along to the <a href="/docs/transformers/main/en/internal/image_processing_utils#transformers.ImageProcessingMixin.push_to_hub">push_to_hub()</a> method.`,name:"push_to_hub"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/tokenization_utils_base.py#L2022",returnDescription:`
 <p>The files saved.</p>
 `,returnType:`
 <p>A tuple of <code>str</code></p>
