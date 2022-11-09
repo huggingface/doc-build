@@ -550,7 +550,7 @@ tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.FlavaF
 Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
 more detail.`,name:"output_hidden_states"},{anchor:"transformers.FlavaForPreTraining.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.</p>
-<p>Examples &#x2014;`,name:"return_dict"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/flava/modeling_flava.py#L1767",returnDescription:`
+<p>Examples &#x2014;`,name:"return_dict"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/flava/modeling_flava.py#L1775",returnDescription:`
 <p>A <code>transformers.models.flava.modeling_flava.FlavaForPreTrainingOutput</code> or a tuple of
 <code>torch.FloatTensor</code> (if <code>return_dict=False</code> is passed or when <code>config.return_dict=False</code>) comprising various
 elements depending on the configuration (<code>&lt;class 'transformers.models.flava.configuration_flava.FlavaConfig'&gt;</code>) and inputs.</p>
