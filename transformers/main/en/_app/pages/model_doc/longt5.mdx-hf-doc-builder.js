@@ -556,7 +556,7 @@ Whether or not to return the attentions tensors of all attention layers. See <co
 tensors for more detail.`,name:"output_attentions"},{anchor:"transformers.LongT5EncoderModel.forward.output_hidden_states",description:`<strong>output_hidden_states</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Whether or not to return the hidden states of all layers. See <code>hidden_states</code> under returned tensors for
 more detail.`,name:"output_hidden_states"},{anchor:"transformers.LongT5EncoderModel.forward.return_dict",description:`<strong>return_dict</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
-Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/longt5/modeling_longt5.py#L2174",returnDescription:`
+Whether or not to return a <a href="/docs/transformers/main/en/main_classes/output#transformers.utils.ModelOutput">ModelOutput</a> instead of a plain tuple.`,name:"return_dict"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/longt5/modeling_longt5.py#L2172",returnDescription:`
 <p>A <a
   href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.BaseModelOutput"
 >transformers.modeling_outputs.BaseModelOutput</a> or a tuple of

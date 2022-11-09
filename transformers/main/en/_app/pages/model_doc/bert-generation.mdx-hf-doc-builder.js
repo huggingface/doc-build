@@ -298,7 +298,7 @@ Contains precomputed key and value hidden states of the attention blocks. Can be
 don&#x2019;t have their past key value states given to this model) of shape <code>(batch_size, 1)</code> instead of all
 <code>decoder_input_ids</code> of shape <code>(batch_size, sequence_length)</code>.`,name:"past_key_values"},{anchor:"transformers.BertGenerationDecoder.forward.use_cache",description:`<strong>use_cache</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 If set to <code>True</code>, <code>past_key_values</code> key value states are returned and can be used to speed up decoding (see
-<code>past_key_values</code>).`,name:"use_cache"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/bert_generation/modeling_bert_generation.py#L876",returnDescription:`
+<code>past_key_values</code>).`,name:"use_cache"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/bert_generation/modeling_bert_generation.py#L878",returnDescription:`
 <p>A <a
   href="/docs/transformers/main/en/main_classes/output#transformers.modeling_outputs.CausalLMOutputWithCrossAttentions"
 >transformers.modeling_outputs.CausalLMOutputWithCrossAttentions</a> or a tuple of
