@@ -150,13 +150,13 @@ api.list_models(filter=filt)
 
 # List only the datasets in russian for language modeling
 api.list_datasets(
-    filter=("languages:ru", "task_ids:language-modeling")
+    filter=("language:ru", "task_ids:language-modeling")
 )
 # Using the \`DatasetFilter\`
-filt = DatasetFilter(languages="ru", task_ids="language-modeling")
+filt = DatasetFilter(language="ru", task_ids="language-modeling")
 # With \`DatasetSearchArguments\`
 filt = DatasetFilter(
-    languages=args.languages.ru,
+    language=args.language.ru,
     task_ids=args.task_ids.language_modeling,
 )
 api.list_datasets(filter=filt)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> huggingface_hub <span class="hljs-keyword">import</span> HfApi
@@ -179,13 +179,13 @@ api.list_datasets(filter=filt)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt
 
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># List only the datasets in russian for language modeling</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>api.list_datasets(
-<span class="hljs-meta">... </span>    <span class="hljs-built_in">filter</span>=(<span class="hljs-string">&quot;languages:ru&quot;</span>, <span class="hljs-string">&quot;task_ids:language-modeling&quot;</span>)
+<span class="hljs-meta">... </span>    <span class="hljs-built_in">filter</span>=(<span class="hljs-string">&quot;language:ru&quot;</span>, <span class="hljs-string">&quot;task_ids:language-modeling&quot;</span>)
 <span class="hljs-meta">... </span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Using the \`DatasetFilter\`</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>filt = DatasetFilter(languages=<span class="hljs-string">&quot;ru&quot;</span>, task_ids=<span class="hljs-string">&quot;language-modeling&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>filt = DatasetFilter(language=<span class="hljs-string">&quot;ru&quot;</span>, task_ids=<span class="hljs-string">&quot;language-modeling&quot;</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># With \`DatasetSearchArguments\`</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>filt = DatasetFilter(
-<span class="hljs-meta">... </span>    languages=args.languages.ru,
+<span class="hljs-meta">... </span>    language=args.language.ru,
 <span class="hljs-meta">... </span>    task_ids=args.task_ids.language_modeling,
 <span class="hljs-meta">... </span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>api.list_datasets(<span class="hljs-built_in">filter</span>=filt)`}}),{c(){p=a("p"),b=r("Example usage with the "),f=a("code"),l=r("filter"),h=r(" argument:"),c=g(),D(u.$$.fragment)},l(v){p=n(v,"P",{});var x=s(p);b=i(x,"Example usage with the "),f=n(x,"CODE",{});var w=s(f);l=i(w,"filter"),w.forEach(t),h=i(x," argument:"),x.forEach(t),c=d(v),H(u.$$.fragment,v)},m(v,x){$(v,p,x),e(p,b),e(p,f),e(f,l),e(p,h),$(v,c,x),q(u,v,x),P=!0},p:de,i(v){P||(I(u.$$.fragment,v),P=!0)},o(v){N(u.$$.fragment,v),P=!1},d(v){v&&t(p),v&&t(c),j(u,v)}}}function wb(S){let p,b,f,l,h,c,u,P;return u=new ie({props:{code:`from huggingface_hub import HfApi
@@ -1254,7 +1254,7 @@ a &#x201D;/&#x201D; (folder) or not (file). To explicitly set the path type, you
 `,returnType:`
 <p><code>str</code> or <code>None</code></p>
 `}}),Pn=new Q({props:{name:"save_token",anchor:"huggingface_hub.HfFolder.save_token",parameters:[{name:"token",val:": str"}],parametersDescription:[{anchor:"huggingface_hub.HfFolder.save_token.token",description:`<strong>token</strong> (<code>str</code>) &#x2014;
-The token to save to the <a href="/docs/huggingface_hub/main/en/package_reference/hf_api#huggingface_hub.HfFolder">HfFolder</a>`,name:"token"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/utils/_hf_folder.py#L24"}}),On=new ye({}),Rn=new ye({}),Ln=new Q({props:{name:"class huggingface_hub.DatasetFilter",anchor:"huggingface_hub.DatasetFilter",parameters:[{name:"author",val:": typing.Optional[str] = None"},{name:"benchmark",val:": typing.Union[typing.List[str], str, NoneType] = None"},{name:"dataset_name",val:": typing.Optional[str] = None"},{name:"language_creators",val:": typing.Union[typing.List[str], str, NoneType] = None"},{name:"languages",val:": typing.Union[typing.List[str], str, NoneType] = None"},{name:"multilinguality",val:": typing.Union[typing.List[str], str, NoneType] = None"},{name:"size_categories",val:": typing.Union[typing.List[str], str, NoneType] = None"},{name:"task_categories",val:": typing.Union[typing.List[str], str, NoneType] = None"},{name:"task_ids",val:": typing.Union[typing.List[str], str, NoneType] = None"}],parametersDescription:[{anchor:"huggingface_hub.DatasetFilter.author",description:`<strong>author</strong> (<code>str</code>, <em>optional</em>) &#x2014;
+The token to save to the <a href="/docs/huggingface_hub/main/en/package_reference/hf_api#huggingface_hub.HfFolder">HfFolder</a>`,name:"token"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/utils/_hf_folder.py#L24"}}),On=new ye({}),Rn=new ye({}),Ln=new Q({props:{name:"class huggingface_hub.DatasetFilter",anchor:"huggingface_hub.DatasetFilter",parameters:[{name:"author",val:": typing.Optional[str] = None"},{name:"benchmark",val:": typing.Union[typing.List[str], str, NoneType] = None"},{name:"dataset_name",val:": typing.Optional[str] = None"},{name:"language_creators",val:": typing.Union[typing.List[str], str, NoneType] = None"},{name:"language",val:": typing.Union[typing.List[str], str, NoneType] = None"},{name:"multilinguality",val:": typing.Union[typing.List[str], str, NoneType] = None"},{name:"size_categories",val:": typing.Union[typing.List[str], str, NoneType] = None"},{name:"task_categories",val:": typing.Union[typing.List[str], str, NoneType] = None"},{name:"task_ids",val:": typing.Union[typing.List[str], str, NoneType] = None"}],parametersDescription:[{anchor:"huggingface_hub.DatasetFilter.author",description:`<strong>author</strong> (<code>str</code>, <em>optional</em>) &#x2014;
 A string or list of strings that can be used to identify datasets on
 the Hub by the original uploader (author or organization), such as
 <code>facebook</code> or <code>huggingface</code>.`,name:"author"},{anchor:"huggingface_hub.DatasetFilter.benchmark",description:`<strong>benchmark</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
@@ -1264,9 +1264,9 @@ A string or list of strings that can be used to identify datasets on
 the Hub by its name, such as <code>SQAC</code> or <code>wikineural</code>`,name:"dataset_name"},{anchor:"huggingface_hub.DatasetFilter.language_creators",description:`<strong>language_creators</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
 A string or list of strings that can be used to identify datasets on
 the Hub with how the data was curated, such as <code>crowdsourced</code> or
-<code>machine_generated</code>.`,name:"language_creators"},{anchor:"huggingface_hub.DatasetFilter.languages",description:`<strong>languages</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+<code>machine_generated</code>.`,name:"language_creators"},{anchor:"huggingface_hub.DatasetFilter.language",description:`<strong>language</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
 A string or list of strings representing a two-character language to
-filter datasets by on the Hub.`,name:"languages"},{anchor:"huggingface_hub.DatasetFilter.multilinguality",description:`<strong>multilinguality</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
+filter datasets by on the Hub.`,name:"language"},{anchor:"huggingface_hub.DatasetFilter.multilinguality",description:`<strong>multilinguality</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
 A string or list of strings representing a filter for datasets that
 contain multiple languages.`,name:"multilinguality"},{anchor:"huggingface_hub.DatasetFilter.size_categories",description:`<strong>size_categories</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
 A string or list of strings that can be used to identify datasets on
@@ -1292,7 +1292,7 @@ as: &#x201C;fill-mask&#x201D; or &#x201C;automatic-speech-recognition&#x201D;`,n
 A string tag or a list of tags to filter models on the Hub by, such
 as <code>text-generation</code> or <code>spacy</code>.`,name:"tags"},{anchor:"huggingface_hub.ModelFilter.trained_dataset",description:`<strong>trained_dataset</strong> (<code>str</code> or <code>List</code>, <em>optional</em>) &#x2014;
 A string tag or a list of string tags of the trained dataset for a
-model on the Hub.`,name:"trained_dataset"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/utils/endpoint_helpers.py#L152"}}),Bo=new ge({props:{anchor:"huggingface_hub.ModelFilter.example",$$slots:{default:[Ub]},$$scope:{ctx:S}}}),Mn=new ye({}),Un=new Q({props:{name:"class huggingface_hub.DatasetSearchArguments",anchor:"huggingface_hub.DatasetSearchArguments",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/hf_api.py#L530"}}),Jo=new ge({props:{anchor:"huggingface_hub.DatasetSearchArguments.example",$$slots:{default:[Vb]},$$scope:{ctx:S}}}),Vn=new ye({}),zn=new Q({props:{name:"class huggingface_hub.ModelSearchArguments",anchor:"huggingface_hub.ModelSearchArguments",parameters:[],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/hf_api.py#L492"}}),Xo=new ge({props:{anchor:"huggingface_hub.ModelSearchArguments.example",$$slots:{default:[zb]},$$scope:{ctx:S}}}),{c(){p=a("meta"),b=g(),f=a("h1"),l=a("a"),h=a("span"),D(c.$$.fragment),u=g(),P=a("span"),v=r("Hugging Face Hub API"),x=g(),w=a("p"),y=r("Below is the documentation for the "),k=a("code"),O=r("HfApi"),T=r(` class, which serves as a Python wrapper for the Hugging Face
+model on the Hub.`,name:"trained_dataset"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/utils/endpoint_helpers.py#L152"}}),Bo=new ge({props:{anchor:"huggingface_hub.ModelFilter.example",$$slots:{default:[Ub]},$$scope:{ctx:S}}}),Mn=new ye({}),Un=new Q({props:{name:"class huggingface_hub.DatasetSearchArguments",anchor:"huggingface_hub.DatasetSearchArguments",parameters:[{name:"api",val:": typing.Optional[ForwardRef('HfApi')] = None"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/hf_api.py#L530"}}),Jo=new ge({props:{anchor:"huggingface_hub.DatasetSearchArguments.example",$$slots:{default:[Vb]},$$scope:{ctx:S}}}),Vn=new ye({}),zn=new Q({props:{name:"class huggingface_hub.ModelSearchArguments",anchor:"huggingface_hub.ModelSearchArguments",parameters:[{name:"api",val:": typing.Optional[ForwardRef('HfApi')] = None"}],source:"https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/hf_api.py#L492"}}),Xo=new ge({props:{anchor:"huggingface_hub.ModelSearchArguments.example",$$slots:{default:[zb]},$$scope:{ctx:S}}}),{c(){p=a("meta"),b=g(),f=a("h1"),l=a("a"),h=a("span"),D(c.$$.fragment),u=g(),P=a("span"),v=r("Hugging Face Hub API"),x=g(),w=a("p"),y=r("Below is the documentation for the "),k=a("code"),O=r("HfApi"),T=r(` class, which serves as a Python wrapper for the Hugging Face
 Hub\u2019s API.`),R=g(),_=a("p"),F=r("All methods from the "),M=a("code"),W=r("HfApi"),L=r(` are also accessible from the package\u2019s root directly, both approaches are detailed
 below.`),K=g(),G=a("p"),A=r("The following approach uses the method from the root of the package:"),U=g(),D(C.$$.fragment),Y=g(),te=a("p"),Z=r("The following approach uses the "),J=a("code"),ee=r("HfApi"),ae=r(" class:"),B=g(),D(X.$$.fragment),oe=g(),ne=a("p"),Je=r("Using the "),he=a("a"),dt=r("HfApi"),Qe=r(` class directly enables you to configure the client. In particular, a
 token can be passed to be authenticated in all API calls. This is different than
