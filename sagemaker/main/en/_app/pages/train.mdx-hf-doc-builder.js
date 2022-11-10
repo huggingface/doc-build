@@ -117,7 +117,7 @@ huggingface_estimator = HuggingFace(
         transformers_version='4.4.2',
         pytorch_version='1.6.0',
         py_version='py36',
-        hyperparameters = hyperparameters
+        hyperparameters = hyperparameters,
         distribution = distribution
 )`,highlighted:`<span class="hljs-comment"># configuration for running training on smdistributed data parallel</span>
 distribution = {<span class="hljs-string">&#x27;smdistributed&#x27;</span>:{<span class="hljs-string">&#x27;dataparallel&#x27;</span>:{ <span class="hljs-string">&#x27;enabled&#x27;</span>: <span class="hljs-literal">True</span> }}}
@@ -132,7 +132,7 @@ huggingface_estimator = HuggingFace(
         transformers_version=<span class="hljs-string">&#x27;4.4.2&#x27;</span>,
         pytorch_version=<span class="hljs-string">&#x27;1.6.0&#x27;</span>,
         py_version=<span class="hljs-string">&#x27;py36&#x27;</span>,
-        hyperparameters = hyperparameters
+        hyperparameters = hyperparameters,
         distribution = distribution
 )`}}),Mt=new P({}),Ct=new O({props:{code:`# configuration for running training on smdistributed model parallel
 mpi_options = {
