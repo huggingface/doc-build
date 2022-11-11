@@ -53,22 +53,24 @@ generator = pipeline(<span class="hljs-string">&quot;text-generation&quot;</span
 generator(
     <span class="hljs-string">&quot;In this course, we will teach you how to&quot;</span>
 )  <span class="hljs-comment"># Dans ce cours, nous vous enseignerons comment</span>`}}),cs=new O({props:{code:`[{'generated_text': 'In this course, we will teach you how to understand and use ' 
-					# Dans ce cours, nous vous enseignerons comment comprendre et utiliser
+		    # Dans ce cours, nous vous enseignerons comment comprendre et utiliser
                     'data flow and data interchange when handling user data. We '
-					# flux de donn\xE9es et l'\xE9change de donn\xE9es lors de la manipulation des donn\xE9es utilisateur. Nous 
+		    # flux de donn\xE9es et l'\xE9change de donn\xE9es lors de la manipulation des donn\xE9es utilisateur. Nous 
                     'will be working with one or more of the most commonly used ' 
-					# travailleront avec un ou plusieurs des plus couramment utilis\xE9s
+		    # travaillerons avec un ou plusieurs des plus couramment utilis\xE9s
                     'data flows \u2014 data flows of various types, as seen by the ' 
-					# flux de donn\xE9es - flux de donn\xE9es de diff\xE9rents types, tels qu'ils sont vus par
-                    'HTTP'}] # HTTP`,highlighted:`[{<span class="hljs-string">&#x27;generated_text&#x27;</span>: <span class="hljs-string">&#x27;In this course, we will teach you how to understand and use &#x27;</span> 
-					<span class="hljs-comment"># Dans ce cours, nous vous enseignerons comment comprendre et utiliser</span>
+		    # flux de donn\xE9es - flux de donn\xE9es de diff\xE9rents types, tels qu'ils sont vus par
+                    'HTTP'}] 
+		    # HTTP`,highlighted:`[{<span class="hljs-string">&#x27;generated_text&#x27;</span>: <span class="hljs-string">&#x27;In this course, we will teach you how to understand and use &#x27;</span> 
+		    <span class="hljs-comment"># Dans ce cours, nous vous enseignerons comment comprendre et utiliser</span>
                     <span class="hljs-string">&#x27;data flow and data interchange when handling user data. We &#x27;</span>
-					<span class="hljs-comment"># flux de donn\xE9es et l&#x27;\xE9change de donn\xE9es lors de la manipulation des donn\xE9es utilisateur. Nous </span>
+		    <span class="hljs-comment"># flux de donn\xE9es et l&#x27;\xE9change de donn\xE9es lors de la manipulation des donn\xE9es utilisateur. Nous </span>
                     <span class="hljs-string">&#x27;will be working with one or more of the most commonly used &#x27;</span> 
-					<span class="hljs-comment"># travailleront avec un ou plusieurs des plus couramment utilis\xE9s</span>
+		    <span class="hljs-comment"># travaillerons avec un ou plusieurs des plus couramment utilis\xE9s</span>
                     <span class="hljs-string">&#x27;data flows \u2014 data flows of various types, as seen by the &#x27;</span> 
-					<span class="hljs-comment"># flux de donn\xE9es - flux de donn\xE9es de diff\xE9rents types, tels qu&#x27;ils sont vus par</span>
-                    <span class="hljs-string">&#x27;HTTP&#x27;</span>}] <span class="hljs-comment"># HTTP</span>`}}),ze=new We({props:{$$slots:{default:[bc]},$$scope:{ctx:T}}}),ms=new G({}),vs=new O({props:{code:`from transformers import pipeline
+		    <span class="hljs-comment"># flux de donn\xE9es - flux de donn\xE9es de diff\xE9rents types, tels qu&#x27;ils sont vus par</span>
+                    <span class="hljs-string">&#x27;HTTP&#x27;</span>}] 
+		    <span class="hljs-comment"># HTTP</span>`}}),ze=new We({props:{$$slots:{default:[bc]},$$scope:{ctx:T}}}),ms=new G({}),vs=new O({props:{code:`from transformers import pipeline
 
 generator = pipeline("text-generation", model="distilgpt2")
 generator(
@@ -85,24 +87,24 @@ generator(
     max_length=<span class="hljs-number">30</span>,
     num_return_sequences=<span class="hljs-number">2</span>,
 )`}}),$s=new O({props:{code:`[{'generated_text': 'In this course, we will teach you how to manipulate the world and ' 
-					# Dans ce cours, nous vous enseignerons comment manipuler le monde et
+		    # Dans ce cours, nous vous enseignerons comment manipuler le monde et
                     'move your mental and physical capabilities to your advantage.'}, 
-					# utiliser vos capacit\xE9s mentales et physiques \xE0 votre avantage.
+		    # utiliser vos capacit\xE9s mentales et physiques \xE0 votre avantage.
  {'generated_text': 'In this course, we will teach you how to become an expert and ' 
-					# Dans ce cours, nous vous apprendrons comment devenir un expert et
+		    # Dans ce cours, nous vous apprendrons comment devenir un expert et
                     'practice realtime, and with a hands on experience on both real ' 
-					# pratique en temps r\xE9el, et avec une exp\xE9rience pratique \xE0 la fois sur de vrais
+		    # pratique en temps r\xE9el, et avec une exp\xE9rience pratique \xE0 la fois sur de vrais
                     'time and real'}] 
-					# temps et r\xE9el`,highlighted:`[{<span class="hljs-string">&#x27;generated_text&#x27;</span>: <span class="hljs-string">&#x27;In this course, we will teach you how to manipulate the world and &#x27;</span> 
-					<span class="hljs-comment"># Dans ce cours, nous vous enseignerons comment manipuler le monde et</span>
+		    # temps et r\xE9el`,highlighted:`[{<span class="hljs-string">&#x27;generated_text&#x27;</span>: <span class="hljs-string">&#x27;In this course, we will teach you how to manipulate the world and &#x27;</span> 
+		    <span class="hljs-comment"># Dans ce cours, nous vous enseignerons comment manipuler le monde et</span>
                     <span class="hljs-string">&#x27;move your mental and physical capabilities to your advantage.&#x27;</span>}, 
-					<span class="hljs-comment"># utiliser vos capacit\xE9s mentales et physiques \xE0 votre avantage.</span>
+		    <span class="hljs-comment"># utiliser vos capacit\xE9s mentales et physiques \xE0 votre avantage.</span>
  {<span class="hljs-string">&#x27;generated_text&#x27;</span>: <span class="hljs-string">&#x27;In this course, we will teach you how to become an expert and &#x27;</span> 
-					<span class="hljs-comment"># Dans ce cours, nous vous apprendrons comment devenir un expert et</span>
+		    <span class="hljs-comment"># Dans ce cours, nous vous apprendrons comment devenir un expert et</span>
                     <span class="hljs-string">&#x27;practice realtime, and with a hands on experience on both real &#x27;</span> 
-					<span class="hljs-comment"># pratique en temps r\xE9el, et avec une exp\xE9rience pratique \xE0 la fois sur de vrais</span>
+		    <span class="hljs-comment"># pratique en temps r\xE9el, et avec une exp\xE9rience pratique \xE0 la fois sur de vrais</span>
                     <span class="hljs-string">&#x27;time and real&#x27;</span>}] 
-					<span class="hljs-comment"># temps et r\xE9el</span>`}}),Ie=new We({props:{$$slots:{default:[Ec]},$$scope:{ctx:T}}}),xs=new G({}),bs=new G({}),Es=new O({props:{code:`from transformers import pipeline
+		    <span class="hljs-comment"># temps et r\xE9el</span>`}}),Ie=new We({props:{$$slots:{default:[Ec]},$$scope:{ctx:T}}}),xs=new G({}),bs=new G({}),Es=new O({props:{code:`from transformers import pipeline
 
 unmasker = pipeline("fill-mask")
 unmasker("This course will teach you all about <mask> models.", top_k=2)`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline
@@ -247,32 +249,32 @@ summarizer(
     souffre d&#x27;une baisse de plus en plus importante du nombre de dipl\xF4m\xE9s en ing\xE9nierie
     et un manque d&#x27;ing\xE9nieurs bien form\xE9s.
 &quot;&quot;&quot;</span>`}}),Ls=new O({props:{code:`[{'summary_text': ' America has changed dramatically during recent years . The ' 
-				  # L'Am\xE9rique a chang\xE9 de fa\xE7on spectaculaire au cours des derni\xE8res ann\xE9es. Le
+		  # L'Am\xE9rique a chang\xE9 de fa\xE7on spectaculaire au cours des derni\xE8res ann\xE9es. Le
                   'number of engineering graduates in the U.S. has declined in ' 
-				  # nombre de dipl\xF4m\xE9s en ing\xE9nierie aux \xC9tats-Unis a diminu\xE9 dans
+		  # nombre de dipl\xF4m\xE9s en ing\xE9nierie aux \xC9tats-Unis a diminu\xE9 dans
                   'traditional engineering disciplines such as mechanical, civil ' 
-				  # dans les disciplines traditionnelles de l'ing\xE9nierie, telles que le g\xE9nie m\xE9canique, civil
+		  # les disciplines traditionnelles de l'ing\xE9nierie, comme le g\xE9nie m\xE9canique, civil
                   ', electrical, chemical, and aeronautical engineering . Rapidly ' 
-				  # l'\xE9lectricit\xE9, la chimie et l'a\xE9ronautique. Les \xE9conomies
+		  # l'\xE9lectricit\xE9, la chimie et l'a\xE9ronautique. Les \xE9conomies
                   'developing economies such as China and India, as well as other ' 
-				  # en d\xE9veloppement rapide comme la Chine et l'Inde, ainsi que d'autres
+		  # en d\xE9veloppement rapide comme la Chine et l'Inde, ainsi que d'autres
                   'industrial countries in Europe and Asia, continue to encourage ' 
-				  # pays industriels d'Europe et d'Asie, continuent d'encourager
+		  # pays industriels d'Europe et d'Asie, continuent d'encourager
                   'and advance engineering.'}] 
-				  # et \xE0 faire progresser l'ing\xE9nierie.`,highlighted:`[{<span class="hljs-string">&#x27;summary_text&#x27;</span>: <span class="hljs-string">&#x27; America has changed dramatically during recent years . The &#x27;</span> 
-				  <span class="hljs-comment"># L&#x27;Am\xE9rique a chang\xE9 de fa\xE7on spectaculaire au cours des derni\xE8res ann\xE9es. Le</span>
+		  # et \xE0 faire progresser l'ing\xE9nierie.`,highlighted:`[{<span class="hljs-string">&#x27;summary_text&#x27;</span>: <span class="hljs-string">&#x27; America has changed dramatically during recent years . The &#x27;</span> 
+		  <span class="hljs-comment"># L&#x27;Am\xE9rique a chang\xE9 de fa\xE7on spectaculaire au cours des derni\xE8res ann\xE9es. Le</span>
                   <span class="hljs-string">&#x27;number of engineering graduates in the U.S. has declined in &#x27;</span> 
-				  <span class="hljs-comment"># nombre de dipl\xF4m\xE9s en ing\xE9nierie aux \xC9tats-Unis a diminu\xE9 dans</span>
+		  <span class="hljs-comment"># nombre de dipl\xF4m\xE9s en ing\xE9nierie aux \xC9tats-Unis a diminu\xE9 dans</span>
                   <span class="hljs-string">&#x27;traditional engineering disciplines such as mechanical, civil &#x27;</span> 
-				  <span class="hljs-comment"># dans les disciplines traditionnelles de l&#x27;ing\xE9nierie, telles que le g\xE9nie m\xE9canique, civil</span>
+		  <span class="hljs-comment"># les disciplines traditionnelles de l&#x27;ing\xE9nierie, comme le g\xE9nie m\xE9canique, civil</span>
                   <span class="hljs-string">&#x27;, electrical, chemical, and aeronautical engineering . Rapidly &#x27;</span> 
-				  <span class="hljs-comment"># l&#x27;\xE9lectricit\xE9, la chimie et l&#x27;a\xE9ronautique. Les \xE9conomies</span>
+		  <span class="hljs-comment"># l&#x27;\xE9lectricit\xE9, la chimie et l&#x27;a\xE9ronautique. Les \xE9conomies</span>
                   <span class="hljs-string">&#x27;developing economies such as China and India, as well as other &#x27;</span> 
-				  <span class="hljs-comment"># en d\xE9veloppement rapide comme la Chine et l&#x27;Inde, ainsi que d&#x27;autres</span>
+		  <span class="hljs-comment"># en d\xE9veloppement rapide comme la Chine et l&#x27;Inde, ainsi que d&#x27;autres</span>
                   <span class="hljs-string">&#x27;industrial countries in Europe and Asia, continue to encourage &#x27;</span> 
-				  <span class="hljs-comment"># pays industriels d&#x27;Europe et d&#x27;Asie, continuent d&#x27;encourager</span>
+		  <span class="hljs-comment"># pays industriels d&#x27;Europe et d&#x27;Asie, continuent d&#x27;encourager</span>
                   <span class="hljs-string">&#x27;and advance engineering.&#x27;</span>}] 
-				  <span class="hljs-comment"># et \xE0 faire progresser l&#x27;ing\xE9nierie.</span>`}}),Hs=new G({}),Os=new O({props:{code:`from transformers import pipeline
+		  <span class="hljs-comment"># et \xE0 faire progresser l&#x27;ing\xE9nierie.</span>`}}),Hs=new G({}),Os=new O({props:{code:`from transformers import pipeline
 
 translator = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
 translator("Ce cours est produit par Hugging Face.")`,highlighted:`<span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline
