@@ -319,11 +319,10 @@ testing).`,name:"initializer_factor"}],source:"https://github.com/huggingface/tr
 Whether to resize the shorter edge of the input to a certain <code>size</code>.`,name:"do_resize"},{anchor:"transformers.OwlViTFeatureExtractor.size",description:`<strong>size</strong> (<code>int</code> or <code>Tuple[int, int]</code>, <em>optional</em>, defaults to (768, 768)) &#x2014;
 The size to use for resizing the image. Only has an effect if <code>do_resize</code> is set to <code>True</code>. If <code>size</code> is a
 sequence like (h, w), output size will be matched to this. If <code>size</code> is an int, then image will be resized
-to (size, size).`,name:"size"},{anchor:"transformers.OwlViTFeatureExtractor.resample",description:`<strong>resample</strong> (<code>int</code>, <em>optional</em>, defaults to <code>PIL.Image.Resampling.BICUBIC</code>) &#x2014;
-An optional resampling filter. This can be one of <code>PIL.Image.Resampling.NEAREST</code>,
-<code>PIL.Image.Resampling.BOX</code>, <code>PIL.Image.Resampling.BILINEAR</code>, <code>PIL.Image.Resampling.HAMMING</code>,
-<code>PIL.Image.Resampling.BICUBIC</code> or <code>PIL.Image.Resampling.LANCZOS</code>. Only has an effect if <code>do_resize</code> is set
-to <code>True</code>.`,name:"resample"},{anchor:"transformers.OwlViTFeatureExtractor.do_center_crop",description:`<strong>do_center_crop</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
+to (size, size).`,name:"size"},{anchor:"transformers.OwlViTFeatureExtractor.resample",description:`<strong>resample</strong> (<code>int</code>, <em>optional</em>, defaults to <code>PILImageResampling.BICUBIC</code>) &#x2014;
+An optional resampling filter. This can be one of <code>PILImageResampling.NEAREST</code>, <code>PILImageResampling.BOX</code>,
+<code>PILImageResampling.BILINEAR</code>, <code>PILImageResampling.HAMMING</code>, <code>PILImageResampling.BICUBIC</code> or
+<code>PILImageResampling.LANCZOS</code>. Only has an effect if <code>do_resize</code> is set to <code>True</code>.`,name:"resample"},{anchor:"transformers.OwlViTFeatureExtractor.do_center_crop",description:`<strong>do_center_crop</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether to crop the input at the center. If the input size is smaller than <code>crop_size</code> along any edge, the
 image is padded with 0&#x2019;s and then center cropped.`,name:"do_center_crop"},{anchor:"transformers.OwlViTFeatureExtractor.crop_size",description:"<strong>crop_size</strong> (<code>int</code>, <em>optional</em>, defaults to 768) &#x2014;",name:"crop_size"},{anchor:"transformers.OwlViTFeatureExtractor.do_normalize",description:`<strong>do_normalize</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not to normalize the input with <code>image_mean</code> and <code>image_std</code>. Desired output size when applying
@@ -339,7 +338,7 @@ If set, will return tensors of a particular framework. Acceptable values are:</p
 <li><code>&apos;pt&apos;</code>: Return PyTorch <code>torch.Tensor</code> objects.</li>
 <li><code>&apos;np&apos;</code>: Return NumPy <code>np.ndarray</code> objects.</li>
 <li><code>&apos;jax&apos;</code>: Return JAX <code>jnp.ndarray</code> objects.</li>
-</ul>`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/owlvit/feature_extraction_owlvit.py#L146",returnDescription:`
+</ul>`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/owlvit/feature_extraction_owlvit.py#L145",returnDescription:`
 <p>A <a
   href="/docs/transformers/main/en/main_classes/feature_extractor#transformers.BatchFeature"
 >BatchFeature</a> with the following fields:</p>

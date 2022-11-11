@@ -243,11 +243,10 @@ Resize the input to the given size. Only has an effect if <code>do_resize</code>
 sequence like <code>(width, height)</code>, output size will be matched to this. If size is an int, smaller edge of
 the image will be matched to this number. i.e, if <code>height &gt; width</code>, then image will be rescaled to <code>(size * height / width, size)</code>.`,name:"size"},{anchor:"transformers.MaskFormerFeatureExtractor.max_size",description:`<strong>max_size</strong> (<code>int</code>, <em>optional</em>, defaults to 1333) &#x2014;
 The largest size an image dimension can have (otherwise it&#x2019;s capped). Only has an effect if <code>do_resize</code> is
-set to <code>True</code>.`,name:"max_size"},{anchor:"transformers.MaskFormerFeatureExtractor.resample",description:`<strong>resample</strong> (<code>int</code>, <em>optional</em>, defaults to <code>PIL.Image.Resampling.BILINEAR</code>) &#x2014;
-An optional resampling filter. This can be one of <code>PIL.Image.Resampling.NEAREST</code>,
-<code>PIL.Image.Resampling.BOX</code>, <code>PIL.Image.Resampling.BILINEAR</code>, <code>PIL.Image.Resampling.HAMMING</code>,
-<code>PIL.Image.Resampling.BICUBIC</code> or <code>PIL.Image.Resampling.LANCZOS</code>. Only has an effect if <code>do_resize</code> is set
-to <code>True</code>.`,name:"resample"},{anchor:"transformers.MaskFormerFeatureExtractor.size_divisibility",description:`<strong>size_divisibility</strong> (<code>int</code>, <em>optional</em>, defaults to 32) &#x2014;
+set to <code>True</code>.`,name:"max_size"},{anchor:"transformers.MaskFormerFeatureExtractor.resample",description:`<strong>resample</strong> (<code>int</code>, <em>optional</em>, defaults to <code>PILImageResampling.BILINEAR</code>) &#x2014;
+An optional resampling filter. This can be one of <code>PILImageResampling.NEAREST</code>, <code>PILImageResampling.BOX</code>,
+<code>PILImageResampling.BILINEAR</code>, <code>PILImageResampling.HAMMING</code>, <code>PILImageResampling.BICUBIC</code> or
+<code>PILImageResampling.LANCZOS</code>. Only has an effect if <code>do_resize</code> is set to <code>True</code>.`,name:"resample"},{anchor:"transformers.MaskFormerFeatureExtractor.size_divisibility",description:`<strong>size_divisibility</strong> (<code>int</code>, <em>optional</em>, defaults to 32) &#x2014;
 Some backbones need images divisible by a certain number. If not passed, it defaults to the value used in
 Swin Transformer.`,name:"size_divisibility"},{anchor:"transformers.MaskFormerFeatureExtractor.do_normalize",description:`<strong>do_normalize</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not to normalize the input with mean and standard deviation.`,name:"do_normalize"},{anchor:"transformers.MaskFormerFeatureExtractor.image_mean",description:`<strong>image_mean</strong> (<code>int</code>, <em>optional</em>, defaults to <code>[0.485, 0.456, 0.406]</code>) &#x2014;
@@ -276,7 +275,7 @@ instance segmentation map where each pixel represents an instance id. Can be pro
 dictionary with a global / dataset-level mapping or as a list of dictionaries (one per image), to map
 instance ids in each image separately.`,name:"instance_id_to_semantic_id"},{anchor:"transformers.MaskFormerFeatureExtractor.__call__.return_tensors",description:`<strong>return_tensors</strong> (<code>str</code> or <a href="/docs/transformers/main/en/internal/file_utils#transformers.TensorType">TensorType</a>, <em>optional</em>) &#x2014;
 If set, will return tensors instead of NumPy arrays. If set to <code>&apos;pt&apos;</code>, return PyTorch <code>torch.Tensor</code>
-objects.`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/maskformer/feature_extraction_maskformer.py#L317",returnDescription:`
+objects.`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/maskformer/feature_extraction_maskformer.py#L316",returnDescription:`
 <p>A <a
   href="/docs/transformers/main/en/main_classes/feature_extractor#transformers.BatchFeature"
 >BatchFeature</a> with the following fields:</p>
@@ -308,7 +307,7 @@ instance segmentation map where each pixel represents an instance id. Can be pro
 dictionary with a global/dataset-level mapping or as a list of dictionaries (one per image), to map
 instance ids in each image separately.`,name:"instance_id_to_semantic_id"},{anchor:"transformers.MaskFormerFeatureExtractor.encode_inputs.return_tensors",description:`<strong>return_tensors</strong> (<code>str</code> or <a href="/docs/transformers/main/en/internal/file_utils#transformers.TensorType">TensorType</a>, <em>optional</em>) &#x2014;
 If set, will return tensors instead of NumPy arrays. If set to <code>&apos;pt&apos;</code>, return PyTorch <code>torch.Tensor</code>
-objects.`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/maskformer/feature_extraction_maskformer.py#L509",returnDescription:`
+objects.`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/maskformer/feature_extraction_maskformer.py#L508",returnDescription:`
 <p>A <a
   href="/docs/transformers/main/en/main_classes/feature_extractor#transformers.BatchFeature"
 >BatchFeature</a> with the following fields:</p>
@@ -329,7 +328,7 @@ objects.`,name:"return_tensors"}],source:"https://github.com/huggingface/transfo
 `}}),kt=new P({props:{name:"post_process_semantic_segmentation",anchor:"transformers.MaskFormerFeatureExtractor.post_process_semantic_segmentation",parameters:[{name:"outputs",val:""},{name:"target_sizes",val:": typing.Union[typing.List[typing.Tuple[int, int]], NoneType] = None"}],parametersDescription:[{anchor:"transformers.MaskFormerFeatureExtractor.post_process_semantic_segmentation.outputs",description:`<strong>outputs</strong> (<a href="/docs/transformers/main/en/model_doc/maskformer#transformers.MaskFormerForInstanceSegmentation">MaskFormerForInstanceSegmentation</a>) &#x2014;
 Raw outputs of the model.`,name:"outputs"},{anchor:"transformers.MaskFormerFeatureExtractor.post_process_semantic_segmentation.target_sizes",description:`<strong>target_sizes</strong> (<code>List[Tuple[int, int]]</code>, <em>optional</em>, defaults to <code>None</code>) &#x2014;
 List of length (batch_size), where each list item (<code>Tuple[int, int]]</code>) corresponds to the requested
-final size (height, width) of each prediction. If left to None, predictions will not be resized.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/maskformer/feature_extraction_maskformer.py#L677",returnDescription:`
+final size (height, width) of each prediction. If left to None, predictions will not be resized.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/maskformer/feature_extraction_maskformer.py#L676",returnDescription:`
 <p>A list of length <code>batch_size</code>, where each item is a semantic segmentation map of shape (height, width)
 corresponding to the target_sizes entry (if <code>target_sizes</code> is specified). Each entry of each
 <code>torch.Tensor</code> correspond to a semantic class id.</p>
@@ -344,7 +343,7 @@ instance mask.`,name:"overlap_mask_area_threshold"},{anchor:"transformers.MaskFo
 List of length (batch_size), where each list item (<code>Tuple[int, int]]</code>) corresponds to the requested
 final size (height, width) of each prediction. If left to None, predictions will not be resized.`,name:"target_sizes"},{anchor:"transformers.MaskFormerFeatureExtractor.post_process_instance_segmentation.return_coco_annotation",description:`<strong>return_coco_annotation</strong> (<code>bool</code>, <em>optional</em>) &#x2014;
 Defaults to <code>False</code>. If set to <code>True</code>, segmentation maps are returned in COCO run-length encoding (RLE)
-format.`,name:"return_coco_annotation"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/maskformer/feature_extraction_maskformer.py#L727",returnDescription:`
+format.`,name:"return_coco_annotation"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/maskformer/feature_extraction_maskformer.py#L726",returnDescription:`
 <p>A list of dictionaries, one per image, each dictionary containing two keys:</p>
 <ul>
 <li><strong>segmentation</strong> \u2014 A tensor of shape <code>(height, width)</code> where each pixel represents a <code>segment_id</code> or
@@ -369,7 +368,7 @@ there can only be one sky in an image, but several persons, so the label ID for 
 set, but not the one for person.`,name:"label_ids_to_fuse"},{anchor:"transformers.MaskFormerFeatureExtractor.post_process_panoptic_segmentation.target_sizes",description:`<strong>target_sizes</strong> (<code>List[Tuple]</code>, <em>optional</em>) &#x2014;
 List of length (batch_size), where each list item (<code>Tuple[int, int]]</code>) corresponds to the requested
 final size (height, width) of each prediction in batch. If left to None, predictions will not be
-resized.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/maskformer/feature_extraction_maskformer.py#L810",returnDescription:`
+resized.`,name:"target_sizes"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/maskformer/feature_extraction_maskformer.py#L809",returnDescription:`
 <p>A list of dictionaries, one per image, each dictionary containing two keys:</p>
 <ul>
 <li><strong>segmentation</strong> \u2014 a tensor of shape <code>(height, width)</code> where each pixel represents a <code>segment_id</code>, set

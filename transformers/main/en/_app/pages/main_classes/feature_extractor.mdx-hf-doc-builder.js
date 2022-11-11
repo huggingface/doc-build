@@ -138,7 +138,7 @@ The size to use for resizing the image. If <code>size</code> is a sequence like 
 matched to this.</p>
 <p>If <code>size</code> is an int and <code>default_to_square</code> is <code>True</code>, then image will be resized to (size, size). If
 <code>size</code> is an int and <code>default_to_square</code> is <code>False</code>, then smaller edge of the image will be matched to
-this number. i.e, if height &gt; width, then image will be rescaled to (size * height / width, size).`,name:"size"},{anchor:"transformers.ImageFeatureExtractionMixin.resize.resample",description:`<strong>resample</strong> (<code>int</code>, <em>optional</em>, defaults to <code>PIL.Image.Resampling.BILINEAR</code>) &#x2014;
+this number. i.e, if height &gt; width, then image will be rescaled to (size * height / width, size).`,name:"size"},{anchor:"transformers.ImageFeatureExtractionMixin.resize.resample",description:`<strong>resample</strong> (<code>int</code>, <em>optional</em>, defaults to <code>PILImageResampling.BILINEAR</code>) &#x2014;
 The filter to user for resampling.`,name:"resample"},{anchor:"transformers.ImageFeatureExtractionMixin.resize.default_to_square",description:`<strong>default_to_square</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 How to convert <code>size</code> when it is a single int. If set to <code>True</code>, the <code>size</code> will be converted to a
 square (<code>size</code>,<code>size</code>). If set to <code>False</code>, will replicate

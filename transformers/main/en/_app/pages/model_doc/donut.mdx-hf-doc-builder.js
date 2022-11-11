@@ -315,11 +315,10 @@ The standard deviation of the truncated_normal_initializer for initializing all 
 The epsilon used by the layer normalization layers.`,name:"layer_norm_eps"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/donut/configuration_donut_swin.py#L29"}}),me=new Mi({props:{anchor:"transformers.DonutSwinConfig.example",$$slots:{default:[Ni]},$$scope:{ctx:A}}}),Be=new qe({}),Je=new U({props:{name:"class transformers.DonutFeatureExtractor",anchor:"transformers.DonutFeatureExtractor",parameters:[{name:"do_resize",val:" = True"},{name:"size",val:" = [1920, 2560]"},{name:"resample",val:" = <Resampling.BILINEAR: 2>"},{name:"do_thumbnail",val:" = True"},{name:"do_align_long_axis",val:" = False"},{name:"do_pad",val:" = True"},{name:"do_normalize",val:" = True"},{name:"image_mean",val:" = None"},{name:"image_std",val:" = None"},{name:"**kwargs",val:""}],parametersDescription:[{anchor:"transformers.DonutFeatureExtractor.do_resize",description:`<strong>do_resize</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether to resize the shorter edge of the input to the minimum value of a certain <code>size</code>.`,name:"do_resize"},{anchor:"transformers.DonutFeatureExtractor.size",description:`<strong>size</strong> (<code>Tuple(int)</code>, <em>optional</em>, defaults to [1920, 2560]) &#x2014;
 Resize the shorter edge of the input to the minimum value of the given size. Should be a tuple of (width,
-height). Only has an effect if <code>do_resize</code> is set to <code>True</code>.`,name:"size"},{anchor:"transformers.DonutFeatureExtractor.resample",description:`<strong>resample</strong> (<code>int</code>, <em>optional</em>, defaults to <code>PIL.Image.Resampling.BILINEAR</code>) &#x2014;
-An optional resampling filter. This can be one of <code>PIL.Image.Resampling.NEAREST</code>,
-<code>PIL.Image.Resampling.BOX</code>, <code>PIL.Image.Resampling.BILINEAR</code>, <code>PIL.Image.Resampling.HAMMING</code>,
-<code>PIL.Image.Resampling.BICUBIC</code> or <code>PIL.Image.Resampling.LANCZOS</code>. Only has an effect if <code>do_resize</code> is set
-to <code>True</code>.`,name:"resample"},{anchor:"transformers.DonutFeatureExtractor.do_thumbnail",description:`<strong>do_thumbnail</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
+height). Only has an effect if <code>do_resize</code> is set to <code>True</code>.`,name:"size"},{anchor:"transformers.DonutFeatureExtractor.resample",description:`<strong>resample</strong> (<code>int</code>, <em>optional</em>, defaults to <code>PILImageResampling.BILINEAR</code>) &#x2014;
+An optional resampling filter. This can be one of <code>PILImageResampling.NEAREST</code>, <code>PILImageResampling.BOX</code>,
+<code>PILImageResampling.BILINEAR</code>, <code>PILImageResampling.HAMMING</code>, <code>PILImageResampling.BICUBIC</code> or
+<code>PILImageResampling.LANCZOS</code>. Only has an effect if <code>do_resize</code> is set to <code>True</code>.`,name:"resample"},{anchor:"transformers.DonutFeatureExtractor.do_thumbnail",description:`<strong>do_thumbnail</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether to thumbnail the input to the given <code>size</code>.`,name:"do_thumbnail"},{anchor:"transformers.DonutFeatureExtractor.do_align_long_axis",description:`<strong>do_align_long_axis</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>) &#x2014;
 Whether to rotate the input if the height is greater than width.`,name:"do_align_long_axis"},{anchor:"transformers.DonutFeatureExtractor.do_pad",description:`<strong>do_pad</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
 Whether or not to pad the input to <code>size</code>.`,name:"do_pad"},{anchor:"transformers.DonutFeatureExtractor.do_normalize",description:`<strong>do_normalize</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>True</code>) &#x2014;
@@ -336,7 +335,7 @@ If set, will return tensors of a particular framework. Acceptable values are:</p
 <li><code>&apos;pt&apos;</code>: Return PyTorch <code>torch.Tensor</code> objects.</li>
 <li><code>&apos;np&apos;</code>: Return NumPy <code>np.ndarray</code> objects.</li>
 <li><code>&apos;jax&apos;</code>: Return JAX <code>jnp.ndarray</code> objects.</li>
-</ul>`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/donut/feature_extraction_donut.py#L128",returnDescription:`
+</ul>`,name:"return_tensors"}],source:"https://github.com/huggingface/transformers/blob/main/src/transformers/models/donut/feature_extraction_donut.py#L127",returnDescription:`
 <p>A <a
   href="/docs/transformers/main/en/main_classes/feature_extractor#transformers.BatchFeature"
 >BatchFeature</a> with the following fields:</p>
