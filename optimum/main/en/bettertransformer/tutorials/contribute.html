@@ -1,0 +1,215 @@
+<meta charset="utf-8" /><meta http-equiv="content-security-policy" content=""><meta name="hf:doc:metadata" content="{&quot;local&quot;:&quot;adding-bettertransformer-support-for-new-architectures&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;models-that-should-be-supported&quot;,&quot;title&quot;:&quot;Models that should be supported&quot;},{&quot;local&quot;:&quot;how-to-convert-a-model-into-its-bettertransformer-format&quot;,&quot;sections&quot;:[{&quot;local&quot;:&quot;step-1-identifying-the-source-layer-to-change&quot;,&quot;title&quot;:&quot;Step 1: Identifying the source layer to change&quot;},{&quot;local&quot;:&quot;step-2-building-the-xxxlayerbettertransformer-module&quot;,&quot;title&quot;:&quot;Step 2: Building the `xxxLayerBetterTransformer` module&quot;}],&quot;title&quot;:&quot;How to convert a model into its `BetterTransformer` format?&quot;}],&quot;title&quot;:&quot;Adding BetterTransformer support for new architectures&quot;}" data-svelte="svelte-1phssyn">
+	<link rel="modulepreload" href="/docs/optimum/main/en/_app/assets/pages/__layout.svelte-hf-doc-builder.css">
+	<link rel="modulepreload" href="/docs/optimum/main/en/_app/start-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/main/en/_app/chunks/vendor-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/main/en/_app/chunks/paths-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/main/en/_app/pages/__layout.svelte-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/main/en/_app/pages/bettertransformer/tutorials/contribute.mdx-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/main/en/_app/chunks/IconCopyLink-hf-doc-builder.js">
+	<link rel="modulepreload" href="/docs/optimum/main/en/_app/chunks/CodeBlock-hf-doc-builder.js"> 
+
+
+
+
+
+
+<h1 class="relative group"><a id="adding-bettertransformer-support-for-new-architectures" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#adding-bettertransformer-support-for-new-architectures"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Adding BetterTransformer support for new architectures
+	</span></h1>
+
+<p>You want to add a new model for <code>BetterTransformer</code> API? Check this guideline!</p>
+<h2 class="relative group"><a id="models-that-should-be-supported" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#models-that-should-be-supported"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Models that should be supported
+	</span></h2>
+
+<p>In theory, any model that has a transformer encoder layer, similar to the classic encoder described in the <a href="https://arxiv.org/abs/1706.03762" rel="nofollow">“Attention Is All You Need”</a> paper should be supported.
+More specifically, a model that has an encoder block with a MultiHead-Attention module (with pre or post-attention layer norm) should be convertible to its <code>BetterTransformer</code> equivalent. The conditions can be summarized as follows:</p>
+<ul><li>Use classic Multi Head attention module (for example, <a href="https://arxiv.org/abs/2006.03654" rel="nofollow">DeBERTa</a> cannot be supported)</li>
+<li>Use either <code>gelu</code> or <code>relu</code> activation function   </li>
+<li>Have an even number of attention heads</li>
+<li>Do not use any attention bias (for eg <code>T5</code> uses attention bias, therefore cannot be supported)</li>
+<li><code>eps</code> must be equal between the first and second layer norms for each layer</li></ul>
+<h2 class="relative group"><a id="how-to-convert-a-model-into-its-bettertransformer-format" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#how-to-convert-a-model-into-its-bettertransformer-format"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>How to convert a model into its <code>BetterTransformer</code> format?
+	</span></h2>
+
+<h3 class="relative group"><a id="step-1-identifying-the-source-layer-to-change" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#step-1-identifying-the-source-layer-to-change"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Step 1: Identifying the source layer to change
+	</span></h3>
+
+<p>First, go to <code>optimum/bettertransformer/__init__.py</code> and you’ll see the dictionary <code>BETTER_TRANFORMER_LAYERS_MAPPING_DICT</code>. This should contain the mapping between the Module that can be converted to its <code>BetterTransformer</code> equivalent.
+Let us try to do it step by step for <code>Bert</code>, first we need to identify the layers that needs to be replaced:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModel
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = AutoModel.from_pretrained(<span class="hljs-string">&quot;bert-base-uncased&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(model)
+...
+          (LayerNorm): LayerNorm((<span class="hljs-number">768</span>,), eps=<span class="hljs-number">1e-12</span>, elementwise_affine=<span class="hljs-literal">True</span>)
+          (dropout): Dropout(p=<span class="hljs-number">0.1</span>, inplace=<span class="hljs-literal">False</span>)
+        )
+      )
+      (<span class="hljs-number">11</span>): BertLayer(
+        (attention): BertAttention(
+          (self): BertSelfAttention(
+            (query): Linear(in_features=<span class="hljs-number">768</span>, out_features=<span class="hljs-number">768</span>, bias=<span class="hljs-literal">True</span>)
+            (key): Linear(in_features=<span class="hljs-number">768</span>, out_features=<span class="hljs-number">768</span>, bias=<span class="hljs-literal">True</span>)
+            (value): Linear(in_features=<span class="hljs-number">768</span>, out_features=<span class="hljs-number">768</span>, bias=<span class="hljs-literal">True</span>)
+            (dropout): Dropout(p=<span class="hljs-number">0.1</span>, inplace=<span class="hljs-literal">False</span>)
+          )
+          (output): BertSelfOutput(
+            (dense): Linear(in_features=<span class="hljs-number">768</span>, out_features=<span class="hljs-number">768</span>, bias=<span class="hljs-literal">True</span>)
+            (LayerNorm): LayerNorm((<span class="hljs-number">768</span>,), eps=<span class="hljs-number">1e-12</span>, elementwise_affine=<span class="hljs-literal">True</span>)
+            (dropout): Dropout(p=<span class="hljs-number">0.1</span>, inplace=<span class="hljs-literal">False</span>)
+          )
+        )
+        (intermediate): BertIntermediate(
+          (dense): Linear(in_features=<span class="hljs-number">768</span>, out_features=<span class="hljs-number">3072</span>, bias=<span class="hljs-literal">True</span>)
+          (intermediate_act_fn): GELUActivation()
+        )
+        (output): BertOutput(
+          (dense): Linear(in_features=<span class="hljs-number">3072</span>, out_features=<span class="hljs-number">768</span>, bias=<span class="hljs-literal">True</span>)
+          (LayerNorm): LayerNorm((<span class="hljs-number">768</span>,), eps=<span class="hljs-number">1e-12</span>, elementwise_affine=<span class="hljs-literal">True</span>)
+          (dropout): Dropout(p=<span class="hljs-number">0.1</span>, inplace=<span class="hljs-literal">False</span>)
+        )
+      )
+    )
+  )
+  (pooler): BertPooler(
+    (dense): Linear(in_features=<span class="hljs-number">768</span>, out_features=<span class="hljs-number">768</span>, bias=<span class="hljs-literal">True</span>)
+    (activation): Tanh()
+  )
+)<!-- HTML_TAG_END --></pre></div>
+<p>You can clearly see that the layers that needs to be replaced are the <code>BertLayer</code> modules since it contains the whole encoder layer module.</p>
+<h3 class="relative group"><a id="step-2-building-the-xxxlayerbettertransformer-module" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#step-2-building-the-xxxlayerbettertransformer-module"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Step 2: Building the <code>xxxLayerBetterTransformer</code> module
+	</span></h3>
+
+<p>Check that the identified module is not already copied from another module (by inspecting the source code in <a href="https://github.com/huggingface/transformers" rel="nofollow"><code>transformers</code></a> and checking that the class definition does not start with <code># Copied from ...</code>) - and if not, create a class in <code>bettertransformer/models/encoder_model.py</code>.
+Start with those lines:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">import</span> torch
+<span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn
+
+<span class="hljs-keyword">from</span> ..base <span class="hljs-keyword">import</span> BetterTransformerBaseLayer
+
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">BertLayerBetterTransformer</span>(<span class="hljs-title class_ inherited__">BetterTransformerBaseLayer</span>):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, bert_layer, config</span>):
+...<!-- HTML_TAG_END --></pre></div>
+<p>Now, make sure to fill all the necessary attributes, the list of attributes are:</p>
+<ul><li><code>in_proj_weight</code></li>
+<li><code>in_proj_bias</code></li>
+<li><code>out_proj_weight</code></li>
+<li><code>out_proj_bias</code></li>
+<li><code>linear1_weight</code></li>
+<li><code>linear1_bias</code></li>
+<li><code>linear2_weight</code></li>
+<li><code>linear2_bias</code></li>
+<li><code>norm1_eps</code></li>
+<li><code>norm1_weight</code></li>
+<li><code>norm1_bias</code></li>
+<li><code>norm2_weight</code></li>
+<li><code>norm2_bias</code></li>
+<li><code>num_heads</code></li>
+<li><code>embed_dim</code>
+Note that these attributes correspond to all the components that are necessary to run a Transformer Encoder module, check the figure 1 on the <a href="https://arxiv.org/pdf/1706.03762.pdf" rel="nofollow">“Attention Is All You Need”</a> paper.
+Once you filled all these attributes (sometimes the <code>query</code>, <code>key</code> and <code>value</code> layers needs to be “contigufied”, check the <a href="https://github.com/huggingface/optimum/tree/main/optimum/bettertransformer/models/encoder_model.py" rel="nofollow"><code>modeling_encoder.py</code></a> file to understand more.)</li></ul>
+<p>Make sure also to add the lines:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->self.is_last_layer = <span class="hljs-literal">False</span>
+self.validate_bettertransformer()
+
+<span class="hljs-comment">### Step 3: Building the forward pass</span>
+
+First of <span class="hljs-built_in">all</span>, start <span class="hljs-keyword">with</span> the line `<span class="hljs-built_in">super</span>().forward_checker()`, this <span class="hljs-keyword">is</span> needed so that the parent <span class="hljs-keyword">class</span> <span class="hljs-title class_">can</span> run <span class="hljs-built_in">all</span> the safety checkers before.
+
+After the first forward <span class="hljs-keyword">pass</span>, the hidden states needs to be *nested* using the attention mask. Once they are nested, the attention mask <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> needed anymore, therefore can be <span class="hljs-built_in">set</span> to `<span class="hljs-literal">None</span>`. This <span class="hljs-keyword">is</span> how the forward <span class="hljs-keyword">pass</span> <span class="hljs-keyword">is</span> built <span class="hljs-keyword">for</span> `Bert`, these lines should remain pretty much similar accross models, but sometimes the shapes of the attention masks are different across models. 
+```python
+<span class="hljs-built_in">super</span>().forward_checker()
+
+<span class="hljs-keyword">if</span> hidden_states.is_nested:
+    attention_mask = <span class="hljs-literal">None</span>
+
+<span class="hljs-keyword">if</span> attention_mask <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+    <span class="hljs-comment"># attention mask comes in with values 0 and -inf. we convert to torch.nn.TransformerEncoder style bool mask</span>
+    <span class="hljs-comment"># 0-&gt;false-&gt;keep this token -inf-&gt;true-&gt;mask this token</span>
+    attention_mask = attention_mask.<span class="hljs-built_in">bool</span>()
+    attention_mask = torch.reshape(attention_mask, (attention_mask.shape[<span class="hljs-number">0</span>], attention_mask.shape[-<span class="hljs-number">1</span>]))
+    seqlen = attention_mask.shape[<span class="hljs-number">1</span>]
+    lengths = torch.<span class="hljs-built_in">sum</span>(~attention_mask, <span class="hljs-number">1</span>)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">all</span>([l == seqlen <span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> lengths]):
+        hidden_states = torch._nested_tensor_from_mask(hidden_states, ~attention_mask)
+    attention_mask = <span class="hljs-literal">None</span><!-- HTML_TAG_END --></pre></div>
+<p>Once the <code>hidden_states</code> are nested, call <code>torch._transformer_encoder_layer_fwd</code> using the right arguments as follows:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START -->hidden_states = torch._transformer_encoder_layer_fwd(
+    hidden_states,
+    self.embed_dim,
+    self.num_heads,
+    self.in_proj_weight,
+    self.in_proj_bias,
+    self.out_proj_weight,
+    self.out_proj_bias,
+    self.use_gelu,
+    self.norm_first,
+    self.norm1_eps,
+    self.norm1_weight,
+    self.norm1_bias,
+    self.norm2_weight,
+    self.norm2_bias,
+    self.linear1_weight,
+    self.linear1_bias,
+    self.linear2_weight,
+    self.linear2_bias,
+    attention_mask,
+)<!-- HTML_TAG_END --></pre></div>
+<p>At the last layer, it is important to “un-nest” the hidden_states so that it can be processed by the next modules, this is done in these lines:</p>
+
+	<div class="code-block relative"><div class="absolute top-2.5 right-4"><button class="inline-flex items-center relative text-sm focus:text-green-500 cursor-pointer focus:outline-none transition duration-200 ease-in-out opacity-0 mx-0.5   text-gray-600 " title="code excerpt" type="button"><svg class="" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M28,10V28H10V10H28m0-2H10a2,2,0,0,0-2,2V28a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V10a2,2,0,0,0-2-2Z" transform="translate(0)"></path><path d="M4,18H2V4A2,2,0,0,1,4,2H18V4H4Z" transform="translate(0)"></path><rect fill="none" width="32" height="32"></rect></svg>
+	<div class="absolute pointer-events-none transition-opacity bg-black text-white py-1 px-2 leading-tight rounded font-normal shadow left-1/2 top-full transform -translate-x-1/2 translate-y-2 opacity-0"><div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-black border-4 border-t-0" style="border-left-color: transparent; border-right-color: transparent; "></div>
+	Copied</div></button></div>
+	<pre><!-- HTML_TAG_START --><span class="hljs-keyword">if</span> hidden_states.is_nested <span class="hljs-keyword">and</span> self.is_last_layer:
+    hidden_states = hidden_states.to_padded_tensor(<span class="hljs-number">0.0</span>)
+<span class="hljs-keyword">return</span> (hidden_states,)<!-- HTML_TAG_END --></pre></div>
+<p>Also make sure to return a <code>tuple</code> to follow the convention of <code>transformers</code>. </p>
+<p>The best way to reproduce this experiment on your own model is to try it by get some inspiration from the provided modeling scripts. Of course, we will be happy to help you converting your model if you open an issue or a Pull Request on <code>optimum</code>!</p>
+<h3 class="relative group"><a id="step-4:-sanity-check!" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#step-4:-sanity-check!"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
+	<span>Step 4: Sanity check!
+	</span></h3>
+
+<p>As a last step, make sure to update the <code>BETTER_TRANFORMER_LAYERS_MAPPING_DICT</code> dictionary in  <code>optimum/bettertransformer/__init__.py</code> with the correct names, and you should be ready to convert your model. Try it out with the conversion method that is presented in the <a href="./tutorials/content">tutorials sections</a>!</p>
+
+
+		<script type="module" data-hydrate="1uqv37w">
+		import { start } from "/docs/optimum/main/en/_app/start-hf-doc-builder.js";
+		start({
+			target: document.querySelector('[data-hydrate="1uqv37w"]').parentNode,
+			paths: {"base":"/docs/optimum/main/en","assets":"/docs/optimum/main/en"},
+			session: {},
+			route: false,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/docs/optimum/main/en/_app/pages/__layout.svelte-hf-doc-builder.js"),
+						import("/docs/optimum/main/en/_app/pages/bettertransformer/tutorials/contribute.mdx-hf-doc-builder.js")
+				],
+				params: {}
+			}
+		});
+	</script>
