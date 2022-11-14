@@ -198,8 +198,8 @@ the latter silently ignores them.`),r.forEach(o)},m(n,r){O(n,s,r),e(s,_),e(s,d),
 from optimum.onnxruntime import ORTModelForCausalLM
 import torch
 
-tokenizer = AutoTokenizer.from_pretrained("optimum/gpt2")
-model = ORTModelForCausalLM.from_pretrained("optimum/gpt2")
+tokenizer = AutoTokenizer.from_pretrained("gpt2")
+model = ORTModelForCausalLM.from_pretrained("gpt2")
 
 inputs = tokenizer("My name is Philipp and I live in Germany.", return_tensors="pt")
 
@@ -208,8 +208,8 @@ tokenizer.batch_decode(gen_tokens)`,highlighted:`<span class="hljs-meta">&gt;&gt
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTModelForCausalLM
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> torch
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;optimum/gpt2&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = ORTModelForCausalLM.from_pretrained(<span class="hljs-string">&quot;optimum/gpt2&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;gpt2&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = ORTModelForCausalLM.from_pretrained(<span class="hljs-string">&quot;gpt2&quot;</span>)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>inputs = tokenizer(<span class="hljs-string">&quot;My name is Philipp and I live in Germany.&quot;</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)
 
@@ -217,16 +217,16 @@ tokenizer.batch_decode(gen_tokens)`,highlighted:`<span class="hljs-meta">&gt;&gt
 <span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer.batch_decode(gen_tokens)`}}),{c(){s=a("p"),_=m("Example of text generation:"),d=f(),k(u.$$.fragment)},l(n){s=i(n,"P",{});var r=l(s);_=p(r,"Example of text generation:"),r.forEach(o),d=g(n),x(u.$$.fragment,n)},m(n,r){O(n,s,r),e(s,_),O(n,d,r),w(u,n,r),h=!0},p:L,i(n){h||(b(u.$$.fragment,n),h=!0)},o(n){T(u.$$.fragment,n),h=!1},d(n){n&&o(s),n&&o(d),M(u,n)}}}function om(E){let s,_,d,u,h,n,r,y;return r=new Q({props:{code:`from transformers import AutoTokenizer, pipeline
 from optimum.onnxruntime import ORTModelForCausalLM
 
-tokenizer = AutoTokenizer.from_pretrained("optimum/gpt2")
-model = ORTModelForCausalLM.from_pretrained("optimum/gpt2")
+tokenizer = AutoTokenizer.from_pretrained("gpt2")
+model = ORTModelForCausalLM.from_pretrained("gpt2", from_transformers=True)
 onnx_gen = pipeline("text-generation", model=model, tokenizer=tokenizer)
 
 text = "My name is Philipp and I live in Germany."
 gen = onnx_gen(text)`,highlighted:`<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer, pipeline
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> optimum.onnxruntime <span class="hljs-keyword">import</span> ORTModelForCausalLM
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;optimum/gpt2&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>model = ORTModelForCausalLM.from_pretrained(<span class="hljs-string">&quot;optimum/gpt2&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;gpt2&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>model = ORTModelForCausalLM.from_pretrained(<span class="hljs-string">&quot;gpt2&quot;</span>, from_transformers=<span class="hljs-literal">True</span>)
 <span class="hljs-meta">&gt;&gt;&gt; </span>onnx_gen = pipeline(<span class="hljs-string">&quot;text-generation&quot;</span>, model=model, tokenizer=tokenizer)
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>text = <span class="hljs-string">&quot;My name is Philipp and I live in Germany.&quot;</span>
