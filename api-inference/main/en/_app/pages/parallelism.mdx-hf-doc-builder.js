@@ -180,113 +180,113 @@ poll();`,highlighted:`<span class="hljs-comment">// npm install ws</span>
         <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;error received: %s&quot;</span>, message);
     });
 }
-<span class="hljs-title function_">poll</span>();`}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p:Q,i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function at(j){let t,n;return t=new V({props:{$$slots:{default:[st]},$$scope:{ctx:j}}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p(s,o){const d={};o&2&&(d.$$scope={dirty:o,ctx:s}),t.$set(d)},i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function tt(j){let t,n;return t=new Z({props:{code:"# This is not supported with curl",highlighted:'<span class="hljs-comment"># This is not supported with curl</span>'}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p:Q,i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function et(j){let t,n;return t=new V({props:{$$slots:{default:[tt]},$$scope:{ctx:j}}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p(s,o){const d={};o&2&&(d.$$scope={dirty:o,ctx:s}),t.$set(d)},i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function nt(j){let t,n;return t=new Z({props:{code:`import requests
-model_id = "facebook/wav2vec2-base-960h"
-API_URL = f"https://api-inference.huggingface.co/bulk/run/cpu/{model_id}"
-headers = {"Authorization": f"Bearer {API_TOKEN}"}
-data = json.dumps(
-    {
-        "dataset_name": "ApiInferenceTest/asr_dummy",
-        "dataset_config": "asr",
-        "dataset_split": "test",
-        "dataset_column": "file",
-    }
-)
-response = requests.request("POST", API_URL, headers=headers, data=data)
-data = json.loads(response.content)
-self.assertIn("jobid", data, f"Expected some job id, got {data}")
-STATUS_URL = f"https://api-inference.huggingface.co/bulk/status/{data['jobid']}"
-status = requests.request("GET", STATUS_URL, headers=headers)
-# results will contain a \`jobid\` to track the job, and \`bulk_name\` the name of the output
-# dataset, accessible at https://huggingface.co/datasets/{bulk_name}
-# status == {"status":{"active":1,"start_time":1627479091.0}}`,highlighted:`<span class="hljs-keyword">import</span> requests
-model_id = <span class="hljs-string">&quot;facebook/wav2vec2-base-960h&quot;</span>
-API_URL = <span class="hljs-string">f&quot;https://api-inference.huggingface.co/bulk/run/cpu/<span class="hljs-subst">{model_id}</span>&quot;</span>
-headers = {<span class="hljs-string">&quot;Authorization&quot;</span>: <span class="hljs-string">f&quot;Bearer <span class="hljs-subst">{API_TOKEN}</span>&quot;</span>}
-data = json.dumps(
-    {
-        <span class="hljs-string">&quot;dataset_name&quot;</span>: <span class="hljs-string">&quot;ApiInferenceTest/asr_dummy&quot;</span>,
-        <span class="hljs-string">&quot;dataset_config&quot;</span>: <span class="hljs-string">&quot;asr&quot;</span>,
-        <span class="hljs-string">&quot;dataset_split&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>,
-        <span class="hljs-string">&quot;dataset_column&quot;</span>: <span class="hljs-string">&quot;file&quot;</span>,
-    }
-)
-response = requests.request(<span class="hljs-string">&quot;POST&quot;</span>, API_URL, headers=headers, data=data)
-data = json.loads(response.content)
-self.assertIn(<span class="hljs-string">&quot;jobid&quot;</span>, data, <span class="hljs-string">f&quot;Expected some job id, got <span class="hljs-subst">{data}</span>&quot;</span>)
-STATUS_URL = <span class="hljs-string">f&quot;https://api-inference.huggingface.co/bulk/status/<span class="hljs-subst">{data[<span class="hljs-string">&#x27;jobid&#x27;</span>]}</span>&quot;</span>
-status = requests.request(<span class="hljs-string">&quot;GET&quot;</span>, STATUS_URL, headers=headers)
-<span class="hljs-comment"># results will contain a \`jobid\` to track the job, and \`bulk_name\` the name of the output</span>
-<span class="hljs-comment"># dataset, accessible at https://huggingface.co/datasets/{bulk_name}</span>
-<span class="hljs-comment"># status == {&quot;status&quot;:{&quot;active&quot;:1,&quot;start_time&quot;:1627479091.0}}</span>`}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p:Q,i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function lt(j){let t,n;return t=new V({props:{$$slots:{default:[nt]},$$scope:{ctx:j}}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p(s,o){const d={};o&2&&(d.$$scope={dirty:o,ctx:s}),t.$set(d)},i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function ot(j){let t,n;return t=new Z({props:{code:`import fetch from "node-fetch";
-const API_TOKEN = ({}).API_TOKEN;
-const MODEL_ID = "facebook/wav2vec2-base-960h";
-const url = \`https://api-inference.huggingface.co/bulk/run/cpu/\${MODEL_ID}\`;
-const headers = { Authorization: \`Bearer \${API_TOKEN}\` };
-const data = {
-    dataset_name: "ApiInferenceTest/asr_dummy",
-    dataset_config: "asr",
-    dataset_split: "test",
-    dataset_column: "file",
-};
-const params = {
-    headers,
-    method: "POST",
-    body: JSON.stringify(data),
-};
-fetch(url, params).then((response) => {
-    response.json().then((data) => {
-        console.log(JSON.stringify(data));
-        // {"jobid": "bulk-68079542", "bulk_name": "somename"}
-        fetch(
-            \`https://api-inference.huggingface.co/bulk/status/\${data["jobid"]}\`,
-            {
-                headers,
-            }
-        ).then((response) => {
-            response.json().then((status_data) => {
-                console.log(JSON.stringify(status_data));
-                // {"status": {"active": 1, "start_time": timestamp}}
-            });
-        });
-    });
-});`,highlighted:`<span class="hljs-keyword">import</span> fetch <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;node-fetch&quot;</span>;
-<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">API_TOKEN</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">API_TOKEN</span>;
-<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">MODEL_ID</span> = <span class="hljs-string">&quot;facebook/wav2vec2-base-960h&quot;</span>;
-<span class="hljs-keyword">const</span> url = <span class="hljs-string">\`https://api-inference.huggingface.co/bulk/run/cpu/<span class="hljs-subst">\${MODEL_ID}</span>\`</span>;
-<span class="hljs-keyword">const</span> headers = { <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">\`Bearer <span class="hljs-subst">\${API_TOKEN}</span>\`</span> };
-<span class="hljs-keyword">const</span> data = {
-    <span class="hljs-attr">dataset_name</span>: <span class="hljs-string">&quot;ApiInferenceTest/asr_dummy&quot;</span>,
-    <span class="hljs-attr">dataset_config</span>: <span class="hljs-string">&quot;asr&quot;</span>,
-    <span class="hljs-attr">dataset_split</span>: <span class="hljs-string">&quot;test&quot;</span>,
-    <span class="hljs-attr">dataset_column</span>: <span class="hljs-string">&quot;file&quot;</span>,
-};
-<span class="hljs-keyword">const</span> params = {
-    headers,
-    <span class="hljs-attr">method</span>: <span class="hljs-string">&quot;POST&quot;</span>,
-    <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data),
-};
-<span class="hljs-title function_">fetch</span>(url, params).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
-    response.<span class="hljs-title function_">json</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> {
-        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data));
-        <span class="hljs-comment">// {&quot;jobid&quot;: &quot;bulk-68079542&quot;, &quot;bulk_name&quot;: &quot;somename&quot;}</span>
-        <span class="hljs-title function_">fetch</span>(
-            <span class="hljs-string">\`https://api-inference.huggingface.co/bulk/status/<span class="hljs-subst">\${data[<span class="hljs-string">&quot;jobid&quot;</span>]}</span>\`</span>,
-            {
-                headers,
-            }
-        ).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
-            response.<span class="hljs-title function_">json</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">status_data</span>) =&gt;</span> {
-                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(status_data));
-                <span class="hljs-comment">// {&quot;status&quot;: {&quot;active&quot;: 1, &quot;start_time&quot;: timestamp}}</span>
-            });
-        });
-    });
-});`}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p:Q,i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function rt(j){let t,n;return t=new V({props:{$$slots:{default:[ot]},$$scope:{ctx:j}}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p(s,o){const d={};o&2&&(d.$$scope={dirty:o,ctx:s}),t.$set(d)},i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function pt(j){let t,n;return t=new Z({props:{code:`curl -X POST -d '{"dataset_name": "ApiInferenceTest/asr_dummy", "dataset_config": "asr", "dataset_split": "test", "dataset_column": "file"}' https://api-inference.huggingface.co/bulk/run/cpu/facebook/wav2vec2-base-960h -H "Authorization: Bearer \${API_TOKEN}"
-# {"jobid": "bulk-68079542", "bulk_name": "somename"}
-curl https://api-inference.huggingface.co/bulk/status/bulk-68079542`,highlighted:`curl -X POST -d <span class="hljs-string">&#x27;{&quot;dataset_name&quot;: &quot;ApiInferenceTest/asr_dummy&quot;, &quot;dataset_config&quot;: &quot;asr&quot;, &quot;dataset_split&quot;: &quot;test&quot;, &quot;dataset_column&quot;: &quot;file&quot;}&#x27;</span> https://api-inference.huggingface.co/bulk/run/cpu/facebook/wav2vec2-base-960h -H <span class="hljs-string">&quot;Authorization: Bearer <span class="hljs-variable">\${API_TOKEN}</span>&quot;</span>
-<span class="hljs-comment"># {&quot;jobid&quot;: &quot;bulk-68079542&quot;, &quot;bulk_name&quot;: &quot;somename&quot;}</span>
-curl https://api-inference.huggingface.co/bulk/status/bulk-68079542`}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p:Q,i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function it(j){let t,n;return t=new V({props:{$$slots:{default:[pt]},$$scope:{ctx:j}}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p(s,o){const d={};o&2&&(d.$$scope={dirty:o,ctx:s}),t.$set(d)},i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function ut(j){let t,n,s,o,d,K,Hs,ss,Bs,fs,R,zs,ds,W,Cs,ms,E,as,Rs,Ws,ts,Ys,gs,v,P,es,M,Fs,ns,Gs,js,O,Xs,ls,Qs,Vs,_s,Y,Zs,ys,A,ws,F,sa,bs,G,aa,qs,I,ta,os,ea,na,$s,S,la,rs,oa,ra,ks,N,ps,pa,ia,J,ua,is,ca,ha,vs,T,L,us,H,fa,cs,da,Ts,x,ma,B,ga,ja,Es,D,_a,z,ya,wa,Ps,X,ba,Os,U,As;return K=new qa({}),M=new qa({}),A=new Wa({props:{python:!0,js:!0,curl:!0,$$slots:{curl:[et],js:[at],python:[Za]},$$scope:{ctx:j}}}),H=new qa({}),U=new Wa({props:{python:!0,js:!0,curl:!0,$$slots:{curl:[it],js:[rt],python:[lt]},$$scope:{ctx:j}}}),{c(){t=p("meta"),n=m(),s=p("h1"),o=p("a"),d=p("span"),y(K.$$.fragment),Hs=m(),ss=p("span"),Bs=h("Parallelism and batch jobs"),fs=m(),R=p("p"),zs=h(`In order to get your answers as quickly as possible, you probably want
+<span class="hljs-title function_">poll</span>();`}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p:Q,i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function at(j){let t,n;return t=new V({props:{$$slots:{default:[st]},$$scope:{ctx:j}}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p(s,o){const d={};o&2&&(d.$$scope={dirty:o,ctx:s}),t.$set(d)},i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function tt(j){let t,n;return t=new Z({props:{code:"# This is not supported with curl",highlighted:'<span class="hljs-comment"># This is not supported with curl</span>'}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p:Q,i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function et(j){let t,n;return t=new V({props:{$$slots:{default:[tt]},$$scope:{ctx:j}}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p(s,o){const d={};o&2&&(d.$$scope={dirty:o,ctx:s}),t.$set(d)},i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function nt(j){let t,n;return t=new Z({props:{code:`  import requests
+  model_id = "facebook/wav2vec2-base-960h"
+  API_URL = f"https://api-inference.huggingface.co/bulk/run/cpu/{model_id}"
+  headers = {"Authorization": f"Bearer {API_TOKEN}"}
+  data = json.dumps(
+      {
+          "dataset_name": "ApiInferenceTest/asr_dummy",
+          "dataset_config": "asr",
+          "dataset_split": "test",
+          "dataset_column": "file",
+      }
+  )
+  response = requests.request("POST", API_URL, headers=headers, data=data)
+  data = json.loads(response.content)
+  self.assertIn("jobid", data, f"Expected some job id, got {data}")
+  STATUS_URL = f"https://api-inference.huggingface.co/bulk/status/{data['jobid']}"
+  status = requests.request("GET", STATUS_URL, headers=headers)
+  # results will contain a \`jobid\` to track the job, and \`bulk_name\` the name of the output
+  # dataset, accessible at https://huggingface.co/datasets/{bulk_name}
+  # status == {"status":{"active":1,"start_time":1627479091.0}}`,highlighted:`  <span class="hljs-keyword">import</span> requests
+  model_id = <span class="hljs-string">&quot;facebook/wav2vec2-base-960h&quot;</span>
+  API_URL = <span class="hljs-string">f&quot;https://api-inference.huggingface.co/bulk/run/cpu/<span class="hljs-subst">{model_id}</span>&quot;</span>
+  headers = {<span class="hljs-string">&quot;Authorization&quot;</span>: <span class="hljs-string">f&quot;Bearer <span class="hljs-subst">{API_TOKEN}</span>&quot;</span>}
+  data = json.dumps(
+      {
+          <span class="hljs-string">&quot;dataset_name&quot;</span>: <span class="hljs-string">&quot;ApiInferenceTest/asr_dummy&quot;</span>,
+          <span class="hljs-string">&quot;dataset_config&quot;</span>: <span class="hljs-string">&quot;asr&quot;</span>,
+          <span class="hljs-string">&quot;dataset_split&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>,
+          <span class="hljs-string">&quot;dataset_column&quot;</span>: <span class="hljs-string">&quot;file&quot;</span>,
+      }
+  )
+  response = requests.request(<span class="hljs-string">&quot;POST&quot;</span>, API_URL, headers=headers, data=data)
+  data = json.loads(response.content)
+  self.assertIn(<span class="hljs-string">&quot;jobid&quot;</span>, data, <span class="hljs-string">f&quot;Expected some job id, got <span class="hljs-subst">{data}</span>&quot;</span>)
+  STATUS_URL = <span class="hljs-string">f&quot;https://api-inference.huggingface.co/bulk/status/<span class="hljs-subst">{data[<span class="hljs-string">&#x27;jobid&#x27;</span>]}</span>&quot;</span>
+  status = requests.request(<span class="hljs-string">&quot;GET&quot;</span>, STATUS_URL, headers=headers)
+  <span class="hljs-comment"># results will contain a \`jobid\` to track the job, and \`bulk_name\` the name of the output</span>
+  <span class="hljs-comment"># dataset, accessible at https://huggingface.co/datasets/{bulk_name}</span>
+  <span class="hljs-comment"># status == {&quot;status&quot;:{&quot;active&quot;:1,&quot;start_time&quot;:1627479091.0}}</span>`}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p:Q,i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function lt(j){let t,n;return t=new V({props:{$$slots:{default:[nt]},$$scope:{ctx:j}}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p(s,o){const d={};o&2&&(d.$$scope={dirty:o,ctx:s}),t.$set(d)},i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function ot(j){let t,n;return t=new Z({props:{code:`  import fetch from "node-fetch";
+  const API_TOKEN = ({}).API_TOKEN;
+  const MODEL_ID = "facebook/wav2vec2-base-960h";
+  const url = \`https://api-inference.huggingface.co/bulk/run/cpu/\${MODEL_ID}\`;
+  const headers = { Authorization: \`Bearer \${API_TOKEN}\` };
+  const data = {
+      dataset_name: "ApiInferenceTest/asr_dummy",
+      dataset_config: "asr",
+      dataset_split: "test",
+      dataset_column: "file",
+  };
+  const params = {
+      headers,
+      method: "POST",
+      body: JSON.stringify(data),
+  };
+  fetch(url, params).then((response) => {
+      response.json().then((data) => {
+          console.log(JSON.stringify(data));
+          // {"jobid": "bulk-68079542", "bulk_name": "somename"}
+          fetch(
+              \`https://api-inference.huggingface.co/bulk/status/\${data["jobid"]}\`,
+              {
+                  headers,
+              }
+          ).then((response) => {
+              response.json().then((status_data) => {
+                  console.log(JSON.stringify(status_data));
+                  // {"status": {"active": 1, "start_time": timestamp}}
+              });
+          });
+      });
+  });`,highlighted:`  <span class="hljs-keyword">import</span> fetch <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;node-fetch&quot;</span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">API_TOKEN</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">API_TOKEN</span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">MODEL_ID</span> = <span class="hljs-string">&quot;facebook/wav2vec2-base-960h&quot;</span>;
+  <span class="hljs-keyword">const</span> url = <span class="hljs-string">\`https://api-inference.huggingface.co/bulk/run/cpu/<span class="hljs-subst">\${MODEL_ID}</span>\`</span>;
+  <span class="hljs-keyword">const</span> headers = { <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">\`Bearer <span class="hljs-subst">\${API_TOKEN}</span>\`</span> };
+  <span class="hljs-keyword">const</span> data = {
+      <span class="hljs-attr">dataset_name</span>: <span class="hljs-string">&quot;ApiInferenceTest/asr_dummy&quot;</span>,
+      <span class="hljs-attr">dataset_config</span>: <span class="hljs-string">&quot;asr&quot;</span>,
+      <span class="hljs-attr">dataset_split</span>: <span class="hljs-string">&quot;test&quot;</span>,
+      <span class="hljs-attr">dataset_column</span>: <span class="hljs-string">&quot;file&quot;</span>,
+  };
+  <span class="hljs-keyword">const</span> params = {
+      headers,
+      <span class="hljs-attr">method</span>: <span class="hljs-string">&quot;POST&quot;</span>,
+      <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data),
+  };
+  <span class="hljs-title function_">fetch</span>(url, params).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
+      response.<span class="hljs-title function_">json</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> {
+          <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data));
+          <span class="hljs-comment">// {&quot;jobid&quot;: &quot;bulk-68079542&quot;, &quot;bulk_name&quot;: &quot;somename&quot;}</span>
+          <span class="hljs-title function_">fetch</span>(
+              <span class="hljs-string">\`https://api-inference.huggingface.co/bulk/status/<span class="hljs-subst">\${data[<span class="hljs-string">&quot;jobid&quot;</span>]}</span>\`</span>,
+              {
+                  headers,
+              }
+          ).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
+              response.<span class="hljs-title function_">json</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">status_data</span>) =&gt;</span> {
+                  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(status_data));
+                  <span class="hljs-comment">// {&quot;status&quot;: {&quot;active&quot;: 1, &quot;start_time&quot;: timestamp}}</span>
+              });
+          });
+      });
+  });`}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p:Q,i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function rt(j){let t,n;return t=new V({props:{$$slots:{default:[ot]},$$scope:{ctx:j}}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p(s,o){const d={};o&2&&(d.$$scope={dirty:o,ctx:s}),t.$set(d)},i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function pt(j){let t,n;return t=new Z({props:{code:`  curl -X POST -d '{"dataset_name": "ApiInferenceTest/asr_dummy", "dataset_config": "asr", "dataset_split": "test", "dataset_column": "file"}' https://api-inference.huggingface.co/bulk/run/cpu/facebook/wav2vec2-base-960h -H "Authorization: Bearer \${API_TOKEN}"
+  # {"jobid": "bulk-68079542", "bulk_name": "somename"}
+  curl https://api-inference.huggingface.co/bulk/status/bulk-68079542`,highlighted:`  curl -X POST -d <span class="hljs-string">&#x27;{&quot;dataset_name&quot;: &quot;ApiInferenceTest/asr_dummy&quot;, &quot;dataset_config&quot;: &quot;asr&quot;, &quot;dataset_split&quot;: &quot;test&quot;, &quot;dataset_column&quot;: &quot;file&quot;}&#x27;</span> https://api-inference.huggingface.co/bulk/run/cpu/facebook/wav2vec2-base-960h -H <span class="hljs-string">&quot;Authorization: Bearer <span class="hljs-variable">\${API_TOKEN}</span>&quot;</span>
+  <span class="hljs-comment"># {&quot;jobid&quot;: &quot;bulk-68079542&quot;, &quot;bulk_name&quot;: &quot;somename&quot;}</span>
+  curl https://api-inference.huggingface.co/bulk/status/bulk-68079542`}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p:Q,i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function it(j){let t,n;return t=new V({props:{$$slots:{default:[pt]},$$scope:{ctx:j}}}),{c(){y(t.$$.fragment)},l(s){w(t.$$.fragment,s)},m(s,o){b(t,s,o),n=!0},p(s,o){const d={};o&2&&(d.$$scope={dirty:o,ctx:s}),t.$set(d)},i(s){n||(q(t.$$.fragment,s),n=!0)},o(s){$(t.$$.fragment,s),n=!1},d(s){k(t,s)}}}function ut(j){let t,n,s,o,d,K,Hs,ss,Bs,fs,R,zs,ds,W,Cs,ms,E,as,Rs,Ws,ts,Ys,gs,v,P,es,M,Fs,ns,Gs,js,O,Xs,ls,Qs,Vs,_s,Y,Zs,ys,A,ws,F,sa,bs,G,aa,qs,I,ta,os,ea,na,$s,S,la,rs,oa,ra,ks,N,ps,pa,ia,J,ua,is,ca,ha,vs,T,L,us,H,fa,cs,da,Ts,x,ma,B,ga,ja,Es,D,_a,z,ya,wa,Ps,X,ba,Os,U,As;return K=new qa({}),M=new qa({}),A=new Wa({props:{python:!0,js:!0,curl:!0,$$slots:{curl:[et],js:[at],python:[Za]},$$scope:{ctx:j}}}),H=new qa({}),U=new Wa({props:{python:!0,js:!0,curl:!0,$$slots:{curl:[it],js:[rt],python:[lt]},$$scope:{ctx:j}}}),{c(){t=p("meta"),n=m(),s=p("h1"),o=p("a"),d=p("span"),y(K.$$.fragment),Hs=m(),ss=p("span"),Bs=h("Parallelism and batch jobs"),fs=m(),R=p("p"),zs=h(`In order to get your answers as quickly as possible, you probably want
 to run some kind of parallelism on your jobs.`),ds=m(),W=p("p"),Cs=h("There are two options at your disposal for this."),ms=m(),E=p("ul"),as=p("li"),Rs=h("The streaming option"),Ws=m(),ts=p("li"),Ys=h("The dataset option"),gs=m(),v=p("h2"),P=p("a"),es=p("span"),y(M.$$.fragment),Fs=m(),ns=p("span"),Gs=h("Streaming"),js=m(),O=p("p"),Xs=h(`In order to maximize the speed of inference, instead of running many
 HTTP requests it will be more efficient to stream your data to the API.
 This will require the use of websockets on your end. Internally we\u2019re
