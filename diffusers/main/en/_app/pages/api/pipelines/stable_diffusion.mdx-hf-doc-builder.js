@@ -73,7 +73,7 @@ plain tuple.`,name:"return_dict"},{anchor:"diffusers.StableDiffusionPipeline.__c
 A function that will be called every <code>callback_steps</code> steps during inference. The function will be
 called with the following arguments: <code>callback(step: int, timestep: int, latents: torch.FloatTensor)</code>.`,name:"callback"},{anchor:"diffusers.StableDiffusionPipeline.__call__.callback_steps",description:`<strong>callback_steps</strong> (<code>int</code>, <em>optional</em>, defaults to 1) &#x2014;
 The frequency at which the <code>callback</code> function will be called. If not specified, the callback will be
-called at every step.`,name:"callback_steps"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion.py#L368",returnDescription:`
+called at every step.`,name:"callback_steps"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion.py#L388",returnDescription:`
 <p><a
   href="/docs/diffusers/main/en/api/pipelines/stable_diffusion#diffusers.pipelines.stable_diffusion.StableDiffusionPipelineOutput"
 >StableDiffusionPipelineOutput</a> if <code>return_dict</code> is True, otherwise a <code>tuple. When returning a tuple, the first element is a list with the generated images, and the second element is a list of </code>bool<code>s denoting whether the corresponding generated image likely represents "not-safe-for-work" (nsfw) content, according to the </code>safety_checker\`.</p>
@@ -124,7 +124,7 @@ plain tuple.`,name:"return_dict"},{anchor:"diffusers.StableDiffusionImg2ImgPipel
 A function that will be called every <code>callback_steps</code> steps during inference. The function will be
 called with the following arguments: <code>callback(step: int, timestep: int, latents: torch.FloatTensor)</code>.`,name:"callback"},{anchor:"diffusers.StableDiffusionImg2ImgPipeline.__call__.callback_steps",description:`<strong>callback_steps</strong> (<code>int</code>, <em>optional</em>, defaults to 1) &#x2014;
 The frequency at which the <code>callback</code> function will be called. If not specified, the callback will be
-called at every step.`,name:"callback_steps"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_img2img.py#L418",returnDescription:`
+called at every step.`,name:"callback_steps"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_img2img.py#L438",returnDescription:`
 <p><a
   href="/docs/diffusers/main/en/api/pipelines/stable_diffusion#diffusers.pipelines.stable_diffusion.StableDiffusionPipelineOutput"
 >StableDiffusionPipelineOutput</a> if <code>return_dict</code> is True, otherwise a <code>tuple. When returning a tuple, the first element is a list with the generated images, and the second element is a list of </code>bool<code>s denoting whether the corresponding generated image likely represents "not-safe-for-work" (nsfw) content, according to the </code>safety_checker\`.</p>
@@ -179,7 +179,7 @@ plain tuple.`,name:"return_dict"},{anchor:"diffusers.StableDiffusionInpaintPipel
 A function that will be called every <code>callback_steps</code> steps during inference. The function will be
 called with the following arguments: <code>callback(step: int, timestep: int, latents: torch.FloatTensor)</code>.`,name:"callback"},{anchor:"diffusers.StableDiffusionInpaintPipeline.__call__.callback_steps",description:`<strong>callback_steps</strong> (<code>int</code>, <em>optional</em>, defaults to 1) &#x2014;
 The frequency at which the <code>callback</code> function will be called. If not specified, the callback will be
-called at every step.`,name:"callback_steps"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_inpaint.py#L414",returnDescription:`
+called at every step.`,name:"callback_steps"}],source:"https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_inpaint.py#L434",returnDescription:`
 <p><a
   href="/docs/diffusers/main/en/api/pipelines/stable_diffusion#diffusers.pipelines.stable_diffusion.StableDiffusionPipelineOutput"
 >StableDiffusionPipelineOutput</a> if <code>return_dict</code> is True, otherwise a <code>tuple. When returning a tuple, the first element is a list with the generated images, and the second element is a list of </code>bool<code>s denoting whether the corresponding generated image likely represents "not-safe-for-work" (nsfw) content, according to the </code>safety_checker\`.</p>
