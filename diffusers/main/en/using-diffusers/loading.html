@@ -25,7 +25,7 @@ Accessibility is therefore achieved by providing an API to load complete diffusi
 <p>In the following we explain in-detail how to easily load:</p>
 <ul><li><em>Complete Diffusion Pipelines</em> via the <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline.from_pretrained">DiffusionPipeline.from_pretrained()</a></li>
 <li><em>Diffusion Models</em> via <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.ModelMixin.from_pretrained">ModelMixin.from_pretrained()</a></li>
-<li><em>Schedulers</em> via <a href="/docs/diffusers/main/en/using-diffusers/configuration#diffusers.ConfigMixin.from_config">ConfigMixin.from_config()</a></li></ul>
+<li><em>Schedulers</em> via <a href="/docs/diffusers/main/en/api/schedulers#diffusers.SchedulerMixin.from_pretrained">SchedulerMixin.from_pretrained()</a></li></ul>
 <h2 class="relative group"><a id="loading-pipelines" class="header-link block pr-1.5 text-lg no-hover:hidden with-hover:absolute with-hover:p-1.5 with-hover:opacity-0 with-hover:group-hover:opacity-100 with-hover:right-full" href="#loading-pipelines"><span><svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path d="M167.594 88.393a8.001 8.001 0 0 1 0 11.314l-67.882 67.882a8 8 0 1 1-11.314-11.315l67.882-67.881a8.003 8.003 0 0 1 11.314 0zm-28.287 84.86l-28.284 28.284a40 40 0 0 1-56.567-56.567l28.284-28.284a8 8 0 0 0-11.315-11.315l-28.284 28.284a56 56 0 0 0 79.196 79.197l28.285-28.285a8 8 0 1 0-11.315-11.314zM212.852 43.14a56.002 56.002 0 0 0-79.196 0l-28.284 28.284a8 8 0 1 0 11.314 11.314l28.284-28.284a40 40 0 0 1 56.568 56.567l-28.285 28.285a8 8 0 0 0 11.315 11.314l28.284-28.284a56.065 56.065 0 0 0 0-79.196z" fill="currentColor"></path></svg></span></a>
 	<span>Loading pipelines
 	</span></h2>
@@ -141,13 +141,13 @@ of stable diffusion, multiple improved schedulers have been published. To use th
 
 repo_id = <span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>
 
-scheduler = EulerDiscreteScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+scheduler = EulerDiscreteScheduler.from_pretrained(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
 <span class="hljs-comment"># or</span>
-<span class="hljs-comment"># scheduler = DPMSolverMultistepScheduler.from_config(repo_id, subfolder=&quot;scheduler&quot;)</span>
+<span class="hljs-comment"># scheduler = DPMSolverMultistepScheduler.from_pretrained(repo_id, subfolder=&quot;scheduler&quot;)</span>
 
 stable_diffusion = DiffusionPipeline.from_pretrained(repo_id, scheduler=scheduler)<!-- HTML_TAG_END --></pre></div>
 <p>Three things are worth paying attention to here.</p>
-<ul><li>First, the scheduler is loaded with <a href="/docs/diffusers/main/en/using-diffusers/configuration#diffusers.ConfigMixin.from_config">ConfigMixin.from_config()</a> since it only depends on a configuration file and not any parameterized weights</li>
+<ul><li>First, the scheduler is loaded with <a href="/docs/diffusers/main/en/api/schedulers#diffusers.SchedulerMixin.from_pretrained">SchedulerMixin.from_pretrained()</a></li>
 <li>Second, the scheduler is loaded with a function argument, called <code>subfolder=&quot;scheduler&quot;</code> as the configuration of stable diffusion’s scheduling is defined in a <a href="https://huggingface.co/runwayml/stable-diffusion-v1-5/tree/main/scheduler" rel="nofollow">subfolder of the official pipeline repository</a></li>
 <li>Third, the scheduler instance can simply be passed with the <code>scheduler</code> keyword argument to <a href="/docs/diffusers/main/en/using-diffusers/loading#diffusers.DiffusionPipeline.from_pretrained">DiffusionPipeline.from_pretrained()</a>. This works because the <a href="/docs/diffusers/main/en/api/pipelines/stable_diffusion#diffusers.StableDiffusionPipeline">StableDiffusionPipeline</a> defines its scheduler with the <code>scheduler</code> attribute. It’s not possible to use a different name, such as <code>sampler=scheduler</code> since <code>sampler</code> is not a defined keyword for <code>StableDiffusionPipeline.__init__()</code></li></ul>
 <p>Not only the scheduler components can be customized for diffusion pipelines; in theory, all components of a pipeline can be customized. In practice, however, it often only makes sense to switch out a component that has <strong>compatible</strong> alternatives to what the pipeline expects.
@@ -337,8 +337,8 @@ model = UNet2DModel.from_pretrained(repo_id)<!-- HTML_TAG_END --></pre></div>
 	<span>Loading schedulers
 	</span></h2>
 
-<p>Schedulers cannot be loaded via a <code>from_pretrained</code> method, but instead rely on <a href="/docs/diffusers/main/en/using-diffusers/configuration#diffusers.ConfigMixin.from_config">ConfigMixin.from_config()</a>. Schedulers are <strong>not parameterized</strong> or <strong>trained</strong>, but instead purely defined by a configuration file.
-Therefore the loading method was given a different name here.</p>
+<p>Schedulers rely on <a href="/docs/diffusers/main/en/api/schedulers#diffusers.SchedulerMixin.from_pretrained">SchedulerMixin.from_pretrained()</a>. Schedulers are <strong>not parameterized</strong> or <strong>trained</strong>, but instead purely defined by a configuration file.
+For consistency, we use the same method name as we do for models or pipelines, but no weights are loaded in this case.</p>
 <p>In constrast to pipelines or models, loading schedulers does not consume any significant amount of memory and the same configuration file can often be used for a variety of different schedulers.
 For example, all of:</p>
 <ul><li><a href="/docs/diffusers/main/en/api/schedulers#diffusers.DDPMScheduler">DDPMScheduler</a></li>
@@ -366,13 +366,13 @@ For example, all of:</p>
 
 repo_id = <span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>
 
-ddpm = DDPMScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
-ddim = DDIMScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
-pndm = PNDMScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
-lms = LMSDiscreteScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
-euler_anc = EulerAncestralDiscreteScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
-euler = EulerDiscreteScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
-dpm = DPMSolverMultistepScheduler.from_config(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+ddpm = DDPMScheduler.from_pretrained(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+ddim = DDIMScheduler.from_pretrained(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+pndm = PNDMScheduler.from_pretrained(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+lms = LMSDiscreteScheduler.from_pretrained(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+euler_anc = EulerAncestralDiscreteScheduler.from_pretrained(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+euler = EulerDiscreteScheduler.from_pretrained(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+dpm = DPMSolverMultistepScheduler.from_pretrained(repo_id, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
 
 <span class="hljs-comment"># replace `dpm` with any of `ddpm`, `ddim`, `pndm`, `lms`, `euler`, `euler_anc`</span>
 pipeline = StableDiffusionPipeline.from_pretrained(repo_id, scheduler=dpm)<!-- HTML_TAG_END --></pre></div>
@@ -530,7 +530,7 @@ this method in a firewalled environment.</p></div></div>
 	<p class="font-mono text-xs md:text-sm !leading-relaxed !my-6"><span>(</span>
 			<span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">save_directory<span class="opacity-60">: typing.Union[str, os.PathLike]</span></span>
 				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">is_main_process<span class="opacity-60">: bool = True</span></span>
-				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">save_function<span class="opacity-60">: typing.Callable = &lt;function save at 0x7ff5459a9670&gt;</span></span>
+				</span><span class="comma cursor-pointer"><span class="rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">save_function<span class="opacity-60">: typing.Callable = &lt;function save at 0x7fad18b21670&gt;</span></span>
 				</span>
 			<span>)</span>
 			</p>
@@ -764,11 +764,11 @@ this method in a firewalled environment.</p></div>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># of the documentation](https://huggingface.co/docs/hub/security-tokens)</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span>pipeline = DiffusionPipeline.from_pretrained(<span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>)
 
-<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Download pipeline, but overwrite scheduler</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># Use a different scheduler</span>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> LMSDiscreteScheduler
 
-<span class="hljs-meta">&gt;&gt;&gt; </span>scheduler = LMSDiscreteScheduler.from_config(<span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
-<span class="hljs-meta">&gt;&gt;&gt; </span>pipeline = DiffusionPipeline.from_pretrained(<span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>, scheduler=scheduler)<!-- HTML_TAG_END --></pre></div></div></div>
+<span class="hljs-meta">&gt;&gt;&gt; </span>scheduler = LMSDiscreteScheduler.from_config(pipeline.scheduler.config)
+<span class="hljs-meta">&gt;&gt;&gt; </span>pipeline.scheduler = scheduler<!-- HTML_TAG_END --></pre></div></div></div>
 <div class="docstring border-l-2 border-t-2 pl-4 pt-3.5 border-gray-100 rounded-tl-xl mb-6 mt-8">
 
 <div><span class="group flex space-x-1.5 items-center text-gray-800 bg-gradient-to-r rounded-tr-lg -mt-4 -ml-4 pt-3 px-2.5" id="diffusers.DiffusionPipeline.save_pretrained"><!-- HTML_TAG_START --><h4 class="!m-0"><span class="flex-1 rounded-xl py-0.5 break-all bg-gradient-to-r from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950 text-blue-700 dark:text-blue-300 font-medium px-2"><svg width="1em" height="1em" viewBox="0 0 32 33" class="mr-1 inline-block -mt-0.5"  xmlns="http://www.w3.org/2000/svg"><path d="M5.80566 18.3545C4.90766 17.4565 4.90766 16.0005 5.80566 15.1025L14.3768 6.53142C15.2748 5.63342 16.7307 5.63342 17.6287 6.53142L26.1999 15.1025C27.0979 16.0005 27.0979 17.4565 26.1999 18.3545L17.6287 26.9256C16.7307 27.8236 15.2748 27.8236 14.3768 26.9256L5.80566 18.3545Z" fill="currentColor" fill-opacity="0.25"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4801 13.9619C16.4801 12.9761 16.7467 12.5436 16.9443 12.3296C17.1764 12.078 17.5731 11.8517 18.2275 11.707C18.8821 11.5623 19.638 11.5342 20.4038 11.5582C20.7804 11.57 21.1341 11.5932 21.4719 11.6156L21.5263 11.6193C21.8195 11.6389 22.1626 11.6618 22.4429 11.6618V7.40825C22.3209 7.40825 22.1219 7.39596 21.7544 7.37149C21.4202 7.34925 20.9976 7.32115 20.5371 7.30672C19.6286 7.27824 18.4672 7.29779 17.3093 7.55377C16.1512 7.8098 14.8404 8.33724 13.8181 9.4452C12.7612 10.5907 12.2266 12.1236 12.2266 13.9619V15.0127H10.6836V19.2662H12.2266V26.6332H16.4801V19.2662H20.3394V15.0127H16.4801V13.9619Z" fill="currentColor"/></svg>save_pretrained</span></h4><!-- HTML_TAG_END -->
@@ -1119,7 +1119,7 @@ this method in a firewalled environment.</p></div>
 <span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> diffusers <span class="hljs-keyword">import</span> FlaxDPMSolverMultistepScheduler
 
 <span class="hljs-meta">&gt;&gt;&gt; </span>model_id = <span class="hljs-string">&quot;runwayml/stable-diffusion-v1-5&quot;</span>
-<span class="hljs-meta">&gt;&gt;&gt; </span>sched, sched_state = FlaxDPMSolverMultistepScheduler.from_config(
+<span class="hljs-meta">&gt;&gt;&gt; </span>sched, sched_state = FlaxDPMSolverMultistepScheduler.from_pretrained(
 <span class="hljs-meta">... </span>    model_id,
 <span class="hljs-meta">... </span>    subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>,
 <span class="hljs-meta">... </span>)
@@ -1159,10 +1159,10 @@ method. The pipeline can easily be re-loaded using the <code>[from_pretrained()]
 method.</p></div></div>
 
 
-		<script type="module" data-hydrate="oz9g9v">
+		<script type="module" data-hydrate="32b5o7">
 		import { start } from "/docs/diffusers/main/en/_app/start-hf-doc-builder.js";
 		start({
-			target: document.querySelector('[data-hydrate="oz9g9v"]').parentNode,
+			target: document.querySelector('[data-hydrate="32b5o7"]').parentNode,
 			paths: {"base":"/docs/diffusers/main/en","assets":"/docs/diffusers/main/en"},
 			session: {},
 			route: false,

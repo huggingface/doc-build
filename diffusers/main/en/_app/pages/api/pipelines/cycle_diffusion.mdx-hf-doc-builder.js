@@ -8,7 +8,7 @@ from diffusers import CycleDiffusionPipeline, DDIMScheduler
 # load the pipeline
 # make sure you're logged in with \`huggingface-cli login\`
 model_id_or_path = "CompVis/stable-diffusion-v1-4"
-scheduler = DDIMScheduler.from_config(model_id_or_path, subfolder="scheduler")
+scheduler = DDIMScheduler.from_pretrained(model_id_or_path, subfolder="scheduler")
 pipe = CycleDiffusionPipeline.from_pretrained(model_id_or_path, scheduler=scheduler).to("cuda")
 
 # let's download an initial image
@@ -70,7 +70,7 @@ image.save("black_to_blue.png")`,highlighted:`<span class="hljs-keyword">import<
 <span class="hljs-comment"># load the pipeline</span>
 <span class="hljs-comment"># make sure you&#x27;re logged in with \`huggingface-cli login\`</span>
 model_id_or_path = <span class="hljs-string">&quot;CompVis/stable-diffusion-v1-4&quot;</span>
-scheduler = DDIMScheduler.from_config(model_id_or_path, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
+scheduler = DDIMScheduler.from_pretrained(model_id_or_path, subfolder=<span class="hljs-string">&quot;scheduler&quot;</span>)
 pipe = CycleDiffusionPipeline.from_pretrained(model_id_or_path, scheduler=scheduler).to(<span class="hljs-string">&quot;cuda&quot;</span>)
 
 <span class="hljs-comment"># let&#x27;s download an initial image</span>
